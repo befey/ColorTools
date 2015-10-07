@@ -1,0 +1,166 @@
+//
+//  ColorToolsUIHandler.cpp
+//  ColorTools
+//
+//  Created by T431962 on 5/19/15.
+//
+//
+
+#include "AppContext.hpp"
+#include "ColorToolsUIController.h"
+#include "ColorToolsPlugin.h"
+#include "ColorToolsSuites.h"
+#include "BtSwatchList.h"
+
+void ColorToolsUIController::ChangeButtonClickedFunc (const csxs::event::Event* const event, void* const context)
+{
+    ColorToolsUIController *colorToolsUIController = (ColorToolsUIController *)context;
+    if(NULL == colorToolsUIController || event == NULL)
+        return;
+    
+    
+    
+    colorToolsUIController->ParseData(event->data);
+    
+    do {
+        // Set up the application context, so that suite calls can work.
+        AppContext appContext(gPlugin->GetPluginRef());
+        
+        //Set the undo/redo text
+        sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Change Colors"), ai::UnicodeString("Redo Change Colors"));
+        
+        
+       
+    } while(false);
+    return;
+}
+
+void ColorToolsUIController::RemoveButtonClickedFunc (const csxs::event::Event* const event, void* const context)
+{
+    ColorToolsUIController *colorToolsUIController = (ColorToolsUIController *)context;
+    if(NULL == colorToolsUIController || event == NULL)
+        return;
+    colorToolsUIController->ParseData(event->data);
+    
+    do {
+        // Set up the application context, so that suite calls can work.
+        AppContext appContext(gPlugin->GetPluginRef());
+        
+        //Set the undo/redo text
+        sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Remove Unused Colors"), ai::UnicodeString("Redo Remove Unused Colors"));
+        
+        gPlugin->GetBtSwatchList()->RemoveUnusedColors();
+        UpdateListFunc(event, context);
+        // Clean up the application context and return.
+    } while(false);
+    return;
+}
+
+void ColorToolsUIController::UpdateListFunc (const csxs::event::Event* const event, void* const context)
+{
+    ColorToolsUIController *colorToolsUIController = (ColorToolsUIController *)context;
+    if(NULL == colorToolsUIController || event == NULL)
+        return;
+    colorToolsUIController->ParseData(event->data);
+    
+    do {
+        // Set up the application context, so that suite calls can work.
+        AppContext appContext(gPlugin->GetPluginRef());
+        
+        string swatchesXml = gPlugin->GetBtSwatchList()->GetColorListAsXMLString();
+        
+        colorToolsUIController->SendColorListXmlToHtml(swatchesXml);
+        
+        // Clean up the application context and return.
+    } while(false);
+    return;
+}
+
+
+
+ColorToolsUIController::ColorToolsUIController(void)
+: FlashUIController(COLORTOOLS_UI_EXTENSION)
+{
+}
+
+
+/* Add event listeners
+ */
+csxs::event::EventErrorCode ColorToolsUIController::RegisterCSXSEventListeners()
+{
+    csxs::event::EventErrorCode result = csxs::event::kEventErrorCode_Success;
+    do {
+        result =  fPPLib.AddEventListener(EVENT_TYPE_CHANGE_CLICKED, ChangeButtonClickedFunc, this);
+        if (result != csxs::event::kEventErrorCode_Success)
+        {
+            break;
+        }
+        result =  fPPLib.AddEventListener(EVENT_TYPE_REMOVE_CLICKED, RemoveButtonClickedFunc, this);
+        if (result != csxs::event::kEventErrorCode_Success)
+        {
+            break;
+        }
+        result =  fPPLib.AddEventListener(EVENT_TYPE_UPDATE_COLOR_LIST, UpdateListFunc, this);
+        if (result != csxs::event::kEventErrorCode_Success)
+        {
+            break;
+        }
+    }
+    while(false);
+    return result;
+}
+
+/* Remove event listeners
+ */
+csxs::event::EventErrorCode ColorToolsUIController::RemoveEventListeners()
+{
+    csxs::event::EventErrorCode result = csxs::event::kEventErrorCode_Success;
+    do {
+        result =  fPPLib.RemoveEventListener(EVENT_TYPE_CHANGE_CLICKED, ChangeButtonClickedFunc, this);
+        if (result != csxs::event::kEventErrorCode_Success)
+        {
+            break;
+        }
+        result =  fPPLib.RemoveEventListener(EVENT_TYPE_REMOVE_CLICKED, RemoveButtonClickedFunc, this);
+        if (result != csxs::event::kEventErrorCode_Success)
+        {
+            break;
+        }
+        result =  fPPLib.RemoveEventListener(EVENT_TYPE_UPDATE_COLOR_LIST, UpdateListFunc, this);
+        if (result != csxs::event::kEventErrorCode_Success)
+        {
+            break;
+        }
+     }
+    while(false);
+    return result;
+}
+
+ASErr ColorToolsUIController::SendData()
+{
+    AIErr error = kNoErr;
+    return error;
+}
+
+/* Parse received data from flash panel.
+ */
+void ColorToolsUIController::ParseData(const char* eventData)
+{
+    return;
+}
+
+ASErr ColorToolsUIController::SendColorListXmlToHtml(string swatchesXml)
+{
+    AIErr error = kNoErr;
+
+    csxs::event::Event event = {
+        EVENT_TYPE_UPDATE_COLOR_LIST_BACK,
+        csxs::event::kEventScope_Application,
+        ILST_APP,
+        NULL,
+        swatchesXml.c_str()
+    };
+    fPPLib.DispatchEvent(&event);
+    
+    return error;
+}
