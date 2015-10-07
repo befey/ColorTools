@@ -45,7 +45,7 @@ int FindAndReplace(ReplaceData* data) {
         if ( data->attributeSelect == ATTRIBUTE_COLOR ) {
             
             //do the color replacing
-            sAIPathStyle->AdjustObjectAIColors( currArtObj , adjustColor , &data , controlFlags , &flag );
+            sAIPathStyle->AdjustObjectAIColors( currArtObj , adjustColor , data , controlFlags , &flag );
            
             //increment counter if a switch was made
             if (flag) { numChanged++; }
