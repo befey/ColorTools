@@ -494,22 +494,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Source/ColorToolsUIController.cpp"
-            timestampString = "453927004.338939"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
-            landmarkName = "ColorToolsUIController::ChangeButtonClickedFunc (const csxs::event::Event* const event, void* const context)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -530,11 +514,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Source/ColorToolsUIController.cpp"
-            timestampString = "463693062.820887"
+            timestampString = "465925235.683769"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
             landmarkName = "ColorToolsUIController::RegisterCSXSEventListeners()"
             landmarkType = "5">
          </BreakpointContent>
@@ -706,11 +690,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Source/ColorToolsUIController.cpp"
-            timestampString = "463693062.820887"
+            timestampString = "465925235.683769"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
             landmarkName = "ColorToolsUIController::SendColorListXmlToHtml(string swatchesXml)"
             landmarkType = "5">
          </BreakpointContent>
@@ -754,12 +738,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Source/ColorToolsUIController.cpp"
-            timestampString = "465915241.960601"
+            timestampString = "465925235.683769"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
             landmarkName = "ColorToolsUIController::ParseData(const char* eventData)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Source/ColorToolsUIController.cpp"
+            timestampString = "465925686.819092"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "ColorToolsUIController::ChangeButtonClickedFunc (const csxs::event::Event* const event, void* const context)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

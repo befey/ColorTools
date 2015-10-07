@@ -11,6 +11,7 @@
 #include "ColorToolsPlugin.h"
 #include "ColorToolsSuites.h"
 #include "BtSwatchList.h"
+#include "ReplaceData.h"
 
 void ColorToolsUIController::ChangeButtonClickedFunc (const csxs::event::Event* const event, void* const context)
 {
@@ -18,9 +19,7 @@ void ColorToolsUIController::ChangeButtonClickedFunc (const csxs::event::Event* 
     if(NULL == colorToolsUIController || event == NULL)
         return;
     
-    
-    
-    colorToolsUIController->ParseData(event->data);
+    ReplaceData* data = new ReplaceData(event->data);
     
     do {
         // Set up the application context, so that suite calls can work.
@@ -29,7 +28,7 @@ void ColorToolsUIController::ChangeButtonClickedFunc (const csxs::event::Event* 
         //Set the undo/redo text
         sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Change Colors"), ai::UnicodeString("Redo Change Colors"));
         
-        
+        int foo = 1;
        
     } while(false);
     return;

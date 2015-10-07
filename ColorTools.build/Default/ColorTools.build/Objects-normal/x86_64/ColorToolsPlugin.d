@@ -19,6 +19,7 @@ dependencies: \
   /Users/t431962/Desktop/Adobe\ Illustrator\ CC\ 2014\ SDK/samplecode/ColorTools/Source/ColorToolsUIController.h \
   /Users/t431962/Desktop/Adobe\ Illustrator\ CC\ 2014\ SDK/samplecode/ColorTools/./../common/includes/SDKPlugPlug.h \
   /Users/t431962/Desktop/Adobe\ Illustrator\ CC\ 2014\ SDK/samplecode/ColorTools/./../common/includes/FlashUIController.h \
+  /Users/t431962/Desktop/Adobe\ Illustrator\ CC\ 2014\ SDK/samplecode/ColorTools/Source/ReplaceData.h \
   /Users/t431962/Desktop/Adobe\ Illustrator\ CC\ 2014\ SDK/samplecode/My\ Custom\ Headers/BtSwatchList.h \
   /Users/t431962/Desktop/Adobe\ Illustrator\ CC\ 2014\ SDK/samplecode/My\ Custom\ Headers/BtColor.h \
   /Users/t431962/Desktop/Adobe\ Illustrator\ CC\ 2014\ SDK/samplecode/ColorTools/Source/FixBlack.h

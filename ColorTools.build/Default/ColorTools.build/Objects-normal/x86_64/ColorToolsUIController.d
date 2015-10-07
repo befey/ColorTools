@@ -20,4 +20,5 @@ dependencies: \
   ../../illustratorapi/illustrator/AIATEPaint.h \
   ../../illustratorapi/illustrator/AIATETextUtil.h \
   /Users/t431962/Desktop/Adobe\ Illustrator\ CC\ 2014\ SDK/samplecode/My\ Custom\ Headers/BtSwatchList.h \
-  /Users/t431962/Desktop/Adobe\ Illustrator\ CC\ 2014\ SDK/samplecode/My\ Custom\ Headers/BtColor.h
+  /Users/t431962/Desktop/Adobe\ Illustrator\ CC\ 2014\ SDK/samplecode/My\ Custom\ Headers/BtColor.h \
+  /Users/t431962/Desktop/Adobe\ Illustrator\ CC\ 2014\ SDK/samplecode/ColorTools/Source/ReplaceData.h

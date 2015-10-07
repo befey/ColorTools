@@ -167,13 +167,13 @@ function setIncludeTintsCheckbox()
 function sendDataToIllustrator()
 {
 	var data = {
-		"attribute-select"	:	$("#attribute-select").val(),
-		"changein-select"	:	$("#changein-select").val(),
+		"attribute-select"	:	parseInt($("#attribute-select").val(), 10),
+		"changein-select"	:	parseInt($("#changein-select").val(), 10),
 		"from-select"		:	$("#from-select").val(),
 		"to-select"			:	$("#to-select").val(),
-		"addremove-select"	:	$("#addremove-select").val(),
-		"applyto-select"	:	$("#applyto-select").val(),
-		"tints-checkbox"	:	$("#tints-checkbox").val()
+		"addremove-select"	:	parseInt($("#addremove-select").val(), 10),
+		"applyto-select"	:	parseInt($("#applyto-select").val(), 10),
+		"tints-checkbox"	:	$("#tints-checkbox").is(':checked')
 	}
 	changeEvent.data = JSON.stringify(data);
 	csInterface.dispatchEvent(changeEvent)

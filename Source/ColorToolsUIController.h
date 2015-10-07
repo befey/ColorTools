@@ -11,7 +11,6 @@
 
 #include "SDKPlugPlug.h"
 #include "FlashUIController.h"
-#include "ReplaceData.h"
 
 
 #define COLORTOOLS_UI_EXTENSION             "com.gosafeguard.ColorToolsUI"
