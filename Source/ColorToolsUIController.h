@@ -18,6 +18,7 @@
 #define EVENT_TYPE_REMOVE_CLICKED           "com.gosafeguard.ColorToolsUI.removebutton"
 #define EVENT_TYPE_UPDATE_COLOR_LIST        "com.gosafeguard.ColorToolsUI.updatelist"
 #define EVENT_TYPE_UPDATE_COLOR_LIST_BACK   "com.gosafeguard.ColorToolsUI.updatelistback"
+#define EVENT_TYPE_CHANGE_COUNT_BACK        "com.gosafeguard.ColorToolsUI.changecountback"
 #define ILST_APP                            "ILST"
 
 
@@ -44,6 +45,7 @@ public:
     
     ASErr SendData();
     ASErr SendColorListXmlToHtml(string swatchesXml);
+    ASErr SendChangeCountToHtml(int count);
         
     void ParseData(const char* eventData);
     

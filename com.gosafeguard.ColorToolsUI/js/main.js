@@ -162,6 +162,13 @@ function setIncludeTintsCheckbox()
 	// We take the Active Entry in Add/Remove ( 0 == Remove , 1 == Add )
 	// We only turn the check box OFF if we are ADD OVERPRINT otherwise we turn it on
 	$("#tints-checkbox").prop('checked', (!(!!parseInt($("#attribute-select").val(), 10) && !parseInt($("#addremove-select").val(), 10)) ));
+	
+	//TODO: Set tints checkbox off if From/To color contains %
+}
+
+function setChangeInSelection()
+{
+	//TODO: change this based on whether art is selected or not
 }
 
 function sendDataToIllustrator()

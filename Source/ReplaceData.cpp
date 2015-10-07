@@ -28,13 +28,15 @@ ReplaceData::ReplaceData(const char* eventData)
     
     v = d[APPLYTO_SELECT];
     applytoSelect = v.GetInt();
-
+    
+    v = d[TINTS_CHECKBOX];
+    tintsCheckbox = v.GetBool();
+    
+    
     v = d[FROM_SELECT];
     fromSelect = v.GetString();
     
     v = d[TO_SELECT];
     toSelect = v.GetString();
-    
-    v = d[TINTS_CHECKBOX];
-    tintsCheckbox = v.GetBool();
+
 }

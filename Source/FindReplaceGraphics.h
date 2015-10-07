@@ -9,6 +9,12 @@
 #ifndef __ColorTools__FindReplaceGraphics__
 #define __ColorTools__FindReplaceGraphics__
 
+class ReplaceData;
 
+int FindAndReplace(ReplaceData* data);
+void fillArtSet( AIArtSet &artSet, int changeIn);
+bool setColorByName( string name , AIColor &color);
+
+void adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *altered);
 
 #endif /* defined(__ColorTools__FindReplaceGraphics__) */

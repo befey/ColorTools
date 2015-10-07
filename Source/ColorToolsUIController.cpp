@@ -12,6 +12,8 @@
 #include "ColorToolsSuites.h"
 #include "BtSwatchList.h"
 #include "ReplaceData.h"
+#include "FindReplaceGraphics.h"
+#include <stdio.h>
 
 void ColorToolsUIController::ChangeButtonClickedFunc (const csxs::event::Event* const event, void* const context)
 {
@@ -28,7 +30,7 @@ void ColorToolsUIController::ChangeButtonClickedFunc (const csxs::event::Event* 
         //Set the undo/redo text
         sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Change Colors"), ai::UnicodeString("Redo Change Colors"));
         
-        int foo = 1;
+        colorToolsUIController->SendChangeCountToHtml(FindAndReplace(data));
        
     } while(false);
     return;
@@ -158,6 +160,26 @@ ASErr ColorToolsUIController::SendColorListXmlToHtml(string swatchesXml)
         ILST_APP,
         NULL,
         swatchesXml.c_str()
+    };
+    fPPLib.DispatchEvent(&event);
+    
+    return error;
+}
+
+ASErr ColorToolsUIController::SendChangeCountToHtml(int count)
+{
+    
+    AIErr error = kNoErr;
+    
+    char buffer[10];
+    sprintf(buffer, "%d", count);
+    
+    csxs::event::Event event = {
+        EVENT_TYPE_CHANGE_COUNT_BACK,
+        csxs::event::kEventScope_Application,
+        ILST_APP,
+        NULL,
+        buffer
     };
     fPPLib.DispatchEvent(&event);
     
