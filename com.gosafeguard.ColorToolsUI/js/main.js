@@ -11,7 +11,8 @@ var updateListEvent = new CSEvent("com.gosafeguard.ColorToolsUI.updatelist", "AP
 updateListEvent.data = "Update Lists Called";
 
 var updateListBackEvent = new CSEvent("com.gosafeguard.ColorToolsUI.updatelistback", "APPLICATION", "ILST", "ColorToolsUI");
-updateListEvent.data = "Update Lists Returned";
+
+var changeCountBackEvent = new CSEvent("com.gosafeguard.ColorToolsUI.changecountback", "APPLICATION", "ILST", "ColorToolsUI");
 
 $(function() {
 	
@@ -26,6 +27,7 @@ $(function() {
 	});
 	
 	csInterface.addEventListener('com.gosafeguard.ColorToolsUI.updatelistback', onUpdateListBack);
+	csInterface.addEventListener('com.gosafeguard.ColorToolsUI.changecountback', onChangeCountBack);
 	
 	setIncludeTintsCheckbox();	
 	
@@ -134,6 +136,12 @@ function onUpdateListBack(event) {
 	} else {
 		$("#to-select").val("Black");
 	}
+}
+
+function onChangeCountBack(event) {
+	
+	$("#changedCount").text(event.data);
+	
 }
 
 function attributeChanged()

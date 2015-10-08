@@ -346,7 +346,7 @@
 					"/Developer/Headers/FlatCarbon/**",
 					"./**",
 					"./../common/**",
-					"/Users/t431962/Desktop/rapidjson/**",
+					/Users/t431962/Desktop/rapidjson/include/rapidjson,
 				);
 				INFOPLIST_FILE = ../common/mac/Info.plist;
 				INFOPLIST_PREFIX_HEADER = ../common/includes/SDKDef.h;
@@ -407,7 +407,7 @@
 					"/Developer/Headers/FlatCarbon/**",
 					"./**",
 					"./../common/**",
-					"/Users/t431962/Desktop/rapidjson/**",
+					/Users/t431962/Desktop/rapidjson/include/rapidjson,
 				);
 				INFOPLIST_FILE = ../common/mac/Info.plist;
 				INFOPLIST_PREFIX_HEADER = ../common/includes/SDKDef.h;

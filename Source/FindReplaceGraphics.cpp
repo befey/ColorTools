@@ -23,13 +23,13 @@ int FindAndReplace(ReplaceData* data) {
     AIArtSet artSet;
     sAIArtSet->NewArtSet(&artSet);
     
-    //FILL THE ART SET BASED ON THE "CHANGE IN" LIST
+    //FILL THE ART SET BASED ON Change in Selection or Document
     fillArtSet( artSet , data->changeinSelect );
     
     //Set the VisitFlags based on the apply to and whatnot
     VisitAIColorFlags controlFlags = kVisitColorsNullFlags; //change universally to direct only
     if ( data->applytoSelect == APPLYTO_STROKES ) {	controlFlags = kVisitColorsUniversally | kVisitColorsStrokesOnly | kVisitGlobalObjectsOnceOnly;  }
-    if ( data->applytoSelect == APPLYTO_FILLS ) {	controlFlags = kVisitColorsUniversally | kVisitColorsFillsOnly | kVisitGlobalObjectsOnceOnly;  }
+    if ( data->applytoSelect == APPLYTO_FILLS ) { controlFlags = kVisitColorsUniversally | kVisitColorsFillsOnly | kVisitGlobalObjectsOnceOnly;  }
     if ( data->applytoSelect == APPLYTO_FILLSANDSTROKES ) {	controlFlags = kVisitColorsUniversally |  kVisitGlobalObjectsOnceOnly;  }
     
     //LOOP THROUGH THE SET AND CHECK THE STROKES AND FILLS FOR THE COLOR WE're CHANGING from

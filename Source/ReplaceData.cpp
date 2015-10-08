@@ -7,7 +7,7 @@
 //
 
 #include "ReplaceData.h"
-#include "rapidjson/document.h"
+#include "document.h"
 
 
 ReplaceData::ReplaceData(const char* eventData)
