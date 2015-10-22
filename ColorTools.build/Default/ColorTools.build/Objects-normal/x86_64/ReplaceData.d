@@ -15,4 +15,10 @@ dependencies: \
   /Users/t431962/Desktop/rapidjson/include/rapidjson/internal/diyfp.h \
   /Users/t431962/Desktop/rapidjson/include/rapidjson/internal/pow10.h \
   /Users/t431962/Desktop/rapidjson/include/rapidjson/error/error.h \
-  /Users/t431962/Desktop/rapidjson/include/rapidjson/internal/strfunc.h
+  /Users/t431962/Desktop/rapidjson/include/rapidjson/internal/strfunc.h \
+  /Users/t431962/Desktop/Adobe\ Illustrator\ CC\ 2014\ SDK/samplecode/My\ Custom\ Headers/ColorFuncs.h \
+  ../../illustratorapi/illustrator/AISwatchList.h \
+  /Users/t431962/Desktop/Adobe\ Illustrator\ CC\ 2014\ SDK/samplecode/ColorTools/../../illustratorapi/illustrator/AIHeaderBegin.h \
+  /Users/t431962/Desktop/Adobe\ Illustrator\ CC\ 2014\ SDK/samplecode/ColorTools/../../illustratorapi/illustrator/AIHeaderEnd.h \
+  ../../illustratorapi/illustrator/AIATEPaint.h \
+  ../../illustratorapi/illustrator/AISwatchLibraries.h

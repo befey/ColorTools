@@ -43,6 +43,10 @@ public:
     int addremoveSelect;
     int applytoSelect;
     bool tintsCheckbox;
+    
+    VisitAIColorFlags controlFlags;
+    AIColor* fromColor;
+    AIColor* toColor;
 };
 
 

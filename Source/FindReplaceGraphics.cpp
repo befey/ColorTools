@@ -25,12 +25,7 @@ int FindAndReplace(ReplaceData* data) {
     
     //FILL THE ART SET BASED ON Change in Selection or Document
     fillArtSet( artSet , data->changeinSelect );
-    
-    //Set the VisitFlags based on the apply to and whatnot
-    VisitAIColorFlags controlFlags = kVisitColorsNullFlags; //change universally to direct only
-    if ( data->applytoSelect == APPLYTO_STROKES ) {	controlFlags = kVisitColorsUniversally | kVisitColorsStrokesOnly | kVisitGlobalObjectsOnceOnly;  }
-    if ( data->applytoSelect == APPLYTO_FILLS ) { controlFlags = kVisitColorsUniversally | kVisitColorsFillsOnly | kVisitGlobalObjectsOnceOnly;  }
-    if ( data->applytoSelect == APPLYTO_FILLSANDSTROKES ) {	controlFlags = kVisitColorsUniversally |  kVisitGlobalObjectsOnceOnly;  }
+  
     
     //LOOP THROUGH THE SET AND CHECK THE STROKES AND FILLS FOR THE COLOR WE're CHANGING from
 
@@ -45,7 +40,7 @@ int FindAndReplace(ReplaceData* data) {
         if ( data->attributeSelect == ATTRIBUTE_COLOR ) {
             
             //do the color replacing
-            sAIPathStyle->AdjustObjectAIColors( currArtObj , adjustColor , data , controlFlags , &flag );
+            sAIPathStyle->AdjustObjectAIColors( currArtObj , adjustColor , data , data->controlFlags , &flag );
            
             //increment counter if a switch was made
             if (flag) { numChanged++; }
@@ -55,13 +50,9 @@ int FindAndReplace(ReplaceData* data) {
         
         /*********** FIND AND REPLACE OVERPRINTING *************/
         if ( data->attributeSelect == ATTRIBUTE_OVERPRINT ) {
-            
-            //Get the AIColor from the color in the drop down
-            //initialize the colors
-            AIColor FromColor;
-            setColorByName( data->fromSelect , FromColor );
-            
-            AdjustOverprint(currArtObj, FromColor, data->tintsCheckbox, data->addremoveSelect, data->applytoSelect, &flag);
+      
+  
+            AdjustOverprint(currArtObj, *data->fromColor, data->tintsCheckbox, data->addremoveSelect, data->applytoSelect, &flag);
             
             if (flag) { numChanged++; }
             flag = FALSE;
@@ -100,65 +91,13 @@ void fillArtSet( AIArtSet &artSet, int changeIn) {
     if (changeIn == CHANGEIN_DOCUMENT) { sAIArtSet->MatchingArtSet( allSpecs , 8, artSet ); }
 }
 
-bool setColorByName( string name , AIColor &color) {
-    if (name.compare("[Registration]") == 0) {
-        color.kind = kCustomColor;
-        color.c.c.tint = 0;
-        sAICustomColor->NewRegistrationColor(&color.c.c.color, 1, 1, 1, 1, kCustomFourColor);
-        return TRUE;
-    }
-    
-    string colorName;
-    float tint = 0;
-    size_t found = 0;
-    string buffer;
-    
-    AISwatchRef swatchRef;
-    int numSwatches = 0;
-    AIColor tempColor;
-    ai::UnicodeString tempName;
-    
-    found = name.find("%");
-    
-    if (found != string::npos) {
-        buffer = name.substr(0, found);
-        tint = .01 * (100 - atoi(buffer.c_str()));
-    }
-    
-    if(found == string::npos) { colorName = name.substr(found+1); }
-    else { colorName = name.substr(found+2); }
-    
-    
-    numSwatches = sAISwatchList->CountSwatches( NULL );
-    for ( int i=0; i<numSwatches; i++) {
-        swatchRef = sAISwatchList->GetNthSwatch( NULL , i );
-        sAISwatchList->GetSwatchName( swatchRef, tempName );
-        sAISwatchList->GetAIColor( swatchRef, &tempColor );
-        if ( tempName == (ai::UnicodeString)colorName ) {
-            if ( sAIRealMath->EqualWithinTol(tempColor.c.c.tint, tint, .01) ) {     
-                color = tempColor;
-            }
-        }
-    }
-    
-    return TRUE;
-}
-
 void adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *altered) {
     ReplaceData* data = (ReplaceData*)userData;
     
-    //CREATE THE HANDLES and color specs FOR THE TO AND FROM COLORS
-    //initialize the colors
-    AIColor FromColor, ToColor;
-    setColorByName( data->fromSelect , FromColor );
-    setColorByName( data->toSelect , ToColor );
-
     *altered = FALSE;
     
-    AISwatchRef fromSwatchRef = sAISwatchList->GetSwatchByColor(NULL, &FromColor);
+    AISwatchRef fromSwatchRef = sAISwatchList->GetSwatchByColor(NULL, data->fromColor);
     AISwatchRef colorSwatchRef = sAISwatchList->GetSwatchByColor(NULL, color);
-    
-    
     
     if (color->kind == kGrayColor ||
         color->kind == kFourColor ||
@@ -166,14 +105,14 @@ void adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *alter
         color->kind == kThreeColor ||
         color->kind == kNoneColor ) {
         
-        if ( ColorIsEqual( FromColor , *color , data->tintsCheckbox  ) ){
-            if ( FromColor.c.c.tint == color->c.c.tint ) { //IF THE TINTS ARE THE SAME
+        if ( ColorIsEqual( *data->fromColor , *color , data->tintsCheckbox  ) ){
+            if ( data->fromColor->c.c.tint == color->c.c.tint ) { //IF THE TINTS ARE THE SAME
                 if (fromSwatchRef == colorSwatchRef) {
                     
-                    *color = ToColor; *altered = TRUE;			//Change to the To color
+                    color = data->toColor; *altered = TRUE;			//Change to the To color
                 }
             } else {										//IF THE TINTS ARE DIFFERENT
-                AIColor tempColor = ToColor;            //Make a new temporary color that is the same as the ToColor,
+                AIColor tempColor = *data->toColor;            //Make a new temporary color that is the same as the ToColor,
                 tempColor.c.c.tint = color->c.c.tint;     //except the tint is the same as the object's
                 
                 AISwatchRef toColorTintSwatch = checkSwatchListForColor(tempColor, .01);
