@@ -45,8 +45,8 @@ public:
     bool tintsCheckbox;
     
     VisitAIColorFlags controlFlags;
-    AIColor* fromColor;
-    AIColor* toColor;
+    AIColor fromColor;
+    AIColor toColor;
 };
 
 

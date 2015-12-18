@@ -18,7 +18,7 @@ ReplaceData::ReplaceData(const char* eventData)
     
     Document d;
     d.Parse(eventData);
-    
+   
     Value& v = d[ATTRIBUTE_SELECT];
     attributeSelect = v.GetInt();
     
@@ -55,6 +55,6 @@ ReplaceData::ReplaceData(const char* eventData)
     }
     
     //CREATE THE HANDLES and color specs FOR THE TO AND FROM COLORS
-    SetColorByName( fromSelect , *fromColor );
-    SetColorByName( toSelect , *toColor );
+    SetColorByName( fromSelect , fromColor );
+    SetColorByName( toSelect , toColor );
 }

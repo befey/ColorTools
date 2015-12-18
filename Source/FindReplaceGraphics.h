@@ -13,7 +13,6 @@ class ReplaceData;
 
 int FindAndReplace(ReplaceData* data);
 void fillArtSet( AIArtSet &artSet, int changeIn);
-bool setColorByName( string name , AIColor &color);
 
 void adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *altered);
 

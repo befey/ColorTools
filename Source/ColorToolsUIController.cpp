@@ -14,6 +14,7 @@
 #include "ReplaceData.h"
 #include "FindReplaceGraphics.h"
 #include <stdio.h>
+#include "ColorFuncs.h"
 
 void ColorToolsUIController::ChangeButtonClickedFunc (const csxs::event::Event* const event, void* const context)
 {
@@ -21,14 +22,14 @@ void ColorToolsUIController::ChangeButtonClickedFunc (const csxs::event::Event* 
     if(NULL == colorToolsUIController || event == NULL)
         return;
     
-    ReplaceData* data = new ReplaceData(event->data);
-    
     do {
         // Set up the application context, so that suite calls can work.
         AppContext appContext(gPlugin->GetPluginRef());
         
         //Set the undo/redo text
         sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Change Colors"), ai::UnicodeString("Redo Change Colors"));
+        
+        ReplaceData* data = new ReplaceData(event->data);
         
         colorToolsUIController->SendChangeCountToHtml(FindAndReplace(data));
        

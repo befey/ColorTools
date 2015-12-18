@@ -19,22 +19,17 @@ int FindAndReplace(ReplaceData* data) {
     AIBoolean flag = FALSE;
     int numChanged = 0;
     
-    //CREATE THE ART SET
     AIArtSet artSet;
     sAIArtSet->NewArtSet(&artSet);
     
-    //FILL THE ART SET BASED ON Change in Selection or Document
     fillArtSet( artSet , data->changeinSelect );
-  
-    
-    //LOOP THROUGH THE SET AND CHECK THE STROKES AND FILLS FOR THE COLOR WE're CHANGING from
 
-    size_t count;		sAIArtSet->CountArtSet( artSet, &count );
+    size_t count;
+    sAIArtSet->CountArtSet( artSet, &count );
     
     for ( int i=0 ; i < count ; i++ ) {
         AIArtHandle currArtObj;
         sAIArtSet->IndexArtSet( artSet, i, &currArtObj );
-      
         
         /*********** FIND AND REPLACE COLORS *************/
         if ( data->attributeSelect == ATTRIBUTE_COLOR ) {
@@ -47,12 +42,10 @@ int FindAndReplace(ReplaceData* data) {
             flag = FALSE;
         }
         
-        
         /*********** FIND AND REPLACE OVERPRINTING *************/
         if ( data->attributeSelect == ATTRIBUTE_OVERPRINT ) {
-      
   
-            AdjustOverprint(currArtObj, *data->fromColor, data->tintsCheckbox, data->addremoveSelect, data->applytoSelect, &flag);
+            AdjustOverprint(currArtObj, data->fromColor, data->tintsCheckbox, data->addremoveSelect, data->applytoSelect, &flag);
             
             if (flag) { numChanged++; }
             flag = FALSE;
@@ -86,9 +79,15 @@ void fillArtSet( AIArtSet &artSet, int changeIn) {
         { kSymbolArt , 0 , 0 },
     };
     //SELECTION
-    if (changeIn == CHANGEIN_SELECTION) { sAIArtSet->MatchingArtSet( selectedSpecs , 8, artSet ); }
+    if (changeIn == CHANGEIN_SELECTION)
+    {
+        sAIArtSet->MatchingArtSet( selectedSpecs , 8, artSet );
+    }
     //PAGE or DOCUMENT for now
-    if (changeIn == CHANGEIN_DOCUMENT) { sAIArtSet->MatchingArtSet( allSpecs , 8, artSet ); }
+    if (changeIn == CHANGEIN_DOCUMENT)
+    {
+        sAIArtSet->MatchingArtSet( allSpecs , 8, artSet );
+    }
 }
 
 void adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *altered) {
@@ -96,7 +95,7 @@ void adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *alter
     
     *altered = FALSE;
     
-    AISwatchRef fromSwatchRef = sAISwatchList->GetSwatchByColor(NULL, data->fromColor);
+    AISwatchRef fromSwatchRef = sAISwatchList->GetSwatchByColor(NULL, &data->fromColor);
     AISwatchRef colorSwatchRef = sAISwatchList->GetSwatchByColor(NULL, color);
     
     if (color->kind == kGrayColor ||
@@ -105,14 +104,15 @@ void adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *alter
         color->kind == kThreeColor ||
         color->kind == kNoneColor ) {
         
-        if ( ColorIsEqual( *data->fromColor , *color , data->tintsCheckbox  ) ){
-            if ( data->fromColor->c.c.tint == color->c.c.tint ) { //IF THE TINTS ARE THE SAME
+        if ( ColorIsEqual( data->fromColor , *color , FALSE /*ignoreTints*/  ) ){
+            //TODO: check the include tints checkbox and make the correct colors.
+            if ( data->fromColor.c.c.tint == color->c.c.tint ) { //IF THE TINTS ARE THE SAME
                 if (fromSwatchRef == colorSwatchRef) {
                     
-                    color = data->toColor; *altered = TRUE;			//Change to the To color
+                    color = &data->toColor; *altered = TRUE;			//Change to the To color
                 }
             } else {										//IF THE TINTS ARE DIFFERENT
-                AIColor tempColor = *data->toColor;            //Make a new temporary color that is the same as the ToColor,
+                AIColor tempColor = data->toColor;            //Make a new temporary color that is the same as the ToColor,
                 tempColor.c.c.tint = color->c.c.tint;     //except the tint is the same as the object's
                 
                 AISwatchRef toColorTintSwatch = checkSwatchListForColor(tempColor, .01);
@@ -127,7 +127,7 @@ void adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *alter
                     if (toColorTintSwatch) {
                         //Apply the tempColor to the new swatch
                         sAISwatchList->SetAIColor(toColorTintSwatch, &tempColor);
-                        *color = tempColor; *altered = TRUE; //Send back tempColor (ToColor with the current Objects Tint)
+                        *color = tempColor; *altered = TRUE; //Send back tempColor (ToColor with the current Object's Tint)
                     }
                 }
             }
