@@ -14,6 +14,8 @@
 #include "AIATEPaint.h"
 #include "AISwatchLibraries.h"
 
+#include <string.h>
+
 extern "C"  AICustomColorSuite *sAICustomColor;
 extern "C"  AISwatchListSuite *sAISwatchList;
 extern "C"  AIArtSuite *sAIArt;
@@ -37,9 +39,9 @@ bool ColorIsWhite(AIColor* color);
 bool ColorIsPantone(AIColor* color); //Returns true if the color name includes PANTONE
 AICustomColor GetColorDefinitionFromBook(ai::UnicodeString& colorName, bool& found); //colorName must be a full, valid pantone color in the form "PANTONE ### U", returns the color definition from the book. found indicates whether it was or not. If the name includes PANTONE, but it can't be found, looks up the U version instead, colorName will be the name that matches the definition found
 
-bool SetColorByName( string name , AIColor &color);
+bool SetColorByName( const string& name , AIColor &color);
 
-bool ColorIsEqual (AIColor color1, AIColor color2 , bool includeTints ); //returns TRUE if they're the same color
+bool ColorIsEqual (const AIColor& color1, const AIColor& color2 , const bool includeTints ); //returns TRUE if they're the same color
 
 
 AISwatchRef checkSwatchListForColor( AIColor matchColor , AIReal tolerance ); //Checks the swatchlist for a swatch that matches the color passed
