@@ -278,6 +278,8 @@ bool ColorIsEqual ( const AIColor& color1 , const AIColor& color2 , const bool i
 	//CUSTOM COLOR
 	if ((color1.kind == kCustomColor) && (color1.kind == color2.kind)) {
 		AICustomColor ccolor1, ccolor2;
+        sAICustomColor->GetCustomColor( color1.c.c.color, &ccolor1 );
+        sAICustomColor->GetCustomColor( color2.c.c.color, &ccolor2 );
 		
 		//If ignoreTints is off we don't need to make sure the tint is the same here, just the base color, we'll check the
 		//tint later and create new ones. If ignoreTints is on, we'll make sure the tints are the same.
