@@ -114,31 +114,34 @@ void adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *alter
                 if (fromSwatchRef == colorSwatchRef)
                 {
                     *color = data->toColor;
-                    *altered = TRUE;			//Change to the To color
+                    *altered = TRUE;    //Change to the To color
                 }
             }
             else
-            {										//IF THE TINTS ARE DIFFERENT
-                AIColor tempColor = data->toColor;            //Make a new temporary color that is the same as the ToColor,
-                tempColor.c.c.tint = color->c.c.tint;     //except the tint is the same as the object's
-                
-                AISwatchRef toColorTintSwatch = checkSwatchListForColor(tempColor, .01);
-                
-                if ( toColorTintSwatch )
-                { //If the swatch already exists
-                    sAISwatchList->GetAIColor(toColorTintSwatch, color);
-                    *altered = TRUE; //Send back the color of the existing swatch
-                }
-                else
+            {   //IF THE TINTS ARE DIFFERENT
+                if (data->tintsCheckbox)    //If we are changing the different tints
                 {
-                    //Insert a new Swatch into the main group
-                    toColorTintSwatch = sAISwatchList->InsertNthSwatch(NULL, -1);
-                    if (toColorTintSwatch)
+                    AIColor tempColor = data->toColor;  //Make a new temporary color that is the same as the ToColor,
+                    tempColor.c.c.tint = color->c.c.tint;   //except the tint is the same as the object's
+                    
+                    AISwatchRef toColorTintSwatch = checkSwatchListForColor(tempColor, .01);
+                    
+                    if ( toColorTintSwatch )
+                    { //If the swatch already exists
+                        sAISwatchList->GetAIColor(toColorTintSwatch, color);
+                        *altered = TRUE;    //Send back the color of the existing swatch
+                    }
+                    else
                     {
-                        //Apply the tempColor to the new swatch
-                        sAISwatchList->SetAIColor(toColorTintSwatch, &tempColor);
-                        *color = tempColor;
-                        *altered = TRUE; //Send back tempColor (ToColor with the current Object's Tint)
+                        //Insert a new Swatch into the main group
+                        toColorTintSwatch = sAISwatchList->InsertNthSwatch(NULL, -1);
+                        if (toColorTintSwatch)
+                        {
+                            //Apply the tempColor to the new swatch
+                            sAISwatchList->SetAIColor(toColorTintSwatch, &tempColor);
+                            *color = tempColor;
+                            *altered = TRUE;    //Send back tempColor (ToColor with the current Object's Tint)
+                        }
                     }
                 }
             }

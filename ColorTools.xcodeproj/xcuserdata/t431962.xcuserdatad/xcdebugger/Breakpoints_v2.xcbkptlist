@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../My Custom Headers/ColorFuncs.cpp"
-            timestampString = "465938099.891216"
+            timestampString = "473791740.604113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
             landmarkName = "ColorIsBlack(AIColor* color)"
             landmarkType = "7">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../My Custom Headers/ColorFuncs.cpp"
-            timestampString = "465938099.891216"
+            timestampString = "473791740.604113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
             landmarkName = "ColorIsBlack(AIColor* color)"
             landmarkType = "7">
             <Locations>
@@ -88,11 +88,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../My Custom Headers/ColorFuncs.cpp"
-            timestampString = "465938099.891216"
+            timestampString = "473791740.604113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
             landmarkName = "ColorIsBlack(AIColor* color)"
             landmarkType = "7">
          </BreakpointContent>
@@ -104,11 +104,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../My Custom Headers/ColorFuncs.cpp"
-            timestampString = "465938099.891216"
+            timestampString = "473791740.604113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
             landmarkName = "GetTint(AIColor* color)"
             landmarkType = "7">
             <Locations>
@@ -166,11 +166,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../My Custom Headers/ColorFuncs.cpp"
-            timestampString = "465938099.891216"
+            timestampString = "473791740.604113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
             landmarkName = "GetTint(AIColor* color)"
             landmarkType = "7">
             <Locations>
@@ -212,11 +212,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../My Custom Headers/ColorFuncs.cpp"
-            timestampString = "465938099.891216"
+            timestampString = "473791740.604113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
             landmarkName = "ColorIsWhite(AIColor* color)"
             landmarkType = "7">
          </BreakpointContent>
@@ -228,11 +228,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../My Custom Headers/ColorFuncs.cpp"
-            timestampString = "465938099.891216"
+            timestampString = "473791740.604113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "130"
-            endingLineNumber = "130"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
             landmarkName = "ColorIsWhite(AIColor* color)"
             landmarkType = "7">
          </BreakpointContent>
@@ -244,11 +244,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../My Custom Headers/ColorFuncs.cpp"
-            timestampString = "465938099.891216"
+            timestampString = "473791740.604113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "133"
-            endingLineNumber = "133"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
             landmarkName = "ColorIsWhite(AIColor* color)"
             landmarkType = "7">
          </BreakpointContent>
@@ -260,11 +260,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../My Custom Headers/ColorFuncs.cpp"
-            timestampString = "465938099.891216"
+            timestampString = "473791740.604113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
             landmarkName = "ColorIsBlack(AIColor* color)"
             landmarkType = "7">
          </BreakpointContent>
@@ -324,11 +324,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../My Custom Headers/ColorFuncs.cpp"
-            timestampString = "465938099.891216"
+            timestampString = "473791740.604113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
             landmarkName = "ColorIsWhite(AIColor* color)"
             landmarkType = "7">
          </BreakpointContent>
@@ -340,11 +340,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../My Custom Headers/ColorFuncs.cpp"
-            timestampString = "465938099.891216"
+            timestampString = "473791740.604113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
             landmarkName = "ColorIsBlack(AIColor* color)"
             landmarkType = "7">
             <Locations>
@@ -386,11 +386,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../My Custom Headers/ColorFuncs.cpp"
-            timestampString = "465938099.891216"
+            timestampString = "473791740.604113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
             landmarkName = "ColorIsBlack(AIColor* color)"
             landmarkType = "7">
          </BreakpointContent>
@@ -402,11 +402,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../My Custom Headers/ColorFuncs.cpp"
-            timestampString = "465938099.891216"
+            timestampString = "473791740.604113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
             landmarkName = "ColorIsBlack(AIColor* color)"
             landmarkType = "7">
          </BreakpointContent>
@@ -418,11 +418,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../My Custom Headers/ColorFuncs.cpp"
-            timestampString = "465938099.891216"
+            timestampString = "473791740.604113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "109"
-            endingLineNumber = "109"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
             landmarkName = "ColorIsBlack(AIColor* color)"
             landmarkType = "7">
          </BreakpointContent>
@@ -434,11 +434,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../My Custom Headers/ColorFuncs.cpp"
-            timestampString = "465938099.891216"
+            timestampString = "473791740.604113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
             landmarkName = "GetTint(AIColor* color)"
             landmarkType = "7">
          </BreakpointContent>
@@ -610,11 +610,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../My Custom Headers/ColorFuncs.cpp"
-            timestampString = "473790132.284901"
+            timestampString = "473791740.604113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "339"
-            endingLineNumber = "339"
+            startingLineNumber = "385"
+            endingLineNumber = "385"
             landmarkName = "checkSwatchListForColor( AIColor matchColor , AIReal tolerance )"
             landmarkType = "7">
          </BreakpointContent>
@@ -754,11 +754,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Source/FindReplaceGraphics.cpp"
-            timestampString = "472147804.179607"
+            timestampString = "473791740.604113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
             landmarkName = "adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *altered)"
             landmarkType = "7">
          </BreakpointContent>
@@ -770,11 +770,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../My Custom Headers/ColorFuncs.cpp"
-            timestampString = "472150408.33469"
+            timestampString = "473791740.604113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "279"
-            endingLineNumber = "279"
+            startingLineNumber = "313"
+            endingLineNumber = "313"
             landmarkName = "ColorIsEqual ( const AIColor&amp; color1 , const AIColor&amp; color2 , const bool ignoreTints )"
             landmarkType = "7">
          </BreakpointContent>
@@ -786,11 +786,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Source/FindReplaceGraphics.cpp"
-            timestampString = "473790132.284901"
+            timestampString = "473791740.604113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
             landmarkName = "adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *altered)"
             landmarkType = "7">
          </BreakpointContent>
@@ -834,11 +834,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Source/FindReplaceGraphics.cpp"
-            timestampString = "472147804.179607"
+            timestampString = "473791740.604113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
             landmarkName = "adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *altered)"
             landmarkType = "7">
          </BreakpointContent>
@@ -850,11 +850,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Source/FindReplaceGraphics.cpp"
-            timestampString = "473790132.284901"
+            timestampString = "473791740.604113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
             landmarkName = "adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *altered)"
             landmarkType = "7">
          </BreakpointContent>
@@ -866,11 +866,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../My Custom Headers/ColorFuncs.cpp"
-            timestampString = "467237745.42178"
+            timestampString = "473791740.604113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "237"
-            endingLineNumber = "237"
+            startingLineNumber = "264"
+            endingLineNumber = "264"
             landmarkName = "SetColorByName( const string&amp; name , AIColor &amp;color)"
             landmarkType = "7">
             <Locations>
@@ -912,11 +912,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Source/FindReplaceGraphics.cpp"
-            timestampString = "472147804.179607"
+            timestampString = "473791740.604113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
             landmarkName = "adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *altered)"
             landmarkType = "7">
          </BreakpointContent>
@@ -976,11 +976,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../My Custom Headers/ColorFuncs.cpp"
-            timestampString = "472161376.443203"
+            timestampString = "473791740.604113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "244"
-            endingLineNumber = "244"
+            startingLineNumber = "274"
+            endingLineNumber = "274"
             landmarkName = "SetColorByName( const string&amp; name , AIColor &amp;color)"
             landmarkType = "7">
             <Locations>
@@ -1022,11 +1022,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../My Custom Headers/ColorFuncs.cpp"
-            timestampString = "472161377.211135"
+            timestampString = "473791740.604113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "249"
-            endingLineNumber = "249"
+            startingLineNumber = "279"
+            endingLineNumber = "279"
             landmarkName = "SetColorByName( const string&amp; name , AIColor &amp;color)"
             landmarkType = "7">
             <Locations>
@@ -1068,11 +1068,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Source/FindReplaceGraphics.cpp"
-            timestampString = "473790132.284901"
+            timestampString = "473791740.604113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
             landmarkName = "adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *altered)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1100,11 +1100,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Source/FindReplaceGraphics.cpp"
-            timestampString = "473790243.071018"
+            timestampString = "473791740.604113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
             landmarkName = "adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *altered)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1116,11 +1116,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Source/FindReplaceGraphics.cpp"
-            timestampString = "473790262.597483"
+            timestampString = "473791740.604113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
             landmarkName = "adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *altered)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1132,11 +1132,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../My Custom Headers/ColorFuncs.cpp"
-            timestampString = "473790309.539534"
+            timestampString = "473791740.604113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "284"
-            endingLineNumber = "284"
+            startingLineNumber = "319"
+            endingLineNumber = "319"
             landmarkName = "ColorIsEqual ( const AIColor&amp; color1 , const AIColor&amp; color2 , const bool ignoreTints )"
             landmarkType = "7">
          </BreakpointContent>
