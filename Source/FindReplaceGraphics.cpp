@@ -108,8 +108,8 @@ void adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *alter
             //TODO: check the include tints checkbox and make the correct colors.
             if ( data->fromColor.c.c.tint == color->c.c.tint ) { //IF THE TINTS ARE THE SAME
                 if (fromSwatchRef == colorSwatchRef) {
-                    
-                    color = &data->toColor; *altered = TRUE;			//Change to the To color
+                    *color = data->toColor;
+                    *altered = TRUE;			//Change to the To color
                 }
             } else {										//IF THE TINTS ARE DIFFERENT
                 AIColor tempColor = data->toColor;            //Make a new temporary color that is the same as the ToColor,

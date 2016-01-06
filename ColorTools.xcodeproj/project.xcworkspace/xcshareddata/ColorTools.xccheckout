@@ -10,6 +10,8 @@
 	<string>ColorTools</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>5A41EC9D2CE393ADC6A2FEE15E82A2D3BC857CC8</key>
+		<string>https://github.com/befey/My-Custom-Headers.git</string>
 		<key>A5B8AE1EB756DEC9397BA71C51F267C88F829B27</key>
 		<string>https://github.com/befey/ColorTools.git</string>
 	</dict>
@@ -17,6 +19,8 @@
 	<string>ColorTools.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
+		<key>5A41EC9D2CE393ADC6A2FEE15E82A2D3BC857CC8</key>
+		<string>../../../My%20Custom%20Headers</string>
 		<key>A5B8AE1EB756DEC9397BA71C51F267C88F829B27</key>
 		<string>../..</string>
 	</dict>
@@ -35,6 +39,14 @@
 			<string>A5B8AE1EB756DEC9397BA71C51F267C88F829B27</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ColorTools</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>5A41EC9D2CE393ADC6A2FEE15E82A2D3BC857CC8</string>
+			<key>IDESourceControlWCCName</key>
+			<string>My%20Custom%20Headers</string>
 		</dict>
 	</array>
 </dict>
