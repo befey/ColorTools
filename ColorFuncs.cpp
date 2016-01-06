@@ -281,32 +281,30 @@ bool ColorIsEqual ( const AIColor& color1 , const AIColor& color2 , const bool i
         sAICustomColor->GetCustomColor( color1.c.c.color, &ccolor1 );
         sAICustomColor->GetCustomColor( color2.c.c.color, &ccolor2 );
 		
-		//If ignoreTints is off we don't need to make sure the tint is the same here, just the base color, we'll check the
-		//tint later and create new ones. If ignoreTints is on, we'll make sure the tints are the same.
-		switch ( ignoreTints ) {
-			case FALSE:
-				if ( (color1.c.c.tint != color2.c.c.tint) ) { break; }
-			case TRUE:
-				//CUSTOM FOUR COLOR
-				if ( (ccolor1.kind == kCustomFourColor ) && (ccolor1.kind == ccolor2.kind) ) {
-					if ( (ccolor1.c.f.cyan == ccolor2.c.f.cyan) &&
-					  (ccolor1.c.f.magenta == ccolor2.c.f.magenta) &&
-					  (ccolor1.c.f.yellow == ccolor2.c.f.yellow) &&
-					  (ccolor1.c.f.black == ccolor2.c.f.black) ) { return TRUE; }				
-				}
-				//CUSTOM THREE COLOR
-				if ( (ccolor1.kind == kCustomThreeColor ) && (ccolor1.kind == ccolor2.kind) ) {
-					if ( (ccolor1.c.rgb.red == ccolor2.c.rgb.red) &&
-					  (ccolor1.c.rgb.green == ccolor2.c.rgb.green) &&
-					  (ccolor1.c.rgb.blue == ccolor2.c.rgb.blue) ) { return TRUE; }				
-				}
-				//CUSTOM LAB COLOR
-				if ( (ccolor1.kind == kCustomLabColor ) && (ccolor1.kind == ccolor2.kind) ) {
-					if ( (ccolor1.c.lab.l == ccolor2.c.lab.l) &&
-					  (ccolor1.c.lab.a == ccolor2.c.lab.a) &&
-					  (ccolor1.c.lab.b == ccolor2.c.lab.b) ) { return TRUE; }				
-				}
-		}
+        if (!ignoreTints && (color1.c.c.tint != color2.c.c.tint)) //If we care about tints and they don't match
+        {
+            return FALSE;
+        }
+        
+        //CUSTOM FOUR COLOR
+        if ( (ccolor1.kind == kCustomFourColor ) && (ccolor1.kind == ccolor2.kind) ) {
+            if ( (ccolor1.c.f.cyan == ccolor2.c.f.cyan) &&
+                (ccolor1.c.f.magenta == ccolor2.c.f.magenta) &&
+                (ccolor1.c.f.yellow == ccolor2.c.f.yellow) &&
+                (ccolor1.c.f.black == ccolor2.c.f.black) ) { return TRUE; }
+        }
+        //CUSTOM THREE COLOR
+        if ( (ccolor1.kind == kCustomThreeColor ) && (ccolor1.kind == ccolor2.kind) ) {
+            if ( (ccolor1.c.rgb.red == ccolor2.c.rgb.red) &&
+                (ccolor1.c.rgb.green == ccolor2.c.rgb.green) &&
+                (ccolor1.c.rgb.blue == ccolor2.c.rgb.blue) ) { return TRUE; }
+        }
+        //CUSTOM LAB COLOR
+        if ( (ccolor1.kind == kCustomLabColor ) && (ccolor1.kind == ccolor2.kind) ) {
+            if ( (ccolor1.c.lab.l == ccolor2.c.lab.l) &&
+                (ccolor1.c.lab.a == ccolor2.c.lab.a) &&
+                (ccolor1.c.lab.b == ccolor2.c.lab.b) ) { return TRUE; }				
+        }
 	}
 	return FALSE;
 }
