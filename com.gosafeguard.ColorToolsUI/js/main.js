@@ -14,20 +14,22 @@ var updateListBackEvent = new CSEvent("com.gosafeguard.ColorToolsUI.updatelistba
 
 var changeCountBackEvent = new CSEvent("com.gosafeguard.ColorToolsUI.changecountback", "APPLICATION", "ILST", "ColorToolsUI");
 
-$(function() {
-	
+$(function()
+{
 	// Update the color of the panel when the theme color of the product changed..
 	updateThemeWithAppSkinInfo(csInterface.hostEnvironment.appSkinInfo);
 	csInterface.addEventListener(CSInterface.THEME_COLOR_CHANGED_EVENT, onAppThemeColorChanged);
 	
-	csInterface.addEventListener('com.gosafeguard.ColorToolsUI.updatepanel', function(event) {
+	csInterface.addEventListener("com.gosafeguard.ColorToolsUI.updatepanel",
+	function(event)
+	{
 		var xmlData = $.parseXML(event.data);
 		var $xml = $(xmlData);
 		var gridType = $xml.find('gridtype').text();
 	});
 	
-	csInterface.addEventListener('com.gosafeguard.ColorToolsUI.updatelistback', onUpdateListBack);
-	csInterface.addEventListener('com.gosafeguard.ColorToolsUI.changecountback', onChangeCountBack);
+	csInterface.addEventListener("com.gosafeguard.ColorToolsUI.updatelistback", onUpdateListBack);
+	csInterface.addEventListener("com.gosafeguard.ColorToolsUI.changecountback", onChangeCountBack);
 	
 	setIncludeTintsCheckbox();	
 	
@@ -101,7 +103,8 @@ function evalScript(script, callback) {
 	new CSInterface().evalScript(script, callback);
 }
 
-function onUpdateListBack(event) {
+function onUpdateListBack(event)
+{
 	var xmlData = $.parseXML(event.data);
 	var $xml = $(xmlData);
 	
@@ -110,46 +113,67 @@ function onUpdateListBack(event) {
 	
 	$("#from-select").find('option').remove();
 	$("#to-select").find('option').remove();
-	$xml.find("color").each( function(index) {
+	$xml.find("color").each( function(index)
+	{
 		if (this.textContent != "[None]" &&
 			this.textContent != "[Registration]" &&
-			this.textContent != "GRIPPER") {
-			$("#from-select").append($('<option>', {
-				text: this.textContent
-			}));
-			$("#to-select").append($('<option>', {
-				text: this.textContent
-			}));
+			this.textContent != "GRIPPER")
+			{
+				$("#from-select").append($("<option/>",
+				{
+					text: this.textContent
+				}));
+				$("#to-select").append($("<option/>",
+				{
+					text: this.textContent
+				}));
+			}
+		});
+	
+		if ( $("#from-select option").filter(
+			function()
+			{
+				return this.value === fromSelectedText;
+			}
+			).length !== 0 )
+		{
+			$("#from-select").val(fromSelectedText);
 		}
-	});
+		else
+		{
+			$("#from-select").val("Black");
+		}
 	
-	if ( $("#from-select option").filter(function() {
-		return this.value === fromSelectedText; }).length !== 0 ) {
-		$("#from-select").val(fromSelectedText);
-	} else {
-		$("#from-select").val("Black");
+		if ( $("#to-select option").filter(
+			function()
+			{
+				return this.value === toSelectedText;
+			}
+			).length !== 0 )
+		{
+			$("#to-select").val(toSelectedText);
 	}
-	
-	if ( $("#to-select option").filter(function() {
-		return this.value === toSelectedText; }).length !== 0 ) {
-		$("#to-select").val(toSelectedText);
-	} else {
+	else
+	{
 		$("#to-select").val("Black");
 	}
 }
 
-function onChangeCountBack(event) {
-	
+function onChangeCountBack(event)
+{
 	$("#changedCount").text(event.data);
-	
+	csInterface.dispatchEvent(updateListEvent);
 }
 
 function attributeChanged()
 {
-	if ( $("#attribute-select").val() == 0 ) {
+	if ( $("#attribute-select").val() == 0 )
+	{
 		$("#addremove-span").toggle(false);
 		$("#to-span").toggle(true);
-	} else {
+	}
+	else
+	{
 		$("#addremove-span").toggle(true);
 		$("#to-span").toggle(false);
 	}
@@ -191,5 +215,5 @@ function sendDataToIllustrator()
 		"tints-checkbox"	:	$("#tints-checkbox").is(':checked')
 	}
 	changeEvent.data = JSON.stringify(data);
-	csInterface.dispatchEvent(changeEvent)
+	csInterface.dispatchEvent(changeEvent);
 }

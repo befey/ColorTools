@@ -169,7 +169,6 @@ ASErr ColorToolsUIController::SendColorListXmlToHtml(string swatchesXml)
 
 ASErr ColorToolsUIController::SendChangeCountToHtml(int count)
 {
-    
     AIErr error = kNoErr;
     
     char buffer[10];

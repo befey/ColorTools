@@ -30,17 +30,12 @@ select.wide {
     margin: 1px;
 }
 
-button {
-    display: block;
-    font-size: 10px;
-    width: 100%;
-}
-
 .field {
     display: inline-block;
     width: 47%;
     padding: 1%;
 }
+
 .wide-field {
     display: inline-block;
     width: 98%;
@@ -52,8 +47,13 @@ button {
     right:0;
 }
 
+.button {
+    display: block;
+    font-size: 10px;
+    width: 100%;
+}
+
 .changed {
     font-size: 10px;
     display: block;
-}
 }
