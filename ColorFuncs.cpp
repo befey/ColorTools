@@ -22,12 +22,12 @@ AIReal GetTint(AIColor* color)
         AICustomColor cColor;
         sAICustomColor->GetCustomColor(color->c.c.color, &cColor);
         
-        if ((sAIRealMath->EqualWithinTol(color->c.c.tint, 0, TOLERANCE)) &&
+        if (!ColorIsPantone(color) && ((sAIRealMath->EqualWithinTol(color->c.c.tint, 0, TOLERANCE)) &&
             (cColor.kind == kCustomFourColor &&
           sAIRealMath->EqualWithinTol(cColor.c.f.cyan, 0, TOLERANCE) &&
           sAIRealMath->EqualWithinTol(cColor.c.f.magenta, 0, TOLERANCE) &&
           sAIRealMath->EqualWithinTol(cColor.c.f.yellow, 0, TOLERANCE) &&
-          cColor.c.f.black > 0))
+          cColor.c.f.black > 0)))
         {
             tintPercent = 1 - cColor.c.f.black;
         }
