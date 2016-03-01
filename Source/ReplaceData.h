@@ -44,7 +44,7 @@ public:
     int applytoSelect;
     bool tintsCheckbox;
     
-    VisitAIColorFlags controlFlags;
+    VisitAIColorFlags controlFlags = kVisitColorsNullFlags;
     AIColor fromColor;
     AIColor toColor;
 };
