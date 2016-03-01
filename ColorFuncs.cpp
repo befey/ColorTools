@@ -268,7 +268,12 @@ bool SetColorByName( const string& name , AIColor &color)
         sAISwatchList->GetAIColor( swatchRef, &tempColor );
         if ( tempName == (ai::UnicodeString)colorName )
         {
-            if ( sAIRealMath->EqualWithinTol(tempColor.c.c.tint, tint, .01) )
+            if (tempColor.kind != kCustomColor)
+            {
+                color = tempColor;
+                return TRUE;
+            }
+            else if ( sAIRealMath->EqualWithinTol(tempColor.c.c.tint, tint, .01) )
             {
                 color = tempColor;
                 return TRUE;
