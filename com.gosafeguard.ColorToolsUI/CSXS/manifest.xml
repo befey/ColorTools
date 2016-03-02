@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ExtensionManifest ExtensionBundleId="com.gosafeguard.ColorToolsUI" ExtensionBundleName="ColorToolsUI" ExtensionBundleVersion="1.0" Version="5.0">
   <ExtensionList>
-    <Extension Id="com.gosafeguard.ColorToolsUI.addcolor" Version="1.0"/>
+    <Extension Id="com.gosafeguard.ColorToolsUI.findandreplace" Version="1.0"/>
   </ExtensionList>
   <ExecutionEnvironment>
     <HostList>
@@ -15,7 +15,7 @@
     </RequiredRuntimeList>
   </ExecutionEnvironment>
   <DispatchInfoList>
-    <Extension Id="com.gosafeguard.ColorToolsUI.addcolor">
+    <Extension Id="com.gosafeguard.ColorToolsUI.findandreplace">
       <DispatchInfo>
         <Resources>
           <MainPath>./index.html</MainPath>
