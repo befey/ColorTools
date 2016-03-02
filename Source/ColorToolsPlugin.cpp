@@ -363,7 +363,9 @@ ASErr ColorToolsPlugin::Notify(AINotifierMessage *message )
     if (message->notifier == fDocOpenedNotifierHandle ||
         message->notifier == fCustomColorChangeNotifierHandle ||
         message->notifier == fSwatchLibChangeNotifierHandle ) {
-        //TODO: Update the color lists
+        
+        string swatchesXml = gPlugin->GetBtSwatchList()->GetColorListAsXMLString();
+        colorToolsUIController->SendColorListXmlToHtml(swatchesXml);
     }
     
     if (message->notifier == fArtSelectionChangeNotifierHandle ) {
