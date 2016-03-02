@@ -44,8 +44,8 @@ int FindAndReplace(ReplaceData* data) {
         
         /*********** FIND AND REPLACE OVERPRINTING *************/
         if ( data->attributeSelect == ATTRIBUTE_OVERPRINT ) {
-  
-            AdjustOverprint(currArtObj, data->fromColor, data->tintsCheckbox, data->addremoveSelect, data->applytoSelect, &flag);
+ 
+            AdjustOverprint(currArtObj, data->fromColor, data->tintsCheckbox, !data->addremoveSelect, data->applytoSelect, &flag);  //Flip addremoveSelect here since the value is 0 for Add and 1 for Remove
             
             if (flag) { numChanged++; }
             flag = FALSE;
