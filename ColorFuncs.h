@@ -50,9 +50,9 @@ AISwatchRef checkSwatchListForColor( AIColor matchColor , AIReal tolerance ); //
 void nameAllColors(AIColor *color, void *userData, AIErr *result, AIBoolean *altered);
 
 void RemoveWhiteOverprint();
-void AdjustOverprint(AIArtHandle currArtObj, AIColor color, AIBoolean includeTints, AIBoolean overprint, int replaceIn, AIBoolean *altered);
+void AdjustOverprint(AIArtHandle currArtObj, AIColor fromColor, AIBoolean includeTints, AIBoolean overprint, int replaceIn, AIBoolean *altered);
 	// currArtObj - Handle to the art object to adjust
-	// color - the color to adjust
+	// fromColor - the color to adjust
 	// includeTints - TRUE to change all tints of color   FALSE to only change the color selected and no tints
 	// overprint - true to turn overprint on, false to turn off
 	// replaceIn - 0 = strokes  1 = fills  2 = strokes and fills

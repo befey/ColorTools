@@ -394,7 +394,7 @@ AISwatchRef checkSwatchListForColor( AIColor matchColor , AIReal tolerance )
 }
 
 
-void AdjustOverprint(AIArtHandle currArtObj, AIColor color, AIBoolean includeTints, AIBoolean overprint, int replaceIn, AIBoolean *altered)
+void AdjustOverprint(AIArtHandle currArtObj, AIColor fromColor, AIBoolean includeTints, AIBoolean overprint, int replaceIn, AIBoolean *altered)
 {
 	AIPathStyle currPathStyle;
 	short type = 0; sAIArt->GetArtType(currArtObj, &type);
@@ -419,7 +419,7 @@ void AdjustOverprint(AIArtHandle currArtObj, AIColor color, AIBoolean includeTin
         {
 			if (currPathStyle.strokePaint)
             {
-				if ( ColorIsEqual (currPathStyle.stroke.color, color , includeTints ) )
+				if ( ColorIsEqual (currPathStyle.stroke.color, fromColor , includeTints ) )
                 {
 					currPathStyle.stroke.overprint = overprint;
 					*altered = TRUE;
@@ -431,7 +431,7 @@ void AdjustOverprint(AIArtHandle currArtObj, AIColor color, AIBoolean includeTin
         {
 			if (currPathStyle.fillPaint)
             {
-				if ( ColorIsEqual (currPathStyle.fill.color, color , includeTints ) )
+				if ( ColorIsEqual (currPathStyle.fill.color, fromColor , includeTints ) )
                 {
 					currPathStyle.fill.overprint = overprint;
 					*altered = TRUE;
@@ -465,7 +465,7 @@ void AdjustOverprint(AIArtHandle currArtObj, AIColor color, AIBoolean includeTin
 				if (isAssigned)
                 {
 					sAIATEPaint->GetAIColor(strokePaint.GetRef(), &textColor);
-					if ( ColorIsEqual (textColor, color , includeTints ) )
+					if ( ColorIsEqual (textColor, fromColor , includeTints ) )
                     {
 						currRunCharFeatures.SetStrokeOverPrint(overprint);
 						iter.Item().SetLocalCharFeatures(currRunCharFeatures);
@@ -480,7 +480,7 @@ void AdjustOverprint(AIArtHandle currArtObj, AIColor color, AIBoolean includeTin
 				if (isAssigned)
                 {
 					sAIATEPaint->GetAIColor(fillPaint.GetRef(), &textColor);
-					if ( ColorIsEqual (textColor, color , includeTints ) )
+					if ( ColorIsEqual (textColor, fromColor , includeTints ) )
                     {
 						currRunCharFeatures.SetFillOverPrint(overprint);
 						iter.Item().SetLocalCharFeatures(currRunCharFeatures);
