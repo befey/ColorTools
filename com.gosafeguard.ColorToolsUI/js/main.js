@@ -14,6 +14,8 @@ var updateListBackEvent = new CSEvent("com.gosafeguard.ColorToolsUI.updatelistba
 
 var changeCountBackEvent = new CSEvent("com.gosafeguard.ColorToolsUI.changecountback", "APPLICATION", "ILST", "ColorToolsUI");
 
+var changeInBackEvent = new CSEvent("com.gosafeguard.ColorToolsUI.changeinback", "APPLICATION", "ILST", "ColorToolsUI");
+
 $(function()
 {
 	// Update the color of the panel when the theme color of the product changed..
@@ -30,6 +32,7 @@ $(function()
 	
 	csInterface.addEventListener("com.gosafeguard.ColorToolsUI.updatelistback", onUpdateListBack);
 	csInterface.addEventListener("com.gosafeguard.ColorToolsUI.changecountback", onChangeCountBack);
+	csInterface.addEventListener("com.gosafeguard.ColorToolsUI.changeinback", onChangeInBack);
 	
 	setIncludeTintsCheckbox();	
 	
@@ -165,6 +168,11 @@ function onChangeCountBack(event)
 	csInterface.dispatchEvent(updateListEvent);
 }
 
+function onChangeInBack(event)
+{
+	$("#changein-select").val(event.data);
+}
+
 function attributeChanged()
 {
 	if ( $("#attribute-select").val() == 0 )
@@ -196,11 +204,6 @@ function setIncludeTintsCheckbox()
 	$("#tints-checkbox").prop('checked', (!(!!parseInt($("#attribute-select").val(), 10) && !parseInt($("#addremove-select").val(), 10)) ));
 	
 	//TODO: Set tints checkbox off if From/To color contains %
-}
-
-function setChangeInSelection()
-{
-	//TODO: change this based on whether art is selected or not
 }
 
 function sendDataToIllustrator()

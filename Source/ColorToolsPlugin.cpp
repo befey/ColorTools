@@ -367,7 +367,7 @@ ASErr ColorToolsPlugin::Notify(AINotifierMessage *message )
     }
     
     if (message->notifier == fArtSelectionChangeNotifierHandle ) {
-        //TODO: Update the change in list
+        colorToolsUIController->DetermineChangeInStatus();
     }
     return kNoErr;
 }

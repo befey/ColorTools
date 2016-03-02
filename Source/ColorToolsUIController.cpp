@@ -185,3 +185,41 @@ ASErr ColorToolsUIController::SendChangeCountToHtml(int count)
     
     return error;
 }
+
+void ColorToolsUIController::DetermineChangeInStatus()
+{
+    AIArtHandle** matches;
+    int count = 0;
+    
+    sAIDocumentList->Count(&count);
+    if (count) {
+        sAIMatchingArt->GetSelectedArt(&matches, &count);
+        
+        if (count) {
+            SendChangeInToHtml(CHANGEIN_SELECTION);
+        } else {
+            SendChangeInToHtml(CHANGEIN_DOCUMENT);
+        }
+        
+        sAIMdMemory->MdMemoryDisposeHandle((void**)matches);
+    }
+}
+
+ASErr ColorToolsUIController::SendChangeInToHtml(int changeIn)
+{
+    AIErr error = kNoErr;
+    
+    char buffer[10];
+    sprintf(buffer, "%d", changeIn);
+    
+    csxs::event::Event event = {
+        EVENT_TYPE_CHANGE_IN_BACK,
+        csxs::event::kEventScope_Application,
+        ILST_APP,
+        NULL,
+        buffer
+    };
+    fPPLib.DispatchEvent(&event);
+    
+    return error;
+}
