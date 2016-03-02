@@ -194,6 +194,11 @@ function addremoveChanged()
 	setIncludeTintsCheckbox();
 }
 
+function fromToChanged()
+{
+	setIncludeTintsCheckbox();
+}
+
 function setIncludeTintsCheckbox()
 {
 	//This is a neat little expression which turns the Include Tints checkbox on and off depending on whether Overprint is selected
@@ -203,7 +208,12 @@ function setIncludeTintsCheckbox()
 	// We only turn the check box OFF if we are ADD OVERPRINT otherwise we turn it on
 	$("#tints-checkbox").prop('checked', (!(!!parseInt($("#attribute-select").val(), 10) && !parseInt($("#addremove-select").val(), 10)) ));
 	
-	//TODO: Set tints checkbox off if From/To color contains %
+	//Set tints checkbox off if From/To color contains %
+	if ( ($("#from-select").val().indexOf("%") >= 0) ||
+		 ($("#to-select").val().indexOf("%") >= 0) )
+	{
+		$("#tints-checkbox").prop('checked', false);
+	}
 }
 
 function sendDataToIllustrator()
