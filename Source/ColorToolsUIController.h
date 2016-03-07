@@ -13,13 +13,13 @@
 #include "FlashUIController.h"
 
 
-#define COLORTOOLS_UI_EXTENSION             "com.gosafeguard.ColorToolsUI"
-#define EVENT_TYPE_CHANGE_CLICKED           "com.gosafeguard.ColorToolsUI.changebutton"
-#define EVENT_TYPE_REMOVE_CLICKED           "com.gosafeguard.ColorToolsUI.removebutton"
-#define EVENT_TYPE_UPDATE_COLOR_LIST        "com.gosafeguard.ColorToolsUI.updatelist"
-#define EVENT_TYPE_UPDATE_COLOR_LIST_BACK   "com.gosafeguard.ColorToolsUI.updatelistback"
-#define EVENT_TYPE_CHANGE_COUNT_BACK        "com.gosafeguard.ColorToolsUI.changecountback"
-#define EVENT_TYPE_CHANGE_IN_BACK           "com.gosafeguard.ColorToolsUI.changeinback"
+#define COLORTOOLS_UI_EXTENSION             "com.gosafeguard.ColorTools"
+#define EVENT_TYPE_CHANGE_CLICKED           "com.gosafeguard.ColorTools.changebutton"
+#define EVENT_TYPE_REMOVE_CLICKED           "com.gosafeguard.ColorTools.removebutton"
+#define EVENT_TYPE_UPDATE_COLOR_LIST        "com.gosafeguard.ColorTools.updatelist"
+#define EVENT_TYPE_UPDATE_COLOR_LIST_BACK   "com.gosafeguard.ColorTools.updatelistback"
+#define EVENT_TYPE_CHANGE_COUNT_BACK        "com.gosafeguard.ColorTools.changecountback"
+#define EVENT_TYPE_CHANGE_IN_BACK           "com.gosafeguard.ColorTools.changeinback"
 #define ILST_APP                            "ILST"
 
 

@@ -1,20 +1,20 @@
 var csInterface = new CSInterface(); 
 
 // Create events for the button presses
-var changeEvent = new CSEvent("com.gosafeguard.ColorToolsUI.changebutton", "APPLICATION", "ILST", "ColorToolsUI");
+var changeEvent = new CSEvent("com.gosafeguard.ColorTools.changebutton", "APPLICATION", "ILST", "ColorTools");
 changeEvent.data = "Change Button Pressed";
 
-var removeEvent = new CSEvent("com.gosafeguard.ColorToolsUI.removebutton", "APPLICATION", "ILST", "ColorToolsUI");
+var removeEvent = new CSEvent("com.gosafeguard.ColorTools.removebutton", "APPLICATION", "ILST", "ColorTools");
 removeEvent.data = "Remove Button Pressed";
 
-var updateListEvent = new CSEvent("com.gosafeguard.ColorToolsUI.updatelist", "APPLICATION", "ILST", "ColorToolsUI");
+var updateListEvent = new CSEvent("com.gosafeguard.ColorTools.updatelist", "APPLICATION", "ILST", "ColorTools");
 updateListEvent.data = "Update Lists Called";
 
-var updateListBackEvent = new CSEvent("com.gosafeguard.ColorToolsUI.updatelistback", "APPLICATION", "ILST", "ColorToolsUI");
+var updateListBackEvent = new CSEvent("com.gosafeguard.ColorTools.updatelistback", "APPLICATION", "ILST", "ColorTools");
 
-var changeCountBackEvent = new CSEvent("com.gosafeguard.ColorToolsUI.changecountback", "APPLICATION", "ILST", "ColorToolsUI");
+var changeCountBackEvent = new CSEvent("com.gosafeguard.ColorTools.changecountback", "APPLICATION", "ILST", "ColorTools");
 
-var changeInBackEvent = new CSEvent("com.gosafeguard.ColorToolsUI.changeinback", "APPLICATION", "ILST", "ColorToolsUI");
+var changeInBackEvent = new CSEvent("com.gosafeguard.ColorTools.changeinback", "APPLICATION", "ILST", "ColorTools");
 
 $(function()
 {
@@ -22,7 +22,7 @@ $(function()
 	updateThemeWithAppSkinInfo(csInterface.hostEnvironment.appSkinInfo);
 	csInterface.addEventListener(CSInterface.THEME_COLOR_CHANGED_EVENT, onAppThemeColorChanged);
 	
-	csInterface.addEventListener("com.gosafeguard.ColorToolsUI.updatepanel",
+	csInterface.addEventListener("com.gosafeguard.ColorTools.updatepanel",
 	function(event)
 	{
 		var xmlData = $.parseXML(event.data);
@@ -30,9 +30,9 @@ $(function()
 		var gridType = $xml.find('gridtype').text();
 	});
 	
-	csInterface.addEventListener("com.gosafeguard.ColorToolsUI.updatelistback", onUpdateListBack);
-	csInterface.addEventListener("com.gosafeguard.ColorToolsUI.changecountback", onChangeCountBack);
-	csInterface.addEventListener("com.gosafeguard.ColorToolsUI.changeinback", onChangeInBack);
+	csInterface.addEventListener("com.gosafeguard.ColorTools.updatelistback", onUpdateListBack);
+	csInterface.addEventListener("com.gosafeguard.ColorTools.changecountback", onChangeCountBack);
+	csInterface.addEventListener("com.gosafeguard.ColorTools.changeinback", onChangeInBack);
 	
 	setIncludeTintsCheckbox();	
 	
