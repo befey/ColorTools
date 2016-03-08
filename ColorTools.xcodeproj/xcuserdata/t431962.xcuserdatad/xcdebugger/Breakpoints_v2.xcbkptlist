@@ -466,11 +466,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Source/ColorToolsPlugin.cpp"
-            timestampString = "453929167.535854"
+            timestampString = "479140001.968271"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "354"
-            endingLineNumber = "354"
+            startingLineNumber = "331"
+            endingLineNumber = "331"
             landmarkName = "ColorToolsPlugin::Notify(AINotifierMessage *message )"
             landmarkType = "5">
          </BreakpointContent>
