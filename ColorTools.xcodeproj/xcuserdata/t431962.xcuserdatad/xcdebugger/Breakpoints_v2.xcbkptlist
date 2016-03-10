@@ -466,11 +466,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Source/ColorToolsPlugin.cpp"
-            timestampString = "479247865.44384"
+            timestampString = "479329122.12523"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "304"
-            endingLineNumber = "304"
+            startingLineNumber = "306"
+            endingLineNumber = "306"
             landmarkName = "ColorToolsPlugin::Notify(AINotifierMessage *message )"
             landmarkType = "5">
          </BreakpointContent>
@@ -1402,7 +1402,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Source/ColorToolsUIController.cpp"
@@ -1412,6 +1412,22 @@
             startingLineNumber = "234"
             endingLineNumber = "234"
             landmarkName = "ColorToolsUIController::SendCloseMessageToHtml()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Source/ColorToolsPlugin.cpp"
+            timestampString = "479329122.12523"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "265"
+            endingLineNumber = "265"
+            landmarkName = "ColorToolsPlugin::GoMenuItem(AIMenuMessage* message)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

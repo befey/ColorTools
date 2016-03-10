@@ -260,6 +260,7 @@ ASErr ColorToolsPlugin::GoMenuItem(AIMenuMessage* message)
         }
         else
         {
+            colorToolsUIController->LoadExtension();
             sAICSXSExtension->LaunchExtension(COLORTOOLS_UI_EXTENSION);
         }
 
