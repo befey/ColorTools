@@ -241,16 +241,10 @@ ASErr ColorToolsPlugin::GoMenuItem(AIMenuMessage* message)
 	
 	if ( message->menuItem == FixBlackMenuItemSelected )
 	{
-		//Call the main function
-		if ( FixBlack() ) {
-			//			sADMBasic->MessageAlert("Black was fixed.");
-			//		} else {
-			//			sADMBasic->MessageAlert("Black was not fixed.");
-		}
-	}
+        FixBlack();
+    }
 	if ( message->menuItem == FindReplaceMenuItemSelected )
 	{
-        //colorToolsUIController->ShowHideFaRPanel();
         AIBoolean state;
         sAICSXSExtension->IsPrimaryStageVisible(COLORTOOLS_UI_EXTENSION, state);
 
@@ -276,13 +270,12 @@ error:
 
 ASErr ColorToolsPlugin::UpdateMenuItem(AIMenuMessage* message)
 {
-	//	long inArtwork;
-	//	long isSelected;
-	//	long isTrue;
 	AIErr error = kNoErr;
 	
-/*	if (message->menuItem == FindReplaceMenuItemSelected) {
-		if ( sADMDialog->IsVisible( g->FindReplaceDialog ) )
+	if (message->menuItem == FindReplaceMenuItemSelected) {
+        AIBoolean state;
+        sAICSXSExtension->IsPrimaryStageVisible(COLORTOOLS_UI_EXTENSION, state);
+		if (state == TRUE)
 		{
 			sAIMenu->SetItemText( message->menuItem, ai::UnicodeString("Hide Find and Replace Graphics") );
 		}
@@ -291,7 +284,6 @@ ASErr ColorToolsPlugin::UpdateMenuItem(AIMenuMessage* message)
 			sAIMenu->SetItemText( message->menuItem, ai::UnicodeString("Show Find and Replace Graphics") );
 		}
 	}
-	*/
 	
 	if (error)
 		goto error;

@@ -466,11 +466,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Source/ColorToolsPlugin.cpp"
-            timestampString = "479329122.12523"
+            timestampString = "479332213.628895"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "306"
-            endingLineNumber = "306"
+            startingLineNumber = "297"
+            endingLineNumber = "297"
             landmarkName = "ColorToolsPlugin::Notify(AINotifierMessage *message )"
             landmarkType = "5">
          </BreakpointContent>
@@ -1390,11 +1390,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Source/ColorToolsPlugin.cpp"
-            timestampString = "479247857.459589"
+            timestampString = "479332213.628895"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "257"
-            endingLineNumber = "257"
+            startingLineNumber = "251"
+            endingLineNumber = "251"
             landmarkName = "ColorToolsPlugin::GoMenuItem(AIMenuMessage* message)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1422,11 +1422,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Source/ColorToolsPlugin.cpp"
-            timestampString = "479329122.12523"
+            timestampString = "479332213.628895"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "265"
-            endingLineNumber = "265"
+            startingLineNumber = "258"
+            endingLineNumber = "258"
             landmarkName = "ColorToolsPlugin::GoMenuItem(AIMenuMessage* message)"
             landmarkType = "5">
          </BreakpointContent>
