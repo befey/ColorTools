@@ -1,6 +1,6 @@
 # Xcode
 .DS_Store
-build/
+ColorTools.build/
 *.pbxuser
 !default.pbxuser
 *.mode1v3
