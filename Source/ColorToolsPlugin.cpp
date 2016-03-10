@@ -154,7 +154,6 @@ ASErr ColorToolsPlugin::AddMenus(SPInterfaceMessage* message)
 	// Add the menus.
 	AIPlatformAddMenuItemDataUS menuData;
 	AIPlatformAddMenuItemDataUS fixBlackMenuData;
-	AIPlatformAddMenuItemDataUS addColorMenuData;
 	AIPlatformAddMenuItemDataUS findReplaceMenuData;
 	
 	const char *menuGroupCStr = "SDKEditGroup";
