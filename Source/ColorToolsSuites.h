@@ -24,6 +24,7 @@
 #include "ATETextSuitesImportHelper.h"
 #include "AIATEPaint.h"
 #include "AIATETextUtil.h"
+#include "AICSXSExtension.h"
 
 
 
@@ -53,5 +54,6 @@ extern "C"  AITextFrameSuite *sAITextFrame;
 extern "C"  AIATEPaintSuite *sAIATEPaint;
 extern "C"  AIATETextUtilSuite *sAIATETextUtil;
 extern "C"	AIPatternSuite *sAIPattern;
+extern "C"  AICSXSExtensionSuite *sAICSXSExtension;
 
 #endif

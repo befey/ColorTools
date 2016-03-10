@@ -18,6 +18,8 @@ var changeInBackEvent = new CSEvent("com.gosafeguard.ColorTools.changeinback", "
 
 $(function()
 {
+	csInterface.setWindowTitle("Find and Replace Graphics");
+	
 	// Update the color of the panel when the theme color of the product changed..
 	updateThemeWithAppSkinInfo(csInterface.hostEnvironment.appSkinInfo);
 	csInterface.addEventListener(CSInterface.THEME_COLOR_CHANGED_EVENT, onAppThemeColorChanged);
@@ -33,6 +35,11 @@ $(function()
 	csInterface.addEventListener("com.gosafeguard.ColorTools.updatelistback", onUpdateListBack);
 	csInterface.addEventListener("com.gosafeguard.ColorTools.changecountback", onChangeCountBack);
 	csInterface.addEventListener("com.gosafeguard.ColorTools.changeinback", onChangeInBack);
+	csInterface.addEventListener("com.gosafeguard.ColorTools.forcepanelclose", 
+	function(event)
+	{
+		csInterface.closeExtension();
+	});
 	
 	setIncludeTintsCheckbox();	
 	
@@ -89,7 +96,7 @@ function toHex(color, delta) {
 	if (color) {
 		with (color) {
 			hex = computeValue(red, delta) + computeValue(green, delta) + computeValue(blue, delta);
-		};
+		}
 	}
 	return '#' + hex;
 }
@@ -175,7 +182,7 @@ function onChangeInBack(event)
 
 function attributeChanged()
 {
-	if ( $("#attribute-select").val() == 0 )
+	if ( $("#attribute-select").val() === 0 )
 	{
 		$("#addremove-span").toggle(false);
 		$("#to-span").toggle(true);
@@ -226,7 +233,7 @@ function sendDataToIllustrator()
 		"addremove-select"	:	parseInt($("#addremove-select").val(), 10),
 		"applyto-select"	:	parseInt($("#applyto-select").val(), 10),
 		"tints-checkbox"	:	$("#tints-checkbox").is(':checked')
-	}
+	};
 	changeEvent.data = JSON.stringify(data);
 	csInterface.dispatchEvent(changeEvent);
 }

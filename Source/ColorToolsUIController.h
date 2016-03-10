@@ -20,6 +20,7 @@
 #define EVENT_TYPE_UPDATE_COLOR_LIST_BACK   "com.gosafeguard.ColorTools.updatelistback"
 #define EVENT_TYPE_CHANGE_COUNT_BACK        "com.gosafeguard.ColorTools.changecountback"
 #define EVENT_TYPE_CHANGE_IN_BACK           "com.gosafeguard.ColorTools.changeinback"
+#define EVENT_TYPE_FORCE_PANEL_CLOSE        "com.gosafeguard.ColorTools.forcepanelclose"
 #define ILST_APP                            "ILST"
 
 
@@ -50,12 +51,15 @@ public:
     
     void DetermineChangeInStatus();
     ASErr SendChangeInToHtml(int changeIn);
-        
+    void SendCloseMessageToHtml();
+    
     void ParseData(const char* eventData);
     
     static void ChangeButtonClickedFunc (const csxs::event::Event* const event, void* const context);
     static void RemoveButtonClickedFunc (const csxs::event::Event* const event, void* const context);
     static void UpdateListFunc (const csxs::event::Event* const event, void* const context);
+
+private:
 };
 
 #endif /* defined(__ColorTools__ColorToolsUIController__) */

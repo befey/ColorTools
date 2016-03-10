@@ -102,7 +102,6 @@ private:
     
 	/**	Menu item handles**/
     AIMenuItemHandle FixBlackMenuItemSelected;
-    AIMenuItemHandle AddColorMenuItemSelected;
     AIMenuItemHandle FindReplaceMenuItemSelected;
      
 	/**	Adds the menu items for this plugin to the application UI.

@@ -466,11 +466,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Source/ColorToolsPlugin.cpp"
-            timestampString = "479140001.968271"
+            timestampString = "479247865.44384"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "331"
-            endingLineNumber = "331"
+            startingLineNumber = "304"
+            endingLineNumber = "304"
             landmarkName = "ColorToolsPlugin::Notify(AINotifierMessage *message )"
             landmarkType = "5">
          </BreakpointContent>
@@ -482,11 +482,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Source/ColorToolsUIController.cpp"
-            timestampString = "472157707.873969"
+            timestampString = "479248588.28448"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
             landmarkName = "ColorToolsUIController::RegisterCSXSEventListeners()"
             landmarkType = "5">
          </BreakpointContent>
@@ -642,11 +642,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Source/ColorToolsUIController.cpp"
-            timestampString = "472157707.873969"
+            timestampString = "479248588.28448"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "165"
-            endingLineNumber = "165"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
             landmarkName = "ColorToolsUIController::SendColorListXmlToHtml(string swatchesXml)"
             landmarkType = "5">
          </BreakpointContent>
@@ -690,11 +690,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Source/ColorToolsUIController.cpp"
-            timestampString = "472157707.873969"
+            timestampString = "479248588.28448"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
             landmarkName = "ColorToolsUIController::ParseData(const char* eventData)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1088,11 +1088,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Source/ColorToolsUIController.cpp"
-            timestampString = "473795714.71157"
+            timestampString = "479248588.28448"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "186"
-            endingLineNumber = "186"
+            startingLineNumber = "184"
+            endingLineNumber = "184"
             landmarkName = "ColorToolsUIController::SendChangeCountToHtml(int count)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1230,11 +1230,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Source/ColorToolsUIController.cpp"
-            timestampString = "478635748.835984"
+            timestampString = "479248588.28448"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "224"
-            endingLineNumber = "224"
+            startingLineNumber = "222"
+            endingLineNumber = "222"
             landmarkName = "ColorToolsUIController::SendChangeInToHtml(int changeIn)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1381,6 +1381,38 @@
             endingLineNumber = "437"
             landmarkName = "AdjustOverprint(AIArtHandle currArtObj, AIColor fromColor, AIBoolean includeTints, AIBoolean overprint, int replaceIn, AIBoolean *altered)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Source/ColorToolsPlugin.cpp"
+            timestampString = "479247857.459589"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "257"
+            endingLineNumber = "257"
+            landmarkName = "ColorToolsPlugin::GoMenuItem(AIMenuMessage* message)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Source/ColorToolsUIController.cpp"
+            timestampString = "479326606.941168"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "234"
+            endingLineNumber = "234"
+            landmarkName = "ColorToolsUIController::SendCloseMessageToHtml()"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

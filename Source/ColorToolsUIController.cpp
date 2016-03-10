@@ -78,8 +78,6 @@ void ColorToolsUIController::UpdateListFunc (const csxs::event::Event* const eve
     return;
 }
 
-
-
 ColorToolsUIController::ColorToolsUIController(void)
 : FlashUIController(COLORTOOLS_UI_EXTENSION)
 {
@@ -222,4 +220,16 @@ ASErr ColorToolsUIController::SendChangeInToHtml(int changeIn)
     fPPLib.DispatchEvent(&event);
     
     return error;
+}
+
+void ColorToolsUIController::SendCloseMessageToHtml()
+{
+    csxs::event::Event event = {
+        EVENT_TYPE_FORCE_PANEL_CLOSE,
+        csxs::event::kEventScope_Application,
+        ILST_APP,
+        NULL,
+        NULL
+    };
+    fPPLib.DispatchEvent(&event);
 }

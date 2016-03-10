@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ExtensionManifest ExtensionBundleId="com.gosafeguard.ColorTools" ExtensionBundleName="ColorTools" ExtensionBundleVersion="1.0.0" Version="6.0">
   <ExtensionList>
-    <Extension Id="com.gosafeguard.ColorTools.findandreplace" Version="1.0.0"/>
+    <Extension Id="com.gosafeguard.ColorTools" Version="1.0.0"/>
   </ExtensionList>
   <ExecutionEnvironment>
     <HostList>
@@ -15,17 +15,17 @@
     </RequiredRuntimeList>
   </ExecutionEnvironment>
   <DispatchInfoList>
-    <Extension Id="com.gosafeguard.ColorTools.findandreplace">
+    <Extension Id="com.gosafeguard.ColorTools">
       <DispatchInfo>
         <Resources>
           <MainPath>./index.html</MainPath>
         </Resources>
         <Lifecycle>
-            <AutoVisible>true</AutoVisible>
+            <AutoVisible>false</AutoVisible>
         </Lifecycle>
         <UI>
           <Type>Panel</Type>
-          <!-- <Menu>Find and Replace Graphics</Menu> Disable Extensions menu-->
+          <!-- <Menu>Find and Replace Graphics</Menu>Disable Extensions menu -->
           <Geometry>
             <Size>
               <Height>170</Height>

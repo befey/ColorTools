@@ -160,14 +160,12 @@ ASErr ColorToolsPlugin::AddMenus(SPInterfaceMessage* message)
 	const char *menuGroupCStr = "SDKEditGroup";
 	const char *menuCStr = "Modify Swatches";
 	const char *fixBlackCStr = "Fix Black";
-	const char *addColorCStr = "Add Color";
 	const char *findReplaceCStr = "Find and Replace Graphics";
 	AIMenuGroup	menuGroup;
 	AIMenuGroup	pluginMenuGroup;
 	AIMenuGroup dummyGroup;
 	AIMenuItemHandle dummyItem;
 	bool sdkGroupAlreadyMade = false;
-	bool addColorGroupAlreadyMade = false;
 	bool findReplaceGroupAlreadyMade = false;
 	
 	//This line tells AI to put the new item in the Edit menu
@@ -176,9 +174,6 @@ ASErr ColorToolsPlugin::AddMenus(SPInterfaceMessage* message)
 	
 	fixBlackMenuData.groupName = menuGroupCStr;
 	fixBlackMenuData.itemText = ai::UnicodeString(fixBlackCStr);
-	
-	addColorMenuData.groupName = menuGroupCStr;
-	addColorMenuData.itemText = ai::UnicodeString(addColorCStr);
 	
 	findReplaceMenuData.groupName = menuGroupCStr;
 	findReplaceMenuData.itemText = ai::UnicodeString(findReplaceCStr);
@@ -201,10 +196,6 @@ ASErr ColorToolsPlugin::AddMenus(SPInterfaceMessage* message)
 			sdkGroupAlreadyMade = true;
 			count = -1;
 		}
-		if(std::strcmp(name,addColorCStr) == 0)
-		{
-			addColorGroupAlreadyMade = true;
-		}
 		if(std::strcmp(name,findReplaceCStr) == 0)
 		{
 			findReplaceGroupAlreadyMade = true;
@@ -220,17 +211,7 @@ ASErr ColorToolsPlugin::AddMenus(SPInterfaceMessage* message)
 		error = sAIMenu->AddMenuGroupAsSubMenu( menuGroupCStr, kMenuGroupSortedAlphabeticallyOption, dummyItem, &menuGroup );
 		if ( error ) goto error;
 	}
-	
-	
-/*	if(!addColorGroupAlreadyMade)
-	{
-		error = sAIMenu->AddMenuItem( message->d.self, addColorCStr, &addColorMenuData, 0, &dummyItem );
-		if ( error ) goto error;
-		
-		error = sAIMenu->AddMenuGroupAsSubMenu( addColorCStr, 0, dummyItem, &pluginMenuGroup );
-		if ( error ) goto error;
-	}
-	
+
 	if(!findReplaceGroupAlreadyMade)
 	{
 		error = sAIMenu->AddMenuItem( message->d.self, findReplaceCStr, &findReplaceMenuData, 0, &dummyItem );
@@ -239,19 +220,15 @@ ASErr ColorToolsPlugin::AddMenus(SPInterfaceMessage* message)
 		error = sAIMenu->AddMenuGroupAsSubMenu( findReplaceCStr, 0, dummyItem, &pluginMenuGroup );
 		if ( error ) goto error;
 	}
-*/	
+	
 	
 	error = sAIMenu->AddMenuItem( message->d.self, fixBlackCStr, &fixBlackMenuData, kMenuItemNoOptions, &FixBlackMenuItemSelected );
-	if ( error ) goto error;
-	
-/*	addColorMenuData.groupName = addColorCStr;
-	error = sAIMenu->AddMenuItem( message->d.self, addColorCStr, &addColorMenuData, kMenuItemWantsUpdateOption, &AddColorMenuItemSelected );
 	if ( error ) goto error;
 	
 	findReplaceMenuData.groupName = findReplaceCStr;
 	error = sAIMenu->AddMenuItem( message->d.self, findReplaceCStr, &findReplaceMenuData, kMenuItemWantsUpdateOption, &FindReplaceMenuItemSelected );
 	if ( error ) goto error;
-*/	
+	
 error:
 	return error;
 }
@@ -271,15 +248,21 @@ ASErr ColorToolsPlugin::GoMenuItem(AIMenuMessage* message)
 			//			sADMBasic->MessageAlert("Black was not fixed.");
 		}
 	}
-	if ( message->menuItem == AddColorMenuItemSelected )
-	{
-        //**Deprecated
-		//sADMDialog->Show( g->AddColorDialog, !( sADMDialog->IsVisible( g->AddColorDialog ) ) );
-	}
 	if ( message->menuItem == FindReplaceMenuItemSelected )
 	{
-        //**Deprecated
-		//sADMDialog->Show( g->FindReplaceDialog, !( sADMDialog->IsVisible( g->FindReplaceDialog ) ) );
+        //colorToolsUIController->ShowHideFaRPanel();
+        AIBoolean state;
+        sAICSXSExtension->IsPrimaryStageVisible(COLORTOOLS_UI_EXTENSION, state);
+
+        if (state == TRUE)
+        {
+            colorToolsUIController->SendCloseMessageToHtml();
+        }
+        else
+        {
+            sAICSXSExtension->LaunchExtension(COLORTOOLS_UI_EXTENSION);
+        }
+
 	}
 	
 	if (error)
@@ -297,18 +280,7 @@ ASErr ColorToolsPlugin::UpdateMenuItem(AIMenuMessage* message)
 	//	long isTrue;
 	AIErr error = kNoErr;
 	
-    /*Deprecated
-	if (message->menuItem == AddColorMenuItemSelected) {
-		if ( sADMDialog->IsVisible( g->AddColorDialog ) )
-		{
-			sAIMenu->SetItemText( message->menuItem, ai::UnicodeString("Hide Add Color") );
-		}
-		else
-		{
-			sAIMenu->SetItemText( message->menuItem, ai::UnicodeString("Show Add Color") );
-		}
-	}
-	if (message->menuItem == FindReplaceMenuItemSelected) {
+/*	if (message->menuItem == FindReplaceMenuItemSelected) {
 		if ( sADMDialog->IsVisible( g->FindReplaceDialog ) )
 		{
 			sAIMenu->SetItemText( message->menuItem, ai::UnicodeString("Hide Find and Replace Graphics") );
@@ -319,28 +291,6 @@ ASErr ColorToolsPlugin::UpdateMenuItem(AIMenuMessage* message)
 		}
 	}
 	*/
-	
-	
-	/*
-	 // This is only valid when kSelectorAIMacUpdateMenuItem is received, which is why we're here
-	 error = sAIMenu->GetUpdateFlags( &inArtwork, &isSelected, &isTrue );
-	 if ( error )
-	 goto error;
-	 
-	 // We get this here because the menu group into which we are installing automatically alphabetizes
-	 error = sAIMenu->GetPlatformMenuItem( g->manualUpdateAIMenu, &pmanualMenuItem );
-	 if ( error )
-	 goto error;
-	 
-	 // Do something based on the result.  It's easier than GetMatchingArt for this example, and can
-	 // also be used for a quick check before more processing.
-	 if ( isSelected & kMacIfGuide ) {
-	 sMacMenu->MacSetItem( pmanualMenuItem.menu, pmanualMenuItem.item, "\pDo Something To Selected Guides" );
-	 }
-	 else if ( inArtwork & kMacIfGuide ) {
-	 sMacMenu->MacSetItem( pmanualMenuItem.menu, pmanualMenuItem.item, "\pDo Something To All Guides" );
-	 }
-	 */
 	
 	if (error)
 		goto error;

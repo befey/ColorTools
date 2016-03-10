@@ -29,6 +29,7 @@ extern "C"
 	AITextFrameSuite*       sAITextFrame = NULL;
 	AIATEPaintSuite*        sAIATEPaint = NULL;
 	AIATETextUtilSuite*     sAIATETextUtil = NULL;
+    AICSXSExtensionSuite*   sAICSXSExtension = NULL;
     
 	EXTERN_TEXT_SUITES
 }
@@ -62,6 +63,7 @@ ImportSuite gImportSuites[] =
     kAITextFrameSuite, kAITextFrameSuiteVersion, &sAITextFrame,
     kAIATEPaintSuite, kAIATEPaintSuiteVersion, &sAIATEPaint,
     kAIATETextUtilSuite, kAIATETextUtilSuiteVersion, &sAIATETextUtil,
+    kAICSXSExtensionSuite, kAICSXSExtensionSuiteVersion, &sAICSXSExtension,
     
     IMPORT_TEXT_SUITES
     
