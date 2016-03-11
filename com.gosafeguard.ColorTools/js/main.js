@@ -182,7 +182,7 @@ function onChangeInBack(event)
 
 function attributeChanged()
 {
-	if ( $("#attribute-select").val() === 0 )
+	if ( $("#attribute-select").val() == 0 )
 	{
 		$("#addremove-span").toggle(false);
 		$("#to-span").toggle(true);
