@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ExtensionManifest ExtensionBundleId="com.gosafeguard.ColorTools" ExtensionBundleName="ColorTools" ExtensionBundleVersion="1.0.0" Version="6.0">
+<ExtensionManifest ExtensionBundleId="com.gosafeguard.ColorTools" ExtensionBundleName="ColorTools" ExtensionBundleVersion="1.1.0" Version="6.0">
   <ExtensionList>
-    <Extension Id="com.gosafeguard.ColorTools" Version="1.0.0"/>
+    <Extension Id="com.gosafeguard.ColorTools" Version="1.1.0"/>
   </ExtensionList>
   <ExecutionEnvironment>
     <HostList>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ExtensionList><Extension Id="com.gosafeguard.ColorToolsUI.addcolor">
+<ExtensionList><Extension Id="com.gosafeguard.ColorTools">
 	<HostList>
 		<Host Name=“ILST” Port=“8000”/>
 	</HostList>

@@ -1,0 +1,69 @@
+<!doctype html>
+<head>
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/CSInterface.js"></script>
+<script src="js/main.js"></script>
+
+
+<link rel="stylesheet" href="css/main.css" type="text/css" />
+</head>
+<html>
+
+    <body onMouseOver="csInterface.dispatchEvent(updateListEvent)">
+    	<div>
+            <form>
+				<span class="field">
+                    <label for="attribute-select">Attribute:</label>
+					<select id="attribute-select" onChange="attributeChanged()"> 
+						<option value="0" selected="selected">Color</option>
+						<option value="1" >Overprint</option>
+					</select>
+                </span>
+                <span class="field">        
+					<label for="changein-select">Change In:</label>
+					<select id="changein-select"> 
+						<option value="0" selected="selected">Selection</option>
+						<option value="1" >Document</option>
+					</select>
+                </span>
+                <span class="wide-field">
+					<label for="from-select">From:</label>
+					<select class="wide" id="from-select" onChange="fromToChanged()">
+					</select>
+                </span>
+                <span class="wide-field" id="to-span">
+					<label for="to-select">To:</label>
+					<select class="wide" id="to-select" onChange="fromToChanged()">
+					</select>
+                </span>
+                <span class="wide-field" id="addremove-span" style="display:none">
+                	<label for="addremove-select"> </label>
+					<select class="wide" id="addremove-select" onChange="addremoveChanged()">
+						<option value="0" selected="selected">Add Overprint</option>
+						<option value="1" >Remove Overprint</option>
+					</select>
+                </span>
+                <span class="wide-field">
+					<label for="applyto-select">Apply to:</label>
+					<select class="wide" id="applyto-select"> 
+						<option value="0" selected="selected">Fills & Strokes</option>
+						<option value="1" >Fills</option>
+						<option value="2" >Strokes</option>
+					</select>
+                </span>
+                <span class="field">
+                    <input id="tints-checkbox" type="checkbox" />
+                    <label for="tints-checkbox">Include tints</label>
+                </span>
+                <span class="changed" id="changed-items">
+                    Changed: <span id="changedCount">0</span>
+                </span>
+                <span class="buttons">
+					<input type="button" id="change-button" onClick="sendDataToIllustrator()" value="Change" /><br>
+					<input type="button" id="unusedcolors-button" onClick="csInterface.dispatchEvent(removeEvent)" value="Unused Colors" />
+                </span>
+            </form>
+		</div>	
+    </body>
+    
+</html>

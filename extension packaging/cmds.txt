@@ -1,0 +1,3 @@
+./ZXPSignCmd -sign ../com.gosafeguard.ColorTools ColorTools.zxp MyCert.p12 abc123 -tsa https://timestamp.geotrust.com/tsa
+
+./ZXPSignCmd -sign Staging ./Exmancmd/ColorTools.zxp MyCert.p12 abc123 -tsa https://timestamp.geotrust.com/tsa

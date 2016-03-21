@@ -30,9 +30,9 @@
 														<key>GID</key>
 														<integer>80</integer>
 														<key>PATH</key>
-														<string>/Users/t431962/Desktop/Adobe Illustrator CC 2014 SDK/samplecode/output/mac/debug/ColorTools.aip</string>
+														<string>../../output/mac/debug/ColorTools.aip</string>
 														<key>PATH_TYPE</key>
-														<integer>0</integer>
+														<integer>1</integer>
 														<key>PERMISSIONS</key>
 														<integer>493</integer>
 														<key>TYPE</key>
@@ -46,9 +46,9 @@
 														<key>GID</key>
 														<integer>80</integer>
 														<key>PATH</key>
-														<string>/Users/t431962/Desktop/Adobe Illustrator CC 2014 SDK/samplecode/output/mac/debug/TextTools.aip</string>
+														<string>../../output/mac/debug/TextTools.aip</string>
 														<key>PATH_TYPE</key>
-														<integer>0</integer>
+														<integer>1</integer>
 														<key>PERMISSIONS</key>
 														<integer>493</integer>
 														<key>TYPE</key>
@@ -133,316 +133,13 @@
 														<array>
 															<dict>
 																<key>CHILDREN</key>
-																<array>
-																	<dict>
-																		<key>CHILDREN</key>
-																		<array/>
-																		<key>GID</key>
-																		<integer>80</integer>
-																		<key>PATH</key>
-																		<string>/Users/t431962/Desktop/unzipped extension panel/com.gosafeguard.ColorTools/.debug</string>
-																		<key>PATH_TYPE</key>
-																		<integer>0</integer>
-																		<key>PERMISSIONS</key>
-																		<integer>420</integer>
-																		<key>TYPE</key>
-																		<integer>3</integer>
-																		<key>UID</key>
-																		<integer>0</integer>
-																	</dict>
-																	<dict>
-																		<key>CHILDREN</key>
-																		<array>
-																			<dict>
-																				<key>CHILDREN</key>
-																				<array/>
-																				<key>GID</key>
-																				<integer>80</integer>
-																				<key>PATH</key>
-																				<string>/Users/t431962/Desktop/unzipped extension panel/com.gosafeguard.ColorTools/css/main.css</string>
-																				<key>PATH_TYPE</key>
-																				<integer>0</integer>
-																				<key>PERMISSIONS</key>
-																				<integer>420</integer>
-																				<key>TYPE</key>
-																				<integer>3</integer>
-																				<key>UID</key>
-																				<integer>0</integer>
-																			</dict>
-																		</array>
-																		<key>EXPANDED</key>
-																		<true/>
-																		<key>GID</key>
-																		<integer>80</integer>
-																		<key>PATH</key>
-																		<string>/Users/t431962/Desktop/unzipped extension panel/com.gosafeguard.ColorTools/css</string>
-																		<key>PATH_TYPE</key>
-																		<integer>0</integer>
-																		<key>PERMISSIONS</key>
-																		<integer>493</integer>
-																		<key>TYPE</key>
-																		<integer>3</integer>
-																		<key>UID</key>
-																		<integer>0</integer>
-																	</dict>
-																	<dict>
-																		<key>CHILDREN</key>
-																		<array>
-																			<dict>
-																				<key>CHILDREN</key>
-																				<array/>
-																				<key>GID</key>
-																				<integer>80</integer>
-																				<key>PATH</key>
-																				<string>/Users/t431962/Desktop/unzipped extension panel/com.gosafeguard.ColorTools/CSXS/.DS_Store</string>
-																				<key>PATH_TYPE</key>
-																				<integer>0</integer>
-																				<key>PERMISSIONS</key>
-																				<integer>420</integer>
-																				<key>TYPE</key>
-																				<integer>3</integer>
-																				<key>UID</key>
-																				<integer>0</integer>
-																			</dict>
-																			<dict>
-																				<key>CHILDREN</key>
-																				<array/>
-																				<key>GID</key>
-																				<integer>80</integer>
-																				<key>PATH</key>
-																				<string>/Users/t431962/Desktop/unzipped extension panel/com.gosafeguard.ColorTools/CSXS/manifest.xml</string>
-																				<key>PATH_TYPE</key>
-																				<integer>0</integer>
-																				<key>PERMISSIONS</key>
-																				<integer>438</integer>
-																				<key>TYPE</key>
-																				<integer>3</integer>
-																				<key>UID</key>
-																				<integer>0</integer>
-																			</dict>
-																		</array>
-																		<key>EXPANDED</key>
-																		<true/>
-																		<key>GID</key>
-																		<integer>80</integer>
-																		<key>PATH</key>
-																		<string>/Users/t431962/Desktop/unzipped extension panel/com.gosafeguard.ColorTools/CSXS</string>
-																		<key>PATH_TYPE</key>
-																		<integer>0</integer>
-																		<key>PERMISSIONS</key>
-																		<integer>493</integer>
-																		<key>TYPE</key>
-																		<integer>3</integer>
-																		<key>UID</key>
-																		<integer>0</integer>
-																	</dict>
-																	<dict>
-																		<key>CHILDREN</key>
-																		<array/>
-																		<key>GID</key>
-																		<integer>80</integer>
-																		<key>PATH</key>
-																		<string>/Users/t431962/Desktop/unzipped extension panel/com.gosafeguard.ColorTools/index.html</string>
-																		<key>PATH_TYPE</key>
-																		<integer>0</integer>
-																		<key>PERMISSIONS</key>
-																		<integer>438</integer>
-																		<key>TYPE</key>
-																		<integer>3</integer>
-																		<key>UID</key>
-																		<integer>0</integer>
-																	</dict>
-																	<dict>
-																		<key>CHILDREN</key>
-																		<array>
-																			<dict>
-																				<key>CHILDREN</key>
-																				<array/>
-																				<key>GID</key>
-																				<integer>80</integer>
-																				<key>PATH</key>
-																				<string>/Users/t431962/Desktop/unzipped extension panel/com.gosafeguard.ColorTools/js/.DS_Store</string>
-																				<key>PATH_TYPE</key>
-																				<integer>0</integer>
-																				<key>PERMISSIONS</key>
-																				<integer>420</integer>
-																				<key>TYPE</key>
-																				<integer>3</integer>
-																				<key>UID</key>
-																				<integer>0</integer>
-																			</dict>
-																			<dict>
-																				<key>CHILDREN</key>
-																				<array/>
-																				<key>GID</key>
-																				<integer>80</integer>
-																				<key>PATH</key>
-																				<string>/Users/t431962/Desktop/unzipped extension panel/com.gosafeguard.ColorTools/js/AgoraLib.js</string>
-																				<key>PATH_TYPE</key>
-																				<integer>0</integer>
-																				<key>PERMISSIONS</key>
-																				<integer>493</integer>
-																				<key>TYPE</key>
-																				<integer>3</integer>
-																				<key>UID</key>
-																				<integer>0</integer>
-																			</dict>
-																			<dict>
-																				<key>CHILDREN</key>
-																				<array/>
-																				<key>GID</key>
-																				<integer>80</integer>
-																				<key>PATH</key>
-																				<string>/Users/t431962/Desktop/unzipped extension panel/com.gosafeguard.ColorTools/js/CEPEngine_extensions.js</string>
-																				<key>PATH_TYPE</key>
-																				<integer>0</integer>
-																				<key>PERMISSIONS</key>
-																				<integer>493</integer>
-																				<key>TYPE</key>
-																				<integer>3</integer>
-																				<key>UID</key>
-																				<integer>0</integer>
-																			</dict>
-																			<dict>
-																				<key>CHILDREN</key>
-																				<array/>
-																				<key>GID</key>
-																				<integer>80</integer>
-																				<key>PATH</key>
-																				<string>/Users/t431962/Desktop/unzipped extension panel/com.gosafeguard.ColorTools/js/CSInterface.js</string>
-																				<key>PATH_TYPE</key>
-																				<integer>0</integer>
-																				<key>PERMISSIONS</key>
-																				<integer>493</integer>
-																				<key>TYPE</key>
-																				<integer>3</integer>
-																				<key>UID</key>
-																				<integer>0</integer>
-																			</dict>
-																			<dict>
-																				<key>CHILDREN</key>
-																				<array/>
-																				<key>GID</key>
-																				<integer>80</integer>
-																				<key>PATH</key>
-																				<string>/Users/t431962/Desktop/unzipped extension panel/com.gosafeguard.ColorTools/js/jquery-1.9.1.min.js</string>
-																				<key>PATH_TYPE</key>
-																				<integer>0</integer>
-																				<key>PERMISSIONS</key>
-																				<integer>438</integer>
-																				<key>TYPE</key>
-																				<integer>3</integer>
-																				<key>UID</key>
-																				<integer>0</integer>
-																			</dict>
-																			<dict>
-																				<key>CHILDREN</key>
-																				<array/>
-																				<key>GID</key>
-																				<integer>80</integer>
-																				<key>PATH</key>
-																				<string>/Users/t431962/Desktop/unzipped extension panel/com.gosafeguard.ColorTools/js/main.js</string>
-																				<key>PATH_TYPE</key>
-																				<integer>0</integer>
-																				<key>PERMISSIONS</key>
-																				<integer>420</integer>
-																				<key>TYPE</key>
-																				<integer>3</integer>
-																				<key>UID</key>
-																				<integer>0</integer>
-																			</dict>
-																			<dict>
-																				<key>CHILDREN</key>
-																				<array/>
-																				<key>GID</key>
-																				<integer>80</integer>
-																				<key>PATH</key>
-																				<string>/Users/t431962/Desktop/unzipped extension panel/com.gosafeguard.ColorTools/js/Vulcan.js</string>
-																				<key>PATH_TYPE</key>
-																				<integer>0</integer>
-																				<key>PERMISSIONS</key>
-																				<integer>493</integer>
-																				<key>TYPE</key>
-																				<integer>3</integer>
-																				<key>UID</key>
-																				<integer>0</integer>
-																			</dict>
-																		</array>
-																		<key>EXPANDED</key>
-																		<true/>
-																		<key>GID</key>
-																		<integer>80</integer>
-																		<key>PATH</key>
-																		<string>/Users/t431962/Desktop/unzipped extension panel/com.gosafeguard.ColorTools/js</string>
-																		<key>PATH_TYPE</key>
-																		<integer>0</integer>
-																		<key>PERMISSIONS</key>
-																		<integer>493</integer>
-																		<key>TYPE</key>
-																		<integer>3</integer>
-																		<key>UID</key>
-																		<integer>0</integer>
-																	</dict>
-																	<dict>
-																		<key>CHILDREN</key>
-																		<array>
-																			<dict>
-																				<key>CHILDREN</key>
-																				<array/>
-																				<key>GID</key>
-																				<integer>80</integer>
-																				<key>PATH</key>
-																				<string>/Users/t431962/Desktop/unzipped extension panel/com.gosafeguard.ColorTools/META-INF/signatures.xml</string>
-																				<key>PATH_TYPE</key>
-																				<integer>0</integer>
-																				<key>PERMISSIONS</key>
-																				<integer>420</integer>
-																				<key>TYPE</key>
-																				<integer>3</integer>
-																				<key>UID</key>
-																				<integer>0</integer>
-																			</dict>
-																		</array>
-																		<key>EXPANDED</key>
-																		<true/>
-																		<key>GID</key>
-																		<integer>80</integer>
-																		<key>PATH</key>
-																		<string>/Users/t431962/Desktop/unzipped extension panel/com.gosafeguard.ColorTools/META-INF</string>
-																		<key>PATH_TYPE</key>
-																		<integer>0</integer>
-																		<key>PERMISSIONS</key>
-																		<integer>493</integer>
-																		<key>TYPE</key>
-																		<integer>3</integer>
-																		<key>UID</key>
-																		<integer>0</integer>
-																	</dict>
-																	<dict>
-																		<key>CHILDREN</key>
-																		<array/>
-																		<key>GID</key>
-																		<integer>80</integer>
-																		<key>PATH</key>
-																		<string>/Users/t431962/Desktop/unzipped extension panel/com.gosafeguard.ColorTools/mimetype</string>
-																		<key>PATH_TYPE</key>
-																		<integer>0</integer>
-																		<key>PERMISSIONS</key>
-																		<integer>420</integer>
-																		<key>TYPE</key>
-																		<integer>3</integer>
-																		<key>UID</key>
-																		<integer>0</integer>
-																	</dict>
-																</array>
-																<key>EXPANDED</key>
-																<true/>
+																<array/>
 																<key>GID</key>
 																<integer>80</integer>
 																<key>PATH</key>
-																<string>/Users/t431962/Desktop/unzipped extension panel/com.gosafeguard.ColorTools</string>
+																<string>../extension packaging/unzipped extension panel/com.gosafeguard.ColorTools</string>
 																<key>PATH_TYPE</key>
-																<integer>0</integer>
+																<integer>1</integer>
 																<key>PERMISSIONS</key>
 																<integer>493</integer>
 																<key>TYPE</key>
@@ -884,6 +581,13 @@
 		</dict>
 		<key>PACKAGE_SCRIPTS</key>
 		<dict>
+			<key>PREINSTALL_PATH</key>
+			<dict>
+				<key>PATH</key>
+				<string>remove old files.sh</string>
+				<key>PATH_TYPE</key>
+				<integer>1</integer>
+			</dict>
 			<key>RESOURCES</key>
 			<array/>
 		</dict>
@@ -898,7 +602,7 @@
 			<key>OVERWRITE_PERMISSIONS</key>
 			<false/>
 			<key>VERSION</key>
-			<string>1.0.0</string>
+			<string>1.1</string>
 		</dict>
 		<key>PROJECT_COMMENTS</key>
 		<dict>
