@@ -58,8 +58,7 @@ void BtSwatchList::CreateOrConvertToCustomColor(BtColor* color)
     else
     {
         AICustomColorHandle hCreatedCustomColor;
-        AIErr err = sAICustomColor->NewCustomColor(&newCustomColorDefinition, ai::UnicodeString(color->GetName()),
-                                                   &hCreatedCustomColor);
+        sAICustomColor->NewCustomColor(&newCustomColorDefinition, ai::UnicodeString(color->GetName()), &hCreatedCustomColor);
         newAiColorDefinition.kind = kCustomColor;
         newAiColorDefinition.c.c.tint = 0;
         newAiColorDefinition.c.c.color = hCreatedCustomColor;
@@ -327,7 +326,6 @@ std::vector<std::string> BtSwatchList::GetCurrentSwatchesAsStringVector()
 
 string BtSwatchList::GetColorListAsXMLString()
 {
-    AIErr error = kNoErr;
     vector<string> swatches = GetCurrentSwatchesAsStringVector();
     
     //Format as XML string
