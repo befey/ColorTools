@@ -1,13 +1,13 @@
 //
 //  BtSwatchList.h
-//  ColorTools
+//  SafeguardTools
 //
 //  Created by T431962 on 2/20/15.
 //
 //
 
-#ifndef __ColorTools__BtSwatchList__
-#define __ColorTools__BtSwatchList__
+#ifndef __SafeguardTools__BtSwatchList__
+#define __SafeguardTools__BtSwatchList__
 
 //=================================
 // included dependencies
@@ -69,4 +69,4 @@ private:
     static void AdjustAllColorsCallback(AIColor *color, void *userData, AIErr *result, AIBoolean *altered);
 };
 
-#endif /* defined(__ColorTools__BtSwatchList__) */
+#endif /* defined(__SafeguardTools__BtSwatchList__) */

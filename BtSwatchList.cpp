@@ -1,6 +1,6 @@
 //
 //  BtSwatchList.cpp
-//  ColorTools
+//  SafeguardTools
 //
 //  Created by T431962 on 2/20/15.
 //

@@ -1,13 +1,13 @@
 //
 //  BtColor.h
-//  ColorTools
+//  SafeguardTools
 //
 //  Created by T431962 on 2/16/15.
 //
 //
 
-#ifndef __ColorTools__BtColor__
-#define __ColorTools__BtColor__
+#ifndef __SafeguardTools__BtColor__
+#define __SafeguardTools__BtColor__
 
 
 //=================================
@@ -51,4 +51,4 @@ private:
 };
 
 
-#endif /* defined(__ColorTools__BtColor__) */
+#endif /* defined(__SafeguardTools__BtColor__) */
