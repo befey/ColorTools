@@ -1,6 +1,6 @@
 //
 //  FindReplaceGraphics.cpp
-//  ColorTools
+//  SafeguardTools
 //
 //  Created by T431962 on 5/21/15.
 //

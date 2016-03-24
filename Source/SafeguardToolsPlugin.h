@@ -1,41 +1,41 @@
-#ifndef __ColorToolsPlugin_h__
-#define __ColorToolsPlugin_h__
+#ifndef __SafeguardToolsPlugin_h__
+#define __SafeguardToolsPlugin_h__
 
 #include "Plugin.hpp"
 #include "AIMenuGroups.h"
 #include "SDKDef.h"
 #include "SDKAboutPluginsHelper.h"
-#include "ColorToolsID.h"
+#include "SafeguardToolsID.h"
 
 class ColorToolsUIController;
 class BtSwatchList;
 
-/**	Creates a new ColorToolsPlugin.
+/**	Creates a new SafeguardToolsPlugin.
 	@param pluginRef IN unique reference to this plugin.
-	@return pointer to new ColorToolsPlugin.
+	@return pointer to new SafeguardToolsPlugin.
 */
 Plugin* AllocatePlugin(SPPluginRef pluginRef);
 
-/**	Reloads the ColorToolsPlugin class state when the plugin is 
+/**	Reloads the SafeguardToolsPlugin class state when the plugin is
 	reloaded by the application.
 	@param plugin IN pointer to plugin being reloaded.
 */
 void FixupReload(Plugin* plugin);
 
-/**	Hooks ColorTools up as an Illustrator plug-in.
-	@ingroup ColorTools
+/**	Hooks SafeguardTools up as an Illustrator plug-in.
+	@ingroup SafeguardTools
 */
-class ColorToolsPlugin : public Plugin
+class SafeguardToolsPlugin : public Plugin
 {
 public:
 	/** Constructor.
 		@param pluginRef IN reference to this plugin.
 	*/
-	ColorToolsPlugin(SPPluginRef pluginRef);
+	SafeguardToolsPlugin(SPPluginRef pluginRef);
 
 	/** Destructor.
 	*/
-	virtual ~ColorToolsPlugin();
+	virtual ~SafeguardToolsPlugin();
     
     
     ColorToolsUIController* GetColorToolsUIController() const { return colorToolsUIController; }
@@ -43,9 +43,9 @@ public:
     void SetBtSwatchList(BtSwatchList *swatchList) { mySwatchList = swatchList; }
     
   
-    /**	Restores state of ColorToolsPlugin during reload.
+    /**	Restores state of SafeguardToolsPlugin during reload.
 	*/
-	FIXUP_VTABLE_EX(ColorToolsPlugin, Plugin);
+	FIXUP_VTABLE_EX(SafeguardToolsPlugin, Plugin);
     
 protected:
 	/** Calls Plugin::Message and handles any errors returned.

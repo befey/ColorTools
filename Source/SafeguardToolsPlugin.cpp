@@ -1,6 +1,6 @@
 #include "IllustratorSDK.h"
-#include "ColorToolsPlugin.h"
-#include "ColorToolsSuites.h"
+#include "SafeguardToolsPlugin.h"
+#include "SafeguardToolsSuites.h"
 
 #include "AICSXS.h"
 
@@ -8,32 +8,32 @@
 #include "BtSwatchList.h"
 #include "FixBlack.h"
 
-ColorToolsPlugin *gPlugin = NULL;
+SafeguardToolsPlugin *gPlugin = NULL;
 
 Plugin* AllocatePlugin(SPPluginRef pluginRef)
 {
-	return new ColorToolsPlugin(pluginRef);
+	return new SafeguardToolsPlugin(pluginRef);
 }
 
 void FixupReload(Plugin* plugin)
 {
-	ColorToolsPlugin::FixupVTable((ColorToolsPlugin*) plugin);
+	SafeguardToolsPlugin::FixupVTable((SafeguardToolsPlugin*) plugin);
 }
 
-ColorToolsPlugin::ColorToolsPlugin(SPPluginRef pluginRef) :
+SafeguardToolsPlugin::SafeguardToolsPlugin(SPPluginRef pluginRef) :
 	Plugin(pluginRef),
     fRegisterEventNotifierHandle(NULL),
     colorToolsUIController(NULL),
     mySwatchList(NULL)
 {
-	strncpy(fPluginName, kColorToolsPluginName, kMaxStringLength);
+	strncpy(fPluginName, kSafeguardToolsPluginName, kMaxStringLength);
 }
 
-ColorToolsPlugin::~ColorToolsPlugin()
+SafeguardToolsPlugin::~SafeguardToolsPlugin()
 {
 }
 
-ASErr ColorToolsPlugin::Message(char* caller, char* selector, void *message)
+ASErr SafeguardToolsPlugin::Message(char* caller, char* selector, void *message)
 {
 	ASErr error = kNoErr;
     
@@ -58,14 +58,14 @@ ASErr ColorToolsPlugin::Message(char* caller, char* selector, void *message)
 	return error;
 }
 
-ASErr ColorToolsPlugin::SetGlobal(Plugin *plugin)
+ASErr SafeguardToolsPlugin::SetGlobal(Plugin *plugin)
 {
-    gPlugin = (ColorToolsPlugin *) plugin;
+    gPlugin = (SafeguardToolsPlugin *) plugin;
     return kNoErr;
 }
 
 
-ASErr ColorToolsPlugin::StartupPlugin( SPInterfaceMessage *message )
+ASErr SafeguardToolsPlugin::StartupPlugin( SPInterfaceMessage *message )
 {
 	ASErr error = kNoErr;
     error = Plugin::StartupPlugin(message);
@@ -88,29 +88,29 @@ ASErr ColorToolsPlugin::StartupPlugin( SPInterfaceMessage *message )
     }
     
     //Register for notifiers
-    error = sAINotifier->AddNotifier( fPluginRef, kColorToolsPluginName,
+    error = sAINotifier->AddNotifier( fPluginRef, kSafeguardToolsPluginName,
                                      kAICSXSPlugPlugSetupCompleteNotifier, &fRegisterEventNotifierHandle);
     if (error) { return error; }
-    error = sAINotifier->AddNotifier( fPluginRef, kColorToolsPluginName,
+    error = sAINotifier->AddNotifier( fPluginRef, kSafeguardToolsPluginName,
                                      kAIApplicationStartedNotifier, &fAppStartedNotifierHandle);
     if (error) { return error; }
-    error = sAINotifier->AddNotifier( fPluginRef, kColorToolsPluginName,
+    error = sAINotifier->AddNotifier( fPluginRef, kSafeguardToolsPluginName,
                                      kAIDocumentOpenedNotifier, &fDocOpenedNotifierHandle);
     if (error) { return error; }
-    error = sAINotifier->AddNotifier( fPluginRef, kColorToolsPluginName,
+    error = sAINotifier->AddNotifier( fPluginRef, kSafeguardToolsPluginName,
                                      kAIArtCustomColorChangedNotifier, &fCustomColorChangeNotifierHandle);
     if (error) { return error; }
-    error = sAINotifier->AddNotifier( fPluginRef, kColorToolsPluginName,
+    error = sAINotifier->AddNotifier( fPluginRef, kSafeguardToolsPluginName,
                                      kAISwatchLibraryChangedNotifier, &fSwatchLibChangeNotifierHandle);
     if (error) { return error; }
-    error = sAINotifier->AddNotifier( fPluginRef, kColorToolsPluginName,
+    error = sAINotifier->AddNotifier( fPluginRef, kSafeguardToolsPluginName,
                                      kAIArtSelectionChangedNotifier, &fArtSelectionChangeNotifierHandle);
     if (error) { return error; }
     
     return error;
 }
 
-ASErr ColorToolsPlugin::ShutdownPlugin( SPInterfaceMessage *message )
+ASErr SafeguardToolsPlugin::ShutdownPlugin( SPInterfaceMessage *message )
 {
     if (colorToolsUIController)
     {
@@ -128,26 +128,26 @@ ASErr ColorToolsPlugin::ShutdownPlugin( SPInterfaceMessage *message )
 
 }
 
-ASErr ColorToolsPlugin::ReloadPlugin(SPInterfaceMessage *message)
+ASErr SafeguardToolsPlugin::ReloadPlugin(SPInterfaceMessage *message)
 {
     return Plugin::ReloadPlugin(message);
 }
 
-ASErr ColorToolsPlugin::UnloadPlugin(SPInterfaceMessage *message)
+ASErr SafeguardToolsPlugin::UnloadPlugin(SPInterfaceMessage *message)
 {
     return Plugin::UnloadPlugin(message);
 }
 
 /*
  */
-ASErr ColorToolsPlugin::PostStartupPlugin()
+ASErr SafeguardToolsPlugin::PostStartupPlugin()
 {
     return kNoErr;
 }
 
 /*
  */
-ASErr ColorToolsPlugin::AddMenus(SPInterfaceMessage* message)
+ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
 {
 	AIErr error = kNoErr;
 	
@@ -234,7 +234,7 @@ error:
 
 /*
  */
-ASErr ColorToolsPlugin::GoMenuItem(AIMenuMessage* message)
+ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
 {
 	AIErr error = kNoErr;
 	
@@ -267,7 +267,7 @@ error:
 }
 
 
-ASErr ColorToolsPlugin::UpdateMenuItem(AIMenuMessage* message)
+ASErr SafeguardToolsPlugin::UpdateMenuItem(AIMenuMessage* message)
 {
 	AIErr error = kNoErr;
 	
@@ -291,7 +291,7 @@ error:
 	return error;
 }
 
-ASErr ColorToolsPlugin::Notify(AINotifierMessage *message )
+ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
 {
     if ( message->notifier == fRegisterEventNotifierHandle)
     {

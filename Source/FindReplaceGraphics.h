@@ -1,13 +1,13 @@
 //
 //  FindReplaceGraphics.h
-//  ColorTools
+//  SafeguardTools
 //
 //  Created by T431962 on 5/21/15.
 //
 //
 
-#ifndef __ColorTools__FindReplaceGraphics__
-#define __ColorTools__FindReplaceGraphics__
+#ifndef __SafeguardTools__FindReplaceGraphics__
+#define __SafeguardTools__FindReplaceGraphics__
 
 class ReplaceData;
 
@@ -16,4 +16,4 @@ void fillArtSet( AIArtSet &artSet, int changeIn);
 
 void adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *altered);
 
-#endif /* defined(__ColorTools__FindReplaceGraphics__) */
+#endif /* defined(__SafeguardTools__FindReplaceGraphics__) */

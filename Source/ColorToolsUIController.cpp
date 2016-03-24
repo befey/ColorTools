@@ -1,6 +1,6 @@
 //
-//  ColorToolsUIHandler.cpp
-//  ColorTools
+//  ColorToolsUIController.cpp
+//  SafeguardTools
 //
 //  Created by T431962 on 5/19/15.
 //
@@ -8,8 +8,8 @@
 
 #include "AppContext.hpp"
 #include "ColorToolsUIController.h"
-#include "ColorToolsPlugin.h"
-#include "ColorToolsSuites.h"
+#include "SafeguardToolsPlugin.h"
+#include "SafeguardToolsSuites.h"
 #include "BtSwatchList.h"
 #include "ReplaceData.h"
 #include "FindReplaceGraphics.h"

@@ -1,13 +1,13 @@
 //
 //  ReplaceData.h
-//  ColorTools
+//  SafeguardTools
 //
 //  Created by T431962 on 10/7/15.
 //
 //
 
-#ifndef __ColorTools__ReplaceData__
-#define __ColorTools__ReplaceData__
+#ifndef __SafeguardTools__ReplaceData__
+#define __SafeguardTools__ReplaceData__
 
 #define ATTRIBUTE_SELECT                     "attribute-select"
 #define ATTRIBUTE_COLOR                     0
@@ -50,4 +50,4 @@ public:
 };
 
 
-#endif /* defined(__ColorTools__ReplaceData__) */
+#endif /* defined(__SafeguardTools__ReplaceData__) */

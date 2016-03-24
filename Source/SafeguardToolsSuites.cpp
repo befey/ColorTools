@@ -1,5 +1,5 @@
 #include "IllustratorSDK.h"
-#include "ColorToolsSuites.h"
+#include "SafeguardToolsSuites.h"
 
 // Suite externs
 extern "C"

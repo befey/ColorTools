@@ -1,13 +1,13 @@
 //
-//  ColorToolsUIHandler.h
-//  ColorTools
+//  ColorToolsUIController.h
+//  SafeguardTools
 //
 //  Created by T431962 on 5/19/15.
 //
 //
 
-#ifndef __ColorTools__ColorToolsUIController__
-#define __ColorTools__ColorToolsUIController__
+#ifndef __SafeguardTools__ColorToolsUIController__
+#define __SafeguardTools__ColorToolsUIController__
 
 #include "SDKPlugPlug.h"
 #include "FlashUIController.h"
@@ -24,8 +24,8 @@
 #define ILST_APP                            "ILST"
 
 
-class ColorToolsPlugin;
-extern ColorToolsPlugin *gPlugin;
+class SafeguardToolsPlugin;
+extern SafeguardToolsPlugin *gPlugin;
 
 static void ChangeButtonClickedFunc (const csxs::event::Event* const event, void* const context);
 static void RemoveButtonClickedFunc (const csxs::event::Event* const event, void* const context);
@@ -62,4 +62,4 @@ public:
 private:
 };
 
-#endif /* defined(__ColorTools__ColorToolsUIController__) */
+#endif /* defined(__SafeguardTools__ColorToolsUIController__) */

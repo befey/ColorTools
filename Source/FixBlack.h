@@ -15,8 +15,8 @@
 #ifndef __fixblack__
 #define __fixblack__
 
-class ColorToolsPlugin;
-extern ColorToolsPlugin *gPlugin;
+class SafeguardToolsPlugin;
+extern SafeguardToolsPlugin *gPlugin;
 
 /*******************************************************************************
  **

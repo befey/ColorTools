@@ -7,9 +7,9 @@
 #include "ColorFuncs.h"
 #include "stdio.h"
 #include "FixBlack.h"
-#include "ColorToolsSuites.h"
+#include "SafeguardToolsSuites.h"
 #include "BtSwatchList.h"
-#include "ColorToolsPlugin.h"
+#include "SafeguardToolsPlugin.h"
 
 bool FixBlack() {
 

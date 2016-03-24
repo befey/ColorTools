@@ -1,5 +1,5 @@
-#ifndef __ColorToolsSuites_H__
-#define __ColorToolsSuites_H__
+#ifndef __SafeguardToolsSuites_H__
+#define __SafeguardToolsSuites_H__
 
 #include "IllustratorSDK.h"
 #include "Suites.hpp"
