@@ -9,6 +9,7 @@ extern "C"
     AIMenuSuite*			sAIMenu = NULL;
     
     AIArtSuite*             sAIArt = NULL;
+    AIGroupSuite*           sAIGroup = NULL;
     
     AIUndoSuite*            sAIUndo = NULL;
     AISwatchLibrariesSuite* sAISwatchLibrary = NULL;
@@ -16,12 +17,19 @@ extern "C"
 	AISwatchGroupSuite*     sAISwatchGroup = NULL;
 	AICustomColorSuite*     sAICustomColor = NULL;
 	AIColorConversionSuite* sAIColorConversion = NULL;
-	AIDocumentSuite*        sAIDocument = NULL;
+
+    AIDocumentSuite*        sAIDocument = NULL;
 	AIDocumentListSuite*    sAIDocumentList = NULL;
+    AIDocumentViewSuite*    sAIDocumentView = NULL;
+
 	AIArtSetSuite*          sAIArtSet = NULL;
 	AIArtStyleSuite*        sAIArtStyle = NULL;
+    
+    AIPathSuite*            sAIPath = NULL;
 	AIPathStyleSuite*       sAIPathStyle = NULL;
-	AIRealMathSuite*        sAIRealMath = NULL;
+
+    AITransformArtSuite*    sAITransformArt = NULL;
+    AIRealMathSuite*        sAIRealMath = NULL;
 	AIMatchingArtSuite*     sAIMatchingArt = NULL;
 	AIMdMemorySuite*        sAIMdMemory = NULL;
 	AIPatternSuite*         sAIPattern = NULL;
@@ -30,6 +38,16 @@ extern "C"
 	AIATEPaintSuite*        sAIATEPaint = NULL;
 	AIATETextUtilSuite*     sAIATETextUtil = NULL;
     AICSXSExtensionSuite*   sAICSXSExtension = NULL;
+    AIFontSuite*            sAIFont = NULL;
+    
+    AIUIDSuite*             sAIUID = NULL;
+    AIUIDREFSuite*          sAIUIDREF = NULL;
+    AIUIDUtilsSuite*        sAIUIDUtils = NULL;
+    AIUIDPoolSuite*         sAIUIDPool = NULL;
+    
+    AIDictionarySuite*      sAIDictionary = NULL;
+    AIEntrySuite*           sAIEntry = NULL;
+
     
 	EXTERN_TEXT_SUITES
 }
@@ -43,6 +61,7 @@ ImportSuite gImportSuites[] =
     kAIMenuSuite, kAIMenuSuiteVersion, &sAIMenu,
     
     kAIArtSuite, kAIArtSuiteVersion, &sAIArt,
+    kAIGroupSuite, kAIGroupSuiteVersion, &sAIGroup,
     
     kAIUndoSuite, kAIUndoSuiteVersion, &sAIUndo,
 	kAISwatchLibrariesSuite, kAISwatchLibrariesSuiteVersion, &sAISwatchLibrary,
@@ -50,20 +69,37 @@ ImportSuite gImportSuites[] =
 	kAISwatchGroupSuite, kAISwatchGroupSuiteVersion, &sAISwatchGroup,
 	kAICustomColorSuite, kAICustomColorSuiteVersion, &sAICustomColor,
 	kAIColorConversionSuite, kAIColorConversionSuiteVersion, &sAIColorConversion,
-	kAIDocumentSuite, kAIDocumentSuiteVersion, &sAIDocument,
+
+    kAIDocumentSuite, kAIDocumentSuiteVersion, &sAIDocument,
 	kAIDocumentListSuite, kAIDocumentListVersion, &sAIDocumentList,
-	kAIArtSetSuite, kAIArtSetSuiteVersion, &sAIArtSet,
+    kAIDocumentViewSuite, kAIDocumentViewSuiteVersion, &sAIDocumentView,
+
+    kAIArtSetSuite, kAIArtSetSuiteVersion, &sAIArtSet,
 	kAIArtStyleSuite, kAIArtStyleSuiteVersion, &sAIArtStyle,
+
+    kAIPathSuite, kAIPathSuiteVersion, &sAIPath,
 	kAIPathStyleSuite, kAIPathStyleSuiteVersion, &sAIPathStyle,
-	kAIRealMathSuite, kAIRealMathSuiteVersion, &sAIRealMath,
+
+    kAITransformArtSuite, kAITransformArtSuiteVersion, &sAITransformArt,
+    kAIRealMathSuite, kAIRealMathSuiteVersion, &sAIRealMath,
 	kAIMatchingArtSuite, kAIMatchingArtSuiteVersion, &sAIMatchingArt,
 	kAIMdMemorySuite, kAIMdMemorySuiteVersion, &sAIMdMemory,
     
     kAIPatternSuite, kAIPatternSuiteVersion, &sAIPattern,
     kAITextFrameSuite, kAITextFrameSuiteVersion, &sAITextFrame,
+    kAIFontSuite, kAIFontSuiteVersion, &sAIFont,
     kAIATEPaintSuite, kAIATEPaintSuiteVersion, &sAIATEPaint,
     kAIATETextUtilSuite, kAIATETextUtilSuiteVersion, &sAIATETextUtil,
     kAICSXSExtensionSuite, kAICSXSExtensionSuiteVersion, &sAICSXSExtension,
+    
+    kAIUIDSuite, kAIUIDSuiteVersion, &sAIUID,
+    kAIUIDREFSuite, kAIUIDREFSuiteVersion, &sAIUIDREF,
+    kAIUIDUtilsSuite, kAIUIDUtilsSuiteVersion, &sAIUIDUtils,
+    kAIUIDPoolSuite, kAIUIDPoolSuiteVersion, &sAIUIDPool,
+    
+    kAIDictionarySuite, kAIDictionarySuiteVersion, &sAIDictionary,
+    kAIEntrySuite, kAIEntrySuiteVersion, &sAIEntry,
+
     
     IMPORT_TEXT_SUITES
     

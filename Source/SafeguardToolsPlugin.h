@@ -4,7 +4,6 @@
 #include "Plugin.hpp"
 #include "AIMenuGroups.h"
 #include "SDKDef.h"
-#include "SDKAboutPluginsHelper.h"
 #include "SafeguardToolsID.h"
 
 class ColorToolsUIController;
@@ -93,6 +92,7 @@ private:
     BtSwatchList *mySwatchList;
     ColorToolsUIController *colorToolsUIController;
     
+    /**	Notifier handles**/
     AINotifierHandle fRegisterEventNotifierHandle;
     AINotifierHandle fAppStartedNotifierHandle;
     AINotifierHandle fDocOpenedNotifierHandle;
@@ -103,12 +103,20 @@ private:
 	/**	Menu item handles**/
     AIMenuItemHandle FixBlackMenuItemSelected;
     AIMenuItemHandle FindReplaceMenuItemSelected;
+    AIMenuItemHandle ConvertToPointTypeMenuItemSelected;
+    AIMenuItemHandle FixFreehandTypeMenuItemSelected;
+    AIMenuItemHandle AlignLeftMenuItemSelected;
+    AIMenuItemHandle AlignCenterMenuItemSelected;
+    AIMenuItemHandle AlignRightMenuItemSelected;
+    AIMenuItemHandle CreateMICRBarcodeMenuItemSelected;
      
 	/**	Adds the menu items for this plugin to the application UI.
      @param message IN pointer to plugin and call information.
      @return kNoErr on success, other ASErr otherwise.
      */
 	ASErr AddMenus(SPInterfaceMessage* message);
+    bool SDKGroupAlreadyMade(const char* menuGroupCStr);
+
 
 };
 
