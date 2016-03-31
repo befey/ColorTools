@@ -58,9 +58,11 @@ Node::~Node() {
 
 void SetUpNodes() {
 	//We need to find the crop areas and make a specific plate for each one
-    ai::ArtboardID* cropCount = NULL;
-    ai::ArtboardUtils::GetCount(*cropCount);
-	
+    ai::ArtboardList artboardList;
+    ai::ArtboardID cropCount;
+    sAIArtboard->GetArtboardList(artboardList);
+    sAIArtboard->GetCount(artboardList, cropCount);
+    
 	Node* currNode = NULL;
 	startNode = NULL;
 	
@@ -71,7 +73,7 @@ void SetUpNodes() {
 	}	
 	//If there are multiple crop areas, we need a node for each one
 	else {
-		for ( int i=0 ; i < *cropCount ; i++ ) {
+		for ( int i=0 ; i < cropCount ; i++ ) {
 			//Create the new Node/Plate
 			currNode = new Node(currNode, i);
 			if (i==0) startNode = currNode;
