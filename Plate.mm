@@ -374,12 +374,12 @@ void Plate::SetCropAreaRect(int CAIndex) {
 		
 		//Store the crop area rect
         ai::ArtboardList artboardlist;
-        ai::ArtboardID* index;
+        ai::ArtboardID index;
         ai::ArtboardProperties properties;
         
         sAIArtboard->GetArtboardList(artboardlist);
-        sAIArtboard->GetActive(artboardlist, *index);
-        sAIArtboard->GetArtboardProperties(artboardlist, *index, properties);
+        sAIArtboard->GetActive(artboardlist, index);
+        sAIArtboard->GetArtboardProperties(artboardlist, index, properties);
         sAIArtboard->GetPosition(properties, cropAreaRect);
         
 		//AICropAreaPtr cropArea;
