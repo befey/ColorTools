@@ -6,6 +6,8 @@
 
 #include "ColorToolsUIController.h"
 #include "BtSwatchList.h"
+#include "BtAiMenuItem.h"
+#include "BtAiMenuItemHandles.h"
 #include "FixBlack.h"
 
 #include "TextTools.h"
@@ -75,9 +77,6 @@ ASErr SafeguardToolsPlugin::StartupPlugin( SPInterfaceMessage *message )
     error = Plugin::StartupPlugin(message);
     if (error) { return error; }
     
-    error = this->AddMenus(message);
-    if (error) { return error; }
-    
     if (NULL == colorToolsUIController)
     {
         colorToolsUIController = new ColorToolsUIController();
@@ -90,6 +89,9 @@ ASErr SafeguardToolsPlugin::StartupPlugin( SPInterfaceMessage *message )
     {
         mySwatchList = new BtSwatchList();
     }
+    
+    error = this->AddMenus(message);
+    if (error) { return error; }
     
     //Register for notifiers
     error = sAINotifier->AddNotifier( fPluginRef, kSafeguardToolsPluginName,
@@ -127,6 +129,7 @@ ASErr SafeguardToolsPlugin::ShutdownPlugin( SPInterfaceMessage *message )
     {
         delete mySwatchList;
     }
+
     message->d.globals = NULL;
     return Plugin::ShutdownPlugin(message);
 
@@ -153,90 +156,27 @@ ASErr SafeguardToolsPlugin::PostStartupPlugin()
  */
 ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
 {
-	AIErr error = kNoErr;
-	
-	// Add the menus.
-	AIPlatformAddMenuItemDataUS menuData;
-	AIPlatformAddMenuItemDataUS fixBlackMenuData;
-	AIPlatformAddMenuItemDataUS findReplaceMenuData;
-	
-	const char *menuGroupCStr = "SDKEditGroup";
-	const char *menuCStr = "Modify Swatches";
-	const char *fixBlackCStr = "Fix Black";
-	const char *findReplaceCStr = "Find and Replace Graphics";
-	AIMenuGroup	menuGroup;
-	AIMenuGroup	pluginMenuGroup;
-	AIMenuGroup dummyGroup;
-	AIMenuItemHandle dummyItem;
-	bool sdkGroupAlreadyMade = false;
-	bool findReplaceGroupAlreadyMade = false;
-	
-	//This line tells AI to put the new item in the Edit menu
-	menuData.groupName = kEditMenuGroup;
-	menuData.itemText = ai::UnicodeString(menuCStr);
-	
-	fixBlackMenuData.groupName = menuGroupCStr;
-	fixBlackMenuData.itemText = ai::UnicodeString(fixBlackCStr);
-	
-	findReplaceMenuData.groupName = menuGroupCStr;
-	findReplaceMenuData.itemText = ai::UnicodeString(findReplaceCStr);
+    AIPlatformAddMenuItemDataUS menuItem;
+    const char* modifySwatchesGroup = MODIFY_SWATCHES_MENU;
     
-	
-	// search through the menus and
-	// see if another SDK plug in has already set up the group
-	int count;
-	error = sAIMenu->CountMenuGroups( &count );
-	if ( error ) goto error;
-	while (count > 0)
-	{
-		error = sAIMenu->GetNthMenuGroup( count-1, &dummyGroup );
-		if ( error ) goto error;
-		char *name;
-		error = sAIMenu->GetMenuGroupName( dummyGroup, (const char**)&name );
-		if ( error ) goto error;
-		if ( std::strcmp(name, menuGroupCStr ) == 0 )
-		{
-			sdkGroupAlreadyMade = true;
-			count = -1;
-		}
-		if(std::strcmp(name,findReplaceCStr) == 0)
-		{
-			findReplaceGroupAlreadyMade = true;
-		}
-		count--;
-	}
-	
-	if ( !sdkGroupAlreadyMade )
-	{
-		error = sAIMenu->AddMenuItem( message->d.self, menuGroupCStr, &menuData, 0, &dummyItem );
-		if ( error ) goto error;
-		
-		error = sAIMenu->AddMenuGroupAsSubMenu( menuGroupCStr, kMenuGroupSortedAlphabeticallyOption, dummyItem, &menuGroup );
-		if ( error ) goto error;
-	}
-
-	if(!findReplaceGroupAlreadyMade)
-	{
-		error = sAIMenu->AddMenuItem( message->d.self, findReplaceCStr, &findReplaceMenuData, 0, &dummyItem );
-		if ( error ) goto error;
-		
-		error = sAIMenu->AddMenuGroupAsSubMenu( findReplaceCStr, 0, dummyItem, &pluginMenuGroup );
-		if ( error ) goto error;
-	}
-	
-	
-	error = sAIMenu->AddMenuItem( message->d.self, fixBlackCStr, &fixBlackMenuData, kMenuItemNoOptions, &FixBlackMenuItemSelected );
-	if ( error ) goto error;
-	
-	findReplaceMenuData.groupName = findReplaceCStr;
-	error = sAIMenu->AddMenuItem( message->d.self, findReplaceCStr, &findReplaceMenuData, kMenuItemWantsUpdateOption, &FindReplaceMenuItemSelected );
-	if ( error ) goto error;
+    menuItem.groupName = kEditMenuGroup;
+    menuItem.itemText = ai::UnicodeString(MODIFY_SWATCHES_MENU);
+    BtAiMenuItem* ModifySwatchesMenu = new BtAiMenuItem(menuItem, kMenuGroupSortedAlphabeticallyOption);
     
+    menuItem.groupName = modifySwatchesGroup;
+    menuItem.itemText = ai::UnicodeString(FIX_BLACK_MENU_ITEM);
+    BtAiMenuItem* FixBlackMenuItem = new BtAiMenuItem(menuItem, kMenuItemNoOptions);
+    ModifySwatchesMenu->AddSubMenuItem(*FixBlackMenuItem);
     
+    menuItem.groupName = modifySwatchesGroup;
+    menuItem.itemText = ai::UnicodeString(FIND_AND_REPLACE_MENU_ITEM);
+    BtAiMenuItem* FindAndReplaceGraphics = new BtAiMenuItem(menuItem, kMenuItemWantsUpdateOption);
+    ModifySwatchesMenu->AddSubMenuItem(*FindAndReplaceGraphics);
     
-    
-    
-    //*********** Text Tools
+    BtAiMenuItem::AddMenu(*ModifySwatchesMenu, &menuItemHandles);
+	
+    return kNoErr;
+/*    //*********** Text Tools
     {
         AIPlatformAddMenuItemDataUS textToolsMenuData;
         const char *textToolsMenuGroupCStr = "SDKTextToolsGroup";
@@ -352,12 +292,9 @@ ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
         error = sAIMenu->AddMenuItem( message->d.self, createMicrbarcodeCStr, &createMicrbarcodeMenuData, kMenuItemIgnoreSort|kMenuItemWantsUpdateOption, &CreateMICRBarcodeMenuItemSelected );
         if ( error ) goto error;
     }
-    
-    
-	
-error:
-	return error;
+ */
 }
+
 
 /*
  */
@@ -365,11 +302,11 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
 {
 	AIErr error = kNoErr;
 	
-	if ( message->menuItem == FixBlackMenuItemSelected )
+	if ( message->menuItem == menuItemHandles.GetHandleWithKey(FIX_BLACK_MENU_ITEM) )
 	{
         FixBlack();
     }
-	if ( message->menuItem == FindReplaceMenuItemSelected )
+	if ( message->menuItem == menuItemHandles.GetHandleWithKey(FIND_AND_REPLACE_MENU_ITEM) )
 	{
         AIBoolean state;
         sAICSXSExtension->IsPrimaryStageVisible(COLORTOOLS_UI_EXTENSION, state);
@@ -440,7 +377,7 @@ ASErr SafeguardToolsPlugin::UpdateMenuItem(AIMenuMessage* message)
 {
 	AIErr error = kNoErr;
 	
-	if (message->menuItem == FindReplaceMenuItemSelected) {
+	if (message->menuItem == menuItemHandles.GetHandleWithKey(FIND_AND_REPLACE_MENU_ITEM) ) {
         AIBoolean state;
         sAICSXSExtension->IsPrimaryStageVisible(COLORTOOLS_UI_EXTENSION, state);
 		if (state == TRUE)
@@ -500,26 +437,3 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
     }
     return kNoErr;
 }
-
-
-bool SafeguardToolsPlugin::SDKGroupAlreadyMade(const char *menuGroupCStr) {
-    // search through the menus and
-    // see if another SDK plug in has already set up the group
-    AIMenuGroup dummyGroup;
-    
-    int count;
-    sAIMenu->CountMenuGroups( &count );
-    while (count > 0)
-    {
-        sAIMenu->GetNthMenuGroup( count-1, &dummyGroup );
-        const char *name;
-        sAIMenu->GetMenuGroupName( dummyGroup, &name );
-        if ( std::strcmp(name, menuGroupCStr ) == 0 )
-        {
-            return true;
-        }
-        count--;
-    }
-    return false;
-}
-

@@ -5,9 +5,14 @@
 #include "AIMenuGroups.h"
 #include "SDKDef.h"
 #include "SafeguardToolsID.h"
+#include "BtAiMenuItemHandles.h"
 
 class ColorToolsUIController;
 class BtSwatchList;
+
+#define MODIFY_SWATCHES_MENU        "Modify Swatches"
+#define FIX_BLACK_MENU_ITEM         "Fix Black"
+#define FIND_AND_REPLACE_MENU_ITEM  "Find and Replace Graphics"
 
 /**	Creates a new SafeguardToolsPlugin.
 	@param pluginRef IN unique reference to this plugin.
@@ -101,8 +106,8 @@ private:
     AINotifierHandle fArtSelectionChangeNotifierHandle;
     
 	/**	Menu item handles**/
-    AIMenuItemHandle FixBlackMenuItemSelected;
-    AIMenuItemHandle FindReplaceMenuItemSelected;
+    BtAiMenuItemHandles menuItemHandles;
+    
     AIMenuItemHandle ConvertToPointTypeMenuItemSelected;
     AIMenuItemHandle FixFreehandTypeMenuItemSelected;
     AIMenuItemHandle AlignLeftMenuItemSelected;
@@ -115,8 +120,6 @@ private:
      @return kNoErr on success, other ASErr otherwise.
      */
 	ASErr AddMenus(SPInterfaceMessage* message);
-    bool SDKGroupAlreadyMade(const char* menuGroupCStr);
-
 
 };
 

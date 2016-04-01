@@ -13,6 +13,8 @@
 		6868C928150BA192003DAAF2 /* SafeguardToolsSuites.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6868C923150BA192003DAAF2 /* SafeguardToolsSuites.cpp */; };
 		6868C929150BA192003DAAF2 /* SafeguardToolsSuites.h in Headers */ = {isa = PBXBuildFile; fileRef = 6868C924150BA192003DAAF2 /* SafeguardToolsSuites.h */; };
 		C4A3F955134C5AA500128D2D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A3F954134C5AA500128D2D /* Cocoa.framework */; };
+		F90AE3F21CAAF8AF0076A9BC /* BtAiMenuItemHandles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F90AE3F01CAAF8AF0076A9BC /* BtAiMenuItemHandles.cpp */; };
+		F90AE3F31CAAF8AF0076A9BC /* BtAiMenuItemHandles.h in Headers */ = {isa = PBXBuildFile; fileRef = F90AE3F11CAAF8AF0076A9BC /* BtAiMenuItemHandles.h */; };
 		F90E3F9D1CA475880081C333 /* ATEFuncs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F90E3F951CA475880081C333 /* ATEFuncs.cpp */; };
 		F90E3F9E1CA475880081C333 /* ATEFuncs.h in Headers */ = {isa = PBXBuildFile; fileRef = F90E3F961CA475880081C333 /* ATEFuncs.h */; };
 		F90E3F9F1CA475880081C333 /* BtColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F90E3F971CA475880081C333 /* BtColor.cpp */; };
@@ -55,6 +57,8 @@
 		F98BAEDA1CA99DB500965D86 /* CException.mm in Sources */ = {isa = PBXBuildFile; fileRef = F98BAED81CA99DB500965D86 /* CException.mm */; };
 		F98BAEDD1CA99E1E00965D86 /* ArtTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F98BAEDB1CA99E1E00965D86 /* ArtTree.cpp */; };
 		F98BAEDE1CA99E1E00965D86 /* ArtTree.h in Headers */ = {isa = PBXBuildFile; fileRef = F98BAEDC1CA99E1E00965D86 /* ArtTree.h */; };
+		F98BAEE11CA9A0D100965D86 /* BtAiMenuItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F98BAEDF1CA9A0D100965D86 /* BtAiMenuItem.cpp */; };
+		F98BAEE21CA9A0D100965D86 /* BtAiMenuItem.h in Headers */ = {isa = PBXBuildFile; fileRef = F98BAEE01CA9A0D100965D86 /* BtAiMenuItem.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +69,8 @@
 		6868C924150BA192003DAAF2 /* SafeguardToolsSuites.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SafeguardToolsSuites.h; path = Source/SafeguardToolsSuites.h; sourceTree = "<group>"; };
 		6EE2BA530A40BB2600CC7CE2 /* SafeguardTools.aip */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SafeguardTools.aip; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4A3F954134C5AA500128D2D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		F90AE3F01CAAF8AF0076A9BC /* BtAiMenuItemHandles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BtAiMenuItemHandles.cpp; path = "../My Custom Headers/BtAiMenuItemHandles.cpp"; sourceTree = "<group>"; };
+		F90AE3F11CAAF8AF0076A9BC /* BtAiMenuItemHandles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BtAiMenuItemHandles.h; path = "../My Custom Headers/BtAiMenuItemHandles.h"; sourceTree = "<group>"; };
 		F90E3F951CA475880081C333 /* ATEFuncs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ATEFuncs.cpp; path = "../My Custom Headers/ATEFuncs.cpp"; sourceTree = "<group>"; };
 		F90E3F961CA475880081C333 /* ATEFuncs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ATEFuncs.h; path = "../My Custom Headers/ATEFuncs.h"; sourceTree = "<group>"; };
 		F90E3F971CA475880081C333 /* BtColor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BtColor.cpp; path = "../My Custom Headers/BtColor.cpp"; sourceTree = "<group>"; };
@@ -107,6 +113,8 @@
 		F98BAED81CA99DB500965D86 /* CException.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CException.mm; path = "../My Custom Headers/CException.mm"; sourceTree = "<group>"; };
 		F98BAEDB1CA99E1E00965D86 /* ArtTree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ArtTree.cpp; path = "../My Custom Headers/ArtTree.cpp"; sourceTree = "<group>"; };
 		F98BAEDC1CA99E1E00965D86 /* ArtTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ArtTree.h; path = "../My Custom Headers/ArtTree.h"; sourceTree = "<group>"; };
+		F98BAEDF1CA9A0D100965D86 /* BtAiMenuItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BtAiMenuItem.cpp; path = "../My Custom Headers/BtAiMenuItem.cpp"; sourceTree = "<group>"; };
+		F98BAEE01CA9A0D100965D86 /* BtAiMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BtAiMenuItem.h; path = "../My Custom Headers/BtAiMenuItem.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +214,10 @@
 				F98BAEDC1CA99E1E00965D86 /* ArtTree.h */,
 				F90E3F951CA475880081C333 /* ATEFuncs.cpp */,
 				F90E3F961CA475880081C333 /* ATEFuncs.h */,
+				F98BAEDF1CA9A0D100965D86 /* BtAiMenuItem.cpp */,
+				F98BAEE01CA9A0D100965D86 /* BtAiMenuItem.h */,
+				F90AE3F01CAAF8AF0076A9BC /* BtAiMenuItemHandles.cpp */,
+				F90AE3F11CAAF8AF0076A9BC /* BtAiMenuItemHandles.h */,
 				F90E3F971CA475880081C333 /* BtColor.cpp */,
 				F90E3F981CA475880081C333 /* BtColor.h */,
 				F90E3F991CA475880081C333 /* BtSwatchList.cpp */,
@@ -233,6 +245,7 @@
 			files = (
 				F989A8ED1CA460CE0050C071 /* FixBlack.h in Headers */,
 				F90E3F9E1CA475880081C333 /* ATEFuncs.h in Headers */,
+				F90AE3F31CAAF8AF0076A9BC /* BtAiMenuItemHandles.h in Headers */,
 				F98BAEDE1CA99E1E00965D86 /* ArtTree.h in Headers */,
 				F989A8E91CA460CE0050C071 /* ColorToolsUIController.h in Headers */,
 				F9681E4B1CA47B6E00A02A58 /* Plate.h in Headers */,
@@ -245,6 +258,7 @@
 				F90E3FA41CA475880081C333 /* ColorFuncs.h in Headers */,
 				F90E3FA01CA475880081C333 /* BtColor.h in Headers */,
 				F9681E491CA47B6E00A02A58 /* Node.h in Headers */,
+				F98BAEE21CA9A0D100965D86 /* BtAiMenuItem.h in Headers */,
 				F9681E421CA47AFC00A02A58 /* FixFreehandType.h in Headers */,
 				6868C927150BA192003DAAF2 /* SafeguardToolsPlugin.h in Headers */,
 				F90E3FA21CA475880081C333 /* BtSwatchList.h in Headers */,
@@ -335,11 +349,13 @@
 				F979B6011CA31E78004BA4AD /* SDKPlugPlug.cpp in Sources */,
 				F979B5FD1CA31DF5004BA4AD /* IAIFilePath.cpp in Sources */,
 				F979B6051CA31E87004BA4AD /* Main.cpp in Sources */,
+				F90AE3F21CAAF8AF0076A9BC /* BtAiMenuItemHandles.cpp in Sources */,
 				F989A8F31CA465F30050C071 /* IThrowException.cpp in Sources */,
 				F989A8EC1CA460CE0050C071 /* FixBlack.cpp in Sources */,
 				F9681E411CA47AFC00A02A58 /* FixFreehandType.cpp in Sources */,
 				F90E3FA31CA475880081C333 /* ColorFuncs.cpp in Sources */,
 				F90E3F9F1CA475880081C333 /* BtColor.cpp in Sources */,
+				F98BAEE11CA9A0D100965D86 /* BtAiMenuItem.cpp in Sources */,
 				F989A8EA1CA460CE0050C071 /* FindReplaceGraphics.cpp in Sources */,
 				F90E3F9D1CA475880081C333 /* ATEFuncs.cpp in Sources */,
 				F979B6031CA31E81004BA4AD /* FlashUIController.cpp in Sources */,
@@ -489,6 +505,8 @@
 		508817D809F0C9AE0071BF1A /* debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/output/mac/$(AI_CONFIGURATION)";
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
@@ -511,6 +529,8 @@
 		508817D909F0C9AE0071BF1A /* release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/output/mac/$(AI_CONFIGURATION)";
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
