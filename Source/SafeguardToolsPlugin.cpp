@@ -170,130 +170,67 @@ ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
     
     menuItem.groupName = modifySwatchesGroup;
     menuItem.itemText = ai::UnicodeString(FIND_AND_REPLACE_MENU_ITEM);
-    BtAiMenuItem* FindAndReplaceGraphics = new BtAiMenuItem(menuItem, kMenuItemWantsUpdateOption);
-    ModifySwatchesMenu->AddSubMenuItem(*FindAndReplaceGraphics);
+    BtAiMenuItem* FindAndReplaceGraphicsMenuItem = new BtAiMenuItem(menuItem, kMenuItemWantsUpdateOption);
+    ModifySwatchesMenu->AddSubMenuItem(*FindAndReplaceGraphicsMenuItem);
     
     BtAiMenuItem::AddMenu(*ModifySwatchesMenu, &menuItemHandles);
     
 	
+    const char* textToolsGroup = TEXT_TOOLS_MENU;
+    
+    menuItem.groupName = kTypeLayoutMenuGroup;
+    menuItem.itemText = ai::UnicodeString(TEXT_TOOLS_MENU);
+    BtAiMenuItem* TextToolsMenu = new BtAiMenuItem(menuItem, kMenuGroupSortedAlphabeticallyOption);
+    
+    menuItem.groupName = textToolsGroup;
+    menuItem.itemText = ai::UnicodeString(MAKE_POINT_TYPE_MENU_ITEM);
+    BtAiMenuItem* MakePointTypeMenuItem = new BtAiMenuItem(menuItem, kMenuItemNoOptions);
+    MakePointTypeMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, kIfText, 0, 0, 0);
+    TextToolsMenu->AddSubMenuItem(*MakePointTypeMenuItem);
+    
+    menuItem.groupName = textToolsGroup;
+    menuItem.itemText = ai::UnicodeString(FIX_FREEHAND_TYPE_MENU_ITEM);
+    BtAiMenuItem* FixFreehandTypeMenuItem = new BtAiMenuItem(menuItem, kMenuItemNoOptions);
+    FixFreehandTypeMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, kIfText, 0, 0, 0);
+    TextToolsMenu->AddSubMenuItem(*FixFreehandTypeMenuItem);
+    
+    BtAiMenuItem::AddMenu(*TextToolsMenu, &menuItemHandles);
+    
+    
+    const char* alignGroup = ALIGN_MENU;
+    
+    menuItem.groupName = kObjectAttribsMenuGroup;
+    menuItem.itemText = ai::UnicodeString(ALIGN_MENU);
+    BtAiMenuItem* AlignMenu = new BtAiMenuItem(menuItem, kMenuGroupSortedAlphabeticallyOption);
+    
+    menuItem.groupName = alignGroup;
+    menuItem.itemText = ai::UnicodeString(ALIGN_LEFT_MENU_ITEM);
+    BtAiMenuItem* AlignLeftMenuItem = new BtAiMenuItem(menuItem, kMenuItemIgnoreSort);
+    MakePointTypeMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, kIfAnyArt, 0, 0, 0);
+    AlignMenu->AddSubMenuItem(*AlignLeftMenuItem);
+    
+    menuItem.groupName = alignGroup;
+    menuItem.itemText = ai::UnicodeString(ALIGN_CENTER_MENU_ITEM);
+    BtAiMenuItem* AlignCenterMenuItem = new BtAiMenuItem(menuItem, kMenuItemIgnoreSort);
+    MakePointTypeMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, kIfAnyArt, 0, 0, 0);
+    AlignMenu->AddSubMenuItem(*AlignCenterMenuItem);
+    
+    menuItem.groupName = alignGroup;
+    menuItem.itemText = ai::UnicodeString(ALIGN_RIGHT_MENU_ITEM);
+    BtAiMenuItem* AlignRightMenuItem = new BtAiMenuItem(menuItem, kMenuItemIgnoreSort);
+    MakePointTypeMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, kIfAnyArt, 0, 0, 0);
+    AlignMenu->AddSubMenuItem(*AlignRightMenuItem);
+    
+    BtAiMenuItem::AddMenu(*AlignMenu, &menuItemHandles);
+
+    
+    menuItem.groupName = kTypePluginsMenuGroup1;
+    menuItem.itemText = ai::UnicodeString(CREATE_MICR_BARCODE_MENU_ITEM);
+    BtAiMenuItem* CreateMicrBarcodeMenuItem = new BtAiMenuItem(menuItem, kMenuItemIgnoreSort|kMenuItemWantsUpdateOption);
+    
+    BtAiMenuItem::AddMenu(*CreateMicrBarcodeMenuItem, &menuItemHandles);
+    
     return kNoErr;
-/*    //*********** Text Tools
-    {
-        AIPlatformAddMenuItemDataUS textToolsMenuData;
-        const char *textToolsMenuGroupCStr = "SDKTextToolsGroup";
-        const char *textToolsMenuCStr = "Text Tools";
-        AIPlatformAddMenuItemDataUS convertToPointTypeMenuData;
-        const char *convertToPointTypeCStr = "Make Point Type";
-        AIPlatformAddMenuItemDataUS fixFreehandMenuData;
-        const char *fixFreehandTypeCStr = "Fix Freehand Type";
-        
-        //This line tells AI to put the text tools menu in the Type menu
-        textToolsMenuData.groupName = kTypeLayoutMenuGroup;
-        textToolsMenuData.itemText = ai::UnicodeString(textToolsMenuCStr);
-        
-        convertToPointTypeMenuData.groupName = textToolsMenuGroupCStr;
-        convertToPointTypeMenuData.itemText = ai::UnicodeString(convertToPointTypeCStr);
-        fixFreehandMenuData.groupName = textToolsMenuGroupCStr;
-        fixFreehandMenuData.itemText = ai::UnicodeString(fixFreehandTypeCStr);
-        
-        //Check for Text Tools Menu and add menu items
-        if ( !SDKGroupAlreadyMade(textToolsMenuGroupCStr) ) {
-            AIMenuItemHandle dummyItem;
-            error = sAIMenu->AddMenuItem( message->d.self, textToolsMenuGroupCStr, &textToolsMenuData, 0, &dummyItem );
-            if ( error ) goto error;
-            
-            error = sAIMenu->AddMenuGroupAsSubMenu( textToolsMenuGroupCStr, kMenuGroupSortedAlphabeticallyOption, dummyItem, &menuGroup );
-            if ( error ) goto error;
-        }
-        
-        error = sAIMenu->AddMenuItem( message->d.self, convertToPointTypeCStr, &convertToPointTypeMenuData, kMenuItemNoOptions, &ConvertToPointTypeMenuItemSelected );
-        sAIMenu->UpdateMenuItemAutomatically(ConvertToPointTypeMenuItemSelected, kAutoEnableMenuItemAction, 0, 0, kIfText, 0, 0, 0);
-        if ( error ) goto error;
-        
-        error = sAIMenu->AddMenuItem( message->d.self, fixFreehandTypeCStr, &fixFreehandMenuData, kMenuItemNoOptions, &FixFreehandTypeMenuItemSelected );
-        sAIMenu->UpdateMenuItemAutomatically(FixFreehandTypeMenuItemSelected, kAutoEnableMenuItemAction, 0, 0, kIfText, 0, 0, 0);
-        if ( error ) goto error;
-    }
-    
-    //************* Align
-    {
-        AIPlatformAddMenuItemDataUS alignMenuData;
-        const char *alignMenuGroupCStr = "SDKAlignGroup";
-        const char *alignMenuCStr = "Align";
-        //Add the align menu to the objects menu
-        alignMenuData.groupName = kObjectAttribsMenuGroup;
-        alignMenuData.itemText = ai::UnicodeString(alignMenuCStr);
-        
-        //****Align Left
-        AIPlatformAddMenuItemDataUS alignLeftMenuData;
-        const char *alignLeftCStr = "Left";
-        alignLeftMenuData.groupName = alignMenuGroupCStr;
-        alignLeftMenuData.itemText = ai::UnicodeString(alignLeftCStr);
-        
-        //****Align Center
-        AIPlatformAddMenuItemDataUS alignCenterMenuData;
-        const char *alignCenterCStr = "Center";
-        alignCenterMenuData.groupName = alignMenuGroupCStr;
-        alignCenterMenuData.itemText = ai::UnicodeString(alignCenterCStr);
-        
-        //****Align Right
-        AIPlatformAddMenuItemDataUS alignRightMenuData;
-        const char *alignRightCStr = "Right";
-        alignRightMenuData.groupName = alignMenuGroupCStr;
-        alignRightMenuData.itemText = ai::UnicodeString(alignRightCStr);
-        
-        //Check for Align Menu and add menu items
-        if ( !SDKGroupAlreadyMade(alignMenuGroupCStr) ) {
-            AIMenuItemHandle dummyItem;
-            error = sAIMenu->AddMenuItem( message->d.self, alignMenuGroupCStr, &alignMenuData, 0, &dummyItem );
-            if ( error ) goto error;
-            
-            error = sAIMenu->AddMenuGroupAsSubMenu( alignMenuGroupCStr, kMenuGroupSortedAlphabeticallyOption, dummyItem, &menuGroup );
-            if ( error ) goto error;
-        }
-        
-        error = sAIMenu->AddMenuItem( message->d.self, alignLeftCStr, &alignLeftMenuData, kMenuItemIgnoreSort, &AlignLeftMenuItemSelected );
-        sAIMenu->UpdateMenuItemAutomatically(AlignLeftMenuItemSelected, kAutoEnableMenuItemAction, 0, 0, kIfAnyArt, 0, 0, 0);
-        if ( error ) goto error;
-        
-        error = sAIMenu->AddMenuItem( message->d.self, alignCenterCStr, &alignCenterMenuData, kMenuItemIgnoreSort, &AlignCenterMenuItemSelected );
-        sAIMenu->UpdateMenuItemAutomatically(AlignCenterMenuItemSelected, kAutoEnableMenuItemAction, 0, 0, kIfAnyArt, 0, 0, 0);
-        if ( error ) goto error;
-        
-        error = sAIMenu->AddMenuItem( message->d.self, alignRightCStr, &alignRightMenuData, kMenuItemIgnoreSort, &AlignRightMenuItemSelected );
-        sAIMenu->UpdateMenuItemAutomatically(AlignRightMenuItemSelected, kAutoEnableMenuItemAction, 0, 0, kIfAnyArt, 0, 0, 0);
-        if ( error ) goto error;
-    }
-    
-    //************* MICR BARCODE
-    {
-        AIPlatformAddMenuItemDataUS micrbarcodeMenuData;
-        const char *micrbarcodeMenuGroupCStr = "SDKMICRGroup";
-        const char *micrbarcodeMenuCStr = "MICR Barcode";
-        //Add the micr barcode menu to the objects menu
-        micrbarcodeMenuData.groupName = kTypePluginsMenuGroup1;
-        micrbarcodeMenuData.itemText = ai::UnicodeString(micrbarcodeMenuCStr);
-        
-        //****Create MICR Barcode
-        AIPlatformAddMenuItemDataUS createMicrbarcodeMenuData;
-        const char *createMicrbarcodeCStr = "Create MICR Barcode";
-        createMicrbarcodeMenuData.groupName = micrbarcodeMenuGroupCStr;
-        createMicrbarcodeMenuData.itemText = ai::UnicodeString(createMicrbarcodeCStr);
-        
-        //Check for Align Menu and add menu items
-        if ( !SDKGroupAlreadyMade(micrbarcodeMenuGroupCStr) ) {
-            AIMenuItemHandle dummyItem;
-            error = sAIMenu->AddMenuItem( message->d.self, micrbarcodeMenuGroupCStr, &micrbarcodeMenuData, 0, &dummyItem );
-            if ( error ) goto error;
-            
-            error = sAIMenu->AddMenuGroupAsSubMenu( micrbarcodeMenuGroupCStr, kMenuGroupSortedAlphabeticallyOption, dummyItem, &menuGroup );
-            if ( error ) goto error;
-        }
-        
-        error = sAIMenu->AddMenuItem( message->d.self, createMicrbarcodeCStr, &createMicrbarcodeMenuData, kMenuItemIgnoreSort|kMenuItemWantsUpdateOption, &CreateMICRBarcodeMenuItemSelected );
-        if ( error ) goto error;
-    }
- */
 }
 
 
@@ -324,33 +261,33 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
 
 	}
     
-    if ( message->menuItem == ConvertToPointTypeMenuItemSelected )
+    if ( message->menuItem == menuItemHandles.GetHandleWithKey(MAKE_POINT_TYPE_MENU_ITEM) )
     {
         //Call the main function
         if ( ConvertToPointType() ) {
             //What to do if it worked.
         }
-    } else if ( message->menuItem == FixFreehandTypeMenuItemSelected )
+    } else if ( message->menuItem == menuItemHandles.GetHandleWithKey(FIX_FREEHAND_TYPE_MENU_ITEM) )
     {
         //Call the main function
         if ( FixFreehandType() ) {
             //What to do if it worked.
         }
-    } else if ( message->menuItem == AlignLeftMenuItemSelected )
+    } else if ( message->menuItem == menuItemHandles.GetHandleWithKey(ALIGN_LEFT_MENU_ITEM) )
     {
         //Call the main function
         if ( Align(ATE::kLeftJustify) ) {
             //Set the undo/redo text
             error = sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Align"), ai::UnicodeString("Redo Align"));
         }
-    } else if ( message->menuItem == AlignCenterMenuItemSelected )
+    } else if ( message->menuItem == menuItemHandles.GetHandleWithKey(ALIGN_CENTER_MENU_ITEM) )
     {
         //Call the main function
         if ( Align(ATE::kCenterJustify) ) {
             //Set the undo/redo text
             error = sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Align"), ai::UnicodeString("Redo Align"));
         }
-    } else if ( message->menuItem == AlignRightMenuItemSelected )
+    } else if ( message->menuItem == menuItemHandles.GetHandleWithKey(ALIGN_RIGHT_MENU_ITEM) )
     {
         //Call the main function
         if ( Align(ATE::kRightJustify) ) {

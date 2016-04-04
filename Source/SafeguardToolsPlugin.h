@@ -13,7 +13,18 @@ class BtSwatchList;
 #define MODIFY_SWATCHES_MENU            "Modify Swatches"
 #define FIX_BLACK_MENU_ITEM             "Fix Black"
 #define FIND_AND_REPLACE_MENU_ITEM      "Find and Replace Graphics"
+
+#define TEXT_TOOLS_MENU                 "Text Tools"
+#define MAKE_POINT_TYPE_MENU_ITEM       "Make Point Type"
+#define FIX_FREEHAND_TYPE_MENU_ITEM     "Fix Freehand Type"
+
+#define ALIGN_MENU                      "Align"
+#define ALIGN_LEFT_MENU_ITEM            "Left"
+#define ALIGN_CENTER_MENU_ITEM          "Center"
+#define ALIGN_RIGHT_MENU_ITEM           "Right"
+
 #define CREATE_MICR_BARCODE_MENU_ITEM   "Create MICR Barcode"
+
 
 /**	Creates a new SafeguardToolsPlugin.
 	@param pluginRef IN unique reference to this plugin.
@@ -109,12 +120,6 @@ private:
 	/**	Menu item handles**/
     BtAiMenuItemHandles menuItemHandles;
     
-    AIMenuItemHandle ConvertToPointTypeMenuItemSelected;
-    AIMenuItemHandle FixFreehandTypeMenuItemSelected;
-    AIMenuItemHandle AlignLeftMenuItemSelected;
-    AIMenuItemHandle AlignCenterMenuItemSelected;
-    AIMenuItemHandle AlignRightMenuItemSelected;
-    AIMenuItemHandle CreateMICRBarcodeMenuItemSelected;
      
 	/**	Adds the menu items for this plugin to the application UI.
      @param message IN pointer to plugin and call information.
