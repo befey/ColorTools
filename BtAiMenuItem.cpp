@@ -32,6 +32,18 @@ void BtAiMenuItem::SetOptions(ai::int32 o)
     options = o;
 }
 
+void BtAiMenuItem::SetAutoUpdateOptions(ai::int32 action, ai::int32 ifObjectIsInArtwork, ai::int32 ifObjectIsNotInArtwork, ai::int32 ifObjectIsSelected, ai::int32 ifObjectIsNotSelected, ai::int32 ifIsTrue, ai::int32 ifIsNotTrue)
+{
+    autoUpdateOptions.action = action;
+    autoUpdateOptions.ifObjectIsInArtwork = ifObjectIsInArtwork;
+    autoUpdateOptions.ifObjectIsNotInArtwork = ifObjectIsNotInArtwork;
+    autoUpdateOptions.ifObjectIsSelected = ifObjectIsSelected;
+    autoUpdateOptions.ifObjectIsNotSelected = ifObjectIsNotSelected;
+    autoUpdateOptions.ifIsTrue = ifIsTrue;
+    autoUpdateOptions.ifIsNotTrue = ifIsNotTrue;
+    wantsAutoUpdate = true;
+}
+
 
 
 void BtAiMenuItem::AddMenu(BtAiMenuItem menuItem, BtAiMenuItemHandles* addedMenuItems)
@@ -57,6 +69,17 @@ void BtAiMenuItem::AddMenu(BtAiMenuItem menuItem, BtAiMenuItemHandles* addedMenu
     {
         AIMenuItemHandle dummyHandle;
         sAIMenu->AddMenuItem( gPlugin->GetPluginRef(), c, &menuItem.menuItemData, menuItem.options, &dummyHandle );
+        if (menuItem.wantsAutoUpdate) {
+            sAIMenu->UpdateMenuItemAutomatically(dummyHandle,
+                                                 menuItem.autoUpdateOptions.action,
+                                                 menuItem.autoUpdateOptions.ifObjectIsInArtwork,
+                                                 menuItem.autoUpdateOptions.ifObjectIsNotInArtwork,
+                                                 menuItem.autoUpdateOptions.ifObjectIsSelected,
+                                                 menuItem.autoUpdateOptions.ifObjectIsNotSelected,
+                                                 menuItem.autoUpdateOptions.ifIsTrue,
+                                                 menuItem.autoUpdateOptions.ifIsNotTrue);
+
+        }
         addedMenuItems->AddHandle(t, dummyHandle);
     }
 }

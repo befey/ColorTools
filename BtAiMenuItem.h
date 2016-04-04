@@ -25,11 +25,30 @@ public:
     void SetMenuItemData(AIPlatformAddMenuItemDataUS);
     void AddSubMenuItem(BtAiMenuItem);
     void SetOptions(ai::int32);
+    void SetAutoUpdateOptions(ai::int32 action,
+                              ai::int32 ifObjectIsInArtwork,
+                              ai::int32 ifObjectIsNotInArtwork,
+                              ai::int32 ifObjectIsSelected,
+                              ai::int32 ifObjectIsNotSelected,
+                              ai::int32 ifIsTrue,
+                              ai::int32 ifIsNotTrue);
 
 private:
     AIPlatformAddMenuItemDataUS menuItemData;
     vector<BtAiMenuItem> subMenuItems;
     ai::int32 options;
+    
+    struct AutoUpdateOptions {
+        ai::int32 action = 0;
+        ai::int32 ifObjectIsInArtwork = 0;
+        ai::int32 ifObjectIsNotInArtwork = 0;
+        ai::int32 ifObjectIsSelected = 0;
+        ai::int32 ifObjectIsNotSelected = 0;
+        ai::int32 ifIsTrue = 0;
+        ai::int32 ifIsNotTrue = 0;
+    };
+    AutoUpdateOptions autoUpdateOptions;
+    bool wantsAutoUpdate = false;
     
     bool IsMenuGroup();
     
