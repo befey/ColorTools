@@ -787,47 +787,8 @@ ai::UnicodeString CreateBarcodeStringFromMICRString(ai::UnicodeString micrString
     }
     
     return formattedResult;
-    
-    
-/*  OLD VERSION USING STRING SEARCHES AND SUCH
-
-    std::string::size_type loc = std::string::npos;
-	std::string standardVersion = micrString.as_Platform();
-	
-	loc = micrString.caseFind('a');
-	if (loc == std::string::npos) return ai::UnicodeString();
-	
-	micrString = micrString.substr(loc);
-	standardVersion = micrString.as_Platform();
-	
-	if (micrString.substr(2,1) == ai::UnicodeString(" ")) {
-		loc = micrString.caseFind('a', 1);
-		micrString = micrString.substr(loc);
-		if (loc == std::string::npos) return ai::UnicodeString();
-	}
-	
-	standardVersion = micrString.as_Platform();
-	
-	loc = micrString.find_last_not_of(ai::UnicodeString(" "));
-	micrString = micrString.substr(0, loc+1);
-	standardVersion = micrString.as_Platform();
-	
-	micrString = ai::UnicodeString("!").append(micrString);
-	micrString += ai::UnicodeString("!");
-	standardVersion = micrString.as_Platform();
-	
-	while (loc != std::string::npos) {
-		loc = micrString.find_first_of(ai::UnicodeString(" "));
-		if (loc != std::string::npos) {
-			micrString.replace(loc, 1, ai::UnicodeString("="));
-			standardVersion = micrString.as_Platform();
-		}
-	}
-	
-	standardVersion = micrString.as_Platform();
-	return micrString;
- //*/
 }
+
 
 void FindBarcodeAnchorPoint(AIRealPoint* anchor)
 {
