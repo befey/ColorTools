@@ -10,9 +10,10 @@
 class ColorToolsUIController;
 class BtSwatchList;
 
-#define MODIFY_SWATCHES_MENU        "Modify Swatches"
-#define FIX_BLACK_MENU_ITEM         "Fix Black"
-#define FIND_AND_REPLACE_MENU_ITEM  "Find and Replace Graphics"
+#define MODIFY_SWATCHES_MENU            "Modify Swatches"
+#define FIX_BLACK_MENU_ITEM             "Fix Black"
+#define FIND_AND_REPLACE_MENU_ITEM      "Find and Replace Graphics"
+#define CREATE_MICR_BARCODE_MENU_ITEM   "Create MICR Barcode"
 
 /**	Creates a new SafeguardToolsPlugin.
 	@param pluginRef IN unique reference to this plugin.

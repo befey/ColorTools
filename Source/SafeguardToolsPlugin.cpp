@@ -174,6 +174,7 @@ ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
     ModifySwatchesMenu->AddSubMenuItem(*FindAndReplaceGraphics);
     
     BtAiMenuItem::AddMenu(*ModifySwatchesMenu, &menuItemHandles);
+    
 	
     return kNoErr;
 /*    //*********** Text Tools
@@ -356,7 +357,7 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
             //Set the undo/redo text
             error = sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Align"), ai::UnicodeString("Redo Align"));
         }
-    } else if ( message->menuItem == CreateMICRBarcodeMenuItemSelected )
+    } else if ( message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_MICR_BARCODE_MENU_ITEM) )
     {
         //Call the main function
         if ( CreateMICRBarcode() ) {
@@ -388,27 +389,31 @@ ASErr SafeguardToolsPlugin::UpdateMenuItem(AIMenuMessage* message)
 		{
 			sAIMenu->SetItemText( message->menuItem, ai::UnicodeString("Show Find and Replace Graphics") );
 		}
+        ASBoolean check = false;
+        sAIMenu->IsItemEnabled(menuItemHandles.GetHandleWithKey(FIND_AND_REPLACE_MENU_ITEM), &check);
+        sAIMenu->EnableItem(menuItemHandles.GetHandleWithKey(FIND_AND_REPLACE_MENU_ITEM));
 	}
     
-    //Check if we have a micr line object in the document dictionary
-    //If we do, nothing needs to be selected, as we already know where the micr line is
-    if ( CheckDictionaryForArtObjectWithIdentifier(MICR_LINE_LABEL) ) {
-        sAIMenu->EnableItem(message->menuItem);
-    } else {
-        //If we couldn't find a micr number in the dictionary, we'll check if some text is selected
-        int inArtwork, isSelected, isTrue;
-        sAIMenu->GetUpdateFlags(&inArtwork, &isSelected, &isTrue);
-        if (isSelected & kIfText) {
+    if (message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_MICR_BARCODE_MENU_ITEM) ) {
+        //Check if we have a micr line object in the document dictionary
+        //If we do, nothing needs to be selected, as we already know where the micr line is
+        if ( CheckDictionaryForArtObjectWithIdentifier(MICR_LINE_LABEL) ) {
             sAIMenu->EnableItem(message->menuItem);
         } else {
-            sAIMenu->DisableItem(message->menuItem);
+            //If we couldn't find a micr number in the dictionary, we'll check if some text is selected
+            int inArtwork, isSelected, isTrue;
+            sAIMenu->GetUpdateFlags(&inArtwork, &isSelected, &isTrue);
+            if (isSelected & kIfText) {
+                sAIMenu->EnableItem(message->menuItem);
+            } else {
+                sAIMenu->DisableItem(message->menuItem);
+            }
         }
     }
 
-	
 	if (error)
 		goto error;
-	
+
 error:
 	return error;
 }
