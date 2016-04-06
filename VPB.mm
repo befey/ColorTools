@@ -43,31 +43,12 @@ Instance::VPB::~VPB()
 // kAISaveDocumentAsAction parameters
 /*
 */
-void Instance::VPB::SetSaveDocumentAsName(const ai::FilePath& name)
+void Instance::VPB::SetSaveName(const ai::FilePath& name)
 {
 	SDK_ASSERT(sAIActionManager);
 	ASErr result = sAIActionManager->AIActionSetStringUS(this->fActionParamValueRef, kAISaveDocumentAsNameKey, name.GetFullPath());
 	aisdk::check_ai_error(result);
 }
-
-/*
-*/
-void Instance::VPB::SetSaveDocumentAsFormat(const char* format)  
-{
-	SDK_ASSERT(sAIActionManager);
-	ASErr result = sAIActionManager->AIActionSetString(this->fActionParamValueRef, kAISaveDocumentAsFormatKey, format);
-	aisdk::check_ai_error(result);
-}
-
-/*
-*/
-void Instance::VPB::SetSaveDocumentAsGetParams(ASBoolean getParams)
-{
-	SDK_ASSERT(sAIActionManager);
-	ASErr result = sAIActionManager->AIActionSetBoolean(this->fActionParamValueRef, kAISaveDocumentAsGetParamsKey, getParams);
-	aisdk::check_ai_error(result);
-}
-
 
 
 /*
@@ -81,60 +62,73 @@ ASErr Instance::SaveDocumentAsPDF(const string& name)
 		Instance::VPB vpb;
 
 		// Format parameter.
-		vpb.SetSaveDocumentAsFormat(kAIPDFFileFormat);
+        result = sAIActionManager->AIActionSetString(vpb.fActionParamValueRef, kAIExportDocumentFormatKey, kAIPDFFileFormat);
+        aisdk::check_ai_error(result);
+        result = sAIActionManager->AIActionSetString(vpb.fActionParamValueRef, kAIExportDocumentExtensionKey, kAIPDFFileFormatExtension);
+        
+        // Option Set
+        result = sAIActionManager->AIActionSetInteger(vpb.fActionParamValueRef, kAIPDFOptionSetKey, kAIPDFOptionSetCustom);
+        aisdk::check_ai_error(result);
+        result = sAIActionManager->AIActionSetString(vpb.fActionParamValueRef, kAIPDFOptionSetNameKey, "Manufacturing");
+        aisdk::check_ai_error(result);
+        
+        // Password Protection
+        result = sAIActionManager->AIActionSetBoolean(vpb.fActionParamValueRef, kAIPDFUserPasswordRequiredKey, FALSE);
+        aisdk::check_ai_error(result);
+        result = sAIActionManager->AIActionSetBoolean(vpb.fActionParamValueRef, kAIPDFMasterPasswordRequiredKey, FALSE);
+        aisdk::check_ai_error(result);
+        
+        // Printing Permissions
+        result = sAIActionManager->AIActionSetEnumerated(vpb.fActionParamValueRef, kAIPDFPrintingPermKey, "Printing Allowed", kAIPDFPrint128HighResIndex);
+        aisdk::check_ai_error(result);
+        
+        // Changes Permissions
+        result = sAIActionManager->AIActionSetEnumerated(vpb.fActionParamValueRef, kAIPDFChangesPermKey, "Changes Allowed", kAIPDFChanges128AnyIndex);
+        aisdk::check_ai_error(result);
+        
+        // Enable Copy
+        result = sAIActionManager->AIActionSetBoolean(vpb.fActionParamValueRef, kAIPDFEnableCopyKey, TRUE);
+        aisdk::check_ai_error(result);
+        
+        // Enable Access
+        result = sAIActionManager->AIActionSetBoolean(vpb.fActionParamValueRef, kAIPDFEnableAccessKey, TRUE);
+        aisdk::check_ai_error(result);
+        
+        // Enable Copy Access
+        result = sAIActionManager->AIActionSetBoolean(vpb.fActionParamValueRef, kAIPDFEnableCopyAccessKey, TRUE);
+        aisdk::check_ai_error(result);
+        
+        // Enable Plaintext Metadata
+        result = sAIActionManager->AIActionSetBoolean(vpb.fActionParamValueRef, kAIPDFEnablePlaintextMetaKey, FALSE);
+        aisdk::check_ai_error(result);
+        
+        // Save multiple artboards
+        result = sAIActionManager->AIActionSetBoolean(vpb.fActionParamValueRef, kAIExportDocumentSaveMultipleArtboardsKey, TRUE);
+        aisdk::check_ai_error(result);
+        
+        // Save all
+        result = sAIActionManager->AIActionSetBoolean(vpb.fActionParamValueRef, kAIExportDocumentSaveAllKey, FALSE);
+        aisdk::check_ai_error(result);
+        
+        // Save range
+        result = sAIActionManager->AIActionSetString(vpb.fActionParamValueRef, kAIExportDocumentSaveRangeKey, "1");
+        aisdk::check_ai_error(result);
 
-		// Compatibility.
-		ASErr result = sAIActionManager->AIActionSetInteger(vpb.fActionParamValueRef, kAIPDFCompatibilityKey, kAIPDFCompatibility14);
-		aisdk::check_ai_error(result);
+        
+        //THESE TWO SHOULD BE SET PROPERLY BY THE joboptions FILE WE'RE USING
+        // Compatibility.
+		//ASErr result = sAIActionManager->AIActionSetInteger(vpb.fActionParamValueRef, kAIPDFCompatibilityKey, kAIPDFCompatibility14);
+		//aisdk::check_ai_error(result);
 		
 		// Crop To
-		result = sAIActionManager->AIActionSetInteger(vpb.fActionParamValueRef, kAIPDFCropToKey, kAIPDFBleedBox);
-		aisdk::check_ai_error(result);
-		
-		// Page Count
-		result = sAIActionManager->AIActionSetInteger(vpb.fActionParamValueRef, kAIPDFPageCountKey, 1);
-		aisdk::check_ai_error(result);
-		
-		// Page Index
-        ai::ArtboardList artboardList; sAIArtboard->GetArtboardList(artboardList);
-		ASInt32 index; sAIArtboard->GetActive(artboardList, index);
-		result = sAIActionManager->AIActionSetInteger(vpb.fActionParamValueRef, kAIPDFPageIndexKey, index);
-		aisdk::check_ai_error(result);
-
-        //result = sAIActionManager->AIActionSetBoolean(vpb.fActionParamValueRef,kAIExportDocumentSaveMultipleArtboardsKey, true);
-        //result = sAIActionManager->AIActionSetString(vpb.fActionParamValueRef, kAIExportDocumentSaveRangeKey, "1");
-
+		//result = sAIActionManager->AIActionSetInteger(vpb.fActionParamValueRef, kAIPDFCropToKey, kAIPDFBleedBox);
+		//aisdk::check_ai_error(result);
         
         
-		// Option Set
-		result = sAIActionManager->AIActionSetInteger(vpb.fActionParamValueRef, kAIPDFOptionSetKey, kAIPDFOptionSetCustom);
-		aisdk::check_ai_error(result);
-		result = sAIActionManager->AIActionSetString(vpb.fActionParamValueRef, kAIPDFOptionSetNameKey, "Manufacturing");
-		aisdk::check_ai_error(result);
-		
+        // Enable/Disable dialogs
+		result = sAIActionManager->AIActionSetBoolean(vpb.fActionParamValueRef, kAISaveDocumentAsGetParamsKey, FALSE);
 
 
-/*
-		// Round trip.
-		result = sAIActionManager->AIActionSetBoolean(vpb.fActionParamValueRef, kAIPDFRoundTripKey, FALSE);
-		aisdk::check_ai_error(result);
-		
-		// Generate thumbnails.
-		result = sAIActionManager->AIActionSetBoolean(vpb.fActionParamValueRef, kAIPDFGenerateThumbnailsKey, FALSE);
-		aisdk::check_ai_error(result);
-		
-		// View PDF file.
-		result = sAIActionManager->AIActionSetBoolean(vpb.fActionParamValueRef, kAIPDFViewPDFFileKey, FALSE);
-		aisdk::check_ai_error(result);
-
-		// Fast web view.
-		result = sAIActionManager->AIActionSetBoolean(vpb.fActionParamValueRef, kAIPDFFastWebViewKey, FALSE);
-		aisdk::check_ai_error(result);
-		
-		// Password Protection
-		result = sAIActionManager->AIActionSetBoolean(vpb.fActionParamValueRef, kAIPDFUserPasswordRequiredKey, FALSE);
-		aisdk::check_ai_error(result);
-*/		
 		//Output directory
 		NSString* outputFolder;
         outputFolder = @DEFAULT_OUTPUTPATH;
@@ -144,8 +138,7 @@ ASErr Instance::SaveDocumentAsPDF(const string& name)
 
 		// Gather common parameters then save.
 		
-		//sADMBasic->MessageAlert(buffer);
-		result = this->SaveDocumentAs((ai::UnicodeString)[fullPathForNewPDF cStringUsingEncoding:NSASCIIStringEncoding], vpb);
+		result = this->SaveACopyAs((ai::UnicodeString)[fullPathForNewPDF cStringUsingEncoding:NSASCIIStringEncoding], vpb);
 		aisdk::check_ai_error(result);
 	}
 	catch (ai::Error& ex) {
@@ -156,40 +149,18 @@ ASErr Instance::SaveDocumentAsPDF(const string& name)
 
 /*
 */
-ASErr Instance::SaveDocumentAs(const ai::UnicodeString& name, Instance::VPB& vpb)
+ASErr Instance::SaveACopyAs(const ai::UnicodeString& name, Instance::VPB& vpb)
 {
 	ASErr result = kNoErr;
 	try {
 		// Name parameter.
 		ai::FilePath path;
 		path.Set(name, FALSE);
-		//sADMBasic->MessageAlert(name.as_UTF8().c_str());
-		//SnippetRunnerLog::Instance()->Write(path.GetFullPath());
-		vpb.SetSaveDocumentAsName(path);
 
-		// Enable dialogs parameter.
-		ASBoolean getParams = FALSE /*SnippetRunnerParameter::Instance()->GetBoolean("Enable dialogs during save", false)*/;
-		vpb.SetSaveDocumentAsGetParams(getParams);
+		vpb.SetSaveName(path);
 
 		// Play the action.
-		result = this->SaveDocumentAs(kDialogOff, vpb.fActionParamValueRef);
-		aisdk::check_ai_error(result);
-	}
-	catch (ai::Error& ex) {
-		result = ex;
-	}	
-	return result;
-
-}
-
-/*
-*/
-ASErr Instance::SaveDocumentAs(ActionDialogStatus dialogStatus, AIActionParamValueRef parameters)
-{
-	ASErr result = kNoErr;
-	try {
-		SDK_ASSERT(sAIActionManager);
-		result = sAIActionManager->PlayActionEvent(kAISaveDocumentAsAction, dialogStatus, parameters);
+		result = sAIActionManager->PlayActionEvent(kSaveACopyAsAction, kDialogOff, vpb.fActionParamValueRef);
 		aisdk::check_ai_error(result);
 	}
 	catch (ai::Error& ex) {
