@@ -10,9 +10,14 @@
 #define __SafeguardTools__PrintToPdf__
 
 #include "AIDocumentList.h"
+#include "AIActionManager.h"
 #include "VPB.h"
 
+#define PATH_TO_PLANT_MANUFACTURING	ai::UnicodeString("/Volumes/Plant_Manufacturing")
+#define DEFAULT_OUTPUTPATH "/Users/t431962/Desktop/WORKING"
+
 extern "C" AIDocumentListSuite* sAIDocumentList;
+extern "C" AIActionManagerSuite* sAIActionManager;
 
 bool PrintToPdf();
 
