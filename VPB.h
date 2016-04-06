@@ -14,17 +14,9 @@
 #include "SDKErrors.h"
 #include "AIPDFFormatAction.h"
 #include "AIDocumentAction.h"
-#include "AIArtboard.h"
 #import <Cocoa/Cocoa.h>
 
-extern "C"  AIActionManagerSuite* sAIActionManager;
-extern "C"  AIArtboardSuite* sAIArtboard;
-
 #define kSaveACopyAsAction  "adobe_saveACopyAs"
-
-#define PATH_TO_PLANT_MANUFACTURING	ai::UnicodeString("/Volumes/Plant_Manufacturing")
-#define DEFAULT_OUTPUTPATH "/Users/t431962/Desktop/WORKING"
-
 
 class VPB
 {
