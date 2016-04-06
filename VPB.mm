@@ -8,7 +8,7 @@
  */
 
 #include "VPB.h"
-#import "PlateItem.h"
+#include "SDKErrors.h"
 
 
 Instance::VPB::VPB() : fActionParamValueRef(NULL)
@@ -72,7 +72,7 @@ void Instance::VPB::SetSaveDocumentAsGetParams(ASBoolean getParams)
 
 /*
 */
-ASErr Instance::SaveDocumentAsPDF(Dialog* dlg, PlateItem* plateItem, const string& name)
+ASErr Instance::SaveDocumentAsPDF(const string& name)
 {
 	ASErr result = kNoErr;
 	try {
@@ -87,25 +87,29 @@ ASErr Instance::SaveDocumentAsPDF(Dialog* dlg, PlateItem* plateItem, const strin
 		ASErr result = sAIActionManager->AIActionSetInteger(vpb.fActionParamValueRef, kAIPDFCompatibilityKey, kAIPDFCompatibility14);
 		aisdk::check_ai_error(result);
 		
-/*		// Crop To
-		result = sAIActionManager->AIActionSetInteger(vpb.fActionParamValueRef, kAIPDFCropToKey, kAIPDFArtBox);
+		// Crop To
+		result = sAIActionManager->AIActionSetInteger(vpb.fActionParamValueRef, kAIPDFCropToKey, kAIPDFBleedBox);
 		aisdk::check_ai_error(result);
 		
 		// Page Count
-		//result = sAIActionManager->AIActionSetInteger(vpb.fActionParamValueRef, kAIPDFPageCountKey, 1);
-		//aisdk::check_ai_error(result);
+		result = sAIActionManager->AIActionSetInteger(vpb.fActionParamValueRef, kAIPDFPageCountKey, 1);
+		aisdk::check_ai_error(result);
 		
 		// Page Index
-		ASInt32 index; sAICropArea->GetActive(&index);
+        ai::ArtboardList artboardList; sAIArtboard->GetArtboardList(artboardList);
+		ASInt32 index; sAIArtboard->GetActive(artboardList, index);
 		result = sAIActionManager->AIActionSetInteger(vpb.fActionParamValueRef, kAIPDFPageIndexKey, index);
 		aisdk::check_ai_error(result);
 
-*/		
+        //result = sAIActionManager->AIActionSetBoolean(vpb.fActionParamValueRef,kAIExportDocumentSaveMultipleArtboardsKey, true);
+        //result = sAIActionManager->AIActionSetString(vpb.fActionParamValueRef, kAIExportDocumentSaveRangeKey, "1");
 
+        
+        
 		// Option Set
 		result = sAIActionManager->AIActionSetInteger(vpb.fActionParamValueRef, kAIPDFOptionSetKey, kAIPDFOptionSetCustom);
 		aisdk::check_ai_error(result);
-		result = sAIActionManager->AIActionSetString(vpb.fActionParamValueRef, kAIPDFOptionSetNameKey, "BStat Preset");
+		result = sAIActionManager->AIActionSetString(vpb.fActionParamValueRef, kAIPDFOptionSetNameKey, "Manufacturing");
 		aisdk::check_ai_error(result);
 		
 
@@ -133,12 +137,8 @@ ASErr Instance::SaveDocumentAsPDF(Dialog* dlg, PlateItem* plateItem, const strin
 */		
 		//Output directory
 		NSString* outputFolder;
-		if ([dlg outputToPlants]) {
-			outputFolder = [plateItem createManufacturingPath];
-		} else {
-			outputFolder = [dlg outputPathString];
-		}
-		
+        outputFolder = @DEFAULT_OUTPUTPATH;
+        
 		//Create path
 		NSString* fullPathForNewPDF = [outputFolder stringByAppendingPathComponent:[[NSString stringWithCString:name.c_str() encoding:NSASCIIStringEncoding] stringByAppendingString: @".pdf"]];
 
@@ -172,7 +172,7 @@ ASErr Instance::SaveDocumentAs(const ai::UnicodeString& name, Instance::VPB& vpb
 		vpb.SetSaveDocumentAsGetParams(getParams);
 
 		// Play the action.
-		result = this->SaveDocumentAs(kDialogOff, vpb);
+		result = this->SaveDocumentAs(kDialogOff, vpb.fActionParamValueRef);
 		aisdk::check_ai_error(result);
 	}
 	catch (ai::Error& ex) {

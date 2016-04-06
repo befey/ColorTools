@@ -11,15 +11,17 @@
 #ifndef VPB_H
 #define VPB_H
 
-#include "common.h"
 #include "SDKErrors.h"
 #include "AIPDFFormatAction.h"
 #include "AIDocumentAction.h"
+#include "AIArtboard.h"
+#import <Cocoa/Cocoa.h>
+
+extern "C"  AIActionManagerSuite* sAIActionManager;
+extern "C"  AIArtboardSuite* sAIArtboard;
 
 #define PATH_TO_PLANT_MANUFACTURING	ai::UnicodeString("/Volumes/Plant_Manufacturing")
-#define PATH_TO_TOWNSEND_BS			ai::UnicodeString("/Townsend Files/Bus Stat to be plated/")
-#define PATH_TO_SALT_LAKE_BS		ai::UnicodeString("/Salt Lake City Files/BS to be Plated/")
-#define PATH_TO_MIDLAND_BS			ai::UnicodeString("/Midland Files/BC to be Plated")
+#define DEFAULT_OUTPUTPATH "/Users/t431962/Desktop/WORKING"
 
 class Instance
 	{
@@ -79,7 +81,7 @@ class Instance
 		 @return kNoErr on success, other error code otherwise.
 		 @see kAISaveDocumentAsAction
 		 */
-		ASErr SaveDocumentAsPDF(Dialog* dlg, PlateItem* plateItem, const string& name);
+		ASErr SaveDocumentAsPDF(const string& name);
 		
 		
 		/** Gathers common parameters and saves a document.
