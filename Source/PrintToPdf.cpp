@@ -7,7 +7,6 @@
 //
 
 #include "PrintToPdf.h"
-#include "VPB.h"
 
 bool PrintToPdf()
 {
