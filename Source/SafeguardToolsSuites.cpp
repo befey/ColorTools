@@ -21,6 +21,7 @@ extern "C"
     AIDocumentSuite*        sAIDocument = NULL;
 	AIDocumentListSuite*    sAIDocumentList = NULL;
     AIDocumentViewSuite*    sAIDocumentView = NULL;
+    AIArtboardSuite*        sAIArtboard = NULL;
 
 	AIArtSetSuite*          sAIArtSet = NULL;
 	AIArtStyleSuite*        sAIArtStyle = NULL;
@@ -47,6 +48,8 @@ extern "C"
     
     AIDictionarySuite*      sAIDictionary = NULL;
     AIEntrySuite*           sAIEntry = NULL;
+    
+    AIActionManagerSuite*   sAIActionManager = NULL;
 
     
 	EXTERN_TEXT_SUITES
@@ -73,6 +76,7 @@ ImportSuite gImportSuites[] =
     kAIDocumentSuite, kAIDocumentSuiteVersion, &sAIDocument,
 	kAIDocumentListSuite, kAIDocumentListVersion, &sAIDocumentList,
     kAIDocumentViewSuite, kAIDocumentViewSuiteVersion, &sAIDocumentView,
+    kAIArtboardSuite, kAIArtboardSuiteVersion, &sAIArtboard,
 
     kAIArtSetSuite, kAIArtSetSuiteVersion, &sAIArtSet,
 	kAIArtStyleSuite, kAIArtStyleSuiteVersion, &sAIArtStyle,
@@ -99,6 +103,8 @@ ImportSuite gImportSuites[] =
     
     kAIDictionarySuite, kAIDictionarySuiteVersion, &sAIDictionary,
     kAIEntrySuite, kAIEntrySuiteVersion, &sAIEntry,
+    
+    kAIActionManagerSuite, kAIActionManagerSuiteVersion, &sAIActionManager,
 
     
     IMPORT_TEXT_SUITES

@@ -25,6 +25,8 @@ class BtSwatchList;
 
 #define CREATE_MICR_BARCODE_MENU_ITEM   "Create MICR Barcode"
 
+#define PRINT_TO_PDF_MENU_ITEM          "Print to PDF..."
+
 
 /**	Creates a new SafeguardToolsPlugin.
 	@param pluginRef IN unique reference to this plugin.

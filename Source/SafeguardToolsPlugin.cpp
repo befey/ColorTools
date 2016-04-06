@@ -13,6 +13,7 @@
 #include "TextTools.h"
 #include "FixFreehandType.h"
 #include "DictFuncs.h"
+#include "PrintToPdf.h"
 
 SafeguardToolsPlugin *gPlugin = NULL;
 
@@ -156,6 +157,7 @@ ASErr SafeguardToolsPlugin::PostStartupPlugin()
  */
 ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
 {
+    //MODIFY SWATCHES MENU
     AIPlatformAddMenuItemDataUS menuItem;
     const char* modifySwatchesGroup = MODIFY_SWATCHES_MENU;
     
@@ -176,6 +178,7 @@ ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
     BtAiMenuItem::AddMenu(*ModifySwatchesMenu, &menuItemHandles);
     
 	
+    //TEXT TOOLS MENU
     const char* textToolsGroup = TEXT_TOOLS_MENU;
     
     menuItem.groupName = kTypeLayoutMenuGroup;
@@ -197,6 +200,7 @@ ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
     BtAiMenuItem::AddMenu(*TextToolsMenu, &menuItemHandles);
     
     
+    //ALIGN MENU
     const char* alignGroup = ALIGN_MENU;
     
     menuItem.groupName = kObjectAttribsMenuGroup;
@@ -224,11 +228,20 @@ ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
     BtAiMenuItem::AddMenu(*AlignMenu, &menuItemHandles);
 
     
+    //CREATE MICR BARCODE
     menuItem.groupName = kTypePluginsMenuGroup1;
     menuItem.itemText = ai::UnicodeString(CREATE_MICR_BARCODE_MENU_ITEM);
     BtAiMenuItem* CreateMicrBarcodeMenuItem = new BtAiMenuItem(menuItem, kMenuItemIgnoreSort|kMenuItemWantsUpdateOption);
     
     BtAiMenuItem::AddMenu(*CreateMicrBarcodeMenuItem, &menuItemHandles);
+    
+    
+    //PRINT TO PDF
+    menuItem.groupName = kSaveForMenuGroup;
+    menuItem.itemText = ai::UnicodeString(PRINT_TO_PDF_MENU_ITEM);
+    BtAiMenuItem* PrintToPdfMenuItem = new BtAiMenuItem(menuItem, kMenuItemNoOptions);
+    
+    BtAiMenuItem::AddMenu(*PrintToPdfMenuItem, &menuItemHandles);
     
     return kNoErr;
 }
@@ -300,6 +313,13 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
         if ( CreateMICRBarcode() ) {
             //Set the undo/redo text
             error = sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Create MICR Barcode"), ai::UnicodeString("Redo Create MICR Barcode"));
+        }
+    } else if ( message->menuItem == menuItemHandles.GetHandleWithKey(PRINT_TO_PDF_MENU_ITEM) )
+    {
+        //Call the main function
+        if ( PrintToPdf() ) {
+            //Set the undo/redo text
+            //error = sAIUndo->SetUndoTextUS(ai::UnicodeString(""), ai::UnicodeString(""));
         }
     }
 	

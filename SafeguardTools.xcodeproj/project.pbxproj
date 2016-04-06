@@ -63,6 +63,8 @@
 		F98BAEDE1CA99E1E00965D86 /* ArtTree.h in Headers */ = {isa = PBXBuildFile; fileRef = F98BAEDC1CA99E1E00965D86 /* ArtTree.h */; };
 		F98BAEE11CA9A0D100965D86 /* BtAiMenuItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F98BAEDF1CA9A0D100965D86 /* BtAiMenuItem.cpp */; };
 		F98BAEE21CA9A0D100965D86 /* BtAiMenuItem.h in Headers */ = {isa = PBXBuildFile; fileRef = F98BAEE01CA9A0D100965D86 /* BtAiMenuItem.h */; };
+		F9F55E531CB42D2900FA20EC /* SDKErrors.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9F55E521CB42D2900FA20EC /* SDKErrors.cpp */; };
+		F9FEC8291CB576280097473A /* IAIArtboards.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9FEC8281CB576280097473A /* IAIArtboards.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -123,6 +125,8 @@
 		F98BAEDC1CA99E1E00965D86 /* ArtTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ArtTree.h; path = "../My Custom Headers/ArtTree.h"; sourceTree = "<group>"; };
 		F98BAEDF1CA9A0D100965D86 /* BtAiMenuItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BtAiMenuItem.cpp; path = "../My Custom Headers/BtAiMenuItem.cpp"; sourceTree = "<group>"; };
 		F98BAEE01CA9A0D100965D86 /* BtAiMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BtAiMenuItem.h; path = "../My Custom Headers/BtAiMenuItem.h"; sourceTree = "<group>"; };
+		F9F55E521CB42D2900FA20EC /* SDKErrors.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SDKErrors.cpp; path = "../Adobe Illustrator CC 2015 SDK/samplecode/common/source/SDKErrors.cpp"; sourceTree = "<group>"; };
+		F9FEC8281CB576280097473A /* IAIArtboards.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IAIArtboards.cpp; path = "../Adobe Illustrator CC 2015 SDK/illustratorapi/illustrator/IAIArtboards.cpp"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,17 +144,19 @@
 		2A7772AA0BE6387700A9D493 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				F979B5FC1CA31DF5004BA4AD /* IAIFilePath.cpp */,
-				F979B6021CA31E81004BA4AD /* FlashUIController.cpp */,
-				F979B6001CA31E78004BA4AD /* SDKPlugPlug.cpp */,
 				F979B5FE1CA31E72004BA4AD /* AppContext.cpp */,
+				F979B6021CA31E81004BA4AD /* FlashUIController.cpp */,
+				F9FEC8281CB576280097473A /* IAIArtboards.cpp */,
+				F979B5FC1CA31DF5004BA4AD /* IAIFilePath.cpp */,
 				F979B5FA1CA31DE5004BA4AD /* IAIUnicodeString.cpp */,
+				F979B60A1CA31E92004BA4AD /* IllustratorSDK.cpp */,
 				F989A8F01CA465890050C071 /* IText.cpp */,
 				F989A8F21CA465F30050C071 /* IThrowException.cpp */,
 				F979B6041CA31E87004BA4AD /* Main.cpp */,
 				F979B6061CA31E8B004BA4AD /* Plugin.cpp */,
+				F9F55E521CB42D2900FA20EC /* SDKErrors.cpp */,
+				F979B6001CA31E78004BA4AD /* SDKPlugPlug.cpp */,
 				F979B6081CA31E8E004BA4AD /* Suites.cpp */,
-				F979B60A1CA31E92004BA4AD /* IllustratorSDK.cpp */,
 			);
 			name = Shared;
 			sourceTree = "<group>";
@@ -360,9 +366,11 @@
 				F979B5FF1CA31E72004BA4AD /* AppContext.cpp in Sources */,
 				F9681E4C1CA47B6E00A02A58 /* Plate.mm in Sources */,
 				F979B6091CA31E8E004BA4AD /* Suites.cpp in Sources */,
+				F9F55E531CB42D2900FA20EC /* SDKErrors.cpp in Sources */,
 				F979B6011CA31E78004BA4AD /* SDKPlugPlug.cpp in Sources */,
 				F979B5FD1CA31DF5004BA4AD /* IAIFilePath.cpp in Sources */,
 				F979B6051CA31E87004BA4AD /* Main.cpp in Sources */,
+				F9FEC8291CB576280097473A /* IAIArtboards.cpp in Sources */,
 				F90AE3F21CAAF8AF0076A9BC /* BtAiMenuItemHandles.cpp in Sources */,
 				F989A8F31CA465F30050C071 /* IThrowException.cpp in Sources */,
 				F94726431CB2F91900649020 /* PrintToPdf.cpp in Sources */,
