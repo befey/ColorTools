@@ -14,7 +14,10 @@
 #include "SDKErrors.h"
 #include "AIPDFFormatAction.h"
 #include "AIDocumentAction.h"
+#include "AIActionManager.h"
 #import <Cocoa/Cocoa.h>
+
+extern "C" AIActionManagerSuite* sAIActionManager;
 
 #define kSaveACopyAsAction  "adobe_saveACopyAs"
 
