@@ -13,7 +13,7 @@ bool PrintToPdf()
 {
     Instance instance;
     //We need to get the plate number from the plate struct
-    ASErr error = instance.SaveDocumentAsPDF( "TESTPLATE#" );
+    instance.SaveDocumentAsPDF( "TESTPLATE#" );
 
     return true;
 }
