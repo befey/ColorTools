@@ -101,9 +101,15 @@ ASErr SaveDocumentAsPDF(const string& name)
         //Create path
         NSString* fullPathForNewPDF = [outputFolder stringByAppendingPathComponent:[[NSString stringWithCString:name.c_str() encoding:NSASCIIStringEncoding] stringByAppendingString: @".pdf"]];
         
-        // Gather common parameters then save.
+        // Name parameter.
+        ai::FilePath path;
+        path.Set((ai::UnicodeString)[fullPathForNewPDF cStringUsingEncoding:NSASCIIStringEncoding], FALSE);
+        ASErr result = sAIActionManager->AIActionSetStringUS(vpb, kAISaveDocumentAsNameKey, path.GetFullPath());
+        aisdk::check_ai_error(result);
         
-        result = SaveACopyAs((ai::UnicodeString)[fullPathForNewPDF cStringUsingEncoding:NSASCIIStringEncoding], vpb);
+        
+        // Gather common parameters then save.
+        result = SaveACopyAs(vpb);
         aisdk::check_ai_error(result);
     }
     catch (ai::Error& ex) {
@@ -114,16 +120,10 @@ ASErr SaveDocumentAsPDF(const string& name)
 
 /*
  */
-ASErr SaveACopyAs(const ai::UnicodeString& name, VPB& vpb)
+ASErr SaveACopyAs(VPB& vpb)
 {
     ASErr result = kNoErr;
     try {
-        // Name parameter.
-        ai::FilePath path;
-        path.Set(name, FALSE);
-        
-        vpb.SetSaveName(path);
-        
         // Play the action.
         result = sAIActionManager->PlayActionEvent(kSaveACopyAsAction, kDialogOff, vpb);
         aisdk::check_ai_error(result);

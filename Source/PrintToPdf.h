@@ -35,7 +35,14 @@ ASErr SaveDocumentAsPDF(const string& name);
  @see kAISaveDocumentAsAction
  @see SnpDocumentActionHelper::VPB
  */
-ASErr SaveACopyAs(const ai::UnicodeString& name, VPB& vpb);
+ASErr SaveACopyAs(VPB& vpb);
+
+
+/**	Sets the name key of the document to save as - kAISaveDocumentAsNameKey,
+ in the value parameter block.
+ @param name IN name to save document as.
+ */
+void SetSaveName(const ai::FilePath& name);
 
 
 #endif /* defined(__SafeguardTools__PrintToPdf__) */
