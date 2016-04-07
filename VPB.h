@@ -38,22 +38,6 @@ public:
     //Casts VPB object to its member
     inline operator AIActionParamValueRef(void) const {return fActionParamValueRef;}
     
-    
-    // kAISaveDocumentAsAction parameters
-    
-    /**	Sets the name key of the document to save as - kAISaveDocumentAsNameKey,
-     in the value parameter block.
-     @param name IN name to save document as.
-     */
-    void SetSaveName(const ai::FilePath& name);
-    
-    /**	Sets the format key of the document to save as - kAISaveDocumentAsFormatKey,
-     in the value parameter block.
-     @param format IN format to save document as.
-     */
-    void SetExportDocumentFormat(const char* format);
-    
-    
 private:
     /** The value parameter block.
      */

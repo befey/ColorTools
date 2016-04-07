@@ -38,14 +38,3 @@ VPB::~VPB()
 	catch (ai::Error) {
 	}
 }
-
-
-// kAISaveDocumentAsAction parameters
-/*
-*/
-void VPB::SetSaveName(const ai::FilePath& name)
-{
-	SDK_ASSERT(sAIActionManager);
-	ASErr result = sAIActionManager->AIActionSetStringUS(this->fActionParamValueRef, kAISaveDocumentAsNameKey, name.GetFullPath());
-	aisdk::check_ai_error(result);
-}
