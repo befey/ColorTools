@@ -34,8 +34,31 @@ ASErr SaveDocumentAsPDF(const string& name)
         // Option Set
         result = sAIActionManager->AIActionSetInteger(vpb, kAIPDFOptionSetKey, kAIPDFOptionSetCustom);
         aisdk::check_ai_error(result);
-        result = sAIActionManager->AIActionSetString(vpb, kAIPDFOptionSetNameKey, "Manufacturing");
+        result = sAIActionManager->AIActionSetString(vpb, kAIPDFOptionSetNameKey, MANUFACTURING_PDF_PRESET);
         aisdk::check_ai_error(result);
+        
+    
+        // Save multiple artboards
+        result = sAIActionManager->AIActionSetBoolean(vpb, kAIExportDocumentSaveMultipleArtboardsKey, TRUE);
+        aisdk::check_ai_error(result);
+        
+        // Save all
+        result = sAIActionManager->AIActionSetBoolean(vpb, kAIExportDocumentSaveAllKey, FALSE);
+        aisdk::check_ai_error(result);
+        
+        // Save range
+        result = sAIActionManager->AIActionSetString(vpb, kAIExportDocumentSaveRangeKey, "1");
+        aisdk::check_ai_error(result);
+        
+        
+        /*THESE SHOULD BE SET PROPERLY BY THE joboptions FILE WE'RE USING
+        // Compatibility.
+        //ASErr result = sAIActionManager->AIActionSetInteger(vpb.fActionParamValueRef, kAIPDFCompatibilityKey, kAIPDFCompatibility14);
+        //aisdk::check_ai_error(result);
+        
+        // Crop To
+        //result = sAIActionManager->AIActionSetInteger(vpb.fActionParamValueRef, kAIPDFCropToKey, kAIPDFBleedBox);
+        //aisdk::check_ai_error(result);
         
         // Password Protection
         result = sAIActionManager->AIActionSetBoolean(vpb, kAIPDFUserPasswordRequiredKey, FALSE);
@@ -66,28 +89,7 @@ ASErr SaveDocumentAsPDF(const string& name)
         // Enable Plaintext Metadata
         result = sAIActionManager->AIActionSetBoolean(vpb, kAIPDFEnablePlaintextMetaKey, FALSE);
         aisdk::check_ai_error(result);
-        
-        // Save multiple artboards
-        result = sAIActionManager->AIActionSetBoolean(vpb, kAIExportDocumentSaveMultipleArtboardsKey, TRUE);
-        aisdk::check_ai_error(result);
-        
-        // Save all
-        result = sAIActionManager->AIActionSetBoolean(vpb, kAIExportDocumentSaveAllKey, FALSE);
-        aisdk::check_ai_error(result);
-        
-        // Save range
-        result = sAIActionManager->AIActionSetString(vpb, kAIExportDocumentSaveRangeKey, "1");
-        aisdk::check_ai_error(result);
-        
-        
-        //THESE TWO SHOULD BE SET PROPERLY BY THE joboptions FILE WE'RE USING
-        // Compatibility.
-        //ASErr result = sAIActionManager->AIActionSetInteger(vpb.fActionParamValueRef, kAIPDFCompatibilityKey, kAIPDFCompatibility14);
-        //aisdk::check_ai_error(result);
-        
-        // Crop To
-        //result = sAIActionManager->AIActionSetInteger(vpb.fActionParamValueRef, kAIPDFCropToKey, kAIPDFBleedBox);
-        //aisdk::check_ai_error(result);
+*/
         
         
         // Enable/Disable dialogs

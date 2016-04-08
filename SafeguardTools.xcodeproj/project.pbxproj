@@ -38,6 +38,8 @@
 		F9681E4A1CA47B6E00A02A58 /* Node.mm in Sources */ = {isa = PBXBuildFile; fileRef = F9681E461CA47B6E00A02A58 /* Node.mm */; };
 		F9681E4B1CA47B6E00A02A58 /* Plate.h in Headers */ = {isa = PBXBuildFile; fileRef = F9681E471CA47B6E00A02A58 /* Plate.h */; };
 		F9681E4C1CA47B6E00A02A58 /* Plate.mm in Sources */ = {isa = PBXBuildFile; fileRef = F9681E481CA47B6E00A02A58 /* Plate.mm */; };
+		F96D30731CB6D73500274BDE /* PlateNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F96D30711CB6D73500274BDE /* PlateNumber.cpp */; };
+		F96D30741CB6D73500274BDE /* PlateNumber.h in Headers */ = {isa = PBXBuildFile; fileRef = F96D30721CB6D73500274BDE /* PlateNumber.h */; };
 		F979B5FB1CA31DE5004BA4AD /* IAIUnicodeString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F979B5FA1CA31DE5004BA4AD /* IAIUnicodeString.cpp */; };
 		F979B5FD1CA31DF5004BA4AD /* IAIFilePath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F979B5FC1CA31DF5004BA4AD /* IAIFilePath.cpp */; };
 		F979B5FF1CA31E72004BA4AD /* AppContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F979B5FE1CA31E72004BA4AD /* AppContext.cpp */; };
@@ -100,6 +102,8 @@
 		F9681E461CA47B6E00A02A58 /* Node.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Node.mm; path = "../My Custom Headers/Node.mm"; sourceTree = "<group>"; };
 		F9681E471CA47B6E00A02A58 /* Plate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Plate.h; path = "../My Custom Headers/Plate.h"; sourceTree = "<group>"; };
 		F9681E481CA47B6E00A02A58 /* Plate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Plate.mm; path = "../My Custom Headers/Plate.mm"; sourceTree = "<group>"; };
+		F96D30711CB6D73500274BDE /* PlateNumber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlateNumber.cpp; path = "../My Custom Headers/PlateNumber.cpp"; sourceTree = "<group>"; };
+		F96D30721CB6D73500274BDE /* PlateNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlateNumber.h; path = "../My Custom Headers/PlateNumber.h"; sourceTree = "<group>"; };
 		F979B5FA1CA31DE5004BA4AD /* IAIUnicodeString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IAIUnicodeString.cpp; path = "../Adobe Illustrator CC 2015 SDK/illustratorapi/illustrator/IAIUnicodeString.cpp"; sourceTree = "<group>"; };
 		F979B5FC1CA31DF5004BA4AD /* IAIFilePath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IAIFilePath.cpp; path = "../Adobe Illustrator CC 2015 SDK/illustratorapi/illustrator/IAIFilePath.cpp"; sourceTree = "<group>"; };
 		F979B5FE1CA31E72004BA4AD /* AppContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AppContext.cpp; path = "../Adobe Illustrator CC 2015 SDK/samplecode/common/source/AppContext.cpp"; sourceTree = "<group>"; };
@@ -248,6 +252,8 @@
 				F9681E461CA47B6E00A02A58 /* Node.mm */,
 				F9681E471CA47B6E00A02A58 /* Plate.h */,
 				F9681E481CA47B6E00A02A58 /* Plate.mm */,
+				F96D30711CB6D73500274BDE /* PlateNumber.cpp */,
+				F96D30721CB6D73500274BDE /* PlateNumber.h */,
 				F947263D1CB2E1F400649020 /* VPB.h */,
 				F947263E1CB2E1F400649020 /* VPB.mm */,
 			);
@@ -277,6 +283,7 @@
 				F90E3FA41CA475880081C333 /* ColorFuncs.h in Headers */,
 				F90E3FA01CA475880081C333 /* BtColor.h in Headers */,
 				F9681E491CA47B6E00A02A58 /* Node.h in Headers */,
+				F96D30741CB6D73500274BDE /* PlateNumber.h in Headers */,
 				F947263F1CB2E1F400649020 /* VPB.h in Headers */,
 				F98BAEE21CA9A0D100965D86 /* BtAiMenuItem.h in Headers */,
 				F9681E421CA47AFC00A02A58 /* FixFreehandType.h in Headers */,
@@ -386,6 +393,7 @@
 				F98BAEDA1CA99DB500965D86 /* CException.mm in Sources */,
 				F979B5FB1CA31DE5004BA4AD /* IAIUnicodeString.cpp in Sources */,
 				F979B60B1CA31E92004BA4AD /* IllustratorSDK.cpp in Sources */,
+				F96D30731CB6D73500274BDE /* PlateNumber.cpp in Sources */,
 				F94726401CB2E1F400649020 /* VPB.mm in Sources */,
 				F98BAEDD1CA99E1E00965D86 /* ArtTree.cpp in Sources */,
 				F9681E4A1CA47B6E00A02A58 /* Node.mm in Sources */,
