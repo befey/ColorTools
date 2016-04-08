@@ -12,9 +12,10 @@
 #include "AIDocumentList.h"
 #include "AIActionManager.h"
 #include "VPB.h"
+#include "VPBFactory.h"
 #include "PlateNumber.h"
 
-#define PATH_TO_PLANT_MANUFACTURING	ai::UnicodeString("/Volumes/Plant_Manufacturing")
+#define PATH_TO_PLANT_MANUFACTURING	"/Volumes/Plant_Manufacturing"
 #define DEFAULT_OUTPUTPATH "/Users/t431962/Desktop/WORKING"
 
 #define MANUFACTURING_PDF_PRESET    "Manufacturing"
@@ -26,14 +27,9 @@ extern "C" AIActionManagerSuite* sAIActionManager;
 
 bool PrintToPdf();
 
-ai::FilePath GetManufacturingOutputFolder(PlateNumber);
+VPB* ManufacturingSettings();
 
-/** Gathers action parameters and saves document as PDF.
- @param name IN name to save the document as.
- @return kNoErr on success, other error code otherwise.
- @see kAISaveDocumentAsAction
- */
-ASErr SaveDocumentAsPDF(const string& name);
+ai::FilePath GetManufacturingOutputFolder(PlateNumber);
 
 /** Gathers common parameters and saves a document.
  @param name IN name to save the document as.
@@ -43,13 +39,6 @@ ASErr SaveDocumentAsPDF(const string& name);
  @see SnpDocumentActionHelper::VPB
  */
 ASErr SaveACopyAs(VPB& vpb);
-
-
-/**	Sets the name key of the document to save as - kAISaveDocumentAsNameKey,
- in the value parameter block.
- @param name IN name to save document as.
- */
-void SetSaveName(const ai::FilePath& name);
 
 
 #endif /* defined(__SafeguardTools__PrintToPdf__) */
