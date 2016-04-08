@@ -21,6 +21,11 @@ PlateNumber::PlateNumber(string pNum)
     }
 }
 
+PlateNumber::PlateNumber(ai::UnicodeString pNum)
+{
+    PlateNumber(pNum.getInStdString(kAIPlatformCharacterEncoding));
+}
+
 Boolean PlateNumber::TokenizePlateNumber()
 {
     using namespace std;
