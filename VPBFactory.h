@@ -11,15 +11,15 @@
 
 #include "VPB.h"
 
-typedef VPB* (*SettingsFunction) ();
+typedef VPB (*SettingsFunction) ();
 
 class VPBFactory
 {
 public:
     inline VPBFactory(SettingsFunction f) {vpb = f();};
-    inline operator VPB(void) const {return *vpb;}
+    inline operator VPB(void) const {return vpb;}
 private:
-    VPB* vpb;
+    VPB vpb;
     SettingsFunction func;
 };
 
