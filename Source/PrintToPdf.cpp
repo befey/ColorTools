@@ -11,8 +11,7 @@
 bool PrintToPdf()
 {
     //Create VPBs for each type of PDF
-    SettingsFunction manufacturingSettings = ManufacturingSettings;
-    VPB vpb = VPBFactory(manufacturingSettings);
+    VPB vpb = VPBFactory(ManufacturingSettings);
     
     // Save range
     sAIActionManager->AIActionSetString(vpb, kAIExportDocumentSaveRangeKey, "1");
