@@ -25,7 +25,7 @@
 		F90E3FA41CA475880081C333 /* ColorFuncs.h in Headers */ = {isa = PBXBuildFile; fileRef = F90E3F9C1CA475880081C333 /* ColorFuncs.h */; };
 		F93027D91CA46E7D00D3B41E /* SafeguardTools.r in Rez */ = {isa = PBXBuildFile; fileRef = F93027D81CA46E7D00D3B41E /* SafeguardTools.r */; };
 		F947263F1CB2E1F400649020 /* VPB.h in Headers */ = {isa = PBXBuildFile; fileRef = F947263D1CB2E1F400649020 /* VPB.h */; };
-		F94726401CB2E1F400649020 /* VPB.mm in Sources */ = {isa = PBXBuildFile; fileRef = F947263E1CB2E1F400649020 /* VPB.mm */; };
+		F94726401CB2E1F400649020 /* VPB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F947263E1CB2E1F400649020 /* VPB.cpp */; };
 		F94726431CB2F91900649020 /* PrintToPdf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F94726411CB2F91900649020 /* PrintToPdf.cpp */; };
 		F94726441CB2F91900649020 /* PrintToPdf.h in Headers */ = {isa = PBXBuildFile; fileRef = F94726421CB2F91900649020 /* PrintToPdf.h */; };
 		F9681E3B1CA47AC400A02A58 /* DictFuncs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9681E391CA47AC400A02A58 /* DictFuncs.cpp */; };
@@ -90,7 +90,7 @@
 		F90E3F9C1CA475880081C333 /* ColorFuncs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColorFuncs.h; path = "../My Custom Headers/ColorFuncs.h"; sourceTree = "<group>"; };
 		F93027D81CA46E7D00D3B41E /* SafeguardTools.r */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; name = SafeguardTools.r; path = Resources/Mac/SafeguardTools.r; sourceTree = "<group>"; };
 		F947263D1CB2E1F400649020 /* VPB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPB.h; path = "../My Custom Headers/VPB.h"; sourceTree = "<group>"; };
-		F947263E1CB2E1F400649020 /* VPB.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VPB.mm; path = "../My Custom Headers/VPB.mm"; sourceTree = "<group>"; };
+		F947263E1CB2E1F400649020 /* VPB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VPB.cpp; path = "../My Custom Headers/VPB.cpp"; sourceTree = "<group>"; };
 		F94726411CB2F91900649020 /* PrintToPdf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PrintToPdf.cpp; path = Source/PrintToPdf.cpp; sourceTree = "<group>"; };
 		F94726421CB2F91900649020 /* PrintToPdf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintToPdf.h; path = Source/PrintToPdf.h; sourceTree = "<group>"; };
 		F9681E391CA47AC400A02A58 /* DictFuncs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DictFuncs.cpp; path = "../My Custom Headers/DictFuncs.cpp"; sourceTree = "<group>"; };
@@ -256,8 +256,8 @@
 				F9681E481CA47B6E00A02A58 /* Plate.mm */,
 				F96D30711CB6D73500274BDE /* PlateNumber.cpp */,
 				F96D30721CB6D73500274BDE /* PlateNumber.h */,
+				F947263E1CB2E1F400649020 /* VPB.cpp */,
 				F947263D1CB2E1F400649020 /* VPB.h */,
-				F947263E1CB2E1F400649020 /* VPB.mm */,
 				F96A5C891CB821EB006FF6E5 /* VPBFactory.h */,
 			);
 			name = "My Headers";
@@ -398,7 +398,7 @@
 				F979B5FB1CA31DE5004BA4AD /* IAIUnicodeString.cpp in Sources */,
 				F979B60B1CA31E92004BA4AD /* IllustratorSDK.cpp in Sources */,
 				F96D30731CB6D73500274BDE /* PlateNumber.cpp in Sources */,
-				F94726401CB2E1F400649020 /* VPB.mm in Sources */,
+				F94726401CB2E1F400649020 /* VPB.cpp in Sources */,
 				F98BAEDD1CA99E1E00965D86 /* ArtTree.cpp in Sources */,
 				F9681E4A1CA47B6E00A02A58 /* Node.mm in Sources */,
 				F979B6071CA31E8B004BA4AD /* Plugin.cpp in Sources */,
