@@ -11,7 +11,6 @@
 
 #include "AIActionManager.h"
 #include "VPB.h"
-#include "VPBFactory.h"
 #include "PlateNumber.h"
 
 #define PATH_TO_PLANT_MANUFACTURING	"/Volumes/Plant_Manufacturing"
@@ -27,7 +26,7 @@ extern "C" AIActionManagerSuite* sAIActionManager;
 
 bool PrintToPdf();
 
-VPB* ManufacturingSettings();
+void ManufacturingSettings(AIActionParamValueRef*);
 
 ai::FilePath GetManufacturingOutputFolder(PlateNumber);
 
@@ -38,7 +37,7 @@ ai::FilePath GetManufacturingOutputFolder(PlateNumber);
  @see kAISaveDocumentAsAction
  @see SnpDocumentActionHelper::VPB
  */
-ASErr SaveACopyAs(VPB& vpb);
+ASErr SaveACopyAs(VPB&);
 
 
 #endif /* defined(__SafeguardTools__PrintToPdf__) */

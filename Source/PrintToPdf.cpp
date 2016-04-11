@@ -7,53 +7,54 @@
 //
 
 #include "PrintToPdf.h"
+#include "AIDocument.h"
+
+extern AIDocumentSuite* sAIDocument;
 
 bool PrintToPdf()
 {
     //Create VPBs for each type of PDF
-    VPB vpb = VPBFactory(ManufacturingSettings);
+    VPB vpb(ManufacturingSettings);
     
     // Save range
     sAIActionManager->AIActionSetString(vpb, kAIExportDocumentSaveRangeKey, "1");
     
-    //Output directory
-    NSString* outputFolder;
-    outputFolder = @DEFAULT_OUTPUTPATH;
-    
     //Create path
-    string name = "TESTPLATE#";
-    NSString* fullPathForNewPDF = [outputFolder stringByAppendingPathComponent:[[NSString stringWithCString:name.c_str() encoding:NSASCIIStringEncoding] stringByAppendingString: @".pdf"]];
+    ai::FilePath openedFilePath;
+    ai::FilePath saveasFilePath(ai::UnicodeString(DEFAULT_OUTPUTPATH));
     
-    // Name parameter.
-    ai::FilePath path;
-    path.Set((ai::UnicodeString)[fullPathForNewPDF cStringUsingEncoding:NSASCIIStringEncoding], FALSE);
-    ASErr result = sAIActionManager->AIActionSetStringUS(vpb, kAISaveDocumentAsNameKey, path.GetFullPath());
-    aisdk::check_ai_error(result);
+    sAIDocument->GetDocumentFileSpecification(openedFilePath);
+    PlateNumber plateNumber(openedFilePath.GetFileNameNoExt().getInStdString(kAIPlatformCharacterEncoding));
     
+    saveasFilePath.AddComponent(ai::UnicodeString(plateNumber.GetPlateNumber()));
+    saveasFilePath.AddExtension("pdf");
+    
+    sAIActionManager->AIActionSetStringUS(vpb, kAISaveDocumentAsNameKey, saveasFilePath.GetFullPath());
+
     
     // Gather common parameters then save.
-    result = SaveACopyAs(vpb);
+    SaveACopyAs(vpb);
 
+    
     return true;
 }
 
-VPB* ManufacturingSettings()
+void ManufacturingSettings(AIActionParamValueRef* target)
 {
-    VPB vpb;
-    
+ 
     // Format parameter.
-    sAIActionManager->AIActionSetString(vpb, kAIExportDocumentFormatKey, kAIPDFFileFormat);
-    sAIActionManager->AIActionSetString(vpb, kAIExportDocumentExtensionKey, kAIPDFFileFormatExtension);
+    sAIActionManager->AIActionSetString(*target, kAIExportDocumentFormatKey, kAIPDFFileFormat);
+    sAIActionManager->AIActionSetString(*target, kAIExportDocumentExtensionKey, kAIPDFFileFormatExtension);
     
     // Option Set
-    sAIActionManager->AIActionSetInteger(vpb, kAIPDFOptionSetKey, kAIPDFOptionSetCustom);
-    sAIActionManager->AIActionSetString(vpb, kAIPDFOptionSetNameKey, MANUFACTURING_PDF_PRESET);
+    sAIActionManager->AIActionSetInteger(*target, kAIPDFOptionSetKey, kAIPDFOptionSetCustom);
+    sAIActionManager->AIActionSetString(*target, kAIPDFOptionSetNameKey, MANUFACTURING_PDF_PRESET);
     
     // Save multiple artboards
-    sAIActionManager->AIActionSetBoolean(vpb, kAIExportDocumentSaveMultipleArtboardsKey, TRUE);
+    sAIActionManager->AIActionSetBoolean(*target, kAIExportDocumentSaveMultipleArtboardsKey, TRUE);
     
     // Save all
-    sAIActionManager->AIActionSetBoolean(vpb, kAIExportDocumentSaveAllKey, FALSE);
+    sAIActionManager->AIActionSetBoolean(*target, kAIExportDocumentSaveAllKey, FALSE);
     
     /*THESE SHOULD BE SET PROPERLY BY THE joboptions FILE WE'RE USING
      // Compatibility.
@@ -96,7 +97,8 @@ VPB* ManufacturingSettings()
      */
     
     // Enable/Disable dialogs
-    sAIActionManager->AIActionSetBoolean(vpb, kAISaveDocumentAsGetParamsKey, FALSE);
+    sAIActionManager->AIActionSetBoolean(*target, kAISaveDocumentAsGetParamsKey, FALSE);
+    
 }
 
 /*
