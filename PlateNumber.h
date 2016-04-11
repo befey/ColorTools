@@ -36,7 +36,6 @@ class PlateNumber
 {
 public:
     PlateNumber(string);
-    PlateNumber(ai::UnicodeString);
     inline Boolean IsValid() {return isValidPlateNumber;};
     inline string GetPlateNumber() {return plateNumber;};
     inline string GetPlantIndicator() {return plantIndicator;};
