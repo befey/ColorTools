@@ -21,12 +21,15 @@ extern "C" AIActionManagerSuite* sAIActionManager;
 
 #define kSaveACopyAsAction  "adobe_saveACopyAs"
 
+class VPB;
+typedef void (*SettingsFunction) (AIActionParamValueRef*);
+
 class VPB
 {
 public:
     /**	Constructor
      */
-    VPB();
+    VPB(SettingsFunction f);
     
     /**	Destructor
      */
