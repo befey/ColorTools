@@ -24,14 +24,6 @@ bool PrintToPdf();
 
 ai::FilePath CreateSaveFilePath(int artboardIndex);
 
-/** Gathers common parameters and saves a document.
- @param name IN name to save the document as.
- @param vpb IN the value parameter block.
- @return kNoErr on success, other error code otherwise.
- @see kAISaveDocumentAsAction
- @see SnpDocumentActionHelper::VPB
- */
 ASErr SaveACopyAs(VPB&);
-
 
 #endif /* defined(__SafeguardTools__PrintToPdf__) */
