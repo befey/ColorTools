@@ -257,7 +257,7 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
 	{
         FixBlack();
     }
-	if ( message->menuItem == menuItemHandles.GetHandleWithKey(FIND_AND_REPLACE_MENU_ITEM) )
+	else if ( message->menuItem == menuItemHandles.GetHandleWithKey(FIND_AND_REPLACE_MENU_ITEM) )
 	{
         AIBoolean state;
         sAICSXSExtension->IsPrimaryStageVisible(COLORTOOLS_UI_EXTENSION, state);
@@ -273,48 +273,53 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
         }
 
 	}
-    
-    if ( message->menuItem == menuItemHandles.GetHandleWithKey(MAKE_POINT_TYPE_MENU_ITEM) )
+    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(MAKE_POINT_TYPE_MENU_ITEM) )
     {
         //Call the main function
         if ( ConvertToPointType() ) {
             //What to do if it worked.
         }
-    } else if ( message->menuItem == menuItemHandles.GetHandleWithKey(FIX_FREEHAND_TYPE_MENU_ITEM) )
+    }
+    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(FIX_FREEHAND_TYPE_MENU_ITEM) )
     {
         //Call the main function
         if ( FixFreehandType() ) {
             //What to do if it worked.
         }
-    } else if ( message->menuItem == menuItemHandles.GetHandleWithKey(ALIGN_LEFT_MENU_ITEM) )
+    }
+    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(ALIGN_LEFT_MENU_ITEM) )
     {
         //Call the main function
         if ( Align(ATE::kLeftJustify) ) {
             //Set the undo/redo text
             error = sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Align"), ai::UnicodeString("Redo Align"));
         }
-    } else if ( message->menuItem == menuItemHandles.GetHandleWithKey(ALIGN_CENTER_MENU_ITEM) )
+    }
+    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(ALIGN_CENTER_MENU_ITEM) )
     {
         //Call the main function
         if ( Align(ATE::kCenterJustify) ) {
             //Set the undo/redo text
             error = sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Align"), ai::UnicodeString("Redo Align"));
         }
-    } else if ( message->menuItem == menuItemHandles.GetHandleWithKey(ALIGN_RIGHT_MENU_ITEM) )
+    }
+    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(ALIGN_RIGHT_MENU_ITEM) )
     {
         //Call the main function
         if ( Align(ATE::kRightJustify) ) {
             //Set the undo/redo text
             error = sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Align"), ai::UnicodeString("Redo Align"));
         }
-    } else if ( message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_MICR_BARCODE_MENU_ITEM) )
+    }
+    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_MICR_BARCODE_MENU_ITEM) )
     {
         //Call the main function
         if ( CreateMICRBarcode() ) {
             //Set the undo/redo text
             error = sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Create MICR Barcode"), ai::UnicodeString("Redo Create MICR Barcode"));
         }
-    } else if ( message->menuItem == menuItemHandles.GetHandleWithKey(PRINT_TO_PDF_MENU_ITEM) )
+    }
+    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(PRINT_TO_PDF_MENU_ITEM) )
     {
         //Call the main function
         if ( PrintToPdf() ) {
