@@ -66,6 +66,8 @@
 		F98BAEE11CA9A0D100965D86 /* BtAiMenuItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F98BAEDF1CA9A0D100965D86 /* BtAiMenuItem.cpp */; };
 		F98BAEE21CA9A0D100965D86 /* BtAiMenuItem.h in Headers */ = {isa = PBXBuildFile; fileRef = F98BAEE01CA9A0D100965D86 /* BtAiMenuItem.h */; };
 		F9F55E531CB42D2900FA20EC /* SDKErrors.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9F55E521CB42D2900FA20EC /* SDKErrors.cpp */; };
+		F9FAE8FA1CBD4E1800938893 /* PdfSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9FAE8F81CBD4E1800938893 /* PdfSettings.cpp */; };
+		F9FAE8FB1CBD4E1800938893 /* PdfSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = F9FAE8F91CBD4E1800938893 /* PdfSettings.h */; };
 		F9FEC8291CB576280097473A /* IAIArtboards.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9FEC8281CB576280097473A /* IAIArtboards.cpp */; };
 /* End PBXBuildFile section */
 
@@ -130,6 +132,8 @@
 		F98BAEDF1CA9A0D100965D86 /* BtAiMenuItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BtAiMenuItem.cpp; path = "../My Custom Headers/BtAiMenuItem.cpp"; sourceTree = "<group>"; };
 		F98BAEE01CA9A0D100965D86 /* BtAiMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BtAiMenuItem.h; path = "../My Custom Headers/BtAiMenuItem.h"; sourceTree = "<group>"; };
 		F9F55E521CB42D2900FA20EC /* SDKErrors.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SDKErrors.cpp; path = "../Adobe Illustrator CC 2015 SDK/samplecode/common/source/SDKErrors.cpp"; sourceTree = "<group>"; };
+		F9FAE8F81CBD4E1800938893 /* PdfSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PdfSettings.cpp; path = "../My Custom Headers/PdfSettings.cpp"; sourceTree = "<group>"; };
+		F9FAE8F91CBD4E1800938893 /* PdfSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PdfSettings.h; path = "../My Custom Headers/PdfSettings.h"; sourceTree = "<group>"; };
 		F9FEC8281CB576280097473A /* IAIArtboards.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IAIArtboards.cpp; path = "../Adobe Illustrator CC 2015 SDK/illustratorapi/illustrator/IAIArtboards.cpp"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -250,6 +254,8 @@
 				F9681E3A1CA47AC400A02A58 /* DictFuncs.h */,
 				F9681E451CA47B6E00A02A58 /* Node.h */,
 				F9681E461CA47B6E00A02A58 /* Node.mm */,
+				F9FAE8F81CBD4E1800938893 /* PdfSettings.cpp */,
+				F9FAE8F91CBD4E1800938893 /* PdfSettings.h */,
 				F9681E471CA47B6E00A02A58 /* Plate.h */,
 				F9681E481CA47B6E00A02A58 /* Plate.mm */,
 				F96D30711CB6D73500274BDE /* PlateNumber.cpp */,
@@ -281,6 +287,7 @@
 				6868C925150BA192003DAAF2 /* SafeguardToolsID.h in Headers */,
 				F98BAED91CA99DB500965D86 /* CException.h in Headers */,
 				F90E3FA41CA475880081C333 /* ColorFuncs.h in Headers */,
+				F9FAE8FB1CBD4E1800938893 /* PdfSettings.h in Headers */,
 				F90E3FA01CA475880081C333 /* BtColor.h in Headers */,
 				F9681E491CA47B6E00A02A58 /* Node.h in Headers */,
 				F96D30741CB6D73500274BDE /* PlateNumber.h in Headers */,
@@ -392,6 +399,7 @@
 				F989A8EE1CA460CE0050C071 /* ReplaceData.cpp in Sources */,
 				F98BAEDA1CA99DB500965D86 /* CException.mm in Sources */,
 				F979B5FB1CA31DE5004BA4AD /* IAIUnicodeString.cpp in Sources */,
+				F9FAE8FA1CBD4E1800938893 /* PdfSettings.cpp in Sources */,
 				F979B60B1CA31E92004BA4AD /* IllustratorSDK.cpp in Sources */,
 				F96D30731CB6D73500274BDE /* PlateNumber.cpp in Sources */,
 				F94726401CB2E1F400649020 /* VPB.cpp in Sources */,

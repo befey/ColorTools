@@ -18,15 +18,9 @@
 #define PATH_TO_MICR_PDF "/Volumes/MICR_PDF"
 #define DEFAULT_OUTPUTPATH "/Users/t431962/Desktop/WORKING"
 
-#define MANUFACTURING_PDF_PRESET    "Manufacturing"
-#define MICR_PROOF_PDF_PRESET       "MICR"
-#define REG_PROOF_PDF_PRESET        "Proof"
-
 extern "C" AIActionManagerSuite* sAIActionManager;
 
 bool PrintToPdf();
-
-void ManufacturingSettings(AIActionParamValueRef*);
 
 ai::FilePath CreateSaveFilePath(int artboardIndex);
 
