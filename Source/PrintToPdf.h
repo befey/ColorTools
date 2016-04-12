@@ -28,7 +28,7 @@ bool PrintToPdf();
 
 void ManufacturingSettings(AIActionParamValueRef*);
 
-ai::FilePath GetManufacturingOutputFolder(PlateNumber);
+ai::FilePath CreateSaveFilePath(int artboardIndex);
 
 /** Gathers common parameters and saves a document.
  @param name IN name to save the document as.

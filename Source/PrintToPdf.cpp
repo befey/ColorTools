@@ -8,6 +8,7 @@
 
 #include "PrintToPdf.h"
 #include "AIDocument.h"
+#include <string>
 
 extern AIDocumentSuite* sAIDocument;
 
@@ -17,9 +18,20 @@ bool PrintToPdf()
     VPB vpb(ManufacturingSettings);
     
     // Save range
-    sAIActionManager->AIActionSetString(vpb, kAIExportDocumentSaveRangeKey, "1");
+    int artboardRange = 1;
+    sAIActionManager->AIActionSetString(vpb, kAIExportDocumentSaveRangeKey, to_string(artboardRange).c_str());
     
-    //Create path
+    //Set path
+    sAIActionManager->AIActionSetStringUS(vpb, kAISaveDocumentAsNameKey, CreateSaveFilePath(artboardRange).GetFullPath());
+    
+    // Gather common parameters then save.
+    SaveACopyAs(vpb);
+
+    return true;
+}
+
+ai::FilePath CreateSaveFilePath(int artboardIndex)
+{
     ai::FilePath openedFilePath;
     ai::FilePath saveasFilePath(ai::UnicodeString(DEFAULT_OUTPUTPATH));
     
@@ -29,14 +41,7 @@ bool PrintToPdf()
     saveasFilePath.AddComponent(ai::UnicodeString(plateNumber.GetPlateNumber()));
     saveasFilePath.AddExtension("pdf");
     
-    sAIActionManager->AIActionSetStringUS(vpb, kAISaveDocumentAsNameKey, saveasFilePath.GetFullPath());
-
-    
-    // Gather common parameters then save.
-    SaveACopyAs(vpb);
-
-    
-    return true;
+    return saveasFilePath;
 }
 
 void ManufacturingSettings(AIActionParamValueRef* target)
