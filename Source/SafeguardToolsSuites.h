@@ -16,6 +16,7 @@
 #include "AIDocumentList.h"
 #include "AIDocumentView.h"
 #include "AIArtboard.h"
+#include "AIArtboardRange.h"
 
 #include "AIGroup.h"
 #include "AIArtSet.h"
@@ -62,6 +63,7 @@ extern "C"	AIDocumentSuite *sAIDocument;
 extern "C"  AIDocumentListSuite *sAIDocumentList;
 extern "C"  AIDocumentViewSuite* sAIDocumentView;
 extern "C"  AIArtboardSuite* sAIArtboard;
+extern "C"  AIArtboardRangeSuite* sAIArtboardRange;
 
 extern "C"  AIArtSetSuite *sAIArtSet;
 extern "C"  AIArtStyleSuite *sAIArtStyle;

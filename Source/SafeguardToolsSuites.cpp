@@ -22,6 +22,7 @@ extern "C"
 	AIDocumentListSuite*    sAIDocumentList = NULL;
     AIDocumentViewSuite*    sAIDocumentView = NULL;
     AIArtboardSuite*        sAIArtboard = NULL;
+    AIArtboardRangeSuite*   sAIArtboardRange = NULL;
 
 	AIArtSetSuite*          sAIArtSet = NULL;
 	AIArtStyleSuite*        sAIArtStyle = NULL;
@@ -77,6 +78,7 @@ ImportSuite gImportSuites[] =
 	kAIDocumentListSuite, kAIDocumentListVersion, &sAIDocumentList,
     kAIDocumentViewSuite, kAIDocumentViewSuiteVersion, &sAIDocumentView,
     kAIArtboardSuite, kAIArtboardSuiteVersion, &sAIArtboard,
+    kAIArtboardRangeSuite, kAIArtboardRangeSuiteVersion, &sAIArtboardRange,
 
     kAIArtSetSuite, kAIArtSetSuiteVersion, &sAIArtSet,
 	kAIArtStyleSuite, kAIArtStyleSuiteVersion, &sAIArtStyle,

@@ -68,6 +68,8 @@
 		F9F55E531CB42D2900FA20EC /* SDKErrors.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9F55E521CB42D2900FA20EC /* SDKErrors.cpp */; };
 		F9FAE8FA1CBD4E1800938893 /* PdfSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9FAE8F81CBD4E1800938893 /* PdfSettings.cpp */; };
 		F9FAE8FB1CBD4E1800938893 /* PdfSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = F9FAE8F91CBD4E1800938893 /* PdfSettings.h */; };
+		F9FAE8FE1CBD87E700938893 /* BtArtboardRange.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9FAE8FC1CBD87E700938893 /* BtArtboardRange.cpp */; };
+		F9FAE8FF1CBD87E700938893 /* BtArtboardRange.h in Headers */ = {isa = PBXBuildFile; fileRef = F9FAE8FD1CBD87E700938893 /* BtArtboardRange.h */; };
 		F9FEC8291CB576280097473A /* IAIArtboards.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9FEC8281CB576280097473A /* IAIArtboards.cpp */; };
 /* End PBXBuildFile section */
 
@@ -134,6 +136,8 @@
 		F9F55E521CB42D2900FA20EC /* SDKErrors.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SDKErrors.cpp; path = "../Adobe Illustrator CC 2015 SDK/samplecode/common/source/SDKErrors.cpp"; sourceTree = "<group>"; };
 		F9FAE8F81CBD4E1800938893 /* PdfSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PdfSettings.cpp; path = "../My Custom Headers/PdfSettings.cpp"; sourceTree = "<group>"; };
 		F9FAE8F91CBD4E1800938893 /* PdfSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PdfSettings.h; path = "../My Custom Headers/PdfSettings.h"; sourceTree = "<group>"; };
+		F9FAE8FC1CBD87E700938893 /* BtArtboardRange.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BtArtboardRange.cpp; path = "../My Custom Headers/BtArtboardRange.cpp"; sourceTree = "<group>"; };
+		F9FAE8FD1CBD87E700938893 /* BtArtboardRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BtArtboardRange.h; path = "../My Custom Headers/BtArtboardRange.h"; sourceTree = "<group>"; };
 		F9FEC8281CB576280097473A /* IAIArtboards.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IAIArtboards.cpp; path = "../Adobe Illustrator CC 2015 SDK/illustratorapi/illustrator/IAIArtboards.cpp"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -242,6 +246,8 @@
 				F98BAEE01CA9A0D100965D86 /* BtAiMenuItem.h */,
 				F90AE3F01CAAF8AF0076A9BC /* BtAiMenuItemHandles.cpp */,
 				F90AE3F11CAAF8AF0076A9BC /* BtAiMenuItemHandles.h */,
+				F9FAE8FC1CBD87E700938893 /* BtArtboardRange.cpp */,
+				F9FAE8FD1CBD87E700938893 /* BtArtboardRange.h */,
 				F90E3F971CA475880081C333 /* BtColor.cpp */,
 				F90E3F981CA475880081C333 /* BtColor.h */,
 				F90E3F991CA475880081C333 /* BtSwatchList.cpp */,
@@ -277,6 +283,7 @@
 				F90E3F9E1CA475880081C333 /* ATEFuncs.h in Headers */,
 				F90AE3F31CAAF8AF0076A9BC /* BtAiMenuItemHandles.h in Headers */,
 				F98BAEDE1CA99E1E00965D86 /* ArtTree.h in Headers */,
+				F9FAE8FF1CBD87E700938893 /* BtArtboardRange.h in Headers */,
 				F989A8E91CA460CE0050C071 /* ColorToolsUIController.h in Headers */,
 				F9681E4B1CA47B6E00A02A58 /* Plate.h in Headers */,
 				F989A8EB1CA460CE0050C071 /* FindReplaceGraphics.h in Headers */,
@@ -386,6 +393,7 @@
 				F979B6051CA31E87004BA4AD /* Main.cpp in Sources */,
 				F9FEC8291CB576280097473A /* IAIArtboards.cpp in Sources */,
 				F90AE3F21CAAF8AF0076A9BC /* BtAiMenuItemHandles.cpp in Sources */,
+				F9FAE8FE1CBD87E700938893 /* BtArtboardRange.cpp in Sources */,
 				F989A8F31CA465F30050C071 /* IThrowException.cpp in Sources */,
 				F94726431CB2F91900649020 /* PrintToPdf.cpp in Sources */,
 				F989A8EC1CA460CE0050C071 /* FixBlack.cpp in Sources */,
@@ -558,7 +566,10 @@
 					"./**",
 					"\"$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common\"/**",
 					/Users/t431962/Desktop/rapidjson/include/rapidjson,
+					/Users/t431962/Desktop/boost_1_60_0,
 				);
+				LIBRARY_SEARCH_PATHS = /Users/t431962/Desktop/boost_1_60_0/stage/lib;
+				OTHER_LDFLAGS = "-lboost_system";
 				SDKROOT = macosx;
 				SHARED_PRECOMPS_DIR = "$(SRCROOT)/output/mac/sharedprecompiledheaders/$(AI_CONFIGURATION)";
 				STRIP_STYLE = "non-global";
@@ -582,7 +593,10 @@
 					"./**",
 					"\"$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common\"/**",
 					/Users/t431962/Desktop/rapidjson/include/rapidjson,
+					/Users/t431962/Desktop/boost_1_60_0,
 				);
+				LIBRARY_SEARCH_PATHS = /Users/t431962/Desktop/boost_1_60_0/stage/lib;
+				OTHER_LDFLAGS = "-lboost_system";
 				SDKROOT = macosx;
 				SHARED_PRECOMPS_DIR = "$(SRCROOT)/output/mac/sharedprecompiledheaders/$(AI_CONFIGURATION)";
 				STRIP_STYLE = "non-global";
