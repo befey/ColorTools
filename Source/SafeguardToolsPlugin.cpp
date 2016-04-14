@@ -210,19 +210,19 @@ ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
     menuItem.groupName = alignGroup;
     menuItem.itemText = ai::UnicodeString(ALIGN_LEFT_MENU_ITEM);
     BtAiMenuItem* AlignLeftMenuItem = new BtAiMenuItem(menuItem, kMenuItemIgnoreSort);
-    MakePointTypeMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, kIfAnyArt, 0, 0, 0);
+    AlignLeftMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, kIfAnyArt, 0, 0, 0);
     AlignMenu->AddSubMenuItem(*AlignLeftMenuItem);
     
     menuItem.groupName = alignGroup;
     menuItem.itemText = ai::UnicodeString(ALIGN_CENTER_MENU_ITEM);
     BtAiMenuItem* AlignCenterMenuItem = new BtAiMenuItem(menuItem, kMenuItemIgnoreSort);
-    MakePointTypeMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, kIfAnyArt, 0, 0, 0);
+    AlignCenterMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, kIfAnyArt, 0, 0, 0);
     AlignMenu->AddSubMenuItem(*AlignCenterMenuItem);
     
     menuItem.groupName = alignGroup;
     menuItem.itemText = ai::UnicodeString(ALIGN_RIGHT_MENU_ITEM);
     BtAiMenuItem* AlignRightMenuItem = new BtAiMenuItem(menuItem, kMenuItemIgnoreSort);
-    MakePointTypeMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, kIfAnyArt, 0, 0, 0);
+    AlignRightMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, kIfAnyArt, 0, 0, 0);
     AlignMenu->AddSubMenuItem(*AlignRightMenuItem);
     
     BtAiMenuItem::AddMenu(*AlignMenu, &menuItemHandles);
@@ -240,6 +240,7 @@ ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
     menuItem.groupName = kSaveForMenuGroup;
     menuItem.itemText = ai::UnicodeString(PRINT_TO_PDF_MENU_ITEM);
     BtAiMenuItem* PrintToPdfMenuItem = new BtAiMenuItem(menuItem, kMenuItemNoOptions);
+    PrintToPdfMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, 0, 0, kIfOpenDocument, 0);
     
     BtAiMenuItem::AddMenu(*PrintToPdfMenuItem, &menuItemHandles);
     
