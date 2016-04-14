@@ -8,7 +8,6 @@
 
 #include "PrintToPdf.h"
 #include "PdfSettings.h"
-#include <string>
 
 ASErr PrintToPdf()
 {
