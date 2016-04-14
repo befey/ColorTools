@@ -11,7 +11,7 @@
 #include "SDKErrors.h"
 
 
-VPB::VPB(SettingsFunction f) : fActionParamValueRef(NULL)
+VPB::VPB() : fActionParamValueRef(NULL)
 {
 	ASErr result = kNoErr;
 	try {
@@ -19,8 +19,6 @@ VPB::VPB(SettingsFunction f) : fActionParamValueRef(NULL)
 		result = sAIActionManager->AINewActionParamValue(&fActionParamValueRef);
 		SDK_ASSERT(!result);
 		SDK_ASSERT(fActionParamValueRef);
-        
-        f(&fActionParamValueRef);
 	}
 	catch (ai::Error) {
 	}

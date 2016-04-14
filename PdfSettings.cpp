@@ -8,28 +8,136 @@
 
 #include "PdfSettings.h"
 
-
-void PdfSettings::Manufacturing(AIActionParamValueRef* target)
+PdfSettings::PdfSettings(SettingsFunction f, string r, bool s) : settingsFunc(f), range(r), separateFiles(s)
 {
-    
+  ////****** Setup common parameters for all PDFs
     // Format parameter.
-    sAIActionManager->AIActionSetString(*target, kAIExportDocumentFormatKey, kAIPDFFileFormat);
-    sAIActionManager->AIActionSetString(*target, kAIExportDocumentExtensionKey, kAIPDFFileFormatExtension);
-    
-    // Option Set
-    sAIActionManager->AIActionSetInteger(*target, kAIPDFOptionSetKey, kAIPDFOptionSetCustom);
-    sAIActionManager->AIActionSetString(*target, kAIPDFOptionSetNameKey, MANUFACTURING_PDF_PRESET);
-    
-    // Save multiple artboards
-    sAIActionManager->AIActionSetBoolean(*target, kAIExportDocumentSaveMultipleArtboardsKey, TRUE);
-    
-    // Save all
-    sAIActionManager->AIActionSetBoolean(*target, kAIExportDocumentSaveAllKey, FALSE);
+    sAIActionManager->AIActionSetString(vpb, kAIExportDocumentFormatKey, kAIPDFFileFormat);
+    sAIActionManager->AIActionSetString(vpb, kAIExportDocumentExtensionKey, kAIPDFFileFormatExtension);
     
     // Enable/Disable dialogs
-    sAIActionManager->AIActionSetBoolean(*target, kAISaveDocumentAsGetParamsKey, FALSE);
+    sAIActionManager->AIActionSetBoolean(vpb, kAISaveDocumentAsGetParamsKey, FALSE);
+  ////*******
+    
+    // Apply settings passed in
+    settingsFunc(vpb);
+    
+    // Fill Plate Number object
+    ai::FilePath openedFilePath;
+    sAIDocument->GetDocumentFileSpecification(openedFilePath);
+    plateNumber = new PlateNumber(openedFilePath.GetFileNameNoExt().getInStdString(kAIPlatformCharacterEncoding));
+    
+    // Generate output path
+    outputPath = CreateSaveFilePath();
+}
+
+void PdfSettings::Print()
+{
+    ASErr result;
+    
+    if (!separateFiles) {
+        outputPath.AddComponent(ai::UnicodeString(plateNumber->GetPlateNumber()));
+        outputPath.AddExtension("pdf");
+        
+        // Set Path
+        sAIActionManager->AIActionSetStringUS(vpb, kAISaveDocumentAsNameKey, outputPath.GetFullPath());
+        
+        // Set Range
+        sAIActionManager->AIActionSetString(vpb, kAIExportDocumentSaveRangeKey, string(range).c_str());
+        
+        try {
+            // Play the action.
+            result = sAIActionManager->PlayActionEvent(kSaveACopyAsAction, kDialogOff, vpb);
+            aisdk::check_ai_error(result);
+        }
+        catch (ai::Error& ex) {
+            result = ex;
+        }
+    }
+    else
+    {
+        AIArtboardRangeIterator iter;
+        sAIArtboardRange->Begin(range, &iter);
+        ai::int32 index = 0;
+        while ( kEndOfRangeErr != sAIArtboardRange->Next(iter, &index) ) {
+            outputPath.AddComponent(ai::UnicodeString(plateNumber->GetPlateNumber()));
+            
+            string token = CreateToken(index);
+            if (token != "")
+            {
+                outputPath.AddExtension(ai::UnicodeString(token));
+            }
+            
+            outputPath.AddExtension("pdf");
+            string fp = outputPath.GetFullPath().as_UTF8();
+            // Set Path
+            sAIActionManager->AIActionSetStringUS(vpb, kAISaveDocumentAsNameKey, outputPath.GetFullPath());
+            
+            // Set Range
+            sAIActionManager->AIActionSetString(vpb, kAIExportDocumentSaveRangeKey, to_string(index+1).c_str());
+            
+            try {
+                // Play the action.
+                result = sAIActionManager->PlayActionEvent(kSaveACopyAsAction, kDialogOff, vpb);
+                aisdk::check_ai_error(result);
+            }
+            catch (ai::Error& ex) {
+                result = ex;
+            }
+
+            outputPath.RemoveComponent();
+        }
+        
+        sAIArtboardRange->DisposeIterator(iter);
+    }
     
 }
+
+ai::FilePath PdfSettings::CreateSaveFilePath()
+{
+    ai::FilePath saveasFilePath(ai::UnicodeString(DEFAULT_OUTPUTPATH));
+    
+    return saveasFilePath;
+}
+
+string PdfSettings::CreateToken(int artboardIndex)
+{
+    ai::ArtboardList abList;
+    sAIArtboard->GetArtboardList(abList);
+    ai::ArtboardProperties abProps;
+    sAIArtboard->GetArtboardProperties(abList, artboardIndex, abProps);
+    ai::UnicodeString abName;
+    abProps.GetName(abName);
+    string abNameS = abName.getInStdString(kAIPlatformCharacterEncoding);
+    
+    AIBoolean isDefaultName;
+    sAIArtboard->IsDefaultName(abProps, isDefaultName);
+    
+    if (isDefaultName || abNameS == NO_TOKEN_DESIG) {
+        return "";
+    }
+    else
+    {
+        return abNameS;
+    }
+}
+
+/**************************************************************************
+ **************************************************************************/
+
+void ManufacturingSettingsFunc(AIActionParamValueRef target)
+{
+    // Option Set
+    sAIActionManager->AIActionSetInteger(target, kAIPDFOptionSetKey, kAIPDFOptionSetCustom);
+    sAIActionManager->AIActionSetString(target, kAIPDFOptionSetNameKey, MANUFACTURING_PDF_PRESET);
+    
+    // Save multiple artboards
+    sAIActionManager->AIActionSetBoolean(target, kAIExportDocumentSaveMultipleArtboardsKey, TRUE);
+    
+    // Save all
+    sAIActionManager->AIActionSetBoolean(target, kAIExportDocumentSaveAllKey, FALSE);
+}
+
 
 
 
