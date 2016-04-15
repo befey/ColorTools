@@ -5,6 +5,7 @@
 #include "AICSXS.h"
 
 #include "ColorToolsUIController.h"
+#include "PrintToPdfUIController.h"
 #include "BtSwatchList.h"
 #include "BtAiMenuItem.h"
 #include "BtAiMenuItemHandles.h"
@@ -31,6 +32,7 @@ SafeguardToolsPlugin::SafeguardToolsPlugin(SPPluginRef pluginRef) :
 	Plugin(pluginRef),
     fRegisterEventNotifierHandle(NULL),
     colorToolsUIController(NULL),
+    printToPdfUIController(NULL),
     mySwatchList(NULL)
 {
 	strncpy(fPluginName, kSafeguardToolsPluginName, kMaxStringLength);
@@ -86,6 +88,14 @@ ASErr SafeguardToolsPlugin::StartupPlugin( SPInterfaceMessage *message )
         if (error) { return error; }
     }
     
+    if (NULL == printToPdfUIController)
+    {
+        printToPdfUIController = new PrintToPdfUIController();
+        
+        error = Plugin::LockPlugin(true);
+        if (error) { return error; }
+    }
+    
     if (NULL == mySwatchList)
     {
         mySwatchList = new BtSwatchList();
@@ -124,6 +134,13 @@ ASErr SafeguardToolsPlugin::ShutdownPlugin( SPInterfaceMessage *message )
         colorToolsUIController->RemoveEventListeners();
         delete colorToolsUIController;
         colorToolsUIController = NULL;
+        Plugin::LockPlugin(false);
+    }
+    if (printToPdfUIController)
+    {
+        printToPdfUIController->RemoveEventListeners();
+        delete printToPdfUIController;
+        printToPdfUIController = NULL;
         Plugin::LockPlugin(false);
     }
     if (mySwatchList)
@@ -322,11 +339,8 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
     }
     else if ( message->menuItem == menuItemHandles.GetHandleWithKey(PRINT_TO_PDF_MENU_ITEM) )
     {
-        //Call the main function
-        if ( PrintToPdf() ) {
-            //Set the undo/redo text
-            //error = sAIUndo->SetUndoTextUS(ai::UnicodeString(""), ai::UnicodeString(""));
-        }
+        printToPdfUIController->LoadExtension();
+        sAICSXSExtension->LaunchExtension(PRINTTOPDF_UI_EXTENSION);
     }
 	
 	if (error)
@@ -352,9 +366,6 @@ ASErr SafeguardToolsPlugin::UpdateMenuItem(AIMenuMessage* message)
 		{
 			sAIMenu->SetItemText( message->menuItem, ai::UnicodeString("Show Find and Replace Graphics") );
 		}
-        ASBoolean check = false;
-        sAIMenu->IsItemEnabled(menuItemHandles.GetHandleWithKey(FIND_AND_REPLACE_MENU_ITEM), &check);
-        sAIMenu->EnableItem(menuItemHandles.GetHandleWithKey(FIND_AND_REPLACE_MENU_ITEM));
 	}
     
     if (message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_MICR_BARCODE_MENU_ITEM) ) {

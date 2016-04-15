@@ -200,9 +200,9 @@
 				6868C922150BA192003DAAF2 /* SafeguardToolsPlugin.h */,
 				6868C923150BA192003DAAF2 /* SafeguardToolsSuites.cpp */,
 				6868C924150BA192003DAAF2 /* SafeguardToolsSuites.h */,
-				2A7772AA0BE6387700A9D493 /* Shared */,
 				F9681E3F1CA47AFC00A02A58 /* TextTools.cpp */,
 				F9681E401CA47AFC00A02A58 /* TextTools.h */,
+				2A7772AA0BE6387700A9D493 /* Shared */,
 			);
 			name = Sources;
 			sourceTree = "<group>";

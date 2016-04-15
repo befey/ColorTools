@@ -8,6 +8,7 @@
 #include "BtAiMenuItemHandles.h"
 
 class ColorToolsUIController;
+class PrintToPdfUIController;
 class BtSwatchList;
 
 #define MODIFY_SWATCHES_MENU            "Modify Swatches"
@@ -109,7 +110,8 @@ protected:
     virtual ASErr Notify(AINotifierMessage* message);
 private:
     BtSwatchList *mySwatchList;
-    ColorToolsUIController *colorToolsUIController;
+    ColorToolsUIController* colorToolsUIController;
+    PrintToPdfUIController* printToPdfUIController;
     
     /**	Notifier handles**/
     AINotifierHandle fRegisterEventNotifierHandle;
