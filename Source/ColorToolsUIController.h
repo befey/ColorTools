@@ -13,14 +13,14 @@
 #include "FlashUIController.h"
 
 
-#define COLORTOOLS_UI_EXTENSION             "com.gosafeguard.ColorTools"
-#define EVENT_TYPE_CHANGE_CLICKED           "com.gosafeguard.ColorTools.changebutton"
-#define EVENT_TYPE_REMOVE_CLICKED           "com.gosafeguard.ColorTools.removebutton"
-#define EVENT_TYPE_UPDATE_COLOR_LIST        "com.gosafeguard.ColorTools.updatelist"
-#define EVENT_TYPE_UPDATE_COLOR_LIST_BACK   "com.gosafeguard.ColorTools.updatelistback"
-#define EVENT_TYPE_CHANGE_COUNT_BACK        "com.gosafeguard.ColorTools.changecountback"
-#define EVENT_TYPE_CHANGE_IN_BACK           "com.gosafeguard.ColorTools.changeinback"
-#define EVENT_TYPE_FORCE_PANEL_CLOSE        "com.gosafeguard.ColorTools.forcepanelclose"
+#define COLORTOOLS_UI_EXTENSION             "com.gosafeguard.SafeguardTools.ColorTools"
+#define EVENT_TYPE_CHANGE_CLICKED           "com.gosafeguard.SafeguardTools.ColorTools.changebutton"
+#define EVENT_TYPE_REMOVE_CLICKED           "com.gosafeguard.SafeguardTools.ColorTools.removebutton"
+#define EVENT_TYPE_UPDATE_COLOR_LIST        "com.gosafeguard.SafeguardTools.ColorTools.updatelist"
+#define EVENT_TYPE_UPDATE_COLOR_LIST_BACK   "com.gosafeguard.SafeguardTools.ColorTools.updatelistback"
+#define EVENT_TYPE_CHANGE_COUNT_BACK        "com.gosafeguard.SafeguardTools.ColorTools.changecountback"
+#define EVENT_TYPE_CHANGE_IN_BACK           "com.gosafeguard.SafeguardTools.ColorTools.changeinback"
+#define EVENT_TYPE_FORCE_PANEL_CLOSE        "com.gosafeguard.SafeguardTools.ColorTools.forcepanelclose"
 #define ILST_APP                            "ILST"
 
 

@@ -12,7 +12,7 @@
 #include "SDKPlugPlug.h"
 #include "FlashUIController.h"
 
-#define PRINTTOPDF_UI_EXTENSION             "com.gosafeguard.PrintToPdf"
+#define PRINTTOPDF_UI_EXTENSION             "com.gosafeguard.SafeguardTools.PrintToPdf"
 #define ILST_APP                            "ILST"
 
 class SafeguardToolsPlugin;
