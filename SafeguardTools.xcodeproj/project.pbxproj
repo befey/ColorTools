@@ -28,6 +28,8 @@
 		F94726401CB2E1F400649020 /* VPB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F947263E1CB2E1F400649020 /* VPB.cpp */; };
 		F94726431CB2F91900649020 /* PrintToPdf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F94726411CB2F91900649020 /* PrintToPdf.cpp */; };
 		F94726441CB2F91900649020 /* PrintToPdf.h in Headers */ = {isa = PBXBuildFile; fileRef = F94726421CB2F91900649020 /* PrintToPdf.h */; };
+		F95C7B871CC146B8006639A0 /* PrintToPdfUIController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F95C7B851CC146B8006639A0 /* PrintToPdfUIController.cpp */; };
+		F95C7B881CC146B8006639A0 /* PrintToPdfUIController.h in Headers */ = {isa = PBXBuildFile; fileRef = F95C7B861CC146B8006639A0 /* PrintToPdfUIController.h */; };
 		F9681E3B1CA47AC400A02A58 /* DictFuncs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9681E391CA47AC400A02A58 /* DictFuncs.cpp */; };
 		F9681E3C1CA47AC400A02A58 /* DictFuncs.h in Headers */ = {isa = PBXBuildFile; fileRef = F9681E3A1CA47AC400A02A58 /* DictFuncs.h */; };
 		F9681E411CA47AFC00A02A58 /* FixFreehandType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9681E3D1CA47AFC00A02A58 /* FixFreehandType.cpp */; };
@@ -96,6 +98,8 @@
 		F947263E1CB2E1F400649020 /* VPB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VPB.cpp; path = "../My Custom Headers/VPB.cpp"; sourceTree = "<group>"; };
 		F94726411CB2F91900649020 /* PrintToPdf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PrintToPdf.cpp; path = Source/PrintToPdf.cpp; sourceTree = "<group>"; };
 		F94726421CB2F91900649020 /* PrintToPdf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintToPdf.h; path = Source/PrintToPdf.h; sourceTree = "<group>"; };
+		F95C7B851CC146B8006639A0 /* PrintToPdfUIController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PrintToPdfUIController.cpp; sourceTree = "<group>"; };
+		F95C7B861CC146B8006639A0 /* PrintToPdfUIController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrintToPdfUIController.h; sourceTree = "<group>"; };
 		F9681E391CA47AC400A02A58 /* DictFuncs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DictFuncs.cpp; path = "../My Custom Headers/DictFuncs.cpp"; sourceTree = "<group>"; };
 		F9681E3A1CA47AC400A02A58 /* DictFuncs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DictFuncs.h; path = "../My Custom Headers/DictFuncs.h"; sourceTree = "<group>"; };
 		F9681E3D1CA47AFC00A02A58 /* FixFreehandType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FixFreehandType.cpp; path = Source/FixFreehandType.cpp; sourceTree = "<group>"; };
@@ -187,6 +191,8 @@
 				F9681E3E1CA47AFC00A02A58 /* FixFreehandType.h */,
 				F94726411CB2F91900649020 /* PrintToPdf.cpp */,
 				F94726421CB2F91900649020 /* PrintToPdf.h */,
+				F95C7B851CC146B8006639A0 /* PrintToPdfUIController.cpp */,
+				F95C7B861CC146B8006639A0 /* PrintToPdfUIController.h */,
 				F989A8E61CA460CE0050C071 /* ReplaceData.cpp */,
 				F989A8E71CA460CE0050C071 /* ReplaceData.h */,
 				6868C920150BA192003DAAF2 /* SafeguardToolsID.h */,
@@ -194,9 +200,9 @@
 				6868C922150BA192003DAAF2 /* SafeguardToolsPlugin.h */,
 				6868C923150BA192003DAAF2 /* SafeguardToolsSuites.cpp */,
 				6868C924150BA192003DAAF2 /* SafeguardToolsSuites.h */,
+				2A7772AA0BE6387700A9D493 /* Shared */,
 				F9681E3F1CA47AFC00A02A58 /* TextTools.cpp */,
 				F9681E401CA47AFC00A02A58 /* TextTools.h */,
-				2A7772AA0BE6387700A9D493 /* Shared */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -283,6 +289,7 @@
 				F90E3F9E1CA475880081C333 /* ATEFuncs.h in Headers */,
 				F90AE3F31CAAF8AF0076A9BC /* BtAiMenuItemHandles.h in Headers */,
 				F98BAEDE1CA99E1E00965D86 /* ArtTree.h in Headers */,
+				F95C7B881CC146B8006639A0 /* PrintToPdfUIController.h in Headers */,
 				F9FAE8FF1CBD87E700938893 /* BtArtboardRange.h in Headers */,
 				F989A8E91CA460CE0050C071 /* ColorToolsUIController.h in Headers */,
 				F9681E4B1CA47B6E00A02A58 /* Plate.h in Headers */,
@@ -408,6 +415,7 @@
 				F98BAEDA1CA99DB500965D86 /* CException.mm in Sources */,
 				F979B5FB1CA31DE5004BA4AD /* IAIUnicodeString.cpp in Sources */,
 				F9FAE8FA1CBD4E1800938893 /* PdfSettings.cpp in Sources */,
+				F95C7B871CC146B8006639A0 /* PrintToPdfUIController.cpp in Sources */,
 				F979B60B1CA31E92004BA4AD /* IllustratorSDK.cpp in Sources */,
 				F96D30731CB6D73500274BDE /* PlateNumber.cpp in Sources */,
 				F94726401CB2E1F400649020 /* VPB.cpp in Sources */,
