@@ -1,16 +1,22 @@
 #ifndef __SafeguardToolsPlugin_h__
 #define __SafeguardToolsPlugin_h__
 
+//=================================
+// included dependencies
 #include "Plugin.hpp"
 #include "AIMenuGroups.h"
 #include "SDKDef.h"
 #include "SafeguardToolsID.h"
 #include "BtAiMenuItemHandles.h"
 
+//=================================
+// forward declared dependencies
 class ColorToolsUIController;
 class PrintToPdfUIController;
 class BtSwatchList;
 
+//=================================
+// Constant definitions
 #define MODIFY_SWATCHES_MENU            "Modify Swatches"
 #define FIX_BLACK_MENU_ITEM             "Fix Black"
 #define FIND_AND_REPLACE_MENU_ITEM      "Find and Replace Graphics"

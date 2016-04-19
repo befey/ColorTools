@@ -18,16 +18,6 @@
 class SafeguardToolsPlugin;
 extern SafeguardToolsPlugin *gPlugin;
 
-/*******************************************************************************
- **
- **	PROTOTYPES
- **
- **/
- 
-// private functions
-//AIErr createADMDialog( AINotifierMessage *message );
-//ASErr ASAPI DlgInit(ADMDialogRef dlg);
-//static void ASAPI DlgDestroyProc(ADMDialogRef dlg);
 
 bool FixBlack();
 

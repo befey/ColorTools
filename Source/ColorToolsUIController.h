@@ -9,10 +9,18 @@
 #ifndef __SafeguardTools__ColorToolsUIController__
 #define __SafeguardTools__ColorToolsUIController__
 
+//=================================
+// included dependencies
 #include "SDKPlugPlug.h"
 #include "FlashUIController.h"
 
+//=================================
+// forward declared dependencies
+class SafeguardToolsPlugin;
+extern SafeguardToolsPlugin *gPlugin;
 
+//=================================
+// Constant definitions
 #define COLORTOOLS_UI_EXTENSION             "com.gosafeguard.SafeguardTools.ColorTools"
 #define EVENT_TYPE_CHANGE_CLICKED           "com.gosafeguard.SafeguardTools.ColorTools.changebutton"
 #define EVENT_TYPE_REMOVE_CLICKED           "com.gosafeguard.SafeguardTools.ColorTools.removebutton"
@@ -24,9 +32,8 @@
 #define ILST_APP                            "ILST"
 
 
-class SafeguardToolsPlugin;
-extern SafeguardToolsPlugin *gPlugin;
-
+//=================================
+// ColorToolsUIController - handles communication between extension and plugin
 static void ChangeButtonClickedFunc (const csxs::event::Event* const event, void* const context);
 static void RemoveButtonClickedFunc (const csxs::event::Event* const event, void* const context);
 

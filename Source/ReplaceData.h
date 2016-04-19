@@ -9,6 +9,8 @@
 #ifndef __SafeguardTools__ReplaceData__
 #define __SafeguardTools__ReplaceData__
 
+//=================================
+// Constant definitions
 #define ATTRIBUTE_SELECT                     "attribute-select"
 #define ATTRIBUTE_COLOR                     0
 #define ATTRIBUTE_OVERPRINT                 1
@@ -30,7 +32,8 @@
 #define TO_SELECT                           "to-select"
 #define TINTS_CHECKBOX                      "tints-checkbox"
 
-
+//=================================
+// ReplaceData - contains the params received from the Find and Replace extension
 class ReplaceData
 {
 public:

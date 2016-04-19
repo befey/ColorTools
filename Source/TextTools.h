@@ -13,14 +13,19 @@
 //  
 //========================================================================================
 
-/*******************************************************************************
- **
- **	PROTOTYPES
- **
- **/
+
+//=================================
+// included dependencies
 #include "AIDocumentList.h"
 
+//=================================
+// forward declared dependencies
+extern "C" AIUndoSuite* sAIUndo;
+extern "C" AIDocumentListSuite* sAIDocumentList;
+extern "C" AIFontSuite* sAIFont;
 
+//=================================
+// Constant definitions
 #define ttObjectArt				1
 #define ttTextArt				2
 #define ttUnknownArt			4
@@ -32,9 +37,6 @@
 #define MICR_LINE_LABEL ai::UnicodeString("__MICR_LINE__")
 #define MICR_BARCODE_LABEL ai::UnicodeString("__MICR_BARCODE__")
 
-extern "C" AIUndoSuite* sAIUndo;
-extern "C" AIDocumentListSuite* sAIDocumentList;
-extern "C" AIFontSuite* sAIFont;
 
 
 bool ConvertToPointType();
