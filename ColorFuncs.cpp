@@ -8,7 +8,6 @@
  */
  
 #include "ColorFuncs.h"
-#include "ReplaceData.h"
 #include "IAIRect.h"
 #include <regex>
 
@@ -202,7 +201,7 @@ AICustomColor GetColorDefinitionFromBook(ai::UnicodeString& colorName, bool& fou
             using namespace std;
             string s = colorName.as_Platform();
             
-            regex r("PANTONE ([\\w\\s]+) [CVU]{1,3}");
+            regex r("PANTONE ([\\w\\s]+) [CVU]{1,3}", regex::icase);
             smatch result;
             regex_search(s,result, r);
             

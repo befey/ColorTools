@@ -63,10 +63,9 @@ long CreateArtSetFromLayer(ai::UnicodeString layerName,  AIArtSet const targetSe
 	
 	//Find the layer called layerName
 	sAILayer->GetLayerByTitle(&hLayer, layerName);
-//TODO: Deprecated
-/*
-	if(!hLayer) { errorMessage = "Could not find Layer " + layerName.as_Platform(); sADMBasic->MessageAlert( errorMessage.c_str() ); return 0; }
-*/
+
+	if(!hLayer) { errorMessage = "Could not find Layer " + layerName.as_Platform(); sAIUser->MessageAlert(ai::UnicodeString(errorMessage.c_str()) ); return 0; }
+
 	
 	if (hLayer) {
 		//Store the User Attributes

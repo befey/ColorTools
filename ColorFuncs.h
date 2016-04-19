@@ -33,6 +33,10 @@ extern "C"  AIATEPaintSuite *sAIATEPaint;
 #define WHITE_COLOR_NAME            "White"
 #define MICR_BLACK_MAG_COLOR_NAME   "MICR - BLACK MAG"
 
+#define APPLYTO_FILLSANDSTROKES             0
+#define APPLYTO_FILLS                       1
+#define APPLYTO_STROKES                     2
+
 AIReal GetTint(AIColor* color); //Returns the tint of the color to the closest 1%
 bool ColorIsBlack(AIColor* color);
 bool ColorIsWhite(AIColor* color);
