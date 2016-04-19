@@ -1,14 +1,14 @@
 form {
-    width: 500px;
-    height: 300px;
+    width: 210px;
+    height: 170px;
     position: relative;
     font-family: Tahoma, Geneva, sans-serif;
-    font-size: 14px;
+    font-size: 10px;
     margin: 5px;
 }
 
 span {
-    padding: 3%;
+    padding: 2%;
 }
 
 label {
@@ -18,22 +18,22 @@ label {
 
 select {
     display: inline;
-    font-size: 14px;
+    font-size: 10px;
     width: 100%;
-    margin: 2px;
+    margin: 1px;
 }
 
 select.wide {
     float: right;
     display: inline;
     width: 75%;
-    margin: 2px;
+    margin: 1px;
 }
 
 .field {
     display: inline-block;
-    width: 45%;
-    padding: 2%;
+    width: 47%;
+    padding: 1%;
 }
 
 .wide-field {
@@ -47,12 +47,13 @@ select.wide {
     right:0;
 }
 
-input[type=button] {
-    display: inline:block;
-    font-size: 18px;
+.button {
+    display: block;
+    font-size: 10px;
+    width: 100%;
 }
 
-.or {
-  display: inline:block;
-  font-style: oblique;
+.changed {
+    font-size: 10px;
+    display: block;
 }

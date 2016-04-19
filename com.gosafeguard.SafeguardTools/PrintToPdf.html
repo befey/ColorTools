@@ -10,9 +10,27 @@
 <html>
 
     <body>
-    	
-    	Hello.
-    	
+        
+<form>
+  <span class="field">        
+    <label for="preset-select">Choose PDF Preset:</label>
+    <select id="preset-select"> 
+      <option value="0" selected="selected">Manufacturing</option>
+      <option value="1">Proof</option>
+      <option value="2">Proof with MICR Password</option>
+    </select>
+  </span>
+  <span class="field">
+  <input type="checkbox" id="allpages-check" checked><label for="allpages-check">All pages</label> <span class="or">or</span>
+    <label for="range-text">Enter page range:</label>
+    <input type="text" id="range-text" disabled placeholder="ie. 1-2,4" title="Must use standard range notation." pattern="(?:\d+(?:-?\d*),?)+">
+  </span>
+  <span class="buttons">
+    <input type="button" id="cancel-button" onClick="" value="Cancel" />
+    <input type="button" id="makepdf-button" onClick="" value="Make PDF" autofocus />
+  </span>
+</form>
+        
     </body>
     
 </html>

@@ -121,7 +121,7 @@
 																<key>GID</key>
 																<integer>80</integer>
 																<key>PATH</key>
-																<string>../extension packaging/unzipped extension panel/com.gosafeguard.ColorTools</string>
+																<string>../extension packaging/unzipped extension panel/com.gosafeguard.SafeguardTools</string>
 																<key>PATH_TYPE</key>
 																<integer>1</integer>
 																<key>PERMISSIONS</key>
@@ -586,7 +586,7 @@
 			<key>OVERWRITE_PERMISSIONS</key>
 			<false/>
 			<key>VERSION</key>
-			<string>1.1</string>
+			<string>1.2</string>
 		</dict>
 		<key>PROJECT_COMMENTS</key>
 		<dict>
