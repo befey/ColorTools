@@ -29,8 +29,8 @@
           <!-- <Menu>Find and Replace Graphics</Menu>Disable Extensions menu -->
           <Geometry>
             <Size>
-              <Height>170</Height>
               <Width>210</Width>
+              <Height>170</Height>
             </Size>
           </Geometry>
         </UI>
@@ -51,8 +51,8 @@
           <!-- <Menu>Print To PDF</Menu>Disable Extensions menu -->
           <Geometry>
             <Size>
-              <Height>170</Height>
-              <Width>210</Width>
+              <Width>520</Width>
+              <Height>320</Height>
             </Size>
           </Geometry>
         </UI>
