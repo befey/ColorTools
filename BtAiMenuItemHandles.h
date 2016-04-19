@@ -9,8 +9,16 @@
 #ifndef __SafeguardTools__BtAiMenuItemHandles__
 #define __SafeguardTools__BtAiMenuItemHandles__
 
+//=================================
+// included dependencies
 #include <unordered_map>
 
+//=================================
+// forward declared dependencies
+
+
+//=================================
+// BtAiMenuItemHandles - manages the list of added menu item handles
 class BtAiMenuItemHandles
 {
 public:

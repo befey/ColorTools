@@ -28,7 +28,6 @@ extern "C" AIPathStyleSuite* sAIPathStyle;
 
 //=================================
 // BtSwatchlist - wrapper for the AISwatchList stuff
-
 class BtSwatchList
 {
 public:

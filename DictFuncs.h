@@ -10,9 +10,13 @@
 #ifndef DICTFUNCS_H
 #define DICTFUNCS_H
 
+//=================================
+// included dependencies
 #include "Node.h"
 #include "string.h"
 
+//=================================
+// forward declared dependencies
 extern "C"  AIDictionarySuite *sAIDictionary;
 extern "C"  AIDocumentSuite *sAIDocument;
 extern "C"  AIArtSuite *sAIArt;

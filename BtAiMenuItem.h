@@ -9,13 +9,22 @@
 #ifndef __SafeguardTools__BtAiMenuItem__
 #define __SafeguardTools__BtAiMenuItem__
 
+
+//=================================
+// included dependencies
 #include "BtAiMenuItemHandles.h"
 
+
+//=================================
+// forward declared dependencies
 extern "C"  AIMenuSuite *sAIMenu;
 
 class SafeguardToolsPlugin;
 extern SafeguardToolsPlugin *gPlugin;
 
+
+//=================================
+// BtAiMenuItem - wrapper for a Menu creation functions
 class BtAiMenuItem {
 public:
     BtAiMenuItem(AIPlatformAddMenuItemDataUS, ai::int32 opts);

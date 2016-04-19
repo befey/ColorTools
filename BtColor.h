@@ -22,7 +22,6 @@
 
 //=================================
 // BtColor - wrapper for a AICustomColor definition
-
 class BtColor
 {
 public:

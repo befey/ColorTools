@@ -8,7 +8,10 @@
  */
 #ifndef COLORFUNCS_H
 #define COLORFUNCS_H
- 
+
+
+//=================================
+// included dependencies
 #include "IllustratorSDK.h"
 #include "AISwatchList.h"
 #include "AIATEPaint.h"
@@ -16,6 +19,8 @@
 
 #include <string.h>
 
+//=================================
+// forward declared dependencies
 extern "C"  AICustomColorSuite *sAICustomColor;
 extern "C"  AISwatchListSuite *sAISwatchList;
 extern "C"  AIArtSuite *sAIArt;
@@ -27,6 +32,8 @@ extern "C"  AIRealMathSuite *sAIRealMath;
 extern "C"  AITextFrameSuite *sAITextFrame;
 extern "C"  AIATEPaintSuite *sAIATEPaint;
 
+//=================================
+// Constant definitions
 #define REGISTRATION_COLOR_NAME     "[Registration]"
 #define NONE_COLOR_NAME             "[None]"
 #define BLACK_COLOR_NAME            "Black"
@@ -36,6 +43,7 @@ extern "C"  AIATEPaintSuite *sAIATEPaint;
 #define APPLYTO_FILLSANDSTROKES             0
 #define APPLYTO_FILLS                       1
 #define APPLYTO_STROKES                     2
+
 
 AIReal GetTint(AIColor* color); //Returns the tint of the color to the closest 1%
 bool ColorIsBlack(AIColor* color);

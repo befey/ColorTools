@@ -9,6 +9,8 @@
 #ifndef __SafeguardTools__PdfSettings__
 #define __SafeguardTools__PdfSettings__
 
+//=================================
+// included dependencies
 #include "AIActionManager.h"
 #include "AIDocument.h"
 #include "AIArtboard.h"
@@ -16,6 +18,15 @@
 #include "VPB.h"
 #include "PlateNumber.h"
 
+//=================================
+// forward declared dependencies
+extern "C" AIActionManagerSuite* sAIActionManager;
+extern "C" AIDocumentSuite* sAIDocument;
+extern "C" AIArtboardSuite* sAIArtboard;
+
+
+//=================================
+// Constant definitions
 #define MANUFACTURING_PDF_PRESET    "Manufacturing"
 #define MICR_PROOF_PDF_PRESET       "MICR"
 #define REG_PROOF_PDF_PRESET        "Proof"
@@ -27,12 +38,10 @@
 
 #define NO_TOKEN_DESIG "F"
 
-extern "C" AIActionManagerSuite* sAIActionManager;
-extern "C" AIDocumentSuite* sAIDocument;
-extern "C" AIArtboardSuite* sAIArtboard;
-
 typedef void (*SettingsFunction) (AIActionParamValueRef);
 
+//=================================
+// PdfSettings - manages settings for PDF output
 class PdfSettings
 {
 public:

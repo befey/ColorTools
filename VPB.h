@@ -11,16 +11,23 @@
 #ifndef VPB_H
 #define VPB_H
 
+//=================================
+// included dependencies
 #include "SDKErrors.h"
 #include "AIPDFFormatAction.h"
 #include "AIDocumentAction.h"
 #include "AIActionManager.h"
-#import <Cocoa/Cocoa.h>
 
+//=================================
+// forward declared dependencies
 extern "C" AIActionManagerSuite* sAIActionManager;
 
+//=================================
+// Constant definitions
 #define kSaveACopyAsAction  "adobe_saveACopyAs"
 
+//=================================
+// VPB - wrapper for Illustrator action parameters
 class VPB
 {
 public:

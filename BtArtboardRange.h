@@ -9,13 +9,18 @@
 #ifndef __SafeguardTools__BtArtboardRange__
 #define __SafeguardTools__BtArtboardRange__
 
+//=================================
+// included dependencies
 #include "AIArtboardRange.h"
 #include "AIArtboard.h"
 
+//=================================
+// forward declared dependencies
 extern "C" AIArtboardRangeSuite* sAIArtboardRange;
 extern "C" AIArtboardSuite* sAIArtboard;
 
-
+//=================================
+// BtAiMenuItemHandles - manages a standard range notation ie. 1-2,4
 class BtArtboardRange
 {
 public:
