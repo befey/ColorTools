@@ -11,6 +11,7 @@
 
 //=================================
 // included dependencies
+#include <string>
 #include "SDKPlugPlug.h"
 #include "FlashUIController.h"
 
@@ -19,10 +20,6 @@
 class SafeguardToolsPlugin;
 extern SafeguardToolsPlugin *gPlugin;
 
-//=================================
-// Constant definitions
-#define PRINTTOPDF_UI_EXTENSION             "com.gosafeguard.SafeguardTools.PrintToPdf"
-#define ILST_APP                            "ILST"
 
 //=================================
 // PrintToPdfUIController - handles communication between extension and plugin
@@ -45,7 +42,13 @@ public:
     
     void ParseData(const char* eventData);
         
+    //=================================
+    // Constant definitions
+    static constexpr auto PRINTTOPDF_UI_EXTENSION =  "com.gosafeguard.SafeguardTools.PrintToPdf";
+    static constexpr auto ILST_APP =                 "ILST";
+    
 private:
+
 };
 
 #endif /* defined(__SafeguardTools__PrintToPdfUIController__) */

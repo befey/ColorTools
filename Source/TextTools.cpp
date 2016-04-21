@@ -206,17 +206,17 @@ bool Align(ATE::ParagraphJustification alignStyle) {
 	selectedArtTypes = GetTypesFromArtSet(&artSet);
 	
 	try {
-		if (selectedArtTypes == ttTextArt) {
+        if (selectedArtTypes == TTArtTypes::ttTextArt) {
 			AlignText(&artSet, alignStyle);
 		}
-		else if (selectedArtTypes == ttUnknownArt) {
-			throw ttUnknownArt;
+		else if (selectedArtTypes == TTArtTypes::ttUnknownArt) {
+			throw TTArtTypes::ttUnknownArt;
 		}
-		else if ( ( selectedArtTypes == ttObjectArt ) ||
-				  ( selectedArtTypes == (ttObjectArt | ttTextArt)) ||
-				  ( selectedArtTypes == (ttObjectArt | ttUnknownArt) ) ||
-				  ( selectedArtTypes == (ttTextArt | ttUnknownArt) ) ||
-				  ( selectedArtTypes == (ttObjectArt | ttTextArt | ttUnknownArt)) ) {
+		else if ( ( selectedArtTypes == TTArtTypes::ttObjectArt ) ||
+				  ( selectedArtTypes == (TTArtTypes::ttObjectArt | TTArtTypes::ttTextArt)) ||
+				  ( selectedArtTypes == (TTArtTypes::ttObjectArt | TTArtTypes::ttUnknownArt) ) ||
+				  ( selectedArtTypes == (TTArtTypes::ttTextArt | TTArtTypes::ttUnknownArt) ) ||
+				  ( selectedArtTypes == (TTArtTypes::ttObjectArt | TTArtTypes::ttTextArt | TTArtTypes::ttUnknownArt)) ) {
 			AlignObject(&artSet, alignStyle);
 		}
 	}
@@ -557,16 +557,16 @@ short GetTypesFromArtSet(AIArtSet* artSet) {
 			case kMeshArt:
 			case kSymbolArt:
 			case kForeignArt:
-				selectedArtTypes = selectedArtTypes | ttObjectArt;
+                selectedArtTypes = selectedArtTypes | TTArtTypes::ttObjectArt;
 				break;
 				
 			case kTextFrameArt:
 			case kLegacyTextArt:
-				selectedArtTypes = selectedArtTypes | ttTextArt;
+				selectedArtTypes = selectedArtTypes | TTArtTypes::ttTextArt;
 				break;
 				
 			case kUnknownArt:
-				selectedArtTypes = selectedArtTypes | ttUnknownArt;
+				selectedArtTypes = selectedArtTypes | TTArtTypes::ttUnknownArt;
 				break;
 		}
 	}
@@ -619,7 +619,7 @@ bool CreateMICRBarcode() {
 	
 	//Check if we already have a micr line in the document dictionary
 	AIArtHandle micrLineHandle = NULL;
-	micrLineHandle = GetArtHandleFromIdentifier(MICR_LINE_LABEL);
+	micrLineHandle = GetArtHandleFromIdentifier(ai::UnicodeString(MICR_LINE_LABEL));
 	
 	//Create an art set of the selected objects
 	//CREATE THE ART SET
@@ -685,11 +685,11 @@ bool CreateMICRBarcode() {
 				
 				//Tag the MICR line when we've found it, and store the handle in the dictionary
 				if (micrLineHandle && (micrLineHandle != currArtHandle)) {
-					RemoveIdentifierFromDictionary(MICR_LINE_LABEL);
+					RemoveIdentifierFromDictionary(ai::UnicodeString(MICR_LINE_LABEL));
 				}
 				micrLineHandle = currArtHandle;
-				sAIArt->SetArtName(currArtHandle, MICR_LINE_LABEL);
-				AddArtUIDToDictionary(currArtHandle, MICR_LINE_LABEL);
+				sAIArt->SetArtName(currArtHandle, ai::UnicodeString(MICR_LINE_LABEL));
+				AddArtUIDToDictionary(currArtHandle, ai::UnicodeString(MICR_LINE_LABEL));
 				break;
 			}
 		}
@@ -718,15 +718,15 @@ bool CreateMICRBarcode() {
 		
 		//Check if we already have a MICR barcode, if not, create the new point text
 		AIArtHandle barcodeTextFrame = NULL;
-		barcodeTextFrame = GetArtHandleFromIdentifier(MICR_BARCODE_LABEL);
+		barcodeTextFrame = GetArtHandleFromIdentifier(ai::UnicodeString(MICR_BARCODE_LABEL));
 		
 		if (!barcodeTextFrame) {
 			AIRealPoint anchor;
 			FindBarcodeAnchorPoint(&anchor);
 			sAITextFrame->NewPointText(kPlaceAboveAll, micrLineHandle, kHorizontalTextOrientation, anchor, &barcodeTextFrame);
-			sAIArt->SetArtName(barcodeTextFrame, MICR_BARCODE_LABEL);
+			sAIArt->SetArtName(barcodeTextFrame, ai::UnicodeString(MICR_BARCODE_LABEL));
 			
-			AddArtUIDToDictionary(barcodeTextFrame, MICR_BARCODE_LABEL);
+			AddArtUIDToDictionary(barcodeTextFrame, ai::UnicodeString(MICR_BARCODE_LABEL));
 		}
 		
 		//Create the ATE range

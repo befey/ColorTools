@@ -278,7 +278,7 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
 	else if ( message->menuItem == menuItemHandles.GetHandleWithKey(FIND_AND_REPLACE_MENU_ITEM) )
 	{
         AIBoolean state;
-        sAICSXSExtension->IsPrimaryStageVisible(COLORTOOLS_UI_EXTENSION, state);
+        sAICSXSExtension->IsPrimaryStageVisible(ColorToolsUIController::COLORTOOLS_UI_EXTENSION, state);
 
         if (state == TRUE)
         {
@@ -287,7 +287,7 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
         else
         {
             colorToolsUIController->LoadExtension();
-            sAICSXSExtension->LaunchExtension(COLORTOOLS_UI_EXTENSION);
+            sAICSXSExtension->LaunchExtension(ColorToolsUIController::COLORTOOLS_UI_EXTENSION);
         }
 
 	}
@@ -340,7 +340,7 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
     else if ( message->menuItem == menuItemHandles.GetHandleWithKey(PRINT_TO_PDF_MENU_ITEM) )
     {
         printToPdfUIController->LoadExtension();
-        sAICSXSExtension->LaunchExtension(PRINTTOPDF_UI_EXTENSION);
+        sAICSXSExtension->LaunchExtension(PrintToPdfUIController::PRINTTOPDF_UI_EXTENSION);
     }
 	
 	if (error)
@@ -357,7 +357,7 @@ ASErr SafeguardToolsPlugin::UpdateMenuItem(AIMenuMessage* message)
 	
 	if (message->menuItem == menuItemHandles.GetHandleWithKey(FIND_AND_REPLACE_MENU_ITEM) ) {
         AIBoolean state;
-        sAICSXSExtension->IsPrimaryStageVisible(COLORTOOLS_UI_EXTENSION, state);
+        sAICSXSExtension->IsPrimaryStageVisible(ColorToolsUIController::COLORTOOLS_UI_EXTENSION, state);
 		if (state == TRUE)
 		{
 			sAIMenu->SetItemText( message->menuItem, ai::UnicodeString("Hide Find and Replace Graphics") );
@@ -371,7 +371,7 @@ ASErr SafeguardToolsPlugin::UpdateMenuItem(AIMenuMessage* message)
     if (message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_MICR_BARCODE_MENU_ITEM) ) {
         //Check if we have a micr line object in the document dictionary
         //If we do, nothing needs to be selected, as we already know where the micr line is
-        if ( CheckDictionaryForArtObjectWithIdentifier(MICR_LINE_LABEL) ) {
+        if ( CheckDictionaryForArtObjectWithIdentifier(ai::UnicodeString(MICR_LINE_LABEL)) ) {
             sAIMenu->EnableItem(message->menuItem);
         } else {
             //If we couldn't find a micr number in the dictionary, we'll check if some text is selected

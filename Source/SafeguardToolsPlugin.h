@@ -15,25 +15,6 @@ class ColorToolsUIController;
 class PrintToPdfUIController;
 class BtSwatchList;
 
-//=================================
-// Constant definitions
-#define MODIFY_SWATCHES_MENU            "Modify Swatches"
-#define FIX_BLACK_MENU_ITEM             "Fix Black"
-#define FIND_AND_REPLACE_MENU_ITEM      "Find and Replace Graphics"
-
-#define TEXT_TOOLS_MENU                 "Text Tools"
-#define MAKE_POINT_TYPE_MENU_ITEM       "Make Point Type"
-#define FIX_FREEHAND_TYPE_MENU_ITEM     "Fix Freehand Type"
-
-#define ALIGN_MENU                      "Align"
-#define ALIGN_LEFT_MENU_ITEM            "Left"
-#define ALIGN_CENTER_MENU_ITEM          "Center"
-#define ALIGN_RIGHT_MENU_ITEM           "Right"
-
-#define CREATE_MICR_BARCODE_MENU_ITEM   "Create MICR Barcode"
-
-#define PRINT_TO_PDF_MENU_ITEM          "Print to PDF..."
-
 
 /**	Creates a new SafeguardToolsPlugin.
 	@param pluginRef IN unique reference to this plugin.
@@ -72,6 +53,24 @@ public:
 	*/
 	FIXUP_VTABLE_EX(SafeguardToolsPlugin, Plugin);
     
+    //=================================
+    // Constant definitions
+    static constexpr auto MODIFY_SWATCHES_MENU =           "Modify Swatches";
+    static constexpr auto FIX_BLACK_MENU_ITEM =            "Fix Black";
+    static constexpr auto FIND_AND_REPLACE_MENU_ITEM =     "Find and Replace Graphics";
+    
+    static constexpr auto TEXT_TOOLS_MENU =                "Text Tools";
+    static constexpr auto MAKE_POINT_TYPE_MENU_ITEM =      "Make Point Type";
+    static constexpr auto FIX_FREEHAND_TYPE_MENU_ITEM =    "Fix Freehand Type";
+    
+    static constexpr auto ALIGN_MENU =                     "Align";
+    static constexpr auto ALIGN_LEFT_MENU_ITEM =           "Left";
+    static constexpr auto ALIGN_CENTER_MENU_ITEM =         "Center";
+    static constexpr auto ALIGN_RIGHT_MENU_ITEM =          "Right";
+    
+    static constexpr auto CREATE_MICR_BARCODE_MENU_ITEM =  "Create MICR Barcode";
+    static constexpr auto PRINT_TO_PDF_MENU_ITEM =         "Print to PDF...";
+
 protected:
 	/** Calls Plugin::Message and handles any errors returned.
      @param caller IN sender of the message.

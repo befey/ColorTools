@@ -11,7 +11,7 @@
 
 //=================================
 // Constant definitions
-#define ATTRIBUTE_SELECT                     "attribute-select"
+#define ATTRIBUTE_SELECT                    "attribute-select"
 #define ATTRIBUTE_COLOR                     0
 #define ATTRIBUTE_OVERPRINT                 1
 

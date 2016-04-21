@@ -19,18 +19,6 @@
 class SafeguardToolsPlugin;
 extern SafeguardToolsPlugin *gPlugin;
 
-//=================================
-// Constant definitions
-#define COLORTOOLS_UI_EXTENSION             "com.gosafeguard.SafeguardTools.ColorTools"
-#define EVENT_TYPE_CHANGE_CLICKED           "com.gosafeguard.SafeguardTools.ColorTools.changebutton"
-#define EVENT_TYPE_REMOVE_CLICKED           "com.gosafeguard.SafeguardTools.ColorTools.removebutton"
-#define EVENT_TYPE_UPDATE_COLOR_LIST        "com.gosafeguard.SafeguardTools.ColorTools.updatelist"
-#define EVENT_TYPE_UPDATE_COLOR_LIST_BACK   "com.gosafeguard.SafeguardTools.ColorTools.updatelistback"
-#define EVENT_TYPE_CHANGE_COUNT_BACK        "com.gosafeguard.SafeguardTools.ColorTools.changecountback"
-#define EVENT_TYPE_CHANGE_IN_BACK           "com.gosafeguard.SafeguardTools.ColorTools.changeinback"
-#define EVENT_TYPE_FORCE_PANEL_CLOSE        "com.gosafeguard.SafeguardTools.ColorTools.forcepanelclose"
-#define ILST_APP                            "ILST"
-
 
 //=================================
 // ColorToolsUIController - handles communication between extension and plugin
@@ -66,7 +54,19 @@ public:
     static void RemoveButtonClickedFunc (const csxs::event::Event* const event, void* const context);
     static void UpdateListFunc (const csxs::event::Event* const event, void* const context);
 
+    //=================================
+    // Constant definitions
+    static constexpr auto COLORTOOLS_UI_EXTENSION =           "com.gosafeguard.SafeguardTools.ColorTools";
+    static constexpr auto EVENT_TYPE_CHANGE_CLICKED =         "com.gosafeguard.SafeguardTools.ColorTools.changebutton";
+    static constexpr auto EVENT_TYPE_REMOVE_CLICKED =         "com.gosafeguard.SafeguardTools.ColorTools.removebutton";
+    static constexpr auto EVENT_TYPE_UPDATE_COLOR_LIST =      "com.gosafeguard.SafeguardTools.ColorTools.updatelist";
+    static constexpr auto EVENT_TYPE_UPDATE_COLOR_LIST_BACK = "com.gosafeguard.SafeguardTools.ColorTools.updatelistback";
+    static constexpr auto EVENT_TYPE_CHANGE_COUNT_BACK =      "com.gosafeguard.SafeguardTools.ColorTools.changecountback";
+    static constexpr auto EVENT_TYPE_CHANGE_IN_BACK =         "com.gosafeguard.SafeguardTools.ColorTools.changeinback";
+    static constexpr auto EVENT_TYPE_FORCE_PANEL_CLOSE =      "com.gosafeguard.SafeguardTools.ColorTools.forcepanelclose";
+    static constexpr auto ILST_APP =                          "ILST";
 private:
+
 };
 
 #endif /* defined(__SafeguardTools__ColorToolsUIController__) */

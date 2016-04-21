@@ -181,8 +181,6 @@
 			isa = PBXGroup;
 			children = (
 				F989A8CF1CA4606E0050C071 /* My Headers */,
-				F989A8E01CA460CE0050C071 /* ColorToolsUIController.cpp */,
-				F989A8E11CA460CE0050C071 /* ColorToolsUIController.h */,
 				F989A8E21CA460CE0050C071 /* FindReplaceGraphics.cpp */,
 				F989A8E31CA460CE0050C071 /* FindReplaceGraphics.h */,
 				F989A8E41CA460CE0050C071 /* FixBlack.cpp */,
@@ -191,8 +189,6 @@
 				F9681E3E1CA47AFC00A02A58 /* FixFreehandType.h */,
 				F94726411CB2F91900649020 /* PrintToPdf.cpp */,
 				F94726421CB2F91900649020 /* PrintToPdf.h */,
-				F945E5F31CC6B4BB0071DE88 /* PrintToPdfUIController.cpp */,
-				F945E5F41CC6B4BB0071DE88 /* PrintToPdfUIController.h */,
 				F989A8E61CA460CE0050C071 /* ReplaceData.cpp */,
 				F989A8E71CA460CE0050C071 /* ReplaceData.h */,
 				6868C920150BA192003DAAF2 /* SafeguardToolsID.h */,
@@ -241,6 +237,17 @@
 			name = Libraries;
 			sourceTree = "<group>";
 		};
+		F963C91C1CC7D3AA00A0D519 /* UIControllers */ = {
+			isa = PBXGroup;
+			children = (
+				F989A8E01CA460CE0050C071 /* ColorToolsUIController.cpp */,
+				F989A8E11CA460CE0050C071 /* ColorToolsUIController.h */,
+				F945E5F31CC6B4BB0071DE88 /* PrintToPdfUIController.cpp */,
+				F945E5F41CC6B4BB0071DE88 /* PrintToPdfUIController.h */,
+			);
+			name = UIControllers;
+			sourceTree = "<group>";
+		};
 		F989A8CF1CA4606E0050C071 /* My Headers */ = {
 			isa = PBXGroup;
 			children = (
@@ -274,6 +281,7 @@
 				F96D30721CB6D73500274BDE /* PlateNumber.h */,
 				F947263E1CB2E1F400649020 /* VPB.cpp */,
 				F947263D1CB2E1F400649020 /* VPB.h */,
+				F963C91C1CC7D3AA00A0D519 /* UIControllers */,
 			);
 			name = "My Headers";
 			sourceTree = "<group>";

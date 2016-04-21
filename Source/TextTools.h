@@ -26,16 +26,19 @@ extern "C" AIFontSuite* sAIFont;
 
 //=================================
 // Constant definitions
-#define ttObjectArt				1
-#define ttTextArt				2
-#define ttUnknownArt			4
+enum TTArtTypes
+{
+    ttObjectArt	=			1,
+    ttTextArt =				2,
+    ttUnknownArt =			4
+};
 
-#define MICR_FONT_NAME			"MICR"
-#define BARCODE_FONT_NAME		"IDAutomationC39XS"
-#define LASER_BARCODE_OFFSET	25
+constexpr auto MICR_FONT_NAME =			"MICR";
+constexpr auto BARCODE_FONT_NAME =		"IDAutomationC39XS";
+constexpr auto LASER_BARCODE_OFFSET =   25;
 
-#define MICR_LINE_LABEL ai::UnicodeString("__MICR_LINE__")
-#define MICR_BARCODE_LABEL ai::UnicodeString("__MICR_BARCODE__")
+constexpr auto MICR_LINE_LABEL =        "__MICR_LINE__";
+constexpr auto MICR_BARCODE_LABEL =     "__MICR_BARCODE__";
 
 
 
