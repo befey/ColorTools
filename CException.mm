@@ -19,7 +19,7 @@
 	return self;
 }
 
-- (id) initWithCode: (errorcode) ec
+- (id) initWithCode: (ErrorCode) ec
 {
 	if (self = [super init]) {
 		[self setCode:ec];
@@ -27,7 +27,7 @@
 	return self;
 }
 
-+ (CException*) withCode: (errorcode) ec
++ (CException*) withCode: (ErrorCode) ec
 {
 	return [[[CException alloc] initWithCode:ec] autorelease];
 }
@@ -40,11 +40,11 @@
 //**************************************************************
 //*********** Getters and Setters ******************************
 //**************************************************************
-- (errorcode) code
+- (ErrorCode) code
 {
 	return code;
 }
-- (void) setCode: (errorcode) ec
+- (void) setCode: (ErrorCode) ec
 {
 	code = ec;
 }

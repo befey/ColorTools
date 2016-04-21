@@ -82,23 +82,23 @@ void SetUpNodes() {
 	
 	//Set up the array of callback functions and tags, then store the pointer to it
 	FIND_FUNCTIONS const callbackDataArray[] = {
-		{ &Node::FindExtraColorListGroup,	LAYER_WITH_EXTRA_COLOR_GROUP,	EXTRA_COLOR_GROUP_LABEL,		LOWER_LEFT},	//0
-		{ &Node::FindColorList,				LAYER_WITH_PLATE_INFO,			COLOR_LIST_LABEL,				LOWER_LEFT },	//1
-		{ &Node::FindPlateNumber,			LAYER_WITH_PLATE_INFO,			PLATE_NUMBER_LABEL,				LOWER_RIGHT },	//2
-		{ &Node::FindDate,					LAYER_WITH_PLATE_INFO,			DATE_LABEL,						LOWER_RIGHT },	//3
-		{ &Node::FindProofTag,				LAYER_WITH_PROOF_INFO,			PROOF_TAG_LABEL,				UPPER_LEFT },	//4
-		{ &Node::FindKeylineRegBox,			LAYER_WITH_KEYLINE_INFO,		KEYLINE_REGISTRATION_LABEL,		LOWER_LEFT },	//5
-		{ &Node::FindKeylineEnvFlap,		LAYER_WITH_KEYLINE_INFO,		KEYLINE_ENV_FLAP_LABEL,			UPPER_LEFT },	//6
-		{ &Node::FindKeylineSafeEmbossBox,	LAYER_WITH_KEYLINE_INFO,		KEYLINE_SAFE_EMBOSS_LABEL,		LOWER_LEFT },	//7
-		{ &Node::FindKeylineFace,			LAYER_WITH_KEYLINE_INFO,		KEYLINE_FACE_LABEL,				LOWER_LEFT },	//8
-		{ &Node::FindRegBox,				LAYER_WITH_REGISTRATION,		REGISTRATION_BOX_LABEL,			LOWER_LEFT },	//9
-		{ &Node::FindRegEnvFlap,			LAYER_WITH_REGISTRATION,		REGISTRATION_ENV_FLAP_LABEL,	UPPER_LEFT },	//10
-		{ &Node::FindRegSafeEmbossBox,		LAYER_WITH_REGISTRATION,		REGISTRATION_SAFE_EMBOSS_LABEL,	LOWER_LEFT },	//11
-		{ &Node::FindBleedBox,				LAYER_WITH_BLEED,				BLEED_BOX_LABEL,				UPPER_LEFT },	//12
-		{ &Node::FindGripperTop,			LAYER_WITH_GRIPPER,				GRIPPER_TOP_LABEL,				UPPER_LEFT },	//13
-		{ &Node::FindGripperBottom,			LAYER_WITH_GRIPPER,				GRIPPER_BOTTOM_LABEL,			LOWER_LEFT },	//14
-		{ &Node::FindGripperLeft,			LAYER_WITH_GRIPPER,				GRIPPER_LEFT_LABEL,				LOWER_LEFT },	//15
-		{ &Node::FindGripperRight,			LAYER_WITH_GRIPPER,				GRIPPER_RIGHT_LABEL,			LOWER_RIGHT }	//16
+        { &Node::FindExtraColorListGroup,	ai::UnicodeString(LAYER_WITH_EXTRA_COLOR_GROUP),	ai::UnicodeString(EXTRA_COLOR_GROUP_LABEL),		Corner::LOWER_LEFT},	//0
+        { &Node::FindColorList,				ai::UnicodeString(LAYER_WITH_PLATE_INFO),			ai::UnicodeString(COLOR_LIST_LABEL),				Corner::LOWER_LEFT },	//1
+        { &Node::FindPlateNumber,			ai::UnicodeString(LAYER_WITH_PLATE_INFO),			ai::UnicodeString(PLATE_NUMBER_LABEL),				Corner::LOWER_RIGHT },	//2
+        { &Node::FindDate,					ai::UnicodeString(LAYER_WITH_PLATE_INFO),			ai::UnicodeString(DATE_LABEL),						Corner::LOWER_RIGHT },	//3
+        { &Node::FindProofTag,				ai::UnicodeString(LAYER_WITH_PROOF_INFO),			ai::UnicodeString(PROOF_TAG_LABEL),				Corner::UPPER_LEFT },	//4
+        { &Node::FindKeylineRegBox,			ai::UnicodeString(LAYER_WITH_KEYLINE_INFO),		ai::UnicodeString(KEYLINE_REGISTRATION_LABEL),		Corner::LOWER_LEFT },	//5
+        { &Node::FindKeylineEnvFlap,		ai::UnicodeString(LAYER_WITH_KEYLINE_INFO),		ai::UnicodeString(KEYLINE_ENV_FLAP_LABEL),			Corner::UPPER_LEFT },	//6
+        { &Node::FindKeylineSafeEmbossBox,	ai::UnicodeString(LAYER_WITH_KEYLINE_INFO),		ai::UnicodeString(KEYLINE_SAFE_EMBOSS_LABEL),		Corner::LOWER_LEFT },	//7
+        { &Node::FindKeylineFace,			ai::UnicodeString(LAYER_WITH_KEYLINE_INFO),		ai::UnicodeString(KEYLINE_FACE_LABEL),				Corner::LOWER_LEFT },	//8
+        { &Node::FindRegBox,				ai::UnicodeString(LAYER_WITH_REGISTRATION),		ai::UnicodeString(REGISTRATION_BOX_LABEL),			Corner::LOWER_LEFT },	//9
+        { &Node::FindRegEnvFlap,			ai::UnicodeString(LAYER_WITH_REGISTRATION),		ai::UnicodeString(REGISTRATION_ENV_FLAP_LABEL),	Corner::UPPER_LEFT },	//10
+        { &Node::FindRegSafeEmbossBox,		ai::UnicodeString(LAYER_WITH_REGISTRATION),		ai::UnicodeString(REGISTRATION_SAFE_EMBOSS_LABEL),	Corner::LOWER_LEFT },	//11
+        { &Node::FindBleedBox,				ai::UnicodeString(LAYER_WITH_BLEED),				ai::UnicodeString(BLEED_BOX_LABEL),				Corner::UPPER_LEFT },	//12
+        { &Node::FindGripperTop,			ai::UnicodeString(LAYER_WITH_GRIPPER),				ai::UnicodeString(GRIPPER_TOP_LABEL),				Corner::UPPER_LEFT },	//13
+        { &Node::FindGripperBottom,			ai::UnicodeString(LAYER_WITH_GRIPPER),				ai::UnicodeString(GRIPPER_BOTTOM_LABEL),			Corner::LOWER_LEFT },	//14
+        { &Node::FindGripperLeft,			ai::UnicodeString(LAYER_WITH_GRIPPER),				ai::UnicodeString(GRIPPER_LEFT_LABEL),				Corner::LOWER_LEFT },	//15
+        { &Node::FindGripperRight,			ai::UnicodeString(LAYER_WITH_GRIPPER),				ai::UnicodeString(GRIPPER_RIGHT_LABEL),			Corner::LOWER_RIGHT }	//16
 	}; find_functions = callbackDataArray;
 	
 	//Now we need to cycle through each crop area and set the objects that belong to it
@@ -158,7 +158,7 @@ void CleanUpNodes() {
 
 
 //Plate info
-AIArtHandle Node::FindExtraColorListGroup(Node* const startNode, AIArtHandle const currArtHandle, int const lookWhere) {
+AIArtHandle Node::FindExtraColorListGroup(Node* const startNode, AIArtHandle const currArtHandle, Corner const lookWhere) {
 		short type = 0;
 		sAIArt->GetArtType(currArtHandle, &type);
 		
@@ -174,7 +174,7 @@ AIArtHandle Node::FindExtraColorListGroup(Node* const startNode, AIArtHandle con
 	return NULL;
 }
 
-AIArtHandle Node::FindColorList(Node* const startNode, AIArtHandle currArtHandle, int const lookWhere) {
+AIArtHandle Node::FindColorList(Node* const startNode, AIArtHandle currArtHandle, Corner const lookWhere) {
 	AIArtHandle hColorList = GetArtHandleFromUIDRef(this->p->ColorListUIDRef());
 	AIArtHandle hExtraColorList = GetArtHandleFromUIDRef(this->p->ExtraColorListUIDRef());
 	
@@ -290,7 +290,7 @@ AIArtHandle Node::FindColorList(Node* const startNode, AIArtHandle currArtHandle
 	return hColorList; //Should still be NULL if the color list wasn't found
 }
 
-AIArtHandle Node::FindPlateNumber(Node* const startNode, AIArtHandle currArtHandle, int const lookWhere) {
+AIArtHandle Node::FindPlateNumber(Node* const startNode, AIArtHandle currArtHandle, Corner const lookWhere) {
 	AIArtHandle hPlateNumber = GetArtHandleFromUIDRef(this->p->PlateNumberUIDRef());
 	AIArtHandle hDate = GetArtHandleFromUIDRef(this->p->DateUIDRef());
 	
@@ -383,7 +383,7 @@ AIArtHandle Node::FindPlateNumber(Node* const startNode, AIArtHandle currArtHand
 	return hPlateNumber; //Should still be NULL if the plate number wasn't found
 }
 
-AIArtHandle Node::FindDate(Node* const startNode, AIArtHandle currArtHandle, int const lookWhere) {
+AIArtHandle Node::FindDate(Node* const startNode, AIArtHandle currArtHandle, Corner const lookWhere) {
 	AIArtHandle hPlateNumber = GetArtHandleFromUIDRef(this->p->PlateNumberUIDRef());
 	AIArtHandle hDate = GetArtHandleFromUIDRef(this->p->DateUIDRef());
 	short type = 0;
@@ -476,7 +476,7 @@ AIArtHandle Node::FindDate(Node* const startNode, AIArtHandle currArtHandle, int
 }
 
 //Proof
-AIArtHandle Node::FindProofTag(Node* const startNode, AIArtHandle const currArtHandle, int const lookWhere) {
+AIArtHandle Node::FindProofTag(Node* const startNode, AIArtHandle const currArtHandle, Corner const lookWhere) {
 	
 	short type = 0;
 	
@@ -506,7 +506,7 @@ AIArtHandle Node::FindProofTag(Node* const startNode, AIArtHandle const currArtH
 }
 
 //Keyline info
-AIArtHandle Node::FindKeylineRegBox(Node* const startNode, AIArtHandle const currArtHandle, int const lookWhere) {
+AIArtHandle Node::FindKeylineRegBox(Node* const startNode, AIArtHandle const currArtHandle, Corner const lookWhere) {
 	short type = 0;
 	
 	sAIArt->GetArtType(currArtHandle, &type);
@@ -633,7 +633,7 @@ AIArtHandle Node::FindKeylineRegBox(Node* const startNode, AIArtHandle const cur
 	return NULL;
 }
 
-AIArtHandle Node::FindKeylineEnvFlap(Node* const startNode, AIArtHandle const currArtHandle, int const lookWhere) {
+AIArtHandle Node::FindKeylineEnvFlap(Node* const startNode, AIArtHandle const currArtHandle, Corner const lookWhere) {
 	short type = 0;
 	
 	sAIArt->GetArtType(currArtHandle, &type);
@@ -653,7 +653,7 @@ AIArtHandle Node::FindKeylineEnvFlap(Node* const startNode, AIArtHandle const cu
 	return NULL;
 }
 
-AIArtHandle Node::FindKeylineSafeEmbossBox(Node* const startNode, AIArtHandle const currArtHandle, int const lookWhere) {
+AIArtHandle Node::FindKeylineSafeEmbossBox(Node* const startNode, AIArtHandle const currArtHandle, Corner const lookWhere) {
 	
 	short type = 0;
 	
@@ -714,7 +714,7 @@ AIArtHandle Node::FindKeylineSafeEmbossBox(Node* const startNode, AIArtHandle co
 	return NULL;
 }
 
-AIArtHandle Node::FindKeylineFace(Node* const startNode, AIArtHandle const currArtHandle, int const lookWhere) {
+AIArtHandle Node::FindKeylineFace(Node* const startNode, AIArtHandle const currArtHandle, Corner const lookWhere) {
 	AIArtHandle hKeyRegBox = GetArtHandleFromUIDRef(this->p->KeylineRegBoxUIDRef());
 	short type = 0;
 	
@@ -785,7 +785,7 @@ AIArtHandle Node::FindKeylineFace(Node* const startNode, AIArtHandle const currA
 }
 
 //Registration info
-AIArtHandle Node::FindRegBox(Node* const startNode, AIArtHandle const currArtHandle, int const lookWhere) {
+AIArtHandle Node::FindRegBox(Node* const startNode, AIArtHandle const currArtHandle, Corner const lookWhere) {
 	
 	short type = 0;
 	
@@ -912,7 +912,7 @@ AIArtHandle Node::FindRegBox(Node* const startNode, AIArtHandle const currArtHan
 	return NULL;
 }
 
-AIArtHandle Node::FindRegEnvFlap(Node* const startNode, AIArtHandle const currArtHandle, int const lookWhere) {
+AIArtHandle Node::FindRegEnvFlap(Node* const startNode, AIArtHandle const currArtHandle, Corner const lookWhere) {
 	short type = 0;
 	
 	sAIArt->GetArtType(currArtHandle, &type);
@@ -932,7 +932,7 @@ AIArtHandle Node::FindRegEnvFlap(Node* const startNode, AIArtHandle const currAr
 	return NULL;
 }
 
-AIArtHandle Node::FindRegSafeEmbossBox(Node* const startNode, AIArtHandle const currArtHandle, int const lookWhere) {
+AIArtHandle Node::FindRegSafeEmbossBox(Node* const startNode, AIArtHandle const currArtHandle, Corner const lookWhere) {
 	
 	short type = 0;
 	
@@ -994,7 +994,7 @@ AIArtHandle Node::FindRegSafeEmbossBox(Node* const startNode, AIArtHandle const 
 }
 
 //Bleed
-AIArtHandle Node::FindBleedBox(Node* const startNode, AIArtHandle const currArtHandle, int const lookWhere) {
+AIArtHandle Node::FindBleedBox(Node* const startNode, AIArtHandle const currArtHandle, Corner const lookWhere) {
 	
 	short type = 0;
 	
@@ -1039,7 +1039,7 @@ AIArtHandle Node::FindBleedBox(Node* const startNode, AIArtHandle const currArtH
 }
 
 //Gripper
-AIArtHandle Node::FindGripperTop(Node* const startNode, AIArtHandle const currArtHandle, int const lookWhere) {
+AIArtHandle Node::FindGripperTop(Node* const startNode, AIArtHandle const currArtHandle, Corner const lookWhere) {
 	AIArtHandle hRegBox = GetArtHandleFromUIDRef(this->p->RegBoxUIDRef());
 	short type = 0;
 	
@@ -1067,7 +1067,7 @@ AIArtHandle Node::FindGripperTop(Node* const startNode, AIArtHandle const currAr
 	}
 	return NULL;
 }
-AIArtHandle Node::FindGripperBottom(Node* const startNode, AIArtHandle const currArtHandle, int const lookWhere) {
+AIArtHandle Node::FindGripperBottom(Node* const startNode, AIArtHandle const currArtHandle, Corner const lookWhere) {
 	AIArtHandle hRegBox = GetArtHandleFromUIDRef(this->p->RegBoxUIDRef());
 	short type = 0;
 	
@@ -1095,7 +1095,7 @@ AIArtHandle Node::FindGripperBottom(Node* const startNode, AIArtHandle const cur
 	}
 	return NULL;
 }
-AIArtHandle Node::FindGripperLeft(Node* const startNode, AIArtHandle const currArtHandle, int const lookWhere) {
+AIArtHandle Node::FindGripperLeft(Node* const startNode, AIArtHandle const currArtHandle, Corner const lookWhere) {
 	AIArtHandle hRegBox = GetArtHandleFromUIDRef(this->p->RegBoxUIDRef());
 	short type = 0;
 	
@@ -1123,7 +1123,7 @@ AIArtHandle Node::FindGripperLeft(Node* const startNode, AIArtHandle const currA
 	}
 	return NULL;
 }
-AIArtHandle Node::FindGripperRight(Node* const startNode, AIArtHandle const currArtHandle, int const lookWhere) {
+AIArtHandle Node::FindGripperRight(Node* const startNode, AIArtHandle const currArtHandle, Corner const lookWhere) {
 	AIArtHandle hRegBox = GetArtHandleFromUIDRef(this->p->RegBoxUIDRef());
 	short type = 0;
 	
@@ -1156,8 +1156,7 @@ AIArtHandle Node::FindGripperRight(Node* const startNode, AIArtHandle const curr
 
 
 //Proximity
-Node* FindClosestNode(AIArtHandle object, int CORNER) {
-	if(CORNER == -1) {return NULL;}
+Node* FindClosestNode(AIArtHandle object, Corner CORNER) {
 	
 	Node* currNode = startNode;
 	Node* closestNode = currNode;
@@ -1172,22 +1171,24 @@ Node* FindClosestNode(AIArtHandle object, int CORNER) {
 
 		AIRealPoint a, b;
 		switch (CORNER) {
-		case UPPER_LEFT:
+        case Corner::UPPER_LEFT:
 			a.h = nodeRect.left; a.v = nodeRect.top;
 			b.h = artRect.left; b.v = artRect.top;
 			break;
-		case UPPER_RIGHT:
+        case Corner::UPPER_RIGHT:
 			a.h = nodeRect.right; a.v = nodeRect.top;
 			b.h = artRect.right; b.v = artRect.top;
 			break;
-		case LOWER_RIGHT:
+        case Corner::LOWER_RIGHT:
 			a.h = nodeRect.right; a.v = nodeRect.bottom;
 			b.h = artRect.right; b.v = artRect.bottom;
 			break;
-		case LOWER_LEFT:
+        case Corner::LOWER_LEFT:
 			a.h = nodeRect.left; a.v = nodeRect.bottom;
 			b.h = artRect.left; b.v = artRect.bottom;
 			break;
+        case Corner::NONE:
+            break;
 		}
 				
 		
@@ -1207,7 +1208,7 @@ Node* FindClosestNode(AIArtHandle object, int CORNER) {
 }
 
 
-int FindClosestCorner(AIArtHandle object, Node* const node ) {
+Corner FindClosestCorner(AIArtHandle object, Node* const node ) {
 	AIRealRect artRect, cropRect;
 	cropRect = node->p->GetCropAreaRect();
 	sAIArt->GetArtBounds(object, &artRect);
@@ -1236,19 +1237,19 @@ int FindClosestCorner(AIArtHandle object, Node* const node ) {
 	
 	
 	//If its closer to the upper left
-	if (distUL < distUR && distUL < distLR && distUL < distLL) { return UPPER_LEFT; }
+    if (distUL < distUR && distUL < distLR && distUL < distLL) { return Corner::UPPER_LEFT; }
 	
 	//If its closer to the upper left
-	if (distUR < distUL && distUR < distLR && distUR < distLL) { return UPPER_RIGHT; }
+    if (distUR < distUL && distUR < distLR && distUR < distLL) { return Corner::UPPER_RIGHT; }
 	
 	//If its closer to the upper left
-	if (distLR < distUL && distLR < distUR && distLR < distLL) { return LOWER_RIGHT; }
+    if (distLR < distUL && distLR < distUR && distLR < distLL) { return Corner::LOWER_RIGHT; }
 	
 	//If its closer to the upper left
-	if (distLL < distUL && distLL < distLR && distLL < distUR) { return LOWER_LEFT; }
+    if (distLL < distUL && distLL < distLR && distLL < distUR) { return Corner::LOWER_LEFT; }
 	
 	//If they were equal, return 0
-	return 0;	
+    return Corner::NONE;
 }
 
 
@@ -1393,7 +1394,7 @@ AIArtHandle Find(Node* const startNode, Node* inNode, FIND_FUNCTIONS const &find
 		
 		AIArtSet ArtSet2 = NULL;
 		sAIArtSet->NewArtSet(&ArtSet2);
-		CreateArtSetFromLayer(LAYER_WITH_PROOF_INFO_ALT, ArtSet2);
+		CreateArtSetFromLayer(ai::UnicodeString(LAYER_WITH_PROOF_INFO_ALT), ArtSet2);
 		
 		sAIArtSet->UnionArtSet(ArtSet1, ArtSet2, artSet);
 		

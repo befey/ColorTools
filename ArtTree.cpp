@@ -11,7 +11,7 @@
 #include "error.h"
 #include "Node.h"
 
-AIArtHandle GetArtObjectByName(ai::UnicodeString targetName, int CORNER /* =-1 */, Node* const startNode, Node* const currNode) {
+AIArtHandle GetArtObjectByName(ai::UnicodeString targetName, Corner CORNER, Node* const startNode, Node* const currNode) {
 	size_t count = 0;
 	ai::UnicodeString currArtName;
 	ASBoolean isDefault = TRUE;
@@ -41,8 +41,8 @@ AIArtHandle GetArtObjectByName(ai::UnicodeString targetName, int CORNER /* =-1 *
 			if ( error == kNoErr ) {
 				if (!isDefault) {
 					if (currArtName == targetName) {
-						//If the closest node is the one passed in, or CORNER is the default -1
-						if ( FindClosestNode(currArtObj, CORNER) == currNode || CORNER == -1) {
+						//If the closest node is the one passed in
+						if ( FindClosestNode(currArtObj, CORNER) == currNode) {
 							sAIArtSet->DisposeArtSet(&allArt); allArt = NULL;
 							return currArtObj;
 						}

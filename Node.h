@@ -26,54 +26,57 @@ extern "C" AIPathSuite* sAIPath;
 //CONSTANT DEFINITIONS
 
 #ifdef BSVERSION
-	#define KEYLINE_LAYER ai::UnicodeString("KEY LINE")
-	#define REG_LAYER ai::UnicodeString("Registration Guide for Proof")
-	#define SLUG_LAYER ai::UnicodeString("SLUG")
-	#define FOREGROUND_LAYER ai::UnicodeString("Foreground")
-	#define GUIDE_LAYER ai::UnicodeString("Guides")
-	#define BACKGROUND_LAYER ai::UnicodeString("Background")
+	constexpr auto KEYLINE_LAYER =              "KEY LINE";
+	constexpr auto REG_LAYER =                  "Registration Guide for Proof";
+	constexpr auto SLUG_LAYER =                 "SLUG";
+	constexpr auto FOREGROUND_LAYER =           "Foreground";
+	constexpr auto GUIDE_LAYER =                "Guides";
+	constexpr auto BACKGROUND_LAYER =           "Background";
 
-	#define LAYER_WITH_PLATE_INFO			SLUG_LAYER
-	#define LAYER_WITH_PROOF_INFO			FOREGROUND_LAYER
-	#define LAYER_WITH_PROOF_INFO_ALT		BACKGROUND_LAYER
-	#define LAYER_WITH_EXTRA_COLOR_GROUP	SLUG_LAYER
-	#define LAYER_WITH_KEYLINE_INFO			KEYLINE_LAYER
-	#define LAYER_WITH_REGISTRATION			REG_LAYER
-	#define LAYER_WITH_BLEED				BACKGROUND_LAYER
-	#define LAYER_WITH_GRIPPER				BACKGROUND_LAYER
+    constexpr auto LAYER_WITH_PLATE_INFO =          SLUG_LAYER;
+    constexpr auto LAYER_WITH_PROOF_INFO =          FOREGROUND_LAYER;
+    constexpr auto LAYER_WITH_PROOF_INFO_ALT =      BACKGROUND_LAYER;
+    constexpr auto LAYER_WITH_EXTRA_COLOR_GROUP =   SLUG_LAYER;
+    constexpr auto LAYER_WITH_KEYLINE_INFO = 		KEYLINE_LAYER;
+    constexpr auto LAYER_WITH_REGISTRATION =		REG_LAYER;
+    constexpr auto LAYER_WITH_BLEED = 				BACKGROUND_LAYER;
+    constexpr auto LAYER_WITH_GRIPPER =				BACKGROUND_LAYER;
 #endif
 
-#define PLATE_NUMBER_LABEL ai::UnicodeString("__plate_number__")
-#define DATE_LABEL ai::UnicodeString("__date__")
-#define COLOR_LIST_LABEL ai::UnicodeString("__color_list__")
-#define EXTRA_COLOR_GROUP_LABEL ai::UnicodeString("__extra_colors__")
-#define PROOF_TAG_LABEL ai::UnicodeString("__proof_tag__")
-#define KEYLINE_FACE_LABEL ai::UnicodeString("__keyline_face__")
-#define KEYLINE_ENV_FLAP_LABEL ai::UnicodeString("__keyline_envelope_flap__")
-#define KEYLINE_REGISTRATION_LABEL ai::UnicodeString("__keyline_registration__")
-#define KEYLINE_SAFE_EMBOSS_LABEL ai::UnicodeString("__keyline_safe_emboss__")
-#define REGISTRATION_BOX_LABEL ai::UnicodeString("__registration_box__")
-#define REGISTRATION_ENV_FLAP_LABEL ai::UnicodeString("__registration_envelope_flap__")
-#define REGISTRATION_SAFE_EMBOSS_LABEL ai::UnicodeString("__registration_safe_emboss__")
-#define BLEED_BOX_LABEL ai::UnicodeString("__bleed_guide__")
-#define GRIPPER_TOP_LABEL ai::UnicodeString("__gripper_top__")
-#define GRIPPER_BOTTOM_LABEL ai::UnicodeString("__gripper_bottom__")
-#define GRIPPER_LEFT_LABEL ai::UnicodeString("__gripper_left__")
-#define GRIPPER_RIGHT_LABEL ai::UnicodeString("__gripper_right__")
+constexpr auto PLATE_NUMBER_LABEL =             "__plate_number__";
+constexpr auto DATE_LABEL =                     "__date__";
+constexpr auto COLOR_LIST_LABEL =               "__color_list__";
+constexpr auto EXTRA_COLOR_GROUP_LABEL =        "__extra_colors__";
+constexpr auto PROOF_TAG_LABEL =                "__proof_tag__";
+constexpr auto KEYLINE_FACE_LABEL =             "__keyline_face__";
+constexpr auto KEYLINE_ENV_FLAP_LABEL =         "__keyline_envelope_flap__";
+constexpr auto KEYLINE_REGISTRATION_LABEL =     "__keyline_registration__";
+constexpr auto KEYLINE_SAFE_EMBOSS_LABEL =      "__keyline_safe_emboss__";
+constexpr auto REGISTRATION_BOX_LABEL =         "__registration_box__";
+constexpr auto REGISTRATION_ENV_FLAP_LABEL =    "__registration_envelope_flap__";
+constexpr auto REGISTRATION_SAFE_EMBOSS_LABEL = "__registration_safe_emboss__";
+constexpr auto BLEED_BOX_LABEL =                "__bleed_guide__";
+constexpr auto GRIPPER_TOP_LABEL =              "__gripper_top__";
+constexpr auto GRIPPER_BOTTOM_LABEL =           "__gripper_bottom__";
+constexpr auto GRIPPER_LEFT_LABEL =             "__gripper_left__";
+constexpr auto GRIPPER_RIGHT_LABEL =            "__gripper_right__";
 
 
-#define PLATE_NUMBER_TEXT "PLATE NUMBER"
-#define PLATE_NUMBER_MIN_LENGTH 6
-#define PLATE_NUMBER_MAX_LENGTH 20
-#define DATE_TEXT "00/00"
-#define DATE_MIN_LENGTH 4
-#define DATE_MAX_LENGTH 7
+constexpr auto PLATE_NUMBER_TEXT =              "PLATE NUMBER";
+constexpr auto PLATE_NUMBER_MIN_LENGTH =        6;
+constexpr auto PLATE_NUMBER_MAX_LENGTH =        20;
+constexpr auto DATE_TEXT =                      "00/00";
+constexpr auto DATE_MIN_LENGTH =                4;
+constexpr auto DATE_MAX_LENGTH =                7;
 
-#define UPPER_LEFT	1
-#define UPPER_RIGHT	2
-#define LOWER_RIGHT	3
-#define LOWER_LEFT	4
-
+enum Corner
+{
+    NONE =          0,
+    UPPER_LEFT =	1,
+    UPPER_RIGHT =	2,
+    LOWER_RIGHT =	3,
+    LOWER_LEFT =	4
+};
 
 
 
@@ -88,7 +91,7 @@ public:
 	Node* prevNode;
 	
 	//Find Object Callback prototype
-	typedef AIArtHandle (Node::*FindObjectFunc) ( Node* const startNode, AIArtHandle const currArtHandle, int const lookWhere );
+	typedef AIArtHandle (Node::*FindObjectFunc) ( Node* const startNode, AIArtHandle const currArtHandle, Corner const lookWhere );
 	
 //Default constructor
 	Node(Node* const prevNode = NULL, const int CAIndex = -1);
@@ -103,60 +106,60 @@ public:
 		
 	//Locates the extra color group
 	//If its already been named, it returns that object, otherwise it tries to find it in the document
-	AIArtHandle FindExtraColorListGroup(Node* const startNode, AIArtHandle const currArtHandle, int const lookWhere);
+	AIArtHandle FindExtraColorListGroup(Node* const startNode, AIArtHandle const currArtHandle, Corner const lookWhere);
 
 	//Locates the color list text frame
 	//Extracts the color list and creates a new point text if no named object is found
-	AIArtHandle FindColorList(Node* const startNode, AIArtHandle currArtHandle, int const lookWhere);
+	AIArtHandle FindColorList(Node* const startNode, AIArtHandle currArtHandle, Corner const lookWhere);
 	
 	//Locates the plate number text frame
 	//Extracts the plate number and creates a new point text if no named object is found
-	AIArtHandle FindPlateNumber(Node* const startNode, AIArtHandle currArtHandle, int const lookWhere);
+	AIArtHandle FindPlateNumber(Node* const startNode, AIArtHandle currArtHandle, Corner const lookWhere);
 	
 	//Locates the date text frame
 	//Extracts the date and creates a new point text if no named object is found
-	AIArtHandle FindDate(Node* const startNode, AIArtHandle currArtHandle, int const lookWhere);
+	AIArtHandle FindDate(Node* const startNode, AIArtHandle currArtHandle, Corner const lookWhere);
 	
 	//Locates the proof tag
 	//Creates one if none exists
-	AIArtHandle FindProofTag(Node* const startNode, AIArtHandle const currArtHandle, int const lookWhere);
+	AIArtHandle FindProofTag(Node* const startNode, AIArtHandle const currArtHandle, Corner const lookWhere);
 	
 	//Locates the keyline registration box
-	AIArtHandle FindKeylineRegBox(Node* const startNode, AIArtHandle const currArtHandle, int const lookWhere);
+	AIArtHandle FindKeylineRegBox(Node* const startNode, AIArtHandle const currArtHandle, Corner const lookWhere);
 	
 	//Locates the keyline Envelope Flap
-	AIArtHandle FindKeylineEnvFlap(Node* const startNode, AIArtHandle const currArtHandle, int const lookWhere);
+	AIArtHandle FindKeylineEnvFlap(Node* const startNode, AIArtHandle const currArtHandle, Corner const lookWhere);
 
 	//Locates the keyline safe emboss box
-	AIArtHandle FindKeylineSafeEmbossBox(Node* const startNode, AIArtHandle const currArtHandle, int const lookWhere);
+	AIArtHandle FindKeylineSafeEmbossBox(Node* const startNode, AIArtHandle const currArtHandle, Corner const lookWhere);
 	
 	//Locates the keyline face indicator
-	AIArtHandle FindKeylineFace(Node* const startNode, AIArtHandle const currArtHandle, int const lookWhere);
+	AIArtHandle FindKeylineFace(Node* const startNode, AIArtHandle const currArtHandle, Corner const lookWhere);
 	
 	//Locates the registration box
-	AIArtHandle FindRegBox(Node* const startNode, AIArtHandle const currArtHandle, int const lookWhere);
+	AIArtHandle FindRegBox(Node* const startNode, AIArtHandle const currArtHandle, Corner const lookWhere);
 	
 	//Locates the Registration Envelope Flap
-	AIArtHandle FindRegEnvFlap(Node* const startNode, AIArtHandle const currArtHandle, int const lookWhere);
+	AIArtHandle FindRegEnvFlap(Node* const startNode, AIArtHandle const currArtHandle, Corner const lookWhere);
 	
 	//Locates the registration box
-	AIArtHandle FindRegSafeEmbossBox(Node* const startNode, AIArtHandle const currArtHandle, int const lookWhere);
+	AIArtHandle FindRegSafeEmbossBox(Node* const startNode, AIArtHandle const currArtHandle, Corner const lookWhere);
 	
 	//Locates the bleed guide path
-	AIArtHandle FindBleedBox(Node* const startNode, AIArtHandle const currArtHandle, int const lookWhere);
+	AIArtHandle FindBleedBox(Node* const startNode, AIArtHandle const currArtHandle, Corner const lookWhere);
 	
 	//Locates the gripper areas
-	AIArtHandle FindGripperTop(Node* const startNode, AIArtHandle const currArtHandle, int const lookWhere);
-	AIArtHandle FindGripperBottom(Node* const startNode, AIArtHandle const currArtHandle, int const lookWhere);
-	AIArtHandle FindGripperLeft(Node* const startNode, AIArtHandle const currArtHandle, int const lookWhere);
-	AIArtHandle FindGripperRight(Node* const startNode, AIArtHandle const currArtHandle, int const lookWhere);
+	AIArtHandle FindGripperTop(Node* const startNode, AIArtHandle const currArtHandle, Corner const lookWhere);
+	AIArtHandle FindGripperBottom(Node* const startNode, AIArtHandle const currArtHandle, Corner const lookWhere);
+	AIArtHandle FindGripperLeft(Node* const startNode, AIArtHandle const currArtHandle, Corner const lookWhere);
+	AIArtHandle FindGripperRight(Node* const startNode, AIArtHandle const currArtHandle, Corner const lookWhere);
 };
 
 struct FIND_FUNCTIONS {
 	Node::FindObjectFunc callback;
 	ai::UnicodeString layerLabel;
 	ai::UnicodeString objectLabel;
-	int lookWhere;
+	Corner lookWhere;
 };
 
 //Find everything
@@ -165,12 +168,12 @@ void FindAllObjects(Node* const startNode, Node* const currNode);
 AIArtHandle Find(Node* const startNode, Node* const inNode, FIND_FUNCTIONS const &find);
 
 
-Node* FindClosestNode(AIArtHandle object, int CORNER);
+Node* FindClosestNode(AIArtHandle object, Corner CORNER);
 // object -- the object we're using
 // CORNER -- the corner of the node to check distance to
 // Returns a pointer to the closest Node, or NULL if there was an error
 
-int FindClosestCorner(AIArtHandle object, Node* const node );
+Corner FindClosestCorner(AIArtHandle object, Node* const node );
 // object -- the object we're checking
 // node -- the Node we're checking
 // Returns the Corner Constant defined above or 0 if some were equal distance

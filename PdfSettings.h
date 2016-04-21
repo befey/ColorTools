@@ -25,19 +25,6 @@ extern "C" AIDocumentSuite* sAIDocument;
 extern "C" AIArtboardSuite* sAIArtboard;
 
 
-//=================================
-// Constant definitions
-#define MANUFACTURING_PDF_PRESET    "Manufacturing"
-#define MICR_PROOF_PDF_PRESET       "MICR"
-#define REG_PROOF_PDF_PRESET        "Proof"
-
-#define PATH_TO_PLANT_MANUFACTURING	"/Volumes/Plant_Manufacturing"
-#define PATH_TO_PDFPROOFS "/Volumes/PDFProofs"
-#define PATH_TO_MICR_PDF "/Volumes/MICR_PDF"
-#define DEFAULT_OUTPUTPATH "/Users/t431962/Desktop/WORKING"
-
-#define NO_TOKEN_DESIG "F"
-
 typedef void (*SettingsFunction) (AIActionParamValueRef);
 
 //=================================
@@ -48,6 +35,20 @@ public:
     PdfSettings(SettingsFunction, string range = "", bool separateFiles = false);
     
     void Print();
+    
+    //=================================
+    // Constant definitions
+    static constexpr auto MANUFACTURING_PDF_PRESET =    "Manufacturing";
+    static constexpr auto MICR_PROOF_PDF_PRESET =       "MICR";
+    static constexpr auto REG_PROOF_PDF_PRESET =        "Proof";
+    
+    static constexpr auto PATH_TO_PLANT_MANUFACTURING = "/Volumes/Plant_Manufacturing";
+    static constexpr auto PATH_TO_PDFPROOFS =           "/Volumes/PDFProofs";
+    static constexpr auto PATH_TO_MICR_PDF =            "/Volumes/MICR_PDF";
+    static constexpr auto DEFAULT_OUTPUTPATH =          "/Users/t431962/Desktop/WORKING";
+    
+    static constexpr auto NO_TOKEN_DESIG =              "F";
+
 private:
     SettingsFunction settingsFunc;
     BtArtboardRange range;

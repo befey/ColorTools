@@ -95,7 +95,8 @@ void PdfSettings::Print()
 
 ai::FilePath PdfSettings::CreateSaveFilePath()
 {
-    ai::FilePath saveasFilePath(ai::UnicodeString(DEFAULT_OUTPUTPATH));
+    ai::UnicodeString fpUS = ai::UnicodeString(DEFAULT_OUTPUTPATH);
+    ai::FilePath saveasFilePath(fpUS);
     
     return saveasFilePath;
 }
@@ -129,7 +130,7 @@ void ManufacturingSettingsFunc(AIActionParamValueRef target)
 {
     // Option Set
     sAIActionManager->AIActionSetInteger(target, kAIPDFOptionSetKey, kAIPDFOptionSetCustom);
-    sAIActionManager->AIActionSetString(target, kAIPDFOptionSetNameKey, MANUFACTURING_PDF_PRESET);
+    sAIActionManager->AIActionSetString(target, kAIPDFOptionSetNameKey, PdfSettings::MANUFACTURING_PDF_PRESET);
     
     // Save multiple artboards
     sAIActionManager->AIActionSetBoolean(target, kAIExportDocumentSaveMultipleArtboardsKey, TRUE);

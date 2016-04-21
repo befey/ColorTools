@@ -72,109 +72,109 @@ class Plate {
 	AIUIDRef uidrefGripperRight;
 	
 public:
-//Default constructor
+    //Default constructor
 	//CAIndex - The crop area's index position in the list of crop areas
 	Plate(const int CAIndex = -1);
-//Default destructor
+    //Default destructor
 	~Plate();
 
-typedef AIUIDRef (Plate::*GetFunction)() const;
-typedef void (Plate::*SetFunction)(const AIUIDRef);	
+    typedef AIUIDRef (Plate::*GetFunction)() const;
+    typedef void (Plate::*SetFunction)(const AIUIDRef);
 
-void UpdateDate();
+    void UpdateDate();
 
-//Accessor functions
-//Plate Dictionary REFERENCE
+    //Accessor functions
+    //Plate Dictionary REFERENCE
 	AIDictionaryRef PlateDictionary() const { return dictPlate; }										//Get
 	void PlateDictionary(const AIDictionaryRef newDictionaryRef);										//Set
 		
-//Plate Dictionary Store and Retrieval
+    //Plate Dictionary Store and Retrieval
 	ASBoolean PlateDictionaryRetrieve();																//Get
 	ASBoolean PlateDictionaryStore();																	//Set
 
 	
-//Crop area index
+    //Crop area index
 	int CropAreaIndex() const { return cropAreaIndex; }													//Get
 	void CropAreaIndex(const int newIndex) { cropAreaIndex = newIndex; }								//Set
 	
-//Prints
+    //Prints
 	bool Prints() const { return prints; }																//Get
 	void Prints(const bool newPrints) { prints = newPrints; }											//Set
 
-//Face
+    //Face
 	bool Face() const { return face; }																	//Get
 	void Face(const FACE newFace) { face = newFace; }													//Set
 
-//MP Plate
+    //MP Plate
 	bool MPPlate() const { return mpplate; }															//Get
 	void MPPlate(const bool newMPPlate) { mpplate = newMPPlate; }										//Set
 	
 
-//I've overloaded these, so the same function can be used to get and set the value
-//ExtraColorListGroup
+    //I've overloaded these, so the same function can be used to get and set the value
+    //ExtraColorListGroup
 	AIUIDRef ExtraColorListUIDRef() const { return uidrefExtraColorListGroup; }					//Get
 	void ExtraColorListUIDRef(const AIUIDRef newHandle) {											//Set
 		sAIUID->Release(uidrefExtraColorListGroup);
 		uidrefExtraColorListGroup = newHandle;
 		sAIUID->AddRef(uidrefExtraColorListGroup); }
 		
-//Proof Tag
+    //Proof Tag
 	AIUIDRef ProofTagUIDRef() const { return uidrefProofTag; }									//Get
 	void ProofTagUIDRef(const AIUIDRef newHandle) { sAIUID->Release(uidrefProofTag); 
 														  uidrefProofTag = newHandle; 
 														  sAIUID->AddRef(uidrefProofTag);}				//Set
 
-//Keyline Registration Box
+    //Keyline Registration Box
 	AIUIDRef KeylineRegBoxUIDRef() const { return uidrefKeylineRegBox; }							//Get
 	void KeylineRegBoxUIDRef(const AIUIDRef newHandle) { sAIUID->Release(uidrefKeylineRegBox);
 															   uidrefKeylineRegBox = newHandle;
 															   sAIUID->AddRef(uidrefKeylineRegBox);}			//Set
 	
-//Keyline Envelope Flap
+    //Keyline Envelope Flap
 	AIUIDRef KeylineEnvFlapUIDRef() const { return uidrefKeylineEnvFlap; }						//Get
 	void KeylineEnvFlapUIDRef(const AIUIDRef newHandle) { sAIUID->Release(uidrefKeylineEnvFlap);
 																uidrefKeylineEnvFlap = newHandle;
 																sAIUID->AddRef(uidrefKeylineEnvFlap);}			//Set
 	
-//Keyline Safe Emboss Box
+    //Keyline Safe Emboss Box
 	AIUIDRef KeylineSafeEmbossBoxUIDRef() const { return uidrefKeylineSafeEmbossBox; }			//Get
 	void KeylineSafeEmbossBoxUIDRef(const AIUIDRef newHandle) {									//Set
 													  sAIUID->Release(uidrefKeylineSafeEmbossBox);
 													  uidrefKeylineSafeEmbossBox = newHandle;
 													  sAIUID->AddRef(uidrefKeylineSafeEmbossBox);}
 
-//Keyline Face Indicator
+    //Keyline Face Indicator
 	AIUIDRef KeylineFaceUIDRef() const { return uidrefKeylineFace; }								//Get
 	void KeylineFaceUIDRef(const AIUIDRef newHandle) { sAIUID->Release(uidrefKeylineFace);
 															 uidrefKeylineFace = newHandle;
 															 sAIUID->AddRef(uidrefKeylineFace);}				//Set
 
-//Registration Box
+    //Registration Box
 	AIUIDRef RegBoxUIDRef() const { return uidrefRegBox; }										//Get
 	void RegBoxUIDRef(const AIUIDRef newHandle) { sAIUID->Release(uidrefRegBox);
 														uidrefRegBox = newHandle;
 														sAIUID->AddRef(uidrefRegBox);}					//Set
 
-//Registration Envelope Flap
+    //Registration Envelope Flap
 	AIUIDRef RegEnvFlapUIDRef() const { return uidrefRegEnvFlap; }								//Get
 	void RegEnvFlapUIDRef(const AIUIDRef newHandle) { sAIUID->Release(uidrefRegEnvFlap);
 															uidrefRegEnvFlap = newHandle;
 														    sAIUID->AddRef(uidrefRegEnvFlap); }				//Set
 
-//Registration Safe Emboss Box
+    //Registration Safe Emboss Box
 	AIUIDRef RegSafeEmbossBoxUIDRef() const { return uidrefRegSafeEmbossBox; }					//Get
 	void RegSafeEmbossBoxUIDRef(const AIUIDRef newHandle) {										//Set
 															sAIUID->Release(uidrefRegSafeEmbossBox);
 															uidrefRegSafeEmbossBox = newHandle;
 															sAIUID->AddRef(uidrefRegSafeEmbossBox); }
 
-//Bleed guide box
+    //Bleed guide box
 	AIUIDRef BleedBoxUIDRef() const { return uidrefBleedBox; }									//Get
 	void BleedBoxUIDRef(const AIUIDRef newHandle) { sAIUID->Release(uidrefBleedBox);
 														  uidrefBleedBox = newHandle;
 														  sAIUID->AddRef(uidrefBleedBox); }				//Set
 	
-//Gripper
+    //Gripper
 	AIUIDRef GripperTopUIDRef() const { return uidrefGripperTop; }								//Get
 	void GripperTopUIDRef(const AIUIDRef newHandle) { sAIUID->Release(uidrefGripperTop);
 															uidrefGripperTop = newHandle;
@@ -192,7 +192,7 @@ void UpdateDate();
 															  uidrefGripperRight = newHandle;
 															  sAIUID->AddRef(uidrefGripperRight); }			//Set
 
-// ColorList	
+    // ColorList
 	AIUIDRef ColorListUIDRef() const { return colorList.uidrefArt; }								//Get
 	void ColorListUIDRef(const AIUIDRef newHandle) {	sAIUID->Release(colorList.uidrefArt);
 															colorList.uidrefArt = newHandle;
@@ -200,7 +200,7 @@ void UpdateDate();
 	string ColorListStr() const { return colorList.strContents; }										//Get
 	void ColorListStr(const string newContents) { colorList.strContents = newContents; }				//Set
 
-//Plate Number
+    //Plate Number
 	AIUIDRef PlateNumberUIDRef() const { return plateNumber.uidrefArt; }							//Get
 	void PlateNumberUIDRef(const AIUIDRef newHandle) { sAIUID->Release(plateNumber.uidrefArt);
 															 plateNumber.uidrefArt = newHandle;
@@ -208,7 +208,7 @@ void UpdateDate();
 	string PlateNumberStr() const { return plateNumber.strContents; }									//Get
 	void PlateNumberStr(const string newContents) { plateNumber.strContents = newContents; }			//Set
 
-//Date
+    //Date
 	AIUIDRef DateUIDRef() const { return date.uidrefArt; }										//Get
 	void DateUIDRef(const AIUIDRef newHandle) { sAIUID->Release(date.uidrefArt);
 													  date.uidrefArt = newHandle;
@@ -216,7 +216,7 @@ void UpdateDate();
 	string DateStr() const { return date.strContents; }													//Get
 	void DateStr(const string newContents) { date.strContents = newContents; }							//Set
 
-//CropAreaRect	
+    //CropAreaRect	
 	AIRealRect GetCropAreaRect() const { return cropAreaRect; }											//Get
 	void SetCropAreaRect(const int CAIndex = -1);														//Set
 
@@ -236,7 +236,7 @@ void UpdateDate();
 };
 
 
-#define NUMFUNCS 17 //s/b 17
+constexpr auto  NUMFUNCS = 17; //s/b 17
 Plate::GetFunction const get_functions[] = {
 	&Plate::ExtraColorListUIDRef,
 	&Plate::ColorListUIDRef,

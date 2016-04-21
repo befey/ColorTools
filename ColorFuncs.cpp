@@ -414,7 +414,7 @@ void AdjustOverprint(AIArtHandle currArtObj, AIColor fromColor, AIBoolean includ
 			}
 		}
 		//STROKES
-		if (replaceIn == APPLYTO_STROKES || replaceIn == APPLYTO_FILLSANDSTROKES)
+        if (replaceIn == ApplyTo::STROKES || replaceIn == ApplyTo::FILLSANDSTROKES)
         {
 			if (currPathStyle.strokePaint)
             {
@@ -426,7 +426,7 @@ void AdjustOverprint(AIArtHandle currArtObj, AIColor fromColor, AIBoolean includ
 			} 
 		}
 		//FILLS
-		if (replaceIn == APPLYTO_FILLS || replaceIn == APPLYTO_FILLSANDSTROKES)
+        if (replaceIn == ApplyTo::FILLS || replaceIn == ApplyTo::FILLSANDSTROKES)
         {
 			if (currPathStyle.fillPaint)
             {
@@ -458,7 +458,7 @@ void AdjustOverprint(AIArtHandle currArtObj, AIColor fromColor, AIBoolean includ
 			ATE::ICharFeatures currRunCharFeatures = iter.Item().GetUniqueCharFeatures();
 			
 			//STROKES
-			if (replaceIn == APPLYTO_STROKES || replaceIn == APPLYTO_FILLSANDSTROKES)
+            if (replaceIn == ApplyTo::STROKES || replaceIn == ApplyTo::FILLSANDSTROKES)
             {
 				ATE::IApplicationPaint strokePaint = currRunCharFeatures.GetStrokeColor(&isAssigned);
 				if (isAssigned)
@@ -473,7 +473,7 @@ void AdjustOverprint(AIArtHandle currArtObj, AIColor fromColor, AIBoolean includ
 				}
 			}
 			//FILLS
-			if (replaceIn == APPLYTO_FILLS || replaceIn == APPLYTO_FILLSANDSTROKES)
+            if (replaceIn == ApplyTo::FILLS || replaceIn == ApplyTo::FILLSANDSTROKES)
             {
 				ATE::IApplicationPaint fillPaint = currRunCharFeatures.GetFillColor(&isAssigned);
 				if (isAssigned)

@@ -24,7 +24,7 @@ extern "C" AIActionManagerSuite* sAIActionManager;
 
 //=================================
 // Constant definitions
-#define kSaveACopyAsAction  "adobe_saveACopyAs"
+constexpr auto kSaveACopyAsAction = "adobe_saveACopyAs";
 
 //=================================
 // VPB - wrapper for Illustrator action parameters

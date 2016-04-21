@@ -131,7 +131,7 @@ ASBoolean Plate::PlateDictionaryRetrieve() {
 	sAIDictionary->GetBooleanEntry(this->dictPlate, GenerateKey("mpplate", cropAreaIndex), (ASBoolean*)&mpplate);
 	
 	AIUIDRef uidRef = NULL;
-	GetUIDRefFromPlateDict(COLOR_LIST_LABEL, cropAreaIndex, &uidRef);
+	GetUIDRefFromPlateDict(ai::UnicodeString(COLOR_LIST_LABEL), cropAreaIndex, &uidRef);
 	ColorListUIDRef( uidRef );
 	//sAIUID->Release(uidRef); 
 	uidRef = NULL;
@@ -142,7 +142,7 @@ ASBoolean Plate::PlateDictionaryRetrieve() {
 		colorList.strContents = GetStdStringFromAITextFrame(reffedArt);
 	}
 	
-	GetUIDRefFromPlateDict(PLATE_NUMBER_LABEL, cropAreaIndex, &uidRef);
+    GetUIDRefFromPlateDict(ai::UnicodeString(PLATE_NUMBER_LABEL), cropAreaIndex, &uidRef);
 	PlateNumberUIDRef( uidRef );
 	//sAIUID->Release(uidRef); 
 	uidRef = NULL;
@@ -153,7 +153,7 @@ ASBoolean Plate::PlateDictionaryRetrieve() {
 		plateNumber.strContents = GetStdStringFromAITextFrame(reffedArt);
 	}
 	
-	GetUIDRefFromPlateDict(DATE_LABEL, cropAreaIndex, &uidRef);
+	GetUIDRefFromPlateDict(ai::UnicodeString(DATE_LABEL), cropAreaIndex, &uidRef);
 	DateUIDRef( uidRef );
 	//sAIUID->Release(uidRef); 
 	uidRef = NULL;
@@ -164,72 +164,72 @@ ASBoolean Plate::PlateDictionaryRetrieve() {
 		date.strContents = GetStdStringFromAITextFrame(reffedArt);
 	}
 	
-	GetUIDRefFromPlateDict(PROOF_TAG_LABEL, cropAreaIndex, &uidRef);
+	GetUIDRefFromPlateDict(ai::UnicodeString(PROOF_TAG_LABEL), cropAreaIndex, &uidRef);
 	ProofTagUIDRef( uidRef );
 	//sAIUID->Release(uidRef); 
 	uidRef = NULL;
 	
-	GetUIDRefFromPlateDict(EXTRA_COLOR_GROUP_LABEL, cropAreaIndex, &uidRef);
+	GetUIDRefFromPlateDict(ai::UnicodeString(EXTRA_COLOR_GROUP_LABEL), cropAreaIndex, &uidRef);
 	ExtraColorListUIDRef( uidRef );
 	//sAIUID->Release(uidRef); 
 	uidRef = NULL;
 	
-	GetUIDRefFromPlateDict(KEYLINE_REGISTRATION_LABEL, cropAreaIndex, &uidRef);
+	GetUIDRefFromPlateDict(ai::UnicodeString(KEYLINE_REGISTRATION_LABEL), cropAreaIndex, &uidRef);
 	KeylineRegBoxUIDRef( uidRef );
 	//sAIUID->Release(uidRef); 
 	uidRef = NULL;
 	
-	GetUIDRefFromPlateDict(KEYLINE_ENV_FLAP_LABEL, cropAreaIndex, &uidRef);
+	GetUIDRefFromPlateDict(ai::UnicodeString(KEYLINE_ENV_FLAP_LABEL), cropAreaIndex, &uidRef);
 	KeylineEnvFlapUIDRef( uidRef );
 	//sAIUID->Release(uidRef);
 	uidRef = NULL;
 	
-	GetUIDRefFromPlateDict(KEYLINE_SAFE_EMBOSS_LABEL, cropAreaIndex, &uidRef);
+	GetUIDRefFromPlateDict(ai::UnicodeString(KEYLINE_SAFE_EMBOSS_LABEL), cropAreaIndex, &uidRef);
 	KeylineSafeEmbossBoxUIDRef( uidRef );
 	//sAIUID->Release(uidRef); 
 	uidRef = NULL;
 	
-	GetUIDRefFromPlateDict(KEYLINE_FACE_LABEL, cropAreaIndex, &uidRef);
+	GetUIDRefFromPlateDict(ai::UnicodeString(KEYLINE_FACE_LABEL), cropAreaIndex, &uidRef);
 	KeylineFaceUIDRef( uidRef );
 	//sAIUID->Release(uidRef); 
 	uidRef = NULL;
 	
-	GetUIDRefFromPlateDict(REGISTRATION_BOX_LABEL, cropAreaIndex, &uidRef);
+	GetUIDRefFromPlateDict(ai::UnicodeString(REGISTRATION_BOX_LABEL), cropAreaIndex, &uidRef);
 	RegBoxUIDRef( uidRef );
 	//sAIUID->Release(uidRef); 
 	uidRef = NULL;
 	
-	GetUIDRefFromPlateDict(REGISTRATION_ENV_FLAP_LABEL, cropAreaIndex, &uidRef);
+	GetUIDRefFromPlateDict(ai::UnicodeString(REGISTRATION_ENV_FLAP_LABEL), cropAreaIndex, &uidRef);
 	RegEnvFlapUIDRef( uidRef );
 	//sAIUID->Release(uidRef); 
 	uidRef = NULL;
 	
-	GetUIDRefFromPlateDict(REGISTRATION_SAFE_EMBOSS_LABEL, cropAreaIndex, &uidRef);
+	GetUIDRefFromPlateDict(ai::UnicodeString(REGISTRATION_SAFE_EMBOSS_LABEL), cropAreaIndex, &uidRef);
 	RegSafeEmbossBoxUIDRef( uidRef );
 	//sAIUID->Release(uidRef); 
 	uidRef = NULL;
 	
-	GetUIDRefFromPlateDict(BLEED_BOX_LABEL, cropAreaIndex, &uidRef);
+	GetUIDRefFromPlateDict(ai::UnicodeString(BLEED_BOX_LABEL), cropAreaIndex, &uidRef);
 	BleedBoxUIDRef( uidRef );
 	//sAIUID->Release(uidRef); 
 	uidRef = NULL;
 	
-	GetUIDRefFromPlateDict(GRIPPER_TOP_LABEL, cropAreaIndex, &uidRef);
+	GetUIDRefFromPlateDict(ai::UnicodeString(GRIPPER_TOP_LABEL), cropAreaIndex, &uidRef);
 	GripperTopUIDRef( uidRef );
 	//sAIUID->Release(uidRef); 
 	uidRef = NULL;
 	
-	GetUIDRefFromPlateDict(GRIPPER_BOTTOM_LABEL, cropAreaIndex, &uidRef);
+	GetUIDRefFromPlateDict(ai::UnicodeString(GRIPPER_BOTTOM_LABEL), cropAreaIndex, &uidRef);
 	GripperBottomUIDRef( uidRef );
 	//sAIUID->Release(uidRef); 
 	uidRef = NULL;
 	
-	GetUIDRefFromPlateDict(GRIPPER_LEFT_LABEL, cropAreaIndex, &uidRef);
+	GetUIDRefFromPlateDict(ai::UnicodeString(GRIPPER_LEFT_LABEL), cropAreaIndex, &uidRef);
 	GripperLeftUIDRef( uidRef );
 	//sAIUID->Release(uidRef); 
 	uidRef = NULL;
 	
-	GetUIDRefFromPlateDict(GRIPPER_RIGHT_LABEL, cropAreaIndex, &uidRef);
+	GetUIDRefFromPlateDict(ai::UnicodeString(GRIPPER_RIGHT_LABEL), cropAreaIndex, &uidRef);
 	GripperRightUIDRef( uidRef );
 	//sAIUID->Release(uidRef); 
 	uidRef = NULL;
@@ -248,119 +248,119 @@ ASBoolean Plate::PlateDictionaryStore() {
 	if ( !CheckArtHandleFromUIDRef(colorList.uidrefArt) ) {
 		ColorListUIDRef( NULL );
 	} else {
-		PutUIDRefInPlateDict(colorList.uidrefArt, COLOR_LIST_LABEL, cropAreaIndex);
+		PutUIDRefInPlateDict(colorList.uidrefArt, ai::UnicodeString(COLOR_LIST_LABEL), cropAreaIndex);
 	}
 	
 	//PLATE NUMBER
 	if ( !CheckArtHandleFromUIDRef(plateNumber.uidrefArt) ) {
 		PlateNumberUIDRef( NULL );
 	} else {
-		PutUIDRefInPlateDict(plateNumber.uidrefArt, PLATE_NUMBER_LABEL, cropAreaIndex);
+        PutUIDRefInPlateDict(plateNumber.uidrefArt, ai::UnicodeString(PLATE_NUMBER_LABEL), cropAreaIndex);
 	}
 
 	//DATE
 	if ( !CheckArtHandleFromUIDRef(date.uidrefArt) ) {
 		DateUIDRef( NULL );
 	} else {
-		PutUIDRefInPlateDict(date.uidrefArt, DATE_LABEL, cropAreaIndex);
+		PutUIDRefInPlateDict(date.uidrefArt, ai::UnicodeString(DATE_LABEL), cropAreaIndex);
 	}
 
 	//PROOF TAG
 	if ( !CheckArtHandleFromUIDRef(uidrefProofTag) ) {
 		ProofTagUIDRef( NULL );
 	} else {
-		PutUIDRefInPlateDict(uidrefProofTag, PROOF_TAG_LABEL, cropAreaIndex);
+		PutUIDRefInPlateDict(uidrefProofTag, ai::UnicodeString(PROOF_TAG_LABEL), cropAreaIndex);
 	}
 
 	//EXTRA COLOR GROUP
 	if ( !CheckArtHandleFromUIDRef(uidrefExtraColorListGroup) ) {
 		ExtraColorListUIDRef( NULL );
 	} else {
-		PutUIDRefInPlateDict(uidrefExtraColorListGroup, EXTRA_COLOR_GROUP_LABEL, cropAreaIndex);
+		PutUIDRefInPlateDict(uidrefExtraColorListGroup, ai::UnicodeString(EXTRA_COLOR_GROUP_LABEL), cropAreaIndex);
 	}
 
 	//KEYLINE REGISTRATION BOX
 	if ( !CheckArtHandleFromUIDRef(uidrefKeylineRegBox) ) {
 		KeylineRegBoxUIDRef( NULL );
 	} else {
-		PutUIDRefInPlateDict(uidrefKeylineRegBox, KEYLINE_REGISTRATION_LABEL, cropAreaIndex);
+		PutUIDRefInPlateDict(uidrefKeylineRegBox, ai::UnicodeString(KEYLINE_REGISTRATION_LABEL), cropAreaIndex);
 	}
 
 	//KEYLINE ENVELOPE FLAP
 	if ( !CheckArtHandleFromUIDRef(uidrefKeylineEnvFlap) ) {
 		KeylineEnvFlapUIDRef( NULL );
 	} else {
-		PutUIDRefInPlateDict(uidrefKeylineEnvFlap, KEYLINE_ENV_FLAP_LABEL, cropAreaIndex);
+		PutUIDRefInPlateDict(uidrefKeylineEnvFlap, ai::UnicodeString(KEYLINE_ENV_FLAP_LABEL), cropAreaIndex);
 	}
 
 	//KEYLINE SAFE EMBOSS BOX
 	if ( !CheckArtHandleFromUIDRef(uidrefKeylineSafeEmbossBox) ) {
 		KeylineSafeEmbossBoxUIDRef( NULL );
 	} else {
-		PutUIDRefInPlateDict(uidrefKeylineSafeEmbossBox, KEYLINE_SAFE_EMBOSS_LABEL, cropAreaIndex);
+		PutUIDRefInPlateDict(uidrefKeylineSafeEmbossBox, ai::UnicodeString(KEYLINE_SAFE_EMBOSS_LABEL), cropAreaIndex);
 	}
 	
 	//KEYLINE FACE LABEL
 	if ( !CheckArtHandleFromUIDRef(uidrefKeylineFace) ) {
 		KeylineFaceUIDRef( NULL );
 	} else {
-		PutUIDRefInPlateDict(uidrefKeylineFace, KEYLINE_FACE_LABEL, cropAreaIndex);
+		PutUIDRefInPlateDict(uidrefKeylineFace, ai::UnicodeString(KEYLINE_FACE_LABEL), cropAreaIndex);
 	}
 		
 	//REGISTRATION BOX LABEL
 	if ( !CheckArtHandleFromUIDRef(uidrefRegBox) ) {
 		RegBoxUIDRef( NULL );
 	} else {
-		PutUIDRefInPlateDict(uidrefRegBox, REGISTRATION_BOX_LABEL, cropAreaIndex);
+		PutUIDRefInPlateDict(uidrefRegBox, ai::UnicodeString(REGISTRATION_BOX_LABEL), cropAreaIndex);
 	}
 
 	//REGISTRATION ENV FLAP LABEL
 	if ( !CheckArtHandleFromUIDRef(uidrefRegEnvFlap) ) {
 		RegEnvFlapUIDRef( NULL );
 	} else {
-		PutUIDRefInPlateDict(uidrefRegEnvFlap, REGISTRATION_ENV_FLAP_LABEL, cropAreaIndex);
+		PutUIDRefInPlateDict(uidrefRegEnvFlap, ai::UnicodeString(REGISTRATION_ENV_FLAP_LABEL), cropAreaIndex);
 	}
 
 	//REGISTRATION SAFE EMBOSS LABEL
 	if ( !CheckArtHandleFromUIDRef(uidrefRegSafeEmbossBox) ) {
 		RegSafeEmbossBoxUIDRef( NULL );
 	} else {
-		PutUIDRefInPlateDict(uidrefRegSafeEmbossBox, REGISTRATION_SAFE_EMBOSS_LABEL, cropAreaIndex);
+		PutUIDRefInPlateDict(uidrefRegSafeEmbossBox, ai::UnicodeString(REGISTRATION_SAFE_EMBOSS_LABEL), cropAreaIndex);
 	}
 		
 	//BLEED BOX LABEL
 	if ( !CheckArtHandleFromUIDRef(uidrefBleedBox) ) {
 		BleedBoxUIDRef( NULL );
 	} else {
-		PutUIDRefInPlateDict(uidrefBleedBox, BLEED_BOX_LABEL, cropAreaIndex);
+		PutUIDRefInPlateDict(uidrefBleedBox, ai::UnicodeString(BLEED_BOX_LABEL), cropAreaIndex);
 	}
 		
 	//GRIPPER TOP
 	if ( !CheckArtHandleFromUIDRef(uidrefGripperTop) ) {
 		GripperTopUIDRef( NULL );
 	} else {
-		PutUIDRefInPlateDict(uidrefGripperTop, GRIPPER_TOP_LABEL, cropAreaIndex);
+		PutUIDRefInPlateDict(uidrefGripperTop, ai::UnicodeString(GRIPPER_TOP_LABEL), cropAreaIndex);
 	}
 	
 	//GRIPPER BOTTOM
 	if ( !CheckArtHandleFromUIDRef(uidrefGripperBottom) ) {
 		GripperBottomUIDRef( NULL );
 	} else {
-		PutUIDRefInPlateDict(uidrefGripperBottom, GRIPPER_BOTTOM_LABEL, cropAreaIndex);
+		PutUIDRefInPlateDict(uidrefGripperBottom, ai::UnicodeString(GRIPPER_BOTTOM_LABEL), cropAreaIndex);
 	}
 		
 	//GRIPPER LEFT
 	if ( !CheckArtHandleFromUIDRef(uidrefGripperLeft) ) {
 		GripperLeftUIDRef( NULL );
 	} else {
-		PutUIDRefInPlateDict(uidrefGripperLeft, GRIPPER_LEFT_LABEL, cropAreaIndex);
+		PutUIDRefInPlateDict(uidrefGripperLeft, ai::UnicodeString(GRIPPER_LEFT_LABEL), cropAreaIndex);
 	}
 	
 	//GRIPPER RIGHT
 	if ( !CheckArtHandleFromUIDRef(uidrefGripperRight) ) {
 		GripperRightUIDRef( NULL );
 	} else {
-		PutUIDRefInPlateDict(uidrefGripperRight, GRIPPER_RIGHT_LABEL, cropAreaIndex);
+		PutUIDRefInPlateDict(uidrefGripperRight, ai::UnicodeString(GRIPPER_RIGHT_LABEL), cropAreaIndex);
 	}
 
 	return TRUE;
