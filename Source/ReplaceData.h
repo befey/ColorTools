@@ -9,28 +9,6 @@
 #ifndef __SafeguardTools__ReplaceData__
 #define __SafeguardTools__ReplaceData__
 
-//=================================
-// Constant definitions
-#define ATTRIBUTE_SELECT                    "attribute-select"
-#define ATTRIBUTE_COLOR                     0
-#define ATTRIBUTE_OVERPRINT                 1
-
-#define CHANGEIN_SELECT                     "changein-select"
-#define CHANGEIN_SELECTION                  0
-#define CHANGEIN_DOCUMENT                   1
-
-#define ADDREMOVE_SELECT                    "addremove-select"
-#define ADDREMOVE_ADD                       0
-#define ADDREMOVE_REMOVE                    1
-
-#define APPLYTO_SELECT                      "applyto-select"
-#define APPLYTO_FILLSANDSTROKES             0
-#define APPLYTO_FILLS                       1
-#define APPLYTO_STROKES                     2
-
-#define FROM_SELECT                         "from-select"
-#define TO_SELECT                           "to-select"
-#define TINTS_CHECKBOX                      "tints-checkbox"
 
 //=================================
 // ReplaceData - contains the params received from the Find and Replace extension
@@ -39,13 +17,48 @@ class ReplaceData
 public:
     ReplaceData(const char* eventData);
     
-    int attributeSelect;
-    int changeinSelect;
-    string fromSelect;
-    string toSelect;
-    int addremoveSelect;
-    int applytoSelect;
-    bool tintsCheckbox;
+    //=================================
+    // Constant definitions
+    static constexpr auto ATTRIBUTE_SELECT =    "attribute-select";
+    enum class Attribute
+    {
+        Color =                                 0,
+        Overprint =                             1
+    };
+    
+    static constexpr auto CHANGEIN_SELECT =     "changein-select";
+    enum class ChangeIn
+    {
+        Selection =                             0,
+        Document =                              1
+    };
+    
+    static constexpr auto ADDREMOVE_SELECT =    "addremove-select";
+    enum class AddRemove
+    {
+        Add =                                   0,
+        Remove =                                1
+    };
+    
+    static constexpr auto APPLYTO_SELECT =      "applyto-select";
+    enum class ApplyTo
+    {
+        FillsAndStrokes =                       0,
+        Fills =                                 1,
+        Strokes =                               2
+    };
+        
+    static constexpr auto FROM_SELECT =         "from-select";
+    static constexpr auto TO_SELECT =           "to-select";
+    static constexpr auto TINTS_CHECKBOX =      "tints-checkbox";
+
+    Attribute attribute;
+    ChangeIn changein;
+    string fromString;
+    string toString;
+    AddRemove addremove;
+    ApplyTo applyto;
+    bool changeTints;
     
     VisitAIColorFlags controlFlags = kVisitColorsNullFlags;
     AIColor fromColor;

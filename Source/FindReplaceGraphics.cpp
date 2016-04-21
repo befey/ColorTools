@@ -22,7 +22,7 @@ int FindAndReplace(ReplaceData* data) {
     AIArtSet artSet;
     sAIArtSet->NewArtSet(&artSet);
     
-    fillArtSet( artSet , data->changeinSelect );
+    fillArtSet( artSet , data->changein );
 
     size_t count;
     sAIArtSet->CountArtSet( artSet, &count );
@@ -32,7 +32,7 @@ int FindAndReplace(ReplaceData* data) {
         sAIArtSet->IndexArtSet( artSet, i, &currArtObj );
         
         /*********** FIND AND REPLACE COLORS *************/
-        if ( data->attributeSelect == ATTRIBUTE_COLOR ) {
+        if ( data->attribute == ReplaceData::Attribute::Color ) {
             
             //do the color replacing
             sAIPathStyle->AdjustObjectAIColors( currArtObj , adjustColor , data , data->controlFlags , &flag );
@@ -43,9 +43,12 @@ int FindAndReplace(ReplaceData* data) {
         }
         
         /*********** FIND AND REPLACE OVERPRINTING *************/
-        if ( data->attributeSelect == ATTRIBUTE_OVERPRINT ) {
- 
-            AdjustOverprint(currArtObj, data->fromColor, data->tintsCheckbox, !data->addremoveSelect, data->applytoSelect, &flag);  //Flip addremoveSelect here since the value is 0 for Add and 1 for Remove
+        if ( data->attribute == ReplaceData::Attribute::Overprint ) {
+            AIBoolean op = FALSE;
+            if (data->addremove == ReplaceData::AddRemove::Add) {
+                op = TRUE;
+            }
+            AdjustOverprint(currArtObj, data->fromColor, data->changeTints, op, data->applyto, &flag);
             
             if (flag) { numChanged++; }
             flag = FALSE;
@@ -58,7 +61,7 @@ int FindAndReplace(ReplaceData* data) {
     return numChanged;
 }
 
-void fillArtSet( AIArtSet &artSet, int changeIn) {
+void fillArtSet( AIArtSet &artSet, ReplaceData::ChangeIn changeIn) {
     
     AIArtSpec selectedSpecs[] = { { kPathArt , kArtFullySelected , kArtFullySelected },
         { kCompoundPathArt , kArtFullySelected , kArtFullySelected },
@@ -79,12 +82,12 @@ void fillArtSet( AIArtSet &artSet, int changeIn) {
         { kSymbolArt , 0 , 0 },
     };
     //SELECTION
-    if (changeIn == CHANGEIN_SELECTION)
+    if (changeIn == ReplaceData::ChangeIn::Selection)
     {
         sAIArtSet->MatchingArtSet( selectedSpecs , 8, artSet );
     }
     //PAGE or DOCUMENT for now
-    if (changeIn == CHANGEIN_DOCUMENT)
+    if (changeIn == ReplaceData::ChangeIn::Document)
     {
         sAIArtSet->MatchingArtSet( allSpecs , 8, artSet );
     }
@@ -117,7 +120,7 @@ void adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *alter
             }
             else
             {   //IF THE TINTS ARE DIFFERENT
-                if (data->tintsCheckbox)    //If we are changing the different tints
+                if (data->changeTints)    //If we are changing the different tints
                 {
                     AIColor tempColor = data->toColor;  //Make a new temporary color that is the same as the ToColor,
                     tempColor.c.c.tint = color->c.c.tint;   //except the tint is the same as the object's

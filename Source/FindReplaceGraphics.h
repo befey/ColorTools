@@ -9,10 +9,10 @@
 #ifndef __SafeguardTools__FindReplaceGraphics__
 #define __SafeguardTools__FindReplaceGraphics__
 
-class ReplaceData;
+#include "ReplaceData.h"
 
 int FindAndReplace(ReplaceData* data);
-void fillArtSet( AIArtSet &artSet, int changeIn);
+void fillArtSet( AIArtSet &artSet, ReplaceData::ChangeIn changeIn);
 
 void adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *altered);
 

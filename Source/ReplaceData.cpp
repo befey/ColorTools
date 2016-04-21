@@ -20,41 +20,41 @@ ReplaceData::ReplaceData(const char* eventData)
     d.Parse(eventData);
    
     Value& v = d[ATTRIBUTE_SELECT];
-    attributeSelect = v.GetInt();
+    attribute = static_cast<Attribute>(v.GetInt());
     
     v = d[CHANGEIN_SELECT];
-    changeinSelect = v.GetInt();
+    changein = static_cast<ChangeIn>(v.GetInt());
     
     v = d[ADDREMOVE_SELECT];
-    addremoveSelect = v.GetInt();
+    addremove = static_cast<AddRemove>(v.GetInt());
     
     v = d[APPLYTO_SELECT];
-    applytoSelect = v.GetInt();
+    applyto = static_cast<ApplyTo>(v.GetInt());
     
     v = d[TINTS_CHECKBOX];
-    tintsCheckbox = v.GetBool();
+    changeTints = v.GetBool();
     
     
     v = d[FROM_SELECT];
-    fromSelect = v.GetString();
+    fromString = v.GetString();
     
     v = d[TO_SELECT];
-    toSelect = v.GetString();
+    toString = v.GetString();
     
     
     //Set controlFlags based on Strokes and Fills
     controlFlags = kVisitColorsUniversally |  kVisitGlobalObjectsOnceOnly; //APPLYTO_FILLSANDSTROKES
     //Set the VisitFlags based on the apply to and whatnot
-    if ( applytoSelect == APPLYTO_STROKES )
+    if ( applyto == ApplyTo::Strokes )
     {
         controlFlags = controlFlags | kVisitColorsStrokesOnly;
     }
-    if ( applytoSelect == APPLYTO_FILLS )
+    if ( applyto == ApplyTo::Fills )
     {
         controlFlags = controlFlags | kVisitColorsFillsOnly;
     }
     
     //CREATE THE HANDLES and color specs FOR THE TO AND FROM COLORS
-    SetColorByName( fromSelect , fromColor );
-    SetColorByName( toSelect , toColor );
+    SetColorByName( fromString , fromColor );
+    SetColorByName( toString , toColor );
 }
