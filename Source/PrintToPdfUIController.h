@@ -41,11 +41,16 @@ public:
     ASErr SendData();
     
     void ParseData(const char* eventData);
+    
+    static void MakePdfButtonClickedFunc (const csxs::event::Event* const event, void* const context);
+    static void CancelButtonClickedFunc (const csxs::event::Event* const event, void* const context);
         
     //=================================
     // Constant definitions
-    static constexpr auto PRINTTOPDF_UI_EXTENSION =  "com.gosafeguard.SafeguardTools.PrintToPdf";
-    static constexpr auto ILST_APP =                 "ILST";
+    static constexpr auto PRINTTOPDF_UI_EXTENSION =     "com.gosafeguard.SafeguardTools.PrintToPdf";
+    static constexpr auto EVENT_TYPE_MAKEPDF_CLICKED =  "com.gosafeguard.SafeguardTools.PrintToPdf.makepdfbutton";
+    static constexpr auto EVENT_TYPE_CANCEL_CLICKED =   "com.gosafeguard.SafeguardTools.PrintToPdf.cancelbutton";
+    static constexpr auto ILST_APP =                    "ILST";
     
 private:
 
