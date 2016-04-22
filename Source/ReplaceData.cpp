@@ -20,27 +20,42 @@ ReplaceData::ReplaceData(const char* eventData)
     d.Parse(eventData);
    
     Value& v = d[ATTRIBUTE_SELECT];
-    attribute = static_cast<Attribute>(v.GetInt());
+    SetAttribute(static_cast<Attribute>(v.GetInt()));
     
     v = d[CHANGEIN_SELECT];
-    changein = static_cast<ChangeIn>(v.GetInt());
+    SetChangeIn(static_cast<ChangeIn>(v.GetInt()));
     
     v = d[ADDREMOVE_SELECT];
-    addremove = static_cast<AddRemove>(v.GetInt());
+    SetAddRemove(static_cast<AddRemove>(v.GetInt()));
     
     v = d[APPLYTO_SELECT];
-    applyto = static_cast<ApplyTo>(v.GetInt());
+    SetApplyTo(static_cast<ApplyTo>(v.GetInt()));
     
     v = d[TINTS_CHECKBOX];
-    changeTints = v.GetBool();
+    SetChangeTints(v.GetBool());
     
     
     v = d[FROM_SELECT];
-    fromString = v.GetString();
+    SetFromColor(v.GetString());
     
     v = d[TO_SELECT];
-    toString = v.GetString();
-    
+    SetToColor(v.GetString());
+}
+
+
+void ReplaceData::SetAddRemove(AddRemove ar)
+{
+    addremove = ar;
+}
+
+void ReplaceData::SetAttribute(Attribute attr)
+{
+    attribute = attr;
+}
+
+void ReplaceData::SetApplyTo(ApplyTo at)
+{
+    applyto = at;
     
     //Set controlFlags based on Strokes and Fills
     controlFlags = kVisitColorsUniversally |  kVisitGlobalObjectsOnceOnly; //APPLYTO_FILLSANDSTROKES
@@ -53,8 +68,38 @@ ReplaceData::ReplaceData(const char* eventData)
     {
         controlFlags = controlFlags | kVisitColorsFillsOnly;
     }
-    
-    //CREATE THE HANDLES and color specs FOR THE TO AND FROM COLORS
-    SetColorByName( fromString , fromColor );
-    SetColorByName( toString , toColor );
+}
+
+void ReplaceData::SetChangeIn(ChangeIn ci)
+{
+    changein = ci;
+}
+
+void ReplaceData::SetChangeTints(bool ct)
+{
+    changeTints = ct;
+}
+
+void ReplaceData::SetFromColor(string s)
+{
+    AIColor c;
+    SetColorByName( s, c );
+    SetFromColor(c);
+}
+
+void ReplaceData::SetFromColor(AIColor fc)
+{
+    fromColor = fc;
+}
+
+void ReplaceData::SetToColor(string s)
+{
+    AIColor c;
+    SetColorByName( s, c );
+    SetToColor(c);
+}
+
+void ReplaceData::SetToColor(AIColor tc)
+{
+    toColor = tc;
 }

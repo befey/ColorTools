@@ -24,6 +24,8 @@
 		F90E3FA31CA475880081C333 /* ColorFuncs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F90E3F9B1CA475880081C333 /* ColorFuncs.cpp */; };
 		F90E3FA41CA475880081C333 /* ColorFuncs.h in Headers */ = {isa = PBXBuildFile; fileRef = F90E3F9C1CA475880081C333 /* ColorFuncs.h */; };
 		F93027D91CA46E7D00D3B41E /* SafeguardTools.r in Rez */ = {isa = PBXBuildFile; fileRef = F93027D81CA46E7D00D3B41E /* SafeguardTools.r */; };
+		F934B1581CC9645A002EAB43 /* ReplaceDataBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F934B1561CC9645A002EAB43 /* ReplaceDataBuilder.cpp */; };
+		F934B1591CC9645A002EAB43 /* ReplaceDataBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F934B1571CC9645A002EAB43 /* ReplaceDataBuilder.h */; };
 		F945E5F51CC6B4BB0071DE88 /* PrintToPdfUIController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F945E5F31CC6B4BB0071DE88 /* PrintToPdfUIController.cpp */; };
 		F945E5F61CC6B4BB0071DE88 /* PrintToPdfUIController.h in Headers */ = {isa = PBXBuildFile; fileRef = F945E5F41CC6B4BB0071DE88 /* PrintToPdfUIController.h */; };
 		F947263F1CB2E1F400649020 /* VPB.h in Headers */ = {isa = PBXBuildFile; fileRef = F947263D1CB2E1F400649020 /* VPB.h */; };
@@ -94,6 +96,8 @@
 		F90E3F9B1CA475880081C333 /* ColorFuncs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ColorFuncs.cpp; path = "../My Custom Headers/ColorFuncs.cpp"; sourceTree = "<group>"; };
 		F90E3F9C1CA475880081C333 /* ColorFuncs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColorFuncs.h; path = "../My Custom Headers/ColorFuncs.h"; sourceTree = "<group>"; };
 		F93027D81CA46E7D00D3B41E /* SafeguardTools.r */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; name = SafeguardTools.r; path = Resources/Mac/SafeguardTools.r; sourceTree = "<group>"; };
+		F934B1561CC9645A002EAB43 /* ReplaceDataBuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ReplaceDataBuilder.cpp; path = Source/ReplaceDataBuilder.cpp; sourceTree = "<group>"; };
+		F934B1571CC9645A002EAB43 /* ReplaceDataBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReplaceDataBuilder.h; path = Source/ReplaceDataBuilder.h; sourceTree = "<group>"; };
 		F945E5F31CC6B4BB0071DE88 /* PrintToPdfUIController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PrintToPdfUIController.cpp; path = Source/PrintToPdfUIController.cpp; sourceTree = "<group>"; };
 		F945E5F41CC6B4BB0071DE88 /* PrintToPdfUIController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintToPdfUIController.h; path = Source/PrintToPdfUIController.h; sourceTree = "<group>"; };
 		F947263D1CB2E1F400649020 /* VPB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPB.h; path = "../My Custom Headers/VPB.h"; sourceTree = "<group>"; };
@@ -191,6 +195,8 @@
 				F94726421CB2F91900649020 /* PrintToPdf.h */,
 				F989A8E61CA460CE0050C071 /* ReplaceData.cpp */,
 				F989A8E71CA460CE0050C071 /* ReplaceData.h */,
+				F934B1561CC9645A002EAB43 /* ReplaceDataBuilder.cpp */,
+				F934B1571CC9645A002EAB43 /* ReplaceDataBuilder.h */,
 				6868C920150BA192003DAAF2 /* SafeguardToolsID.h */,
 				6868C921150BA192003DAAF2 /* SafeguardToolsPlugin.cpp */,
 				6868C922150BA192003DAAF2 /* SafeguardToolsPlugin.h */,
@@ -307,6 +313,7 @@
 				F989A8EF1CA460CE0050C071 /* ReplaceData.h in Headers */,
 				6868C925150BA192003DAAF2 /* SafeguardToolsID.h in Headers */,
 				F98BAED91CA99DB500965D86 /* CException.h in Headers */,
+				F934B1591CC9645A002EAB43 /* ReplaceDataBuilder.h in Headers */,
 				F90E3FA41CA475880081C333 /* ColorFuncs.h in Headers */,
 				F9FAE8FB1CBD4E1800938893 /* PdfSettings.h in Headers */,
 				F90E3FA01CA475880081C333 /* BtColor.h in Headers */,
@@ -424,6 +431,7 @@
 				F98BAEDA1CA99DB500965D86 /* CException.mm in Sources */,
 				F979B5FB1CA31DE5004BA4AD /* IAIUnicodeString.cpp in Sources */,
 				F9FAE8FA1CBD4E1800938893 /* PdfSettings.cpp in Sources */,
+				F934B1581CC9645A002EAB43 /* ReplaceDataBuilder.cpp in Sources */,
 				F979B60B1CA31E92004BA4AD /* IllustratorSDK.cpp in Sources */,
 				F96D30731CB6D73500274BDE /* PlateNumber.cpp in Sources */,
 				F94726401CB2E1F400649020 /* VPB.cpp in Sources */,

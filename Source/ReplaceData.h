@@ -9,9 +9,10 @@
 #ifndef __SafeguardTools__ReplaceData__
 #define __SafeguardTools__ReplaceData__
 
+class ReplaceDataBuilder;
 
 //=================================
-// ReplaceData - contains the params received from the Find and Replace extension
+// ReplaceData - contains params required for a Find/Replace operation
 class ReplaceData
 {
 public:
@@ -51,7 +52,24 @@ public:
     static constexpr auto FROM_SELECT =         "from-select";
     static constexpr auto TO_SELECT =           "to-select";
     static constexpr auto TINTS_CHECKBOX =      "tints-checkbox";
-
+    
+    void SetAddRemove(AddRemove);
+    void SetAttribute(Attribute);
+    void SetApplyTo(ApplyTo);
+    void SetChangeIn(ChangeIn);
+    void SetChangeTints(bool);
+    void SetFromColor(string);
+    void SetFromColor(AIColor);
+    void SetToColor(string);
+    void SetToColor(AIColor);
+    
+    friend class ReplaceDataBuilder;
+    //TODO: rework these functions so they don't need private access
+    friend int FindAndReplace(ReplaceData* data);
+    friend void adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *altered);
+private:
+    ReplaceData();
+    
     Attribute attribute;
     ChangeIn changein;
     string fromString;
