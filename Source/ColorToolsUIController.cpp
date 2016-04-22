@@ -42,7 +42,6 @@ void ColorToolsUIController::RemoveButtonClickedFunc (const csxs::event::Event* 
     ColorToolsUIController *colorToolsUIController = (ColorToolsUIController *)context;
     if(NULL == colorToolsUIController || event == NULL)
         return;
-    colorToolsUIController->ParseData(event->data);
     
     do {
         // Set up the application context, so that suite calls can work.
@@ -63,7 +62,6 @@ void ColorToolsUIController::UpdateListFunc (const csxs::event::Event* const eve
     ColorToolsUIController *colorToolsUIController = (ColorToolsUIController *)context;
     if(NULL == colorToolsUIController || event == NULL)
         return;
-    colorToolsUIController->ParseData(event->data);
     
     do {
         // Set up the application context, so that suite calls can work.
