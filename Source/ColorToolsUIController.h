@@ -13,6 +13,7 @@
 // included dependencies
 #include "SDKPlugPlug.h"
 #include "FlashUIController.h"
+#include "ReplaceData.h"
 
 //=================================
 // forward declared dependencies
@@ -45,7 +46,7 @@ public:
     ASErr SendChangeCountToHtml(int count);
     
     void DetermineChangeInStatus();
-    ASErr SendChangeInToHtml(int changeIn);
+    ASErr SendChangeInToHtml(ReplaceData::ChangeIn changeIn);
     void SendCloseMessageToHtml();
     
     void ParseData(const char* eventData);
