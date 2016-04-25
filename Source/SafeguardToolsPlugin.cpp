@@ -397,6 +397,7 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
     if ( message->notifier == fRegisterEventNotifierHandle)
     {
         colorToolsUIController->RegisterCSXSEventListeners();
+        printToPdfUIController->RegisterCSXSEventListeners();
     }
     
     if ( message->notifier == fAppStartedNotifierHandle ) {

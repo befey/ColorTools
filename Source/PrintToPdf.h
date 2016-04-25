@@ -9,6 +9,8 @@
 #ifndef __SafeguardTools__PrintToPdf__
 #define __SafeguardTools__PrintToPdf__
 
-ASErr PrintToPdf();
+#include "PdfSettings.h"
+
+ASErr PrintToPdf(const PdfSettings);
 
 #endif /* defined(__SafeguardTools__PrintToPdf__) */

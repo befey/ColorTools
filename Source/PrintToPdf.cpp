@@ -9,18 +9,12 @@
 #include "PrintToPdf.h"
 #include "PdfSettings.h"
 
-ASErr PrintToPdf()
+ASErr PrintToPdf(const PdfSettings settings)
 {
     ASErr result = kNoErr;
-    
-    //TODO: Determine settings to use for PDF
-    //Range? Bleed? Output location?
-    
-    //Create settings object for the PDF needed
-    PdfSettings manufPdf(ManufacturingSettingsFunc, "1,3", true);
 
     //Output the PDF
-    manufPdf.Print();
+    settings.Print();
     
     return result;
 }

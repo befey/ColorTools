@@ -11,6 +11,7 @@
 #include "SafeguardToolsPlugin.h"
 #include "SafeguardToolsSuites.h"
 #include "PrintToPdf.h"
+#include "PdfSettings.h"
 
 void PrintToPdfUIController::MakePdfButtonClickedFunc (const csxs::event::Event* const event, void* const context)
 {
@@ -22,9 +23,7 @@ void PrintToPdfUIController::MakePdfButtonClickedFunc (const csxs::event::Event*
         // Set up the application context, so that suite calls can work.
         AppContext appContext(gPlugin->GetPluginRef());
         
-        //TODO: Do something with the data received. printToPdfUIController->ParseData(event->data);
-        event->data;
-        PrintToPdf();
+        PrintToPdf(PdfSettings::MakePdfSettingsFromXml(event->data));
         
     } while(false);
     return;
