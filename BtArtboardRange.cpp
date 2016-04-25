@@ -12,7 +12,7 @@ BtArtboardRange::BtArtboardRange(string r) : rangeS(r)
 {
     ai::UnicodeString rUS = ai::UnicodeString(rangeS);
     if (kBadParameterErr == sAIArtboardRange->ValidateString(&rUS)) {
-        return;
+        rangeS = ""; //If a bad string is input, default to all pages
     }
     
     isValid = true;
