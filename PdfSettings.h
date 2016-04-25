@@ -33,8 +33,11 @@ class PdfSettings
 {
 public:
     PdfSettings(SettingsFunction, string range = "", bool separateFiles = false);
+    PdfSettings(const char*);
     
-    void Print();
+    static PdfSettings MakePdfSettingsFromXml(const char* xmlData);
+    
+    void Print() const;
     
     //=================================
     // Constant definitions
@@ -48,7 +51,22 @@ public:
     static constexpr auto DEFAULT_OUTPUTPATH =          "/Users/t431962/Desktop/WORKING";
     
     static constexpr auto NO_TOKEN_DESIG =              "F";
+    
+    static constexpr auto PRESET_SELECT =               "preset-select";
+    enum class PdfPreset
+    {
+        Manufacturing =                                 0,
+        Proof =                                         1,
+        MicrProof =                                     2
+    };
 
+    static constexpr auto RANGE_TEXT =                  "range-text";
+    static constexpr auto ALLPAGES_CHECK =              "allpages-check";
+    
+    void SetPreset(PdfPreset);
+    void SetRange(string);
+
+    static SettingsFunction GetSettingsFuncForPdfPreset(PdfPreset);
 private:
     SettingsFunction settingsFunc;
     BtArtboardRange range;
@@ -59,9 +77,11 @@ private:
     ai::FilePath outputPath;
     
     ai::FilePath CreateSaveFilePath();
-    string CreateToken(int artboardIndex);
+    string CreateToken(int artboardIndex) const;
 };
 
 void ManufacturingSettingsFunc(AIActionParamValueRef);
+void ProofSettingsFunc(AIActionParamValueRef target);
+void MicrProofSettingsFunc(AIActionParamValueRef target);
 
 #endif /* defined(__SafeguardTools__PdfSettings__) */

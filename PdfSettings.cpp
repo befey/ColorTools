@@ -7,6 +7,8 @@
 //
 
 #include "PdfSettings.h"
+#include "document.h"
+
 
 PdfSettings::PdfSettings(SettingsFunction f, string r, bool s) : settingsFunc(f), range(r), separateFiles(s)
 {
@@ -31,13 +33,41 @@ PdfSettings::PdfSettings(SettingsFunction f, string r, bool s) : settingsFunc(f)
     outputPath = CreateSaveFilePath();
 }
 
-void PdfSettings::Print()
+PdfSettings PdfSettings::MakePdfSettingsFromXml(const char* xmlData)
+{
+    using namespace rapidjson;
+    
+    Document d;
+    d.Parse(xmlData);
+    
+    Value& v = d[PRESET_SELECT];
+    SettingsFunction func = GetSettingsFuncForPdfPreset(static_cast<PdfPreset>(v.GetInt()));
+    
+    v = d[ALLPAGES_CHECK];
+    bool allPages = (v.GetBool());
+    
+    string r;
+    if (allPages)
+    {
+        r = "";
+    }
+    else
+    {
+        v = d[RANGE_TEXT];
+        r = v.GetString();
+    }
+    
+    return PdfSettings(func, r);
+}
+
+void PdfSettings::Print() const
 {
     ASErr result;
+    ai::FilePath pathToPdfFile = outputPath;
     
     if (!separateFiles) {
-        outputPath.AddComponent(ai::UnicodeString(plateNumber->GetPlateNumber()));
-        outputPath.AddExtension("pdf");
+        pathToPdfFile.AddComponent(ai::UnicodeString(plateNumber->GetPlateNumber()));
+        pathToPdfFile.AddExtension("pdf");
         
         // Set Path
         sAIActionManager->AIActionSetStringUS(vpb, kAISaveDocumentAsNameKey, outputPath.GetFullPath());
@@ -60,15 +90,15 @@ void PdfSettings::Print()
         sAIArtboardRange->Begin(range, &iter);
         ai::int32 index = 0;
         while ( kEndOfRangeErr != sAIArtboardRange->Next(iter, &index) ) {
-            outputPath.AddComponent(ai::UnicodeString(plateNumber->GetPlateNumber()));
+            pathToPdfFile.AddComponent(ai::UnicodeString(plateNumber->GetPlateNumber()));
             
             string token = CreateToken(index);
             if (token != "")
             {
-                outputPath.AddExtension(ai::UnicodeString(token));
+                pathToPdfFile.AddExtension(ai::UnicodeString(token));
             }
             
-            outputPath.AddExtension("pdf");
+            pathToPdfFile.AddExtension("pdf");
             string fp = outputPath.GetFullPath().as_UTF8();
             // Set Path
             sAIActionManager->AIActionSetStringUS(vpb, kAISaveDocumentAsNameKey, outputPath.GetFullPath());
@@ -85,7 +115,7 @@ void PdfSettings::Print()
                 result = ex;
             }
 
-            outputPath.RemoveComponent();
+            pathToPdfFile.RemoveComponent();
         }
         
         sAIArtboardRange->DisposeIterator(iter);
@@ -101,7 +131,7 @@ ai::FilePath PdfSettings::CreateSaveFilePath()
     return saveasFilePath;
 }
 
-string PdfSettings::CreateToken(int artboardIndex)
+string PdfSettings::CreateToken(int artboardIndex) const
 {
     ai::ArtboardList abList;
     sAIArtboard->GetArtboardList(abList);
@@ -123,6 +153,20 @@ string PdfSettings::CreateToken(int artboardIndex)
     }
 }
 
+SettingsFunction PdfSettings::GetSettingsFuncForPdfPreset(PdfPreset preset)
+{
+    switch (preset) {
+        case PdfPreset::Manufacturing:
+            return ManufacturingSettingsFunc;
+        case PdfPreset::Proof:
+            return ProofSettingsFunc;
+        case PdfPreset::MicrProof:
+            return ProofSettingsFunc;
+        default:
+            return ManufacturingSettingsFunc;
+    }
+}
+
 /**************************************************************************
  **************************************************************************/
 
@@ -139,8 +183,15 @@ void ManufacturingSettingsFunc(AIActionParamValueRef target)
     sAIActionManager->AIActionSetBoolean(target, kAIExportDocumentSaveAllKey, FALSE);
 }
 
+void ProofSettingsFunc(AIActionParamValueRef target)
+{
+    
+}
 
-
+void MicrProofSettingsFunc(AIActionParamValueRef target)
+{
+    
+}
 
 
 /*THESE SHOULD BE SET PROPERLY BY THE joboptions FILE WE'RE USING
