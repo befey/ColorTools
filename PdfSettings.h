@@ -17,6 +17,7 @@
 #include "BtArtboardRange.h"
 #include "VPB.h"
 #include "PlateNumber.h"
+#include "PrintToPdfUIController.h"
 
 //=================================
 // forward declared dependencies
@@ -33,40 +34,15 @@ class PdfSettings
 {
 public:
     PdfSettings(SettingsFunction, string range = "", bool separateFiles = false);
-    PdfSettings(const char*);
     
     static PdfSettings MakePdfSettingsFromXml(const char* xmlData);
     
     void Print() const;
-    
-    //=================================
-    // Constant definitions
-    static constexpr auto MANUFACTURING_PDF_PRESET =    "Manufacturing";
-    static constexpr auto MICR_PROOF_PDF_PRESET =       "MICR";
-    static constexpr auto REG_PROOF_PDF_PRESET =        "Proof";
-    
-    static constexpr auto PATH_TO_PLANT_MANUFACTURING = "/Volumes/Plant_Manufacturing";
-    static constexpr auto PATH_TO_PDFPROOFS =           "/Volumes/PDFProofs";
-    static constexpr auto PATH_TO_MICR_PDF =            "/Volumes/MICR_PDF";
-    static constexpr auto DEFAULT_OUTPUTPATH =          "/Users/t431962/Desktop/WORKING";
-    
-    static constexpr auto NO_TOKEN_DESIG =              "F";
-    
-    static constexpr auto PRESET_SELECT =               "preset-select";
-    enum class PdfPreset
-    {
-        Manufacturing =                                 0,
-        Proof =                                         1,
-        MicrProof =                                     2
-    };
-
-    static constexpr auto RANGE_TEXT =                  "range-text";
-    static constexpr auto ALLPAGES_CHECK =              "allpages-check";
-    
-    void SetPreset(PdfPreset);
+        
+    void SetPreset(PrintToPdfUIController::PdfPreset);
     void SetRange(string);
 
-    static SettingsFunction GetSettingsFuncForPdfPreset(PdfPreset);
+    static SettingsFunction GetSettingsFuncForPdfPreset(PrintToPdfUIController::PdfPreset);
 private:
     SettingsFunction settingsFunc;
     BtArtboardRange range;

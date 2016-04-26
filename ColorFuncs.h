@@ -58,7 +58,7 @@ AISwatchRef checkSwatchListForColor( AIColor matchColor , AIReal tolerance ); //
 void nameAllColors(AIColor *color, void *userData, AIErr *result, AIBoolean *altered);
 
 void RemoveWhiteOverprint();
-void AdjustOverprint(AIArtHandle currArtObj, AIColor fromColor, AIBoolean includeTints, AIBoolean overprint, ReplaceData::ApplyTo replaceIn, AIBoolean *altered);
+void AdjustOverprint(AIArtHandle currArtObj, AIColor fromColor, AIBoolean includeTints, AIBoolean overprint, ColorToolsUIController::ApplyTo replaceIn, AIBoolean *altered);
 	// currArtObj - Handle to the art object to adjust
 	// fromColor - the color to adjust
 	// includeTints - TRUE to change all tints of color   FALSE to only change the color selected and no tints

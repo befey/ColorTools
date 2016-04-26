@@ -393,7 +393,7 @@ AISwatchRef checkSwatchListForColor( AIColor matchColor , AIReal tolerance )
 }
 
 
-void AdjustOverprint(AIArtHandle currArtObj, AIColor fromColor, AIBoolean includeTints, AIBoolean overprint, ReplaceData::ApplyTo replaceIn, AIBoolean *altered)
+void AdjustOverprint(AIArtHandle currArtObj, AIColor fromColor, AIBoolean includeTints, AIBoolean overprint, ColorToolsUIController::ApplyTo replaceIn, AIBoolean *altered)
 {
 	AIPathStyle currPathStyle;
 	short type = 0; sAIArt->GetArtType(currArtObj, &type);
@@ -414,7 +414,7 @@ void AdjustOverprint(AIArtHandle currArtObj, AIColor fromColor, AIBoolean includ
 			}
 		}
 		//STROKES
-        if (replaceIn == ReplaceData::ApplyTo::Strokes || replaceIn == ReplaceData::ApplyTo::FillsAndStrokes)
+        if (replaceIn == ColorToolsUIController::ApplyTo::Strokes || replaceIn == ColorToolsUIController::ApplyTo::FillsAndStrokes)
         {
 			if (currPathStyle.strokePaint)
             {
@@ -426,7 +426,7 @@ void AdjustOverprint(AIArtHandle currArtObj, AIColor fromColor, AIBoolean includ
 			} 
 		}
 		//FILLS
-        if (replaceIn == ReplaceData::ApplyTo::Fills || replaceIn == ReplaceData::ApplyTo::FillsAndStrokes)
+        if (replaceIn == ColorToolsUIController::ApplyTo::Fills || replaceIn == ColorToolsUIController::ApplyTo::FillsAndStrokes)
         {
 			if (currPathStyle.fillPaint)
             {
@@ -458,7 +458,7 @@ void AdjustOverprint(AIArtHandle currArtObj, AIColor fromColor, AIBoolean includ
 			ATE::ICharFeatures currRunCharFeatures = iter.Item().GetUniqueCharFeatures();
 			
 			//STROKES
-            if (replaceIn == ReplaceData::ApplyTo::Strokes || replaceIn == ReplaceData::ApplyTo::FillsAndStrokes)
+            if (replaceIn == ColorToolsUIController::ApplyTo::Strokes || replaceIn == ColorToolsUIController::ApplyTo::FillsAndStrokes)
             {
 				ATE::IApplicationPaint strokePaint = currRunCharFeatures.GetStrokeColor(&isAssigned);
 				if (isAssigned)
@@ -473,7 +473,7 @@ void AdjustOverprint(AIArtHandle currArtObj, AIColor fromColor, AIBoolean includ
 				}
 			}
 			//FILLS
-            if (replaceIn == ReplaceData::ApplyTo::Fills || replaceIn == ReplaceData::ApplyTo::FillsAndStrokes)
+            if (replaceIn == ColorToolsUIController::ApplyTo::Fills || replaceIn == ColorToolsUIController::ApplyTo::FillsAndStrokes)
             {
 				ATE::IApplicationPaint fillPaint = currRunCharFeatures.GetFillColor(&isAssigned);
 				if (isAssigned)
@@ -534,7 +534,7 @@ void RemoveWhiteOverprint()
     for ( int i=0 ; i < count ; i++ )
     {
         sAIArtSet->IndexArtSet(artSet, i, &currArtHandle);
-        AdjustOverprint(currArtHandle, whiteColor, TRUE, FALSE, ReplaceData::ApplyTo::FillsAndStrokes, &altered);
+        AdjustOverprint(currArtHandle, whiteColor, TRUE, FALSE, ColorToolsUIController::ApplyTo::FillsAndStrokes, &altered);
     }
     //DISPOSE THE ART SET
     sAIArtSet->DisposeArtSet(&artSet);

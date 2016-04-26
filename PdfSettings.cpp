@@ -40,10 +40,10 @@ PdfSettings PdfSettings::MakePdfSettingsFromXml(const char* xmlData)
     Document d;
     d.Parse(xmlData);
     
-    Value& v = d[PRESET_SELECT];
-    SettingsFunction func = GetSettingsFuncForPdfPreset(static_cast<PdfPreset>(v.GetInt()));
+    Value& v = d[PrintToPdfUIController::PRESET_SELECT];
+    SettingsFunction func = GetSettingsFuncForPdfPreset(static_cast<PrintToPdfUIController::PdfPreset>(v.GetInt()));
     
-    v = d[ALLPAGES_CHECK];
+    v = d[PrintToPdfUIController::ALLPAGES_CHECK];
     bool allPages = (v.GetBool());
     
     string r;
@@ -53,11 +53,14 @@ PdfSettings PdfSettings::MakePdfSettingsFromXml(const char* xmlData)
     }
     else
     {
-        v = d[RANGE_TEXT];
+        v = d[PrintToPdfUIController::RANGE_TEXT];
         r = v.GetString();
     }
     
-    return PdfSettings(func, r);
+    v = d[PrintToPdfUIController::SEPARATEFILES_CHECK];
+    bool separateFiles = (v.GetBool());
+    
+    return PdfSettings(func, r, separateFiles);
 }
 
 void PdfSettings::Print() const
@@ -125,7 +128,7 @@ void PdfSettings::Print() const
 
 ai::FilePath PdfSettings::CreateSaveFilePath()
 {
-    ai::UnicodeString fpUS = ai::UnicodeString(DEFAULT_OUTPUTPATH);
+    ai::UnicodeString fpUS = ai::UnicodeString(PrintToPdfUIController::DEFAULT_OUTPUTPATH);
     ai::FilePath saveasFilePath(fpUS);
     
     return saveasFilePath;
@@ -144,7 +147,7 @@ string PdfSettings::CreateToken(int artboardIndex) const
     AIBoolean isDefaultName;
     sAIArtboard->IsDefaultName(abProps, isDefaultName);
     
-    if (isDefaultName || abNameS == NO_TOKEN_DESIG) {
+    if (isDefaultName || abNameS == PrintToPdfUIController::NO_TOKEN_DESIG) {
         return "";
     }
     else
@@ -153,14 +156,14 @@ string PdfSettings::CreateToken(int artboardIndex) const
     }
 }
 
-SettingsFunction PdfSettings::GetSettingsFuncForPdfPreset(PdfPreset preset)
+SettingsFunction PdfSettings::GetSettingsFuncForPdfPreset(PrintToPdfUIController::PdfPreset preset)
 {
     switch (preset) {
-        case PdfPreset::Manufacturing:
+        case PrintToPdfUIController::PdfPreset::Manufacturing:
             return ManufacturingSettingsFunc;
-        case PdfPreset::Proof:
+        case PrintToPdfUIController::PdfPreset::Proof:
             return ProofSettingsFunc;
-        case PdfPreset::MicrProof:
+        case PrintToPdfUIController::PdfPreset::MicrProof:
             return ProofSettingsFunc;
         default:
             return ManufacturingSettingsFunc;
@@ -174,7 +177,7 @@ void ManufacturingSettingsFunc(AIActionParamValueRef target)
 {
     // Option Set
     sAIActionManager->AIActionSetInteger(target, kAIPDFOptionSetKey, kAIPDFOptionSetCustom);
-    sAIActionManager->AIActionSetString(target, kAIPDFOptionSetNameKey, PdfSettings::MANUFACTURING_PDF_PRESET);
+    sAIActionManager->AIActionSetString(target, kAIPDFOptionSetNameKey, PrintToPdfUIController::MANUFACTURING_PDF_PRESET);
     
     // Save multiple artboards
     sAIActionManager->AIActionSetBoolean(target, kAIExportDocumentSaveMultipleArtboardsKey, TRUE);
