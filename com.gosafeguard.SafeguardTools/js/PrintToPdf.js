@@ -8,7 +8,7 @@ cancelEvent.data = "Cancel Button Pressed";
 
 $(function()
 {
-	//csInterface.setWindowTitle("Print To PDF");
+	csInterface.setWindowTitle("Print To PDF");
 	
 	$('#allpages-check').change(function()
 	{
@@ -33,7 +33,7 @@ function sendDataToIllustrator()
 	var data = {
 		"preset-select"			:	parseInt($("#preset-select").val(), 10),
 		"range-text"			:	$("#range-text").val(),
-		"allpages-check"		:	$("#allpages-check").is(':checked')
+		"allpages-check"		:	$("#allpages-check").is(':checked'),
 		"separatefiles-check"	:	$("#separatefiles-check").is(':checked')
 	};
 	makePdfEvent.data = JSON.stringify(data);
