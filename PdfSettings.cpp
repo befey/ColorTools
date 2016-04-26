@@ -73,7 +73,7 @@ void PdfSettings::Print() const
         pathToPdfFile.AddExtension("pdf");
         
         // Set Path
-        sAIActionManager->AIActionSetStringUS(vpb, kAISaveDocumentAsNameKey, outputPath.GetFullPath());
+        sAIActionManager->AIActionSetStringUS(vpb, kAISaveDocumentAsNameKey, pathToPdfFile.GetFullPath());
         
         // Set Range
         sAIActionManager->AIActionSetString(vpb, kAIExportDocumentSaveRangeKey, string(range).c_str());
@@ -102,9 +102,9 @@ void PdfSettings::Print() const
             }
             
             pathToPdfFile.AddExtension("pdf");
-            string fp = outputPath.GetFullPath().as_UTF8();
+            string fp = pathToPdfFile.GetFullPath().as_UTF8();
             // Set Path
-            sAIActionManager->AIActionSetStringUS(vpb, kAISaveDocumentAsNameKey, outputPath.GetFullPath());
+            sAIActionManager->AIActionSetStringUS(vpb, kAISaveDocumentAsNameKey, pathToPdfFile.GetFullPath());
             
             // Set Range
             sAIActionManager->AIActionSetString(vpb, kAIExportDocumentSaveRangeKey, to_string(index+1).c_str());
