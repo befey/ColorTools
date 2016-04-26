@@ -19,58 +19,58 @@ ReplaceData::ReplaceData(const char* eventData)
     Document d;
     d.Parse(eventData);
    
-    Value& v = d[ATTRIBUTE_SELECT];
-    SetAttribute(static_cast<Attribute>(v.GetInt()));
+    Value& v = d[ColorToolsUIController::ATTRIBUTE_SELECT];
+    SetAttribute(static_cast<ColorToolsUIController::Attribute>(v.GetInt()));
     
-    v = d[CHANGEIN_SELECT];
-    SetChangeIn(static_cast<ChangeIn>(v.GetInt()));
+    v = d[ColorToolsUIController::CHANGEIN_SELECT];
+    SetChangeIn(static_cast<ColorToolsUIController::ChangeIn>(v.GetInt()));
     
-    v = d[ADDREMOVE_SELECT];
-    SetAddRemove(static_cast<AddRemove>(v.GetInt()));
+    v = d[ColorToolsUIController::ADDREMOVE_SELECT];
+    SetAddRemove(static_cast<ColorToolsUIController::AddRemove>(v.GetInt()));
     
-    v = d[APPLYTO_SELECT];
-    SetApplyTo(static_cast<ApplyTo>(v.GetInt()));
+    v = d[ColorToolsUIController::APPLYTO_SELECT];
+    SetApplyTo(static_cast<ColorToolsUIController::ApplyTo>(v.GetInt()));
     
-    v = d[TINTS_CHECKBOX];
+    v = d[ColorToolsUIController::TINTS_CHECKBOX];
     SetChangeTints(v.GetBool());
     
     
-    v = d[FROM_SELECT];
+    v = d[ColorToolsUIController::FROM_SELECT];
     SetFromColor(v.GetString());
     
-    v = d[TO_SELECT];
+    v = d[ColorToolsUIController::TO_SELECT];
     SetToColor(v.GetString());
 }
 
 
-void ReplaceData::SetAddRemove(AddRemove ar)
+void ReplaceData::SetAddRemove(ColorToolsUIController::AddRemove ar)
 {
     addremove = ar;
 }
 
-void ReplaceData::SetAttribute(Attribute attr)
+void ReplaceData::SetAttribute(ColorToolsUIController::Attribute attr)
 {
     attribute = attr;
 }
 
-void ReplaceData::SetApplyTo(ApplyTo at)
+void ReplaceData::SetApplyTo(ColorToolsUIController::ApplyTo at)
 {
     applyto = at;
     
     //Set controlFlags based on Strokes and Fills
     controlFlags = kVisitColorsUniversally |  kVisitGlobalObjectsOnceOnly; //APPLYTO_FILLSANDSTROKES
     //Set the VisitFlags based on the apply to and whatnot
-    if ( applyto == ApplyTo::Strokes )
+    if ( applyto == ColorToolsUIController::ApplyTo::Strokes )
     {
         controlFlags = controlFlags | kVisitColorsStrokesOnly;
     }
-    if ( applyto == ApplyTo::Fills )
+    if ( applyto == ColorToolsUIController::ApplyTo::Fills )
     {
         controlFlags = controlFlags | kVisitColorsFillsOnly;
     }
 }
 
-void ReplaceData::SetChangeIn(ChangeIn ci)
+void ReplaceData::SetChangeIn(ColorToolsUIController::ChangeIn ci)
 {
     changein = ci;
 }

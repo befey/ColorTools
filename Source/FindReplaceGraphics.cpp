@@ -32,7 +32,7 @@ int FindAndReplace(ReplaceData* data) {
         sAIArtSet->IndexArtSet( artSet, i, &currArtObj );
         
         /*********** FIND AND REPLACE COLORS *************/
-        if ( data->attribute == ReplaceData::Attribute::Color ) {
+        if ( data->attribute == ColorToolsUIController::Attribute::Color ) {
             
             //do the color replacing
             sAIPathStyle->AdjustObjectAIColors( currArtObj , adjustColor , data , data->controlFlags , &flag );
@@ -43,9 +43,9 @@ int FindAndReplace(ReplaceData* data) {
         }
         
         /*********** FIND AND REPLACE OVERPRINTING *************/
-        if ( data->attribute == ReplaceData::Attribute::Overprint ) {
+        if ( data->attribute == ColorToolsUIController::Attribute::Overprint ) {
             AIBoolean op = FALSE;
-            if (data->addremove == ReplaceData::AddRemove::Add) {
+            if (data->addremove == ColorToolsUIController::AddRemove::Add) {
                 op = TRUE;
             }
             AdjustOverprint(currArtObj, data->fromColor, data->changeTints, op, data->applyto, &flag);
@@ -61,7 +61,7 @@ int FindAndReplace(ReplaceData* data) {
     return numChanged;
 }
 
-void fillArtSet( AIArtSet &artSet, ReplaceData::ChangeIn changeIn) {
+void fillArtSet( AIArtSet &artSet, ColorToolsUIController::ChangeIn changeIn) {
     
     AIArtSpec selectedSpecs[] = { { kPathArt , kArtFullySelected , kArtFullySelected },
         { kCompoundPathArt , kArtFullySelected , kArtFullySelected },
@@ -82,12 +82,12 @@ void fillArtSet( AIArtSet &artSet, ReplaceData::ChangeIn changeIn) {
         { kSymbolArt , 0 , 0 },
     };
     //SELECTION
-    if (changeIn == ReplaceData::ChangeIn::Selection)
+    if (changeIn == ColorToolsUIController::ChangeIn::Selection)
     {
         sAIArtSet->MatchingArtSet( selectedSpecs , 8, artSet );
     }
     //PAGE or DOCUMENT for now
-    if (changeIn == ReplaceData::ChangeIn::Document)
+    if (changeIn == ColorToolsUIController::ChangeIn::Document)
     {
         sAIArtSet->MatchingArtSet( allSpecs , 8, artSet );
     }

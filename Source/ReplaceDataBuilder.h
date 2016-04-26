@@ -16,10 +16,10 @@ class ReplaceDataBuilder
 {
 public:
     static ReplaceDataBuilder* ReplaceDataObj() { return new ReplaceDataBuilder(); }
-    ReplaceDataBuilder* Action(ReplaceData::AddRemove action) { replaceData->SetAddRemove(action); return this; }
-    ReplaceDataBuilder* Attribute(ReplaceData::Attribute attr) { replaceData->SetAttribute(attr); return this; }
-    ReplaceDataBuilder* In(ReplaceData::ApplyTo sf) { replaceData->SetApplyTo(sf); return this; }
-    ReplaceDataBuilder* On(ReplaceData::ChangeIn ds) { replaceData->SetChangeIn(ds); return this; }
+    ReplaceDataBuilder* Action(ColorToolsUIController::AddRemove action) { replaceData->SetAddRemove(action); return this; }
+    ReplaceDataBuilder* Attribute(ColorToolsUIController::Attribute attr) { replaceData->SetAttribute(attr); return this; }
+    ReplaceDataBuilder* In(ColorToolsUIController::ApplyTo sf) { replaceData->SetApplyTo(sf); return this; }
+    ReplaceDataBuilder* On(ColorToolsUIController::ChangeIn ds) { replaceData->SetChangeIn(ds); return this; }
     ReplaceDataBuilder* From(AIColor from) { replaceData->SetFromColor(from); return this; }
     ReplaceDataBuilder* To(AIColor to) { replaceData->SetToColor(to); return this; }
     ReplaceDataBuilder* WithTints(bool t) {replaceData->SetChangeTints(t); return this; };

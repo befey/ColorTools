@@ -192,16 +192,16 @@ void ColorToolsUIController::DetermineChangeInStatus()
         sAIMatchingArt->GetSelectedArt(&matches, &count);
         
         if (count) {
-            SendChangeInToHtml(ReplaceData::ChangeIn::Selection);
+            SendChangeInToHtml(ChangeIn::Selection);
         } else {
-            SendChangeInToHtml(ReplaceData::ChangeIn::Document);
+            SendChangeInToHtml(ChangeIn::Document);
         }
         
         sAIMdMemory->MdMemoryDisposeHandle((void**)matches);
     }
 }
 
-ASErr ColorToolsUIController::SendChangeInToHtml(ReplaceData::ChangeIn changeIn)
+ASErr ColorToolsUIController::SendChangeInToHtml(ChangeIn changeIn)
 {
     AIErr error = kNoErr;
     

@@ -51,6 +51,30 @@ public:
     static constexpr auto EVENT_TYPE_MAKEPDF_CLICKED =  "com.gosafeguard.SafeguardTools.PrintToPdf.makepdfbutton";
     static constexpr auto EVENT_TYPE_CANCEL_CLICKED =   "com.gosafeguard.SafeguardTools.PrintToPdf.cancelbutton";
     static constexpr auto ILST_APP =                    "ILST";
+
+    static constexpr auto MANUFACTURING_PDF_PRESET =    "Manufacturing";
+    static constexpr auto MICR_PROOF_PDF_PRESET =       "MICR";
+    static constexpr auto REG_PROOF_PDF_PRESET =        "Proof";
+    
+    static constexpr auto PATH_TO_PLANT_MANUFACTURING = "/Volumes/Plant_Manufacturing";
+    static constexpr auto PATH_TO_PDFPROOFS =           "/Volumes/PDFProofs";
+    static constexpr auto PATH_TO_MICR_PDF =            "/Volumes/MICR_PDF";
+    static constexpr auto DEFAULT_OUTPUTPATH =          "/Users/t431962/Desktop/WORKING";
+    
+    static constexpr auto NO_TOKEN_DESIG =              "F";
+    
+    static constexpr auto PRESET_SELECT =               "preset-select";
+    enum class PdfPreset
+    {
+        Manufacturing =                                 0,
+        Proof =                                         1,
+        MicrProof =                                     2
+    };
+    
+    static constexpr auto RANGE_TEXT =                  "range-text";
+    static constexpr auto ALLPAGES_CHECK =              "allpages-check";
+    static constexpr auto SEPARATEFILES_CHECK =         "separatefiles-check";
+
     
 private:
 

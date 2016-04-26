@@ -12,7 +12,7 @@
 #include "ReplaceData.h"
 
 int FindAndReplace(ReplaceData* data);
-void fillArtSet( AIArtSet &artSet, ReplaceData::ChangeIn changeIn);
+void fillArtSet( AIArtSet &artSet, ColorToolsUIController::ChangeIn changeIn);
 
 void adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *altered);
 
