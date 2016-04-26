@@ -25,6 +25,9 @@
     <label for="range-text">Enter page range:</label>
     <input type="text" id="range-text" disabled placeholder="ie. 1-2,4" title="Must use standard range notation." pattern="(?:\d+(?:-?\d*),?)+">
   </span>
+  <span class="field">
+  	<input type="checkbox" id="separatefiles-check"><label for="separatefiles-check">Separate files?</label>
+  </span>
   <span class="buttons">
     <input type="button" id="cancel-button" onClick="csInterface.dispatchEvent(cancelEvent)" value="Cancel" />
     <input type="button" id="makepdf-button" onClick="sendDataToIllustrator()" value="Make PDF" autofocus />
