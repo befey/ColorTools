@@ -2,19 +2,10 @@ var csInterface = new CSInterface();
 
 // Create events for the button presses
 var changeEvent = new CSEvent("com.gosafeguard.SafeguardTools.ColorTools.changebutton", "APPLICATION", "ILST", "ColorTools");
-changeEvent.data = "Change Button Pressed";
 
 var removeEvent = new CSEvent("com.gosafeguard.SafeguardTools.ColorTools.removebutton", "APPLICATION", "ILST", "ColorTools");
-removeEvent.data = "Remove Button Pressed";
 
 var updateListEvent = new CSEvent("com.gosafeguard.SafeguardTools.ColorTools.updatelist", "APPLICATION", "ILST", "ColorTools");
-updateListEvent.data = "Update Lists Called";
-
-var updateListBackEvent = new CSEvent("com.gosafeguard.SafeguardTools.ColorTools.updatelistback", "APPLICATION", "ILST", "ColorTools");
-
-var changeCountBackEvent = new CSEvent("com.gosafeguard.SafeguardTools.ColorTools.changecountback", "APPLICATION", "ILST", "ColorTools");
-
-var changeInBackEvent = new CSEvent("com.gosafeguard.SafeguardTools.ColorTools.changeinback", "APPLICATION", "ILST", "ColorTools");
 
 $(function()
 {

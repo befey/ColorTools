@@ -8,13 +8,14 @@
 
 #include "PrintToPdf.h"
 #include "PdfSettings.h"
+#include "PdfResults.h"
 
-ASErr PrintToPdf(const PdfSettings settings)
+PdfResults PrintToPdf(const PdfSettings settings)
 {
-    ASErr result = kNoErr;
+    PdfResults results;
 
     //Output the PDF
     settings.Print();
     
-    return result;
+    return results;
 }

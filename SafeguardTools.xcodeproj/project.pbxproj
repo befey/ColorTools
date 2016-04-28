@@ -44,6 +44,8 @@
 		F9681E4C1CA47B6E00A02A58 /* Plate.mm in Sources */ = {isa = PBXBuildFile; fileRef = F9681E481CA47B6E00A02A58 /* Plate.mm */; };
 		F96D30731CB6D73500274BDE /* PlateNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F96D30711CB6D73500274BDE /* PlateNumber.cpp */; };
 		F96D30741CB6D73500274BDE /* PlateNumber.h in Headers */ = {isa = PBXBuildFile; fileRef = F96D30721CB6D73500274BDE /* PlateNumber.h */; };
+		F96FFDF51CD131C400A673D6 /* PdfResults.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F96FFDF31CD131C400A673D6 /* PdfResults.cpp */; };
+		F96FFDF61CD131C400A673D6 /* PdfResults.h in Headers */ = {isa = PBXBuildFile; fileRef = F96FFDF41CD131C400A673D6 /* PdfResults.h */; };
 		F979B5FB1CA31DE5004BA4AD /* IAIUnicodeString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F979B5FA1CA31DE5004BA4AD /* IAIUnicodeString.cpp */; };
 		F979B5FD1CA31DF5004BA4AD /* IAIFilePath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F979B5FC1CA31DF5004BA4AD /* IAIFilePath.cpp */; };
 		F979B5FF1CA31E72004BA4AD /* AppContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F979B5FE1CA31E72004BA4AD /* AppContext.cpp */; };
@@ -116,6 +118,8 @@
 		F9681E481CA47B6E00A02A58 /* Plate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Plate.mm; path = "../My Custom Headers/Plate.mm"; sourceTree = "<group>"; };
 		F96D30711CB6D73500274BDE /* PlateNumber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlateNumber.cpp; path = "../My Custom Headers/PlateNumber.cpp"; sourceTree = "<group>"; };
 		F96D30721CB6D73500274BDE /* PlateNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlateNumber.h; path = "../My Custom Headers/PlateNumber.h"; sourceTree = "<group>"; };
+		F96FFDF31CD131C400A673D6 /* PdfResults.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PdfResults.cpp; path = "../My Custom Headers/PdfResults.cpp"; sourceTree = "<group>"; };
+		F96FFDF41CD131C400A673D6 /* PdfResults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PdfResults.h; path = "../My Custom Headers/PdfResults.h"; sourceTree = "<group>"; };
 		F979B5FA1CA31DE5004BA4AD /* IAIUnicodeString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IAIUnicodeString.cpp; path = "../Adobe Illustrator CC 2015 SDK/illustratorapi/illustrator/IAIUnicodeString.cpp"; sourceTree = "<group>"; };
 		F979B5FC1CA31DF5004BA4AD /* IAIFilePath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IAIFilePath.cpp; path = "../Adobe Illustrator CC 2015 SDK/illustratorapi/illustrator/IAIFilePath.cpp"; sourceTree = "<group>"; };
 		F979B5FE1CA31E72004BA4AD /* AppContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AppContext.cpp; path = "../Adobe Illustrator CC 2015 SDK/samplecode/common/source/AppContext.cpp"; sourceTree = "<group>"; };
@@ -279,6 +283,8 @@
 				F9681E3A1CA47AC400A02A58 /* DictFuncs.h */,
 				F9681E451CA47B6E00A02A58 /* Node.h */,
 				F9681E461CA47B6E00A02A58 /* Node.mm */,
+				F96FFDF31CD131C400A673D6 /* PdfResults.cpp */,
+				F96FFDF41CD131C400A673D6 /* PdfResults.h */,
 				F9FAE8F81CBD4E1800938893 /* PdfSettings.cpp */,
 				F9FAE8F91CBD4E1800938893 /* PdfSettings.h */,
 				F9681E471CA47B6E00A02A58 /* Plate.h */,
@@ -305,6 +311,7 @@
 				F98BAEDE1CA99E1E00965D86 /* ArtTree.h in Headers */,
 				F9FAE8FF1CBD87E700938893 /* BtArtboardRange.h in Headers */,
 				F989A8E91CA460CE0050C071 /* ColorToolsUIController.h in Headers */,
+				F96FFDF61CD131C400A673D6 /* PdfResults.h in Headers */,
 				F9681E4B1CA47B6E00A02A58 /* Plate.h in Headers */,
 				F989A8EB1CA460CE0050C071 /* FindReplaceGraphics.h in Headers */,
 				F9681E3C1CA47AC400A02A58 /* DictFuncs.h in Headers */,
@@ -408,6 +415,7 @@
 				F945E5F51CC6B4BB0071DE88 /* PrintToPdfUIController.cpp in Sources */,
 				F989A8F11CA465890050C071 /* IText.cpp in Sources */,
 				F979B5FF1CA31E72004BA4AD /* AppContext.cpp in Sources */,
+				F96FFDF51CD131C400A673D6 /* PdfResults.cpp in Sources */,
 				F9681E4C1CA47B6E00A02A58 /* Plate.mm in Sources */,
 				F979B6091CA31E8E004BA4AD /* Suites.cpp in Sources */,
 				F9F55E531CB42D2900FA20EC /* SDKErrors.cpp in Sources */,

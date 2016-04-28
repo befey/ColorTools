@@ -23,7 +23,8 @@ void PrintToPdfUIController::MakePdfButtonClickedFunc (const csxs::event::Event*
         // Set up the application context, so that suite calls can work.
         AppContext appContext(gPlugin->GetPluginRef());
         
-        PrintToPdf(PdfSettings::MakePdfSettingsFromXml(event->data));
+        string results = PrintToPdf(PdfSettings::MakePdfSettingsFromXml(event->data)).MakeXmlString();
+        printToPdfUIController->SendResultsXmlToHtml(results);
         
     } while(false);
     return;
@@ -39,7 +40,7 @@ void PrintToPdfUIController::CancelButtonClickedFunc (const csxs::event::Event* 
         // Set up the application context, so that suite calls can work.
         AppContext appContext(gPlugin->GetPluginRef());
         
-        //TODO: Close extension
+        printToPdfUIController->SendCloseMessageToHtml();
         
         // Clean up the application context and return.
     } while(false);
@@ -106,4 +107,32 @@ ASErr PrintToPdfUIController::SendData()
 void PrintToPdfUIController::ParseData(const char* eventData)
 {
     return;
+}
+
+ASErr PrintToPdfUIController::SendResultsXmlToHtml(string resultsXml)
+{
+    AIErr error = kNoErr;
+    
+    csxs::event::Event event = {
+        EVENT_TYPE_RESULTS_BACK,
+        csxs::event::kEventScope_Application,
+        ILST_APP,
+        NULL,
+        resultsXml.c_str()
+    };
+    fPPLib.DispatchEvent(&event);
+    
+    return error;
+}
+
+void PrintToPdfUIController::SendCloseMessageToHtml()
+{
+    csxs::event::Event event = {
+        EVENT_TYPE_FORCE_PANEL_CLOSE,
+        csxs::event::kEventScope_Application,
+        ILST_APP,
+        NULL,
+        NULL
+    };
+    fPPLib.DispatchEvent(&event);
 }

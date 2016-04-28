@@ -4,7 +4,8 @@ var csInterface = new CSInterface();
 var makePdfEvent = new CSEvent("com.gosafeguard.SafeguardTools.PrintToPdf.makepdfbutton", "APPLICATION", "ILST", "PrintToPdf");
 
 var cancelEvent = new CSEvent("com.gosafeguard.SafeguardTools.PrintToPdf.cancelbutton", "APPLICATION", "ILST", "PrintToPdf");
-cancelEvent.data = "Cancel Button Pressed";
+
+var resultsBackEvent = new CSEvent("com.gosafeguard.SafeguardTools.PrintToPdf.resultsback", "APPLICATION", "ILST", "PrintToPdf");
 
 $(function()
 {
@@ -24,6 +25,13 @@ $(function()
    			$("#range-text").css("color","black");
    		}
 	});
+	
+	csInterface.addEventListener("com.gosafeguard.SafeguardTools.PrintToPdf.resultsback", onResultsBack);
+	csInterface.addEventListener("com.gosafeguard.SafeguardTools.PrintToPdf.forcepanelclose", 
+	function(event)
+	{
+		csInterface.closeExtension();
+	});
 });
 
 
@@ -38,4 +46,9 @@ function sendDataToIllustrator()
 	};
 	makePdfEvent.data = JSON.stringify(data);
 	csInterface.dispatchEvent(makePdfEvent);
+}
+
+function onResultsBack(event)
+{
+	$("#results-textarea").val(event.data);
 }
