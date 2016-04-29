@@ -25,6 +25,7 @@ public:
     
     std::vector<Transaction> results;
     
+    void AddResult(Transaction);
     string MakeXmlString() const;
 };
 

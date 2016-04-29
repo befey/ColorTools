@@ -9,6 +9,11 @@
 #include "PdfResults.h"
 
 
+void PdfResults::AddResult(Transaction transaction)
+{
+    results.push_back(transaction);
+}
+
 string PdfResults::MakeXmlString() const
 {
     //Format as XML string

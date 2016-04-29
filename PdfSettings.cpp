@@ -7,6 +7,7 @@
 //
 
 #include "PdfSettings.h"
+#include "PdfResults.h"
 #include "document.h"
 
 
@@ -16,6 +17,12 @@ PdfSettings::PdfSettings(SettingsFunction f, string r, bool s) : settingsFunc(f)
     // Format parameter.
     sAIActionManager->AIActionSetString(vpb, kAIExportDocumentFormatKey, kAIPDFFileFormat);
     sAIActionManager->AIActionSetString(vpb, kAIExportDocumentExtensionKey, kAIPDFFileFormatExtension);
+    
+    // Save multiple artboards
+    sAIActionManager->AIActionSetBoolean(vpb, kAIExportDocumentSaveMultipleArtboardsKey, TRUE);
+    
+    // Save all
+    sAIActionManager->AIActionSetBoolean(vpb, kAIExportDocumentSaveAllKey, FALSE);
     
     // Enable/Disable dialogs
     sAIActionManager->AIActionSetBoolean(vpb, kAISaveDocumentAsGetParamsKey, FALSE);
@@ -63,10 +70,11 @@ PdfSettings PdfSettings::MakePdfSettingsFromXml(const char* xmlData)
     return PdfSettings(func, r, separateFiles);
 }
 
-void PdfSettings::Print() const
+PdfResults PdfSettings::Print() const
 {
     ASErr result;
     ai::FilePath pathToPdfFile = outputPath;
+    PdfResults transactions;
     
     if (!separateFiles) {
         pathToPdfFile.AddComponent(ai::UnicodeString(plateNumber->GetPlateNumber()));
@@ -86,6 +94,8 @@ void PdfSettings::Print() const
         catch (ai::Error& ex) {
             result = ex;
         }
+        
+        transactions.AddResult({PdfResults::Transaction::Created, pathToPdfFile});
     }
     else
     {
@@ -117,6 +127,8 @@ void PdfSettings::Print() const
             catch (ai::Error& ex) {
                 result = ex;
             }
+            
+            transactions.AddResult({PdfResults::Transaction::Created, pathToPdfFile});
 
             pathToPdfFile.RemoveComponent();
         }
@@ -178,12 +190,6 @@ void ManufacturingSettingsFunc(AIActionParamValueRef target)
     // Option Set
     sAIActionManager->AIActionSetInteger(target, kAIPDFOptionSetKey, kAIPDFOptionSetCustom);
     sAIActionManager->AIActionSetString(target, kAIPDFOptionSetNameKey, PrintToPdfUIController::MANUFACTURING_PDF_PRESET);
-    
-    // Save multiple artboards
-    sAIActionManager->AIActionSetBoolean(target, kAIExportDocumentSaveMultipleArtboardsKey, TRUE);
-    
-    // Save all
-    sAIActionManager->AIActionSetBoolean(target, kAIExportDocumentSaveAllKey, FALSE);
 }
 
 void ProofSettingsFunc(AIActionParamValueRef target)

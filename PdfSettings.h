@@ -18,6 +18,7 @@
 #include "VPB.h"
 #include "PlateNumber.h"
 #include "PrintToPdfUIController.h"
+#include "PdfResults.h"
 
 //=================================
 // forward declared dependencies
@@ -37,7 +38,7 @@ public:
     
     static PdfSettings MakePdfSettingsFromXml(const char* xmlData);
     
-    void Print() const;
+    PdfResults Print() const;
         
     void SetPreset(PrintToPdfUIController::PdfPreset);
     void SetRange(string);
