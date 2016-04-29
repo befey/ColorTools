@@ -135,7 +135,7 @@ PdfResults PdfSettings::Print() const
         
         sAIArtboardRange->DisposeIterator(iter);
     }
-    
+    return transactions;
 }
 
 ai::FilePath PdfSettings::CreateSaveFilePath()
