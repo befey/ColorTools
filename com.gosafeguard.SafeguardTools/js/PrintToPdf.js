@@ -62,4 +62,6 @@ function onResultsBack(event)
 	{
 		$("#results-textarea").append("<div>" + this.textContent + "</div><br />").addClass("created");
 	});
+	
+	$("#cancel-button").focus();
 }
