@@ -50,5 +50,16 @@ function sendDataToIllustrator()
 
 function onResultsBack(event)
 {
-	$("#results-textarea").val(event.data);
+	var xmlData = $.parseXML(event.data);
+	var $xml = $(xmlData);
+	
+	$xml.find("delete").each( function(index)
+	{
+		$("#results-textarea").append("<div>" + this.textContent + "</div><br />").addClass("deleted");
+	});
+	$("#results-textarea").append("-----<br />")
+	$xml.find("create").each( function(index)
+	{
+		$("#results-textarea").append("<div>" + this.textContent + "</div><br />").addClass("created");
+	});
 }

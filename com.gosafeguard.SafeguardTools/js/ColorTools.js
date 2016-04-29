@@ -119,40 +119,40 @@ function onUpdateListBack(event)
 		if (this.textContent != "[None]" &&
 			this.textContent != "[Registration]" &&
 			this.textContent != "GRIPPER")
-			{
-				$("#from-select").append($("<option/>",
-				{
-					text: this.textContent
-				}));
-				$("#to-select").append($("<option/>",
-				{
-					text: this.textContent
-				}));
-			}
-		});
-	
-		if ( $("#from-select option").filter(
-			function()
-			{
-				return this.value === fromSelectedText;
-			}
-			).length !== 0 )
 		{
-			$("#from-select").val(fromSelectedText);
+			$("#from-select").append($("<option/>",
+			{
+				text: this.textContent
+			}));
+			$("#to-select").append($("<option/>",
+			{
+				text: this.textContent
+			}));
 		}
-		else
-		{
-			$("#from-select").val("Black");
-		}
+	});
 	
-		if ( $("#to-select option").filter(
-			function()
-			{
-				return this.value === toSelectedText;
-			}
-			).length !== 0 )
+	if ( $("#from-select option").filter(
+		function()
 		{
-			$("#to-select").val(toSelectedText);
+			return this.value === fromSelectedText;
+		}
+		).length !== 0 )
+	{
+		$("#from-select").val(fromSelectedText);
+	}
+	else
+	{
+		$("#from-select").val("Black");
+	}
+	
+	if ( $("#to-select option").filter(
+		function()
+		{
+			return this.value === toSelectedText;
+		}
+		).length !== 0 )
+	{
+		$("#to-select").val(toSelectedText);
 	}
 	else
 	{

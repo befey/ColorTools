@@ -12,10 +12,8 @@
 
 PdfResults PrintToPdf(const PdfSettings settings)
 {
-    PdfResults results;
-
     //Output the PDF
-    settings.Print();
+    PdfResults results = settings.Print();
     
     return results;
 }
