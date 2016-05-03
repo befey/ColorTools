@@ -27,14 +27,12 @@ extern "C" AIDocumentSuite* sAIDocument;
 extern "C" AIArtboardSuite* sAIArtboard;
 
 
-typedef void (*SettingsFunction) (AIActionParamValueRef);
-
 //=================================
 // PdfSettings - manages settings for PDF output
 class PdfSettings
 {
 public:
-    PdfSettings(SettingsFunction, string range = "", bool separateFiles = false);
+    PdfSettings(ai::FilePath, string range = "", bool separateFiles = false);
     
     static PdfSettings MakePdfSettingsFromXml(const char* xmlData);
     
@@ -43,22 +41,16 @@ public:
     void SetPreset(PrintToPdfUIController::PdfPreset);
     void SetRange(string);
 
-    static SettingsFunction GetSettingsFuncForPdfPreset(PrintToPdfUIController::PdfPreset);
 private:
-    SettingsFunction settingsFunc;
     BtArtboardRange range;
     bool separateFiles;
     
     VPB vpb;
-    PlateNumber* plateNumber;
+    std::shared_ptr<PlateNumber> plateNumber;
     ai::FilePath outputPath;
     
     ai::FilePath CreateSaveFilePath();
     string CreateToken(int artboardIndex) const;
 };
-
-void ManufacturingSettingsFunc(AIActionParamValueRef);
-void ProofSettingsFunc(AIActionParamValueRef target);
-void MicrProofSettingsFunc(AIActionParamValueRef target);
 
 #endif /* defined(__SafeguardTools__PdfSettings__) */

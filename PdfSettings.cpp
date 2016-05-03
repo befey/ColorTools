@@ -11,7 +11,7 @@
 #include "document.h"
 
 
-PdfSettings::PdfSettings(SettingsFunction f, string r, bool s) : settingsFunc(f), range(r), separateFiles(s)
+PdfSettings::PdfSettings(ai::FilePath path, string r, bool s) : range(r), separateFiles(s), plateNumber(new PlateNumber(path.GetFileNameNoExt().getInStdString(kAIPlatformCharacterEncoding)))
 {
   ////****** Setup common parameters for all PDFs
     // Format parameter.
@@ -29,12 +29,7 @@ PdfSettings::PdfSettings(SettingsFunction f, string r, bool s) : settingsFunc(f)
   ////*******
     
     // Apply settings passed in
-    settingsFunc(vpb);
-    
-    // Fill Plate Number object
-    ai::FilePath openedFilePath;
-    sAIDocument->GetDocumentFileSpecification(openedFilePath);
-    plateNumber = new PlateNumber(openedFilePath.GetFileNameNoExt().getInStdString(kAIPlatformCharacterEncoding));
+    // TODO: apply settings based on preset selection settingsFunc(vpb);
     
     // Generate output path
     outputPath = CreateSaveFilePath();
@@ -48,7 +43,7 @@ PdfSettings PdfSettings::MakePdfSettingsFromXml(const char* xmlData)
     d.Parse(xmlData);
     
     Value& v = d[PrintToPdfUIController::PRESET_SELECT];
-    SettingsFunction func = GetSettingsFuncForPdfPreset(static_cast<PrintToPdfUIController::PdfPreset>(v.GetInt()));
+    //TODO: Do something with the preset selection
     
     v = d[PrintToPdfUIController::ALLPAGES_CHECK];
     bool allPages = (v.GetBool());
@@ -67,7 +62,10 @@ PdfSettings PdfSettings::MakePdfSettingsFromXml(const char* xmlData)
     v = d[PrintToPdfUIController::SEPARATEFILES_CHECK];
     bool separateFiles = (v.GetBool());
     
-    return PdfSettings(func, r, separateFiles);
+    ai::FilePath openedFilePath;
+    sAIDocument->GetDocumentFileSpecification(openedFilePath);
+    
+    return PdfSettings(openedFilePath, r, separateFiles);
 }
 
 PdfResults PdfSettings::Print() const
@@ -75,7 +73,7 @@ PdfResults PdfSettings::Print() const
     ASErr result;
     ai::FilePath pathToPdfFile = outputPath;
     PdfResults transactions;
-    
+
     if (!separateFiles) {
         pathToPdfFile.AddComponent(ai::UnicodeString(plateNumber->GetPlateNumber()));
         pathToPdfFile.AddExtension("pdf");
@@ -168,40 +166,15 @@ string PdfSettings::CreateToken(int artboardIndex) const
     }
 }
 
-SettingsFunction PdfSettings::GetSettingsFuncForPdfPreset(PrintToPdfUIController::PdfPreset preset)
-{
-    switch (preset) {
-        case PrintToPdfUIController::PdfPreset::Manufacturing:
-            return ManufacturingSettingsFunc;
-        case PrintToPdfUIController::PdfPreset::Proof:
-            return ProofSettingsFunc;
-        case PrintToPdfUIController::PdfPreset::MicrProof:
-            return ProofSettingsFunc;
-        default:
-            return ManufacturingSettingsFunc;
-    }
-}
-
 /**************************************************************************
  **************************************************************************/
 
-void ManufacturingSettingsFunc(AIActionParamValueRef target)
-{
-    // Option Set
-    sAIActionManager->AIActionSetInteger(target, kAIPDFOptionSetKey, kAIPDFOptionSetCustom);
-    sAIActionManager->AIActionSetString(target, kAIPDFOptionSetNameKey, PrintToPdfUIController::MANUFACTURING_PDF_PRESET);
-}
-
-void ProofSettingsFunc(AIActionParamValueRef target)
-{
-    
-}
-
-void MicrProofSettingsFunc(AIActionParamValueRef target)
-{
-    
-}
-
+//void ManufacturingSettingsFunc(AIActionParamValueRef target)
+//{
+//    // Option Set
+//    sAIActionManager->AIActionSetInteger(target, kAIPDFOptionSetKey, kAIPDFOptionSetCustom);
+//    sAIActionManager->AIActionSetString(target, kAIPDFOptionSetNameKey, PrintToPdfUIController::MANUFACTURING_PDF_PRESET);
+//}
 
 /*THESE SHOULD BE SET PROPERLY BY THE joboptions FILE WE'RE USING
  // Compatibility.
