@@ -32,7 +32,7 @@ public:
     
     friend class ReplaceDataBuilder;
     //TODO: rework these functions so they don't need private access
-    friend int FindAndReplace(ReplaceData* data);
+    friend int FindAndReplace(std::unique_ptr<ReplaceData> &data);
     friend void adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *altered);
 private:
     ReplaceData();

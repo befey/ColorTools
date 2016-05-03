@@ -29,10 +29,10 @@ void ColorToolsUIController::ChangeButtonClickedFunc (const csxs::event::Event* 
         //Set the undo/redo text
         sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Change Colors"), ai::UnicodeString("Redo Change Colors"));
         
-        ReplaceData* data = new ReplaceData(event->data);
+        std::unique_ptr<ReplaceData> data(new ReplaceData(event->data));
         
         colorToolsUIController->SendChangeCountToHtml(FindAndReplace(data));
-       
+        
     } while(false);
     return;
 }

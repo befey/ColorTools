@@ -14,7 +14,7 @@
 #include "stdlib.h"
 
 
-int FindAndReplace(ReplaceData* data) {
+int FindAndReplace(std::unique_ptr<ReplaceData> &data) {
     
     AIBoolean flag = FALSE;
     int numChanged = 0;
@@ -35,7 +35,7 @@ int FindAndReplace(ReplaceData* data) {
         if ( data->attribute == ColorToolsUIController::Attribute::Color ) {
             
             //do the color replacing
-            sAIPathStyle->AdjustObjectAIColors( currArtObj , adjustColor , data , data->controlFlags , &flag );
+            sAIPathStyle->AdjustObjectAIColors( currArtObj , adjustColor , data.get() , data->controlFlags , &flag );
            
             //increment counter if a switch was made
             if (flag) { numChanged++; }
