@@ -40,7 +40,7 @@ public:
     
     //Behaviors
     void CreateOrConvertToCustomColor(std::string colorName); //colorName must be one of the standard colors defined, see ColorFuncs.h
-    void CreateOrConvertToCustomColor(BtColor* color);
+    void CreateOrConvertToCustomColor(BtColor color);
     void AdjustAllColors();
     
     void RemoveUnusedColors();
@@ -51,17 +51,17 @@ public:
     
 private:
     //Members
-    std::unordered_map<std::string, BtColor*> stdColorDefinitions;
+    std::unordered_map<std::string, BtColor> stdColorDefinitions;
     
     
     static void CreateSwatch(std::string name, AIColor color);
     AISwatchRef GetSwatchByName(std::string name) const;
     
-    bool ColorHasDefinitionAlready(BtColor *color, AIColor* outFoundColor) const;
+    bool ColorHasDefinitionAlready(BtColor color, AIColor* outFoundColor) const;
         //If the return is TRUE, outFoundColor contains the definition of the matching color
     bool SwatchNameExists(std::string name, AIColor* outFoundColor) const;
         //If the return is TRUE, outFoundColor contains the definition of the matching color
-    bool CustomColorExists(BtColor *color, AIColor* outFoundColor) const;
+    bool CustomColorExists(BtColor color, AIColor* outFoundColor) const;
         //If the return is TRUE, outFoundColor contains the definition of the matching color
     
     //Adjust Colors Callbacks

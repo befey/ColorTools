@@ -17,21 +17,21 @@ BtSwatchList::BtSwatchList()
     c.f.yellow = 0;
     c.f.magenta = 0;
     c.f.black = 1;
-    BtColor* BLACK = new BtColor(BLACK_COLOR_NAME, kCustomFourColor, c, 0);
+    BtColor BLACK(BLACK_COLOR_NAME, kCustomFourColor, c, 0);
     stdColorDefinitions[BLACK_COLOR_NAME] = BLACK;
     
     c.f.cyan = 0;
     c.f.yellow = 0;
     c.f.magenta = 0;
     c.f.black = 0;
-    BtColor* WHITE = new BtColor(WHITE_COLOR_NAME, kCustomFourColor, c, 0);
+    BtColor WHITE(WHITE_COLOR_NAME, kCustomFourColor, c, 0);
     stdColorDefinitions[WHITE_COLOR_NAME] = WHITE;
 
     c.f.cyan = 0;
     c.f.yellow = 0;
     c.f.magenta = 0;
     c.f.black = 1;
-    BtColor* MICRBLACK = new BtColor(MICR_BLACK_MAG_COLOR_NAME, kCustomFourColor, c, 0);
+    BtColor MICRBLACK(MICR_BLACK_MAG_COLOR_NAME, kCustomFourColor, c, 0);
     stdColorDefinitions[MICR_BLACK_MAG_COLOR_NAME] = MICRBLACK;
 }
 
@@ -41,12 +41,12 @@ void BtSwatchList::CreateOrConvertToCustomColor(std::string colorName)
     CreateOrConvertToCustomColor(stdColorDefinitions[colorName]);
 }
 
-void BtSwatchList::CreateOrConvertToCustomColor(BtColor* color)
+void BtSwatchList::CreateOrConvertToCustomColor(BtColor color)
 {
     AICustomColor newCustomColorDefinition;
-    newCustomColorDefinition.kind = color->GetKind();
-    newCustomColorDefinition.c = color->GetCustomColorUnion();
-    newCustomColorDefinition.flag = color->GetCustomColorFlags();
+    newCustomColorDefinition.kind = color.GetKind();
+    newCustomColorDefinition.c = color.GetCustomColorUnion();
+    newCustomColorDefinition.flag = color.GetCustomColorFlags();
     
     AIColor newAiColorDefinition;
     
@@ -58,7 +58,7 @@ void BtSwatchList::CreateOrConvertToCustomColor(BtColor* color)
     else
     {
         AICustomColorHandle hCreatedCustomColor;
-        sAICustomColor->NewCustomColor(&newCustomColorDefinition, ai::UnicodeString(color->GetName()), &hCreatedCustomColor);
+        sAICustomColor->NewCustomColor(&newCustomColorDefinition, ai::UnicodeString(color.GetName()), &hCreatedCustomColor);
         newAiColorDefinition.kind = kCustomColor;
         newAiColorDefinition.c.c.tint = 0;
         newAiColorDefinition.c.c.color = hCreatedCustomColor;
@@ -70,9 +70,9 @@ void BtSwatchList::CreateOrConvertToCustomColor(BtColor* color)
     {
         AIColor dColor;
         AISwatchRef swatch = NULL;
-        if (SwatchNameExists(color->GetName(), &dColor))
+        if (SwatchNameExists(color.GetName(), &dColor))
         {
-            swatch = sAISwatchList->GetSwatchByName(NULL, ai::UnicodeString(color->GetName()));
+            swatch = sAISwatchList->GetSwatchByName(NULL, ai::UnicodeString(color.GetName()));
         }
         else
         {
@@ -197,9 +197,9 @@ AISwatchRef BtSwatchList::GetSwatchByName(std::string name) const
     return sAISwatchList->GetSwatchByName(NULL, ai::UnicodeString(name));
 }
 
-bool BtSwatchList::ColorHasDefinitionAlready(BtColor *color, AIColor* outFoundColor) const
+bool BtSwatchList::ColorHasDefinitionAlready(BtColor color, AIColor* outFoundColor) const
 {
-    return SwatchNameExists(color->GetName(), outFoundColor) || CustomColorExists(color, outFoundColor);
+    return SwatchNameExists(color.GetName(), outFoundColor) || CustomColorExists(color, outFoundColor);
 }
 
 bool BtSwatchList::SwatchNameExists(std::string name, AIColor* outFoundColor) const
@@ -213,7 +213,7 @@ bool BtSwatchList::SwatchNameExists(std::string name, AIColor* outFoundColor) co
     return FALSE;
 }
 
-bool BtSwatchList::CustomColorExists(BtColor *color, AIColor* outFoundColor) const
+bool BtSwatchList::CustomColorExists(BtColor color, AIColor* outFoundColor) const
 {
     int custColorCount = 0;
     AICustomColorHandle hFoundColor = NULL;
@@ -224,7 +224,7 @@ bool BtSwatchList::CustomColorExists(BtColor *color, AIColor* outFoundColor) con
         ai::UnicodeString currName;
         sAICustomColor->GetCustomColorName(hFoundColor, currName);
         string sName = currName.as_Platform();
-        if (sName == color->GetName())
+        if (sName == color.GetName())
         {
             outFoundColor->kind = kCustomColor;
             outFoundColor->c.c.color = hFoundColor;
