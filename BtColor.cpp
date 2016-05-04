@@ -13,17 +13,12 @@
 
 
 //Constructor
-BtColor::BtColor(string name,
-                 AICustomColorTag kind,
-                 AICustomColorUnion c,
-                 AICustomColorFlags flag)
+BtColor::BtColor(string name, AICustomColorTag kind, AICustomColorUnion c, AICustomColorFlags flag) : pName(name), pKind(kind), pC(c), pFlag (flag)
 {
-    pName = name;
-    pKind = kind;
-    pC = c;
-    pFlag = flag;
+
 }
 
+BtColor::BtColor() : BtColor("", kCustomFourColor, {}, 0) {}
 
 //Getters/Setters
 

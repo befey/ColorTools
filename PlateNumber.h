@@ -9,7 +9,7 @@
 #ifndef __SafeguardTools__PlateNumber__
 #define __SafeguardTools__PlateNumber__
 
-/*#include <unordered_map>
+/*
 
 enum PlantCodes {
     B,
@@ -28,18 +28,34 @@ enum PlantCodes {
     Y
 };
 
-enum ProductTypes {
-    
-};
 */
+#include "AIArtboard.h"
+extern AIArtSuite* sAIArt;
+extern AIPathSuite* sAIPath;
+extern AIArtSetSuite* sAIArtSet;
+extern AIArtboardSuite* sAIArtboard;
+extern AIRealMathSuite* sAIRealMath;
+
 class PlateNumber
 {
 public:
+    enum ProductType {
+        INVAL,
+        CutSheet,
+        Continuous,
+        Snapset,
+        BusinessStat
+    };
+    
+    static constexpr auto LENGTH_OF_INNER_TICK_PATH = 18;
+    
     PlateNumber(string);
     inline Boolean IsValid() {return isValidPlateNumber;};
     inline string GetPlateNumber() {return plateNumber;};
     inline string GetPlantIndicator() {return plantIndicator;};
     inline string GetProductIndicator() {return productIndicator;};
+    
+    ProductType GetProductType();
     
 private:
     string plateNumber;
@@ -50,6 +66,7 @@ private:
     Boolean isValidPlateNumber = false;
     
     Boolean TokenizePlateNumber();
+    Boolean HasInnerTicks();
 };
 
 #endif /* defined(__SafeguardTools__PlateNumber__) */

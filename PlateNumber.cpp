@@ -52,3 +52,93 @@ Boolean PlateNumber::TokenizePlateNumber()
     number = result[4];
     return true;
 }
+
+PlateNumber::ProductType PlateNumber::GetProductType()
+{
+    if (!IsValid())
+    {
+        return PlateNumber::ProductType::INVAL;
+    }
+    
+    if (productIndicator.at(0) == 'B')
+    {
+        return PlateNumber::ProductType::BusinessStat;
+    }
+    
+    if (productIndicator == "SF")
+    {
+        return PlateNumber::ProductType::CutSheet;
+    }
+    
+    if (productIndicator == "CF" || productIndicator == "SC" || productIndicator == "SS" || productIndicator == "EN")
+    {
+        return PlateNumber::ProductType::Continuous;
+    }
+    
+    if (productIndicator == "CS")
+    {
+        if (HasInnerTicks())
+        {
+            return PlateNumber::ProductType::Snapset;
+        }
+        else
+        {
+            return PlateNumber::ProductType::CutSheet;
+        }
+    }
+    
+    //OTHERS
+    if (productIndicator == "AR" || productIndicator == "CK" || productIndicator == "CM" || productIndicator == "GC" || productIndicator == "LS" || productIndicator == "QC" || productIndicator == "RC" || productIndicator == "VP")
+    {
+        return PlateNumber::ProductType::Continuous;
+    }
+    
+    return PlateNumber::ProductType::INVAL;
+}
+
+Boolean PlateNumber::HasInnerTicks()
+{
+    size_t count = 0;
+    AIArtSet artSet = NULL;
+    sAIArtSet->NewArtSet(&artSet);
+    
+    AIArtHandle currArtHandle = NULL;
+    
+    AIArtSpec specs[] = { { kPathArt , 0 , 0 } };
+    
+    sAIArtSet->MatchingArtSet( specs , 1, artSet );
+    
+    sAIArtSet->CountArtSet(artSet, &count);
+    if(count == 0) {
+        return false;
+    }
+    //Loop through the art set
+    for (int i = 0 ; i < count ; i++) {
+        
+        sAIArtSet->IndexArtSet(artSet, i, &currArtHandle);
+        AIBoolean closed;
+        sAIPath->GetPathClosed(currArtHandle, &closed);
+        if (!closed)
+        {
+            AIRealRect artBounds; sAIArt->GetArtBounds(currArtHandle, &artBounds);
+            ai::ArtboardList artboardList;
+            ai::ArtboardProperties props;
+            sAIArtboard->GetArtboardList(artboardList);
+            sAIArtboard->GetArtboardProperties(artboardList, 0, props);
+            AIRealRect pageBounds;
+            sAIArtboard->GetPosition(props, pageBounds);
+            
+            AIBoolean overlap = sAIRealMath->AIRealRectOverlap(&pageBounds, &artBounds);
+            AIReal length;
+            sAIPath->GetPathLength(currArtHandle, &length, NULL);
+            if (overlap && sAIRealMath->EqualWithinTol(length, LENGTH_OF_INNER_TICK_PATH, 1))
+            {
+                //TODO: do we need to check for registration color here too?
+                return true;
+            }
+        }
+    }
+    sAIArtSet->DisposeArtSet(&artSet); artSet = NULL;
+    
+    return false;
+}

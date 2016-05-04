@@ -26,10 +26,8 @@ class BtColor
 {
 public:
     //Constuctor
-    BtColor(string name,
-            AICustomColorTag kind,
-            AICustomColorUnion c,
-            AICustomColorFlags flag);
+    BtColor(string name, AICustomColorTag kind, AICustomColorUnion c, AICustomColorFlags flag);
+    BtColor();
 
     //Getters/Setters
     std::string GetName() const;
