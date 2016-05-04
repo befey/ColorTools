@@ -31,8 +31,6 @@ void FixupReload(Plugin* plugin)
 SafeguardToolsPlugin::SafeguardToolsPlugin(SPPluginRef pluginRef) :
 	Plugin(pluginRef),
     fRegisterEventNotifierHandle(NULL),
-    colorToolsUIController(NULL),
-    printToPdfUIController(NULL),
     mySwatchList(NULL)
 {
 	strncpy(fPluginName, kSafeguardToolsPluginName, kMaxStringLength);
@@ -82,7 +80,7 @@ ASErr SafeguardToolsPlugin::StartupPlugin( SPInterfaceMessage *message )
     
     if (NULL == colorToolsUIController)
     {
-        colorToolsUIController = new ColorToolsUIController();
+        colorToolsUIController = std::make_shared<ColorToolsUIController>();
         
         error = Plugin::LockPlugin(true);
         if (error) { return error; }
@@ -90,7 +88,7 @@ ASErr SafeguardToolsPlugin::StartupPlugin( SPInterfaceMessage *message )
     
     if (NULL == printToPdfUIController)
     {
-        printToPdfUIController = new PrintToPdfUIController();
+        printToPdfUIController = std::make_shared<PrintToPdfUIController>();
         
         error = Plugin::LockPlugin(true);
         if (error) { return error; }
@@ -98,7 +96,7 @@ ASErr SafeguardToolsPlugin::StartupPlugin( SPInterfaceMessage *message )
     
     if (NULL == mySwatchList)
     {
-        mySwatchList = new BtSwatchList();
+        mySwatchList = std::make_shared<BtSwatchList>();
     }
     
     error = this->AddMenus(message);
@@ -132,20 +130,12 @@ ASErr SafeguardToolsPlugin::ShutdownPlugin( SPInterfaceMessage *message )
     if (colorToolsUIController)
     {
         colorToolsUIController->RemoveEventListeners();
-        delete colorToolsUIController;
-        colorToolsUIController = NULL;
         Plugin::LockPlugin(false);
     }
     if (printToPdfUIController)
     {
         printToPdfUIController->RemoveEventListeners();
-        delete printToPdfUIController;
-        printToPdfUIController = NULL;
         Plugin::LockPlugin(false);
-    }
-    if (mySwatchList)
-    {
-        delete mySwatchList;
     }
 
     message->d.globals = NULL;

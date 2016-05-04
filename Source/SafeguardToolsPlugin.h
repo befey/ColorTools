@@ -44,9 +44,7 @@ public:
 	virtual ~SafeguardToolsPlugin();
     
     
-    ColorToolsUIController* GetColorToolsUIController() const { return colorToolsUIController; }
-    BtSwatchList* GetBtSwatchList() const { return mySwatchList; }
-    void SetBtSwatchList(BtSwatchList *swatchList) { mySwatchList = swatchList; }
+    shared_ptr<BtSwatchList> GetBtSwatchList() const { return mySwatchList; }
     
   
     /**	Restores state of SafeguardToolsPlugin during reload.
@@ -114,9 +112,9 @@ protected:
     
     virtual ASErr Notify(AINotifierMessage* message);
 private:
-    BtSwatchList *mySwatchList;
-    ColorToolsUIController* colorToolsUIController;
-    PrintToPdfUIController* printToPdfUIController;
+    shared_ptr<BtSwatchList> mySwatchList;
+    shared_ptr<ColorToolsUIController> colorToolsUIController;
+    shared_ptr<PrintToPdfUIController> printToPdfUIController;
     
     /**	Notifier handles**/
     AINotifierHandle fRegisterEventNotifierHandle;

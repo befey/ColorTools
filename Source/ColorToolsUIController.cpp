@@ -18,7 +18,7 @@
 
 void ColorToolsUIController::ChangeButtonClickedFunc (const csxs::event::Event* const event, void* const context)
 {
-    ColorToolsUIController *colorToolsUIController = (ColorToolsUIController *)context;
+    unique_ptr<ColorToolsUIController> colorToolsUIController((ColorToolsUIController *)context);
     if(NULL == colorToolsUIController || event == NULL)
         return;
     
@@ -39,7 +39,7 @@ void ColorToolsUIController::ChangeButtonClickedFunc (const csxs::event::Event* 
 
 void ColorToolsUIController::RemoveButtonClickedFunc (const csxs::event::Event* const event, void* const context)
 {
-    ColorToolsUIController *colorToolsUIController = (ColorToolsUIController *)context;
+    unique_ptr<ColorToolsUIController> colorToolsUIController((ColorToolsUIController *)context);
     if(NULL == colorToolsUIController || event == NULL)
         return;
     
