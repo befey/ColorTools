@@ -76,6 +76,9 @@
 		F9FAE8FB1CBD4E1800938893 /* PdfSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = F9FAE8F91CBD4E1800938893 /* PdfSettings.h */; };
 		F9FAE8FE1CBD87E700938893 /* BtArtboardRange.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9FAE8FC1CBD87E700938893 /* BtArtboardRange.cpp */; };
 		F9FAE8FF1CBD87E700938893 /* BtArtboardRange.h in Headers */ = {isa = PBXBuildFile; fileRef = F9FAE8FD1CBD87E700938893 /* BtArtboardRange.h */; };
+		F9FC371D1CDA719400BCA2AF /* PasswordRetriever.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9FC371B1CDA719400BCA2AF /* PasswordRetriever.cpp */; };
+		F9FC371E1CDA719400BCA2AF /* PasswordRetriever.h in Headers */ = {isa = PBXBuildFile; fileRef = F9FC371C1CDA719400BCA2AF /* PasswordRetriever.h */; };
+		F9FC37241CDA7A3C00BCA2AF /* passwords.h in Headers */ = {isa = PBXBuildFile; fileRef = F9FC37231CDA7A3C00BCA2AF /* passwords.h */; };
 		F9FEC8291CB576280097473A /* IAIArtboards.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9FEC8281CB576280097473A /* IAIArtboards.cpp */; };
 /* End PBXBuildFile section */
 
@@ -150,6 +153,9 @@
 		F9FAE8F91CBD4E1800938893 /* PdfSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PdfSettings.h; path = "../My Custom Headers/PdfSettings.h"; sourceTree = "<group>"; };
 		F9FAE8FC1CBD87E700938893 /* BtArtboardRange.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BtArtboardRange.cpp; path = "../My Custom Headers/BtArtboardRange.cpp"; sourceTree = "<group>"; };
 		F9FAE8FD1CBD87E700938893 /* BtArtboardRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BtArtboardRange.h; path = "../My Custom Headers/BtArtboardRange.h"; sourceTree = "<group>"; };
+		F9FC371B1CDA719400BCA2AF /* PasswordRetriever.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PasswordRetriever.cpp; path = "../My Custom Headers/PasswordRetriever.cpp"; sourceTree = "<group>"; };
+		F9FC371C1CDA719400BCA2AF /* PasswordRetriever.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PasswordRetriever.h; path = "../My Custom Headers/PasswordRetriever.h"; sourceTree = "<group>"; };
+		F9FC37231CDA7A3C00BCA2AF /* passwords.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = passwords.h; path = "../My Custom Headers/passwords.h"; sourceTree = "<group>"; };
 		F9FEC8281CB576280097473A /* IAIArtboards.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IAIArtboards.cpp; path = "../Adobe Illustrator CC 2015 SDK/illustratorapi/illustrator/IAIArtboards.cpp"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -283,6 +289,9 @@
 				F9681E3A1CA47AC400A02A58 /* DictFuncs.h */,
 				F9681E451CA47B6E00A02A58 /* Node.h */,
 				F9681E461CA47B6E00A02A58 /* Node.mm */,
+				F9FC37231CDA7A3C00BCA2AF /* passwords.h */,
+				F9FC371B1CDA719400BCA2AF /* PasswordRetriever.cpp */,
+				F9FC371C1CDA719400BCA2AF /* PasswordRetriever.h */,
 				F96FFDF31CD131C400A673D6 /* PdfResults.cpp */,
 				F96FFDF41CD131C400A673D6 /* PdfResults.h */,
 				F9FAE8F81CBD4E1800938893 /* PdfSettings.cpp */,
@@ -316,6 +325,8 @@
 				F989A8EB1CA460CE0050C071 /* FindReplaceGraphics.h in Headers */,
 				F9681E3C1CA47AC400A02A58 /* DictFuncs.h in Headers */,
 				F94726441CB2F91900649020 /* PrintToPdf.h in Headers */,
+				F9FC37241CDA7A3C00BCA2AF /* passwords.h in Headers */,
+				F9FC371E1CDA719400BCA2AF /* PasswordRetriever.h in Headers */,
 				F9681E441CA47AFC00A02A58 /* TextTools.h in Headers */,
 				F989A8EF1CA460CE0050C071 /* ReplaceData.h in Headers */,
 				6868C925150BA192003DAAF2 /* SafeguardToolsID.h in Headers */,
@@ -449,6 +460,7 @@
 				6868C926150BA192003DAAF2 /* SafeguardToolsPlugin.cpp in Sources */,
 				6868C928150BA192003DAAF2 /* SafeguardToolsSuites.cpp in Sources */,
 				F9681E431CA47AFC00A02A58 /* TextTools.cpp in Sources */,
+				F9FC371D1CDA719400BCA2AF /* PasswordRetriever.cpp in Sources */,
 				F989A8E81CA460CE0050C071 /* ColorToolsUIController.cpp in Sources */,
 				F90E3FA11CA475880081C333 /* BtSwatchList.cpp in Sources */,
 				F9681E3B1CA47AC400A02A58 /* DictFuncs.cpp in Sources */,
@@ -585,7 +597,7 @@
 		508817D809F0C9AE0071BF1A /* debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/output/mac/$(AI_CONFIGURATION)";
@@ -612,7 +624,7 @@
 		508817D909F0C9AE0071BF1A /* release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/output/mac/$(AI_CONFIGURATION)";

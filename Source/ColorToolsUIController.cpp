@@ -14,11 +14,12 @@
 #include "ReplaceData.h"
 #include "FindReplaceGraphics.h"
 #include <stdio.h>
+#include <memory.h>
 #include "ColorFuncs.h"
 
 void ColorToolsUIController::ChangeButtonClickedFunc (const csxs::event::Event* const event, void* const context)
 {
-    unique_ptr<ColorToolsUIController> colorToolsUIController((ColorToolsUIController *)context);
+    ColorToolsUIController *colorToolsUIController = (ColorToolsUIController *)context;
     if(NULL == colorToolsUIController || event == NULL)
         return;
     
@@ -29,7 +30,7 @@ void ColorToolsUIController::ChangeButtonClickedFunc (const csxs::event::Event* 
         //Set the undo/redo text
         sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Change Colors"), ai::UnicodeString("Redo Change Colors"));
         
-        std::unique_ptr<ReplaceData> data(new ReplaceData(event->data));
+        std::unique_ptr<ReplaceData> data = std::make_unique<ReplaceData>(event->data);
         
         colorToolsUIController->SendChangeCountToHtml(FindAndReplace(data));
         
@@ -39,7 +40,7 @@ void ColorToolsUIController::ChangeButtonClickedFunc (const csxs::event::Event* 
 
 void ColorToolsUIController::RemoveButtonClickedFunc (const csxs::event::Event* const event, void* const context)
 {
-    unique_ptr<ColorToolsUIController> colorToolsUIController((ColorToolsUIController *)context);
+    ColorToolsUIController *colorToolsUIController = (ColorToolsUIController *)context;
     if(NULL == colorToolsUIController || event == NULL)
         return;
     
