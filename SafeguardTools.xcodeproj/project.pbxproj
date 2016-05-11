@@ -195,25 +195,14 @@
 			isa = PBXGroup;
 			children = (
 				F989A8CF1CA4606E0050C071 /* My Headers */,
-				F989A8E21CA460CE0050C071 /* FindReplaceGraphics.cpp */,
-				F989A8E31CA460CE0050C071 /* FindReplaceGraphics.h */,
-				F989A8E41CA460CE0050C071 /* FixBlack.cpp */,
-				F989A8E51CA460CE0050C071 /* FixBlack.h */,
-				F9681E3D1CA47AFC00A02A58 /* FixFreehandType.cpp */,
-				F9681E3E1CA47AFC00A02A58 /* FixFreehandType.h */,
-				F94726411CB2F91900649020 /* PrintToPdf.cpp */,
-				F94726421CB2F91900649020 /* PrintToPdf.h */,
-				F989A8E61CA460CE0050C071 /* ReplaceData.cpp */,
-				F989A8E71CA460CE0050C071 /* ReplaceData.h */,
-				F934B1561CC9645A002EAB43 /* ReplaceDataBuilder.cpp */,
-				F934B1571CC9645A002EAB43 /* ReplaceDataBuilder.h */,
+				F963C91C1CC7D3AA00A0D519 /* ColorTools */,
+				F91180761CE3B37600AA7AC8 /* PrintToPdf */,
+				F91180771CE3B3D100AA7AC8 /* TextTools */,
 				6868C920150BA192003DAAF2 /* SafeguardToolsID.h */,
 				6868C921150BA192003DAAF2 /* SafeguardToolsPlugin.cpp */,
 				6868C922150BA192003DAAF2 /* SafeguardToolsPlugin.h */,
 				6868C923150BA192003DAAF2 /* SafeguardToolsSuites.cpp */,
 				6868C924150BA192003DAAF2 /* SafeguardToolsSuites.h */,
-				F9681E3F1CA47AFC00A02A58 /* TextTools.cpp */,
-				F9681E401CA47AFC00A02A58 /* TextTools.h */,
 				2A7772AA0BE6387700A9D493 /* Shared */,
 			);
 			name = Sources;
@@ -253,15 +242,59 @@
 			name = Libraries;
 			sourceTree = "<group>";
 		};
-		F963C91C1CC7D3AA00A0D519 /* UIControllers */ = {
+		F91180751CE3B31400AA7AC8 /* PdfSettings */ = {
+			isa = PBXGroup;
+			children = (
+				F9FC371B1CDA719400BCA2AF /* PasswordRetriever.cpp */,
+				F9FC371C1CDA719400BCA2AF /* PasswordRetriever.h */,
+				F9FC37231CDA7A3C00BCA2AF /* passwords.h */,
+				F96FFDF31CD131C400A673D6 /* PdfResults.cpp */,
+				F96FFDF41CD131C400A673D6 /* PdfResults.h */,
+				F9FAE8F81CBD4E1800938893 /* PdfSettings.cpp */,
+				F9FAE8F91CBD4E1800938893 /* PdfSettings.h */,
+				F947263E1CB2E1F400649020 /* VPB.cpp */,
+				F947263D1CB2E1F400649020 /* VPB.h */,
+			);
+			name = PdfSettings;
+			sourceTree = "<group>";
+		};
+		F91180761CE3B37600AA7AC8 /* PrintToPdf */ = {
+			isa = PBXGroup;
+			children = (
+				F94726411CB2F91900649020 /* PrintToPdf.cpp */,
+				F94726421CB2F91900649020 /* PrintToPdf.h */,
+				F945E5F31CC6B4BB0071DE88 /* PrintToPdfUIController.cpp */,
+				F945E5F41CC6B4BB0071DE88 /* PrintToPdfUIController.h */,
+			);
+			name = PrintToPdf;
+			sourceTree = "<group>";
+		};
+		F91180771CE3B3D100AA7AC8 /* TextTools */ = {
+			isa = PBXGroup;
+			children = (
+				F9681E3D1CA47AFC00A02A58 /* FixFreehandType.cpp */,
+				F9681E3E1CA47AFC00A02A58 /* FixFreehandType.h */,
+				F9681E3F1CA47AFC00A02A58 /* TextTools.cpp */,
+				F9681E401CA47AFC00A02A58 /* TextTools.h */,
+			);
+			name = TextTools;
+			sourceTree = "<group>";
+		};
+		F963C91C1CC7D3AA00A0D519 /* ColorTools */ = {
 			isa = PBXGroup;
 			children = (
 				F989A8E01CA460CE0050C071 /* ColorToolsUIController.cpp */,
 				F989A8E11CA460CE0050C071 /* ColorToolsUIController.h */,
-				F945E5F31CC6B4BB0071DE88 /* PrintToPdfUIController.cpp */,
-				F945E5F41CC6B4BB0071DE88 /* PrintToPdfUIController.h */,
+				F989A8E21CA460CE0050C071 /* FindReplaceGraphics.cpp */,
+				F989A8E31CA460CE0050C071 /* FindReplaceGraphics.h */,
+				F989A8E41CA460CE0050C071 /* FixBlack.cpp */,
+				F989A8E51CA460CE0050C071 /* FixBlack.h */,
+				F989A8E61CA460CE0050C071 /* ReplaceData.cpp */,
+				F989A8E71CA460CE0050C071 /* ReplaceData.h */,
+				F934B1561CC9645A002EAB43 /* ReplaceDataBuilder.cpp */,
+				F934B1571CC9645A002EAB43 /* ReplaceDataBuilder.h */,
 			);
-			name = UIControllers;
+			name = ColorTools;
 			sourceTree = "<group>";
 		};
 		F989A8CF1CA4606E0050C071 /* My Headers */ = {
@@ -289,20 +322,11 @@
 				F9681E3A1CA47AC400A02A58 /* DictFuncs.h */,
 				F9681E451CA47B6E00A02A58 /* Node.h */,
 				F9681E461CA47B6E00A02A58 /* Node.mm */,
-				F9FC37231CDA7A3C00BCA2AF /* passwords.h */,
-				F9FC371B1CDA719400BCA2AF /* PasswordRetriever.cpp */,
-				F9FC371C1CDA719400BCA2AF /* PasswordRetriever.h */,
-				F96FFDF31CD131C400A673D6 /* PdfResults.cpp */,
-				F96FFDF41CD131C400A673D6 /* PdfResults.h */,
-				F9FAE8F81CBD4E1800938893 /* PdfSettings.cpp */,
-				F9FAE8F91CBD4E1800938893 /* PdfSettings.h */,
+				F91180751CE3B31400AA7AC8 /* PdfSettings */,
 				F9681E471CA47B6E00A02A58 /* Plate.h */,
 				F9681E481CA47B6E00A02A58 /* Plate.mm */,
 				F96D30711CB6D73500274BDE /* PlateNumber.cpp */,
 				F96D30721CB6D73500274BDE /* PlateNumber.h */,
-				F947263E1CB2E1F400649020 /* VPB.cpp */,
-				F947263D1CB2E1F400649020 /* VPB.h */,
-				F963C91C1CC7D3AA00A0D519 /* UIControllers */,
 			);
 			name = "My Headers";
 			sourceTree = "<group>";
