@@ -11,7 +11,7 @@
 #include "document.h"
 
 
-PdfSettings::PdfSettings(ai::FilePath path, string r, bool s) : range(r), separateFiles(s), plateNumber(new PlateNumber(path.GetFileNameNoExt().getInStdString(kAIPlatformCharacterEncoding)))
+PdfSettings::PdfSettings(ai::FilePath path, unique_ptr<PasswordRetriever> pwRet, string r, bool s) : pwRetriever(move(pwRet)), range(r), separateFiles(s), plateNumber(new PlateNumber(path.GetFileNameNoExt().getInStdString(kAIPlatformCharacterEncoding)))
 {
   ////****** Setup common parameters for all PDFs
     // Format parameter.
@@ -28,8 +28,28 @@ PdfSettings::PdfSettings(ai::FilePath path, string r, bool s) : range(r), separa
     sAIActionManager->AIActionSetBoolean(vpb, kAISaveDocumentAsGetParamsKey, FALSE);
   ////*******
     
-    // Apply settings passed in
-    // TODO: apply settings based on preset selection settingsFunc(vpb);
+    // Option Set -- RIGHT NOW WE'RE USING THE SAME PRESET FOR ALL
+    // I think the only difference will be whether we're adding bleed to the pdf or not
+    // Use document bleed or use no bleed
+    sAIActionManager->AIActionSetInteger(vpb, kAIPDFOptionSetKey, kAIPDFOptionSetCustom);
+    sAIActionManager->AIActionSetString(vpb, kAIPDFOptionSetNameKey, PrintToPdfUIController::MANUFACTURING_PDF_PRESET);
+    
+    // Apply a password if one is required
+    if (pwRetriever->GetUserPassword() != "") {
+        sAIActionManager->AIActionSetBoolean(vpb, kAIPDFUserPasswordRequiredKey, TRUE);
+        sAIActionManager->AIActionSetString(vpb, kAIPDFUserPasswordKey, pwRetriever->GetUserPassword().c_str());
+    }
+    else {
+        sAIActionManager->AIActionSetBoolean(vpb, kAIPDFUserPasswordRequiredKey, FALSE);
+    }
+    
+    if (pwRetriever->GetMasterPassword() != "") {
+        sAIActionManager->AIActionSetBoolean(vpb, kAIPDFMasterPasswordRequiredKey, TRUE);
+        sAIActionManager->AIActionSetString(vpb, kAIPDFMasterPasswordKey, pwRetriever->GetMasterPassword().c_str());
+    }
+    else {
+        sAIActionManager->AIActionSetBoolean(vpb, kAIPDFMasterPasswordRequiredKey, FALSE);
+    }
     
     // Generate output path
     outputPath = CreateSaveFilePath();
@@ -42,8 +62,21 @@ PdfSettings PdfSettings::MakePdfSettingsFromXml(const char* xmlData)
     Document d;
     d.Parse(xmlData);
     
+    unique_ptr<PasswordRetriever> pwr;
+    
     Value& v = d[PrintToPdfUIController::PRESET_SELECT];
-    //TODO: Do something with the preset selection
+    if (static_cast<PrintToPdfUIController::PdfPreset>(v.GetInt()) == PrintToPdfUIController::PdfPreset::Manufacturing)
+    {
+        pwr.reset(new NonePasswordRetriever());
+    }
+    else if (static_cast<PrintToPdfUIController::PdfPreset>(v.GetInt()) == PrintToPdfUIController::PdfPreset::Proof)
+    {
+        pwr.reset(new ProofPasswordRetriever());
+    }
+    else if (static_cast<PrintToPdfUIController::PdfPreset>(v.GetInt()) == PrintToPdfUIController::PdfPreset::MicrProof)
+    {
+        pwr.reset(new MicrPasswordRetriever());
+    }
     
     v = d[PrintToPdfUIController::ALLPAGES_CHECK];
     bool allPages = (v.GetBool());
@@ -65,7 +98,7 @@ PdfSettings PdfSettings::MakePdfSettingsFromXml(const char* xmlData)
     ai::FilePath openedFilePath;
     sAIDocument->GetDocumentFileSpecification(openedFilePath);
     
-    return PdfSettings(openedFilePath, r, separateFiles);
+    return PdfSettings(openedFilePath, move(pwr), r, separateFiles);
 }
 
 PdfResults PdfSettings::Print() const
@@ -169,12 +202,6 @@ string PdfSettings::CreateToken(int artboardIndex) const
 /**************************************************************************
  **************************************************************************/
 
-//void ManufacturingSettingsFunc(AIActionParamValueRef target)
-//{
-//    // Option Set
-//    sAIActionManager->AIActionSetInteger(target, kAIPDFOptionSetKey, kAIPDFOptionSetCustom);
-//    sAIActionManager->AIActionSetString(target, kAIPDFOptionSetNameKey, PrintToPdfUIController::MANUFACTURING_PDF_PRESET);
-//}
 
 /*THESE SHOULD BE SET PROPERLY BY THE joboptions FILE WE'RE USING
  // Compatibility.
@@ -196,7 +223,7 @@ string PdfSettings::CreateToken(int artboardIndex) const
  aisdk::check_ai_error(result);
  
  // Changes Permissions
- result = sAIActionManager->AIActionSetEnumerated(vpb, kAIPDFChangesPermKey, "Changes Allowed", kAIPDFChanges128AnyIndex);
+ result = sAIActionManager->AIActionSetEnumerated(vpb, kAIPDFChangesPermKey, "Changes Allowed", kAIPDFChanges128NoneIndex);
  aisdk::check_ai_error(result);
  
  // Enable Copy

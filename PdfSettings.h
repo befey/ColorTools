@@ -19,6 +19,7 @@
 #include "PlateNumber.h"
 #include "PrintToPdfUIController.h"
 #include "PdfResults.h"
+#include "PasswordRetriever.h"
 
 //=================================
 // forward declared dependencies
@@ -32,7 +33,7 @@ extern "C" AIArtboardSuite* sAIArtboard;
 class PdfSettings
 {
 public:
-    PdfSettings(ai::FilePath, string range = "", bool separateFiles = false);
+    PdfSettings(ai::FilePath sourceFile, unique_ptr<PasswordRetriever> pwRet, string range = "", bool separateFiles = false);
     
     static PdfSettings MakePdfSettingsFromXml(const char* xmlData);
     
@@ -44,9 +45,10 @@ public:
 private:
     BtArtboardRange range;
     bool separateFiles;
+    unique_ptr<PasswordRetriever> pwRetriever;
     
     VPB vpb;
-    std::shared_ptr<PlateNumber> plateNumber;
+    unique_ptr<PlateNumber> plateNumber;
     ai::FilePath outputPath;
     
     ai::FilePath CreateSaveFilePath();
