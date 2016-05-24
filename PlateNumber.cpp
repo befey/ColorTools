@@ -60,7 +60,7 @@ PlateNumber::ProductType PlateNumber::GetProductType()
         return PlateNumber::ProductType::INVAL;
     }
     
-    if (productIndicator.at(0) == 'B')
+    if (productIndicator.at(0) == 'B' || productIndicator == "MP")
     {
         return PlateNumber::ProductType::BusinessStat;
     }

@@ -11,7 +11,7 @@
 #include "document.h"
 
 
-PdfSettings::PdfSettings(ai::FilePath path, unique_ptr<PasswordRetriever> pwRet, string r, bool s) : pwRetriever(move(pwRet)), range(r), separateFiles(s), plateNumber(new PlateNumber(path.GetFileNameNoExt().getInStdString(kAIPlatformCharacterEncoding)))
+PdfSettings::PdfSettings(ai::FilePath path, PrintToPdfUIController::PdfPreset p, unique_ptr<PasswordRetriever> pwRet, string r, bool s) : preset(p), pwRetriever(move(pwRet)), range(r), separateFiles(s), plateNumber(new PlateNumber(path.GetFileNameNoExt().getInStdString(kAIPlatformCharacterEncoding)))
 {
   ////****** Setup common parameters for all PDFs
     // Format parameter.
@@ -26,13 +26,16 @@ PdfSettings::PdfSettings(ai::FilePath path, unique_ptr<PasswordRetriever> pwRet,
     
     // Enable/Disable dialogs
     sAIActionManager->AIActionSetBoolean(vpb, kAISaveDocumentAsGetParamsKey, FALSE);
+    
+    sAIActionManager->AIActionSetBoolean(vpb, kAIPDFRoundTripKey, FALSE);
   ////*******
     
-    // Option Set -- RIGHT NOW WE'RE USING THE SAME PRESET FOR ALL
-    // I think the only difference will be whether we're adding bleed to the pdf or not
-    // Use document bleed or use no bleed
-    sAIActionManager->AIActionSetInteger(vpb, kAIPDFOptionSetKey, kAIPDFOptionSetCustom);
-    sAIActionManager->AIActionSetString(vpb, kAIPDFOptionSetNameKey, PrintToPdfUIController::MANUFACTURING_PDF_PRESET);
+    AIRealRect bleed = CalculateBleeds();
+    sAIActionManager->AIActionSetInteger(vpb, kAIPDFBleedTopKey, bleed.top);
+    sAIActionManager->AIActionSetInteger(vpb, kAIPDFBleedBottomKey, bleed.bottom);
+    sAIActionManager->AIActionSetInteger(vpb, kAIPDFBleedLeftKey, bleed.left);
+    sAIActionManager->AIActionSetInteger(vpb, kAIPDFBleedRightKey, bleed.right);
+    sAIActionManager->AIActionSetBoolean(vpb, kAIPDFDocBleedKey, FALSE);
     
     // Apply a password if one is required
     if (pwRetriever->GetUserPassword() != "") {
@@ -65,15 +68,16 @@ PdfSettings PdfSettings::MakePdfSettingsFromXml(const char* xmlData)
     unique_ptr<PasswordRetriever> pwr;
     
     Value& v = d[PrintToPdfUIController::PRESET_SELECT];
-    if (static_cast<PrintToPdfUIController::PdfPreset>(v.GetInt()) == PrintToPdfUIController::PdfPreset::Manufacturing)
+    PrintToPdfUIController::PdfPreset preset = static_cast<PrintToPdfUIController::PdfPreset>(v.GetInt());
+    if ( preset == PrintToPdfUIController::PdfPreset::Manufacturing)
     {
         pwr.reset(new NonePasswordRetriever());
     }
-    else if (static_cast<PrintToPdfUIController::PdfPreset>(v.GetInt()) == PrintToPdfUIController::PdfPreset::Proof)
+    else if (preset == PrintToPdfUIController::PdfPreset::Proof)
     {
         pwr.reset(new ProofPasswordRetriever());
     }
-    else if (static_cast<PrintToPdfUIController::PdfPreset>(v.GetInt()) == PrintToPdfUIController::PdfPreset::MicrProof)
+    else if (preset == PrintToPdfUIController::PdfPreset::MicrProof)
     {
         pwr.reset(new MicrPasswordRetriever());
     }
@@ -98,7 +102,7 @@ PdfSettings PdfSettings::MakePdfSettingsFromXml(const char* xmlData)
     ai::FilePath openedFilePath;
     sAIDocument->GetDocumentFileSpecification(openedFilePath);
     
-    return PdfSettings(openedFilePath, move(pwr), r, separateFiles);
+    return PdfSettings(openedFilePath, preset, move(pwr), r, separateFiles);
 }
 
 PdfResults PdfSettings::Print() const
@@ -197,6 +201,27 @@ string PdfSettings::CreateToken(int artboardIndex) const
     {
         return abNameS;
     }
+}
+
+AIRealRect PdfSettings::CalculateBleeds()
+{
+    AIRealRect bleedRect;
+    
+    PlateNumber::ProductType pt = plateNumber->GetProductType();
+    
+    if (pt == PlateNumber::ProductType::CutSheet) {
+        sAIRealMath->AIRealRectSet(&bleedRect, 36, 36, 36, 36);
+    }
+    else if (pt == PlateNumber::ProductType::BusinessStat)
+    {
+        sAIRealMath->AIRealRectSet(&bleedRect, 12, 12, 12, 12);
+    }
+    else //Continuous and Snapsets
+    {
+        sAIRealMath->AIRealRectSet(&bleedRect, 0, 0, 0, 0);
+    }
+    
+    return bleedRect;
 }
 
 /**************************************************************************

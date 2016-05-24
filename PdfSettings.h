@@ -33,7 +33,7 @@ extern "C" AIArtboardSuite* sAIArtboard;
 class PdfSettings
 {
 public:
-    PdfSettings(ai::FilePath sourceFile, unique_ptr<PasswordRetriever> pwRet, string range = "", bool separateFiles = false);
+    PdfSettings(ai::FilePath sourceFile, PrintToPdfUIController::PdfPreset p, unique_ptr<PasswordRetriever> pwRet, string range = "", bool separateFiles = false);
     
     static PdfSettings MakePdfSettingsFromXml(const char* xmlData);
     
@@ -45,6 +45,7 @@ public:
 private:
     BtArtboardRange range;
     bool separateFiles;
+    PrintToPdfUIController::PdfPreset preset;
     unique_ptr<PasswordRetriever> pwRetriever;
     
     VPB vpb;
@@ -53,6 +54,7 @@ private:
     
     ai::FilePath CreateSaveFilePath();
     string CreateToken(int artboardIndex) const;
+    AIRealRect CalculateBleeds();
 };
 
 #endif /* defined(__SafeguardTools__PdfSettings__) */
