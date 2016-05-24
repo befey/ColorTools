@@ -38,19 +38,23 @@ PdfSettings::PdfSettings(ai::FilePath path, PrintToPdfUIController::PdfPreset p,
     sAIActionManager->AIActionSetBoolean(vpb, kAIPDFDocBleedKey, FALSE);
     
     // Apply a password if one is required
-    if (pwRetriever->GetUserPassword() != "") {
+    if (pwRetriever->GetUserPassword() != "")
+    {
         sAIActionManager->AIActionSetBoolean(vpb, kAIPDFUserPasswordRequiredKey, TRUE);
         sAIActionManager->AIActionSetString(vpb, kAIPDFUserPasswordKey, pwRetriever->GetUserPassword().c_str());
     }
-    else {
+    else
+    {
         sAIActionManager->AIActionSetBoolean(vpb, kAIPDFUserPasswordRequiredKey, FALSE);
     }
     
-    if (pwRetriever->GetMasterPassword() != "") {
+    if (pwRetriever->GetMasterPassword() != "")
+    {
         sAIActionManager->AIActionSetBoolean(vpb, kAIPDFMasterPasswordRequiredKey, TRUE);
         sAIActionManager->AIActionSetString(vpb, kAIPDFMasterPasswordKey, pwRetriever->GetMasterPassword().c_str());
     }
-    else {
+    else
+    {
         sAIActionManager->AIActionSetBoolean(vpb, kAIPDFMasterPasswordRequiredKey, FALSE);
     }
     
@@ -111,7 +115,8 @@ PdfResults PdfSettings::Print() const
     ai::FilePath pathToPdfFile = outputPath;
     PdfResults transactions;
 
-    if (!separateFiles) {
+    if (!separateFiles)
+    {
         pathToPdfFile.AddComponent(ai::UnicodeString(plateNumber->GetPlateNumber()));
         pathToPdfFile.AddExtension("pdf");
         
@@ -121,12 +126,14 @@ PdfResults PdfSettings::Print() const
         // Set Range
         sAIActionManager->AIActionSetString(vpb, kAIExportDocumentSaveRangeKey, string(range).c_str());
         
-        try {
+        try
+        {
             // Play the action.
             result = sAIActionManager->PlayActionEvent(kSaveACopyAsAction, kDialogOff, vpb);
             aisdk::check_ai_error(result);
         }
-        catch (ai::Error& ex) {
+        catch (ai::Error& ex)
+        {
             result = ex;
         }
         
@@ -154,12 +161,14 @@ PdfResults PdfSettings::Print() const
             // Set Range
             sAIActionManager->AIActionSetString(vpb, kAIExportDocumentSaveRangeKey, to_string(index+1).c_str());
             
-            try {
+            try
+            {
                 // Play the action.
                 result = sAIActionManager->PlayActionEvent(kSaveACopyAsAction, kDialogOff, vpb);
                 aisdk::check_ai_error(result);
             }
-            catch (ai::Error& ex) {
+            catch (ai::Error& ex)
+            {
                 result = ex;
             }
             
@@ -194,7 +203,8 @@ string PdfSettings::CreateToken(int artboardIndex) const
     AIBoolean isDefaultName;
     sAIArtboard->IsDefaultName(abProps, isDefaultName);
     
-    if (isDefaultName || abNameS == PrintToPdfUIController::NO_TOKEN_DESIG) {
+    if (isDefaultName || abNameS == PrintToPdfUIController::NO_TOKEN_DESIG)
+    {
         return "";
     }
     else
@@ -209,12 +219,23 @@ AIRealRect PdfSettings::CalculateBleeds()
     
     PlateNumber::ProductType pt = plateNumber->GetProductType();
     
-    if (pt == PlateNumber::ProductType::CutSheet) {
-        sAIRealMath->AIRealRectSet(&bleedRect, 36, 36, 36, 36);
+    if (pt == PlateNumber::ProductType::CutSheet)
+    {
+        if (preset == PrintToPdfUIController::PdfPreset::Manufacturing)
+        {
+            sAIRealMath->AIRealRectSet(&bleedRect, 36, 36, 36, 36);
+        }
+        else
+        {
+            sAIRealMath->AIRealRectSet(&bleedRect, 0, 0, 0, 0);
+        }
     }
     else if (pt == PlateNumber::ProductType::BusinessStat)
     {
-        sAIRealMath->AIRealRectSet(&bleedRect, 12, 12, 12, 12);
+        if (preset == PrintToPdfUIController::PdfPreset::Manufacturing)
+        {
+            sAIRealMath->AIRealRectSet(&bleedRect, 12, 12, 12, 12);
+        }
     }
     else //Continuous and Snapsets
     {
