@@ -30,8 +30,16 @@
           <Geometry>
             <Size>
               <Width>210</Width>
-              <Height>170</Height>
+              <Height>187</Height>
             </Size>
+            <MaxSize>
+              <Width>210</Width>
+              <Height>187</Height>
+            </MaxSize>
+            <MinSize>
+              <Width>210</Width>
+              <Height>187</Height>
+            </MinSize>
           </Geometry>
         </UI>
       </DispatchInfo>
