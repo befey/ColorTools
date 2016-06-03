@@ -12,6 +12,9 @@
 #include "PdfSettings.h"
 #include "PdfResults.h"
 
-PdfResults PrintToPdf(const PdfSettings);
-
+namespace PrintToPdf
+{
+    PdfResults MakePdf(const PdfSettings);
+}
+    
 #endif /* defined(__SafeguardTools__PrintToPdf__) */

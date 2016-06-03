@@ -88,7 +88,7 @@ ASErr SafeguardToolsPlugin::StartupPlugin( SPInterfaceMessage *message )
     
     if (NULL == printToPdfUIController)
     {
-        printToPdfUIController = std::make_shared<PrintToPdfUIController>();
+        printToPdfUIController = std::make_shared<PrintToPdf::PrintToPdfUIController>();
         
         error = Plugin::LockPlugin(true);
         if (error) { return error; }
@@ -330,7 +330,7 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
     else if ( message->menuItem == menuItemHandles.GetHandleWithKey(PRINT_TO_PDF_MENU_ITEM) )
     {
         printToPdfUIController->LoadExtension();
-        sAICSXSExtension->LaunchExtension(PrintToPdfUIController::PRINTTOPDF_UI_EXTENSION);
+        sAICSXSExtension->LaunchExtension(PrintToPdf::PrintToPdfUIController::PRINTTOPDF_UI_EXTENSION);
     }
 	
 	if (error)

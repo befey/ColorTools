@@ -10,7 +10,10 @@
 #include "PdfSettings.h"
 #include "PdfResults.h"
 
-PdfResults PrintToPdf(const PdfSettings settings)
+using PrintToPdf::PdfSettings;
+using PrintToPdf::PdfResults;
+
+PdfResults PrintToPdf::MakePdf(const PdfSettings settings)
 {
     //Output the PDF
     PdfResults results = settings.Print();

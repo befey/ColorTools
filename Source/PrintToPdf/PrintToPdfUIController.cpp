@@ -13,6 +13,8 @@
 #include "PrintToPdf.h"
 #include "PdfSettings.h"
 
+using PrintToPdf::PrintToPdfUIController;
+
 void PrintToPdfUIController::MakePdfButtonClickedFunc (const csxs::event::Event* const event, void* const context)
 {
     PrintToPdfUIController *printToPdfUIController = (PrintToPdfUIController *)context;
@@ -23,7 +25,7 @@ void PrintToPdfUIController::MakePdfButtonClickedFunc (const csxs::event::Event*
         // Set up the application context, so that suite calls can work.
         AppContext appContext(gPlugin->GetPluginRef());
         
-        string results = PrintToPdf(PdfSettings::MakePdfSettingsFromXml(event->data)).MakeXmlString();
+        string results = MakePdf(PdfSettings::MakePdfSettingsFromXml(event->data)).MakeXmlString();
         printToPdfUIController->SendResultsXmlToHtml(results);
         
     } while(false);

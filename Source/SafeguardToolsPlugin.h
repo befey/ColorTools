@@ -8,11 +8,11 @@
 #include "SDKDef.h"
 #include "SafeguardToolsID.h"
 #include "BtAiMenuItemHandles.h"
+#include "PrintToPdfUIController.h"
 
 //=================================
 // forward declared dependencies
 class ColorToolsUIController;
-class PrintToPdfUIController;
 class BtSwatchList;
 
 
@@ -114,7 +114,7 @@ protected:
 private:
     shared_ptr<BtSwatchList> mySwatchList;
     shared_ptr<ColorToolsUIController> colorToolsUIController;
-    shared_ptr<PrintToPdfUIController> printToPdfUIController;
+    shared_ptr<PrintToPdf::PrintToPdfUIController> printToPdfUIController;
     
     /**	Notifier handles**/
     AINotifierHandle fRegisterEventNotifierHandle;
