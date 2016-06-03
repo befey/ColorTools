@@ -37,6 +37,8 @@
 		F9138EA21D01EE4D00D23C1F /* PrintToPdfUIController.h in Headers */ = {isa = PBXBuildFile; fileRef = F9138E941D01EE4D00D23C1F /* PrintToPdfUIController.h */; };
 		F9138EA31D01EE4D00D23C1F /* SavePathCreator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9138E951D01EE4D00D23C1F /* SavePathCreator.cpp */; };
 		F9138EA41D01EE4D00D23C1F /* SavePathCreator.h in Headers */ = {isa = PBXBuildFile; fileRef = F9138E961D01EE4D00D23C1F /* SavePathCreator.h */; };
+		F9138EA71D02111800D23C1F /* libboost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9138EA51D02111800D23C1F /* libboost_filesystem.a */; };
+		F9138EA81D02111800D23C1F /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9138EA61D02111800D23C1F /* libboost_system.a */; };
 		F93027D91CA46E7D00D3B41E /* SafeguardTools.r in Rez */ = {isa = PBXBuildFile; fileRef = F93027D81CA46E7D00D3B41E /* SafeguardTools.r */; };
 		F934B1581CC9645A002EAB43 /* ReplaceDataBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F934B1561CC9645A002EAB43 /* ReplaceDataBuilder.cpp */; };
 		F934B1591CC9645A002EAB43 /* ReplaceDataBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F934B1571CC9645A002EAB43 /* ReplaceDataBuilder.h */; };
@@ -117,6 +119,8 @@
 		F9138E941D01EE4D00D23C1F /* PrintToPdfUIController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintToPdfUIController.h; path = Source/PrintToPdf/PrintToPdfUIController.h; sourceTree = "<group>"; };
 		F9138E951D01EE4D00D23C1F /* SavePathCreator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SavePathCreator.cpp; path = Source/PrintToPdf/SavePathCreator.cpp; sourceTree = "<group>"; };
 		F9138E961D01EE4D00D23C1F /* SavePathCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SavePathCreator.h; path = Source/PrintToPdf/SavePathCreator.h; sourceTree = "<group>"; };
+		F9138EA51D02111800D23C1F /* libboost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_filesystem.a; path = ../boost_1_60_0/stage/lib/libboost_filesystem.a; sourceTree = "<group>"; };
+		F9138EA61D02111800D23C1F /* libboost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_system.a; path = ../boost_1_60_0/stage/lib/libboost_system.a; sourceTree = "<group>"; };
 		F93027D81CA46E7D00D3B41E /* SafeguardTools.r */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; name = SafeguardTools.r; path = Resources/Mac/SafeguardTools.r; sourceTree = "<group>"; };
 		F934B1561CC9645A002EAB43 /* ReplaceDataBuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ReplaceDataBuilder.cpp; path = Source/ReplaceDataBuilder.cpp; sourceTree = "<group>"; };
 		F934B1571CC9645A002EAB43 /* ReplaceDataBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReplaceDataBuilder.h; path = Source/ReplaceDataBuilder.h; sourceTree = "<group>"; };
@@ -170,6 +174,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9138EA81D02111800D23C1F /* libboost_system.a in Frameworks */,
+				F9138EA71D02111800D23C1F /* libboost_filesystem.a in Frameworks */,
 				C4A3F955134C5AA500128D2D /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -243,6 +249,8 @@
 		C4A3F94D134C5A7F00128D2D /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				F9138EA51D02111800D23C1F /* libboost_filesystem.a */,
+				F9138EA61D02111800D23C1F /* libboost_system.a */,
 				C4A3F954134C5AA500128D2D /* Cocoa.framework */,
 			);
 			name = Libraries;
