@@ -45,6 +45,7 @@ public:
     
     
     shared_ptr<BtSwatchList> GetBtSwatchList() const { return mySwatchList; }
+    AIPluginGroupHandle GetCreateSlugInfoPluginGroupHandle() const { return createSlugInfoPluginGroupHandle; }
     
   
     /**	Restores state of SafeguardToolsPlugin during reload.
@@ -68,6 +69,9 @@ public:
     
     static constexpr auto CREATE_MICR_BARCODE_MENU_ITEM =  "Create MICR Barcode";
     static constexpr auto PRINT_TO_PDF_MENU_ITEM =         "Print to PDF...";
+    
+    static constexpr auto CREATE_SLUG_INFO_PLUGIN_GROUP =  "bt.SafeguardTools.SlugInfo";
+    static constexpr auto CREATE_SLUG_INFO_MENU_ITEM =     "Create Slug Info";
 
 protected:
 	/** Calls Plugin::Message and handles any errors returned.
@@ -127,6 +131,8 @@ private:
 	/**	Menu item handles**/
     BtAiMenuItemHandles menuItemHandles;
     
+    /** Plugin Group handle **/
+    AIPluginGroupHandle createSlugInfoPluginGroupHandle;
      
 	/**	Adds the menu items for this plugin to the application UI.
      @param message IN pointer to plugin and call information.

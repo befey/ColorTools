@@ -21,6 +21,7 @@
 #include "AIGroup.h"
 #include "AIArtSet.h"
 #include "AIArtStyle.h"
+#include "AIPluginGroup.h"
 
 #include "AIPath.h"
 #include "AIPathStyle.h"
@@ -51,6 +52,7 @@ extern "C" 	AIMenuSuite *sAIMenu;
 
 extern "C"  AIArtSuite *sAIArt;
 extern "C"  AIGroupSuite *sAIGroup;
+extern "C"  AIPluginGroupSuite *sAIPluginGroup;
 
 extern "C"	AIUndoSuite *sAIUndo;
 extern "C"  AISwatchLibrariesSuite *sAISwatchLibrary;

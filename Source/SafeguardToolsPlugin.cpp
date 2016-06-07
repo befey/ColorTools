@@ -15,6 +15,7 @@
 #include "FixFreehandType.h"
 #include "DictFuncs.h"
 #include "PrintToPdf.h"
+#include "SlugInfo.h"
 
 SafeguardToolsPlugin *gPlugin = NULL;
 
@@ -43,6 +44,18 @@ SafeguardToolsPlugin::~SafeguardToolsPlugin()
 ASErr SafeguardToolsPlugin::Message(char* caller, char* selector, void *message)
 {
 	ASErr error = kNoErr;
+    
+    if (strcmp(caller, kCallerAIPluginGroup) == 0)
+    {
+        if (strcmp( selector, kSelectorAINotifyEdits ) == 0)
+        {
+            error = PluginGroupNotify((AIPluginGroupMessage *)message);
+        }
+        else if (strcmp( selector, kSelectorAIUpdateArt ) == 0)
+        {
+            error = PluginGroupUpdate((AIPluginGroupMessage *)message);
+        }
+    }
     
 	try {
 		error = Plugin::Message(caller, selector, message);
@@ -121,6 +134,17 @@ ASErr SafeguardToolsPlugin::StartupPlugin( SPInterfaceMessage *message )
     error = sAINotifier->AddNotifier( fPluginRef, kSafeguardToolsPluginName,
                                      kAIArtSelectionChangedNotifier, &fArtSelectionChangeNotifierHandle);
     if (error) { return error; }
+    
+    //Register SlugInfo plugin group
+    AIAddPluginGroupData pluginGroupData;
+    pluginGroupData.major = 1;
+    pluginGroupData.minor = 0;
+    pluginGroupData.desc = "Create Slug Info Plugin Group";
+    sAIPluginGroup->AddAIPluginGroup (message->d.self,
+                                      CREATE_SLUG_INFO_PLUGIN_GROUP,
+                                      &pluginGroupData,
+                                      kPluginGroupWantsAutoTransformOption,
+                                      &createSlugInfoPluginGroupHandle);
     
     return error;
 }
@@ -251,6 +275,15 @@ ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
     
     BtAiMenuItem::AddMenu(*PrintToPdfMenuItem, &menuItemHandles);
     
+    
+    //CREATE SLUG INFO
+    menuItem.groupName = kDocumentUtilsMenuGroup;
+    menuItem.itemText = ai::UnicodeString(CREATE_SLUG_INFO_MENU_ITEM);
+    BtAiMenuItem* CreateSlugInfoMenuItem = new BtAiMenuItem(menuItem, kMenuItemNoOptions);
+    CreateSlugInfoMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, 0, 0, kIfOpenDocument, 0);
+    
+    BtAiMenuItem::AddMenu(*CreateSlugInfoMenuItem, &menuItemHandles);
+    
     return kNoErr;
 }
 
@@ -332,6 +365,11 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
         printToPdfUIController->LoadExtension();
         sAICSXSExtension->LaunchExtension(PrintToPdf::PrintToPdfUIController::PRINTTOPDF_UI_EXTENSION);
     }
+    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_SLUG_INFO_MENU_ITEM) )
+    {
+        SlugInfo::UpdateSlugInfo();
+    }
+
 	
 	if (error)
 		goto error;

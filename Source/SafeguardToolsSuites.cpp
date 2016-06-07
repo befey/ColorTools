@@ -10,6 +10,7 @@ extern "C"
     
     AIArtSuite*             sAIArt = NULL;
     AIGroupSuite*           sAIGroup = NULL;
+    AIPluginGroupSuite*     sAIPluginGroup = NULL;
     
     AIUndoSuite*            sAIUndo = NULL;
     AISwatchLibrariesSuite* sAISwatchLibrary = NULL;
@@ -66,6 +67,7 @@ ImportSuite gImportSuites[] =
     
     kAIArtSuite, kAIArtSuiteVersion, &sAIArt,
     kAIGroupSuite, kAIGroupSuiteVersion, &sAIGroup,
+    kAIPluginGroupSuite, kAIPluginGroupSuiteVersion, &sAIPluginGroup,
     
     kAIUndoSuite, kAIUndoSuiteVersion, &sAIUndo,
 	kAISwatchLibrariesSuite, kAISwatchLibrariesSuiteVersion, &sAISwatchLibrary,
