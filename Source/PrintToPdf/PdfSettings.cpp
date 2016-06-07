@@ -9,13 +9,17 @@
 #include "PdfSettings.h"
 #include "PdfResults.h"
 #include "document.h"
+#include <boost/system/system_error.hpp>
+#include <boost/filesystem.hpp>
 
 using PrintToPdf::PdfSettings;
 using PrintToPdf::PdfPreset;
 using PrintToPdf::PdfResults;
+namespace fs = boost::filesystem;
 
-PdfSettings::PdfSettings(ai::FilePath path, PdfPreset p, unique_ptr<PasswordRetriever> pwRet, unique_ptr<SavePathCreator> spCre, string r, bool s)
-: preset(p), pwRetriever(move(pwRet)), spCreator(move(spCre)), range(r), separateFiles(s), plateNumber(new PlateNumber(path.GetFileNameNoExt().getInStdString(kAIPlatformCharacterEncoding)))
+
+PdfSettings::PdfSettings(ai::FilePath path, PdfPreset p, unique_ptr<PasswordRetriever> pwRet, unique_ptr<PathBuilder> pathBldr, string r, bool s)
+: preset(p), pwRetriever(move(pwRet)), pathBuilder(move(pathBldr)), range(r), separateFiles(s), plateNumber(new PlateNumber(path.GetFileNameNoExt().getInStdString(kAIPlatformCharacterEncoding)))
 {
   ////****** Setup common parameters for all PDFs
     // Format parameter.
@@ -64,7 +68,7 @@ PdfSettings::PdfSettings(ai::FilePath path, PdfPreset p, unique_ptr<PasswordRetr
     }
     
     // Generate output path
-    outputPath = spCreator->GetAiFilePath(*plateNumber);
+    outputPath = pathBuilder->GetAiFilePath(*plateNumber);
 }
 
 PdfSettings PdfSettings::MakePdfSettingsFromXml(const char* xmlData)
@@ -91,7 +95,7 @@ PdfSettings PdfSettings::MakePdfSettingsFromXml(const char* xmlData)
         pwr.reset(new MicrPasswordRetriever());
     }
     
-    unique_ptr<SavePathCreator> spc = make_unique<TestingSavePathCreator>();
+    unique_ptr<PathBuilder> spc = make_unique<TestingPathBuilder>();
     
     v = d[PrintToPdfUIController::ALLPAGES_CHECK];
     bool allPages = (v.GetBool());
@@ -121,6 +125,10 @@ PdfResults PdfSettings::Print() const
     ASErr result;
     ai::FilePath pathToPdfFile = outputPath;
     PdfResults transactions;
+    
+    fs::path p = outputPath.GetFullPath().as_Platform();
+    boost::system::error_code e;
+    fs::create_directories(p, e);
 
     if (!separateFiles)
     {

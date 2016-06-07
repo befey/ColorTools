@@ -20,7 +20,7 @@
 #include "PrintToPdfUIController.h"
 #include "PdfResults.h"
 #include "PasswordRetriever.h"
-#include "SavePathCreator.h"
+#include "PathBuilder.h"
 #include "PrintToPdfConstants.h"
 
 //=================================
@@ -36,7 +36,7 @@ namespace PrintToPdf
     class PdfSettings
     {
     public:
-        PdfSettings(ai::FilePath sourceFile, PrintToPdf::PdfPreset p, unique_ptr<PasswordRetriever> pwRet, unique_ptr<SavePathCreator> spCre, string range = "", bool separateFiles = false);
+        PdfSettings(ai::FilePath sourceFile, PrintToPdf::PdfPreset p, unique_ptr<PasswordRetriever> pwRet, unique_ptr<PathBuilder> pathBldr, string range = "", bool separateFiles = false);
         
         static PdfSettings MakePdfSettingsFromXml(const char* xmlData);
         
@@ -50,7 +50,7 @@ namespace PrintToPdf
         bool separateFiles;
         PrintToPdf::PdfPreset preset;
         unique_ptr<PasswordRetriever> pwRetriever;
-        unique_ptr<SavePathCreator> spCreator;
+        unique_ptr<PathBuilder> pathBuilder;
         
         VPB vpb;
         unique_ptr<PlateNumber> plateNumber;
