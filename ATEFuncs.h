@@ -13,9 +13,9 @@
 #include "AIATEPaint.h"
 
 
-extern "C"  AITextFrameSuite *sAITextFrame;
-extern "C"  AIArtSuite *sAIArt;
-extern "C"  AIATEPaintSuite *sAIATEPaint;
+extern AITextFrameSuite *sAITextFrame;
+extern AIArtSuite *sAIArt;
+extern AIATEPaintSuite *sAIATEPaint;
 
 //CONSTANT DEFINITIONS
 #define WHITESPACES " \t\f\v\n\r"

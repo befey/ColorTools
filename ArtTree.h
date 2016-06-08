@@ -14,12 +14,12 @@
 
 #include "AIGroup.h"
 
-extern "C" AIArtSetSuite* sAIArtSet;
-extern "C" AIArtSuite* sAIArt;
-extern "C" AILayerSuite* sAILayer;
-extern "C" AIPlacedSuite* sAIPlaced;
-extern "C" AIGroupSuite* sAIGroup;
-extern "C" AIRealMathSuite* sAIRealMath;
+extern AIArtSetSuite* sAIArtSet;
+extern AIArtSuite* sAIArt;
+extern AILayerSuite* sAILayer;
+extern AIPlacedSuite* sAIPlaced;
+extern AIGroupSuite* sAIGroup;
+extern AIRealMathSuite* sAIRealMath;
 
 AIArtHandle GetArtObjectByName(ai::UnicodeString targetName, Corner CORNER, Node* const startNode = NULL, Node* const currNode = NULL);
  //Returns an art object by finding the first occurence of the name in the layer list

@@ -16,8 +16,8 @@
 
 //=================================
 // forward declared dependencies
-extern "C" AIArtboardRangeSuite* sAIArtboardRange;
-extern "C" AIArtboardSuite* sAIArtboard;
+extern AIArtboardRangeSuite* sAIArtboardRange;
+extern AIArtboardSuite* sAIArtboard;
 
 //=================================
 // BtAiMenuItemHandles - manages a standard range notation ie. 1-2,4

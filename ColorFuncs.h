@@ -22,16 +22,16 @@
 
 //=================================
 // forward declared dependencies
-extern "C"  AICustomColorSuite *sAICustomColor;
-extern "C"  AISwatchListSuite *sAISwatchList;
-extern "C"  AIArtSuite *sAIArt;
-extern "C"  AIArtSetSuite *sAIArtSet;
-extern "C"  AIPathStyleSuite *sAIPathStyle;
-extern "C"  AISwatchGroupSuite *sAISwatchGroup;
-extern "C"  AISwatchLibrariesSuite *sAISwatchLibrary;
-extern "C"  AIRealMathSuite *sAIRealMath;
-extern "C"  AITextFrameSuite *sAITextFrame;
-extern "C"  AIATEPaintSuite *sAIATEPaint;
+extern AICustomColorSuite *sAICustomColor;
+extern AISwatchListSuite *sAISwatchList;
+extern AIArtSuite *sAIArt;
+extern AIArtSetSuite *sAIArtSet;
+extern AIPathStyleSuite *sAIPathStyle;
+extern AISwatchGroupSuite *sAISwatchGroup;
+extern AISwatchLibrariesSuite *sAISwatchLibrary;
+extern AIRealMathSuite *sAIRealMath;
+extern AITextFrameSuite *sAITextFrame;
+extern AIATEPaintSuite *sAIATEPaint;
 
 //=================================
 // Constant definitions

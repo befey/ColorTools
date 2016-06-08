@@ -20,7 +20,7 @@
 
 //=================================
 // forward declared dependencies
-extern "C" AIActionManagerSuite* sAIActionManager;
+extern AIActionManagerSuite* sAIActionManager;
 
 //=================================
 // Constant definitions

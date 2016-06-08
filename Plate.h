@@ -19,10 +19,10 @@
 //Forward declarations
 class Node;
 
-extern "C" AIUIDSuite *sAIUID;
-extern "C" AIDocumentViewSuite *sAIDocumentView;
-extern "C" AITransformArtSuite *sAITransformArt;
-extern "C" AIATETextUtilSuite *sAIATETextUtil;
+extern AIUIDSuite *sAIUID;
+extern AIDocumentViewSuite *sAIDocumentView;
+extern AITransformArtSuite *sAITransformArt;
+extern AIATETextUtilSuite *sAIATETextUtil;
 
 //Declare a global pointer to the Find Functions array
 struct FIND_FUNCTIONS;

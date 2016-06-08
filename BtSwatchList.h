@@ -20,9 +20,9 @@
 
 //=================================
 // forward declared dependencies
-extern "C" AICustomColorSuite* sAICustomColor;
-extern "C" AISwatchListSuite* sAISwatchList;
-extern "C" AIPathStyleSuite* sAIPathStyle;
+extern AICustomColorSuite* sAICustomColor;
+extern AISwatchListSuite* sAISwatchList;
+extern AIPathStyleSuite* sAIPathStyle;
 
 
 

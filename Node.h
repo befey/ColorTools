@@ -16,8 +16,8 @@
 #include "Plate.h"
 class Plate;
 
-extern "C" AIArtboardSuite* sAIArtboard;
-extern "C" AIPathSuite* sAIPath;
+extern AIArtboardSuite* sAIArtboard;
+extern AIPathSuite* sAIPath;
 
 
 #define BSVERSION 

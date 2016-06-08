@@ -17,7 +17,7 @@
 
 //=================================
 // forward declared dependencies
-extern "C"  AIMenuSuite *sAIMenu;
+extern AIMenuSuite *sAIMenu;
 
 class SafeguardToolsPlugin;
 extern SafeguardToolsPlugin *gPlugin;

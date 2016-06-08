@@ -17,12 +17,12 @@
 
 //=================================
 // forward declared dependencies
-extern "C"  AIDictionarySuite *sAIDictionary;
-extern "C"  AIDocumentSuite *sAIDocument;
-extern "C"  AIArtSuite *sAIArt;
-extern "C"  AIUIDREFSuite *sAIUIDREF;
-extern "C"  AIUIDUtilsSuite *sAIUIDUtils;
-extern "C"  AIEntrySuite *sAIEntry;
+extern AIDictionarySuite *sAIDictionary;
+extern AIDocumentSuite *sAIDocument;
+extern AIArtSuite *sAIArt;
+extern AIUIDREFSuite *sAIUIDREF;
+extern AIUIDUtilsSuite *sAIUIDUtils;
+extern AIEntrySuite *sAIEntry;
 
 
 AIDictKey GenerateKey(string identifier, int CAIndex = -1);
