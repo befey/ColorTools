@@ -20,9 +20,9 @@
 
 //=================================
 // forward declared dependencies
-extern "C" AIUndoSuite* sAIUndo;
-extern "C" AIDocumentListSuite* sAIDocumentList;
-extern "C" AIFontSuite* sAIFont;
+extern AIUndoSuite* sAIUndo;
+extern AIDocumentListSuite* sAIDocumentList;
+extern AIFontSuite* sAIFont;
 
 //=================================
 // Constant definitions

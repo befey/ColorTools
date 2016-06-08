@@ -9,11 +9,11 @@
 #include "AIDocumentList.h"
 #include "AITransformArt.h"
 
-extern "C" AIUndoSuite *sAIUndo;
-extern "C" AIDocumentListSuite *sAIDocumentList;
-extern "C" AIArtSetSuite *sAIArtSet;
-extern "C" AIRealMathSuite *sAIRealMath;
-extern "C" AITransformArtSuite *sAITransformArt;
+extern AIUndoSuite *sAIUndo;
+extern AIDocumentListSuite *sAIDocumentList;
+extern AIArtSetSuite *sAIArtSet;
+extern AIRealMathSuite *sAIRealMath;
+extern AITransformArtSuite *sAITransformArt;
 
 bool FixFreehandType();
 

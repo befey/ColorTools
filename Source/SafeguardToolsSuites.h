@@ -45,54 +45,54 @@
 #include "AIActionManager.h"
 
 // Suite externs
-extern "C"  SPBlocksSuite *sSPBlocks;
-extern "C"  AIUnicodeStringSuite*	sAIUnicodeString;
+extern SPBlocksSuite *sSPBlocks;
+extern AIUnicodeStringSuite*	sAIUnicodeString;
 
-extern "C" 	AIMenuSuite *sAIMenu;
+extern AIMenuSuite *sAIMenu;
 
-extern "C"  AIArtSuite *sAIArt;
-extern "C"  AIGroupSuite *sAIGroup;
-extern "C"  AIPluginGroupSuite *sAIPluginGroup;
+extern AIArtSuite *sAIArt;
+extern AIGroupSuite *sAIGroup;
+extern AIPluginGroupSuite *sAIPluginGroup;
 
-extern "C"	AIUndoSuite *sAIUndo;
-extern "C"  AISwatchLibrariesSuite *sAISwatchLibrary;
-extern "C"  AISwatchListSuite *sAISwatchList;
-extern "C"  AISwatchGroupSuite *sAISwatchGroup;
-extern "C"  AICustomColorSuite *sAICustomColor;
-extern "C"	AIColorConversionSuite *sAIColorConversion;
+extern AIUndoSuite *sAIUndo;
+extern AISwatchLibrariesSuite *sAISwatchLibrary;
+extern AISwatchListSuite *sAISwatchList;
+extern AISwatchGroupSuite *sAISwatchGroup;
+extern AICustomColorSuite *sAICustomColor;
+extern AIColorConversionSuite *sAIColorConversion;
 
-extern "C"	AIDocumentSuite *sAIDocument;
-extern "C"  AIDocumentListSuite *sAIDocumentList;
-extern "C"  AIDocumentViewSuite* sAIDocumentView;
-extern "C"  AIArtboardSuite* sAIArtboard;
-extern "C"  AIArtboardRangeSuite* sAIArtboardRange;
+extern AIDocumentSuite *sAIDocument;
+extern AIDocumentListSuite *sAIDocumentList;
+extern AIDocumentViewSuite* sAIDocumentView;
+extern AIArtboardSuite* sAIArtboard;
+extern AIArtboardRangeSuite* sAIArtboardRange;
 
-extern "C"  AIArtSetSuite *sAIArtSet;
-extern "C"  AIArtStyleSuite *sAIArtStyle;
+extern AIArtSetSuite *sAIArtSet;
+extern AIArtStyleSuite *sAIArtStyle;
 
-extern "C"  AIPathSuite *sAIAPath;
-extern "C"  AIPathStyleSuite *sAIPathStyle;
+extern AIPathSuite *sAIAPath;
+extern AIPathStyleSuite *sAIPathStyle;
 
-extern "C"  AITransformArtSuite *sAITransformArt;
-extern "C"  AIRealMathSuite *sAIRealMath;
-extern "C"  AIMatchingArtSuite *sAIMatchingArt;
-extern "C"  AIMdMemorySuite *sAIMdMemory;
-extern "C"  AITextFrameSuite *sAITextFrame;
-extern "C"  AIFontSuite *sAIFont;
-extern "C"  AIATEPaintSuite *sAIATEPaint;
-extern "C"  AIATETextUtilSuite *sAIATETextUtil;
-extern "C"	AIPatternSuite *sAIPattern;
-extern "C"  AICSXSExtensionSuite *sAICSXSExtension;
+extern AITransformArtSuite *sAITransformArt;
+extern AIRealMathSuite *sAIRealMath;
+extern AIMatchingArtSuite *sAIMatchingArt;
+extern AIMdMemorySuite *sAIMdMemory;
+extern AITextFrameSuite *sAITextFrame;
+extern AIFontSuite *sAIFont;
+extern AIATEPaintSuite *sAIATEPaint;
+extern AIATETextUtilSuite *sAIATETextUtil;
+extern AIPatternSuite *sAIPattern;
+extern AICSXSExtensionSuite *sAICSXSExtension;
 
-extern "C"  AIUIDSuite *sAIUID;
-extern "C"  AIUIDREFSuite *sAIUIDREF;
-extern "C"  AIUIDUtilsSuite *sAIUIDUtils;
-extern "C"  AIUIDPoolSuite *sAIUIDPool;
+extern AIUIDSuite *sAIUID;
+extern AIUIDREFSuite *sAIUIDREF;
+extern AIUIDUtilsSuite *sAIUIDUtils;
+extern AIUIDPoolSuite *sAIUIDPool;
 
-extern "C"  AIDictionarySuite *sAIDictionary;
-extern "C"  AIEntrySuite *sAIEntry;
+extern AIDictionarySuite *sAIDictionary;
+extern AIEntrySuite *sAIEntry;
 
-extern "C"  AIActionManagerSuite *sAIActionManager;
+extern AIActionManagerSuite *sAIActionManager;
 
 
 #endif

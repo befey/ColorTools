@@ -2,8 +2,6 @@
 #include "SafeguardToolsSuites.h"
 
 // Suite externs
-extern "C"
-{
 	SPBlocksSuite*			sSPBlocks = NULL;
 	AIUnicodeStringSuite*	sAIUnicodeString = NULL;
     AIMenuSuite*			sAIMenu = NULL;
@@ -55,7 +53,6 @@ extern "C"
 
     
 	EXTERN_TEXT_SUITES
-}
 
 // Import suites
 ImportSuite gImportSuites[] = 

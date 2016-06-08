@@ -25,9 +25,9 @@
 
 //=================================
 // forward declared dependencies
-extern "C" AIActionManagerSuite* sAIActionManager;
-extern "C" AIDocumentSuite* sAIDocument;
-extern "C" AIArtboardSuite* sAIArtboard;
+extern AIActionManagerSuite* sAIActionManager;
+extern AIDocumentSuite* sAIDocument;
+extern AIArtboardSuite* sAIArtboard;
 
 namespace PrintToPdf
 {
