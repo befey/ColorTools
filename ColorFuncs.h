@@ -69,5 +69,6 @@ void AdjustOverprint(AIArtHandle currArtObj, AIColor fromColor, AIBoolean includ
 void ChangeColor(AIColor *targetColor, AIColor colorToCopy);
 void ConvertObjectsToGlobalCMYK(AIColor *color, void *userData, AIErr *result, AIBoolean *altered);
 
+AIColor GetRegistrationColor();
 	
 #endif //COLORFUNCS_H

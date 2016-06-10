@@ -594,3 +594,11 @@ void ConvertObjectsToGlobalCMYK(AIColor *color, void *userData, AIErr *result, A
         }
     }
 }
+
+AIColor GetRegistrationColor()
+{
+    AICustomColorHandle registrationCch;
+    sAICustomColor->GetCurrentRegistrationColor(&registrationCch);
+    AIColor registration = { .kind = kCustomColor, .c.c = { .color = registrationCch, .tint = 0} };
+    return registration;
+}
