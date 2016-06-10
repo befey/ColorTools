@@ -9,53 +9,6 @@
 
 #include "ArtTree.h"
 #include "error.h"
-#include "Node.h"
-
-AIArtHandle GetArtObjectByName(ai::UnicodeString targetName, Corner CORNER, Node* const startNode, Node* const currNode) {
-	size_t count = 0;
-	ai::UnicodeString currArtName;
-	ASBoolean isDefault = TRUE;
-	AIArtHandle currArtObj = NULL;
-	
-	AIArtSet allArt; sAIArtSet->NewArtSet(&allArt);
-	
-	AIArtSpec allSpecs[] = { { kPathArt , 0 , 0 },
-							  { kCompoundPathArt , 0 , 0 },
-							  { kPlacedArt , 0 , 0 },
-							  { kRasterArt , 0 , 0 },
-							  { kPluginArt , 0 , 0 },
-							  { kMeshArt , 0 , 0 },
-							  { kTextFrameArt , 0 , 0 },
-							  { kSymbolArt , 0 , 0 },
-							  { kGroupArt , 0 , 0 },
-							};
-
-	sAIArtSet->MatchingArtSet( allSpecs , 9, allArt );
-	
-	sAIArtSet->CountArtSet(allArt, &count);
-	
-	for(int i=0; i < count ; i++) {
-		sAIArtSet->IndexArtSet(allArt, i, &currArtObj);
-		if(currArtObj) {
-			AIErr error = sAIArt->GetArtName(currArtObj, currArtName, &isDefault);
-			if ( error == kNoErr ) {
-				if (!isDefault) {
-					if (currArtName == targetName) {
-						//If the closest node is the one passed in
-						if ( FindClosestNode(currArtObj, CORNER) == currNode) {
-							sAIArtSet->DisposeArtSet(&allArt); allArt = NULL;
-							return currArtObj;
-						}
-					}
-				}
-			}
-		}
-	}
-	
-	sAIArtSet->DisposeArtSet(&allArt); allArt = NULL;
-	return NULL;
-}
-
 
 long CreateArtSetFromLayer(ai::UnicodeString layerName,  AIArtSet const targetSet) {
 	AILayerHandle hLayer = NULL;
@@ -143,6 +96,47 @@ void MoveArtToTopOfLayer(AIArtHandle currArtHandle) {
 	return;
 }
 
+void PutArtAtTopOfLayer(AIArtHandle art, string layerName)
+{
+    AILayerHandle layer = NULL;
+    sAILayer->GetLayerByTitle(&layer, ai::UnicodeString(layerName));
+    if (layer)
+    {
+        AIArtHandle layerGroup; sAIArt->GetFirstArtOfLayer(layer, &layerGroup);
+        
+        int eflag = 0; int vflag = 0;
+        ASBoolean editable = FALSE;
+        ASBoolean visible = FALSE;
+        
+        int attr = 0;
+        
+        //Check if the layer is editable
+        sAILayer->GetLayerEditable(layer, &editable);
+        sAILayer->GetLayerVisible(layer, &visible);
+        
+        //Set the layer editable and visible, set flags so we can set it back the way it was
+        if (!editable) { sAILayer->SetLayerEditable(layer, TRUE); eflag = 1; }
+        if (!visible) { sAILayer->SetLayerVisible(layer, TRUE); vflag = 1; }
+        
+        //Check if the art itself is editable
+        sAIArt->GetArtUserAttr(art, kArtLocked | kArtHidden, &attr);
+        if ((attr & kArtLocked) || (attr & kArtHidden)) {
+            sAIArt->SetArtUserAttr(art, kArtLocked | kArtHidden, 0);
+        }
+        
+        //Move it to the top of the layer
+        sAIArt->ReorderArt(art, kPlaceInsideOnTop, layerGroup);
+
+        //Set the layer and art attributes back the way they were
+        if(eflag) { sAILayer->SetLayerEditable(layer, FALSE); }
+        if(vflag) { sAILayer->SetLayerVisible(layer, FALSE); }
+        sAIArt->SetArtUserAttr(art, kArtLocked | kArtHidden, attr);
+    }
+    else
+    {
+        MoveArtToTopOfLayer(art);
+    }
+}
 
 void PutArtInGroup(AIArtHandle currArtHandle, AIArtHandle theGroup) {
 	AILayerHandle layer = NULL; sAIArt->GetLayerOfArt(currArtHandle, &layer);
@@ -473,3 +467,51 @@ void GetBoundsOfClipGroup(AIArtHandle root, AIArtHandle currArtHandle, AIRealRec
 		}
 	}
 }
+
+
+/*AIArtHandle GetArtObjectByName(ai::UnicodeString targetName, Corner CORNER, Node* const startNode, Node* const currNode) {
+	size_t count = 0;
+	ai::UnicodeString currArtName;
+	ASBoolean isDefault = TRUE;
+	AIArtHandle currArtObj = NULL;
+	
+	AIArtSet allArt; sAIArtSet->NewArtSet(&allArt);
+	
+	AIArtSpec allSpecs[] = { { kPathArt , 0 , 0 },
+ { kCompoundPathArt , 0 , 0 },
+ { kPlacedArt , 0 , 0 },
+ { kRasterArt , 0 , 0 },
+ { kPluginArt , 0 , 0 },
+ { kMeshArt , 0 , 0 },
+ { kTextFrameArt , 0 , 0 },
+ { kSymbolArt , 0 , 0 },
+ { kGroupArt , 0 , 0 },
+ };
+ 
+	sAIArtSet->MatchingArtSet( allSpecs , 9, allArt );
+	
+	sAIArtSet->CountArtSet(allArt, &count);
+	
+	for(int i=0; i < count ; i++) {
+ sAIArtSet->IndexArtSet(allArt, i, &currArtObj);
+ if(currArtObj) {
+ AIErr error = sAIArt->GetArtName(currArtObj, currArtName, &isDefault);
+ if ( error == kNoErr ) {
+ if (!isDefault) {
+ if (currArtName == targetName) {
+ //If the closest node is the one passed in
+ if ( FindClosestNode(currArtObj, CORNER) == currNode) {
+ sAIArtSet->DisposeArtSet(&allArt); allArt = NULL;
+ return currArtObj;
+ }
+ }
+ }
+ }
+ }
+	}
+	
+	sAIArtSet->DisposeArtSet(&allArt); allArt = NULL;
+	return NULL;
+ }*/
+
+

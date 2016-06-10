@@ -9,25 +9,28 @@
 #ifndef ARTTREE_H
 #define ARTTREE_H
 
-#import "Node.h"
-#import "CException.h"
-
+#include "AILayer.h"
 #include "AIGroup.h"
+#include "AIPath.h"
 
 extern AIArtSetSuite* sAIArtSet;
 extern AIArtSuite* sAIArt;
 extern AILayerSuite* sAILayer;
 extern AIPlacedSuite* sAIPlaced;
 extern AIGroupSuite* sAIGroup;
+extern AIPathSuite* sAIPath;
 extern AIRealMathSuite* sAIRealMath;
 
-AIArtHandle GetArtObjectByName(ai::UnicodeString targetName, Corner CORNER, Node* const startNode = NULL, Node* const currNode = NULL);
+//AIArtHandle GetArtObjectByName(ai::UnicodeString targetName, Corner CORNER, Node* const startNode = NULL, Node* const currNode = NULL);
  //Returns an art object by finding the first occurence of the name in the layer list
  //If the last two arguments are supplied, returns the object with the name that is closest to the node
  
 long CreateArtSetFromLayer(ai::UnicodeString layerName, AIArtSet const targetSet); //Adds to the art set all the objects on a layer, returns the number of objects in the set
 
 void MoveArtToTopOfLayer(AIArtHandle currArtHandle); //Checks whether the art is at the top level of its layer, moves it there if not
+
+//Moves the art to the top of the passed layer, if the layer can't be found, moves to the top of current layer
+void PutArtAtTopOfLayer(AIArtHandle art, string layerName);
 
 void PutArtInGroup(AIArtHandle theArt, AIArtHandle theGroup); //Moves the art to the group, preserving editability flags
 
