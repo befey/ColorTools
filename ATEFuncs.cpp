@@ -66,11 +66,11 @@ ASReal GetFontSizeFromAITextFrame(AIArtHandle textFrame) {
 	
 }
 
-void AddTextToRangeWithFeatures(const string text, const ATE::ICharFeatures charFeatures, const AIArtHandle prep, ATE::ITextRange* targetRange, int BeforeAfter) {
+void AddTextToRangeWithFeatures(const string text, const ATE::ICharFeatures charFeatures, ATE::ITextRange* targetRange, int BeforeAfter) {
 
 	//We have to create a new point text so we can get a new blank range
 	AIArtHandle tempTextHandle = NULL; AIRealPoint anchor ={0,0};
-	sAITextFrame->NewPointText(kPlaceAbove, prep, kHorizontalTextOrientation, anchor, &tempTextHandle);
+	sAITextFrame->NewPointText(kPlaceAboveAll, NULL, kHorizontalTextOrientation, anchor, &tempTextHandle);
 	ATE::TextRangeRef newTextRangeRef;
 	sAITextFrame->GetATETextRange(tempTextHandle, &newTextRangeRef);
 	ATE::ITextRange newTextRange(newTextRangeRef);

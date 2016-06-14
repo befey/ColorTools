@@ -49,9 +49,10 @@ public:
     
     static constexpr auto LENGTH_OF_INNER_TICK_PATH = 18;
     
+    PlateNumber(){};
     PlateNumber(string);
     inline Boolean IsValid() {return isValidPlateNumber;};
-    inline string GetPlateNumber() {return plateNumber;};
+    string GetPlateNumber();
     inline string GetPlantIndicator() {return plantIndicator;};
     inline string GetProductIndicator() {return productIndicator;};
     

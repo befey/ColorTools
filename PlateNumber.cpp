@@ -16,8 +16,21 @@ PlateNumber::PlateNumber(string pNum)
     
     isValidPlateNumber = TokenizePlateNumber();
     
-    if (IsValid() && plantIndicator.length() == 0) {
+    if (IsValid() && plantIndicator.length() == 0)
+    {
         plantIndicator = productIndicator[0];
+    }
+}
+
+string PlateNumber::GetPlateNumber()
+{
+    if (IsValid())
+    {
+        return plateNumber;
+    }
+    else
+    {
+        return "";
     }
 }
 

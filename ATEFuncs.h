@@ -31,7 +31,7 @@ ASReal GetFontSizeFromAITextFrame(AIArtHandle textFrame);
 //Returns the first font size encountered in the text frame
 
 //Adds the text to the range with the features, the last argument defaults to After, set to 0 to insert the text before
-void AddTextToRangeWithFeatures(const string text, const ATE::ICharFeatures charFeatures, const AIArtHandle prep, ATE::ITextRange* targetRange, int BeforeAfter=1);
+void AddTextToRangeWithFeatures(const string text, const ATE::ICharFeatures charFeatures, ATE::ITextRange* targetRange, int BeforeAfter=1);
 
 //Define the ProcessTextFrameCallback prototype
 typedef bool (*ProcessTextFrameCallback)(ATE::ITextRange currRange);

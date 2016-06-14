@@ -12,14 +12,15 @@
 
 //=================================
 // included dependencies
-#include "Node.h"
 #include "string.h"
+#include "AIUID.h"
 
 //=================================
 // forward declared dependencies
 extern AIDictionarySuite *sAIDictionary;
 extern AIDocumentSuite *sAIDocument;
 extern AIArtSuite *sAIArt;
+extern AIUIDSuite *sAIUID;
 extern AIUIDREFSuite *sAIUIDREF;
 extern AIUIDUtilsSuite *sAIUIDUtils;
 extern AIEntrySuite *sAIEntry;

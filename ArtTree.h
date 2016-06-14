@@ -27,6 +27,8 @@ extern AIRealMathSuite* sAIRealMath;
  
 long CreateArtSetFromLayer(ai::UnicodeString layerName, AIArtSet const targetSet); //Adds to the art set all the objects on a layer, returns the number of objects in the set
 
+long CreateArtSetOfPrintingObjectsWithinRect(AIArtSet const targetSet, AIRealRect rect);
+
 void MoveArtToTopOfLayer(AIArtHandle currArtHandle); //Checks whether the art is at the top level of its layer, moves it there if not
 
 //Moves the art to the top of the passed layer, if the layer can't be found, moves to the top of current layer

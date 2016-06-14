@@ -58,6 +58,32 @@ long CreateArtSetFromLayer(ai::UnicodeString layerName,  AIArtSet const targetSe
 	return count;
 }
 
+long CreateArtSetOfPrintingObjectsWithinRect(AIArtSet const targetSet, AIRealRect rect)
+{
+    int count;
+    sAILayer->CountLayers(&count);
+    AILayerHandle layer;
+    AIArtSet artSet;
+    sAIArtSet->NewArtSet(&artSet);
+    
+    for (int i = 0; i < count; i++) {
+        sAILayer->GetNthLayer(i, &layer);
+        AIBoolean printed;
+        sAILayer->GetLayerPrinted(layer, &printed);
+        if (printed)
+        {
+            AIArtSet layerArtSet;
+            size_t c;
+            sAIArtSet->NewArtSet(&layerArtSet);
+            sAIArtSet->LayerArtSet(layer, layerArtSet);
+            sAIArtSet->CountArtSet(layerArtSet, &c);
+            
+        }
+    }
+    
+    sAIArtSet->DisposeArtSet(&artSet);
+}
+
 void MoveArtToTopOfLayer(AIArtHandle currArtHandle) {
 	AILayerHandle layer = NULL; sAIArt->GetLayerOfArt(currArtHandle, &layer);
 	if (!layer) {
