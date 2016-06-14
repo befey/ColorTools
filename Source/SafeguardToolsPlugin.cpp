@@ -15,7 +15,7 @@
 #include "FixFreehandType.h"
 #include "DictFuncs.h"
 #include "PrintToPdf.h"
-#include "SlugInfo.h"
+#include "PlateBleedInfo.h"
 
 SafeguardToolsPlugin *gPlugin = NULL;
 
@@ -49,32 +49,42 @@ ASErr SafeguardToolsPlugin::Message(char* caller, char* selector, void *message)
     {
         if (strcmp( selector, kSelectorAINotifyEdits ) == 0)
         {
-            error = PluginGroupNotify((AIPluginGroupMessage *)message);
+            error = PlateBleedInfo::PluginGroupNotify((AIPluginGroupMessage *)message);
         }
         else if (strcmp( selector, kSelectorAIUpdateArt ) == 0)
         {
-            error = PluginGroupUpdate((AIPluginGroupMessage *)message);
+            error = PlateBleedInfo::PluginGroupUpdate((AIPluginGroupMessage *)message);
+        }
+    }
+    else
+    {
+        try
+        {
+            error = Plugin::Message(caller, selector, message);
+        }
+        catch (ai::Error& ex)
+        {
+            error = ex;
+        }
+        catch (...)
+        {
+            error = kCantHappenErr;
         }
     }
     
-	try {
-		error = Plugin::Message(caller, selector, message);
-	}
-	catch (ai::Error& ex) {
-		error = ex;
-	}
-	catch (...) {
-		error = kCantHappenErr;
-	}
-	if (error) {
-		if (error == kUnhandledMsgErr) {
-			// Defined by Plugin.hpp and used in Plugin::Message - ignore.
-			error = kNoErr;
-		}
-		else {
-			Plugin::ReportError(error, caller, selector, message);
-		}
-	}
+    if (error)
+    {
+        if (error == kUnhandledMsgErr)
+        {
+            // Defined by Plugin.hpp and used in Plugin::Message - ignore.
+            error = kNoErr;
+        }
+        else
+        {
+            Plugin::ReportError(error, caller, selector, message);
+        }
+    }
+	
 	return error;
 }
 
@@ -134,17 +144,20 @@ ASErr SafeguardToolsPlugin::StartupPlugin( SPInterfaceMessage *message )
     error = sAINotifier->AddNotifier( fPluginRef, kSafeguardToolsPluginName,
                                      kAIArtSelectionChangedNotifier, &fArtSelectionChangeNotifierHandle);
     if (error) { return error; }
+    error = sAINotifier->AddNotifier( fPluginRef, kSafeguardToolsPluginName,
+                                     kAIDocumentCropAreaModifiedNotifier, &fDocumentCropAreaModifiedNotifierHandle);
+    if (error) { return error; }
     
-    //Register SlugInfo plugin group
+    //Register PlateBleedInfo plugin group
     AIAddPluginGroupData pluginGroupData;
     pluginGroupData.major = 1;
     pluginGroupData.minor = 0;
-    pluginGroupData.desc = "Create Slug Info Plugin Group";
+    pluginGroupData.desc = "__SafeguardPlateInfo__";
     sAIPluginGroup->AddAIPluginGroup (message->d.self,
-                                      CREATE_SLUG_INFO_PLUGIN_GROUP,
+                                      CREATE_PLATE_BLEED_INFO_PLUGIN_GROUP,
                                       &pluginGroupData,
-                                      kPluginGroupWantsAutoTransformOption,
-                                      &createSlugInfoPluginGroupHandle);
+                                      kPluginGroupKeepWhenEmptyOption | kPluginGroupDoNotTarget | kPluginGroupDoNotSmartTarget | kPluginGroupAskToShowContents,
+                                      &createPlateBleedInfoPluginGroupHandle);
     
     return error;
 }
@@ -266,7 +279,7 @@ ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
     
     BtAiMenuItem::AddMenu(*CreateMicrBarcodeMenuItem, &menuItemHandles);
     
-    
+/*
     //PRINT TO PDF
     menuItem.groupName = kSaveForMenuGroup;
     menuItem.itemText = ai::UnicodeString(PRINT_TO_PDF_MENU_ITEM);
@@ -278,13 +291,14 @@ ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
     
     //CREATE SLUG INFO
     menuItem.groupName = kDocumentUtilsMenuGroup;
-    menuItem.itemText = ai::UnicodeString(CREATE_SLUG_INFO_MENU_ITEM);
-    BtAiMenuItem* CreateSlugInfoMenuItem = new BtAiMenuItem(menuItem, kMenuItemNoOptions);
-    CreateSlugInfoMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, 0, 0, kIfOpenDocument, 0);
+    menuItem.itemText = ai::UnicodeString(CREATE_PLATE_BLEED_INFO_MENU_ITEM);
+    BtAiMenuItem* CreatePlateBleedInfoMenuItem = new BtAiMenuItem(menuItem, kMenuItemWantsUpdateOption);
+    CreatePlateBleedInfoMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, 0, 0, kIfOpenDocument, 0);
     
-    BtAiMenuItem::AddMenu(*CreateSlugInfoMenuItem, &menuItemHandles);
+    BtAiMenuItem::AddMenu(*CreatePlateBleedInfoMenuItem, &menuItemHandles);
     
     return kNoErr;
+ */
 }
 
 
@@ -360,16 +374,29 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
             error = sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Create MICR Barcode"), ai::UnicodeString("Redo Create MICR Barcode"));
         }
     }
-    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(PRINT_TO_PDF_MENU_ITEM) )
+/*    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(PRINT_TO_PDF_MENU_ITEM) )
     {
         printToPdfUIController->LoadExtension();
         sAICSXSExtension->LaunchExtension(PrintToPdf::PrintToPdfUIController::PRINTTOPDF_UI_EXTENSION);
     }
-    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_SLUG_INFO_MENU_ITEM) )
+    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
     {
-        SlugInfo::UpdateSlugInfo();
+        sAIUndo->SetSilent(true);
+        
+        sgJobFile = make_unique<SafeguardJobFile>();
+     
+        ai::UnicodeString menuText;
+        sAIMenu->GetItemText(message->menuItem, menuText);
+        if (menuText.find(ai::UnicodeString("Remove"),0) != ai::UnicodeString::npos)
+        {
+            PlateBleedInfo::RemovePlateBleedInfo();
+        }
+        else
+        {
+            PlateBleedInfo::AddPlateBleedInfo();
+        }
     }
-
+*/
 	
 	if (error)
 		goto error;
@@ -383,7 +410,8 @@ ASErr SafeguardToolsPlugin::UpdateMenuItem(AIMenuMessage* message)
 {
 	AIErr error = kNoErr;
 	
-	if (message->menuItem == menuItemHandles.GetHandleWithKey(FIND_AND_REPLACE_MENU_ITEM) ) {
+	if (message->menuItem == menuItemHandles.GetHandleWithKey(FIND_AND_REPLACE_MENU_ITEM) )
+    {
         AIBoolean state;
         sAICSXSExtension->IsPrimaryStageVisible(ColorToolsUIController::COLORTOOLS_UI_EXTENSION, state);
 		if (state == TRUE)
@@ -396,12 +424,16 @@ ASErr SafeguardToolsPlugin::UpdateMenuItem(AIMenuMessage* message)
 		}
 	}
     
-    if (message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_MICR_BARCODE_MENU_ITEM) ) {
+    if (message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_MICR_BARCODE_MENU_ITEM) )
+    {
         //Check if we have a micr line object in the document dictionary
         //If we do, nothing needs to be selected, as we already know where the micr line is
-        if ( CheckDictionaryForArtObjectWithIdentifier(ai::UnicodeString(MICR_LINE_LABEL)) ) {
+        if ( CheckDictionaryForArtObjectWithIdentifier(ai::UnicodeString(MICR_LINE_LABEL)) )
+        {
             sAIMenu->EnableItem(message->menuItem);
-        } else {
+        }
+        else
+        {
             //If we couldn't find a micr number in the dictionary, we'll check if some text is selected
             int inArtwork, isSelected, isTrue;
             sAIMenu->GetUpdateFlags(&inArtwork, &isSelected, &isTrue);
@@ -412,6 +444,21 @@ ASErr SafeguardToolsPlugin::UpdateMenuItem(AIMenuMessage* message)
             }
         }
     }
+    
+/*    if (message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
+    {
+        //Check if we have a bleed info in the dictionary
+        //If we do, change to "Remove"
+        if ( CheckDictionaryForArtObjectWithIdentifier(ai::UnicodeString(PlateBleedInfo::PLATE_BLEED_INFO_GROUP_LABEL), 0) )
+        {
+            sAIMenu->SetItemText( message->menuItem, ai::UnicodeString("Remove Safeguard Plate Info") );
+        }
+        else
+        {
+            sAIMenu->SetItemText( message->menuItem, ai::UnicodeString("Add Safeguard Plate Info") );
+        }
+    }
+*/
 
 	if (error)
 		goto error;
@@ -443,5 +490,8 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
     if (message->notifier == fArtSelectionChangeNotifierHandle ) {
         colorToolsUIController->DetermineChangeInStatus();
     }
-    return kNoErr;
+/*    if (message->notifier == fDocumentCropAreaModifiedNotifierHandle ) {
+        PlateBleedInfo::UpdatePlateBleedInfo(message);
+    }
+*/    return kNoErr;
 }

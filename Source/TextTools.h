@@ -17,12 +17,16 @@
 //=================================
 // included dependencies
 #include "AIDocumentList.h"
+#include "AITransformArt.h"
+#include "AIDocumentView.h"
 
 //=================================
 // forward declared dependencies
 extern AIUndoSuite* sAIUndo;
 extern AIDocumentListSuite* sAIDocumentList;
 extern AIFontSuite* sAIFont;
+extern AITransformArtSuite* sAITransformArt;
+extern AIDocumentViewSuite* sAIDocumentView;
 
 //=================================
 // Constant definitions

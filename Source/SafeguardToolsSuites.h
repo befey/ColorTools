@@ -19,6 +19,7 @@
 #include "AIArtboardRange.h"
 
 #include "AIGroup.h"
+#include "AILayer.h"
 #include "AIArtSet.h"
 #include "AIArtStyle.h"
 #include "AIPluginGroup.h"
@@ -52,6 +53,7 @@ extern AIMenuSuite *sAIMenu;
 
 extern AIArtSuite *sAIArt;
 extern AIGroupSuite *sAIGroup;
+extern AILayerSuite *sAILayer;
 extern AIPluginGroupSuite *sAIPluginGroup;
 
 extern AIUndoSuite *sAIUndo;

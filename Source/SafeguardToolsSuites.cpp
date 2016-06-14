@@ -8,6 +8,7 @@
     
     AIArtSuite*             sAIArt = NULL;
     AIGroupSuite*           sAIGroup = NULL;
+    AILayerSuite*           sAILayer = NULL;
     AIPluginGroupSuite*     sAIPluginGroup = NULL;
     
     AIUndoSuite*            sAIUndo = NULL;
@@ -64,6 +65,7 @@ ImportSuite gImportSuites[] =
     
     kAIArtSuite, kAIArtSuiteVersion, &sAIArt,
     kAIGroupSuite, kAIGroupSuiteVersion, &sAIGroup,
+    kAILayerSuite, kAILayerSuiteVersion, &sAILayer,
     kAIPluginGroupSuite, kAIPluginGroupSuiteVersion, &sAIPluginGroup,
     
     kAIUndoSuite, kAIUndoSuiteVersion, &sAIUndo,

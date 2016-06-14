@@ -11,6 +11,7 @@
 #include "document.h"
 #include <boost/system/system_error.hpp>
 #include <boost/filesystem.hpp>
+#include "Plate.h"
 
 using PrintToPdf::PdfSettings;
 using PrintToPdf::PdfPreset;
@@ -132,7 +133,17 @@ PdfResults PdfSettings::Print() const
 
     if (!separateFiles)
     {
-        pathToPdfFile.AddComponent(ai::UnicodeString(plateNumber->GetPlateNumber()));
+        if (plateNumber->IsValid())
+        {
+            pathToPdfFile.AddComponent(ai::UnicodeString(plateNumber->GetPlateNumber()));
+        }
+        else
+        {
+            ai::FilePath openedFilePath;
+            sAIDocument->GetDocumentFileSpecification(openedFilePath);
+            pathToPdfFile.AddComponent(openedFilePath.GetFileNameNoExt());
+        }
+        
         pathToPdfFile.AddExtension("pdf");
         
         // Set Path
@@ -160,7 +171,17 @@ PdfResults PdfSettings::Print() const
         sAIArtboardRange->Begin(range, &iter);
         ai::int32 index = 0;
         while ( kEndOfRangeErr != sAIArtboardRange->Next(iter, &index) ) {
-            pathToPdfFile.AddComponent(ai::UnicodeString(plateNumber->GetPlateNumber()));
+            
+            if (plateNumber->IsValid())
+            {
+                pathToPdfFile.AddComponent(ai::UnicodeString(plateNumber->GetPlateNumber()));
+            }
+            else
+            {
+                ai::FilePath openedFilePath;
+                sAIDocument->GetDocumentFileSpecification(openedFilePath);
+                pathToPdfFile.AddComponent(openedFilePath.GetFileNameNoExt());
+            }
             
             string token = CreateToken(index);
             if (token != "")

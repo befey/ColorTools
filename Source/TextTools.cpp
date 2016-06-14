@@ -744,7 +744,7 @@ bool CreateMICRBarcode() {
         
 		barcodeCharFeatures.SetFontSize(12);
 		barcodeCharFeatures.SetFont(ATE::IFont(barcodeFontRef));
-		AddTextToRangeWithFeatures(barcodeString.as_Platform(), barcodeCharFeatures, barcodeTextFrame, &barcodeTextRange);
+		AddTextToRangeWithFeatures(barcodeString.as_Platform(), barcodeCharFeatures, &barcodeTextRange);
 		barcodeParaFeatures.SetJustification(ATE::kCenterJustify);
 		barcodeTextRange.ReplaceOrAddLocalParaFeatures(barcodeParaFeatures);
 	

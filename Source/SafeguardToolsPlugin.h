@@ -9,6 +9,7 @@
 #include "SafeguardToolsID.h"
 #include "BtAiMenuItemHandles.h"
 #include "PrintToPdfUIController.h"
+#include "SafeguardJobFile.h"
 
 //=================================
 // forward declared dependencies
@@ -45,13 +46,15 @@ public:
     
     
     shared_ptr<BtSwatchList> GetBtSwatchList() const { return mySwatchList; }
-    AIPluginGroupHandle GetCreateSlugInfoPluginGroupHandle() const { return createSlugInfoPluginGroupHandle; }
+    AIPluginGroupHandle GetCreatePlateBleedInfoPluginGroupHandle() const { return createPlateBleedInfoPluginGroupHandle; }
     
+    unique_ptr<SafeguardJobFile> sgJobFile;
   
     /**	Restores state of SafeguardToolsPlugin during reload.
 	*/
 	FIXUP_VTABLE_EX(SafeguardToolsPlugin, Plugin);
     
+        
     //=================================
     // Constant definitions
     static constexpr auto MODIFY_SWATCHES_MENU =           "Modify Swatches";
@@ -70,8 +73,8 @@ public:
     static constexpr auto CREATE_MICR_BARCODE_MENU_ITEM =  "Create MICR Barcode";
     static constexpr auto PRINT_TO_PDF_MENU_ITEM =         "Print to PDF...";
     
-    static constexpr auto CREATE_SLUG_INFO_PLUGIN_GROUP =  "bt.SafeguardTools.SlugInfo";
-    static constexpr auto CREATE_SLUG_INFO_MENU_ITEM =     "Create Slug Info";
+    static constexpr auto CREATE_PLATE_BLEED_INFO_PLUGIN_GROUP =  "bt.SafeguardTools.PlateBleedInfo";
+    static constexpr auto CREATE_PLATE_BLEED_INFO_MENU_ITEM =     "Create Slug Info";
 
 protected:
 	/** Calls Plugin::Message and handles any errors returned.
@@ -115,6 +118,7 @@ protected:
     virtual ASErr UnloadPlugin(SPInterfaceMessage *message);
     
     virtual ASErr Notify(AINotifierMessage* message);
+    
 private:
     shared_ptr<BtSwatchList> mySwatchList;
     shared_ptr<ColorToolsUIController> colorToolsUIController;
@@ -127,12 +131,13 @@ private:
     AINotifierHandle fCustomColorChangeNotifierHandle;
     AINotifierHandle fSwatchLibChangeNotifierHandle;
     AINotifierHandle fArtSelectionChangeNotifierHandle;
+    AINotifierHandle fDocumentCropAreaModifiedNotifierHandle;
     
 	/**	Menu item handles**/
     BtAiMenuItemHandles menuItemHandles;
     
     /** Plugin Group handle **/
-    AIPluginGroupHandle createSlugInfoPluginGroupHandle;
+    AIPluginGroupHandle createPlateBleedInfoPluginGroupHandle;
      
 	/**	Adds the menu items for this plugin to the application UI.
      @param message IN pointer to plugin and call information.

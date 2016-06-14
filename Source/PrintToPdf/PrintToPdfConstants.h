@@ -15,8 +15,6 @@ namespace PrintToPdf
     static constexpr auto MICR_PROOF_PDF_PRESET =           "MICR";
     static constexpr auto REG_PROOF_PDF_PRESET =            "Proof";
     
-    static constexpr auto NO_TOKEN_DESIG =                  "F";
-    
     static constexpr auto PATH_TO_PLANT_MANUFACTURING =     "/Volumes/Plant_Manufacturing";
     static constexpr auto PATH_TO_PDFPROOFS =               "/Volumes/PDFProofs";
     static constexpr auto PATH_TO_MICR_PDF =                "/Volumes/MICR_PDF";
