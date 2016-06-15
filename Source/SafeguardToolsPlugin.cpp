@@ -16,6 +16,7 @@
 #include "DictFuncs.h"
 #include "PrintToPdf.h"
 #include "PlateBleedInfo.h"
+#include "ListFonts.h"
 
 SafeguardToolsPlugin *gPlugin = NULL;
 
@@ -279,6 +280,15 @@ ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
     
     BtAiMenuItem::AddMenu(*CreateMicrBarcodeMenuItem, &menuItemHandles);
     
+    
+    //List Fonts
+    menuItem.groupName = kTypePluginsMenuGroup1;
+    menuItem.itemText = ai::UnicodeString(LIST_FONTS_MENU_ITEM);
+    BtAiMenuItem* ListFontsMenuItem = new BtAiMenuItem(menuItem, kMenuItemIgnoreSort);
+    ListFontsMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, 0, 0, kIfOpenDocument, 0);
+    
+    BtAiMenuItem::AddMenu(*ListFontsMenuItem, &menuItemHandles);
+    
 /*
     //PRINT TO PDF
     menuItem.groupName = kSaveForMenuGroup;
@@ -296,9 +306,9 @@ ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
     CreatePlateBleedInfoMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, 0, 0, kIfOpenDocument, 0);
     
     BtAiMenuItem::AddMenu(*CreatePlateBleedInfoMenuItem, &menuItemHandles);
-    
+ */   
     return kNoErr;
- */
+ 
 }
 
 
@@ -372,6 +382,15 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
         if ( CreateMICRBarcode() ) {
             //Set the undo/redo text
             error = sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Create MICR Barcode"), ai::UnicodeString("Redo Create MICR Barcode"));
+        }
+    }
+    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(LIST_FONTS_MENU_ITEM) )
+    {
+        //Call the main function
+        ListFonts listFonts;
+        if ( listFonts.PutFontList() ) {
+            //Set the undo/redo text
+            error = sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Create Fonts List"), ai::UnicodeString("Redo Create Fonts List"));
         }
     }
 /*    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(PRINT_TO_PDF_MENU_ITEM) )

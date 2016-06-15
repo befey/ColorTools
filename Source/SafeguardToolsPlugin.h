@@ -71,6 +71,7 @@ public:
     static constexpr auto ALIGN_RIGHT_MENU_ITEM =          "Right";
     
     static constexpr auto CREATE_MICR_BARCODE_MENU_ITEM =  "Create MICR Barcode";
+    static constexpr auto LIST_FONTS_MENU_ITEM =           "Generate Font List";
     static constexpr auto PRINT_TO_PDF_MENU_ITEM =         "Print to PDF...";
     
     static constexpr auto CREATE_PLATE_BLEED_INFO_PLUGIN_GROUP =  "bt.SafeguardTools.PlateBleedInfo";
