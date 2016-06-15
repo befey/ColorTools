@@ -11,6 +11,7 @@
 
 #include "string.h"
 #include "AIATEPaint.h"
+#include <functional>
 
 
 extern AITextFrameSuite *sAITextFrame;
@@ -33,11 +34,8 @@ ASReal GetFontSizeFromAITextFrame(AIArtHandle textFrame);
 //Adds the text to the range with the features, the last argument defaults to After, set to 0 to insert the text before
 void AddTextToRangeWithFeatures(const string text, const ATE::ICharFeatures charFeatures, ATE::ITextRange* targetRange, int BeforeAfter=1);
 
-//Define the ProcessTextFrameCallback prototype
-typedef bool (*ProcessTextFrameCallback)(ATE::ITextRange currRange);
-
 //Takes the passed TextFrame art object and passes each text run to the passed callback function
-bool ProcessTextFrameArt(AIArtHandle textFrame, ProcessTextFrameCallback callback);
+bool ProcessTextFrameArt(AIArtHandle textFrame, std::function<bool(ATE::ITextRange)> callback);
 
 //Checks if a Text Range is composed entirely of whitespace characters
 bool IsAllWhitespace(ATE::ITextRange theRange);

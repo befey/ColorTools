@@ -101,8 +101,8 @@ void AddTextToRangeWithFeatures(const string text, const ATE::ICharFeatures char
 	return;
 }
 
-/*
-bool ProcessTextFrameArt(AIArtHandle textFrame, ProcessTextFrameCallback callback) {
+
+bool ProcessTextFrameArt(AIArtHandle textFrame, std::function<bool(ATE::ITextRange)> callback) {
 	
 	short type = 0;
 	sAIArt->GetArtType(textFrame, &type);
@@ -115,31 +115,17 @@ bool ProcessTextFrameArt(AIArtHandle textFrame, ProcessTextFrameCallback callbac
 	sAITextFrame->GetATETextRange(textFrame, &currATETextRangeRef);
 	ATE::ITextRange currTextRange(currATETextRangeRef);
 	
-
-	if (callback == FixTextAttributes) {
-		//We'll store the baseline shift if the first run, so we can modify all the baseline shifts
-		//back to 0
-		bool isAssigned;
-		ATE::ITextRunsIterator it = currTextRange.GetTextRunsIterator();
-		ATE::ICharFeatures currCharFeatures = it.Item().GetUniqueCharFeatures();
-		ASReal firstRunBaselineShift = currCharFeatures.GetBaselineShift(&isAssigned);
-		
-		//Now move the whole text object by the baseline shift, so when we set it to 0,
-		//the text falls in the same place
-		
-		
-		AIRealMatrix matrix;
-		sAIRealMath->AIRealMatrixSetIdentity(&matrix);
-		sAIRealMath->AIRealMatrixSetTranslate(&matrix, 0, firstRunBaselineShift);
-		sAITransformArt->TransformArt(textFrame, &matrix, 1, kTransformObjects);
-		
-		if (! callback(currTextRange, firstRunBaselineShift)) {
-			return false;
-		}
-	}
+    ATE::ITextRunsIterator it = currTextRange.GetTextRunsIterator();
+    
+    while (it.IsNotDone())
+    {
+        callback(it.Item());
+        it.Next();
+    }
+    
 	return true;
 }
-*/
+
 bool IsAllWhitespace(ATE::ITextRange theRange) {
 
 	ASInt32 size = theRange.GetSize();

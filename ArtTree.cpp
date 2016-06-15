@@ -61,10 +61,9 @@ long CreateArtSetFromLayer(ai::UnicodeString layerName,  AIArtSet const targetSe
 long CreateArtSetOfPrintingObjectsWithinRect(AIArtSet const targetSet, AIRealRect rect)
 {
     int count;
+    size_t c;
     sAILayer->CountLayers(&count);
     AILayerHandle layer;
-    AIArtSet artSet;
-    sAIArtSet->NewArtSet(&artSet);
     
     for (int i = 0; i < count; i++) {
         sAILayer->GetNthLayer(i, &layer);
@@ -73,15 +72,29 @@ long CreateArtSetOfPrintingObjectsWithinRect(AIArtSet const targetSet, AIRealRec
         if (printed)
         {
             AIArtSet layerArtSet;
-            size_t c;
             sAIArtSet->NewArtSet(&layerArtSet);
             sAIArtSet->LayerArtSet(layer, layerArtSet);
             sAIArtSet->CountArtSet(layerArtSet, &c);
             
+            for (int j = 0; j < c; j++)
+            {
+                AIArtHandle currArtHandle;
+                sAIArtSet->IndexArtSet(layerArtSet, j, &currArtHandle);
+                AIRealRect artRect;
+                sAIArt->GetArtBounds(currArtHandle, &artRect);
+                
+                if (sAIRealMath->AIRealRectOverlap(&artRect, &rect))
+                {
+                    sAIArtSet->AddArtToArtSet(targetSet, currArtHandle);
+                }
+            }
+           
+            sAIArtSet->DisposeArtSet(&layerArtSet);
         }
     }
     
-    sAIArtSet->DisposeArtSet(&artSet);
+    sAIArtSet->CountArtSet(targetSet, &c);
+    return c;
 }
 
 void MoveArtToTopOfLayer(AIArtHandle currArtHandle) {
