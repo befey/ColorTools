@@ -398,7 +398,7 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
         printToPdfUIController->LoadExtension();
         sAICSXSExtension->LaunchExtension(PrintToPdf::PrintToPdfUIController::PRINTTOPDF_UI_EXTENSION);
     }
-    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
+*/    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
     {
         sAIUndo->SetSilent(true);
         
@@ -415,7 +415,7 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
             PlateBleedInfo::AddPlateBleedInfo();
         }
     }
-*/
+
 	
 	if (error)
 		goto error;
@@ -464,7 +464,7 @@ ASErr SafeguardToolsPlugin::UpdateMenuItem(AIMenuMessage* message)
         }
     }
     
-/*    if (message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
+    if (message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
     {
         //Check if we have a bleed info in the dictionary
         //If we do, change to "Remove"
@@ -477,7 +477,7 @@ ASErr SafeguardToolsPlugin::UpdateMenuItem(AIMenuMessage* message)
             sAIMenu->SetItemText( message->menuItem, ai::UnicodeString("Add Safeguard Plate Info") );
         }
     }
-*/
+
 
 	if (error)
 		goto error;
@@ -509,8 +509,8 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
     if (message->notifier == fArtSelectionChangeNotifierHandle ) {
         colorToolsUIController->DetermineChangeInStatus();
     }
-/*    if (message->notifier == fDocumentCropAreaModifiedNotifierHandle ) {
+    if (message->notifier == fDocumentCropAreaModifiedNotifierHandle ) {
         PlateBleedInfo::UpdatePlateBleedInfo(message);
     }
-*/    return kNoErr;
+    return kNoErr;
 }
