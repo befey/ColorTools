@@ -2,19 +2,10 @@ var csInterface = new CSInterface();
 
 // Create events for the button presses
 var changeEvent = new CSEvent("com.gosafeguard.SafeguardTools.ColorTools.changebutton", "APPLICATION", "ILST", "ColorTools");
-changeEvent.data = "Change Button Pressed";
 
 var removeEvent = new CSEvent("com.gosafeguard.SafeguardTools.ColorTools.removebutton", "APPLICATION", "ILST", "ColorTools");
-removeEvent.data = "Remove Button Pressed";
 
 var updateListEvent = new CSEvent("com.gosafeguard.SafeguardTools.ColorTools.updatelist", "APPLICATION", "ILST", "ColorTools");
-updateListEvent.data = "Update Lists Called";
-
-var updateListBackEvent = new CSEvent("com.gosafeguard.SafeguardTools.ColorTools.updatelistback", "APPLICATION", "ILST", "ColorTools");
-
-var changeCountBackEvent = new CSEvent("com.gosafeguard.SafeguardTools.ColorTools.changecountback", "APPLICATION", "ILST", "ColorTools");
-
-var changeInBackEvent = new CSEvent("com.gosafeguard.SafeguardTools.ColorTools.changeinback", "APPLICATION", "ILST", "ColorTools");
 
 $(function()
 {
@@ -128,40 +119,40 @@ function onUpdateListBack(event)
 		if (this.textContent != "[None]" &&
 			this.textContent != "[Registration]" &&
 			this.textContent != "GRIPPER")
-			{
-				$("#from-select").append($("<option/>",
-				{
-					text: this.textContent
-				}));
-				$("#to-select").append($("<option/>",
-				{
-					text: this.textContent
-				}));
-			}
-		});
-	
-		if ( $("#from-select option").filter(
-			function()
-			{
-				return this.value === fromSelectedText;
-			}
-			).length !== 0 )
 		{
-			$("#from-select").val(fromSelectedText);
+			$("#from-select").append($("<option/>",
+			{
+				text: this.textContent
+			}));
+			$("#to-select").append($("<option/>",
+			{
+				text: this.textContent
+			}));
 		}
-		else
-		{
-			$("#from-select").val("Black");
-		}
+	});
 	
-		if ( $("#to-select option").filter(
-			function()
-			{
-				return this.value === toSelectedText;
-			}
-			).length !== 0 )
+	if ( $("#from-select option").filter(
+		function()
 		{
-			$("#to-select").val(toSelectedText);
+			return this.value === fromSelectedText;
+		}
+		).length !== 0 )
+	{
+		$("#from-select").val(fromSelectedText);
+	}
+	else
+	{
+		$("#from-select").val("Black");
+	}
+	
+	if ( $("#to-select option").filter(
+		function()
+		{
+			return this.value === toSelectedText;
+		}
+		).length !== 0 )
+	{
+		$("#to-select").val(toSelectedText);
 	}
 	else
 	{

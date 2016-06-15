@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ExtensionManifest ExtensionBundleId="com.gosafeguard.SafeguardTools" ExtensionBundleName="SafeguardTools" ExtensionBundleVersion="1.2.0" Version="6.0">
+<ExtensionManifest ExtensionBundleId="com.gosafeguard.SafeguardTools" ExtensionBundleName="SafeguardTools" ExtensionBundleVersion="1.3.0" Version="6.0">
   <ExtensionList>
     <Extension Id="com.gosafeguard.SafeguardTools.ColorTools" Version="1.1.0"/>
     <Extension Id="com.gosafeguard.SafeguardTools.PrintToPdf" Version="1.0.0"/>
@@ -29,9 +29,17 @@
           <!-- <Menu>Find and Replace Graphics</Menu>Disable Extensions menu -->
           <Geometry>
             <Size>
-              <Height>170</Height>
               <Width>210</Width>
+              <Height>187</Height>
             </Size>
+            <MaxSize>
+              <Width>210</Width>
+              <Height>187</Height>
+            </MaxSize>
+            <MinSize>
+              <Width>210</Width>
+              <Height>187</Height>
+            </MinSize>
           </Geometry>
         </UI>
       </DispatchInfo>
@@ -51,8 +59,8 @@
           <!-- <Menu>Print To PDF</Menu>Disable Extensions menu -->
           <Geometry>
             <Size>
-              <Height>170</Height>
-              <Width>210</Width>
+              <Width>520</Width>
+              <Height>320</Height>
             </Size>
           </Geometry>
         </UI>
