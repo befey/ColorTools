@@ -11,12 +11,14 @@
 
 #include "string.h"
 #include "AIATEPaint.h"
+#include "AIFont.h"
 #include <functional>
 
 
-extern AITextFrameSuite *sAITextFrame;
-extern AIArtSuite *sAIArt;
-extern AIATEPaintSuite *sAIATEPaint;
+extern AITextFrameSuite* sAITextFrame;
+extern AIArtSuite* sAIArt;
+extern AIATEPaintSuite* sAIATEPaint;
+extern AIFontSuite* sAIFont;
 
 //CONSTANT DEFINITIONS
 #define WHITESPACES " \t\f\v\n\r"
@@ -49,5 +51,7 @@ void SetAIColorForATETextRange(ATE::ITextRange theRange, AIColor theColor, bool 
 
 //Turns a std::string into a ASUnicode array, returns the size of the array+terminator
 size_t StdStringToASUnicode(const std::string text, ASUnicode* buffer, size_t bufferMax);
+
+string GetFontNameFromFeatures(const ATE::ICharFeatures charFeatures);
 
 #endif

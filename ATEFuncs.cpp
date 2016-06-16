@@ -202,3 +202,20 @@ size_t StdStringToASUnicode(const std::string text, ASUnicode* buffer, size_t bu
     
     return ai::UnicodeString(buffer).length();
 }
+
+string GetFontNameFromFeatures(const ATE::ICharFeatures charFeatures)
+{
+    string fontNameString = "";
+    bool isAssigned = false;
+    ATE::IFont font = charFeatures.GetFont(&isAssigned);
+    if (isAssigned)
+    {
+        FontRef ref = font.GetRef();
+        AIFontKey key;
+        sAIFont->FontKeyFromFont(ref, &key);
+        char fontName[256];
+        sAIFont->GetUserFontUIName(key, fontName, 256);
+        fontNameString = fontName;
+    }
+    return fontNameString;
+}
