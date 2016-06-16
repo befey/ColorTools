@@ -31,6 +31,7 @@ private:
     
     long MakeArtSetOfPrintingTextArts(AIArtSet const targetSet);
     long MakeVectorOfFontsFromArtSet(AIArtSet const srcArtSet);
+    void RemoveDuplicatesFromFeaturesList();
     void WriteVectorOfFontsToArtboard();
     
     std::function<bool(ATE::ITextRange)> func;

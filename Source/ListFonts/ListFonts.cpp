@@ -18,6 +18,8 @@ bool ListFonts::PutFontList()
     
     MakeVectorOfFontsFromArtSet(artSet);
     
+    RemoveDuplicatesFromFeaturesList();
+    
     WriteVectorOfFontsToArtboard();
     
     sAIArtSet->DisposeArtSet(&artSet);
@@ -126,16 +128,8 @@ void ListFonts::WriteVectorOfFontsToArtboard()
     {
         string infoString;
         bool isAssigned = false;
-        ATE::IFont font = feature.GetFont(&isAssigned);
-        if (isAssigned)
-        {
-            FontRef ref = font.GetRef();
-            AIFontKey key;
-            sAIFont->FontKeyFromFont(ref, &key);
-            char fontName[256];
-            sAIFont->GetUserFontUIName(key, fontName, 256);
-            infoString += fontName;
-        }
+        
+        infoString += GetFontNameFromFeatures(feature);
         
         ASReal fontSize = feature.GetFontSize(&isAssigned);
         if (isAssigned)
@@ -155,5 +149,49 @@ void ListFonts::WriteVectorOfFontsToArtboard()
         
         infoString += "\n";
         AddTextToRangeWithFeatures(infoString, adjustedFeatures, &textRange);
+    }
+}
+
+void ListFonts::RemoveDuplicatesFromFeaturesList()
+{
+    for(auto feature = featuresList.begin(); feature != featuresList.end(); feature++)
+    {
+        bool found1 = false;
+        featuresList.erase(
+                           std::remove_if(featuresList.begin(), featuresList.end(), [feature, &found1](ATE::ICharFeatures f)
+                           {
+                               bool isAAssigned = false;
+                               bool isBAssigned = false;
+                               
+                               string fontNameA = GetFontNameFromFeatures(*feature);
+                               string fontNameB = GetFontNameFromFeatures(f);
+                               
+                               if (fontNameA == fontNameB)
+                               {
+                                   ASReal fontSizeA = feature->GetFontSize(&isAAssigned);
+                                   ASReal fontSizeB = f.GetFontSize(&isBAssigned);
+                                   if (isAAssigned && isBAssigned && fontSizeA == fontSizeB)
+                                   {
+                                       ASReal leadingA = feature->GetLeading(&isAAssigned);
+                                       ASReal leadingB = f.GetLeading(&isBAssigned);
+                                       if (isAAssigned && isBAssigned && leadingA == leadingB)
+                                       {
+                                           if (!found1)
+                                           {
+                                               found1 = true;
+                                               return false;
+                                           }
+                                           else
+                                           {
+                                               return true;
+                                           }
+                                       }
+                                   }
+                               }
+                               return false;
+                           }
+                                          ),
+                           featuresList.end()
+        );
     }
 }
