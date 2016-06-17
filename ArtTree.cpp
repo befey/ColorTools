@@ -509,6 +509,19 @@ void GetBoundsOfClipGroup(AIArtHandle root, AIArtHandle currArtHandle, AIRealRec
 	}
 }
 
+bool ProcessArtSet(const AIArtSet artSet, std::function<void(AIArtHandle)> callback)
+{
+    size_t count;
+    sAIArtSet->CountArtSet(artSet, &count);
+    for (int i = 0; i < count; i++)
+    {
+        AIArtHandle art;
+        sAIArtSet->IndexArtSet(artSet, i, &art);
+        callback(art);
+    }
+    return true;
+}
+
 
 /*AIArtHandle GetArtObjectByName(ai::UnicodeString targetName, Corner CORNER, Node* const startNode, Node* const currNode) {
 	size_t count = 0;

@@ -12,6 +12,8 @@
 #include "AILayer.h"
 #include "AIGroup.h"
 #include "AIPath.h"
+#include <functional>
+#include <vector>
 
 extern AIArtSetSuite* sAIArtSet;
 extern AIArtSuite* sAIArt;
@@ -24,7 +26,9 @@ extern AIRealMathSuite* sAIRealMath;
 //AIArtHandle GetArtObjectByName(ai::UnicodeString targetName, Corner CORNER, Node* const startNode = NULL, Node* const currNode = NULL);
  //Returns an art object by finding the first occurence of the name in the layer list
  //If the last two arguments are supplied, returns the object with the name that is closest to the node
- 
+
+bool ProcessArtSet(const AIArtSet artSet, std::function<void(AIArtHandle)> callback);
+
 long CreateArtSetFromLayer(ai::UnicodeString layerName, AIArtSet const targetSet); //Adds to the art set all the objects on a layer, returns the number of objects in the set
 
 long CreateArtSetOfPrintingObjectsWithinRect(AIArtSet const targetSet, AIRealRect rect);

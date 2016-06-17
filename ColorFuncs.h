@@ -19,6 +19,7 @@
 #include "ReplaceData.h"
 
 #include <string.h>
+#include <vector>
 
 //=================================
 // forward declared dependencies
@@ -70,5 +71,7 @@ void ChangeColor(AIColor *targetColor, AIColor colorToCopy);
 void ConvertObjectsToGlobalCMYK(AIColor *color, void *userData, AIErr *result, AIBoolean *altered);
 
 AIColor GetRegistrationColor();
+
+vector<AIColor> GetColorsFromArt(AIArtHandle art);
 	
 #endif //COLORFUNCS_H

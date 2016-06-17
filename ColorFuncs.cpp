@@ -602,3 +602,9 @@ AIColor GetRegistrationColor()
     AIColor registration = { .kind = kCustomColor, .c.c = { .color = registrationCch, .tint = 0} };
     return registration;
 }
+
+
+vector<AIColor> GetColorsFromArt(AIArtHandle art)
+{
+    //sAIPathStyle->AdjustObjectAIColors(art, AIAdjustColorFunc adjustColorCallback, void *, VisitAIColorFlags controlFlags, AIBoolean *madeReplacement);
+}
