@@ -58,7 +58,7 @@ void ReplaceData::SetApplyTo(ColorToolsUIController::ApplyTo at)
     applyto = at;
     
     //Set controlFlags based on Strokes and Fills
-    controlFlags = kVisitColorsUniversally |  kVisitGlobalObjectsOnceOnly; //APPLYTO_FILLSANDSTROKES
+    controlFlags = kVisitColorsUniversally |  kVisitGlobalObjectsOnceOnly | kVisitColorsIncludeRegistration; //APPLYTO_FILLSANDSTROKES
     //Set the VisitFlags based on the apply to and whatnot
     if ( applyto == ColorToolsUIController::ApplyTo::Strokes )
     {
