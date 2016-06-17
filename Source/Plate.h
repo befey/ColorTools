@@ -10,10 +10,12 @@
 #define __SafeguardTools__Plate__
 
 #include "AIFont.h"
+#include "AIArtboard.h"
 #include "PlateNumber.h"
 #include <vector>
 
 extern AIFontSuite* sAIFont;
+extern AIArtboardSuite* sAIArtboard;
 
 constexpr auto KEYLINE_LAYER =              "KEY LINE";
 constexpr auto REG_LAYER =                  "Registration Guide for Proof";
