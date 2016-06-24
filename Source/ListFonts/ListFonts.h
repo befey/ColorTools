@@ -9,6 +9,7 @@
 #ifndef __SafeguardTools__ListFonts__
 #define __SafeguardTools__ListFonts__
 
+#include "BtAteTextFeatures.h"
 #include "AIArtSet.h"
 #include "AIArtboard.h"
 #include "ATEFuncs.h"
@@ -27,14 +28,13 @@ public:
     bool PutFontList();
 
 private:
-    vector<ATE::ICharFeatures> featuresList;
+    vector<BtAteTextFeatures> featuresList;
     
     long MakeArtSetOfPrintingTextArts(AIArtSet const targetSet);
     long MakeVectorOfFontsFromArtSet(AIArtSet const srcArtSet);
     void RemoveDuplicatesFromFeaturesList();
     void WriteVectorOfFontsToArtboard();
     
-    std::function<bool(ATE::ITextRange)> func;
     bool GetFontFromITextRange(ATE::ITextRange currRange);
 };
 

@@ -51,12 +51,14 @@ public:
     
     PlateNumber(){};
     PlateNumber(string);
-    inline Boolean IsValid() {return isValidPlateNumber;};
-    string GetPlateNumber();
-    inline string GetPlantIndicator() {return plantIndicator;};
-    inline string GetProductIndicator() {return productIndicator;};
     
-    ProductType GetProductType();
+    inline Boolean IsValid() const {return isValidPlateNumber;};
+    string GetPlateNumber() const;
+    inline string GetPlantIndicator() const {return plantIndicator;};
+    inline string GetProductIndicator() const {return productIndicator;};
+    ProductType GetProductType() const;
+    
+    void GetAsTextRange(ATE::ITextRange& targetRange) const;
     
 private:
     string plateNumber;
@@ -67,7 +69,7 @@ private:
     Boolean isValidPlateNumber = false;
     
     Boolean TokenizePlateNumber();
-    Boolean HasInnerTicks();
+    Boolean HasInnerTicks() const;
 };
 
 #endif /* defined(__SafeguardTools__PlateNumber__) */

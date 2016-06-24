@@ -8,6 +8,7 @@
  */
 
 #include "ATEFuncs.h"
+#include "BtAteTextFeatures.h"
 
 ai::UnicodeString GetNameFromATETextRange(ATE::ITextRange targetRange) {
 	ATE::ITextFramesIterator itemFrameIterator = targetRange.GetTextFramesIterator();
@@ -65,42 +66,6 @@ ASReal GetFontSizeFromAITextFrame(AIArtHandle textFrame) {
 	}
 	
 }
-
-void AddTextToRangeWithFeatures(const string text, const ATE::ICharFeatures charFeatures, ATE::ITextRange* targetRange, int BeforeAfter) {
-
-	//We have to create a new point text so we can get a new blank range
-	AIArtHandle tempTextHandle = NULL; AIRealPoint anchor ={0,0};
-	sAITextFrame->NewPointText(kPlaceAboveAll, NULL, kHorizontalTextOrientation, anchor, &tempTextHandle);
-	ATE::TextRangeRef newTextRangeRef;
-	sAITextFrame->GetATETextRange(tempTextHandle, &newTextRangeRef);
-	ATE::ITextRange newTextRange(newTextRangeRef);
-	
-	//Set the features on it
-	newTextRange.ReplaceOrAddLocalCharFeatures(charFeatures);
-	
-	//Insert the text into it
-    
-    ASUnicode* asuString = new ASUnicode [text.length()+1];
-    StdStringToASUnicode(text, asuString, text.length()+1);
-    
-	newTextRange.InsertAfter(asuString);
-	
-    delete[] asuString;
-    
-	//Put the new text in the targetRange
-	if (BeforeAfter == 1) {
-		targetRange->InsertAfter(newTextRange);
-	} else {
-		targetRange->InsertBefore(newTextRange);
-	}
-	
-	//Trash our temporary art objects
-	sAIArt->DisposeArt(tempTextHandle);
-	tempTextHandle = NULL;
-
-	return;
-}
-
 
 bool ProcessTextFrameArt(AIArtHandle textFrame, std::function<bool(ATE::ITextRange)> callback) {
 	
@@ -203,11 +168,11 @@ size_t StdStringToASUnicode(const std::string text, ASUnicode* buffer, size_t bu
     return ai::UnicodeString(buffer).length();
 }
 
-string GetFontNameFromFeatures(const ATE::ICharFeatures charFeatures)
+string GetFontNameFromFeatures(const BtAteTextFeatures features)
 {
     string fontNameString = "";
     bool isAssigned = false;
-    ATE::IFont font = charFeatures.GetFont(&isAssigned);
+    ATE::IFont font = features.GetFont(&isAssigned);
     if (isAssigned)
     {
         FontRef ref = font.GetRef();
@@ -219,3 +184,42 @@ string GetFontNameFromFeatures(const ATE::ICharFeatures charFeatures)
     }
     return fontNameString;
 }
+
+void AddTextToRange(const string text, ATE::ITextRange& targetRange, int beforeAfter)
+{
+    //We have to create a new point text so we can get a new blank range
+    AIArtHandle tempTextHandle = NULL; AIRealPoint anchor ={0,0};
+    sAITextFrame->NewPointText(kPlaceAboveAll, NULL, kHorizontalTextOrientation, anchor, &tempTextHandle);
+    ATE::TextRangeRef newTextRangeRef;
+    sAITextFrame->GetATETextRange(tempTextHandle, &newTextRangeRef);
+    ATE::ITextRange newTextRange(newTextRangeRef);
+    
+    //Insert the text into it
+    ASUnicode* asuString = new ASUnicode [text.length()+1];
+    StdStringToASUnicode(text, asuString, text.length()+1);
+    
+    newTextRange.InsertAfter(asuString);
+    
+    delete[] asuString;
+    
+    AddTextToRange(newTextRange, targetRange, beforeAfter);
+    
+    //Trash our temporary art objects
+    sAIArt->DisposeArt(tempTextHandle);
+    tempTextHandle = NULL;
+    
+    return;
+}
+
+void AddTextToRange(ATE::ITextRange sourceRange, ATE::ITextRange& targetRange, int beforeAfter)
+{
+    //Put the new text in the targetRange
+    if (beforeAfter == 1)
+    {
+        targetRange.InsertAfter(sourceRange);
+    } else
+    {
+        targetRange.InsertBefore(sourceRange);
+    }
+}
+

@@ -5,6 +5,7 @@
 #include "ArtTree.h"
 #include "ColorFuncs.h"
 #include "DictFuncs.h"
+#include "BtAteTextFeatures.h"
 
 #include "TextTools.h"
 
@@ -737,19 +738,13 @@ bool CreateMICRBarcode() {
 		//Clear the range of whatever was there
 		barcodeTextRange.Remove();
 		
-		ATE::ICharFeatures barcodeCharFeatures;
-		ATE::IParaFeatures barcodeParaFeatures;
-		FontRef barcodeFontRef = NULL;
-		sAIFont->FontFromFontKey(currFontKey, &barcodeFontRef);
+        BtAteTextFeatures barcodeFeatures;
+        barcodeFeatures.SetFontSize(12);
+        barcodeFeatures.SetFont(MICR_FONT_NAME);
+        barcodeFeatures.SetJustification(ATE::kCenterJustify);
+        barcodeFeatures.SetFillColor(micrColor);
         
-		barcodeCharFeatures.SetFontSize(12);
-		barcodeCharFeatures.SetFont(ATE::IFont(barcodeFontRef));
-		AddTextToRangeWithFeatures(barcodeString.as_Platform(), barcodeCharFeatures, &barcodeTextRange);
-		barcodeParaFeatures.SetJustification(ATE::kCenterJustify);
-		barcodeTextRange.ReplaceOrAddLocalParaFeatures(barcodeParaFeatures);
-	
-		SetAIColorForATETextRange(barcodeTextRange, micrColor);
-		
+		barcodeFeatures.AddTextToRangeWithFeatures(barcodeString.as_Platform(), barcodeTextRange);
 	} else {
 		sAIUser->MessageAlert(ai::UnicodeString("Could not locate the MICR number. Please select the MICR text box before using this tool."));
 		return FALSE;

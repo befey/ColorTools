@@ -8,6 +8,7 @@
 
 #include "ListFonts.h"
 #include "ArtTree.h"
+#include <functional>
 
 bool ListFonts::PutFontList()
 {
@@ -86,8 +87,7 @@ long ListFonts::MakeVectorOfFontsFromArtSet(AIArtSet const srcArtSet)
         AIArtHandle currArtHandle;
         sAIArtSet->IndexArtSet(srcArtSet, i, &currArtHandle);
         
-        func = std::bind(&ListFonts::GetFontFromITextRange, this, std::placeholders::_1);
-        ProcessTextFrameArt(currArtHandle, func);
+        ProcessTextFrameArt(currArtHandle, std::bind(&ListFonts::GetFontFromITextRange, this, std::placeholders::_1));
     }
 }
 
@@ -96,7 +96,7 @@ bool ListFonts::GetFontFromITextRange(ATE::ITextRange currRange)
     ATE::ITextRunsIterator iter = currRange.GetTextRunsIterator();
     while (iter.IsNotDone())
     {
-        ATE::ICharFeatures features = iter.Item().GetUniqueCharFeatures();
+        BtAteTextFeatures features(iter.Item().GetUniqueCharFeatures());
         
         featuresList.push_back(features);
         
@@ -144,11 +144,11 @@ void ListFonts::WriteVectorOfFontsToArtboard()
         }
         
         //Make sure the lines stay spaced apart enough to read
-        ATE::ICharFeatures adjustedFeatures = feature;
+        BtAteTextFeatures adjustedFeatures = feature;
         adjustedFeatures.SetLeading(fontSize + 2);
         
         infoString += "\n";
-        AddTextToRangeWithFeatures(infoString, adjustedFeatures, &textRange);
+        adjustedFeatures.AddTextToRangeWithFeatures(infoString, textRange);
     }
 }
 

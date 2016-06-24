@@ -7,6 +7,7 @@
 //
 
 #include "PlateNumber.h"
+#include "ATEFuncs.h"
 #include <regex>
 
 PlateNumber::PlateNumber(string pNum)
@@ -22,16 +23,16 @@ PlateNumber::PlateNumber(string pNum)
     }
 }
 
-string PlateNumber::GetPlateNumber()
+string PlateNumber::GetPlateNumber() const
 {
-    if (IsValid())
-    {
+    //if (IsValid())
+    //{
         return plateNumber;
-    }
-    else
-    {
-        return "";
-    }
+    //}
+    //else
+    //{
+    //    return "";
+    //}
 }
 
 
@@ -66,7 +67,7 @@ Boolean PlateNumber::TokenizePlateNumber()
     return true;
 }
 
-PlateNumber::ProductType PlateNumber::GetProductType()
+PlateNumber::ProductType PlateNumber::GetProductType() const
 {
     if (!IsValid())
     {
@@ -109,7 +110,12 @@ PlateNumber::ProductType PlateNumber::GetProductType()
     return PlateNumber::ProductType::INVAL;
 }
 
-Boolean PlateNumber::HasInnerTicks()
+void PlateNumber::GetAsTextRange(ATE::ITextRange& targetRange) const
+{
+    AddTextToRange(GetPlateNumber(), targetRange);
+}
+
+Boolean PlateNumber::HasInnerTicks() const
 {
     size_t count = 0;
     AIArtSet artSet = NULL;

@@ -7,6 +7,21 @@
 //
 
 #include "TickMarkDrawer.h"
+#include "BleedInfo.h"
+
+using SafeguardFile::TickMarkDrawer;
+using SafeguardFile::OuterTickMarkDrawer;
+using SafeguardFile::InnerTickMarkDrawer;
+using SafeguardFile::ContinuousTickMarkDrawer;
+using SafeguardFile::BleedInfo;
+
+TickMarkDrawer::TickMarkDrawer(shared_ptr<BleedInfo> info) : p_BleedInfo(info) {};
+OuterTickMarkDrawer::OuterTickMarkDrawer(shared_ptr<BleedInfo> info) : TickMarkDrawer(info) {};
+InnerTickMarkDrawer::InnerTickMarkDrawer(shared_ptr<BleedInfo> info) : TickMarkDrawer(info) {};
+ContinuousTickMarkDrawer::ContinuousTickMarkDrawer(shared_ptr<BleedInfo> info) : TickMarkDrawer(info) {};
+
+AIArtHandle OuterTickMarkDrawer::Draw()
+{
 
 //        sAIArt->NewArt(kGroupArt, kPlaceAboveAll, NULL, &editArt);
 //        sAIArt->NewArt(kPathArt, kPlaceAboveAll, NULL, &boundingBoxArt);
@@ -23,4 +38,5 @@
 //        sAIArt->ReorderArt(boundingBoxArt, kPlaceInsideOnTop, editArt);
 //
 //        sAIPluginGroup->SetPluginArtEditArt(pluginGroupArt, editArt);
-
+    return NULL;
+}
