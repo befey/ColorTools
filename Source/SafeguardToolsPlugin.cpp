@@ -15,7 +15,7 @@
 #include "FixFreehandType.h"
 #include "DictFuncs.h"
 #include "PrintToPdf.h"
-#include "PlateBleedInfo.h"
+#include "BleedInfo.h"
 #include "ListFonts.h"
 
 SafeguardToolsPlugin *gPlugin = NULL;
@@ -50,11 +50,11 @@ ASErr SafeguardToolsPlugin::Message(char* caller, char* selector, void *message)
     {
         if (strcmp( selector, kSelectorAINotifyEdits ) == 0)
         {
-            error = PlateBleedInfo::PluginGroupNotify((AIPluginGroupMessage *)message);
+            //error = BleedInfo::PluginGroupNotify((AIPluginGroupMessage *)message);
         }
         else if (strcmp( selector, kSelectorAIUpdateArt ) == 0)
         {
-            error = PlateBleedInfo::PluginGroupUpdate((AIPluginGroupMessage *)message);
+            //error = BleedInfo::PluginGroupUpdate((AIPluginGroupMessage *)message);
         }
     }
     else
@@ -123,6 +123,11 @@ ASErr SafeguardToolsPlugin::StartupPlugin( SPInterfaceMessage *message )
         mySwatchList = std::make_shared<BtSwatchList>();
     }
     
+    if (NULL == sgJobFile)
+    {
+        sgJobFile = make_unique<SafeguardJobFile>();
+    }
+    
     error = this->AddMenus(message);
     if (error) { return error; }
     
@@ -158,7 +163,7 @@ ASErr SafeguardToolsPlugin::StartupPlugin( SPInterfaceMessage *message )
                                       CREATE_PLATE_BLEED_INFO_PLUGIN_GROUP,
                                       &pluginGroupData,
                                       kPluginGroupKeepWhenEmptyOption | kPluginGroupDoNotTarget | kPluginGroupDoNotSmartTarget | kPluginGroupAskToShowContents,
-                                      &createPlateBleedInfoPluginGroupHandle);
+                                      &bleedInfoPluginGroupHandle);
     
     return error;
 }
@@ -298,7 +303,7 @@ ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
     
     BtAiMenuItem::AddMenu(*PrintToPdfMenuItem, &menuItemHandles);
     
-    
+*/    
     //CREATE SLUG INFO
     menuItem.groupName = kDocumentUtilsMenuGroup;
     menuItem.itemText = ai::UnicodeString(CREATE_PLATE_BLEED_INFO_MENU_ITEM);
@@ -306,7 +311,7 @@ ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
     CreatePlateBleedInfoMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, 0, 0, kIfOpenDocument, 0);
     
     BtAiMenuItem::AddMenu(*CreatePlateBleedInfoMenuItem, &menuItemHandles);
- */   
+ 
     return kNoErr;
  
 }
@@ -398,24 +403,22 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
         printToPdfUIController->LoadExtension();
         sAICSXSExtension->LaunchExtension(PrintToPdf::PrintToPdfUIController::PRINTTOPDF_UI_EXTENSION);
     }
-    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
+*/    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
     {
-        sAIUndo->SetSilent(true);
-        
-        sgJobFile = make_unique<SafeguardJobFile>();
-     
         ai::UnicodeString menuText;
         sAIMenu->GetItemText(message->menuItem, menuText);
         if (menuText.find(ai::UnicodeString("Remove"),0) != ai::UnicodeString::npos)
         {
-            PlateBleedInfo::RemovePlateBleedInfo();
+            sgJobFile->RemoveBleedInfo();
+            sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Remove Safeguard Plate Info"), ai::UnicodeString("Redo Remove Safeguard Plate Info"));
         }
         else
         {
-            PlateBleedInfo::AddPlateBleedInfo();
-        }
+            sgJobFile->Update();
+            sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Add Safeguard Plate Info"), ai::UnicodeString("Redo Add Safeguard Plate Info"));
+        }        
     }
-*/
+
 	
 	if (error)
 		goto error;
@@ -464,11 +467,11 @@ ASErr SafeguardToolsPlugin::UpdateMenuItem(AIMenuMessage* message)
         }
     }
     
-/*    if (message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
+    if (message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
     {
         //Check if we have a bleed info in the dictionary
         //If we do, change to "Remove"
-        if ( CheckDictionaryForArtObjectWithIdentifier(ai::UnicodeString(PlateBleedInfo::PLATE_BLEED_INFO_GROUP_LABEL), 0) )
+        if ( CheckDictionaryForArtObjectWithIdentifier(ai::UnicodeString(SafeguardFile::PLATE_BLEED_INFO_GROUP_LABEL), 0) )
         {
             sAIMenu->SetItemText( message->menuItem, ai::UnicodeString("Remove Safeguard Plate Info") );
         }
@@ -477,7 +480,7 @@ ASErr SafeguardToolsPlugin::UpdateMenuItem(AIMenuMessage* message)
             sAIMenu->SetItemText( message->menuItem, ai::UnicodeString("Add Safeguard Plate Info") );
         }
     }
-*/
+
 
 	if (error)
 		goto error;
@@ -494,23 +497,29 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
         printToPdfUIController->RegisterCSXSEventListeners();
     }
     
-    if ( message->notifier == fAppStartedNotifierHandle ) {
+    if ( message->notifier == fAppStartedNotifierHandle )
+    {
         // Whatever we want to do when the app starts
     }
     
     if (message->notifier == fDocOpenedNotifierHandle ||
         message->notifier == fCustomColorChangeNotifierHandle ||
-        message->notifier == fSwatchLibChangeNotifierHandle ) {
-        
+        message->notifier == fSwatchLibChangeNotifierHandle )
+    {
         string swatchesXml = gPlugin->GetBtSwatchList()->GetColorListAsXMLString();
         colorToolsUIController->SendColorListXmlToHtml(swatchesXml);
     }
     
-    if (message->notifier == fArtSelectionChangeNotifierHandle ) {
+    if (message->notifier == fArtSelectionChangeNotifierHandle )
+    {
         colorToolsUIController->DetermineChangeInStatus();
     }
-/*    if (message->notifier == fDocumentCropAreaModifiedNotifierHandle ) {
-        PlateBleedInfo::UpdatePlateBleedInfo(message);
+    if (message->notifier == fDocumentCropAreaModifiedNotifierHandle )
+    {
+        if (sgJobFile)
+        {
+            sgJobFile->Update();
+        }
     }
-*/    return kNoErr;
+    return kNoErr;
 }

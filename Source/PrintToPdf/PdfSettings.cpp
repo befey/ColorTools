@@ -231,7 +231,7 @@ string PdfSettings::CreateToken(int artboardIndex) const
     AIBoolean isDefaultName;
     sAIArtboard->IsDefaultName(abProps, isDefaultName);
     
-    if (isDefaultName || abNameS == NO_TOKEN_DESIG)
+    if (isDefaultName || abNameS == SafeguardFile::NO_TOKEN_DESIG)
     {
         return "";
     }

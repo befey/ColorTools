@@ -13,16 +13,19 @@
 #include "Plate.h"
 #include "TickMarkDrawer.h"
 
-class SafeguardJobFile
+namespace SafeguardFile
 {
-public:
-    SafeguardJobFile();
-    void SetTickMarkDrawer(unique_ptr<PlateBleedInfo::TickMarkDrawer> val) { tickMarkDrawer = move(val); }
-    
-    vector<Plate> plates;
-private:
-    unique_ptr<PlateBleedInfo::TickMarkDrawer> tickMarkDrawer;
-
-};
-
+    class SafeguardJobFile
+    {
+    public:
+        void Update();
+        void RemoveBleedInfo();
+        
+    private:
+        vector<Plate> plates;
+        
+        void AddBleedInfo();
+        bool ShouldDrawBleedInfo();
+    };
+}
 #endif /* defined(__SafeguardTools__SafeguardJobFile__) */

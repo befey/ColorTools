@@ -16,6 +16,7 @@
 class ColorToolsUIController;
 class BtSwatchList;
 
+using SafeguardFile::SafeguardJobFile;
 
 /**	Creates a new SafeguardToolsPlugin.
 	@param pluginRef IN unique reference to this plugin.
@@ -46,7 +47,7 @@ public:
     
     
     shared_ptr<BtSwatchList> GetBtSwatchList() const { return mySwatchList; }
-    AIPluginGroupHandle GetCreatePlateBleedInfoPluginGroupHandle() const { return createPlateBleedInfoPluginGroupHandle; }
+    AIPluginGroupHandle GetBleedInfoPluginGroupHandle() const { return bleedInfoPluginGroupHandle; }
     
     unique_ptr<SafeguardJobFile> sgJobFile;
   
@@ -75,7 +76,7 @@ public:
     static constexpr auto PRINT_TO_PDF_MENU_ITEM =         "Print to PDF...";
     
     static constexpr auto CREATE_PLATE_BLEED_INFO_PLUGIN_GROUP =  "bt.SafeguardTools.PlateBleedInfo";
-    static constexpr auto CREATE_PLATE_BLEED_INFO_MENU_ITEM =     "Create Slug Info";
+    static constexpr auto CREATE_PLATE_BLEED_INFO_MENU_ITEM =     "Add Safeguard Plate Info";
 
 protected:
 	/** Calls Plugin::Message and handles any errors returned.
@@ -138,7 +139,7 @@ private:
     BtAiMenuItemHandles menuItemHandles;
     
     /** Plugin Group handle **/
-    AIPluginGroupHandle createPlateBleedInfoPluginGroupHandle;
+    AIPluginGroupHandle bleedInfoPluginGroupHandle;
      
 	/**	Adds the menu items for this plugin to the application UI.
      @param message IN pointer to plugin and call information.

@@ -8,71 +8,71 @@
 
 #include "Plate.h"
 #include "BtAteTextFeatures.h"
+#include "TickMarkDrawer.h"
+#include "ColorListDrawer.h"
+#include "FileNameDateDrawer.h"
 #include "ATEFuncs.h"
 #include "ColorFuncs.h"
+#include "DictFuncs.h"
+#include "ArtTree.h"
+#include "AIColor.h"
+#include <functional>
 
-Plate::Plate(ai::ArtboardID id) : artboardIndex(id) {}
-Plate::Plate(ai::ArtboardID id, string pn) : artboardIndex(id), plateNumber(pn) {}
+using SafeguardFile::Plate;
 
-void Plate::GetPlateNumberAndDateAsTextRange(ATE::ITextRange& targetRange)
+
+Plate::Plate(ai::ArtboardID id)
 {
-    AIFontKey currFontKey = NULL;
-    sAIFont->FindFont("Helvetica-Bold", kAIAnyFontTechnology, kUnknownAIScript, FALSE, &currFontKey);
-    FontRef fontRef = NULL;
-    sAIFont->FontFromFontKey(currFontKey, &fontRef);
+    bleedInfo.artboardIndex = id;
+    bleedInfo.rect = GetArtboardBounds();
+    bleedInfo.ShouldAddCMYKBlocks = true;
+    bleedInfo.lastModified = GetLastModified();
     
-    BtAteTextFeatures textFeatures;
-    ATE::ICharFeatures(textFeatures).SetFontSize(12.01);
-    ATE::ICharFeatures(textFeatures).SetFont(ATE::IFont(fontRef));
-    ATE::IParaFeatures(textFeatures).SetJustification(ATE::kRightJustify);
+    FillColorList();
+    bleedInfo.colorList.RemoveDuplicates();
+    bleedInfo.colorList.RemoveNonPrintingColors();
+    SetPlateNumber();
+    bleedInfo.token = CreateToken();
     
-    string pndate;
-    if (plateNumber.IsValid())
-    {
-        pndate = plateNumber.GetPlateNumber() + "." + CreateToken();
-    }
-    int month, year;
-    sAIUser->GetMonth(&lastModified, &month);
-    sAIUser->GetYear(&lastModified, &year);
+    bleedInfo.tickMarkDrawer = make_shared<OuterTickMarkDrawer>(make_shared<BleedInfo>(bleedInfo));
+    bleedInfo.colorListDrawer = make_shared<LaserColorListDrawer>(make_shared<BleedInfo>(bleedInfo));
+    bleedInfo.fileNameDateDrawer = make_shared<LaserFileNameDateDrawer>(make_shared<BleedInfo>(bleedInfo));
     
-    pndate += "  " + to_string(month) + "/" + to_string(year);
-    
-    AddTextToRangeWithFeatures(pndate, textFeatures, &targetRange);
-    targetRange.ReplaceOrAddLocalParaFeatures(textFeatures);
-    
-    SetAIColorForATETextRange(targetRange, GetRegistrationColor());
+    bleedInfoDrawer = make_shared<BleedInfoDrawer>(make_shared<BleedInfo>(bleedInfo));
+}
+//Plate::Plate(ai::ArtboardID id, string pn) : artboardIndex(id), plateNumber(pn) {}
+
+void Plate::SetPlateNumber()
+{
+    //TODO: Make this handle the other plate number cases when we don't want to use the filename
+    ai::FilePath openedFilePath;
+    sAIDocument->GetDocumentFileSpecification(openedFilePath);
+    SetPlateNumber(openedFilePath.GetFileNameNoExt().getInStdString(kAIPlatformCharacterEncoding));
 }
 
-void Plate::GetColorListAsTextRange(ATE::ITextRange& targetRange)
+void Plate::SetPlateNumber(string pn)
 {
-    AIFontKey currFontKey = NULL;
-    sAIFont->FindFont("Helvetica-Bold", kAIAnyFontTechnology, kUnknownAIScript, FALSE, &currFontKey);
-    FontRef fontRef = NULL;
-    sAIFont->FontFromFontKey(currFontKey, &fontRef);
-    
-    BtAteTextFeatures textFeatures;
-    ATE::ICharFeatures(textFeatures).SetFontSize(12.01);
-    ATE::ICharFeatures(textFeatures).SetFont(ATE::IFont(fontRef));
-    ATE::IParaFeatures(textFeatures).SetJustification(ATE::kLeftJustify);
-    
-    
-    
-    AddTextToRangeWithFeatures("Color List", textFeatures, &targetRange);
-    targetRange.ReplaceOrAddLocalParaFeatures(textFeatures);
+    bleedInfo.plateNumber = PlateNumber(pn);
+}
+
+void Plate::AddBleedInfo()
+{
+    bleedInfoDrawer->Draw();
+}
+
+void Plate::RemoveBleedInfo()
+{
+    AIArtHandle foundArt = GetArtHandleFromIdentifier(ai::UnicodeString(PLATE_BLEED_INFO_GROUP_LABEL), bleedInfo.artboardIndex);
+    if (foundArt)
+    {
+        bleedInfoDrawer->Remove(foundArt);
+    }
 }
 
 string Plate::CreateToken() const
 {
-    ai::ArtboardList abList;
-    sAIArtboard->GetArtboardList(abList);
-    ai::ArtboardProperties abProps;
-    sAIArtboard->GetArtboardProperties(abList, artboardIndex, abProps);
-    ai::UnicodeString abName;
-    abProps.GetName(abName);
-    string abNameS = abName.getInStdString(kAIPlatformCharacterEncoding);
-    
     AIBoolean isDefaultName;
-    sAIArtboard->IsDefaultName(abProps, isDefaultName);
+    string abNameS = GetArtboardName(isDefaultName);
     
     if (isDefaultName || abNameS == NO_TOKEN_DESIG)
     {
@@ -83,8 +83,53 @@ string Plate::CreateToken() const
         return abNameS;
     }
 }
+                    
+AIRealRect Plate::GetArtboardBounds() const
+{
+    ai::ArtboardList abList;
+    sAIArtboard->GetArtboardList(abList);
+    ai::ArtboardProperties props;
+    sAIArtboard->GetArtboardProperties(abList, bleedInfo.artboardIndex, props);
+    AIRealRect rect;
+    props.GetPosition(rect);
+    return rect;
+}
+
+AIUserDateTime Plate::GetLastModified() const
+{
+    /*sAIFilePath->GetAsFSRef();
+    SPPlatformFileInfo info;
+    SPGetFileInfo(SPFileRef file, &info);*/
+    AIUserDateTime dt;
+    sAIUser->GetDateAndTime(&dt);
+    return dt;
+}
+
+string Plate::GetArtboardName(AIBoolean& isDefault) const
+{
+    ai::ArtboardList abList;
+    sAIArtboard->GetArtboardList(abList);
+    ai::ArtboardProperties props;
+    sAIArtboard->GetArtboardProperties(abList, bleedInfo.artboardIndex, props);
+    ai::UnicodeString abName;
+    props.GetName(abName);
+    string abNameS = abName.getInStdString(kAIPlatformCharacterEncoding);
+    sAIArtboard->IsDefaultName(props, isDefault);
+    
+    return abNameS;
+}
 
 void Plate::FillColorList()
 {
+    AIArtSet artSet;
+    sAIArtSet->NewArtSet(&artSet);
+    CreateArtSetOfPrintingObjectsWithinRect(artSet, GetArtboardBounds());
     
+    std::function<void(AIArtHandle)> func = std::bind(&Plate::AddColorsOfArtToColorList, this, std::placeholders::_1);
+    ProcessArtSet(artSet, func);
+}
+
+void Plate::AddColorsOfArtToColorList(AIArtHandle art)
+{
+    bleedInfo.colorList.AddColorsToList(GetColorsFromArt(art));
 }

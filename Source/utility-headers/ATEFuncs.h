@@ -12,13 +12,15 @@
 #include "string.h"
 #include "AIATEPaint.h"
 #include "AIFont.h"
+#include "AITextFrame.h"
 #include <functional>
-
 
 extern AITextFrameSuite* sAITextFrame;
 extern AIArtSuite* sAIArt;
 extern AIATEPaintSuite* sAIATEPaint;
 extern AIFontSuite* sAIFont;
+
+class BtAteTextFeatures;
 
 //CONSTANT DEFINITIONS
 #define WHITESPACES " \t\f\v\n\r"
@@ -32,9 +34,6 @@ std::string GetStdStringFromAITextFrame(AIArtHandle textFrame);
 ASReal GetFontSizeFromAITextFrame(AIArtHandle textFrame);
 //This function assumes the art handle passed is a valid textFrame, will return 0 if it is not
 //Returns the first font size encountered in the text frame
-
-//Adds the text to the range with the features, the last argument defaults to After, set to 0 to insert the text before
-void AddTextToRangeWithFeatures(const string text, const ATE::ICharFeatures charFeatures, ATE::ITextRange* targetRange, int BeforeAfter=1);
 
 //Takes the passed TextFrame art object and passes each text run to the passed callback function
 bool ProcessTextFrameArt(AIArtHandle textFrame, std::function<bool(ATE::ITextRange)> callback);
@@ -52,6 +51,9 @@ void SetAIColorForATETextRange(ATE::ITextRange theRange, AIColor theColor, bool 
 //Turns a std::string into a ASUnicode array, returns the size of the array+terminator
 size_t StdStringToASUnicode(const std::string text, ASUnicode* buffer, size_t bufferMax);
 
-string GetFontNameFromFeatures(const ATE::ICharFeatures charFeatures);
+string GetFontNameFromFeatures(const BtAteTextFeatures features);
+
+void AddTextToRange(const string text, ATE::ITextRange& targetRange, int beforeAfter=1);
+void AddTextToRange(ATE::ITextRange sourceRange, ATE::ITextRange& targetRange, int beforeAfter=1);
 
 #endif

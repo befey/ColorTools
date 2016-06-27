@@ -8,6 +8,7 @@
 
 #include "BtSwatchList.h"
 #include "ColorFuncs.h"
+#include "GetIllustratorErrorCode.h"
 
 //Constuctor
 BtSwatchList::BtSwatchList()
@@ -188,7 +189,8 @@ void BtSwatchList::CreateSwatch(std::string name, AIColor color)
     sAISwatchList->SetAIColor(swatch, &color);
     if (!name.empty())
     {
-        sAISwatchList->SetSwatchName(swatch, ai::UnicodeString(name));
+        ASErr err = sAISwatchList->SetSwatchName(swatch, ai::UnicodeString(name));
+        string error = GetIllustratorErrorCode(err);
     }
 }
 
@@ -238,35 +240,32 @@ bool BtSwatchList::CustomColorExists(BtColor color, AIColor* outFoundColor) cons
 
 void BtSwatchList::AdjustAllColorsCallback(AIColor *color, void *userData, AIErr *result, AIBoolean *altered)
 {
-    AIReal tintPercent = GetTint(color);
+    AIReal tintPercent = GetTint(*color);
     
-    if (ColorIsPantone(color) && tintPercent != 1)
+    if (ColorIsPantone(*color) && tintPercent != 1)
     {
-        AICustomColor tColor;
-        sAICustomColor->GetCustomColor( color->c.c.color , &tColor );
-        ai::UnicodeString colorName;
-        sAICustomColor->GetCustomColorName(color->c.c.color, colorName);
+        string colorName = GetColorName(*color);
         
         bool found = FALSE;
-        tColor = GetColorDefinitionFromBook(colorName, found);
+        AIColor foundColor = GetColorDefinitionFromBook(colorName, found);
         
-        if (found) {
+        if (found)
+        {
             //Check if a swatch already exists for this color and tint %
-            sAICustomColor->SetCustomColor(color->c.c.color, &tColor);
-            sAICustomColor->SetCustomColorName(color->c.c.color, colorName);
-            color->c.c.tint = tintPercent;
+            colorName = GetColorName(foundColor);
+            foundColor.c.c.tint = tintPercent;
+            //AISwatchRef existingSwatch = checkSwatchListForColor(foundColor , .0001 );
             
-            AISwatchRef existingSwatch = checkSwatchListForColor( *color , .0001 );
-            
-            if(existingSwatch != NULL) {
-                sAISwatchList->GetAIColor(existingSwatch, color);
-            } else {
-                CreateSwatch("", *color);
-            }
-            *altered = TRUE; return;
+            //if (existingSwatch == NULL)
+            //{
+            //    CreateSwatch(colorName, foundColor);
+            //}
+            *altered = TRUE;
+            *color = foundColor;
+            return;
         }
     }
-    if (ColorIsBlack(color) && tintPercent < 1)
+    if (ColorIsBlack(*color) && tintPercent < 1)
     {
         AICustomColorHandle hBlack = NULL;
         sAICustomColor->GetCustomColorByName(ai::UnicodeString("Black"), &hBlack);
@@ -283,7 +282,7 @@ void BtSwatchList::AdjustAllColorsCallback(AIColor *color, void *userData, AIErr
         }
         *altered = TRUE; return;
     }
-    if (ColorIsWhite(color) || tintPercent == 1)
+    if (ColorIsWhite(*color) || tintPercent == 1)
     {
         AICustomColorHandle hWhite = NULL;
         sAICustomColor->GetCustomColorByName(ai::UnicodeString("White"), &hWhite);
@@ -312,7 +311,7 @@ std::vector<std::string> BtSwatchList::GetCurrentSwatchesAsStringVector()
         AIColor currSwatchColor;
         sAISwatchList->GetAIColor(currSwatch, &currSwatchColor);
         
-        AIReal tint = GetTint(&currSwatchColor);
+        AIReal tint = GetTint(currSwatchColor);
         if (tint != 0) {
             int t = sAIRealMath->AIRealMultiple((1 - tint) * 100, 1, TRUE);
             currSwatchName.insert(0, ai::UnicodeString(std::to_string(t).append("% ")));
