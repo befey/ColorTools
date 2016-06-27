@@ -52,7 +52,7 @@ bool SafeguardJobFile::ShouldDrawBleedInfo()
 {
     //if ( CheckDictionaryForArtObjectWithIdentifier(ai::UnicodeString(SafeguardFile::PLATE_BLEED_INFO_GROUP_LABEL), 0) )
     //{
-        return true;
+    //    return true;
     //}
-    //return false;
+    return false;
 }

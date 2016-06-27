@@ -50,7 +50,7 @@ bool ColorIsGripper(const AIColor color);
 bool ColorIsPantone(const AIColor color); //Returns true if the color name includes PANTONE
 bool ColorIsNonPrinting(const AIColor color);
 
-AICustomColor GetColorDefinitionFromBook(string colorName, bool& found); //colorName must be a full, valid pantone color in the form "PANTONE ### U", returns the color definition from the book. found indicates whether it was or not. If the name includes PANTONE, but it can't be found, looks up the U version instead, colorName will be the name that matches the definition found
+AIColor GetColorDefinitionFromBook(string colorName, bool& found); //colorName must be a full, valid pantone color in the form "PANTONE ### U", returns the color definition from the book. found indicates whether it was or not. If the name includes PANTONE, but it can't be found, looks up the U version instead, colorName will be the name that matches the definition found
 
 bool SetColorByName( const string& name , AIColor &color);
 string GetColorName(const AIColor color);
@@ -60,7 +60,7 @@ string GetInnerPantoneColorNumber(AIColor color);
 bool ColorIsEqual (const AIColor& color1, const AIColor& color2 , const bool includeTints ); //returns TRUE if they're the same color
 
 
-AISwatchRef checkSwatchListForColor( AIColor matchColor , AIReal tolerance ); //Checks the swatchlist for a swatch that matches the color passed
+AISwatchRef checkSwatchListForColor( AIColor& matchColor , AIReal tolerance ); //Checks the swatchlist for a swatch that matches the color passed
 																		//Returns the close swatch if found, or NULL if theres none    Tolerance =.01 for close match
 
 void nameAllColors(AIColor *color, void *userData, AIErr *result, AIBoolean *altered);

@@ -8,6 +8,7 @@
 
 #include "BtSwatchList.h"
 #include "ColorFuncs.h"
+#include "GetIllustratorErrorCode.h"
 
 //Constuctor
 BtSwatchList::BtSwatchList()
@@ -188,7 +189,8 @@ void BtSwatchList::CreateSwatch(std::string name, AIColor color)
     sAISwatchList->SetAIColor(swatch, &color);
     if (!name.empty())
     {
-        sAISwatchList->SetSwatchName(swatch, ai::UnicodeString(name));
+        ASErr err = sAISwatchList->SetSwatchName(swatch, ai::UnicodeString(name));
+        string error = GetIllustratorErrorCode(err);
     }
 }
 
@@ -245,26 +247,22 @@ void BtSwatchList::AdjustAllColorsCallback(AIColor *color, void *userData, AIErr
         string colorName = GetColorName(*color);
         
         bool found = FALSE;
-        AICustomColor tColor;
-        tColor = GetColorDefinitionFromBook(colorName, found);
+        AIColor foundColor = GetColorDefinitionFromBook(colorName, found);
         
-        if (found) {
+        if (found)
+        {
             //Check if a swatch already exists for this color and tint %
-            AICustomColorHandle tColorHandle;
-            sAICustomColor->NewCustomColor(&tColor, ai::UnicodeString(""), &tColorHandle);
-            color->c.c.color = tColorHandle;
-            color->kind = kCustomColor;
-            sAICustomColor->SetCustomColorName(color->c.c.color, ai::UnicodeString(colorName));
-            color->c.c.tint = tintPercent;
+            colorName = GetColorName(foundColor);
+            foundColor.c.c.tint = tintPercent;
+            //AISwatchRef existingSwatch = checkSwatchListForColor(foundColor , .0001 );
             
-            AISwatchRef existingSwatch = checkSwatchListForColor( *color , .0001 );
-            
-            if(existingSwatch != NULL) {
-                sAISwatchList->GetAIColor(existingSwatch, color);
-            } else {
-                CreateSwatch("", *color);
-            }
-            *altered = TRUE; return;
+            //if (existingSwatch == NULL)
+            //{
+            //    CreateSwatch(colorName, foundColor);
+            //}
+            *altered = TRUE;
+            *color = foundColor;
+            return;
         }
     }
     if (ColorIsBlack(*color) && tintPercent < 1)

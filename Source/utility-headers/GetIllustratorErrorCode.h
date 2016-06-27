@@ -9,7 +9,7 @@
 #ifndef SafeguardTools_GetIllustratorErrorCode_h
 #define SafeguardTools_GetIllustratorErrorCode_h
 
-string GetIllustratorErrorCode(ASErr err)
+inline string GetIllustratorErrorCode(ASErr err)
 {
     char byteArray[5];
     

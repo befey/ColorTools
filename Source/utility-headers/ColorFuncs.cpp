@@ -10,6 +10,7 @@
 #include "ColorFuncs.h"
 #include "IAIRect.h"
 #include <regex>
+#include "GetIllustratorErrorCode.h"
 
 const AIReal TOLERANCE = .002;
 
@@ -200,8 +201,9 @@ bool ColorIsNonPrinting(const AIColor color)
     return false;
 }
 
-AICustomColor GetColorDefinitionFromBook(string name, bool& found)
+AIColor GetColorDefinitionFromBook(string name, bool& found)
 {
+    found = FALSE;
     AICustomColor tColor;
     ai::UnicodeString colorName(name);
     if (colorName.caseFind(ai::UnicodeString("PANTONE"), 0) != string::npos)
@@ -210,7 +212,7 @@ AICustomColor GetColorDefinitionFromBook(string name, bool& found)
         //If the name matches one in the book, store the attributes in customColor
         if ( sAISwatchLibrary->FindStandardBookColor(colorName, &tColor) )
         {
-            found = TRUE; return tColor;
+            found = TRUE;
         }
         else //If the color says "PANTONE" but can't be found, turn it to PANTONE ### U and look it up
         {
@@ -223,12 +225,25 @@ AICustomColor GetColorDefinitionFromBook(string name, bool& found)
             if ( sAISwatchLibrary->FindStandardBookColor(ai::UnicodeString(formattedResult), &tColor) )
             {
                 colorName = ai::UnicodeString(formattedResult);
-                found = TRUE; return tColor;
+                found = TRUE;
             }
         }
     }
-    found = FALSE;
-    return tColor;
+    
+    AICustomColorHandle tColorHandle;
+    ASErr err = sAICustomColor->NewCustomColor(&tColor, colorName, &tColorHandle);
+    string error = GetIllustratorErrorCode(err);
+    
+    if (err == kNameInUseErr)
+    {
+        sAICustomColor->NewCustomColor(&tColor, ai::UnicodeString("DUMMY NAME"), &tColorHandle);
+        sAICustomColor->GetCustomColorByName(ai::UnicodeString(colorName), &tColorHandle);
+    }
+    
+    sAICustomColor->SetCustomColor(tColorHandle, &tColor);
+    AIColor resultColor = {.kind = kCustomColor, .c.c.color = tColorHandle, .c.c.tint = 0};
+    
+    return resultColor;
 }
 
 string GetInnerPantoneColorNumber(string fullName)
@@ -421,7 +436,7 @@ void nameAllColors(AIColor *color, void* userData, AIErr *result, AIBoolean *alt
 
 
 
-AISwatchRef checkSwatchListForColor( AIColor matchColor , AIReal tolerance )
+AISwatchRef checkSwatchListForColor( AIColor& matchColor , AIReal tolerance )
 {
 	AISwatchRef currSwatch;
 	AIColor currColor;
@@ -434,12 +449,21 @@ AISwatchRef checkSwatchListForColor( AIColor matchColor , AIReal tolerance )
 		if (currSwatch)
         {
 			sAISwatchList->GetAIColor(currSwatch, &currColor);
-			AIBoolean TintsCloseEnough = sAIRealMath->EqualWithinTol(currColor.c.c.tint, matchColor.c.c.tint, tolerance);
-			AIBoolean ColorsSame = ColorIsEqual(currColor, matchColor, TRUE);
-			if (currColor.kind == kCustomColor && ColorsSame && TintsCloseEnough )
+            string n1 = GetColorName(matchColor);
+            string n2 = GetColorName(currColor);
+            //if (GetColorName(matchColor) == GetColorName(currColor))
+            //{
+            //    return currSwatch;
+            //}
+            //else
             {
-				return currSwatch;
-			}
+                AIBoolean TintsCloseEnough = sAIRealMath->EqualWithinTol(currColor.c.c.tint, matchColor.c.c.tint, tolerance);
+                AIBoolean ColorsSame = ColorIsEqual(currColor, matchColor, TRUE);
+                if (currColor.kind == kCustomColor && ColorsSame && TintsCloseEnough )
+                {
+                    return currSwatch;
+                }
+            }
 		}
 	}
 	return NULL;
