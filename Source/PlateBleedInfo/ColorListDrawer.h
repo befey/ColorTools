@@ -19,7 +19,6 @@ namespace SafeguardFile
     {
     protected:
         ColorListDrawer(shared_ptr<BleedInfo> info);
-        void GetAsTextRange(ATE::ITextRange& targetRange);
     };
     
     class LaserColorListDrawer : public ColorListDrawer
