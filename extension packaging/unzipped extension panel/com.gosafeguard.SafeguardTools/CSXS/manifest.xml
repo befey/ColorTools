@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ExtensionManifest ExtensionBundleId="com.gosafeguard.SafeguardTools" ExtensionBundleName="SafeguardTools" ExtensionBundleVersion="1.3.0" Version="6.0">
+<ExtensionManifest ExtensionBundleId="com.gosafeguard.SafeguardTools" ExtensionBundleName="SafeguardTools" ExtensionBundleVersion="1.4.0" Version="6.0">
   <ExtensionList>
     <Extension Id="com.gosafeguard.SafeguardTools.ColorTools" Version="1.1.0"/>
     <Extension Id="com.gosafeguard.SafeguardTools.PrintToPdf" Version="1.0.0"/>
   </ExtensionList>
   <ExecutionEnvironment>
     <HostList>
-      <Host Name="ILST" Version="[19.0,19.9]"/>
+      <Host Name="ILST" Version="[19.0,20.9]"/>
     </HostList>
     <LocaleList>
       <Locale Code="All"/>
     </LocaleList>
     <RequiredRuntimeList>
-      <RequiredRuntime Name="CSXS" Version="6.0"/>
+      <RequiredRuntime Name="CSXS" Version="7.0"/>
     </RequiredRuntimeList>
   </ExecutionEnvironment>
   <DispatchInfoList>

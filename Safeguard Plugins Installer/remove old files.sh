@@ -10,3 +10,7 @@ rm -Rf /Applications/Adobe\ Illustrator\ CC\ 2015/Plug-ins.localized/Safeguard/T
 
 #4/15/16 -- Renamed extension folder to SafeguardTools
 rm -Rf /Library/Application\ Support/Adobe/CEP/extensions/com.gosafeguard.ColorTools
+
+#6/27/16 -- Delete files in pre-CC2015.3 folders.
+rm -Rf /Library/Application\ Support/Adobe/CEP/extensions/com.gosafeguard.SafeguardTools
+rm -Rf /Applications/Adobe\ Illustrator\ CC\ 2015/Plug-ins.localized/Safeguard
