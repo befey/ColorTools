@@ -11,17 +11,11 @@
 #include "PdfSettings.h"
 #include "PdfResults.h"
 
-#include <boost/system/system_error.hpp>
-#include <boost/filesystem.hpp>
-
-
 using PrintToPdf::PdfPrinter;
 using PrintToPdf::SingleFilePdfPrinter;
 using PrintToPdf::SeparateFilePdfPrinter;
 using PrintToPdf::PdfSettings;
 using PrintToPdf::PdfResults;
-
-namespace fs = boost::filesystem;
 
 SingleFilePdfPrinter::SingleFilePdfPrinter(shared_ptr<PdfSettings> settings) : PdfPrinter( move(settings) ) {}
 SeparateFilePdfPrinter::SeparateFilePdfPrinter(shared_ptr<PdfSettings> settings) : PdfPrinter( move(settings) ) {}
@@ -29,7 +23,12 @@ SeparateFilePdfPrinter::SeparateFilePdfPrinter(shared_ptr<PdfSettings> settings)
 PdfPrinter::PdfPrinter(shared_ptr<PdfSettings> settings)
 {
     pdfSettings = settings;
+    
     pathBuilder = unique_ptr<PathBuilder> { make_unique<TestingPathBuilder>() };
+    outputPath = pathBuilder->GetAiFilePath(GetPlateNumber());
+    
+    pathCreator = unique_ptr<PathCreator>();
+    
     efDeleter = unique_ptr<ExistingFileDeleter>();
     
     if ( pdfSettings->GetPreset() == PrintToPdf::PdfPreset::Manufacturing)
@@ -70,25 +69,24 @@ const string PdfPrinter::GetToken(int plateIndex) const
 
 PdfResults PdfPrinter::Print() const
 {
-    ai::FilePath pathToPdfFile = pathBuilder->GetAiFilePath(GetPlateNumber());
-    
     PdfResults transactions;
-    
-    fs::path p = pathToPdfFile.GetFullPath().as_Platform();
-    boost::system::error_code e;
-    fs::create_directories(p, e);
     
     pdfSettings->SetPasswords(pwRetriever);
     pdfSettings->SetBleeds(gPlugin->sgJobFile->GetBleeds(pdfSettings->GetPreset()));
     
-    transactions.AddResult(CustomPrintSteps(pathToPdfFile));
+    if ( pathCreator->CreatePath(outputPath) )
+    {
+        transactions.AddResult(CustomPrintSteps());
+    }   
     
     return transactions;
 }
 
-PdfResults SingleFilePdfPrinter::CustomPrintSteps(ai::FilePath pathToPdfFile) const
+PdfResults SingleFilePdfPrinter::CustomPrintSteps() const
 {
     PdfResults transactions;
+    
+    ai::FilePath pathToPdfFile = outputPath;
     
     if (GetPlateNumber().IsValid())
     {
@@ -116,13 +114,16 @@ PdfResults SingleFilePdfPrinter::CustomPrintSteps(ai::FilePath pathToPdfFile) co
     return transactions;
 }
 
-PdfResults SeparateFilePdfPrinter::CustomPrintSteps(ai::FilePath pathToPdfFile) const
+PdfResults SeparateFilePdfPrinter::CustomPrintSteps() const
 {
     PdfResults transactions;
     
     AIArtboardRangeIterator iter;
     sAIArtboardRange->Begin(pdfSettings->GetRange(), &iter);
     ai::int32 index = 0;
+    
+    ai::FilePath pathToPdfFile = outputPath;
+    
     while ( kEndOfRangeErr != sAIArtboardRange->Next(iter, &index) ) {
         
         if (GetPlateNumber().IsValid())

@@ -13,7 +13,9 @@
 #include "PdfResults.h"
 #include "PasswordRetriever.h"
 #include "PathBuilder.h"
+#include "PathCreator.h"
 #include "ExistingFileDeleter.h"
+#include "AIFilePath.h"
 
 namespace PrintToPdf
 {
@@ -30,13 +32,16 @@ namespace PrintToPdf
         shared_ptr<PdfSettings> pdfSettings;
         unique_ptr<PasswordRetriever> pwRetriever;
         unique_ptr<PathBuilder> pathBuilder;
+        unique_ptr<PathCreator> pathCreator;
         unique_ptr<ExistingFileDeleter> efDeleter;
-   
+        
+        ai::FilePath outputPath;
+        
         const PlateNumber GetPlateNumber() const;
         const string GetToken(int plateIndex) const;
         
     private:
-        virtual PdfResults CustomPrintSteps(ai::FilePath pathToPdfFile) const = 0;
+        virtual PdfResults CustomPrintSteps() const = 0;
     };
     
     class SingleFilePdfPrinter : public PdfPrinter
@@ -44,7 +49,7 @@ namespace PrintToPdf
     public:
         SingleFilePdfPrinter(shared_ptr<PdfSettings> settings);
 
-        PdfResults CustomPrintSteps(ai::FilePath pathToPdfFile) const override;
+        PdfResults CustomPrintSteps() const override;
     };
     
     class SeparateFilePdfPrinter : public PdfPrinter
@@ -52,7 +57,7 @@ namespace PrintToPdf
     public:
         SeparateFilePdfPrinter(shared_ptr<PdfSettings> settings);
 
-        PdfResults CustomPrintSteps(ai::FilePath pathToPdfFile) const;
+        PdfResults CustomPrintSteps() const;
     };
 }
 #endif /* defined(__SafeguardTools__PrintToPdf__) */

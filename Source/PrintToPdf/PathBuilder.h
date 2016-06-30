@@ -11,6 +11,7 @@
 
 #include "PrintToPdfConstants.h"
 #include "PlateNumber.h"
+#include "AIFilePath.h"
 
 namespace PrintToPdf
 {
