@@ -23,19 +23,6 @@ PlateNumber::PlateNumber(string pNum)
     }
 }
 
-string PlateNumber::GetPlateNumber() const
-{
-    //if (IsValid())
-    //{
-        return plateNumber;
-    //}
-    //else
-    //{
-    //    return "";
-    //}
-}
-
-
 Boolean PlateNumber::TokenizePlateNumber()
 {
     using namespace std;
@@ -112,7 +99,7 @@ PlateNumber::ProductType PlateNumber::GetProductType() const
 
 void PlateNumber::GetAsTextRange(ATE::ITextRange& targetRange) const
 {
-    AddTextToRange(GetPlateNumber(), targetRange);
+    AddTextToRange(plateNumber, targetRange);
 }
 
 Boolean PlateNumber::HasInnerTicks() const

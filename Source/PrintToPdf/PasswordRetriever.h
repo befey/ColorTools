@@ -17,29 +17,29 @@ namespace PrintToPdf
     class PasswordRetriever
     {
     public:
-        virtual string GetUserPassword() = 0;
-        virtual string GetMasterPassword() = 0;
+        virtual string GetUserPassword() const = 0;
+        virtual string GetMasterPassword() const = 0;
     };
     
     class NonePasswordRetriever : public PasswordRetriever
     {
     public:
-        string GetUserPassword() { return ""; }
-        string GetMasterPassword() { return ""; }
+        string GetUserPassword() const { return ""; }
+        string GetMasterPassword() const { return ""; }
     };
     
     class ProofPasswordRetriever : public PasswordRetriever
     {
     public:
-        string GetUserPassword() { return ""; }
-        string GetMasterPassword() { return MasterPassword; }
+        string GetUserPassword() const { return ""; }
+        string GetMasterPassword() const { return MasterPassword; }
     };
     
     class MicrPasswordRetriever : public PasswordRetriever
     {
     public:
-        string GetUserPassword() { return UserPassword; }
-        string GetMasterPassword() { return MasterPassword; }
+        string GetUserPassword() const { return UserPassword; }
+        string GetMasterPassword() const { return MasterPassword; }
     };
 }
 

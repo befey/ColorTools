@@ -19,6 +19,7 @@
 #include <functional>
 
 using SafeguardFile::Plate;
+using PrintToPdf::PdfPreset;
 
 
 Plate::Plate(ai::ArtboardID id)
@@ -47,12 +48,22 @@ void Plate::SetPlateNumber()
     //TODO: Make this handle the other plate number cases when we don't want to use the filename
     ai::FilePath openedFilePath;
     sAIDocument->GetDocumentFileSpecification(openedFilePath);
-    SetPlateNumber(openedFilePath.GetFileNameNoExt().getInStdString(kAIPlatformCharacterEncoding));
+    SetPlateNumber(openedFilePath.GetFileNameNoExt().getInStdString(kAIPlatformCharacterEncoding));    
 }
 
 void Plate::SetPlateNumber(string pn)
 {
     bleedInfo.plateNumber = PlateNumber(pn);
+}
+
+const PlateNumber Plate::GetPlateNumber() const
+{
+    return bleedInfo.plateNumber;
+}
+
+const string Plate::GetToken() const
+{
+    return CreateToken();
 }
 
 void Plate::AddBleedInfo()
@@ -132,4 +143,36 @@ void Plate::FillColorList()
 void Plate::AddColorsOfArtToColorList(AIArtHandle art)
 {
     bleedInfo.colorList.AddColorsToList(GetColorsFromArt(art));
+}
+
+AIRealRect Plate::GetBleeds(PdfPreset preset) const
+{
+    AIRealRect bleedRect;
+    
+    PlateNumber::ProductType pt = GetPlateNumber().GetProductType();
+    
+    if (pt == PlateNumber::ProductType::CutSheet)
+    {
+        if (preset == PdfPreset::Manufacturing)
+        {
+            sAIRealMath->AIRealRectSet(&bleedRect, 36, 36, 36, 36);
+        }
+        else
+        {
+            sAIRealMath->AIRealRectSet(&bleedRect, 0, 0, 0, 0);
+        }
+    }
+    else if (pt == PlateNumber::ProductType::BusinessStat)
+    {
+        if (preset == PdfPreset::Manufacturing)
+        {
+            sAIRealMath->AIRealRectSet(&bleedRect, 12, 12, 12, 12);
+        }
+    }
+    else //Continuous and Snapsets
+    {
+        sAIRealMath->AIRealRectSet(&bleedRect, 0, 0, 0, 0);
+    }
+    
+    return bleedRect;
 }

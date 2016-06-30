@@ -33,8 +33,8 @@
 		F9138E9B1D01EE4D00D23C1F /* PdfResults.h in Headers */ = {isa = PBXBuildFile; fileRef = F9138E8D1D01EE4D00D23C1F /* PdfResults.h */; };
 		F9138E9C1D01EE4D00D23C1F /* PdfSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9138E8E1D01EE4D00D23C1F /* PdfSettings.cpp */; };
 		F9138E9D1D01EE4D00D23C1F /* PdfSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = F9138E8F1D01EE4D00D23C1F /* PdfSettings.h */; };
-		F9138E9E1D01EE4D00D23C1F /* PrintToPdf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9138E901D01EE4D00D23C1F /* PrintToPdf.cpp */; };
-		F9138E9F1D01EE4D00D23C1F /* PrintToPdf.h in Headers */ = {isa = PBXBuildFile; fileRef = F9138E911D01EE4D00D23C1F /* PrintToPdf.h */; };
+		F9138E9E1D01EE4D00D23C1F /* PdfPrinter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9138E901D01EE4D00D23C1F /* PdfPrinter.cpp */; };
+		F9138E9F1D01EE4D00D23C1F /* PdfPrinter.h in Headers */ = {isa = PBXBuildFile; fileRef = F9138E911D01EE4D00D23C1F /* PdfPrinter.h */; };
 		F9138EA01D01EE4D00D23C1F /* PrintToPdfConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = F9138E921D01EE4D00D23C1F /* PrintToPdfConstants.h */; };
 		F9138EA11D01EE4D00D23C1F /* PrintToPdfUIController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9138E931D01EE4D00D23C1F /* PrintToPdfUIController.cpp */; };
 		F9138EA21D01EE4D00D23C1F /* PrintToPdfUIController.h in Headers */ = {isa = PBXBuildFile; fileRef = F9138E941D01EE4D00D23C1F /* PrintToPdfUIController.h */; };
@@ -132,8 +132,8 @@
 		F9138E8D1D01EE4D00D23C1F /* PdfResults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PdfResults.h; path = Source/PrintToPdf/PdfResults.h; sourceTree = "<group>"; };
 		F9138E8E1D01EE4D00D23C1F /* PdfSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PdfSettings.cpp; path = Source/PrintToPdf/PdfSettings.cpp; sourceTree = "<group>"; };
 		F9138E8F1D01EE4D00D23C1F /* PdfSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PdfSettings.h; path = Source/PrintToPdf/PdfSettings.h; sourceTree = "<group>"; };
-		F9138E901D01EE4D00D23C1F /* PrintToPdf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PrintToPdf.cpp; path = Source/PrintToPdf/PrintToPdf.cpp; sourceTree = "<group>"; };
-		F9138E911D01EE4D00D23C1F /* PrintToPdf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintToPdf.h; path = Source/PrintToPdf/PrintToPdf.h; sourceTree = "<group>"; };
+		F9138E901D01EE4D00D23C1F /* PdfPrinter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PdfPrinter.cpp; path = Source/PrintToPdf/PdfPrinter.cpp; sourceTree = "<group>"; };
+		F9138E911D01EE4D00D23C1F /* PdfPrinter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PdfPrinter.h; path = Source/PrintToPdf/PdfPrinter.h; sourceTree = "<group>"; };
 		F9138E921D01EE4D00D23C1F /* PrintToPdfConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintToPdfConstants.h; path = Source/PrintToPdf/PrintToPdfConstants.h; sourceTree = "<group>"; };
 		F9138E931D01EE4D00D23C1F /* PrintToPdfUIController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PrintToPdfUIController.cpp; path = Source/PrintToPdf/PrintToPdfUIController.cpp; sourceTree = "<group>"; };
 		F9138E941D01EE4D00D23C1F /* PrintToPdfUIController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintToPdfUIController.h; path = Source/PrintToPdf/PrintToPdfUIController.h; sourceTree = "<group>"; };
@@ -311,8 +311,8 @@
 				F9138E8D1D01EE4D00D23C1F /* PdfResults.h */,
 				F9138E8E1D01EE4D00D23C1F /* PdfSettings.cpp */,
 				F9138E8F1D01EE4D00D23C1F /* PdfSettings.h */,
-				F9138E901D01EE4D00D23C1F /* PrintToPdf.cpp */,
-				F9138E911D01EE4D00D23C1F /* PrintToPdf.h */,
+				F9138E901D01EE4D00D23C1F /* PdfPrinter.cpp */,
+				F9138E911D01EE4D00D23C1F /* PdfPrinter.h */,
 				F9138E921D01EE4D00D23C1F /* PrintToPdfConstants.h */,
 				F9138E931D01EE4D00D23C1F /* PrintToPdfUIController.cpp */,
 				F9138E941D01EE4D00D23C1F /* PrintToPdfUIController.h */,
@@ -418,7 +418,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F9138E9F1D01EE4D00D23C1F /* PrintToPdf.h in Headers */,
+				F9138E9F1D01EE4D00D23C1F /* PdfPrinter.h in Headers */,
 				F989A8ED1CA460CE0050C071 /* FixBlack.h in Headers */,
 				F9158D521D05EC4700343D57 /* PathBuilder.h in Headers */,
 				F9F1EB6C1D1B19AF0051B716 /* ColorList.h in Headers */,
@@ -580,7 +580,7 @@
 				F94726401CB2E1F400649020 /* VPB.cpp in Sources */,
 				F98BAEDD1CA99E1E00965D86 /* ArtTree.cpp in Sources */,
 				F9C44EF41D0AF51100205ADF /* TickMarkDrawer.cpp in Sources */,
-				F9138E9E1D01EE4D00D23C1F /* PrintToPdf.cpp in Sources */,
+				F9138E9E1D01EE4D00D23C1F /* PdfPrinter.cpp in Sources */,
 				F979B6071CA31E8B004BA4AD /* Plugin.cpp in Sources */,
 				6868C926150BA192003DAAF2 /* SafeguardToolsPlugin.cpp in Sources */,
 				6868C928150BA192003DAAF2 /* SafeguardToolsSuites.cpp in Sources */,

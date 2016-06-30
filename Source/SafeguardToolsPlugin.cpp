@@ -14,7 +14,7 @@
 #include "TextTools.h"
 #include "FixFreehandType.h"
 #include "DictFuncs.h"
-#include "PrintToPdf.h"
+#include "PdfPrinter.h"
 #include "BleedInfo.h"
 #include "ListFonts.h"
 
@@ -294,7 +294,7 @@ ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
     
     BtAiMenuItem::AddMenu(*ListFontsMenuItem, &menuItemHandles);
     
-/*
+
     //PRINT TO PDF
     menuItem.groupName = kSaveForMenuGroup;
     menuItem.itemText = ai::UnicodeString(PRINT_TO_PDF_MENU_ITEM);
@@ -303,7 +303,7 @@ ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
     
     BtAiMenuItem::AddMenu(*PrintToPdfMenuItem, &menuItemHandles);
     
-*/    
+    
     //CREATE SLUG INFO
     menuItem.groupName = kDocumentUtilsMenuGroup;
     menuItem.itemText = ai::UnicodeString(CREATE_PLATE_BLEED_INFO_MENU_ITEM);
@@ -398,12 +398,12 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
             error = sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Create Fonts List"), ai::UnicodeString("Redo Create Fonts List"));
         }
     }
-/*    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(PRINT_TO_PDF_MENU_ITEM) )
+    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(PRINT_TO_PDF_MENU_ITEM) )
     {
         printToPdfUIController->LoadExtension();
         sAICSXSExtension->LaunchExtension(PrintToPdf::PrintToPdfUIController::PRINTTOPDF_UI_EXTENSION);
     }
-*/    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
+    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
     {
         ai::UnicodeString menuText;
         sAIMenu->GetItemText(message->menuItem, menuText);

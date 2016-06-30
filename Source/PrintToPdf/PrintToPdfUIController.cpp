@@ -10,7 +10,7 @@
 #include "PrintToPdfUIController.h"
 #include "SafeguardToolsPlugin.h"
 #include "SafeguardToolsSuites.h"
-#include "PrintToPdf.h"
+#include "PdfPrinter.h"
 #include "PdfSettings.h"
 
 using PrintToPdf::PrintToPdfUIController;
@@ -25,7 +25,10 @@ void PrintToPdfUIController::MakePdfButtonClickedFunc (const csxs::event::Event*
         // Set up the application context, so that suite calls can work.
         AppContext appContext(gPlugin->GetPluginRef());
         
-        string results = MakePdf(PdfSettings::MakePdfSettingsFromXml(event->data)).MakeXmlString();
+        gPlugin->sgJobFile->Update();
+        
+        gPlugin->sgJobFile->SetPdfPrinter(move( PdfPrinter::GetPrinter( move( PdfSettings::MakePdfSettingsFromXml(event->data) ) )));
+        string results = gPlugin->sgJobFile->Print().MakeXmlString();
         printToPdfUIController->SendResultsXmlToHtml(results);
         
     } while(false);

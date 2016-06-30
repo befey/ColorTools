@@ -9,18 +9,13 @@
 #include "PdfSettings.h"
 #include "PdfResults.h"
 #include "document.h"
-#include <boost/system/system_error.hpp>
-#include <boost/filesystem.hpp>
 #include "Plate.h"
 
 using PrintToPdf::PdfSettings;
 using PrintToPdf::PdfPreset;
 using PrintToPdf::PdfResults;
-namespace fs = boost::filesystem;
 
-
-PdfSettings::PdfSettings(ai::FilePath path, PdfPreset p, unique_ptr<PasswordRetriever> pwRet, unique_ptr<PathBuilder> pathBldr, string r, bool s)
-: preset(p), pwRetriever(move(pwRet)), pathBuilder(move(pathBldr)), range(r), separateFiles(s), plateNumber(new PlateNumber(path.GetFileNameNoExt().getInStdString(kAIPlatformCharacterEncoding)))
+PdfSettings::PdfSettings(PdfPreset p, string r, bool s) : preset(p), range(r), separateFiles(s)
 {
   ////****** Setup common parameters for all PDFs
     // Format parameter.
@@ -39,64 +34,17 @@ PdfSettings::PdfSettings(ai::FilePath path, PdfPreset p, unique_ptr<PasswordRetr
     //Turn off preserve Illustrator editability
     sAIActionManager->AIActionSetBoolean(vpb, kAIPDFRoundTripKey, FALSE);
   ////*******
-    
-    AIRealRect bleed = CalculateBleeds();
-    sAIActionManager->AIActionSetInteger(vpb, kAIPDFBleedTopKey, bleed.top);
-    sAIActionManager->AIActionSetInteger(vpb, kAIPDFBleedBottomKey, bleed.bottom);
-    sAIActionManager->AIActionSetInteger(vpb, kAIPDFBleedLeftKey, bleed.left);
-    sAIActionManager->AIActionSetInteger(vpb, kAIPDFBleedRightKey, bleed.right);
-    sAIActionManager->AIActionSetBoolean(vpb, kAIPDFDocBleedKey, FALSE);
-    
-    // Apply a password if one is required
-    if (pwRetriever->GetUserPassword() != "")
-    {
-        sAIActionManager->AIActionSetBoolean(vpb, kAIPDFUserPasswordRequiredKey, TRUE);
-        sAIActionManager->AIActionSetString(vpb, kAIPDFUserPasswordKey, pwRetriever->GetUserPassword().c_str());
-    }
-    else
-    {
-        sAIActionManager->AIActionSetBoolean(vpb, kAIPDFUserPasswordRequiredKey, FALSE);
-    }
-    
-    if (pwRetriever->GetMasterPassword() != "")
-    {
-        sAIActionManager->AIActionSetBoolean(vpb, kAIPDFMasterPasswordRequiredKey, TRUE);
-        sAIActionManager->AIActionSetString(vpb, kAIPDFMasterPasswordKey, pwRetriever->GetMasterPassword().c_str());
-    }
-    else
-    {
-        sAIActionManager->AIActionSetBoolean(vpb, kAIPDFMasterPasswordRequiredKey, FALSE);
-    }
-    
-    // Generate output path
-    outputPath = pathBuilder->GetAiFilePath(*plateNumber);
 }
 
-PdfSettings PdfSettings::MakePdfSettingsFromXml(const char* xmlData)
+unique_ptr<PdfSettings> PdfSettings::MakePdfSettingsFromXml(const char* xmlData)
 {
     using namespace rapidjson;
     
     Document d;
     d.Parse(xmlData);
     
-    unique_ptr<PasswordRetriever> pwr;
-    
     Value& v = d[PrintToPdfUIController::PRESET_SELECT];
     PrintToPdf::PdfPreset preset = static_cast<PrintToPdf::PdfPreset>(v.GetInt());
-    if ( preset == PrintToPdf::PdfPreset::Manufacturing)
-    {
-        pwr.reset(new NonePasswordRetriever());
-    }
-    else if (preset == PrintToPdf::PdfPreset::Proof)
-    {
-        pwr.reset(new ProofPasswordRetriever());
-    }
-    else if (preset == PrintToPdf::PdfPreset::MicrProof)
-    {
-        pwr.reset(new MicrPasswordRetriever());
-    }
-    
-    unique_ptr<PathBuilder> spc = make_unique<TestingPathBuilder>();
     
     v = d[PrintToPdfUIController::ALLPAGES_CHECK];
     bool allPages = (v.GetBool());
@@ -115,164 +63,51 @@ PdfSettings PdfSettings::MakePdfSettingsFromXml(const char* xmlData)
     v = d[PrintToPdfUIController::SEPARATEFILES_CHECK];
     bool separateFiles = (v.GetBool());
     
-    ai::FilePath openedFilePath;
-    sAIDocument->GetDocumentFileSpecification(openedFilePath);
-    
-    return PdfSettings(openedFilePath, preset, move(pwr), move(spc), r, separateFiles);
+    return make_unique<PdfSettings>(preset, r, separateFiles);
 }
 
-PdfResults PdfSettings::Print() const
+void PdfSettings::SetPasswords(const unique_ptr<PasswordRetriever> &pwRet)
 {
-    ASErr result;
-    ai::FilePath pathToPdfFile = outputPath;
-    PdfResults transactions;
-    
-    fs::path p = outputPath.GetFullPath().as_Platform();
-    boost::system::error_code e;
-    fs::create_directories(p, e);
-
-    if (!separateFiles)
+    // Apply a password if one is required
+    if (pwRet->GetUserPassword() != "")
     {
-        if (plateNumber->IsValid())
-        {
-            pathToPdfFile.AddComponent(ai::UnicodeString(plateNumber->GetPlateNumber()));
-        }
-        else
-        {
-            ai::FilePath openedFilePath;
-            sAIDocument->GetDocumentFileSpecification(openedFilePath);
-            pathToPdfFile.AddComponent(openedFilePath.GetFileNameNoExt());
-        }
-        
-        pathToPdfFile.AddExtension("pdf");
-        
-        // Set Path
-        sAIActionManager->AIActionSetStringUS(vpb, kAISaveDocumentAsNameKey, pathToPdfFile.GetFullPath());
-        
-        // Set Range
-        sAIActionManager->AIActionSetString(vpb, kAIExportDocumentSaveRangeKey, string(range).c_str());
-        
-        try
-        {
-            // Play the action.
-            result = sAIActionManager->PlayActionEvent(kSaveACopyAsAction, kDialogOff, vpb);
-            aisdk::check_ai_error(result);
-        }
-        catch (ai::Error& ex)
-        {
-            result = ex;
-        }
-        
-        transactions.AddResult({PdfResults::Transaction::Created, pathToPdfFile});
+        sAIActionManager->AIActionSetBoolean(vpb, kAIPDFUserPasswordRequiredKey, TRUE);
+        sAIActionManager->AIActionSetString(vpb, kAIPDFUserPasswordKey, pwRet->GetUserPassword().c_str());
     }
     else
     {
-        AIArtboardRangeIterator iter;
-        sAIArtboardRange->Begin(range, &iter);
-        ai::int32 index = 0;
-        while ( kEndOfRangeErr != sAIArtboardRange->Next(iter, &index) ) {
-            
-            if (plateNumber->IsValid())
-            {
-                pathToPdfFile.AddComponent(ai::UnicodeString(plateNumber->GetPlateNumber()));
-            }
-            else
-            {
-                ai::FilePath openedFilePath;
-                sAIDocument->GetDocumentFileSpecification(openedFilePath);
-                pathToPdfFile.AddComponent(openedFilePath.GetFileNameNoExt());
-            }
-            
-            string token = CreateToken(index);
-            if (token != "")
-            {
-                pathToPdfFile.AddExtension(ai::UnicodeString(token));
-            }
-            
-            pathToPdfFile.AddExtension("pdf");
-            string fp = pathToPdfFile.GetFullPath().as_UTF8();
-            // Set Path
-            sAIActionManager->AIActionSetStringUS(vpb, kAISaveDocumentAsNameKey, pathToPdfFile.GetFullPath());
-            
-            // Set Range
-            sAIActionManager->AIActionSetString(vpb, kAIExportDocumentSaveRangeKey, to_string(index+1).c_str());
-            
-            try
-            {
-                // Play the action.
-                result = sAIActionManager->PlayActionEvent(kSaveACopyAsAction, kDialogOff, vpb);
-                aisdk::check_ai_error(result);
-            }
-            catch (ai::Error& ex)
-            {
-                result = ex;
-            }
-            
-            transactions.AddResult({PdfResults::Transaction::Created, pathToPdfFile});
-
-            pathToPdfFile.RemoveComponent();
-        }
-        
-        sAIArtboardRange->DisposeIterator(iter);
+        sAIActionManager->AIActionSetBoolean(vpb, kAIPDFUserPasswordRequiredKey, FALSE);
     }
-    return transactions;
-}
-
-string PdfSettings::CreateToken(int artboardIndex) const
-{
-    ai::ArtboardList abList;
-    sAIArtboard->GetArtboardList(abList);
-    ai::ArtboardProperties abProps;
-    sAIArtboard->GetArtboardProperties(abList, artboardIndex, abProps);
-    ai::UnicodeString abName;
-    abProps.GetName(abName);
-    string abNameS = abName.getInStdString(kAIPlatformCharacterEncoding);
     
-    AIBoolean isDefaultName;
-    sAIArtboard->IsDefaultName(abProps, isDefaultName);
-    
-    if (isDefaultName || abNameS == SafeguardFile::NO_TOKEN_DESIG)
+    if (pwRet->GetMasterPassword() != "")
     {
-        return "";
+        sAIActionManager->AIActionSetBoolean(vpb, kAIPDFMasterPasswordRequiredKey, TRUE);
+        sAIActionManager->AIActionSetString(vpb, kAIPDFMasterPasswordKey, pwRet->GetMasterPassword().c_str());
     }
     else
     {
-        return abNameS;
+        sAIActionManager->AIActionSetBoolean(vpb, kAIPDFMasterPasswordRequiredKey, FALSE);
     }
 }
 
-AIRealRect PdfSettings::CalculateBleeds()
+void PdfSettings::SetBleeds(AIRealRect bleeds)
 {
-    AIRealRect bleedRect;
-    
-    PlateNumber::ProductType pt = plateNumber->GetProductType();
-    
-    if (pt == PlateNumber::ProductType::CutSheet)
-    {
-        if (preset == PdfPreset::Manufacturing)
-        {
-            sAIRealMath->AIRealRectSet(&bleedRect, 36, 36, 36, 36);
-        }
-        else
-        {
-            sAIRealMath->AIRealRectSet(&bleedRect, 0, 0, 0, 0);
-        }
-    }
-    else if (pt == PlateNumber::ProductType::BusinessStat)
-    {
-        if (preset == PdfPreset::Manufacturing)
-        {
-            sAIRealMath->AIRealRectSet(&bleedRect, 12, 12, 12, 12);
-        }
-    }
-    else //Continuous and Snapsets
-    {
-        sAIRealMath->AIRealRectSet(&bleedRect, 0, 0, 0, 0);
-    }
-    
-    return bleedRect;
+    sAIActionManager->AIActionSetInteger(vpb, kAIPDFBleedTopKey, bleeds.top);
+    sAIActionManager->AIActionSetInteger(vpb, kAIPDFBleedBottomKey, bleeds.bottom);
+    sAIActionManager->AIActionSetInteger(vpb, kAIPDFBleedLeftKey, bleeds.left);
+    sAIActionManager->AIActionSetInteger(vpb, kAIPDFBleedRightKey, bleeds.right);
+    sAIActionManager->AIActionSetBoolean(vpb, kAIPDFDocBleedKey, FALSE);
 }
 
+void PdfSettings::SetPath(ai::FilePath path)
+{
+    sAIActionManager->AIActionSetStringUS(vpb, kAISaveDocumentAsNameKey, path.GetFullPath());
+}
+
+void PdfSettings::SetVpbRange(string vpbRange)
+{
+    sAIActionManager->AIActionSetString(vpb, kAIExportDocumentSaveRangeKey, vpbRange.c_str());
+}
 /**************************************************************************
  **************************************************************************/
 

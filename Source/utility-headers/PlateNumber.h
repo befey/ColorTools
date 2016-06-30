@@ -53,12 +53,14 @@ public:
     PlateNumber(string);
     
     inline Boolean IsValid() const {return isValidPlateNumber;};
-    string GetPlateNumber() const;
+    
     inline string GetPlantIndicator() const {return plantIndicator;};
     inline string GetProductIndicator() const {return productIndicator;};
     ProductType GetProductType() const;
     
     void GetAsTextRange(ATE::ITextRange& targetRange) const;
+    
+    inline operator const string(void) const { return plateNumber; }
     
 private:
     string plateNumber;

@@ -15,6 +15,7 @@
 #include "AIDocument.h"
 #include "PlateNumber.h"
 #include "BleedInfo.h"
+#include "PrintToPdfConstants.h"
 #include "ColorList.h"
 #include "BleedInfoDrawer.h"
 #include <vector>
@@ -46,7 +47,11 @@ namespace SafeguardFile
         
         string GetArtboardName(AIBoolean& isDefault) const;
         const ai::ArtboardID GetArtboardIndex() const { return bleedInfo.artboardIndex; };
+        const PlateNumber GetPlateNumber() const;
+        const string GetToken() const;
         void SetPlateNumber();
+        
+        AIRealRect GetBleeds(PrintToPdf::PdfPreset preset) const;
         
         void AddBleedInfo();
         void RemoveBleedInfo();

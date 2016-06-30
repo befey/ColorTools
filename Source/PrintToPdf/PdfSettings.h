@@ -19,9 +19,8 @@
 #include "PlateNumber.h"
 #include "PrintToPdfUIController.h"
 #include "PdfResults.h"
-#include "PasswordRetriever.h"
-#include "PathBuilder.h"
 #include "PrintToPdfConstants.h"
+#include "PasswordRetriever.h"
 
 //=================================
 // forward declared dependencies
@@ -36,28 +35,27 @@ namespace PrintToPdf
     class PdfSettings
     {
     public:
-        PdfSettings(ai::FilePath sourceFile, PrintToPdf::PdfPreset p, unique_ptr<PasswordRetriever> pwRet, unique_ptr<PathBuilder> pathBldr, string range = "", bool separateFiles = false);
+        PdfSettings(PrintToPdf::PdfPreset p, string range = "", bool separateFiles = false);
         
-        static PdfSettings MakePdfSettingsFromXml(const char* xmlData);
-        
-        PdfResults Print() const;
+        static unique_ptr<PdfSettings> MakePdfSettingsFromXml(const char* xmlData);
         
         void SetPreset(PrintToPdf::PdfPreset);
+        PrintToPdf::PdfPreset GetPreset() const { return preset; };
         void SetRange(string);
+        const BtArtboardRange& GetRange() const { return range; };
+        void SetPasswords(const unique_ptr<PasswordRetriever> &pwRet);
+        void SetBleeds(AIRealRect bleeds);
+        void SetPath(ai::FilePath path);
+        void SetVpbRange(string range);
+        bool OutputSeparateFiles() const { return separateFiles; };
         
+        inline operator AIActionParamValueRef(void) const { return AIActionParamValueRef(vpb); }
     private:
         BtArtboardRange range;
         bool separateFiles;
         PrintToPdf::PdfPreset preset;
-        unique_ptr<PasswordRetriever> pwRetriever;
-        unique_ptr<PathBuilder> pathBuilder;
-        
+
         VPB vpb;
-        unique_ptr<PlateNumber> plateNumber;
-        ai::FilePath outputPath;
-        
-        string CreateToken(int artboardIndex) const;
-        AIRealRect CalculateBleeds();
     };
 }
 

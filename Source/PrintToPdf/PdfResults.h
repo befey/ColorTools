@@ -25,10 +25,13 @@ namespace PrintToPdf
             ai::FilePath path;
         };
         
-        std::vector<Transaction> results;
-        
         void AddResult(Transaction);
+        void AddResult(PdfResults);
+        
         string MakeXmlString() const;
+        
+    private:
+        std::vector<Transaction> results;
     };
 }
 

@@ -14,6 +14,14 @@ void PdfResults::AddResult(Transaction transaction)
     results.push_back(transaction);
 }
 
+void PdfResults::AddResult(PdfResults resultList)
+{
+    for (auto transaction : resultList.results)
+    {
+        AddResult(transaction);
+    }
+}
+
 string PdfResults::MakeXmlString() const
 {
     //Format as XML string
