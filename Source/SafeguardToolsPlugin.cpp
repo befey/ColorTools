@@ -180,6 +180,10 @@ ASErr SafeguardToolsPlugin::ShutdownPlugin( SPInterfaceMessage *message )
         printToPdfUIController->RemoveEventListeners();
         Plugin::LockPlugin(false);
     }
+    if (sgJobFile)
+    {
+        sgJobFile.reset();
+    }
 
     message->d.globals = NULL;
     return Plugin::ShutdownPlugin(message);
