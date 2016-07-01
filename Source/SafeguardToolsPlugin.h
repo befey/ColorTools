@@ -63,7 +63,7 @@ public:
     static constexpr auto FIND_AND_REPLACE_MENU_ITEM =     "Find and Replace Graphics";
     
     static constexpr auto TEXT_TOOLS_MENU =                "Text Tools";
-    static constexpr auto MAKE_POINT_TYPE_MENU_ITEM =      "Make Point Type";
+//    static constexpr auto MAKE_POINT_TYPE_MENU_ITEM =      "Make Point Type";
     static constexpr auto FIX_FREEHAND_TYPE_MENU_ITEM =    "Fix Freehand Type";
     
     static constexpr auto ALIGN_MENU =                     "Align";
