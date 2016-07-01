@@ -17,7 +17,6 @@ namespace fs = boost::filesystem;
 bool PathCreator::CreatePath(ai::FilePath path) const
 {
     fs::path p = path.GetFullPath().as_Platform();
-    boost::system::error_code e;
     
     if (fs::exists(p))
     {
@@ -25,6 +24,6 @@ bool PathCreator::CreatePath(ai::FilePath path) const
     }
     else
     {
-        return fs::create_directories(p, e);
+        return fs::create_directories(p);
     }
 }
