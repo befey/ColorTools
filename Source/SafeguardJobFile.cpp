@@ -18,6 +18,7 @@ void SafeguardJobFile::Update()
     ai::ArtboardID count;
     sAIArtboard->GetCount(abList, count);
     
+    plates.clear();
     for (int i = 0; i < count; i++)
     {
         plates.push_back(Plate(i));

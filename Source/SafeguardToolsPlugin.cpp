@@ -239,12 +239,12 @@ ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
     menuItem.itemText = ai::UnicodeString(TEXT_TOOLS_MENU);
     BtAiMenuItem* TextToolsMenu = new BtAiMenuItem(menuItem, kMenuGroupSortedAlphabeticallyOption);
     
-    menuItem.groupName = textToolsGroup;
+/*    menuItem.groupName = textToolsGroup;
     menuItem.itemText = ai::UnicodeString(MAKE_POINT_TYPE_MENU_ITEM);
     BtAiMenuItem* MakePointTypeMenuItem = new BtAiMenuItem(menuItem, kMenuItemNoOptions);
     MakePointTypeMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, kIfText, 0, 0, 0);
     TextToolsMenu->AddSubMenuItem(*MakePointTypeMenuItem);
-    
+*/
     menuItem.groupName = textToolsGroup;
     menuItem.itemText = ai::UnicodeString(FIX_FREEHAND_TYPE_MENU_ITEM);
     BtAiMenuItem* FixFreehandTypeMenuItem = new BtAiMenuItem(menuItem, kMenuItemNoOptions);
@@ -347,14 +347,14 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
         }
 
 	}
-    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(MAKE_POINT_TYPE_MENU_ITEM) )
+/*  else if ( message->menuItem == menuItemHandles.GetHandleWithKey(MAKE_POINT_TYPE_MENU_ITEM) )
     {
         //Call the main function
         if ( ConvertToPointType() ) {
             //What to do if it worked.
         }
     }
-    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(FIX_FREEHAND_TYPE_MENU_ITEM) )
+*/  else if ( message->menuItem == menuItemHandles.GetHandleWithKey(FIX_FREEHAND_TYPE_MENU_ITEM) )
     {
         //Call the main function
         if ( FixFreehandType() ) {
