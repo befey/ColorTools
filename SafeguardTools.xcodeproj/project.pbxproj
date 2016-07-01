@@ -156,15 +156,15 @@
 		F9681E3A1CA47AC400A02A58 /* DictFuncs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DictFuncs.h; path = "Source/utility-headers/DictFuncs.h"; sourceTree = "<group>"; };
 		F96D30711CB6D73500274BDE /* PlateNumber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlateNumber.cpp; path = "Source/utility-headers/PlateNumber.cpp"; sourceTree = "<group>"; };
 		F96D30721CB6D73500274BDE /* PlateNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlateNumber.h; path = "Source/utility-headers/PlateNumber.h"; sourceTree = "<group>"; };
-		F979B5FA1CA31DE5004BA4AD /* IAIUnicodeString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IAIUnicodeString.cpp; path = "../Adobe Illustrator CC 2015 SDK/illustratorapi/illustrator/IAIUnicodeString.cpp"; sourceTree = "<group>"; };
-		F979B5FC1CA31DF5004BA4AD /* IAIFilePath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IAIFilePath.cpp; path = "../Adobe Illustrator CC 2015 SDK/illustratorapi/illustrator/IAIFilePath.cpp"; sourceTree = "<group>"; };
-		F979B5FE1CA31E72004BA4AD /* AppContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AppContext.cpp; path = "../Adobe Illustrator CC 2015 SDK/samplecode/common/source/AppContext.cpp"; sourceTree = "<group>"; };
-		F979B6001CA31E78004BA4AD /* SDKPlugPlug.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SDKPlugPlug.cpp; path = "../Adobe Illustrator CC 2015 SDK/samplecode/common/source/SDKPlugPlug.cpp"; sourceTree = "<group>"; };
-		F979B6021CA31E81004BA4AD /* FlashUIController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FlashUIController.cpp; path = "../Adobe Illustrator CC 2015 SDK/samplecode/common/source/FlashUIController.cpp"; sourceTree = "<group>"; };
-		F979B6041CA31E87004BA4AD /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Main.cpp; path = "../Adobe Illustrator CC 2015 SDK/samplecode/common/source/Main.cpp"; sourceTree = "<group>"; };
-		F979B6061CA31E8B004BA4AD /* Plugin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Plugin.cpp; path = "../Adobe Illustrator CC 2015 SDK/samplecode/common/source/Plugin.cpp"; sourceTree = "<group>"; };
-		F979B6081CA31E8E004BA4AD /* Suites.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Suites.cpp; path = "../Adobe Illustrator CC 2015 SDK/samplecode/common/source/Suites.cpp"; sourceTree = "<group>"; };
-		F979B60A1CA31E92004BA4AD /* IllustratorSDK.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IllustratorSDK.cpp; path = "../Adobe Illustrator CC 2015 SDK/samplecode/common/source/IllustratorSDK.cpp"; sourceTree = "<group>"; };
+		F979B5FA1CA31DE5004BA4AD /* IAIUnicodeString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IAIUnicodeString.cpp; path = "../Adobe Illustrator 2015.3 SDK/illustratorapi/illustrator/IAIUnicodeString.cpp"; sourceTree = "<group>"; };
+		F979B5FC1CA31DF5004BA4AD /* IAIFilePath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IAIFilePath.cpp; path = "../Adobe Illustrator 2015.3 SDK/illustratorapi/illustrator/IAIFilePath.cpp"; sourceTree = "<group>"; };
+		F979B5FE1CA31E72004BA4AD /* AppContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AppContext.cpp; path = "../Adobe Illustrator 2015.3 SDK/samplecode/common/source/AppContext.cpp"; sourceTree = "<group>"; };
+		F979B6001CA31E78004BA4AD /* SDKPlugPlug.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SDKPlugPlug.cpp; path = "../Adobe Illustrator 2015.3 SDK/samplecode/common/source/SDKPlugPlug.cpp"; sourceTree = "<group>"; };
+		F979B6021CA31E81004BA4AD /* FlashUIController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FlashUIController.cpp; path = "../Adobe Illustrator 2015.3 SDK/samplecode/common/source/FlashUIController.cpp"; sourceTree = "<group>"; };
+		F979B6041CA31E87004BA4AD /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Main.cpp; path = "../Adobe Illustrator 2015.3 SDK/samplecode/common/source/Main.cpp"; sourceTree = "<group>"; };
+		F979B6061CA31E8B004BA4AD /* Plugin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Plugin.cpp; path = "../Adobe Illustrator 2015.3 SDK/samplecode/common/source/Plugin.cpp"; sourceTree = "<group>"; };
+		F979B6081CA31E8E004BA4AD /* Suites.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Suites.cpp; path = "../Adobe Illustrator 2015.3 SDK/samplecode/common/source/Suites.cpp"; sourceTree = "<group>"; };
+		F979B60A1CA31E92004BA4AD /* IllustratorSDK.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IllustratorSDK.cpp; path = "../Adobe Illustrator 2015.3 SDK/samplecode/common/source/IllustratorSDK.cpp"; sourceTree = "<group>"; };
 		F989A8E01CA460CE0050C071 /* ColorToolsUIController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ColorToolsUIController.cpp; sourceTree = "<group>"; };
 		F989A8E11CA460CE0050C071 /* ColorToolsUIController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorToolsUIController.h; sourceTree = "<group>"; };
 		F989A8E21CA460CE0050C071 /* FindReplaceGraphics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FindReplaceGraphics.cpp; sourceTree = "<group>"; };
@@ -173,8 +173,8 @@
 		F989A8E51CA460CE0050C071 /* FixBlack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixBlack.h; sourceTree = "<group>"; };
 		F989A8E61CA460CE0050C071 /* ReplaceData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ReplaceData.cpp; sourceTree = "<group>"; };
 		F989A8E71CA460CE0050C071 /* ReplaceData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceData.h; sourceTree = "<group>"; };
-		F989A8F01CA465890050C071 /* IText.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IText.cpp; path = "../Adobe Illustrator CC 2015 SDK/illustratorapi/ate/IText.cpp"; sourceTree = "<group>"; };
-		F989A8F21CA465F30050C071 /* IThrowException.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IThrowException.cpp; path = "../Adobe Illustrator CC 2015 SDK/illustratorapi/ate/IThrowException.cpp"; sourceTree = "<group>"; };
+		F989A8F01CA465890050C071 /* IText.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IText.cpp; path = "../Adobe Illustrator 2015.3 SDK/illustratorapi/ate/IText.cpp"; sourceTree = "<group>"; };
+		F989A8F21CA465F30050C071 /* IThrowException.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IThrowException.cpp; path = "../Adobe Illustrator 2015.3 SDK/illustratorapi/ate/IThrowException.cpp"; sourceTree = "<group>"; };
 		F98BAEDB1CA99E1E00965D86 /* ArtTree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ArtTree.cpp; path = "Source/utility-headers/ArtTree.cpp"; sourceTree = "<group>"; };
 		F98BAEDC1CA99E1E00965D86 /* ArtTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ArtTree.h; path = "Source/utility-headers/ArtTree.h"; sourceTree = "<group>"; };
 		F98BAEDF1CA9A0D100965D86 /* BtAiMenuItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BtAiMenuItem.cpp; path = "Source/utility-headers/BtAiMenuItem.cpp"; sourceTree = "<group>"; };
@@ -202,10 +202,10 @@
 		F9E284271D254E2D001B0F98 /* PathCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PathCreator.h; path = Source/PrintToPdf/PathCreator.h; sourceTree = "<group>"; };
 		F9F1EB691D1B19AF0051B716 /* ColorList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ColorList.cpp; path = Source/PlateBleedInfo/ColorList.cpp; sourceTree = "<group>"; };
 		F9F1EB6A1D1B19AF0051B716 /* ColorList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColorList.h; path = Source/PlateBleedInfo/ColorList.h; sourceTree = "<group>"; };
-		F9F55E521CB42D2900FA20EC /* SDKErrors.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SDKErrors.cpp; path = "../Adobe Illustrator CC 2015 SDK/samplecode/common/source/SDKErrors.cpp"; sourceTree = "<group>"; };
+		F9F55E521CB42D2900FA20EC /* SDKErrors.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SDKErrors.cpp; path = "../Adobe Illustrator 2015.3 SDK/samplecode/common/source/SDKErrors.cpp"; sourceTree = "<group>"; };
 		F9FAE8FC1CBD87E700938893 /* BtArtboardRange.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BtArtboardRange.cpp; path = "Source/utility-headers/BtArtboardRange.cpp"; sourceTree = "<group>"; };
 		F9FAE8FD1CBD87E700938893 /* BtArtboardRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BtArtboardRange.h; path = "Source/utility-headers/BtArtboardRange.h"; sourceTree = "<group>"; };
-		F9FEC8281CB576280097473A /* IAIArtboards.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IAIArtboards.cpp; path = "../Adobe Illustrator CC 2015 SDK/illustratorapi/illustrator/IAIArtboards.cpp"; sourceTree = "<group>"; };
+		F9FEC8281CB576280097473A /* IAIArtboards.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IAIArtboards.cpp; path = "../Adobe Illustrator 2015.3 SDK/illustratorapi/illustrator/IAIArtboards.cpp"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -497,7 +497,7 @@
 		508817C409F0C9740071BF1A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0620;
+				LastUpgradeCheck = 0730;
 			};
 			buildConfigurationList = 508817C509F0C9740071BF1A /* Build configuration list for PBXProject "SafeguardTools" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -628,12 +628,8 @@
 				GCC_WARN_UNKNOWN_PRAGMAS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PKGINFO_FILE = YES;
-				HEADER_SEARCH_PATHS = (
-					"\"$(PATH_TO_SDK_ILLUSTRATORAPI_FOLDER)\"/**",
-					"/Developer/Headers/FlatCarbon/**",
-					"./**",
-					"\"$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common\"/**",
-				);
+				HEADER_SEARCH_PATHS = "";
+				INCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "";
 				INFOPLIST_FILE = "$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common/mac/Info.plist";
 				INFOPLIST_PREFIX_HEADER = "$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common/includes/SDKDef.h";
 				INFOPLIST_PREPROCESS = YES;
@@ -642,8 +638,8 @@
 				OBJROOT = .;
 				ONLY_LINK_ESSENTIAL_SYMBOLS = YES;
 				OTHER_LDFLAGS = "";
-				PATH_TO_SDK_ILLUSTRATORAPI_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator CC 2015 SDK/illustratorapi";
-				PATH_TO_SDK_SAMPLECODE_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator CC 2015 SDK/samplecode";
+				PATH_TO_SDK_ILLUSTRATORAPI_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator 2015.3 SDK/illustratorapi";
+				PATH_TO_SDK_SAMPLECODE_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator 2015.3 SDK/samplecode";
 				PREBINDING = NO;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = NO;
@@ -658,6 +654,7 @@
 				STRIP_INSTALLED_PRODUCT = YES;
 				STRIP_STYLE = all;
 				SYMROOT = "$(SRCROOT)/output/mac/$(AI_CONFIGURATION)";
+				USER_HEADER_SEARCH_PATHS = "";
 				VALID_ARCHS = "i386 x86_64";
 				WRAPPER_EXTENSION = aip;
 				ZERO_LINK = NO;
@@ -690,12 +687,8 @@
 				GCC_WARN_UNKNOWN_PRAGMAS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PKGINFO_FILE = YES;
-				HEADER_SEARCH_PATHS = (
-					"\"$(PATH_TO_SDK_ILLUSTRATORAPI_FOLDER)\"/**",
-					"/Developer/Headers/FlatCarbon/**",
-					"./**",
-					"\"$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common\"/**",
-				);
+				HEADER_SEARCH_PATHS = "";
+				INCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "";
 				INFOPLIST_FILE = "$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common/mac/Info.plist";
 				INFOPLIST_PREFIX_HEADER = "$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common/includes/SDKDef.h";
 				INFOPLIST_PREPROCESS = YES;
@@ -704,8 +697,8 @@
 				OBJROOT = .;
 				ONLY_LINK_ESSENTIAL_SYMBOLS = YES;
 				OTHER_LDFLAGS = "";
-				PATH_TO_SDK_ILLUSTRATORAPI_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator CC 2015 SDK/illustratorapi";
-				PATH_TO_SDK_SAMPLECODE_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator CC 2015 SDK/samplecode";
+				PATH_TO_SDK_ILLUSTRATORAPI_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator 2015.3 SDK/illustratorapi";
+				PATH_TO_SDK_SAMPLECODE_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator 2015.3 SDK/samplecode";
 				PREBINDING = NO;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = NO;
@@ -720,6 +713,7 @@
 				STRIP_INSTALLED_PRODUCT = YES;
 				STRIP_STYLE = all;
 				SYMROOT = "$(SRCROOT)/output/mac/$(AI_CONFIGURATION)";
+				USER_HEADER_SEARCH_PATHS = "";
 				VALID_ARCHS = "i386 x86_64";
 				WRAPPER_EXTENSION = aip;
 				ZERO_LINK = NO;
@@ -737,15 +731,17 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				HEADER_SEARCH_PATHS = (
-					"\"$(PATH_TO_SDK_ILLUSTRATORAPI_FOLDER)\"/**",
-					"/Developer/Headers/FlatCarbon/**",
-					"./**",
-					"\"$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common\"/**",
-					/Users/t431962/Desktop/rapidjson/include/rapidjson,
 					/Users/t431962/Desktop/boost_1_60_0,
+					/Users/t431962/Desktop/rapidjson/include/rapidjson,
+					"/Developer/Headers/FlatCarbon/**",
+					"\"$(PATH_TO_SDK_ILLUSTRATORAPI_FOLDER)/**\"",
+					"\"$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common/**\"",
 				);
 				LIBRARY_SEARCH_PATHS = /Users/t431962/Desktop/boost_1_60_0/stage/lib;
 				OTHER_LDFLAGS = "-lboost_system";
+				PATH_TO_SDK_ILLUSTRATORAPI_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator 2015.3 SDK/illustratorapi";
+				PATH_TO_SDK_SAMPLECODE_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator 2015.3 SDK/samplecode";
+				PRODUCT_BUNDLE_IDENTIFIER = "kSDKDefAIBundlePrefix.plugins.$(PROJECTNAME)";
 				SDKROOT = macosx;
 				SHARED_PRECOMPS_DIR = "$(SRCROOT)/output/mac/sharedprecompiledheaders/$(AI_CONFIGURATION)";
 				STRIP_STYLE = "non-global";
@@ -764,15 +760,17 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				HEADER_SEARCH_PATHS = (
-					"\"$(PATH_TO_SDK_ILLUSTRATORAPI_FOLDER)\"/**",
-					"/Developer/Headers/FlatCarbon/**",
-					"./**",
-					"\"$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common\"/**",
-					/Users/t431962/Desktop/rapidjson/include/rapidjson,
 					/Users/t431962/Desktop/boost_1_60_0,
+					/Users/t431962/Desktop/rapidjson/include/rapidjson,
+					"/Developer/Headers/FlatCarbon/**",
+					"\"$(PATH_TO_SDK_ILLUSTRATORAPI_FOLDER)/**\"",
+					"\"$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common/**\"",
 				);
 				LIBRARY_SEARCH_PATHS = /Users/t431962/Desktop/boost_1_60_0/stage/lib;
 				OTHER_LDFLAGS = "-lboost_system";
+				PATH_TO_SDK_ILLUSTRATORAPI_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator 2015.3 SDK/illustratorapi";
+				PATH_TO_SDK_SAMPLECODE_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator 2015.3 SDK/samplecode";
+				PRODUCT_BUNDLE_IDENTIFIER = "kSDKDefAIBundlePrefix.plugins.$(PROJECTNAME)";
 				SDKROOT = macosx;
 				SHARED_PRECOMPS_DIR = "$(SRCROOT)/output/mac/sharedprecompiledheaders/$(AI_CONFIGURATION)";
 				STRIP_STYLE = "non-global";
