@@ -204,6 +204,7 @@ bool ColorIsNonPrinting(const AIColor color)
 AIColor GetColorDefinitionFromBook(string name, bool& found)
 {
     found = FALSE;
+    AIColor resultColor;
     AICustomColor tColor;
     ai::UnicodeString colorName(name);
     if (colorName.caseFind(ai::UnicodeString("PANTONE"), 0) != string::npos)
@@ -234,16 +235,23 @@ AIColor GetColorDefinitionFromBook(string name, bool& found)
     ASErr err = sAICustomColor->NewCustomColor(&tColor, colorName, &tColorHandle);
     string error = GetIllustratorErrorCode(err);
     
-    if (err == kNameInUseErr)
+    if (found == TRUE)
     {
-        sAICustomColor->NewCustomColor(&tColor, ai::UnicodeString("DUMMY NAME"), &tColorHandle);
-        sAICustomColor->GetCustomColorByName(ai::UnicodeString(colorName), &tColorHandle);
+        if (err == kNameInUseErr)
+        {
+            sAICustomColor->NewCustomColor(&tColor, ai::UnicodeString("DUMMY NAME"), &tColorHandle);
+            sAICustomColor->GetCustomColorByName(ai::UnicodeString(colorName), &tColorHandle);
+        }
+        
+        sAICustomColor->SetCustomColor(tColorHandle, &tColor);
+        resultColor = {.kind = kCustomColor, .c.c.color = tColorHandle, .c.c.tint = 0};
+        
+        return resultColor;
     }
-    
-    sAICustomColor->SetCustomColor(tColorHandle, &tColor);
-    AIColor resultColor = {.kind = kCustomColor, .c.c.color = tColorHandle, .c.c.tint = 0};
-    
-    return resultColor;
+    else
+    {
+        return resultColor;
+    }
 }
 
 string GetInnerPantoneColorNumber(string fullName)
