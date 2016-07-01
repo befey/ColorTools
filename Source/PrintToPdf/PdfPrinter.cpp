@@ -76,6 +76,7 @@ PdfResults PdfPrinter::Print() const
     
     if ( pathCreator->CreatePath(outputPath) )
     {
+        transactions.AddResult(efDeleter->Delete(GetPlateNumber(), outputPath));
         transactions.AddResult(CustomPrintSteps());
     }   
     
