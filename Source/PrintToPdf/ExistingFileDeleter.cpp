@@ -10,34 +10,55 @@
 #include <boost/system/system_error.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/iterator/filter_iterator.hpp>
+#include <boost/algorithm/string.hpp>
 #include <iostream>
+
 using PrintToPdf::ExistingFileDeleter;
 using PrintToPdf::PdfResults;
+using Transaction = PrintToPdf::PdfResults::Transaction;
+
 namespace fs = boost::filesystem;
 
 PdfResults ExistingFileDeleter::Delete(PlateNumber pn, ai::FilePath fp)
 {
     fs::path p = fp.GetFullPath().as_Platform();
+    string filename = pn;
+    boost::algorithm::to_upper(filename);
     
-    /*const fs::recursive_directory_iterator end;
-    const auto it = find_if(fs::recursive_directory_iterator(p), end,
-                            [](const fs::directory_entry& e)
-                            {
-                                return e.path().filename() == file_name;
-                            });
-    */
-    /*boost::filter_iterator<function<fs::directory_entry&>, fs::recursive_directory_iterator>(
-                                                                                             [](const fs::directory_entry& e){return e;},
-                                                                                             fs::recursive_directory_iterator(p),
-    
-                                                                                             fs::recursive_directory_iterator());
-    */
-    
-    auto pred = [](const fs::directory_entry& e){return true;};
+    vector<fs::path> filesToDelete;
+    PdfResults deletedFiles;
+
+    typedef function<bool(const fs::directory_entry&)> filterfunc;
+    filterfunc pred = [filename](const fs::directory_entry& e)
+    {
+        string currFile = e.path().filename().string();
+        boost::algorithm::to_upper(currFile);
+        
+        if (currFile.find(filename) != string::npos)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    };
+
     std::copy(
               boost::make_filter_iterator(pred, fs::recursive_directory_iterator(p), fs::recursive_directory_iterator()),
               boost::make_filter_iterator(pred, fs::recursive_directory_iterator(), fs::recursive_directory_iterator()),
-              std::ostream_iterator<fs::directory_entry&>(std::cout, "\n")
+              std::back_inserter(filesToDelete)
              );
-    return PdfResults();
+    
+    for (auto p : filesToDelete)
+    {
+        boost::system::error_code ec;
+        fs::remove(p, ec);
+        if (ec == boost::system::errc::success)
+        {
+            deletedFiles.AddResult({.action = Transaction::Deleted, .path = ai::FilePath(ai::UnicodeString(p.string())) });
+        }
+    }
+    
+    return deletedFiles;
 }
