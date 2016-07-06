@@ -55,6 +55,7 @@
 		F9681E3C1CA47AC400A02A58 /* DictFuncs.h in Headers */ = {isa = PBXBuildFile; fileRef = F9681E3A1CA47AC400A02A58 /* DictFuncs.h */; };
 		F96D30731CB6D73500274BDE /* PlateNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F96D30711CB6D73500274BDE /* PlateNumber.cpp */; };
 		F96D30741CB6D73500274BDE /* PlateNumber.h in Headers */ = {isa = PBXBuildFile; fileRef = F96D30721CB6D73500274BDE /* PlateNumber.h */; };
+		F96DDFB01D2D7BED0066931D /* fontlist.txt in Resources */ = {isa = PBXBuildFile; fileRef = F96DDFAF1D2D7BED0066931D /* fontlist.txt */; };
 		F979B5FB1CA31DE5004BA4AD /* IAIUnicodeString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F979B5FA1CA31DE5004BA4AD /* IAIUnicodeString.cpp */; };
 		F979B5FD1CA31DF5004BA4AD /* IAIFilePath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F979B5FC1CA31DF5004BA4AD /* IAIFilePath.cpp */; };
 		F979B5FF1CA31E72004BA4AD /* AppContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F979B5FE1CA31E72004BA4AD /* AppContext.cpp */; };
@@ -156,6 +157,7 @@
 		F9681E3A1CA47AC400A02A58 /* DictFuncs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DictFuncs.h; path = "Source/utility-headers/DictFuncs.h"; sourceTree = "<group>"; };
 		F96D30711CB6D73500274BDE /* PlateNumber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlateNumber.cpp; path = "Source/utility-headers/PlateNumber.cpp"; sourceTree = "<group>"; };
 		F96D30721CB6D73500274BDE /* PlateNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlateNumber.h; path = "Source/utility-headers/PlateNumber.h"; sourceTree = "<group>"; };
+		F96DDFAF1D2D7BED0066931D /* fontlist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fontlist.txt; path = Resources/Mac/fontlist.txt; sourceTree = "<group>"; };
 		F979B5FA1CA31DE5004BA4AD /* IAIUnicodeString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IAIUnicodeString.cpp; path = "../Adobe Illustrator 2015.3 SDK/illustratorapi/illustrator/IAIUnicodeString.cpp"; sourceTree = "<group>"; };
 		F979B5FC1CA31DF5004BA4AD /* IAIFilePath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IAIFilePath.cpp; path = "../Adobe Illustrator 2015.3 SDK/illustratorapi/illustrator/IAIFilePath.cpp"; sourceTree = "<group>"; };
 		F979B5FE1CA31E72004BA4AD /* AppContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AppContext.cpp; path = "../Adobe Illustrator 2015.3 SDK/samplecode/common/source/AppContext.cpp"; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 		6EE2BA590A40BDD300CC7CE2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F96DDFAF1D2D7BED0066931D /* fontlist.txt */,
 				F93027D81CA46E7D00D3B41E /* SafeguardTools.r */,
 			);
 			name = Resources;
@@ -524,6 +527,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F96DDFB01D2D7BED0066931D /* fontlist.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
