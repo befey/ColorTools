@@ -16,11 +16,14 @@
 #include "AIFont.h"
 #include "AIArtboard.h"
 #include <vector>
+#include <set>
 
 extern AIArtSetSuite* sAIArtSet;
 extern AIArtboardSuite* sAIArtboard;
 extern AIFontSuite* sAIFont;
 extern AIArtboardSuite* sAIArtboard;
+
+constexpr auto PATH_TO_FONTLIST = "./Plug-ins.localized/Safeguard/SafeguardTools.aip/Contents/Resources/fontlist.txt";
 
 class ListFonts
 {
@@ -29,13 +32,19 @@ public:
 
 private:
     vector<BtAteTextFeatures> featuresList;
+    set<string> postscriptFontNames;
+    set<string> postscriptFontNamesOnJob;
+    vector<string> listofBadFonts;
     
     long MakeArtSetOfPrintingTextArts(AIArtSet const targetSet);
     long MakeVectorOfFontsFromArtSet(AIArtSet const srcArtSet);
     void RemoveDuplicatesFromFeaturesList();
+    void FillJobPostscriptFontList();
     void WriteVectorOfFontsToArtboard();
     
     bool GetFontFromITextRange(ATE::ITextRange currRange);
+    bool LoadFontListFromFile();
+    bool ValidateAgainstFontList();
 };
 
 

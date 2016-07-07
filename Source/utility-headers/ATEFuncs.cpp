@@ -185,6 +185,36 @@ string GetFontNameFromFeatures(const BtAteTextFeatures features)
     return fontNameString;
 }
 
+string GetPostscriptFontNameFromFeatures(const BtAteTextFeatures features)
+{
+    string fontNameString = "";
+    bool isAssigned = false;
+    ATE::IFont font = features.GetFont(&isAssigned);
+    if (isAssigned)
+    {
+        FontRef ref = font.GetRef();
+        AIFontKey key;
+        sAIFont->FontKeyFromFont(ref, &key);
+        char fontName[256];
+        sAIFont->GetPostScriptFontName(key, fontName, 256);
+        fontNameString = fontName;
+    }
+    return fontNameString;
+}
+
+string GetDisplayFontNameFromPostscriptFontName(const string postscriptFontName)
+{
+    string fontNameString = "";
+    
+    AIFontKey key;
+    sAIFont->FindFont(postscriptFontName.c_str(), kAIAnyFontTechnology, kNativeAIScript, false, &key);
+    char fontName[256];
+    sAIFont->GetUserFontUIName(key, fontName, 256);
+    fontNameString = fontName;
+    
+    return fontNameString;
+}
+
 void AddTextToRange(const string text, ATE::ITextRange& targetRange, int beforeAfter)
 {
     //We have to create a new point text so we can get a new blank range

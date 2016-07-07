@@ -52,6 +52,8 @@ void SetAIColorForATETextRange(ATE::ITextRange theRange, AIColor theColor, bool 
 size_t StdStringToASUnicode(const std::string text, ASUnicode* buffer, size_t bufferMax);
 
 string GetFontNameFromFeatures(const BtAteTextFeatures features);
+string GetPostscriptFontNameFromFeatures(const BtAteTextFeatures features);
+string GetDisplayFontNameFromPostscriptFontName(const string postscriptFontName);
 
 void AddTextToRange(const string text, ATE::ITextRange& targetRange, int beforeAfter=1);
 void AddTextToRange(ATE::ITextRange sourceRange, ATE::ITextRange& targetRange, int beforeAfter=1);

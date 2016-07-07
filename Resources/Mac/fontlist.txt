@@ -18,6 +18,10 @@ ArialRounded
 ArialRounded-Bold
 ArialRounded-ExtraBold
 ArialRounded-Light
+ArialMT
+Arial-ItalicMT
+Arial-BoldMT
+Arial-BoldItalicMT
 AvantGardeITCbyBT-Bold
 AvantGardeITCbyBT-BoldOblique
 AvantGardeITCbyBT-Book
