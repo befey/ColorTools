@@ -23,7 +23,7 @@ extern AIArtboardSuite* sAIArtboard;
 extern AIFontSuite* sAIFont;
 extern AIArtboardSuite* sAIArtboard;
 
-constexpr auto PATH_TO_FONTLIST = "./Plug-ins.localized/Safeguard/SafeguardTools.aip/Contents/Resources/fontlist.txt";
+constexpr auto PATH_TO_FONTLIST = "../../../Plug-ins.localized/Safeguard/SafeguardTools.aip/Contents/Resources/fontlist.txt";
 
 class ListFonts
 {
