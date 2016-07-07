@@ -21,7 +21,30 @@ bool ListFonts::PutFontList()
     
     RemoveDuplicatesFromFeaturesList();
     
-    WriteVectorOfFontsToArtboard();
+    FillJobPostscriptFontList();
+    
+    if (LoadFontListFromFile())
+    {
+        if (ValidateAgainstFontList())
+        {
+            WriteVectorOfFontsToArtboard();
+        }
+        else
+        {
+            ai::UnicodeString errorMsg = ai::UnicodeString("Fonts were found that are not on the Hence font list.");
+            for (auto fontName : listofBadFonts)
+            {
+                errorMsg.append(ai::UnicodeString("\n" + fontName));
+            }
+            sAIUser->ErrorAlert(errorMsg);
+            return false;
+        }
+    }
+    else
+    {
+        sAIUser->ErrorAlert(ai::UnicodeString("The font list file could not be opened."));
+        return false;
+    }
     
     sAIArtSet->DisposeArtSet(&artSet);
     
@@ -194,4 +217,58 @@ void ListFonts::RemoveDuplicatesFromFeaturesList()
                            featuresList.end()
         );
     }
+}
+
+void ListFonts::FillJobPostscriptFontList()
+{
+    for (auto& feature : featuresList)
+    {
+        postscriptFontNamesOnJob.insert(GetPostscriptFontNameFromFeatures(feature));
+    }
+}
+
+bool ListFonts::LoadFontListFromFile()
+{
+    ifstream in(PATH_TO_FONTLIST);
+    
+    char buf[2048];
+    getcwd(buf, sizeof(buf));
+    printf("%s", buf);
+    
+    if (in.is_open())
+    {
+        //string contents((istreambuf_iterator<char>(in)), istreambuf_iterator<char>());
+        string line;
+        while ( getline(in, line) )
+        {
+            postscriptFontNames.insert(line);
+        }
+        in.close();
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool ListFonts::ValidateAgainstFontList()
+{
+    for ( auto fontName : postscriptFontNamesOnJob )
+    {
+        bool is_in = postscriptFontNames.find(fontName) != postscriptFontNames.end();
+        if (!is_in)
+        {
+            listofBadFonts.push_back(GetDisplayFontNameFromPostscriptFontName(fontName));
+        }
+    }
+    if (listofBadFonts.empty())
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    
 }
