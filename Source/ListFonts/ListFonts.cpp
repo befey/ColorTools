@@ -26,11 +26,7 @@ bool ListFonts::PutFontList()
     
     if (LoadFontListFromFile())
     {
-        if (ValidateAgainstFontList())
-        {
-            WriteVectorOfFontsToArtboard();
-        }
-        else
+        if (!ValidateAgainstFontList())
         {
             ai::UnicodeString errorMsg = ai::UnicodeString("Fonts were found that are not on the Hence font list.");
             for (auto fontName : listofBadFonts)
@@ -38,8 +34,8 @@ bool ListFonts::PutFontList()
                 errorMsg.append(ai::UnicodeString("\n" + fontName));
             }
             sAIUser->ErrorAlert(errorMsg);
-            return false;
         }
+        WriteVectorOfFontsToArtboard();
     }
     else
     {
