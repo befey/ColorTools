@@ -9,6 +9,7 @@
 #include "ListFonts.h"
 #include "ArtTree.h"
 #include <functional>
+#include "CoreFoundation/CoreFoundation.h"
 
 bool ListFonts::PutFontList()
 {
@@ -229,11 +230,23 @@ void ListFonts::FillJobPostscriptFontList()
 
 bool ListFonts::LoadFontListFromFile()
 {
-    ifstream in(PATH_TO_FONTLIST);
+    CFBundleRef mainBundle = CFBundleGetMainBundle();
+    CFURLRef resourcesURL = CFBundleCopyResourcesDirectoryURL(mainBundle);
+    char path[PATH_MAX];
+    if (!CFURLGetFileSystemRepresentation(resourcesURL, TRUE, (UInt8 *)path, PATH_MAX))
+    {
+        // error!
+    }
+    CFRelease(resourcesURL);
     
-    char buf[2048];
-    getcwd(buf, sizeof(buf));
-    printf("%s", buf);
+    chdir(path);
+    
+//    char buf[2048];
+//    getcwd(buf, sizeof(buf));
+//    printf("%s", buf);
+//    sAIUser->ErrorAlert(ai::UnicodeString(buf));
+
+    ifstream in(PATH_TO_FONTLIST);
     
     if (in.is_open())
     {
