@@ -13,7 +13,7 @@
 
 #include "TextTools.h"
 #include "FixFreehandType.h"
-#include "DictFuncs.h"
+#include "DictionaryWriter.h"
 #include "PdfPrinter.h"
 #include "BleedInfo.h"
 #include "ListFonts.h"
@@ -454,7 +454,8 @@ ASErr SafeguardToolsPlugin::UpdateMenuItem(AIMenuMessage* message)
     {
         //Check if we have a micr line object in the document dictionary
         //If we do, nothing needs to be selected, as we already know where the micr line is
-        if ( CheckDictionaryForArtObjectWithIdentifier(ai::UnicodeString(MICR_LINE_LABEL)) )
+        unique_ptr<DictionaryWriter> dw = make_unique<DictionaryWriter>();
+        if (dw->CheckDictionaryForArtObjectWithIdentifier(MICR_LINE_LABEL) )
         {
             sAIMenu->EnableItem(message->menuItem);
         }

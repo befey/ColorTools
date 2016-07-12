@@ -13,9 +13,9 @@
 #include "FileNameDateDrawer.h"
 #include "ATEFuncs.h"
 #include "ColorFuncs.h"
-#include "DictFuncs.h"
 #include "ArtTree.h"
 #include "AIColor.h"
+#include "DictionaryWriter.h"
 #include <functional>
 
 using SafeguardFile::Plate;
@@ -73,7 +73,8 @@ void Plate::AddBleedInfo()
 
 void Plate::RemoveBleedInfo()
 {
-    AIArtHandle foundArt = GetArtHandleFromIdentifier(ai::UnicodeString(PLATE_BLEED_INFO_GROUP_LABEL), bleedInfo.artboardIndex);
+    unique_ptr<DictionaryWriter> dw = make_unique<DictionaryWriter>();
+    AIArtHandle foundArt = dw->GetArtHandleFromIdentifier(PLATE_BLEED_INFO_GROUP_LABEL, bleedInfo.artboardIndex);
     if (foundArt)
     {
         bleedInfoDrawer->Remove(foundArt);
