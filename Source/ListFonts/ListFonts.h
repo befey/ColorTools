@@ -17,6 +17,7 @@
 #include "AIArtboard.h"
 #include <vector>
 #include <set>
+#include <map>
 
 extern AIArtSetSuite* sAIArtSet;
 extern AIArtboardSuite* sAIArtboard;
@@ -32,7 +33,7 @@ public:
 
 private:
     vector<BtAteTextFeatures> featuresList;
-    set<string> postscriptFontNames;
+    map<string, string> henceFonts; //<Postscript Fontname, Hence Font Code>
     set<string> postscriptFontNamesOnJob;
     vector<string> listofBadFonts;
     

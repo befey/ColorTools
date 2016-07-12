@@ -148,8 +148,24 @@ void ListFonts::WriteVectorOfFontsToArtboard()
     {
         string infoString;
         bool isAssigned = false;
+        BtAteTextFeatures adjustedFeatures;
         
-        infoString += GetFontNameFromFeatures(feature);
+        auto it = henceFonts.find(GetPostscriptFontNameFromFeatures(feature));
+        if (it != henceFonts.end())
+        {
+            infoString = it->second;
+        }
+        else
+        {
+            infoString = "NONE";
+        }
+        
+        infoString += "\t";
+        adjustedFeatures.SetFont("Helvetica-Bold");
+        adjustedFeatures.SetFontSize(8);
+        adjustedFeatures.AddTextToRangeWithFeatures(infoString, textRange);
+        
+        infoString = GetFontNameFromFeatures(feature);
         
         ASReal fontSize = feature.GetFontSize(&isAssigned);
         if (isAssigned)
@@ -164,7 +180,7 @@ void ListFonts::WriteVectorOfFontsToArtboard()
         }
         
         //Make sure the lines stay spaced apart enough to read
-        BtAteTextFeatures adjustedFeatures = feature;
+        adjustedFeatures = feature;
         adjustedFeatures.SetLeading(fontSize + 2);
         
         infoString += "\n";
@@ -247,10 +263,11 @@ bool ListFonts::LoadFontListFromFile()
     if (in.is_open())
     {
         //string contents((istreambuf_iterator<char>(in)), istreambuf_iterator<char>());
-        string line;
-        while ( getline(in, line) )
+        string postscriptName, henceCode;
+        while ( getline(in, henceCode, ',') )
         {
-            postscriptFontNames.insert(line);
+            getline(in, postscriptName);
+            henceFonts.insert(pair<string,string>(postscriptName, henceCode));
         }
         in.close();
         return true;
@@ -265,7 +282,7 @@ bool ListFonts::ValidateAgainstFontList()
 {
     for ( auto fontName : postscriptFontNamesOnJob )
     {
-        bool is_in = postscriptFontNames.find(fontName) != postscriptFontNames.end();
+        bool is_in = henceFonts.find(fontName) != henceFonts.end();
         if (!is_in)
         {
             listofBadFonts.push_back(GetDisplayFontNameFromPostscriptFontName(fontName));

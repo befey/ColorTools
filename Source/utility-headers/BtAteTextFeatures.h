@@ -25,6 +25,8 @@ public:
     BtAteTextFeatures(ATE::ICharFeatures cFeatures);
     BtAteTextFeatures(ATE::IParaFeatures pFeatures);
     BtAteTextFeatures(ATE::ICharFeatures cFeatures, ATE::IParaFeatures pFeatures);
+    BtAteTextFeatures(const BtAteTextFeatures& src);
+    BtAteTextFeatures& operator=(const BtAteTextFeatures& rhs);
     
     void SetLeading(ATETextDOM::Real newVal);
     void SetFontSize(ATETextDOM::Real newVal);
