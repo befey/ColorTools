@@ -9,9 +9,21 @@
 #include "BtAteTextFeatures.h"
 
 BtAteTextFeatures::BtAteTextFeatures() {};
-BtAteTextFeatures::BtAteTextFeatures(ATE::ICharFeatures cFeatures) : charFeatures(cFeatures) {};
-BtAteTextFeatures::BtAteTextFeatures(ATE::IParaFeatures pFeatures) : paraFeatures(pFeatures) {};
-BtAteTextFeatures::BtAteTextFeatures(ATE::ICharFeatures cFeatures, ATE::IParaFeatures pFeatures) : charFeatures(cFeatures), paraFeatures(pFeatures) {};
+BtAteTextFeatures::BtAteTextFeatures(ATE::ICharFeatures cFeatures) : charFeatures(ATE::ICharFeatures(cFeatures)) {};
+BtAteTextFeatures::BtAteTextFeatures(ATE::IParaFeatures pFeatures) : paraFeatures(ATE::IParaFeatures(pFeatures)) {};
+BtAteTextFeatures::BtAteTextFeatures(ATE::ICharFeatures cFeatures, ATE::IParaFeatures pFeatures) : charFeatures(ATE::ICharFeatures(cFeatures)), paraFeatures(ATE::IParaFeatures(pFeatures)) {};
+
+BtAteTextFeatures::BtAteTextFeatures(const BtAteTextFeatures& src) : charFeatures(ATE::ICharFeatures(src.charFeatures)), paraFeatures(ATE::IParaFeatures(src.paraFeatures)) {};
+
+BtAteTextFeatures& BtAteTextFeatures::operator=(const BtAteTextFeatures& rhs)
+{
+    if (&rhs != this)
+    {
+        charFeatures = ATE::ICharFeatures(rhs.charFeatures);
+        paraFeatures = ATE::IParaFeatures(rhs.paraFeatures);
+    }
+    return *this;
+}
 
 void BtAteTextFeatures::SetLeading(ATETextDOM::Real newVal)
 {
