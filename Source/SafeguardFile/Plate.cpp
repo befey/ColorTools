@@ -19,6 +19,7 @@
 #include <functional>
 
 using SafeguardFile::Plate;
+using SafeguardFile::PlateNumber;
 using PrintToPdf::PdfPreset;
 
 

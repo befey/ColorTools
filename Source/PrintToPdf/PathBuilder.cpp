@@ -9,6 +9,7 @@
 #include "PathBuilder.h"
 #include "PrintToPdfConstants.h"
 
+using SafeguardFile::PlateNumber;
 using PrintToPdf::ManufacturingPathBuilder;
 using PrintToPdf::ProofPathBuilder;
 using PrintToPdf::MicrProofPathBuilder;

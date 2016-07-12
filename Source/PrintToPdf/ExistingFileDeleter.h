@@ -17,7 +17,7 @@ namespace PrintToPdf
     class ExistingFileDeleter
     {
     public:
-        static PdfResults Delete(PlateNumber, ai::FilePath);
+        static PdfResults Delete(SafeguardFile::PlateNumber, ai::FilePath);
     };
 }
 #endif /* defined(__SafeguardTools__ExistingFileDeleter__) */

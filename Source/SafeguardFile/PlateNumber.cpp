@@ -10,6 +10,8 @@
 #include "ATEFuncs.h"
 #include <regex>
 
+using SafeguardFile::PlateNumber;
+
 PlateNumber::PlateNumber(string pNum)
 {
     for (auto & c: pNum) c = toupper(c);

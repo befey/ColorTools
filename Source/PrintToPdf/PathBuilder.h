@@ -18,7 +18,7 @@ namespace PrintToPdf
     class PathBuilder
     {
     public:
-        virtual ai::FilePath GetAiFilePath(PlateNumber pn) = 0;
+        virtual ai::FilePath GetAiFilePath(SafeguardFile::PlateNumber pn) = 0;
         
     };
     
@@ -26,26 +26,26 @@ namespace PrintToPdf
     class ManufacturingPathBuilder : public PathBuilder
     {
     public:
-        ai::FilePath GetAiFilePath(PlateNumber pn);
+        ai::FilePath GetAiFilePath(SafeguardFile::PlateNumber pn);
     };
     
     class ProofPathBuilder : public PathBuilder
     {
     public:
-        ai::FilePath GetAiFilePath(PlateNumber pn);
+        ai::FilePath GetAiFilePath(SafeguardFile::PlateNumber pn);
     };
     
     class MicrProofPathBuilder : public PathBuilder
     {
     public:
-        ai::FilePath GetAiFilePath(PlateNumber pn);
+        ai::FilePath GetAiFilePath(SafeguardFile::PlateNumber pn);
     };
  
     
     class TestingPathBuilder : public PathBuilder
     {
     public:
-        ai::FilePath GetAiFilePath(PlateNumber pn);
+        ai::FilePath GetAiFilePath(SafeguardFile::PlateNumber pn);
     };
 }
 #endif /* defined(__SafeguardTools__PathBuilder__) */

@@ -9,6 +9,8 @@
 #include "SafeguardJobFile.h"
 
 using SafeguardFile::SafeguardJobFile;
+using SafeguardFile::PlateNumber;
+using PrintToPdf::PdfResults;
 
 void SafeguardJobFile::Update()
 {
@@ -57,7 +59,7 @@ bool SafeguardJobFile::ShouldDrawBleedInfo()
     return false;
 }
 
-PrintToPdf::PdfResults SafeguardJobFile::Print() const
+PdfResults SafeguardJobFile::Print() const
 {
     if (pdfPrinter == nullptr)
     {

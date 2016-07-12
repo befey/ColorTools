@@ -13,6 +13,7 @@
 #include <boost/algorithm/string.hpp>
 #include <iostream>
 
+using SafeguardFile::PlateNumber;
 using PrintToPdf::ExistingFileDeleter;
 using PrintToPdf::PdfResults;
 using Transaction = PrintToPdf::PdfResults::Transaction;

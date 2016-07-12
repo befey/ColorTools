@@ -37,7 +37,7 @@ namespace PrintToPdf
         
         ai::FilePath outputPath;
         
-        const PlateNumber GetPlateNumber() const;
+        const SafeguardFile::PlateNumber GetPlateNumber() const;
         const string GetToken(int plateIndex) const;
         
     private:

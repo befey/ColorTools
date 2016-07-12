@@ -16,6 +16,7 @@ using PrintToPdf::SingleFilePdfPrinter;
 using PrintToPdf::SeparateFilePdfPrinter;
 using PrintToPdf::PdfSettings;
 using PrintToPdf::PdfResults;
+using SafeguardFile::PlateNumber;
 
 SingleFilePdfPrinter::SingleFilePdfPrinter(shared_ptr<PdfSettings> settings) : PdfPrinter( move(settings) ) {}
 SeparateFilePdfPrinter::SeparateFilePdfPrinter(shared_ptr<PdfSettings> settings) : PdfPrinter( move(settings) ) {}
