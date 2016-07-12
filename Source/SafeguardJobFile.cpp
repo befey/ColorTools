@@ -7,7 +7,6 @@
 //
 
 #include "SafeguardJobFile.h"
-#include "DictFuncs.h"
 
 using SafeguardFile::SafeguardJobFile;
 

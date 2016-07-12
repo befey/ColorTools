@@ -24,6 +24,7 @@ extern AIArtboardSuite* sAIArtboard;
 extern AIFontSuite* sAIFont;
 extern AIArtboardSuite* sAIArtboard;
 
+constexpr auto HENCE_FONT_LIST_LABEL =             "__hence_font_list__";
 constexpr auto PATH_TO_FONTLIST = "../../../Plug-ins.localized/Safeguard/SafeguardTools.aip/Contents/Resources/fontlist.txt";
 
 class ListFonts
@@ -41,7 +42,7 @@ private:
     long MakeVectorOfFontsFromArtSet(AIArtSet const srcArtSet);
     void RemoveDuplicatesFromFeaturesList();
     void FillJobPostscriptFontList();
-    void WriteVectorOfFontsToArtboard();
+    AIArtHandle WriteVectorOfFontsToArtboard();
     
     bool GetFontFromITextRange(ATE::ITextRange currRange);
     bool LoadFontListFromFile();

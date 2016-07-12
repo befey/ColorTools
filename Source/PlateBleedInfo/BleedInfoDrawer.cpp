@@ -8,7 +8,7 @@
 
 #include "BleedInfoDrawer.h"
 #include "SafeguardToolsPlugin.h"
-#include "DictFuncs.h"
+#include "DictionaryWriter.h"
 #include "ArtTree.h"
 
 
@@ -16,16 +16,17 @@ using SafeguardFile::BleedInfoDrawer;
 
 void BleedInfoDrawer::Draw() const
 {
-    if (CheckDictionaryForArtObjectWithIdentifier(ai::UnicodeString(PLATE_BLEED_INFO_GROUP_LABEL), p_BleedInfo->artboardIndex))
+    unique_ptr<DictionaryWriter> dw = make_unique<DictionaryWriter>();
+    if (dw->CheckDictionaryForArtObjectWithIdentifier(PLATE_BLEED_INFO_GROUP_LABEL, p_BleedInfo->artboardIndex))
     {
-        AIArtHandle foundArt = GetArtHandleFromIdentifier(ai::UnicodeString(PLATE_BLEED_INFO_GROUP_LABEL), p_BleedInfo->artboardIndex);
+        AIArtHandle foundArt = dw->GetArtHandleFromIdentifier(PLATE_BLEED_INFO_GROUP_LABEL, p_BleedInfo->artboardIndex);
         if (foundArt)
         {
             Update(foundArt);
         }
         else
         {
-            RemoveIdentifierFromDictionary(ai::UnicodeString(PLATE_BLEED_INFO_GROUP_LABEL), p_BleedInfo->artboardIndex);
+            dw->RemoveIdentifierFromDictionary(PLATE_BLEED_INFO_GROUP_LABEL, p_BleedInfo->artboardIndex);
         }
     }
     else
@@ -44,7 +45,8 @@ void BleedInfoDrawer::Add() const
 
     CreateResultArt(pluginGroupArt);
     
-    AddArtUIDToDictionary(pluginGroupArt, ai::UnicodeString(PLATE_BLEED_INFO_GROUP_LABEL), p_BleedInfo->artboardIndex);
+    unique_ptr<DictionaryWriter> dw = make_unique<DictionaryWriter>();
+    dw->AddArtHandleToDictionary(pluginGroupArt, PLATE_BLEED_INFO_GROUP_LABEL, p_BleedInfo->artboardIndex);
 }
 
 void BleedInfoDrawer::Update(AIArtHandle pluginGroupArt) const
@@ -80,7 +82,8 @@ void BleedInfoDrawer::CreateResultArt(AIArtHandle pluginGroupArt) const
 
 void BleedInfoDrawer::Remove(AIArtHandle pluginGroupArt) const
 {
-    RemoveIdentifierFromDictionary(ai::UnicodeString(PLATE_BLEED_INFO_GROUP_LABEL), p_BleedInfo->artboardIndex);
+    unique_ptr<DictionaryWriter> dw = make_unique<DictionaryWriter>();
+    dw->RemoveIdentifierFromDictionary(PLATE_BLEED_INFO_GROUP_LABEL, p_BleedInfo->artboardIndex);
     sAIArt->DisposeArt(pluginGroupArt);
 }
 /*
