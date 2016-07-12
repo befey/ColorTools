@@ -42,7 +42,7 @@ private:
     long MakeVectorOfFontsFromArtSet(AIArtSet const srcArtSet);
     void RemoveDuplicatesFromFeaturesList();
     void FillJobPostscriptFontList();
-    void WriteVectorOfFontsToArtboard();
+    AIArtHandle WriteVectorOfFontsToArtboard();
     
     bool GetFontFromITextRange(ATE::ITextRange currRange);
     bool LoadFontListFromFile();

@@ -8,11 +8,21 @@
 
 #include "ListFonts.h"
 #include "ArtTree.h"
+#include "DictionaryWriter.h"
 #include <functional>
 #include "CoreFoundation/CoreFoundation.h"
 
 bool ListFonts::PutFontList()
 {
+    unique_ptr<DictionaryWriter> dw = make_unique<DictionaryWriter>();
+    AIArtHandle fontListArt = dw->GetArtHandleFromIdentifier(HENCE_FONT_LIST_LABEL);
+    
+    if (fontListArt)
+    {
+        dw->RemoveIdentifierFromDictionary(HENCE_FONT_LIST_LABEL);
+        sAIArt->DisposeArt(fontListArt);
+    }
+    
     AIArtSet artSet;
     sAIArtSet->NewArtSet(&artSet);
     
@@ -35,7 +45,9 @@ bool ListFonts::PutFontList()
             }
             sAIUser->ErrorAlert(errorMsg);
         }
-        WriteVectorOfFontsToArtboard();
+        fontListArt = WriteVectorOfFontsToArtboard();
+        
+        dw->AddArtHandleToDictionary(fontListArt, HENCE_FONT_LIST_LABEL);
     }
     else
     {
@@ -125,7 +137,7 @@ bool ListFonts::GetFontFromITextRange(ATE::ITextRange currRange)
     return true;
 }
 
-void ListFonts::WriteVectorOfFontsToArtboard()
+AIArtHandle ListFonts::WriteVectorOfFontsToArtboard()
 {
     ai::ArtboardList abList;
     sAIArtboard->GetArtboardList(abList);
@@ -186,6 +198,8 @@ void ListFonts::WriteVectorOfFontsToArtboard()
         infoString += "\n";
         adjustedFeatures.AddTextToRangeWithFeatures(infoString, textRange);
     }
+    
+    return textFrame;
 }
 
 void ListFonts::RemoveDuplicatesFromFeaturesList()
@@ -296,5 +310,4 @@ bool ListFonts::ValidateAgainstFontList()
     {
         return false;
     }
-    
 }
