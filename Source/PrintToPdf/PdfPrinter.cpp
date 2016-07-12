@@ -129,7 +129,8 @@ PdfResults SeparateFilePdfPrinter::CustomPrintSteps() const
     
     ai::FilePath pathToPdfFile = outputPath;
     
-    while ( kEndOfRangeErr != sAIArtboardRange->Next(iter, &index) ) {
+    while ( kEndOfRangeErr != sAIArtboardRange->Next(iter, &index) )
+    {
         
         if (GetPlateNumber().IsValid())
         {
