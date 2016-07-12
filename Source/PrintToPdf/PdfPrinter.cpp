@@ -71,7 +71,11 @@ PdfResults PdfPrinter::Print() const
 {
     PdfResults transactions;
     
-    pdfSettings->SetPasswords(pwRetriever);
+    if (pwRetriever->IsValid())
+    {
+        pdfSettings->SetPasswords(pwRetriever);
+    }
+    
     pdfSettings->SetBleeds(gPlugin->sgJobFile->GetBleeds(pdfSettings->GetPreset()));
     
     if ( pathCreator->CreatePath(outputPath) )
