@@ -28,7 +28,6 @@
 		F910BD6B1D09FA910029DF62 /* BleedInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = F910BD691D09FA910029DF62 /* BleedInfo.h */; };
 		F9138E971D01EE4D00D23C1F /* PasswordRetriever.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9138E891D01EE4D00D23C1F /* PasswordRetriever.cpp */; };
 		F9138E981D01EE4D00D23C1F /* PasswordRetriever.h in Headers */ = {isa = PBXBuildFile; fileRef = F9138E8A1D01EE4D00D23C1F /* PasswordRetriever.h */; };
-		F9138E991D01EE4D00D23C1F /* passwords.h in Headers */ = {isa = PBXBuildFile; fileRef = F9138E8B1D01EE4D00D23C1F /* passwords.h */; };
 		F9138E9A1D01EE4D00D23C1F /* PdfResults.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9138E8C1D01EE4D00D23C1F /* PdfResults.cpp */; };
 		F9138E9B1D01EE4D00D23C1F /* PdfResults.h in Headers */ = {isa = PBXBuildFile; fileRef = F9138E8D1D01EE4D00D23C1F /* PdfResults.h */; };
 		F9138E9C1D01EE4D00D23C1F /* PdfSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9138E8E1D01EE4D00D23C1F /* PdfSettings.cpp */; };
@@ -130,7 +129,6 @@
 		F910BD691D09FA910029DF62 /* BleedInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BleedInfo.h; path = Source/PlateBleedInfo/BleedInfo.h; sourceTree = "<group>"; };
 		F9138E891D01EE4D00D23C1F /* PasswordRetriever.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PasswordRetriever.cpp; path = Source/PrintToPdf/PasswordRetriever.cpp; sourceTree = "<group>"; };
 		F9138E8A1D01EE4D00D23C1F /* PasswordRetriever.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PasswordRetriever.h; path = Source/PrintToPdf/PasswordRetriever.h; sourceTree = "<group>"; };
-		F9138E8B1D01EE4D00D23C1F /* passwords.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = passwords.h; path = Source/PrintToPdf/passwords.h; sourceTree = "<group>"; };
 		F9138E8C1D01EE4D00D23C1F /* PdfResults.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PdfResults.cpp; path = Source/PrintToPdf/PdfResults.cpp; sourceTree = "<group>"; };
 		F9138E8D1D01EE4D00D23C1F /* PdfResults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PdfResults.h; path = Source/PrintToPdf/PdfResults.h; sourceTree = "<group>"; };
 		F9138E8E1D01EE4D00D23C1F /* PdfSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PdfSettings.cpp; path = Source/PrintToPdf/PdfSettings.cpp; sourceTree = "<group>"; };
@@ -311,7 +309,6 @@
 				F9158D541D05FBE900343D57 /* ExistingFileDeleter.h */,
 				F9138E891D01EE4D00D23C1F /* PasswordRetriever.cpp */,
 				F9138E8A1D01EE4D00D23C1F /* PasswordRetriever.h */,
-				F9138E8B1D01EE4D00D23C1F /* passwords.h */,
 				F9158D4F1D05EC4700343D57 /* PathBuilder.cpp */,
 				F9158D501D05EC4700343D57 /* PathBuilder.h */,
 				F9E284261D254E2D001B0F98 /* PathCreator.cpp */,
@@ -463,7 +460,6 @@
 				F98BAEE21CA9A0D100965D86 /* BtAiMenuItem.h in Headers */,
 				F965B58F1D1072F200B0C04C /* ListFonts.h in Headers */,
 				F90DB92F1D08A25B0039CE5F /* BtAteTextFeatures.h in Headers */,
-				F9138E991D01EE4D00D23C1F /* passwords.h in Headers */,
 				6868C927150BA192003DAAF2 /* SafeguardToolsPlugin.h in Headers */,
 				F9158D561D05FBE900343D57 /* ExistingFileDeleter.h in Headers */,
 				F9C44EF91D0B14AE00205ADF /* SafeguardJobFile.h in Headers */,
