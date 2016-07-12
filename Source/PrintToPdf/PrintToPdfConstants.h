@@ -18,7 +18,7 @@ namespace PrintToPdf
     static constexpr auto PATH_TO_PLANT_MANUFACTURING =     "/Volumes/Plant_Manufacturing";
     static constexpr auto PATH_TO_PDFPROOFS =               "/Volumes/PDFProofs";
     static constexpr auto PATH_TO_MICR_PDF =                "/Volumes/MICR_PDF";
-    static constexpr auto DEFAULT_OUTPUTPATH =              "/Users/t431962/Desktop/WORKING";
+    static constexpr auto TESTING_OUTPUTPATH =              "/Users/t431962/Desktop/WORKING";
 
     
     enum class PdfPreset

@@ -73,7 +73,7 @@ ai::FilePath TestingPathBuilder::GetAiFilePath(PlateNumber pn)
         prodCode = pn.GetProductIndicator();
     }
         
-    ai::UnicodeString fpUS = ai::UnicodeString(PrintToPdf::DEFAULT_OUTPUTPATH);
+    ai::UnicodeString fpUS = ai::UnicodeString(PrintToPdf::TESTING_OUTPUTPATH);
     ai::FilePath saveasFilePath(fpUS);
     saveasFilePath.AddComponent(ai::UnicodeString(prodCode + " to be Plated"));
     saveasFilePath.AddComponent(ai::UnicodeString(pn.GetPlantIndicator() + " " + prodCode + " to be Plated"));
