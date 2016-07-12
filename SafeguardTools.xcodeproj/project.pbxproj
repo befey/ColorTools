@@ -13,6 +13,8 @@
 		6868C928150BA192003DAAF2 /* SafeguardToolsSuites.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6868C923150BA192003DAAF2 /* SafeguardToolsSuites.cpp */; };
 		6868C929150BA192003DAAF2 /* SafeguardToolsSuites.h in Headers */ = {isa = PBXBuildFile; fileRef = 6868C924150BA192003DAAF2 /* SafeguardToolsSuites.h */; };
 		C4A3F955134C5AA500128D2D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A3F954134C5AA500128D2D /* Cocoa.framework */; };
+		F905605E1D3526E30084AB31 /* DictionaryWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F905605C1D3526E30084AB31 /* DictionaryWriter.cpp */; };
+		F905605F1D3526E30084AB31 /* DictionaryWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = F905605D1D3526E30084AB31 /* DictionaryWriter.h */; };
 		F90AE3F21CAAF8AF0076A9BC /* BtAiMenuItemHandles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F90AE3F01CAAF8AF0076A9BC /* BtAiMenuItemHandles.cpp */; };
 		F90AE3F31CAAF8AF0076A9BC /* BtAiMenuItemHandles.h in Headers */ = {isa = PBXBuildFile; fileRef = F90AE3F11CAAF8AF0076A9BC /* BtAiMenuItemHandles.h */; };
 		F90DB92E1D08A25B0039CE5F /* BtAteTextFeatures.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F90DB92C1D08A25B0039CE5F /* BtAteTextFeatures.cpp */; };
@@ -51,8 +53,6 @@
 		F94726401CB2E1F400649020 /* VPB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F947263E1CB2E1F400649020 /* VPB.cpp */; };
 		F965B58E1D1072F200B0C04C /* ListFonts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F965B58C1D1072F200B0C04C /* ListFonts.cpp */; };
 		F965B58F1D1072F200B0C04C /* ListFonts.h in Headers */ = {isa = PBXBuildFile; fileRef = F965B58D1D1072F200B0C04C /* ListFonts.h */; };
-		F9681E3B1CA47AC400A02A58 /* DictFuncs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9681E391CA47AC400A02A58 /* DictFuncs.cpp */; };
-		F9681E3C1CA47AC400A02A58 /* DictFuncs.h in Headers */ = {isa = PBXBuildFile; fileRef = F9681E3A1CA47AC400A02A58 /* DictFuncs.h */; };
 		F96D30731CB6D73500274BDE /* PlateNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F96D30711CB6D73500274BDE /* PlateNumber.cpp */; };
 		F96D30741CB6D73500274BDE /* PlateNumber.h in Headers */ = {isa = PBXBuildFile; fileRef = F96D30721CB6D73500274BDE /* PlateNumber.h */; };
 		F96DDFB01D2D7BED0066931D /* fontlist.txt in Resources */ = {isa = PBXBuildFile; fileRef = F96DDFAF1D2D7BED0066931D /* fontlist.txt */; };
@@ -115,6 +115,8 @@
 		6868C924150BA192003DAAF2 /* SafeguardToolsSuites.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SafeguardToolsSuites.h; path = Source/SafeguardToolsSuites.h; sourceTree = "<group>"; };
 		6EE2BA530A40BB2600CC7CE2 /* SafeguardTools.aip */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SafeguardTools.aip; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4A3F954134C5AA500128D2D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		F905605C1D3526E30084AB31 /* DictionaryWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DictionaryWriter.cpp; path = Source/DictionaryWriter/DictionaryWriter.cpp; sourceTree = "<group>"; };
+		F905605D1D3526E30084AB31 /* DictionaryWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DictionaryWriter.h; path = Source/DictionaryWriter/DictionaryWriter.h; sourceTree = "<group>"; };
 		F90AE3F01CAAF8AF0076A9BC /* BtAiMenuItemHandles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BtAiMenuItemHandles.cpp; path = "Source/utility-headers/BtAiMenuItemHandles.cpp"; sourceTree = "<group>"; };
 		F90AE3F11CAAF8AF0076A9BC /* BtAiMenuItemHandles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BtAiMenuItemHandles.h; path = "Source/utility-headers/BtAiMenuItemHandles.h"; sourceTree = "<group>"; };
 		F90DB92C1D08A25B0039CE5F /* BtAteTextFeatures.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BtAteTextFeatures.cpp; path = "Source/utility-headers/BtAteTextFeatures.cpp"; sourceTree = "<group>"; };
@@ -153,8 +155,6 @@
 		F947263E1CB2E1F400649020 /* VPB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VPB.cpp; path = "Source/utility-headers/VPB.cpp"; sourceTree = "<group>"; };
 		F965B58C1D1072F200B0C04C /* ListFonts.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ListFonts.cpp; path = Source/ListFonts/ListFonts.cpp; sourceTree = "<group>"; };
 		F965B58D1D1072F200B0C04C /* ListFonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ListFonts.h; path = Source/ListFonts/ListFonts.h; sourceTree = "<group>"; };
-		F9681E391CA47AC400A02A58 /* DictFuncs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DictFuncs.cpp; path = "Source/utility-headers/DictFuncs.cpp"; sourceTree = "<group>"; };
-		F9681E3A1CA47AC400A02A58 /* DictFuncs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DictFuncs.h; path = "Source/utility-headers/DictFuncs.h"; sourceTree = "<group>"; };
 		F96D30711CB6D73500274BDE /* PlateNumber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlateNumber.cpp; path = "Source/utility-headers/PlateNumber.cpp"; sourceTree = "<group>"; };
 		F96D30721CB6D73500274BDE /* PlateNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlateNumber.h; path = "Source/utility-headers/PlateNumber.h"; sourceTree = "<group>"; };
 		F96DDFAF1D2D7BED0066931D /* fontlist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fontlist.txt; path = Resources/Mac/fontlist.txt; sourceTree = "<group>"; };
@@ -249,6 +249,7 @@
 			children = (
 				F989A8CF1CA4606E0050C071 /* My Headers */,
 				F963C91C1CC7D3AA00A0D519 /* ColorTools */,
+				F905605B1D35267A0084AB31 /* DictionaryWriter */,
 				F965B58B1D10714B00B0C04C /* ListFonts */,
 				F9158D571D073E4E00343D57 /* PlateBleedInfo */,
 				F9C44EEE1D0AF26100205ADF /* Plate.cpp */,
@@ -302,6 +303,15 @@
 				C4A3F954134C5AA500128D2D /* Cocoa.framework */,
 			);
 			name = Libraries;
+			sourceTree = "<group>";
+		};
+		F905605B1D35267A0084AB31 /* DictionaryWriter */ = {
+			isa = PBXGroup;
+			children = (
+				F905605C1D3526E30084AB31 /* DictionaryWriter.cpp */,
+				F905605D1D3526E30084AB31 /* DictionaryWriter.h */,
+			);
+			name = DictionaryWriter;
 			sourceTree = "<group>";
 		};
 		F91180761CE3B37600AA7AC8 /* PrintToPdf */ = {
@@ -409,8 +419,6 @@
 				F90E3F9A1CA475880081C333 /* BtSwatchList.h */,
 				F90E3F9B1CA475880081C333 /* ColorFuncs.cpp */,
 				F90E3F9C1CA475880081C333 /* ColorFuncs.h */,
-				F9681E391CA47AC400A02A58 /* DictFuncs.cpp */,
-				F9681E3A1CA47AC400A02A58 /* DictFuncs.h */,
 				F9DA3B8E1D1C4A4A00AB6156 /* GetIllustratorErrorCode.h */,
 				F96D30711CB6D73500274BDE /* PlateNumber.cpp */,
 				F96D30721CB6D73500274BDE /* PlateNumber.h */,
@@ -441,13 +449,13 @@
 				F989A8E91CA460CE0050C071 /* ColorToolsUIController.h in Headers */,
 				F9138E9D1D01EE4D00D23C1F /* PdfSettings.h in Headers */,
 				F989A8EB1CA460CE0050C071 /* FindReplaceGraphics.h in Headers */,
-				F9681E3C1CA47AC400A02A58 /* DictFuncs.h in Headers */,
 				F9DA3B921D1C5EFA00AB6156 /* BleedInfoDrawer.h in Headers */,
 				F989A8EF1CA460CE0050C071 /* ReplaceData.h in Headers */,
 				6868C925150BA192003DAAF2 /* SafeguardToolsID.h in Headers */,
 				F934B1591CC9645A002EAB43 /* ReplaceDataBuilder.h in Headers */,
 				F90E3FA41CA475880081C333 /* ColorFuncs.h in Headers */,
 				F9138EA21D01EE4D00D23C1F /* PrintToPdfUIController.h in Headers */,
+				F905605F1D3526E30084AB31 /* DictionaryWriter.h in Headers */,
 				F9CE24F91D11A56E0075DDDF /* FixFreehandType.h in Headers */,
 				F9138E981D01EE4D00D23C1F /* PasswordRetriever.h in Headers */,
 				F9DA3B9A1D1C6C9300AB6156 /* FileNameDateDrawer.h in Headers */,
@@ -597,9 +605,9 @@
 				6868C926150BA192003DAAF2 /* SafeguardToolsPlugin.cpp in Sources */,
 				6868C928150BA192003DAAF2 /* SafeguardToolsSuites.cpp in Sources */,
 				F9158D511D05EC4700343D57 /* PathBuilder.cpp in Sources */,
+				F905605E1D3526E30084AB31 /* DictionaryWriter.cpp in Sources */,
 				F989A8E81CA460CE0050C071 /* ColorToolsUIController.cpp in Sources */,
 				F90E3FA11CA475880081C333 /* BtSwatchList.cpp in Sources */,
-				F9681E3B1CA47AC400A02A58 /* DictFuncs.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
