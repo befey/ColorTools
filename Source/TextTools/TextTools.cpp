@@ -741,7 +741,7 @@ bool CreateMICRBarcode() {
 		
         BtAteTextFeatures barcodeFeatures;
         barcodeFeatures.SetFontSize(12);
-        barcodeFeatures.SetFont(MICR_FONT_NAME);
+        barcodeFeatures.SetFont(BARCODE_FONT_NAME);
         barcodeFeatures.SetJustification(ATE::kCenterJustify);
         barcodeFeatures.SetFillColor(micrColor);
         
