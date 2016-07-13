@@ -41,7 +41,7 @@ void BtAteTextFeatures::SetFont(string postscriptFontName)
     sAIFont->FindFont(postscriptFontName.c_str(), kAIAnyFontTechnology, kUnknownAIScript, FALSE, &currFontKey);
     FontRef fontRef = NULL;
     sAIFont->FontFromFontKey(currFontKey, &fontRef);
-    charFeatures.SetFont(ATE::IFont(ATE::IFont(fontRef)));
+    charFeatures.SetFont(ATE::IFont(fontRef));
 }
 
 void BtAteTextFeatures::SetFillColor(AIColor color)
@@ -76,8 +76,8 @@ ATETextDOM::Real BtAteTextFeatures::GetLeading( bool* isAssigned) const
 void BtAteTextFeatures::AddTextToRangeWithFeatures(const string text, ATE::ITextRange& targetRange, int beforeAfter)
 {
     //We have to create a new point text so we can get a new blank range
-    AIArtHandle tempTextHandle = NULL; AIRealPoint anchor ={0,0};
-    sAITextFrame->NewPointText(kPlaceAboveAll, NULL, kHorizontalTextOrientation, anchor, &tempTextHandle);
+    AIArtHandle tempTextHandle = NULL;
+    sAITextFrame->NewPointText(kPlaceAboveAll, NULL, kHorizontalTextOrientation, AIRealPoint{0,0}, &tempTextHandle);
     ATE::TextRangeRef newTextRangeRef;
     sAITextFrame->GetATETextRange(tempTextHandle, &newTextRangeRef);
     ATE::ITextRange newTextRange(newTextRangeRef);
@@ -85,7 +85,7 @@ void BtAteTextFeatures::AddTextToRangeWithFeatures(const string text, ATE::IText
     AddTextToRange(text, newTextRange);
     
     AddTextToRangeWithFeatures(newTextRange, targetRange, beforeAfter);
-    
+        
     //Trash our temporary art objects
     sAIArt->DisposeArt(tempTextHandle);
     tempTextHandle = NULL;
