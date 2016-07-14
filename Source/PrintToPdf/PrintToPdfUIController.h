@@ -48,6 +48,7 @@ namespace PrintToPdf
         
         ASErr SendResultsXmlToHtml(string resultsXml);
         void SendCloseMessageToHtml();
+        void ClearResultsBox();
         
         //=================================
         // Constant definitions
@@ -56,6 +57,7 @@ namespace PrintToPdf
         static constexpr auto EVENT_TYPE_CANCEL_CLICKED =       "com.gosafeguard.SafeguardTools.PrintToPdf.cancelbutton";
         static constexpr auto EVENT_TYPE_RESULTS_BACK =         "com.gosafeguard.SafeguardTools.PrintToPdf.resultsback";
         static constexpr auto EVENT_TYPE_FORCE_PANEL_CLOSE =    "com.gosafeguard.SafeguardTools.PrintToPdf.forcepanelclose";
+        static constexpr auto EVENT_TYPE_CLEAR_RESULT_BOX =     "com.gosafeguard.SafeguardTools.PrintToPdf.clearresultbox";
         static constexpr auto ILST_APP =                        "ILST";
         
         static constexpr auto PRESET_SELECT =                   "preset-select";

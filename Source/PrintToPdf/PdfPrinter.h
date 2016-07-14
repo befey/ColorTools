@@ -15,6 +15,8 @@
 #include "PathBuilder.h"
 #include "PathCreator.h"
 #include "ExistingFileDeleter.h"
+#include "LayerVisibility.hpp"
+#include "TypeToPathsConverter.hpp"
 #include "AIFilePath.h"
 
 namespace PrintToPdf
@@ -22,18 +24,20 @@ namespace PrintToPdf
     class PdfPrinter
     {
     public:
-        static unique_ptr<PdfPrinter> GetPrinter(shared_ptr<PdfSettings> settings);
+        static unique_ptr<PdfPrinter> GetPrinter(unique_ptr<PdfSettings> settings);
         
         PdfResults Print() const;
         
     protected:
-        PdfPrinter(shared_ptr<PdfSettings> settings);
+        PdfPrinter(unique_ptr<PdfSettings> settings);
         
-        shared_ptr<PdfSettings> pdfSettings;
+        unique_ptr<PdfSettings> pdfSettings;
         unique_ptr<PasswordRetriever> pwRetriever;
         unique_ptr<PathBuilder> pathBuilder;
         unique_ptr<PathCreator> pathCreator;
         unique_ptr<ExistingFileDeleter> efDeleter;
+        unique_ptr<LayerVisibility> layerVisibility;
+        unique_ptr<TypeToPathsConverter> tpConverter;
         
         ai::FilePath outputPath;
         
@@ -47,7 +51,7 @@ namespace PrintToPdf
     class SingleFilePdfPrinter : public PdfPrinter
     {
     public:
-        SingleFilePdfPrinter(shared_ptr<PdfSettings> settings);
+        SingleFilePdfPrinter(unique_ptr<PdfSettings> settings);
 
         PdfResults CustomPrintSteps() const override;
     };
@@ -55,7 +59,7 @@ namespace PrintToPdf
     class SeparateFilePdfPrinter : public PdfPrinter
     {
     public:
-        SeparateFilePdfPrinter(shared_ptr<PdfSettings> settings);
+        SeparateFilePdfPrinter(unique_ptr<PdfSettings> settings);
 
         PdfResults CustomPrintSteps() const;
     };

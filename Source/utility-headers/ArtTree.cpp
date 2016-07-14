@@ -8,7 +8,6 @@
  */
 
 #include "ArtTree.h"
-#include "error.h"
 
 long CreateArtSetFromLayer(ai::UnicodeString layerName,  AIArtSet const targetSet) {
 	AILayerHandle hLayer = NULL;
@@ -17,7 +16,12 @@ long CreateArtSetFromLayer(ai::UnicodeString layerName,  AIArtSet const targetSe
 	//Find the layer called layerName
 	sAILayer->GetLayerByTitle(&hLayer, layerName);
 
-	if(!hLayer) { errorMessage = "Could not find Layer " + layerName.as_Platform(); sAIUser->MessageAlert(ai::UnicodeString(errorMessage.c_str()) ); return 0; }
+	if(!hLayer)
+    {
+        string errorMessage = "Could not find Layer " + layerName.as_Platform();
+        sAIUser->MessageAlert(ai::UnicodeString(errorMessage.c_str()) );
+        return 0;
+    }
 
 	
 	if (hLayer) {

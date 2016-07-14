@@ -27,6 +27,7 @@ $(function()
 	});
 	
 	csInterface.addEventListener("com.gosafeguard.SafeguardTools.PrintToPdf.resultsback", onResultsBack);
+	csInterface.addEventListener("com.gosafeguard.SafeguardTools.PrintToPdf.clearresultbox", clearResultBox);
 	csInterface.addEventListener("com.gosafeguard.SafeguardTools.PrintToPdf.forcepanelclose", 
 	function(event)
 	{
@@ -55,13 +56,18 @@ function onResultsBack(event)
 	
 	$xml.find("delete").each( function(index)
 	{
-		$("#results-textarea").append("<div>" + this.textContent + "</div><br />").addClass("deleted");
+		$("#results-textarea").append("<div class='deleted'> - " + this.textContent + "</div><br />"); //.addClass("deleted");
 	});
 	$("#results-textarea").append("-----<br />")
 	$xml.find("create").each( function(index)
 	{
-		$("#results-textarea").append("<div>" + this.textContent + "</div><br />").addClass("created");
+		$("#results-textarea").append("<div class='created'> + " + this.textContent + "</div><br />"); //.addClass("created");
 	});
 	
 	$("#cancel-button").focus();
+}
+
+function clearResultBox(event)
+{
+	$("#results-textarea").text('');
 }

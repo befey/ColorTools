@@ -24,10 +24,10 @@ void SafeguardJobFile::Update()
     {
         plates.push_back(Plate(i));
     }
-    
-    if (ShouldDrawBleedInfo()) {
-        AddBleedInfo();
-    }
+//  Don't want to create side effects here. All document changes need to be made on purpose.  
+//    if (ShouldDrawBleedInfo()) {
+//        AddBleedInfo();
+//    }
 }
 
 

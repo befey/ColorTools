@@ -64,6 +64,12 @@
 		F979B6071CA31E8B004BA4AD /* Plugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F979B6061CA31E8B004BA4AD /* Plugin.cpp */; };
 		F979B6091CA31E8E004BA4AD /* Suites.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F979B6081CA31E8E004BA4AD /* Suites.cpp */; };
 		F979B60B1CA31E92004BA4AD /* IllustratorSDK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F979B60A1CA31E92004BA4AD /* IllustratorSDK.cpp */; };
+		F97B564E1D36759500C10A9F /* LayerVisibility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F97B564C1D36759400C10A9F /* LayerVisibility.cpp */; };
+		F97B564F1D36759500C10A9F /* LayerVisibility.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F97B564D1D36759500C10A9F /* LayerVisibility.hpp */; };
+		F97B56521D367CA900C10A9F /* BtLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F97B56501D367CA900C10A9F /* BtLayer.cpp */; };
+		F97B56531D367CA900C10A9F /* BtLayer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F97B56511D367CA900C10A9F /* BtLayer.hpp */; };
+		F97B56561D36B92600C10A9F /* TypeToPathsConverter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F97B56541D36B92600C10A9F /* TypeToPathsConverter.cpp */; };
+		F97B56571D36B92600C10A9F /* TypeToPathsConverter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F97B56551D36B92600C10A9F /* TypeToPathsConverter.hpp */; };
 		F989A8E81CA460CE0050C071 /* ColorToolsUIController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F989A8E01CA460CE0050C071 /* ColorToolsUIController.cpp */; };
 		F989A8E91CA460CE0050C071 /* ColorToolsUIController.h in Headers */ = {isa = PBXBuildFile; fileRef = F989A8E11CA460CE0050C071 /* ColorToolsUIController.h */; };
 		F989A8EA1CA460CE0050C071 /* FindReplaceGraphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F989A8E21CA460CE0050C071 /* FindReplaceGraphics.cpp */; };
@@ -165,6 +171,12 @@
 		F979B6061CA31E8B004BA4AD /* Plugin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Plugin.cpp; path = "../Adobe Illustrator 2015.3 SDK/samplecode/common/source/Plugin.cpp"; sourceTree = "<group>"; };
 		F979B6081CA31E8E004BA4AD /* Suites.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Suites.cpp; path = "../Adobe Illustrator 2015.3 SDK/samplecode/common/source/Suites.cpp"; sourceTree = "<group>"; };
 		F979B60A1CA31E92004BA4AD /* IllustratorSDK.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IllustratorSDK.cpp; path = "../Adobe Illustrator 2015.3 SDK/samplecode/common/source/IllustratorSDK.cpp"; sourceTree = "<group>"; };
+		F97B564C1D36759400C10A9F /* LayerVisibility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LayerVisibility.cpp; path = Source/PrintToPdf/LayerVisibility.cpp; sourceTree = "<group>"; };
+		F97B564D1D36759500C10A9F /* LayerVisibility.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = LayerVisibility.hpp; path = Source/PrintToPdf/LayerVisibility.hpp; sourceTree = "<group>"; };
+		F97B56501D367CA900C10A9F /* BtLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BtLayer.cpp; path = "Source/utility-headers/BtLayer.cpp"; sourceTree = "<group>"; };
+		F97B56511D367CA900C10A9F /* BtLayer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = BtLayer.hpp; path = "Source/utility-headers/BtLayer.hpp"; sourceTree = "<group>"; };
+		F97B56541D36B92600C10A9F /* TypeToPathsConverter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TypeToPathsConverter.cpp; path = Source/PrintToPdf/TypeToPathsConverter.cpp; sourceTree = "<group>"; };
+		F97B56551D36B92600C10A9F /* TypeToPathsConverter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TypeToPathsConverter.hpp; path = Source/PrintToPdf/TypeToPathsConverter.hpp; sourceTree = "<group>"; };
 		F989A8E01CA460CE0050C071 /* ColorToolsUIController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ColorToolsUIController.cpp; sourceTree = "<group>"; };
 		F989A8E11CA460CE0050C071 /* ColorToolsUIController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorToolsUIController.h; sourceTree = "<group>"; };
 		F989A8E21CA460CE0050C071 /* FindReplaceGraphics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FindReplaceGraphics.cpp; sourceTree = "<group>"; };
@@ -327,6 +339,8 @@
 			children = (
 				F9158D531D05FBE900343D57 /* ExistingFileDeleter.cpp */,
 				F9158D541D05FBE900343D57 /* ExistingFileDeleter.h */,
+				F97B564C1D36759400C10A9F /* LayerVisibility.cpp */,
+				F97B564D1D36759500C10A9F /* LayerVisibility.hpp */,
 				F9138E891D01EE4D00D23C1F /* PasswordRetriever.cpp */,
 				F9138E8A1D01EE4D00D23C1F /* PasswordRetriever.h */,
 				F9158D4F1D05EC4700343D57 /* PathBuilder.cpp */,
@@ -342,6 +356,8 @@
 				F9138E921D01EE4D00D23C1F /* PrintToPdfConstants.h */,
 				F9138E931D01EE4D00D23C1F /* PrintToPdfUIController.cpp */,
 				F9138E941D01EE4D00D23C1F /* PrintToPdfUIController.h */,
+				F97B56541D36B92600C10A9F /* TypeToPathsConverter.cpp */,
+				F97B56551D36B92600C10A9F /* TypeToPathsConverter.hpp */,
 			);
 			name = PrintToPdf;
 			sourceTree = "<group>";
@@ -422,6 +438,8 @@
 				F90DB92D1D08A25B0039CE5F /* BtAteTextFeatures.h */,
 				F90E3F971CA475880081C333 /* BtColor.cpp */,
 				F90E3F981CA475880081C333 /* BtColor.h */,
+				F97B56501D367CA900C10A9F /* BtLayer.cpp */,
+				F97B56511D367CA900C10A9F /* BtLayer.hpp */,
 				F90E3F991CA475880081C333 /* BtSwatchList.cpp */,
 				F90E3F9A1CA475880081C333 /* BtSwatchList.h */,
 				F90E3F9B1CA475880081C333 /* ColorFuncs.cpp */,
@@ -467,7 +485,9 @@
 				F90E3FA01CA475880081C333 /* BtColor.h in Headers */,
 				F9C44EF51D0AF51100205ADF /* TickMarkDrawer.h in Headers */,
 				F9E284291D254E2D001B0F98 /* PathCreator.h in Headers */,
+				F97B56571D36B92600C10A9F /* TypeToPathsConverter.hpp in Headers */,
 				F9CE24FB1D11A56E0075DDDF /* TextTools.h in Headers */,
+				F97B564F1D36759500C10A9F /* LayerVisibility.hpp in Headers */,
 				F9138EA01D01EE4D00D23C1F /* PrintToPdfConstants.h in Headers */,
 				F96D30741CB6D73500274BDE /* PlateNumber.h in Headers */,
 				F9138E9B1D01EE4D00D23C1F /* PdfResults.h in Headers */,
@@ -480,6 +500,7 @@
 				F9158D561D05FBE900343D57 /* ExistingFileDeleter.h in Headers */,
 				F9C44EF91D0B14AE00205ADF /* SafeguardJobFile.h in Headers */,
 				F90E3FA21CA475880081C333 /* BtSwatchList.h in Headers */,
+				F97B56531D367CA900C10A9F /* BtLayer.hpp in Headers */,
 				6868C929150BA192003DAAF2 /* SafeguardToolsSuites.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -566,7 +587,9 @@
 				F9138E9A1D01EE4D00D23C1F /* PdfResults.cpp in Sources */,
 				F979B6091CA31E8E004BA4AD /* Suites.cpp in Sources */,
 				F9F55E531CB42D2900FA20EC /* SDKErrors.cpp in Sources */,
+				F97B564E1D36759500C10A9F /* LayerVisibility.cpp in Sources */,
 				F979B6011CA31E78004BA4AD /* SDKPlugPlug.cpp in Sources */,
+				F97B56521D367CA900C10A9F /* BtLayer.cpp in Sources */,
 				F979B5FD1CA31DF5004BA4AD /* IAIFilePath.cpp in Sources */,
 				F979B6051CA31E87004BA4AD /* Main.cpp in Sources */,
 				F9DA3B9D1D1D7E6200AB6156 /* BleedTextInfoDrawer.cpp in Sources */,
@@ -609,6 +632,7 @@
 				6868C926150BA192003DAAF2 /* SafeguardToolsPlugin.cpp in Sources */,
 				6868C928150BA192003DAAF2 /* SafeguardToolsSuites.cpp in Sources */,
 				F9158D511D05EC4700343D57 /* PathBuilder.cpp in Sources */,
+				F97B56561D36B92600C10A9F /* TypeToPathsConverter.cpp in Sources */,
 				F905605E1D3526E30084AB31 /* DictionaryWriter.cpp in Sources */,
 				F989A8E81CA460CE0050C071 /* ColorToolsUIController.cpp in Sources */,
 				F90E3FA11CA475880081C333 /* BtSwatchList.cpp in Sources */,
