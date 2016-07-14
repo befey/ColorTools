@@ -10,10 +10,10 @@ var resultsBackEvent = new CSEvent("com.gosafeguard.SafeguardTools.PrintToPdf.re
 $(function()
 {
 	csInterface.setWindowTitle("Print To PDF");
-	
+
 	$('#allpages-check').change(function()
 	{
-   		$("#range-text").prop("disabled", $(this).is(':checked'));
+   		//$("#range-text").prop("disabled", $(this).is(':checked'));
    		
    		if ($(this).is(':checked'))
    		{
@@ -22,8 +22,24 @@ $(function()
    		else
    		{
    			$("#range-text").focus();
-   			$("#range-text").css("color","black");
    		}
+	});
+	
+	$("#range-text").on('focus', function() 
+	{
+		$("#allpages-check").attr('checked', false);
+		$("#range-text").css("color","black");
+		
+    	$("#range-text")
+        .one('mouseup.mouseupSelect', function() {
+            $("#range-text").select();
+            return false;
+        })
+        .one('mousedown', function() {
+            // compensate for untriggered 'mouseup' caused by focus via tab
+            $("#range-text").off('mouseup.mouseupSelect');
+        })
+        .select();
 	});
 	
 	csInterface.addEventListener("com.gosafeguard.SafeguardTools.PrintToPdf.resultsback", onResultsBack);

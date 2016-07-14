@@ -29,16 +29,16 @@
           <!-- <Menu>Find and Replace Graphics</Menu>Disable Extensions menu -->
           <Geometry>
             <Size>
-              <Width>210</Width>
-              <Height>187</Height>
+              <Width>230</Width>
+              <Height>190</Height>
             </Size>
             <MaxSize>
-              <Width>210</Width>
-              <Height>187</Height>
+              <Width>230</Width>
+              <Height>190</Height>
             </MaxSize>
             <MinSize>
-              <Width>210</Width>
-              <Height>187</Height>
+              <Width>230</Width>
+              <Height>190</Height>
             </MinSize>
           </Geometry>
         </UI>
@@ -60,7 +60,7 @@
           <Geometry>
             <Size>
               <Width>520</Width>
-              <Height>320</Height>
+              <Height>740</Height>
             </Size>
           </Geometry>
         </UI>
