@@ -25,12 +25,15 @@ void PrintToPdfUIController::MakePdfButtonClickedFunc (const csxs::event::Event*
         // Set up the application context, so that suite calls can work.
         AppContext appContext(gPlugin->GetPluginRef());
         
+        printToPdfUIController->ClearResultsBox();
+        
         gPlugin->sgJobFile->Update();
         
         gPlugin->sgJobFile->SetPdfPrinter(move( PdfPrinter::GetPrinter( move( PdfSettings::MakePdfSettingsFromXml(event->data) ) )));
         string results = gPlugin->sgJobFile->Print().MakeXmlString();
         printToPdfUIController->SendResultsXmlToHtml(results);
         
+        sAIUndo->UndoChanges();
     } while(false);
     return;
 }
@@ -134,6 +137,18 @@ void PrintToPdfUIController::SendCloseMessageToHtml()
 {
     csxs::event::Event event = {
         EVENT_TYPE_FORCE_PANEL_CLOSE,
+        csxs::event::kEventScope_Application,
+        ILST_APP,
+        NULL,
+        NULL
+    };
+    fPPLib.DispatchEvent(&event);
+}
+
+void PrintToPdfUIController::ClearResultsBox()
+{
+    csxs::event::Event event = {
+        EVENT_TYPE_CLEAR_RESULT_BOX,
         csxs::event::kEventScope_Application,
         ILST_APP,
         NULL,

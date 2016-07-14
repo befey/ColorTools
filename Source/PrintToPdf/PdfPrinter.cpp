@@ -18,12 +18,12 @@ using PrintToPdf::PdfSettings;
 using PrintToPdf::PdfResults;
 using SafeguardFile::PlateNumber;
 
-SingleFilePdfPrinter::SingleFilePdfPrinter(shared_ptr<PdfSettings> settings) : PdfPrinter( move(settings) ) {}
-SeparateFilePdfPrinter::SeparateFilePdfPrinter(shared_ptr<PdfSettings> settings) : PdfPrinter( move(settings) ) {}
+SingleFilePdfPrinter::SingleFilePdfPrinter(unique_ptr<PdfSettings> settings) : PdfPrinter( move(settings) ) {}
+SeparateFilePdfPrinter::SeparateFilePdfPrinter(unique_ptr<PdfSettings> settings) : PdfPrinter( move(settings) ) {}
 
-PdfPrinter::PdfPrinter(shared_ptr<PdfSettings> settings)
+PdfPrinter::PdfPrinter(unique_ptr<PdfSettings> settings)
 {
-    pdfSettings = settings;
+    pdfSettings = move(settings);
     
     pathBuilder = unique_ptr<PathBuilder> { make_unique<TestingPathBuilder>() };
     outputPath = pathBuilder->GetAiFilePath(GetPlateNumber());
@@ -31,8 +31,9 @@ PdfPrinter::PdfPrinter(shared_ptr<PdfSettings> settings)
     pathCreator = unique_ptr<PathCreator>();
     
     efDeleter = unique_ptr<ExistingFileDeleter>();
+    tpConverter = unique_ptr<TypeToPathsConverter>();
     
-    if ( pdfSettings->GetPreset() == PrintToPdf::PdfPreset::Manufacturing)
+    if (pdfSettings->GetPreset() == PrintToPdf::PdfPreset::Manufacturing)
     {
         pwRetriever = unique_ptr<PasswordRetriever> { make_unique<NonePasswordRetriever>() };
     }
@@ -44,9 +45,18 @@ PdfPrinter::PdfPrinter(shared_ptr<PdfSettings> settings)
     {
         pwRetriever = unique_ptr<PasswordRetriever> { make_unique<MicrPasswordRetriever>() };
     }
+    
+    if (GetPlateNumber().GetProductType() == PlateNumber::ProductType::BusinessStat)
+    {
+        layerVisibility = unique_ptr<LayerVisibility> { make_unique<BStatLayerVisibility>() };
+    }
+    else
+    {
+        layerVisibility = unique_ptr<LayerVisibility> { make_unique<LaserLayerVisibility>() };
+    }
 }
 
-unique_ptr<PdfPrinter> PdfPrinter::GetPrinter(shared_ptr<PdfSettings> settings)
+unique_ptr<PdfPrinter> PdfPrinter::GetPrinter(unique_ptr<PdfSettings> settings)
 {
     if (settings->OutputSeparateFiles())
     {
@@ -82,6 +92,10 @@ PdfResults PdfPrinter::Print() const
     if ( pathCreator->CreatePath(outputPath) )
     {
         transactions.AddResult(efDeleter->Delete(GetPlateNumber(), outputPath));
+        
+        layerVisibility->SetLayerVisibility();
+        tpConverter->ConvertTypeToPaths();
+        
         transactions.AddResult(CustomPrintSteps());
     }   
     

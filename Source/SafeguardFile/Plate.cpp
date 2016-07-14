@@ -166,10 +166,7 @@ AIRealRect Plate::GetBleeds(PdfPreset preset) const
     }
     else if (pt == PlateNumber::ProductType::BusinessStat)
     {
-        if (preset == PdfPreset::Manufacturing)
-        {
-            sAIRealMath->AIRealRectSet(&bleedRect, 12, 12, 12, 12);
-        }
+        sAIRealMath->AIRealRectSet(&bleedRect, 12, 12, 12, 12);
     }
     else //Continuous and Snapsets
     {
