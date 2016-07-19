@@ -27,10 +27,8 @@ void PrintToPdfUIController::MakePdfButtonClickedFunc (const csxs::event::Event*
         
         printToPdfUIController->ClearResultsBox();
         
-        gPlugin->sgJobFile->Update();
-        
-        gPlugin->sgJobFile->SetPdfPrinter(move( PdfPrinter::GetPrinter( move( PdfSettings::MakePdfSettingsFromXml(event->data) ) )));
-        string results = gPlugin->sgJobFile->Print().MakeXmlString();
+        PdfSettings settings = PdfSettings::MakePdfSettingsFromXml(event->data);
+        string results = PdfPrinter::GetPrinter(settings.OutputSeparateFiles())->Print(settings).MakeXmlString();
         printToPdfUIController->SendResultsXmlToHtml(results);
         
         sAIUndo->UndoChanges();

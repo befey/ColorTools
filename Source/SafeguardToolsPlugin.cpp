@@ -123,11 +123,6 @@ ASErr SafeguardToolsPlugin::StartupPlugin( SPInterfaceMessage *message )
         mySwatchList = std::make_shared<BtSwatchList>();
     }
     
-    if (NULL == sgJobFile)
-    {
-        sgJobFile = make_unique<SafeguardJobFile>();
-    }
-    
     error = this->AddMenus(message);
     if (error) { return error; }
     
@@ -179,10 +174,6 @@ ASErr SafeguardToolsPlugin::ShutdownPlugin( SPInterfaceMessage *message )
     {
         printToPdfUIController->RemoveEventListeners();
         Plugin::LockPlugin(false);
-    }
-    if (sgJobFile)
-    {
-        sgJobFile.reset();
     }
 
     message->d.globals = NULL;
@@ -413,12 +404,12 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
         sAIMenu->GetItemText(message->menuItem, menuText);
         if (menuText.find(ai::UnicodeString("Remove"),0) != ai::UnicodeString::npos)
         {
-            sgJobFile->RemoveBleedInfo();
+            //TODO: sgJobFile->RemoveBleedInfo();
             sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Remove Safeguard Plate Info"), ai::UnicodeString("Redo Remove Safeguard Plate Info"));
         }
         else
         {
-            sgJobFile->Update();
+            //TODO: sgJobFile->Update();
             sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Add Safeguard Plate Info"), ai::UnicodeString("Redo Add Safeguard Plate Info"));
         }        
     }
@@ -522,10 +513,7 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
     }
     if (message->notifier == fDocumentCropAreaModifiedNotifierHandle )
     {
-        if (sgJobFile)
-        {
-            sgJobFile->Update();
-        }
+        //TODO: SafeguardJobFile Update
     }
     return kNoErr;
 }

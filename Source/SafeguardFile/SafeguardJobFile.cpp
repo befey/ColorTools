@@ -11,8 +11,9 @@
 using SafeguardFile::SafeguardJobFile;
 using SafeguardFile::PlateNumber;
 using PrintToPdf::PdfResults;
+using PrintToPdf::PdfSettings;
 
-void SafeguardJobFile::Update()
+SafeguardJobFile::SafeguardJobFile()
 {
     ai::ArtboardList abList;
     sAIArtboard->GetArtboardList(abList);
@@ -59,16 +60,7 @@ bool SafeguardJobFile::ShouldDrawBleedInfo()
     return false;
 }
 
-PdfResults SafeguardJobFile::Print() const
-{
-    if (pdfPrinter == nullptr)
-    {
-        return PrintToPdf::PdfResults();
-    }
-    return pdfPrinter->Print();
-}
-
-const PlateNumber SafeguardJobFile::GetPlateNumber() const
+const PlateNumber SafeguardJobFile::GetPlateNumber(int plateIndex) const
 {
     if (!plates.empty())
     {
@@ -86,11 +78,11 @@ const string SafeguardJobFile::GetToken(int plateIndex) const
     return "";
 }
 
-AIRealRect SafeguardJobFile::GetBleeds(PrintToPdf::PdfPreset preset) const
+AIRealRect SafeguardJobFile::GetBleeds(int plateIndex) const
 {
     if (!plates.empty())
     {
-        return plates[0].GetBleeds(preset);
+        return plates[0].GetBleeds();
     }
     return AIRealRect{0,0,0,0};
 }

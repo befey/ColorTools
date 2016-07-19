@@ -17,14 +17,13 @@ using PrintToPdf::SeparateFilePdfPrinter;
 using PrintToPdf::PdfSettings;
 using PrintToPdf::PdfResults;
 using SafeguardFile::PlateNumber;
+using SafeguardFile::ProductType;
 
-SingleFilePdfPrinter::SingleFilePdfPrinter(unique_ptr<PdfSettings> settings) : PdfPrinter( move(settings) ) {}
-SeparateFilePdfPrinter::SeparateFilePdfPrinter(unique_ptr<PdfSettings> settings) : PdfPrinter( move(settings) ) {}
+SingleFilePdfPrinter::SingleFilePdfPrinter() : PdfPrinter() {}
+SeparateFilePdfPrinter::SeparateFilePdfPrinter() : PdfPrinter() {}
 
-PdfPrinter::PdfPrinter(unique_ptr<PdfSettings> settings)
+PdfPrinter::PdfPrinter()
 {
-    pdfSettings = move(settings);
-    
     pathBuilder = unique_ptr<PathBuilder> { make_unique<TestingPathBuilder>() };
     outputPath = pathBuilder->GetAiFilePath(GetPlateNumber());
     
@@ -33,20 +32,7 @@ PdfPrinter::PdfPrinter(unique_ptr<PdfSettings> settings)
     efDeleter = unique_ptr<ExistingFileDeleter>();
     tpConverter = unique_ptr<TypeToPathsConverter>();
     
-    if (pdfSettings->GetPreset() == PrintToPdf::PdfPreset::Manufacturing)
-    {
-        pwRetriever = unique_ptr<PasswordRetriever> { make_unique<NonePasswordRetriever>() };
-    }
-    else if (pdfSettings->GetPreset() == PrintToPdf::PdfPreset::Proof)
-    {
-        pwRetriever = unique_ptr<PasswordRetriever> { make_unique<ProofPasswordRetriever>() };
-    }
-    else if (pdfSettings->GetPreset() == PrintToPdf::PdfPreset::MicrProof)
-    {
-        pwRetriever = unique_ptr<PasswordRetriever> { make_unique<MicrPasswordRetriever>() };
-    }
-    
-    if (GetPlateNumber().GetProductType() == PlateNumber::ProductType::BusinessStat)
+    if (GetPlateNumber().GetProductType() == ProductType::BusinessStat)
     {
         layerVisibility = unique_ptr<LayerVisibility> { make_unique<BStatLayerVisibility>() };
     }
@@ -56,53 +42,48 @@ PdfPrinter::PdfPrinter(unique_ptr<PdfSettings> settings)
     }
 }
 
-unique_ptr<PdfPrinter> PdfPrinter::GetPrinter(unique_ptr<PdfSettings> settings)
+unique_ptr<PdfPrinter> PdfPrinter::GetPrinter(const bool separateFiles)
 {
-    if (settings->OutputSeparateFiles())
+    if (separateFiles)
     {
-        return unique_ptr<PdfPrinter> { make_unique<SeparateFilePdfPrinter>(SeparateFilePdfPrinter(move(settings))) };
+        return unique_ptr<PdfPrinter> { make_unique<SeparateFilePdfPrinter>() };
     }
     else
     {
-        return unique_ptr<PdfPrinter> { make_unique<SingleFilePdfPrinter>(SingleFilePdfPrinter(move(settings))) };
+        return unique_ptr<PdfPrinter> { make_unique<SingleFilePdfPrinter>() };
     }
 }
 
 const PlateNumber PdfPrinter::GetPlateNumber() const
 {
-    return gPlugin->sgJobFile->GetPlateNumber();
+    SafeguardJobFile sgJobFile;
+    return sgJobFile.GetPlateNumber();
 }
 
 const string PdfPrinter::GetToken(int plateIndex) const
 {
-    return gPlugin->sgJobFile->GetToken(plateIndex);
+    SafeguardJobFile sgJobFile;
+    return sgJobFile.GetToken(plateIndex);
 }
 
-PdfResults PdfPrinter::Print() const
+PdfResults PdfPrinter::Print(const PdfSettings& settings) const
 {
     PdfResults transactions;
-    
-    if (pwRetriever->IsValid())
-    {
-        pdfSettings->SetPasswords(pwRetriever);
-    }
-    
-    pdfSettings->SetBleeds(gPlugin->sgJobFile->GetBleeds(pdfSettings->GetPreset()));
     
     if ( pathCreator->CreatePath(outputPath) )
     {
         transactions.AddResult(efDeleter->Delete(GetPlateNumber(), outputPath));
         
         layerVisibility->SetLayerVisibility();
-        tpConverter->ConvertTypeToPaths();
+        tpConverter->ConvertTypeToPaths(settings.GetRange());
         
-        transactions.AddResult(CustomPrintSteps());
+        transactions.AddResult(CustomPrintSteps(settings));
     }   
     
     return transactions;
 }
 
-PdfResults SingleFilePdfPrinter::CustomPrintSteps() const
+PdfResults SingleFilePdfPrinter::CustomPrintSteps(const PdfSettings& settings) const
 {
     PdfResults transactions;
     
@@ -122,31 +103,27 @@ PdfResults SingleFilePdfPrinter::CustomPrintSteps() const
     pathToPdfFile.AddExtension("pdf");
     
     // Set Path
-    pdfSettings->SetPath(pathToPdfFile);
-    
-    // Set Range
-    pdfSettings->SetVpbRange(string(pdfSettings->GetRange()));
+    settings.SetPath(pathToPdfFile);
         
-    sAIActionManager->PlayActionEvent(kSaveACopyAsAction, kDialogOff, *pdfSettings);
+    sAIActionManager->PlayActionEvent(kSaveACopyAsAction, kDialogOff, settings);
     
     transactions.AddResult({PdfResults::Transaction::Created, pathToPdfFile});
     
     return transactions;
 }
 
-PdfResults SeparateFilePdfPrinter::CustomPrintSteps() const
+PdfResults SeparateFilePdfPrinter::CustomPrintSteps(const PdfSettings& settings) const
 {
     PdfResults transactions;
     
     AIArtboardRangeIterator iter;
-    sAIArtboardRange->Begin(pdfSettings->GetRange(), &iter);
+    sAIArtboardRange->Begin(settings.GetRange(), &iter);
     ai::int32 index = 0;
     
     ai::FilePath pathToPdfFile = outputPath;
     
     while ( kEndOfRangeErr != sAIArtboardRange->Next(iter, &index) )
     {
-        
         if (GetPlateNumber().IsValid())
         {
             pathToPdfFile.AddComponent(ai::UnicodeString(GetPlateNumber()));
@@ -166,12 +143,12 @@ PdfResults SeparateFilePdfPrinter::CustomPrintSteps() const
         
         pathToPdfFile.AddExtension("pdf");
         // Set Path
-        pdfSettings->SetPath(pathToPdfFile);
+        settings.SetPath(pathToPdfFile);
         
         // Set Range
-        pdfSettings->SetVpbRange(to_string(index+1));
+        settings.SetVpbRange(to_string(index+1));
         
-        sAIActionManager->PlayActionEvent(kSaveACopyAsAction, kDialogOff, *pdfSettings);
+        sAIActionManager->PlayActionEvent(kSaveACopyAsAction, kDialogOff, settings);
         
         transactions.AddResult({PdfResults::Transaction::Created, pathToPdfFile});
         

@@ -26,16 +26,7 @@ extern AIArtboardSuite* sAIArtboard;
 extern AIDocumentSuite* sAIDocument;
 
 namespace SafeguardFile
-{
-    constexpr auto KEYLINE_LAYER =              "KEY LINE";
-    constexpr auto REG_LAYER =                  "Registration Guide for Proof";
-    constexpr auto SLUG_LAYER =                 "SLUG";
-    constexpr auto FOREGROUND_LAYER =           "Foreground";
-    constexpr auto GUIDE_LAYER =                "Guides";
-    constexpr auto BACKGROUND_LAYER =           "Background";
-    
-    static constexpr auto NO_TOKEN_DESIG =      "F";
-    
+{    
     class Plate
     {
     public:
@@ -51,7 +42,7 @@ namespace SafeguardFile
         const string GetToken() const;
         void SetPlateNumber();
         
-        AIRealRect GetBleeds(PrintToPdf::PdfPreset preset) const;
+        AIRealRect GetBleeds() const;
         
         void AddBleedInfo();
         void RemoveBleedInfo();

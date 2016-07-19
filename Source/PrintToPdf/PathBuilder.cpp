@@ -8,6 +8,7 @@
 
 #include "PathBuilder.h"
 #include "PrintToPdfConstants.h"
+#include "SafeguardFileConstants.h"
 
 using SafeguardFile::PlateNumber;
 using PrintToPdf::ManufacturingPathBuilder;
@@ -18,7 +19,7 @@ using PrintToPdf::TestingPathBuilder;
 ai::FilePath ManufacturingPathBuilder::GetAiFilePath(PlateNumber pn)
 {
     string prodCode;
-    if (pn.GetProductType() == PlateNumber::BusinessStat)
+    if (pn.GetProductType() == SafeguardFile::BusinessStat)
     {
         prodCode = "BS";
     }
@@ -61,7 +62,7 @@ ai::FilePath MicrProofPathBuilder::GetAiFilePath(PlateNumber pn)
 ai::FilePath TestingPathBuilder::GetAiFilePath(PlateNumber pn)
 {
     string prodCode;
-    if (pn.GetProductType() == PlateNumber::BusinessStat)
+    if (pn.GetProductType() == SafeguardFile::BusinessStat)
     {
         prodCode = "BS";
     }

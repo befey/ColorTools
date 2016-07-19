@@ -10,15 +10,19 @@
 #define BtLayer_hpp
 
 #include "AILayer.h"
+#include "AIArtSet.h"
 
 extern AILayerSuite* sAILayer;
+extern AIArtSetSuite* sAIArtSet;
 
 class BtLayer
 {
 public:
     BtLayer(AILayerHandle layer);
+    BtLayer(string layerName);
+    inline operator bool(void) const { return (layerHandle) ? true : false; };
     
-    void DeleteLayer() const;
+    void DeleteLayer();
     
     string Title() const;
     const BtLayer& Title(string title) const;
@@ -35,6 +39,8 @@ public:
     void DeselectArt() const;
     void SelectArt() const;
     
+    long GetArtSet(AIArtSet const targetSet) const;
+    void ConvertTextToPaths() const;
 private:
     AILayerHandle layerHandle;
 };

@@ -15,6 +15,7 @@
 #include "TickMarkDrawer.h"
 #include "PdfPrinter.h"
 #include "PdfResults.h"
+#include "PdfSettings.h"
 #include "PrintToPdfConstants.h"
 
 namespace SafeguardFile
@@ -22,17 +23,15 @@ namespace SafeguardFile
     class SafeguardJobFile
     {
     public:
-        void Update();
-        void RemoveBleedInfo();
-        PrintToPdf::PdfResults Print() const;
+        SafeguardJobFile();
         
-        void SetPdfPrinter(unique_ptr<PrintToPdf::PdfPrinter> printer) { pdfPrinter = move(printer); };
-        const PlateNumber GetPlateNumber() const;
-        const string GetToken(int plateIndex) const;
-        AIRealRect GetBleeds(PrintToPdf::PdfPreset preset) const;
+        void RemoveBleedInfo();
+        
+        const PlateNumber GetPlateNumber(int plateIndex = 0) const;
+        const string GetToken(int plateIndex = 0) const;
+        AIRealRect GetBleeds(int plateIndex = 0) const;
     private:
         vector<Plate> plates;
-        unique_ptr<PrintToPdf::PdfPrinter> pdfPrinter;
         
         void AddBleedInfo();
         bool ShouldDrawBleedInfo();

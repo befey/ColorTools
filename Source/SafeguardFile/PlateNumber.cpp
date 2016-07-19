@@ -11,6 +11,7 @@
 #include <regex>
 
 using SafeguardFile::PlateNumber;
+using SafeguardFile::ProductType;
 
 PlateNumber::PlateNumber(string pNum)
 {
@@ -56,47 +57,47 @@ Boolean PlateNumber::TokenizePlateNumber()
     return true;
 }
 
-PlateNumber::ProductType PlateNumber::GetProductType() const
+ProductType PlateNumber::GetProductType() const
 {
     if (!IsValid())
     {
-        return PlateNumber::ProductType::INVAL;
+        return ProductType::INVAL;
     }
     
     if (productIndicator.at(0) == 'B' || productIndicator == "MP" || productIndicator == "SP")
     {
-        return PlateNumber::ProductType::BusinessStat;
+        return ProductType::BusinessStat;
     }
     
     if (productIndicator == "SF")
     {
-        return PlateNumber::ProductType::CutSheet;
+        return ProductType::CutSheet;
     }
     
     if (productIndicator == "CF" || productIndicator == "SC" || productIndicator == "SS" || productIndicator == "EN")
     {
-        return PlateNumber::ProductType::Continuous;
+        return ProductType::Continuous;
     }
     
     if (productIndicator == "CS")
     {
         if (HasInnerTicks())
         {
-            return PlateNumber::ProductType::Snapset;
+            return ProductType::Snapset;
         }
         else
         {
-            return PlateNumber::ProductType::CutSheet;
+            return ProductType::CutSheet;
         }
     }
     
     //OTHERS
     if (productIndicator == "AR" || productIndicator == "CK" || productIndicator == "CM" || productIndicator == "GC" || productIndicator == "LS" || productIndicator == "QC" || productIndicator == "RC" || productIndicator == "VP")
     {
-        return PlateNumber::ProductType::Continuous;
+        return ProductType::Continuous;
     }
     
-    return PlateNumber::ProductType::INVAL;
+    return ProductType::INVAL;
 }
 
 void PlateNumber::GetAsTextRange(ATE::ITextRange& targetRange) const
