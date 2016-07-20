@@ -48,9 +48,7 @@ public:
     
     shared_ptr<BtSwatchList> GetBtSwatchList() const { return mySwatchList; }
     AIPluginGroupHandle GetBleedInfoPluginGroupHandle() const { return bleedInfoPluginGroupHandle; }
-    
-    unique_ptr<SafeguardJobFile> sgJobFile;
-  
+      
     /**	Restores state of SafeguardToolsPlugin during reload.
 	*/
 	FIXUP_VTABLE_EX(SafeguardToolsPlugin, Plugin);

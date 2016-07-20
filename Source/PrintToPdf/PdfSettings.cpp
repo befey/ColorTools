@@ -10,13 +10,35 @@
 #include "PdfResults.h"
 #include "document.h"
 #include "Plate.h"
+#include "SafeguardJobFile.h"
 
 using PrintToPdf::PdfSettings;
 using PrintToPdf::PdfPreset;
 using PrintToPdf::PdfResults;
+using SafeguardFile::SafeguardJobFile;
 
 PdfSettings::PdfSettings(PdfPreset p, string r, bool s) : preset(p), range(r), separateFiles(s)
 {
+    
+    if (preset == PrintToPdf::PdfPreset::Manufacturing)
+    {
+        pwRetriever = unique_ptr<PasswordRetriever> { make_unique<NonePasswordRetriever>() };
+    }
+    else if (preset == PrintToPdf::PdfPreset::Proof)
+    {
+        pwRetriever = unique_ptr<PasswordRetriever> { make_unique<ProofPasswordRetriever>() };
+    }
+    else if (preset == PrintToPdf::PdfPreset::MicrProof)
+    {
+        pwRetriever = unique_ptr<PasswordRetriever> { make_unique<MicrPasswordRetriever>() };
+    }
+    
+    SetPasswords();
+    
+    SetBleeds(SafeguardJobFile().GetBleeds());
+    
+    SetVpbRange(range);
+    
   ////****** Setup common parameters for all PDFs
     // Format parameter.
     sAIActionManager->AIActionSetString(vpb, kAIExportDocumentFormatKey, kAIPDFFileFormat);
@@ -36,7 +58,7 @@ PdfSettings::PdfSettings(PdfPreset p, string r, bool s) : preset(p), range(r), s
   ////*******
 }
 
-unique_ptr<PdfSettings> PdfSettings::MakePdfSettingsFromXml(const char* xmlData)
+PdfSettings PdfSettings::MakePdfSettingsFromXml(const char* xmlData)
 {
     using namespace rapidjson;
     
@@ -63,34 +85,42 @@ unique_ptr<PdfSettings> PdfSettings::MakePdfSettingsFromXml(const char* xmlData)
     v = d[PrintToPdfUIController::SEPARATEFILES_CHECK];
     bool separateFiles = (v.GetBool());
     
-    return make_unique<PdfSettings>(preset, r, separateFiles);
+    return PdfSettings(preset, r, separateFiles);
 }
 
-void PdfSettings::SetPasswords(const unique_ptr<PasswordRetriever> &pwRet)
+void PdfSettings::SetPasswords()
 {
-    // Apply a password if one is required
-    if (pwRet->GetUserPassword() != "")
+    if (pwRetriever->IsValid())
     {
-        sAIActionManager->AIActionSetBoolean(vpb, kAIPDFUserPasswordRequiredKey, TRUE);
-        sAIActionManager->AIActionSetString(vpb, kAIPDFUserPasswordKey, pwRet->GetUserPassword().c_str());
+        // Apply a password if one is required
+        if (pwRetriever->GetUserPassword() != "")
+        {
+            sAIActionManager->AIActionSetBoolean(vpb, kAIPDFUserPasswordRequiredKey, TRUE);
+            sAIActionManager->AIActionSetString(vpb, kAIPDFUserPasswordKey, pwRetriever->GetUserPassword().c_str());
+        }
+        else
+        {
+            sAIActionManager->AIActionSetBoolean(vpb, kAIPDFUserPasswordRequiredKey, FALSE);
+        }
+        
+        if (pwRetriever->GetMasterPassword() != "")
+        {
+            sAIActionManager->AIActionSetBoolean(vpb, kAIPDFMasterPasswordRequiredKey, TRUE);
+            sAIActionManager->AIActionSetString(vpb, kAIPDFMasterPasswordKey, pwRetriever->GetMasterPassword().c_str());
+        }
+        else
+        {
+            sAIActionManager->AIActionSetBoolean(vpb, kAIPDFMasterPasswordRequiredKey, FALSE);
+        }
     }
     else
     {
         sAIActionManager->AIActionSetBoolean(vpb, kAIPDFUserPasswordRequiredKey, FALSE);
-    }
-    
-    if (pwRet->GetMasterPassword() != "")
-    {
-        sAIActionManager->AIActionSetBoolean(vpb, kAIPDFMasterPasswordRequiredKey, TRUE);
-        sAIActionManager->AIActionSetString(vpb, kAIPDFMasterPasswordKey, pwRet->GetMasterPassword().c_str());
-    }
-    else
-    {
         sAIActionManager->AIActionSetBoolean(vpb, kAIPDFMasterPasswordRequiredKey, FALSE);
     }
 }
 
-void PdfSettings::SetBleeds(AIRealRect bleeds)
+void PdfSettings::SetBleeds(AIRealRect bleeds) const
 {
     sAIActionManager->AIActionSetInteger(vpb, kAIPDFBleedTopKey, bleeds.top);
     sAIActionManager->AIActionSetInteger(vpb, kAIPDFBleedBottomKey, bleeds.bottom);
@@ -99,12 +129,12 @@ void PdfSettings::SetBleeds(AIRealRect bleeds)
     sAIActionManager->AIActionSetBoolean(vpb, kAIPDFDocBleedKey, FALSE);
 }
 
-void PdfSettings::SetPath(ai::FilePath path)
+void PdfSettings::SetPath(ai::FilePath path) const
 {
     sAIActionManager->AIActionSetStringUS(vpb, kAISaveDocumentAsNameKey, path.GetFullPath());
 }
 
-void PdfSettings::SetVpbRange(string vpbRange)
+void PdfSettings::SetVpbRange(string vpbRange) const
 {
     sAIActionManager->AIActionSetString(vpb, kAIExportDocumentSaveRangeKey, vpbRange.c_str());
 }

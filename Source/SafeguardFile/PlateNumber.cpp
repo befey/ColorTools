@@ -11,6 +11,7 @@
 #include <regex>
 
 using SafeguardFile::PlateNumber;
+using SafeguardFile::ProductType;
 
 PlateNumber::PlateNumber(string pNum)
 {
@@ -29,7 +30,7 @@ Boolean PlateNumber::TokenizePlateNumber()
 {
     using namespace std;
     
-    regex r("(?:^(?:([a-z])(\\d{2}))?([a-z]{2})(\\d{3,6}$))", regex::icase);
+    regex r("(?:^(?:([a-z])(\\d{2}))?([a-z]{2})(\\d{3,6}).?\\S*)", regex::icase);
     
     smatch result;
     regex_search(plateNumber, result, r);
@@ -40,6 +41,7 @@ Boolean PlateNumber::TokenizePlateNumber()
         2: <the year if the first type>
         3: <the product indicator>
         4: <the number>
+        5: any trailing .BP, etc.
     */
     
     if (result.size() == 0) {
@@ -56,47 +58,47 @@ Boolean PlateNumber::TokenizePlateNumber()
     return true;
 }
 
-PlateNumber::ProductType PlateNumber::GetProductType() const
+ProductType PlateNumber::GetProductType() const
 {
     if (!IsValid())
     {
-        return PlateNumber::ProductType::INVAL;
+        return ProductType::INVAL;
     }
     
     if (productIndicator.at(0) == 'B' || productIndicator == "MP" || productIndicator == "SP")
     {
-        return PlateNumber::ProductType::BusinessStat;
+        return ProductType::BusinessStat;
     }
     
     if (productIndicator == "SF")
     {
-        return PlateNumber::ProductType::CutSheet;
+        return ProductType::CutSheet;
     }
     
     if (productIndicator == "CF" || productIndicator == "SC" || productIndicator == "SS" || productIndicator == "EN")
     {
-        return PlateNumber::ProductType::Continuous;
+        return ProductType::Continuous;
     }
     
     if (productIndicator == "CS")
     {
         if (HasInnerTicks())
         {
-            return PlateNumber::ProductType::Snapset;
+            return ProductType::Snapset;
         }
         else
         {
-            return PlateNumber::ProductType::CutSheet;
+            return ProductType::CutSheet;
         }
     }
     
     //OTHERS
     if (productIndicator == "AR" || productIndicator == "CK" || productIndicator == "CM" || productIndicator == "GC" || productIndicator == "LS" || productIndicator == "QC" || productIndicator == "RC" || productIndicator == "VP")
     {
-        return PlateNumber::ProductType::Continuous;
+        return ProductType::Continuous;
     }
     
-    return PlateNumber::ProductType::INVAL;
+    return ProductType::INVAL;
 }
 
 void PlateNumber::GetAsTextRange(ATE::ITextRange& targetRange) const

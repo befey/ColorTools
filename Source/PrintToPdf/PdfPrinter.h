@@ -11,7 +11,6 @@
 
 #include "PdfSettings.h"
 #include "PdfResults.h"
-#include "PasswordRetriever.h"
 #include "PathBuilder.h"
 #include "PathCreator.h"
 #include "ExistingFileDeleter.h"
@@ -24,15 +23,13 @@ namespace PrintToPdf
     class PdfPrinter
     {
     public:
-        static unique_ptr<PdfPrinter> GetPrinter(unique_ptr<PdfSettings> settings);
+        static unique_ptr<PdfPrinter> GetPrinter(const bool separateFiles);
         
-        PdfResults Print() const;
+        PdfResults Print(const PdfSettings& settings) const;
         
     protected:
-        PdfPrinter(unique_ptr<PdfSettings> settings);
+        PdfPrinter();
         
-        unique_ptr<PdfSettings> pdfSettings;
-        unique_ptr<PasswordRetriever> pwRetriever;
         unique_ptr<PathBuilder> pathBuilder;
         unique_ptr<PathCreator> pathCreator;
         unique_ptr<ExistingFileDeleter> efDeleter;
@@ -45,23 +42,23 @@ namespace PrintToPdf
         const string GetToken(int plateIndex) const;
         
     private:
-        virtual PdfResults CustomPrintSteps() const = 0;
+        virtual PdfResults CustomPrintSteps(const PdfSettings& settings) const = 0;
     };
     
     class SingleFilePdfPrinter : public PdfPrinter
     {
     public:
-        SingleFilePdfPrinter(unique_ptr<PdfSettings> settings);
+        SingleFilePdfPrinter();
 
-        PdfResults CustomPrintSteps() const override;
+        PdfResults CustomPrintSteps(const PdfSettings& settings) const override;
     };
     
     class SeparateFilePdfPrinter : public PdfPrinter
     {
     public:
-        SeparateFilePdfPrinter(unique_ptr<PdfSettings> settings);
+        SeparateFilePdfPrinter();
 
-        PdfResults CustomPrintSteps() const;
+        PdfResults CustomPrintSteps(const PdfSettings& settings) const;
     };
 }
 #endif /* defined(__SafeguardTools__PrintToPdf__) */

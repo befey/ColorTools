@@ -7,6 +7,7 @@
 //
 
 #include "Plate.h"
+#include "SafeguardFileConstants.h"
 #include "BtAteTextFeatures.h"
 #include "TickMarkDrawer.h"
 #include "ColorListDrawer.h"
@@ -147,24 +148,17 @@ void Plate::AddColorsOfArtToColorList(AIArtHandle art)
     bleedInfo.colorList.AddColorsToList(GetColorsFromArt(art));
 }
 
-AIRealRect Plate::GetBleeds(PdfPreset preset) const
+AIRealRect Plate::GetBleeds() const
 {
     AIRealRect bleedRect;
     
-    PlateNumber::ProductType pt = GetPlateNumber().GetProductType();
+    ProductType pt = GetPlateNumber().GetProductType();
     
-    if (pt == PlateNumber::ProductType::CutSheet)
+    if (pt == ProductType::CutSheet)
     {
-        if (preset == PdfPreset::Manufacturing)
-        {
-            sAIRealMath->AIRealRectSet(&bleedRect, 36, 36, 36, 36);
-        }
-        else
-        {
-            sAIRealMath->AIRealRectSet(&bleedRect, 0, 0, 0, 0);
-        }
+        sAIRealMath->AIRealRectSet(&bleedRect, 36, 36, 36, 36);
     }
-    else if (pt == PlateNumber::ProductType::BusinessStat)
+    else if (pt == ProductType::BusinessStat)
     {
         sAIRealMath->AIRealRectSet(&bleedRect, 12, 12, 12, 12);
     }

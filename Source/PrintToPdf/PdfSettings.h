@@ -37,16 +37,13 @@ namespace PrintToPdf
     public:
         PdfSettings(PrintToPdf::PdfPreset p, string range = "", bool separateFiles = false);
         
-        static unique_ptr<PdfSettings> MakePdfSettingsFromXml(const char* xmlData);
+        static PdfSettings MakePdfSettingsFromXml(const char* xmlData);
         
-        void SetPreset(PrintToPdf::PdfPreset);
         PrintToPdf::PdfPreset GetPreset() const { return preset; };
-        void SetRange(string);
         const BtArtboardRange& GetRange() const { return range; };
-        void SetPasswords(const unique_ptr<PasswordRetriever> &pwRet);
-        void SetBleeds(AIRealRect bleeds);
-        void SetPath(ai::FilePath path);
-        void SetVpbRange(string range);
+        void SetBleeds(AIRealRect bleeds) const;
+        void SetPath(ai::FilePath path) const;
+        void SetVpbRange(string range) const;
         bool OutputSeparateFiles() const { return separateFiles; };
         
         inline operator AIActionParamValueRef(void) const { return AIActionParamValueRef(vpb); }
@@ -54,8 +51,12 @@ namespace PrintToPdf
         BtArtboardRange range;
         bool separateFiles;
         PrintToPdf::PdfPreset preset;
+        unique_ptr<PasswordRetriever> pwRetriever;
 
         VPB vpb;
+        
+        void SetPasswords();
+
     };
 }
 

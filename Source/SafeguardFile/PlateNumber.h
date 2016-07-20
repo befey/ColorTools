@@ -30,6 +30,8 @@
  
  */
 #include "AIArtboard.h"
+#include "SafeguardFileConstants.h"
+
 extern AIArtSuite* sAIArt;
 extern AIPathSuite* sAIPath;
 extern AIArtSetSuite* sAIArtSet;
@@ -42,16 +44,6 @@ namespace SafeguardFile
     class PlateNumber
     {
     public:
-        enum ProductType {
-            INVAL,
-            CutSheet,
-            Continuous,
-            Snapset,
-            BusinessStat
-        };
-        
-        static constexpr auto LENGTH_OF_INNER_TICK_PATH = 18;
-        
         PlateNumber(){};
         PlateNumber(string);
         

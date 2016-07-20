@@ -177,6 +177,7 @@
 		F97B56511D367CA900C10A9F /* BtLayer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = BtLayer.hpp; path = "Source/utility-headers/BtLayer.hpp"; sourceTree = "<group>"; };
 		F97B56541D36B92600C10A9F /* TypeToPathsConverter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TypeToPathsConverter.cpp; path = Source/PrintToPdf/TypeToPathsConverter.cpp; sourceTree = "<group>"; };
 		F97B56551D36B92600C10A9F /* TypeToPathsConverter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TypeToPathsConverter.hpp; path = Source/PrintToPdf/TypeToPathsConverter.hpp; sourceTree = "<group>"; };
+		F97B56581D3937EF00C10A9F /* SafeguardFileConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SafeguardFileConstants.h; path = Source/SafeguardFile/SafeguardFileConstants.h; sourceTree = "<group>"; };
 		F989A8E01CA460CE0050C071 /* ColorToolsUIController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ColorToolsUIController.cpp; sourceTree = "<group>"; };
 		F989A8E11CA460CE0050C071 /* ColorToolsUIController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorToolsUIController.h; sourceTree = "<group>"; };
 		F989A8E21CA460CE0050C071 /* FindReplaceGraphics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FindReplaceGraphics.cpp; sourceTree = "<group>"; };
@@ -330,6 +331,7 @@
 				F96D30721CB6D73500274BDE /* PlateNumber.h */,
 				F9C44EF61D0B14AE00205ADF /* SafeguardJobFile.cpp */,
 				F9C44EF71D0B14AE00205ADF /* SafeguardJobFile.h */,
+				F97B56581D3937EF00C10A9F /* SafeguardFileConstants.h */,
 			);
 			name = SafeguardFile;
 			sourceTree = "<group>";

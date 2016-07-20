@@ -26,6 +26,8 @@ class BtArtboardRange
 public:
     BtArtboardRange(string);
     ~BtArtboardRange();
+    BtArtboardRange(const BtArtboardRange& src);
+    BtArtboardRange& operator=(const BtArtboardRange& rhs);
     
     inline operator string(void) const {return rangeS;}
     inline operator AIArtboardRangeHandle(void) const {return range;}
