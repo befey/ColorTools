@@ -10,17 +10,27 @@ var resultsBackEvent = new CSEvent("com.gosafeguard.SafeguardTools.PrintToPdf.re
 $(function()
 {
 	csInterface.setWindowTitle("Print To PDF");
-
-	$('#allpages-check').change(function()
+	$('#preset-select').change(function()
 	{
-   		//$("#range-text").prop("disabled", $(this).is(':checked'));
-   		
+		if ( $('#preset-select').val() == 0 ) //Manufacturing
+		{
+			$('#separatefiles-check').prop('checked', true);
+		}
+		else
+		{
+			$('#separatefiles-check').prop('checked', false);
+		}
+	});
+	
+	$('#allpages-check').change(function()
+	{   		
    		if ($(this).is(':checked'))
    		{
    			$("#range-text").css("color","gray");
    		}
    		else
    		{
+   			$("#range-text").css("color","black");
    			$("#range-text").focus();
    		}
 	});
