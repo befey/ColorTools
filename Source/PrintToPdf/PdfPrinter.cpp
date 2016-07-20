@@ -27,10 +27,10 @@ PdfPrinter::PdfPrinter()
     pathBuilder = unique_ptr<PathBuilder> { make_unique<TestingPathBuilder>() };
     outputPath = pathBuilder->GetAiFilePath(GetPlateNumber());
     
-    pathCreator = unique_ptr<PathCreator>();
+    pathCreator = make_unique<PathCreator>();
     
-    efDeleter = unique_ptr<ExistingFileDeleter>();
-    tpConverter = unique_ptr<TypeToPathsConverter>();
+    efDeleter = make_unique<ExistingFileDeleter>();
+    tpConverter = make_unique<TypeToPathsConverter>();
     
     if (GetPlateNumber().GetProductType() == ProductType::BusinessStat)
     {
@@ -75,7 +75,7 @@ PdfResults PdfPrinter::Print(const PdfSettings& settings) const
         transactions.AddResult(efDeleter->Delete(GetPlateNumber(), outputPath));
         
         layerVisibility->SetLayerVisibility();
-        tpConverter->ConvertTypeToPaths(settings.GetRange());
+        tpConverter->ConvertTypeToPaths();
         
         transactions.AddResult(CustomPrintSteps(settings));
     }   

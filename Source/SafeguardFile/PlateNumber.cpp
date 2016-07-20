@@ -41,6 +41,7 @@ Boolean PlateNumber::TokenizePlateNumber()
         2: <the year if the first type>
         3: <the product indicator>
         4: <the number>
+        5: any trailing .BP, etc.
     */
     
     if (result.size() == 0) {

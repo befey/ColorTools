@@ -7,24 +7,32 @@
 //
 
 #include "TypeToPathsConverter.hpp"
-#include "BtLayer.hpp"
 #include "Plate.h"
 
 using PrintToPdf::TypeToPathsConverter;
 
-bool TypeToPathsConverter::ConvertTypeToPaths(BtArtboardRange range) const
+TypeToPathsConverter::TypeToPathsConverter()
 {
-    BtLayer layer(SafeguardFile::FOREGROUND_LAYER);
-    if (layer)
+    ai::int32 count;
+    sAILayer->CountLayers(&count);
+    
+    for (int i = 0; i < count; i++)
     {
-        layer.ConvertTextToPaths();
-        return true;
+        AILayerHandle layer;
+        sAILayer->GetNthLayer(i, &layer);
+        layerList.push_back(BtLayer(layer));
     }
-    else
+}
+
+bool TypeToPathsConverter::ConvertTypeToPaths() const
+{
+    for ( auto layer : layerList )
     {
-        
-        return true;
+        if (layer.Visible() && layer.Editable())
+        {
+            layer.ConvertTextToPaths();
+        }
     }
     
-    return false;
+    return true;
 }
