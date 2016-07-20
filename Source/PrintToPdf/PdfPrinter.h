@@ -23,12 +23,12 @@ namespace PrintToPdf
     class PdfPrinter
     {
     public:
-        static unique_ptr<PdfPrinter> GetPrinter(const bool separateFiles);
+        static unique_ptr<PdfPrinter> GetPrinter(PdfPreset preset, const bool separateFiles);
         
         PdfResults Print(const PdfSettings& settings) const;
         
     protected:
-        PdfPrinter();
+        PdfPrinter(const PdfPreset preset);
         
         unique_ptr<PathBuilder> pathBuilder;
         unique_ptr<PathCreator> pathCreator;
@@ -48,7 +48,7 @@ namespace PrintToPdf
     class SingleFilePdfPrinter : public PdfPrinter
     {
     public:
-        SingleFilePdfPrinter();
+        SingleFilePdfPrinter(const PdfPreset preset);
 
         PdfResults CustomPrintSteps(const PdfSettings& settings) const override;
     };
@@ -56,9 +56,9 @@ namespace PrintToPdf
     class SeparateFilePdfPrinter : public PdfPrinter
     {
     public:
-        SeparateFilePdfPrinter();
+        SeparateFilePdfPrinter(const PdfPreset preset);
 
-        PdfResults CustomPrintSteps(const PdfSettings& settings) const;
+        PdfResults CustomPrintSteps(const PdfSettings& settings) const override;
     };
 }
 #endif /* defined(__SafeguardTools__PrintToPdf__) */

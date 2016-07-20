@@ -19,19 +19,17 @@ using PrintToPdf::PdfResults;
 using SafeguardFile::PlateNumber;
 using SafeguardFile::ProductType;
 
-SingleFilePdfPrinter::SingleFilePdfPrinter() : PdfPrinter() {}
-SeparateFilePdfPrinter::SeparateFilePdfPrinter() : PdfPrinter() {}
+SingleFilePdfPrinter::SingleFilePdfPrinter(const PdfPreset preset) : PdfPrinter(preset) {}
+SeparateFilePdfPrinter::SeparateFilePdfPrinter(const PdfPreset preset) : PdfPrinter(preset) {}
 
-PdfPrinter::PdfPrinter()
+PdfPrinter::PdfPrinter(const PdfPreset preset)
 {
-    pathBuilder = unique_ptr<PathBuilder> { make_unique<TestingPathBuilder>() };
-    outputPath = pathBuilder->GetAiFilePath(GetPlateNumber());
-    
     pathCreator = make_unique<PathCreator>();
     
     efDeleter = make_unique<ExistingFileDeleter>();
     tpConverter = make_unique<TypeToPathsConverter>();
     
+    //SETUP LAYER VISIBILITY
     if (GetPlateNumber().GetProductType() == ProductType::BusinessStat)
     {
         layerVisibility = unique_ptr<LayerVisibility> { make_unique<BStatLayerVisibility>() };
@@ -40,17 +38,33 @@ PdfPrinter::PdfPrinter()
     {
         layerVisibility = unique_ptr<LayerVisibility> { make_unique<LaserLayerVisibility>() };
     }
+    
+    //SETUP PATH BUILDER
+    if (preset == PdfPreset::Manufacturing)
+    {
+        pathBuilder = unique_ptr<PathBuilder> { make_unique<ManufacturingPathBuilder>() };
+    }
+    else if (preset == PdfPreset::MicrProof)
+    {
+        pathBuilder = unique_ptr<PathBuilder> { make_unique<MicrProofPathBuilder>() };
+    }
+    else if (preset == PdfPreset::Proof)
+    {
+        pathBuilder = unique_ptr<PathBuilder> { make_unique<ProofPathBuilder>() };
+    }
+    
+    outputPath = pathBuilder->GetAiFilePath(GetPlateNumber());
 }
 
-unique_ptr<PdfPrinter> PdfPrinter::GetPrinter(const bool separateFiles)
+unique_ptr<PdfPrinter> PdfPrinter::GetPrinter(const PdfPreset preset, const bool separateFiles)
 {
     if (separateFiles)
     {
-        return unique_ptr<PdfPrinter> { make_unique<SeparateFilePdfPrinter>() };
+        return unique_ptr<PdfPrinter> { make_unique<SeparateFilePdfPrinter>(preset) };
     }
     else
     {
-        return unique_ptr<PdfPrinter> { make_unique<SingleFilePdfPrinter>() };
+        return unique_ptr<PdfPrinter> { make_unique<SingleFilePdfPrinter>(preset) };
     }
 }
 
