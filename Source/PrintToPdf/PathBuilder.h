@@ -21,7 +21,7 @@ namespace PrintToPdf
     class PathBuilder
     {
     public:
-        virtual ai::FilePath GetAiFilePath(SafeguardFile::PlateNumber pn) = 0;
+        virtual ai::FilePath GetAiFilePath(const SafeguardFile::PlateNumber pn) const = 0;
         
     };
     
@@ -29,31 +29,31 @@ namespace PrintToPdf
     class ManufacturingPathBuilder : public PathBuilder
     {
     public:
-        ai::FilePath GetAiFilePath(SafeguardFile::PlateNumber pn);
+        ai::FilePath GetAiFilePath(const SafeguardFile::PlateNumber pn) const override;
     };
     
     class ProofPathBuilder : public PathBuilder
     {
     public:
-        ai::FilePath GetAiFilePath(SafeguardFile::PlateNumber pn);
+        ai::FilePath GetAiFilePath(const SafeguardFile::PlateNumber pn) const override;
     };
     
     class MicrProofPathBuilder : public PathBuilder
     {
     public:
-        ai::FilePath GetAiFilePath(SafeguardFile::PlateNumber pn);
+        ai::FilePath GetAiFilePath(const SafeguardFile::PlateNumber pn) const override;
     };
  
     class UserPathBuilder : public PathBuilder
     {
     public:
-        ai::FilePath GetAiFilePath(SafeguardFile::PlateNumber pn);
+        ai::FilePath GetAiFilePath(const SafeguardFile::PlateNumber pn) const override;
     };
     
     class TestingPathBuilder : public PathBuilder
     {
     public:
-        ai::FilePath GetAiFilePath(SafeguardFile::PlateNumber pn);
+        ai::FilePath GetAiFilePath(const SafeguardFile::PlateNumber pn) const override;
     };
 }
 #endif /* defined(__SafeguardTools__PathBuilder__) */

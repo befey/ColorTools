@@ -17,7 +17,7 @@ using PrintToPdf::MicrProofPathBuilder;
 using PrintToPdf::TestingPathBuilder;
 using PrintToPdf::UserPathBuilder;
 
-ai::FilePath ManufacturingPathBuilder::GetAiFilePath(PlateNumber pn)
+ai::FilePath ManufacturingPathBuilder::GetAiFilePath(const PlateNumber pn) const
 {
     string prodCode;
     ai::FilePath saveasFilePath;
@@ -51,7 +51,7 @@ ai::FilePath ManufacturingPathBuilder::GetAiFilePath(PlateNumber pn)
     return saveasFilePath;
 }
 
-ai::FilePath ProofPathBuilder::GetAiFilePath(PlateNumber pn)
+ai::FilePath ProofPathBuilder::GetAiFilePath(const PlateNumber pn) const
 {
     ai::UnicodeString fpUS = ai::UnicodeString(PATH_TO_PDFPROOFS);
     ai::FilePath saveasFilePath(fpUS);
@@ -60,13 +60,13 @@ ai::FilePath ProofPathBuilder::GetAiFilePath(PlateNumber pn)
     if (saveasFilePath.Exists(true))
     {
         UserPathBuilder upb;
-        saveasFilePath = upb.PathBuilder::GetAiFilePath(pn);
+        saveasFilePath = upb.GetAiFilePath(pn);
     }
     
     return saveasFilePath;
 }
 
-ai::FilePath MicrProofPathBuilder::GetAiFilePath(PlateNumber pn)
+ai::FilePath MicrProofPathBuilder::GetAiFilePath(const PlateNumber pn) const
 {
     ai::UnicodeString fpUS = ai::UnicodeString(PATH_TO_MICR_PDF);
     ai::FilePath saveasFilePath(fpUS);
@@ -75,13 +75,13 @@ ai::FilePath MicrProofPathBuilder::GetAiFilePath(PlateNumber pn)
     if (saveasFilePath.Exists(true))
     {
         UserPathBuilder upb;
-        saveasFilePath = upb.PathBuilder::GetAiFilePath(pn);
+        saveasFilePath = upb.GetAiFilePath(pn);
     }
     
     return saveasFilePath;
 }
 
-ai::FilePath UserPathBuilder::GetAiFilePath(PlateNumber pn)
+ai::FilePath UserPathBuilder::GetAiFilePath(const PlateNumber pn) const
 {
     ai::FilePath saveasFilePath;
     sAIUser->GetDirectoryDialog(ai::UnicodeString("Choose a location to save the PDF files"), saveasFilePath);
@@ -90,7 +90,7 @@ ai::FilePath UserPathBuilder::GetAiFilePath(PlateNumber pn)
 }
 
 
-ai::FilePath TestingPathBuilder::GetAiFilePath(PlateNumber pn)
+ai::FilePath TestingPathBuilder::GetAiFilePath(const PlateNumber pn) const
 {
     string prodCode;
     ai::FilePath saveasFilePath;
