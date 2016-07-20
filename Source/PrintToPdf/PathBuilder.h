@@ -12,6 +12,9 @@
 #include "PrintToPdfConstants.h"
 #include "PlateNumber.h"
 #include "AIFilePath.h"
+#include "AIUser.h"
+
+extern AIUserSuite* sAIUser;
 
 namespace PrintToPdf
 {
@@ -41,6 +44,11 @@ namespace PrintToPdf
         ai::FilePath GetAiFilePath(SafeguardFile::PlateNumber pn);
     };
  
+    class UserPathBuilder : public PathBuilder
+    {
+    public:
+        ai::FilePath GetAiFilePath(SafeguardFile::PlateNumber pn);
+    };
     
     class TestingPathBuilder : public PathBuilder
     {
