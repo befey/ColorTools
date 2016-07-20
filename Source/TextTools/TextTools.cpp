@@ -13,31 +13,40 @@
 
 bool gBoundsSetFlag = FALSE;
 
-bool ConvertToPointType() {
+bool ConvertToPointType()
+{
 	//Set the undo/redo text
     sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Make Point Type"), ai::UnicodeString("Redo Make Point Type"));
 	
 	int docCount = 0;
 	sAIDocumentList->Count(&docCount);
-	if(docCount > 0) {
+	if (docCount > 0)
+    {
 		//Create an art set of only the selected text objects
 		//CREATE THE ART SET
 		AIArtSet artSet;
 		sAIArtSet->NewArtSet(&artSet);
-		AIArtSpec selectedSpecs[] = { { kTextFrameArt , kArtFullySelected , kArtFullySelected } };
+        
+		AIArtSpec selectedSpecs[] =
+        {
+            { kTextFrameArt , kArtFullySelected , kArtFullySelected }
+        };
+        
 		sAIArtSet->MatchingArtSet( selectedSpecs , 1, artSet );
 		
 		//Loop the art set
-		size_t count;		sAIArtSet->CountArtSet( artSet, &count );
-		for ( int i=0 ; i < count ; i++ ) {
-			
+		size_t count;
+        sAIArtSet->CountArtSet( artSet, &count );
+		for ( int i=0 ; i < count ; i++ )
+        {
 			AIArtHandle currArtHandle = NULL;
 			sAIArtSet->IndexArtSet( artSet, i, &currArtHandle );
 			
 			AITextFrameType type;
 			sAITextFrame->GetType(currArtHandle, &type);
 			//We only want text frames, not path or point type
-			if (type == kInPathTextType) {
+			if (type == kInPathTextType)
+            {
 				//Create an ITextFrame object from the original TextFrame art
 				TextFrameRef origATETextFrameRef;
 				sAITextFrame->GetATETextFrame(currArtHandle, &origATETextFrameRef);
@@ -51,8 +60,8 @@ bool ConvertToPointType() {
 				ATE::ITextRunsIterator currTextRunsIterator = currTextRange.GetTextRunsIterator();
 				
 				//If there is stuff to iterate through
-				if ( !currTextRunsIterator.IsEmpty() ) {
-					
+				if ( !currTextRunsIterator.IsEmpty() )
+                {
 					//Create the new point text that we will add the text from the frame to
 					AITextOrientation orientation;
 					sAITextFrame->GetOrientation(currArtHandle, &orientation);
@@ -97,14 +106,18 @@ bool ConvertToPointType() {
 					//We'll just use the top and bottom from the converted to paths one
 					if ((firstRunJustification == ATE::kLeftJustify || firstRunJustification == ATE::kFullJustifyLastLineLeft ||
 						 firstRunJustification == ATE::kFullJustifyLastLineFull || firstRunJustification == ATE::kFullJustifyLastLineCenter ||
-						 firstRunJustification == ATE::kFullJustifyLastLineRight)) {
+						 firstRunJustification == ATE::kFullJustifyLastLineRight))
+                    {
 						convertedToPathsBounds.left = unRotateBounds.left;
-					} else if (firstRunJustification == ATE::kRightJustify) {
+					}
+                    else if (firstRunJustification == ATE::kRightJustify)
+                    {
 						convertedToPathsBounds.right = unRotateBounds.right;
 					}
 					
 					//Check if there are no bounds after we convert to paths, this means that the entire text was in overflow
-					if ( !sAIRealMath->EqualWithinTol(convertedToPathsBounds.right, convertedToPathsBounds.left, 10000) ) {
+					if ( !sAIRealMath->EqualWithinTol(convertedToPathsBounds.right, convertedToPathsBounds.left, 10000) )
+                    {
 						convertedToPathsBounds = unRotateBounds;
 					}
 					
@@ -112,18 +125,24 @@ bool ConvertToPointType() {
 					
 					if (firstRunJustification == ATE::kLeftJustify || firstRunJustification == ATE::kFullJustifyLastLineLeft ||
 						firstRunJustification == ATE::kFullJustifyLastLineFull || firstRunJustification == ATE::kFullJustifyLastLineCenter ||
-						firstRunJustification == ATE::kFullJustifyLastLineRight) {
+						firstRunJustification == ATE::kFullJustifyLastLineRight)
+                    {
 						sAIRealMath->AIRealMatrixConcatTranslate(&unrotateMatrix, -convertedToPathsBounds.top, -convertedToPathsBounds.left);
-					} else if (firstRunJustification == ATE::kRightJustify) {
+					}
+                    else if (firstRunJustification == ATE::kRightJustify)
+                    {
 						sAIRealMath->AIRealMatrixConcatTranslate(&unrotateMatrix, -convertedToPathsBounds.top, -convertedToPathsBounds.right);
-					} else if (firstRunJustification == ATE::kCenterJustify) {
+					}
+                    else if (firstRunJustification == ATE::kCenterJustify)
+                    {
 						sAIRealMath->AIRealMatrixConcatTranslate(&unrotateMatrix, -convertedToPathsBounds.top, -(convertedToPathsBounds.left+((convertedToPathsBounds.right - convertedToPathsBounds.left)/2)) );
 					}
 					
 					sAITransformArt->TransformArt(currArtHandle, &unrotateMatrix, 0, kTransformObjects);
 					
 					//Loop through the runs
-					while ( currTextRunsIterator.IsNotDone() ) {
+					while ( currTextRunsIterator.IsNotDone() )
+                    {
 						//Get the range for the new copy
 						ATE::TextRangeRef theCopyRangeRef;
 						sAITextFrame->GetATETextRange(theCopy, &theCopyRangeRef);
@@ -134,7 +153,8 @@ bool ConvertToPointType() {
 						
 						currTextRunsIterator.Next();
 						
-						if ( currTextRunsIterator.IsDone() ) {
+						if ( currTextRunsIterator.IsDone() )
+                        {
 							//If this was the last run (or an empty text), we can delete art object we're pulling from
 							sAIArt->DisposeArt(currArtHandle);
 							//break;
@@ -161,13 +181,18 @@ bool ConvertToPointType() {
 					
 					if (firstRunJustification == ATE::kLeftJustify || firstRunJustification == ATE::kFullJustifyLastLineLeft ||
 						firstRunJustification == ATE::kFullJustifyLastLineFull || firstRunJustification == ATE::kFullJustifyLastLineCenter ||
-						firstRunJustification == ATE::kFullJustifyLastLineRight) {
+						firstRunJustification == ATE::kFullJustifyLastLineRight)
+                    {
 						tx = convertedToPathsBounds.left - origCopyBounds.left;
 						ty = convertedToPathsBounds.top - newBounds.top;	
-					} else if (firstRunJustification == ATE::kRightJustify) {
+					}
+                    else if (firstRunJustification == ATE::kRightJustify)
+                    {
 						tx = convertedToPathsBounds.right - origCopyBounds.right;
 						ty = convertedToPathsBounds.top - newBounds.top;
-					} else if (firstRunJustification == ATE::kCenterJustify) {
+					}
+                    else if (firstRunJustification == ATE::kCenterJustify)
+                    {
 						tx = (convertedToPathsBounds.left+((convertedToPathsBounds.right - convertedToPathsBounds.left)/2)) - 
 						(origCopyBounds.left+((origCopyBounds.right - origCopyBounds.left)/2));
 						ty = convertedToPathsBounds.top - newBounds.top;
@@ -192,87 +217,117 @@ bool ConvertToPointType() {
 }
 
 
-bool Align(ATE::ParagraphJustification alignStyle) {
-		
+bool Align(ATE::ParagraphJustification alignStyle)
+{
 	short selectedArtTypes = 0;
 	
 	//Create an art set of the selected objects
 	//CREATE THE ART SET
 	AIArtSet artSet;
 	sAIArtSet->NewArtSet(&artSet);
-	AIArtSpec selectedSpecs[] = { { kAnyArt , kArtSelected , kArtSelected } };
-	sAIArtSet->MatchingArtSet( selectedSpecs , 1, artSet );
+    
+	AIArtSpec selectedSpecs[] =
+    {
+        { kAnyArt , kArtSelected , kArtSelected }
+    };
+	
+    sAIArtSet->MatchingArtSet( selectedSpecs , 1, artSet );
 		
 	//Next, we need to find out what kind of objects we're dealing with
 	selectedArtTypes = GetTypesFromArtSet(&artSet);
 	
-	try {
-        if (selectedArtTypes == TTArtTypes::ttTextArt) {
+	try
+    {
+        if (selectedArtTypes == TTArtTypes::ttTextArt)
+        {
 			AlignText(&artSet, alignStyle);
 		}
-		else if (selectedArtTypes == TTArtTypes::ttUnknownArt) {
+		else if (selectedArtTypes == TTArtTypes::ttUnknownArt)
+        {
 			throw TTArtTypes::ttUnknownArt;
 		}
 		else if ( ( selectedArtTypes == TTArtTypes::ttObjectArt ) ||
 				  ( selectedArtTypes == (TTArtTypes::ttObjectArt | TTArtTypes::ttTextArt)) ||
 				  ( selectedArtTypes == (TTArtTypes::ttObjectArt | TTArtTypes::ttUnknownArt) ) ||
 				  ( selectedArtTypes == (TTArtTypes::ttTextArt | TTArtTypes::ttUnknownArt) ) ||
-				  ( selectedArtTypes == (TTArtTypes::ttObjectArt | TTArtTypes::ttTextArt | TTArtTypes::ttUnknownArt)) ) {
+				  ( selectedArtTypes == (TTArtTypes::ttObjectArt | TTArtTypes::ttTextArt | TTArtTypes::ttUnknownArt)) )
+        {
 			AlignObject(&artSet, alignStyle);
 		}
 	}
-	catch (int e) {
+	catch (int e)
+    {
 		sAIArtSet->DisposeArtSet(&artSet);
 		
 		sAIUndo->UndoChanges();
-		return 0;
+		return false;
 	}
 	
 	sAIArtSet->DisposeArtSet(&artSet);
-	return 1;
+	return true;
 }
 
 
-void AlignText(AIArtSet* artSet, ATE::ParagraphJustification alignStyle) {
-	size_t count;		sAIArtSet->CountArtSet( *artSet, &count );
-	if (count == 1) {
+void AlignText(AIArtSet* artSet, ATE::ParagraphJustification alignStyle)
+{
+	size_t count;
+    sAIArtSet->CountArtSet( *artSet, &count );
+	
+    if (count == 1)
+    {
 		AIArtHandle currArtHandle = NULL;
 		sAIArtSet->IndexArtSet( *artSet, 0, &currArtHandle );
-		try {
+		try
+        {
 			AlignText(currArtHandle, alignStyle);
 		}
-		catch (int e) {
+		catch (int e)
+        {
 			throw;
 		}
-	} else if (count > 1) {
+	}
+    else if (count > 1)
+    {
 		AIArtHandle keyArt = NULL;
 		sAIArt->GetKeyArt(&keyArt);
-		if (keyArt) {
-			try {
+		if (keyArt)
+        {
+			try
+            {
 				AlignObject(artSet, alignStyle);
 			}
-			catch (int e) {
+			catch (int e)
+            {
 				throw;
 			}
-		} else {
-			for ( int i=0 ; i < count ; i++ ) {
+		}
+        else
+        {
+			for ( int i=0 ; i < count ; i++ )
+            {
 				AIArtHandle currArtHandle = NULL;
 				sAIArtSet->IndexArtSet( *artSet, i, &currArtHandle );
-				try {
+				try
+                {
 					AlignText(currArtHandle, alignStyle);
 				}
-				catch (int e) {
+				catch (int e)
+                {
 					throw;
 				}
 			}
 		}
 	}
 }
-void AlignText(AIArtHandle currArt, ATE::ParagraphJustification alignStyle) {
+
+void AlignText(AIArtHandle currArt, ATE::ParagraphJustification alignStyle)
+{
 	AITextFrameType type;
 	sAITextFrame->GetType(currArt, &type);
-	try {
-		if (type == kInPathTextType || type == kOnPathTextType) {
+	try
+    {
+		if (type == kInPathTextType || type == kOnPathTextType)
+        {
 			//Create an ITextFrame object from the original TextFrame art
 			TextRangeRef ATETextRangeRef;
 			sAITextFrame->GetATETextRange(currArt, &ATETextRangeRef);
@@ -281,18 +336,23 @@ void AlignText(AIArtHandle currArt, ATE::ParagraphJustification alignStyle) {
 			pFeat.SetJustification(alignStyle);
 			iTextRange.ReplaceOrAddLocalParaFeatures(pFeat);
 		}
-		else if (type == kPointTextType) {
+		else if (type == kPointTextType)
+        {
 			AlignPointType(currArt, alignStyle);
 		}
-		else if (type == kUnknownTextType) {
+		else if (type == kUnknownTextType)
+        {
 			throw ttUnknownArt;
 		}
 	}
-	catch (int e) {
+	catch (int e)
+    {
 		throw;
 	}
 }
-void AlignPointType(AIArtHandle currArtHandle, ATE::ParagraphJustification alignStyle) {
+
+void AlignPointType(AIArtHandle currArtHandle, ATE::ParagraphJustification alignStyle)
+{
 	AIBoolean focus = FALSE;
 	sAIDocument->HasTextFocus(&focus);
 	if (focus) sAIDocument->LoseTextFocus();
@@ -325,13 +385,16 @@ void AlignPointType(AIArtHandle currArtHandle, ATE::ParagraphJustification align
 	
 	pFeat.SetJustification(alignStyle);
 	
-	if (!iTextRange.GetSize()) {
+	if (!iTextRange.GetSize())
+    {
         ASUnicode* asuString = new ASUnicode [2];
         StdStringToASUnicode(" ", asuString, 2);
 		iTextRange.InsertAfter(asuString);
 		iTextRange.SetLocalParaFeatures(pFeat);
 		iTextRange.Remove();
-	} else {
+	}
+    else
+    {
 		iTextRange.SetLocalParaFeatures(pFeat);
 	}
 
@@ -342,15 +405,19 @@ void AlignPointType(AIArtHandle currArtHandle, ATE::ParagraphJustification align
 	
 	if (alignStyle == ATE::kLeftJustify || alignStyle == ATE::kFullJustifyLastLineLeft ||
 		alignStyle == ATE::kFullJustifyLastLineFull || alignStyle == ATE::kFullJustifyLastLineCenter ||
-		alignStyle == ATE::kFullJustifyLastLineRight) {
+		alignStyle == ATE::kFullJustifyLastLineRight)
+    {
 		tx = unRotateBounds.left - postAlignBounds.left;
 		ty = unRotateBounds.top - postAlignBounds.top;	
-	} else if (alignStyle == ATE::kRightJustify) {
+	}
+    else if (alignStyle == ATE::kRightJustify)
+    {
 		tx = unRotateBounds.right - postAlignBounds.right;
 		ty = unRotateBounds.top - postAlignBounds.top;
-	} else if (alignStyle == ATE::kCenterJustify) {
-		tx = (unRotateBounds.left+((unRotateBounds.right - unRotateBounds.left)/2)) - 
-		(postAlignBounds.left+((postAlignBounds.right - postAlignBounds.left)/2));
+	}
+    else if (alignStyle == ATE::kCenterJustify)
+    {
+		tx = (unRotateBounds.left+((unRotateBounds.right - unRotateBounds.left)/2)) - (postAlignBounds.left + ((postAlignBounds.right - postAlignBounds.left) / 2));
 		ty = unRotateBounds.top - postAlignBounds.top;
 	}
 	
@@ -362,11 +429,16 @@ void AlignPointType(AIArtHandle currArtHandle, ATE::ParagraphJustification align
 	sAIRealMath->AIRealMatrixConcatRotate(&newMatrix, -angle);
 	sAITransformArt->TransformArt(currArtHandle, &newMatrix, 0, kTransformObjects | kTransformChildren);
 	
-	if (focus) sAIArt->SetArtUserAttr(currArtHandle, kArtSelected, kArtSelected);
+	if (focus)
+    {
+        sAIArt->SetArtUserAttr(currArtHandle, kArtSelected, kArtSelected);
+    }
 }
 
-void AlignObject(AIArtSet* artSet, ATE::ParagraphJustification alignStyle) {
-	size_t count;		sAIArtSet->CountArtSet( *artSet, &count );
+void AlignObject(AIArtSet* artSet, ATE::ParagraphJustification alignStyle)
+{
+	size_t count;
+    sAIArtSet->CountArtSet( *artSet, &count );
 	
 	//Initialize the bounds
 	AIRealRect foundBounds;
@@ -374,8 +446,9 @@ void AlignObject(AIArtSet* artSet, ATE::ParagraphJustification alignStyle) {
 	//Loop the art set.
 	//Each time through, we remove the art we've processed, so the artset shrinks each iteration
 	//The first object in the set on each pass will be the next "root" object
-	int i=0;
-	while ( i < count ) {
+	int i = 0;
+	while ( i < count )
+    {
 		AIArtHandle currArtHandle = NULL;
 		sAIArtSet->IndexArtSet( *artSet, i, &currArtHandle );
 		
@@ -386,12 +459,13 @@ void AlignObject(AIArtSet* artSet, ATE::ParagraphJustification alignStyle) {
 		AlignObject(currArtHandle, currArtHandle, foundBounds, artSet, alignStyle);
 		
 		//Reset the count
-		i=0;
+		i = 0;
 		sAIArtSet->CountArtSet( *artSet, &count );
 	}
 }
 
-void AlignObject(AIArtHandle root, AIArtHandle currArtHandle, AIRealRect selBounds, AIArtSet* artSet, ATE::ParagraphJustification alignStyle) {
+void AlignObject(AIArtHandle root, AIArtHandle currArtHandle, AIRealRect selBounds, AIArtSet* artSet, ATE::ParagraphJustification alignStyle)
+{
 	AIArtHandle child, sibling;
 	child = sibling = NULL;
 	AIReal tx = 0;
@@ -400,9 +474,12 @@ void AlignObject(AIArtHandle root, AIArtHandle currArtHandle, AIRealRect selBoun
 	AIRealRect keyBounds;
 	AIArtHandle keyArt = NULL;
 	sAIArt->GetKeyArt(&keyArt);
-	if (keyArt) {
+	if (keyArt)
+    {
 		sAIArt->GetArtTransformBounds(keyArt, NULL, kVisibleBounds | kExcludeHiddenObjectBounds | kExcludeGuideBounds, &keyBounds);
-	} else {
+	}
+    else
+    {
 		AIPageTiling pageTiling;
 		sAIDocumentView->GetPageTiling(&pageTiling);
 		sAIRealMath->AIRealRectSet(&keyBounds, pageTiling.bounds.left, pageTiling.bounds.top, pageTiling.bounds.right, pageTiling.bounds.bottom);
@@ -411,13 +488,17 @@ void AlignObject(AIArtHandle root, AIArtHandle currArtHandle, AIRealRect selBoun
 	//Store the amount to move
 	if (alignStyle == ATE::kLeftJustify || alignStyle == ATE::kFullJustifyLastLineLeft ||
 		alignStyle == ATE::kFullJustifyLastLineFull || alignStyle == ATE::kFullJustifyLastLineCenter ||
-		alignStyle == ATE::kFullJustifyLastLineRight) {
+		alignStyle == ATE::kFullJustifyLastLineRight)
+    {
 		tx = keyBounds.left - selBounds.left;
-	} else if (alignStyle == ATE::kRightJustify) {
+	}
+    else if (alignStyle == ATE::kRightJustify)
+    {
 		tx = keyBounds.right - selBounds.right;
-	} else if (alignStyle == ATE::kCenterJustify) {
-		tx = (keyBounds.left+((keyBounds.right - keyBounds.left)/2)) - 
-		(selBounds.left+((selBounds.right - selBounds.left)/2));
+	}
+    else if (alignStyle == ATE::kCenterJustify)
+    {
+		tx = (keyBounds.left+((keyBounds.right - keyBounds.left)/2)) - (selBounds.left+((selBounds.right - selBounds.left)/2));
 	}
 	
 	short artType = 0;
@@ -429,7 +510,8 @@ void AlignObject(AIArtHandle root, AIArtHandle currArtHandle, AIRealRect selBoun
 	AIBoolean pathFullySelected = TRUE;
 	sAIPath->GetPathAllSegmentsSelected(currArtHandle, &pathFullySelected);
 	
-	if ((attr & kArtFullySelected) && pathFullySelected) {
+	if ((attr & kArtFullySelected) && pathFullySelected)
+    {
 		//******************* FULLY SELECTED OBJECTS
 		//Apply the translation to the new one
 		AIRealMatrix newMatrix;
@@ -443,22 +525,29 @@ void AlignObject(AIArtHandle root, AIArtHandle currArtHandle, AIRealRect selBoun
 									  kTransformLinkedMasks |
 									  kTransformChildren);
 		RemoveChildrenFromArtSet(currArtHandle, currArtHandle, artSet);
-	} else if (attr & kArtSelected) {
+	}
+    else if (attr & kArtSelected)
+    {
 		//IF OBJECT IS NOT FULLY SELECTED
 		//IF ITS A GROUP, WE'LL JUST GET THE CHILD
-		if (artType == kGroupArt) {
+		if (artType == kGroupArt)
+        {
 			sAIArt->GetArtFirstChild(currArtHandle, &child);
-			if (child) {
+			if (child)
+            {
 				//***MOVE CHILD
 				AlignObject(root, child, selBounds, artSet, alignStyle);
 			}
-		} else {
+		}
+        else
+        {
 			//IF ITS NOT A GROUP, IT MUST BE EITHER A PATH OR A COMPOUND PATH
 			AIRealMatrix newMatrix;
 			sAIRealMath->AIRealMatrixSetIdentity(&newMatrix);
 			sAIRealMath->AIRealMatrixConcatTranslate(&newMatrix, tx, 0);
 			
-			if (artType == kCompoundPathArt) {
+			if (artType == kCompoundPathArt)
+            {
 				sAITransformArt->TransformArt(currArtHandle, &newMatrix, 0,
 											  kTransformObjects |
 											  kTransformFillGradients |
@@ -467,7 +556,9 @@ void AlignObject(AIArtHandle root, AIArtHandle currArtHandle, AIRealRect selBoun
 											  kTransformLinkedMasks |
 											  kTransformChildren |
 											  kTransformSelectionOnly);
-			} else {
+			}
+            else
+            {
 				sAITransformArt->TransformArt(currArtHandle, &newMatrix, 0,
 											  kTransformObjects |
 											  kTransformFillGradients |
@@ -480,9 +571,11 @@ void AlignObject(AIArtHandle root, AIArtHandle currArtHandle, AIRealRect selBoun
 	}
 	
 	//CHECK CURR != ROOT
-	if (currArtHandle != root) {
+	if (currArtHandle != root)
+    {
 		sAIArt->GetArtSibling(currArtHandle, &sibling);
-		if (sibling) {
+		if (sibling)
+        {
 			//*** MOVE SIBLING
 			AlignObject(root, sibling, selBounds, artSet, alignStyle);
 		}
@@ -491,23 +584,27 @@ void AlignObject(AIArtHandle root, AIArtHandle currArtHandle, AIRealRect selBoun
 	sAIArtSet->RemoveArtFromArtSet(*artSet, currArtHandle);
 }
 
-short GetTypesFromArtSet(AIArtSet* artSet) {
+short GetTypesFromArtSet(AIArtSet* artSet)
+{
 	short selectedArtTypes = 0;
 
 	AIArtSet artToRemove;
 	sAIArtSet->NewArtSet(&artToRemove);
 	
 	//Loop the art set
-	size_t count;		sAIArtSet->CountArtSet( *artSet, &count );
-	for ( int i=0 ; i < count ; i++ ) {
-		
+	size_t count;
+    sAIArtSet->CountArtSet( *artSet, &count );
+    
+	for ( int i=0 ; i < count ; i++ )
+    {
 		AIArtHandle currArtHandle = NULL;
 		sAIArtSet->IndexArtSet( *artSet, i, &currArtHandle );
 		
 		short artType = 0;
 		sAIArt->GetArtType(currArtHandle, &artType);
 		
-		switch (artType) {
+		switch (artType)
+        {
 			case kGroupArt:
 			{
 				//Check if the group art is a layer, we don't want the layer groups in our artset
@@ -524,17 +621,22 @@ short GetTypesFromArtSet(AIArtSet* artSet) {
 				//We need to check path art and get rid of anything that is part of a compound path
 				int attr = 0;
 				sAIArt->GetArtUserAttr(currArtHandle, kArtPartOfCompound, &attr);
-				if ((attr & kArtPartOfCompound)) {
+				if ((attr & kArtPartOfCompound))
+                {
 					AIArtHandle parent = NULL;
 					bool cmpPathFnd = FALSE;
-					while (!cmpPathFnd) {
+					while (!cmpPathFnd)
+                    {
 						sAIArt->GetArtParent(currArtHandle, &parent);
-						if (parent) {
+						if (parent)
+                        {
 							short parArtType = 0;
 							sAIArt->GetArtType(parent, &parArtType);
-							if (parArtType == kCompoundPathArt) {
+							if (parArtType == kCompoundPathArt)
+                            {
 //								sAIArt->GetArtUserAttr(parent, kArtFullySelected, &attr);
-//								if ((attr & kArtFullySelected)) {
+//								if ((attr & kArtFullySelected))
+//                              {
 									sAIArtSet->AddArtToArtSet(artToRemove, currArtHandle);
 									cmpPathFnd = TRUE;
 									break;
@@ -546,7 +648,11 @@ short GetTypesFromArtSet(AIArtSet* artSet) {
 				//We also need to get rid of guide paths
 				AIBoolean isGuide = FALSE;
 				sAIPath->GetPathGuide(currArtHandle, &isGuide);
-				if (isGuide) { sAIArtSet->AddArtToArtSet(artToRemove, currArtHandle); break;}
+				if (isGuide)
+                {
+                    sAIArtSet->AddArtToArtSet(artToRemove, currArtHandle);
+                    break;
+                }
 				
 				selectedArtTypes = selectedArtTypes | ttObjectArt;
 				break;
@@ -574,7 +680,8 @@ short GetTypesFromArtSet(AIArtSet* artSet) {
 	
 	//Loop through the removal set and take them out of the main set
 	sAIArtSet->CountArtSet( artToRemove, &count );
-	for ( int i=0 ; i < count ; i++ ) {
+	for ( int i=0 ; i < count ; i++ )
+    {
 		AIArtHandle currArtHandle = NULL;
 		sAIArtSet->IndexArtSet( artToRemove, i, &currArtHandle );
 		sAIArtSet->RemoveArtFromArtSet(*artSet, currArtHandle);
@@ -584,18 +691,21 @@ short GetTypesFromArtSet(AIArtSet* artSet) {
 	return selectedArtTypes;
 }
 
-void RemoveChildrenFromArtSet(AIArtHandle root, AIArtHandle currArtHandle, AIArtSet* artSet) {
-	
+void RemoveChildrenFromArtSet(AIArtHandle root, AIArtHandle currArtHandle, AIArtSet* artSet)
+{
 	AIArtHandle sibling = NULL;
 	AIArtHandle child = NULL;
 
 	sAIArt->GetArtFirstChild(currArtHandle, &child);
-	if (child) {
+	if (child)
+    {
 		RemoveChildrenFromArtSet(root, child, artSet);
 	}
-	if (currArtHandle != root) {
+	if (currArtHandle != root)
+    {
 		sAIArt->GetArtSibling(currArtHandle, &sibling);
-		if (sibling) {
+		if (sibling)
+        {
 			RemoveChildrenFromArtSet(root, sibling, artSet);
 		}
 		
@@ -604,12 +714,14 @@ void RemoveChildrenFromArtSet(AIArtHandle root, AIArtHandle currArtHandle, AIArt
 }
 
 
-bool CreateMICRBarcode() {
+bool CreateMICRBarcode()
+{
 	//CHECK IF THE BARCODE FONT IS INSTALLED
 	AIFontKey currFontKey = NULL;
 	sAIFont->FindFont(BARCODE_FONT_NAME, kAIAnyFontTechnology, kUnknownAIScript, FALSE, &currFontKey);
 	
-	if (!currFontKey) {
+	if (!currFontKey)
+    {
 		sAIUser->MessageAlert(ai::UnicodeString("The Barcode font was not found. Please make sure the correct font is loaded."));
 		return FALSE;
 	}
@@ -627,19 +739,28 @@ bool CreateMICRBarcode() {
 	//CREATE THE ART SET
 	AIArtSet artSet;
 	sAIArtSet->NewArtSet(&artSet);
-	AIArtSpec selectedSpecs[] = { { kAnyArt , kArtSelected , kArtSelected } };
-	sAIArtSet->MatchingArtSet( selectedSpecs , 1, artSet );
-	size_t count;		sAIArtSet->CountArtSet( artSet, &count );
+    
+	AIArtSpec selectedSpecs[] =
+    {
+        { kAnyArt , kArtSelected , kArtSelected }
+    };
 	
-	if ( count ) {
+    sAIArtSet->MatchingArtSet( selectedSpecs , 1, artSet );
+	size_t count;
+    sAIArtSet->CountArtSet( artSet, &count );
+	
+	if ( count )
+    {
 		//Loop the art set
-		for ( int i=0 ; i < count ; i++ ) {
+		for ( int i=0 ; i < count ; i++ )
+        {
 			AIArtHandle currArtHandle = NULL;
 			sAIArtSet->IndexArtSet( artSet, i, &currArtHandle );
 			
 			short atype = 0;
 			sAIArt->GetArtType(currArtHandle, &atype);
-			if (atype != kTextFrameArt) {
+			if (atype != kTextFrameArt)
+            {
 				continue;
 			}
 						
@@ -657,7 +778,8 @@ bool CreateMICRBarcode() {
 			//Get the font applied to the range
 			bool isAssigned = false;
 			ATE::IFont currFont = currCharFeatures.GetFont(&isAssigned);
-			if (isAssigned) {
+			if (isAssigned)
+            {
 				//CHECK IF THE FONT ON THE SELECTED TEXT IS MICR
 				//Get the FontRef
 				FontRef currFontRef = currFont.GetRef();
@@ -675,18 +797,23 @@ bool CreateMICRBarcode() {
 				AIFontStyle currFontStyle;
 				sAIFont->GetFontInfo(currFontKey, &currFontStyle);
 				
-				if (usFontName != ai::UnicodeString(MICR_FONT_NAME)) {
+				if (usFontName != ai::UnicodeString(MICR_FONT_NAME))
+                {
 					continue;
 				}
 				
 				//Make sure the text is in the MICR black color
 				AIColor currRangeColor = GetAIColorFromATETextRange(currTextRange);
 				
-				if (! ColorIsEqual(currRangeColor, micrColor, TRUE ) ) continue;
+				if (! ColorIsEqual(currRangeColor, micrColor, TRUE ) )
+                {
+                    continue;
+                }
 				
 				
 				//Tag the MICR line when we've found it, and store the handle in the dictionary
-				if (micrLineHandle && (micrLineHandle != currArtHandle)) {
+				if (micrLineHandle && (micrLineHandle != currArtHandle))
+                {
 					dw->RemoveIdentifierFromDictionary(MICR_LINE_LABEL);
 				}
 				micrLineHandle = currArtHandle;
@@ -700,7 +827,8 @@ bool CreateMICRBarcode() {
 	sAIArtSet->DisposeArtSet(&artSet);
 	
 	//Now, if we managed to find a micr line
-	if (micrLineHandle) {
+	if (micrLineHandle)
+    {
 		//Create the ATE range
 		TextRangeRef currRangeRef = NULL;
 		sAITextFrame->GetATETextRange(micrLineHandle, &currRangeRef);
@@ -713,7 +841,8 @@ bool CreateMICRBarcode() {
 		char micrContents[256];
 		currTextRange.GetContents(micrContents, 256);
 		ai::UnicodeString barcodeString(CreateBarcodeStringFromMICRString(ai::UnicodeString(micrContents)));
-		if (barcodeString.empty()) {
+		if (barcodeString.empty())
+        {
             sAIUser->MessageAlert(ai::UnicodeString("The MICR number doesn't fit the expected format."));
 			return FALSE;
 		}
@@ -722,7 +851,8 @@ bool CreateMICRBarcode() {
 		AIArtHandle barcodeTextFrame = NULL;
 		barcodeTextFrame = dw->GetArtHandleFromIdentifier(MICR_BARCODE_LABEL);
 		
-		if (!barcodeTextFrame) {
+		if (!barcodeTextFrame)
+        {
 			AIRealPoint anchor;
 			FindBarcodeAnchorPoint(&anchor);
 			sAITextFrame->NewPointText(kPlaceAboveAll, micrLineHandle, kHorizontalTextOrientation, anchor, &barcodeTextFrame);
@@ -746,7 +876,9 @@ bool CreateMICRBarcode() {
         barcodeFeatures.SetFillColor(micrColor);
         
 		barcodeFeatures.AddTextToRangeWithFeatures(barcodeString.as_Platform(), barcodeTextRange);
-	} else {
+	}
+    else
+    {
 		sAIUser->MessageAlert(ai::UnicodeString("Could not locate the MICR number. Please select the MICR text box before using this tool."));
 		return FALSE;
 	}
@@ -754,7 +886,8 @@ bool CreateMICRBarcode() {
 	return TRUE;
 }
 
-ai::UnicodeString CreateBarcodeStringFromMICRString(ai::UnicodeString micrString) {
+ai::UnicodeString CreateBarcodeStringFromMICRString(ai::UnicodeString micrString)
+{
 	/*  We need to strip any leading/trailing consecutive numbering and spaces
 	 We need to add ! at the start and end
 	 We need to replace any spaces with =
@@ -775,9 +908,11 @@ ai::UnicodeString CreateBarcodeStringFromMICRString(ai::UnicodeString micrString
     formattedResult += ai::UnicodeString("!");
     
     string::size_type loc = 0;
-    while (loc != string::npos) {
+    while (loc != string::npos)
+    {
         loc = formattedResult.find_first_of(ai::UnicodeString(" "));
-        if (loc != string::npos) {
+        if (loc != string::npos)
+        {
             formattedResult.replace(loc, 1, ai::UnicodeString("="));
         }
     }

@@ -14,8 +14,8 @@
 #include "stdlib.h"
 
 
-int FindAndReplace(std::unique_ptr<ReplaceData> &data) {
-    
+int FindAndReplace(unique_ptr<ReplaceData> &data)
+{
     AIBoolean flag = FALSE;
     int numChanged = 0;
     
@@ -27,30 +27,39 @@ int FindAndReplace(std::unique_ptr<ReplaceData> &data) {
     size_t count;
     sAIArtSet->CountArtSet( artSet, &count );
     
-    for ( int i=0 ; i < count ; i++ ) {
+    for ( int i=0 ; i < count ; i++ )
+    {
         AIArtHandle currArtObj;
         sAIArtSet->IndexArtSet( artSet, i, &currArtObj );
         
         /*********** FIND AND REPLACE COLORS *************/
-        if ( data->attribute == ColorToolsUIController::Attribute::Color ) {
-            
+        if ( data->attribute == ColorToolsUIController::Attribute::Color )
+        {
             //do the color replacing
             sAIPathStyle->AdjustObjectAIColors( currArtObj , adjustColor , data.get() , data->controlFlags , &flag );
            
             //increment counter if a switch was made
-            if (flag) { numChanged++; }
+            if (flag)
+            {
+                numChanged++;
+            }
             flag = FALSE;
         }
         
         /*********** FIND AND REPLACE OVERPRINTING *************/
-        if ( data->attribute == ColorToolsUIController::Attribute::Overprint ) {
+        if ( data->attribute == ColorToolsUIController::Attribute::Overprint )
+        {
             AIBoolean op = FALSE;
-            if (data->addremove == ColorToolsUIController::AddRemove::Add) {
+            if (data->addremove == ColorToolsUIController::AddRemove::Add)
+            {
                 op = TRUE;
             }
             AdjustOverprint(currArtObj, data->fromColor, data->changeTints, op, data->applyto, &flag);
             
-            if (flag) { numChanged++; }
+            if (flag)
+            {
+                numChanged++;
+            }
             flag = FALSE;
         }
     }
@@ -61,9 +70,11 @@ int FindAndReplace(std::unique_ptr<ReplaceData> &data) {
     return numChanged;
 }
 
-void fillArtSet( AIArtSet &artSet, ColorToolsUIController::ChangeIn changeIn) {
-    
-    AIArtSpec selectedSpecs[] = { { kPathArt , kArtFullySelected , kArtFullySelected },
+void fillArtSet( AIArtSet &artSet, ColorToolsUIController::ChangeIn changeIn)
+{
+    AIArtSpec selectedSpecs[] =
+    {
+        { kPathArt , kArtFullySelected , kArtFullySelected },
         { kCompoundPathArt , kArtFullySelected , kArtFullySelected },
         { kPlacedArt , kArtFullySelected , kArtFullySelected },
         { kRasterArt , kArtFullySelected , kArtFullySelected },
@@ -72,7 +83,9 @@ void fillArtSet( AIArtSet &artSet, ColorToolsUIController::ChangeIn changeIn) {
         { kTextFrameArt , kArtFullySelected , kArtFullySelected },
         { kSymbolArt , kArtFullySelected , kArtFullySelected },
     };
-    AIArtSpec allSpecs[] = { { kPathArt , 0 , 0 },
+    AIArtSpec allSpecs[] =
+    {
+        { kPathArt , 0 , 0 },
         { kCompoundPathArt , 0 , 0 },
         { kPlacedArt , 0 , 0 },
         { kRasterArt , 0 , 0 },

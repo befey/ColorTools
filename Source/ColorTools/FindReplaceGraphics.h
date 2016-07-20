@@ -11,7 +11,7 @@
 
 #include "ReplaceData.h"
 
-int FindAndReplace(std::unique_ptr<ReplaceData> &data);
+int FindAndReplace(unique_ptr<ReplaceData> &data);
 void fillArtSet( AIArtSet &artSet, ColorToolsUIController::ChangeIn changeIn);
 
 void adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *altered);
