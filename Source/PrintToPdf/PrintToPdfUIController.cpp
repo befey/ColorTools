@@ -28,7 +28,7 @@ void PrintToPdfUIController::MakePdfButtonClickedFunc (const csxs::event::Event*
         printToPdfUIController->ClearResultsBox();
         
         PdfSettings settings = PdfSettings::MakePdfSettingsFromXml(event->data);
-        string results = PdfPrinter::GetPrinter(settings.OutputSeparateFiles())->Print(settings).MakeXmlString();
+        string results = PdfPrinter::GetPrinter(settings.GetPreset(), settings.OutputSeparateFiles())->Print(settings).MakeXmlString();
         printToPdfUIController->SendResultsXmlToHtml(results);
         
         sAIUndo->UndoChanges();
