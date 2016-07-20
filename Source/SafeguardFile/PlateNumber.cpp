@@ -30,7 +30,7 @@ Boolean PlateNumber::TokenizePlateNumber()
 {
     using namespace std;
     
-    regex r("(?:^(?:([a-z])(\\d{2}))?([a-z]{2})(\\d{3,6}$))", regex::icase);
+    regex r("(?:^(?:([a-z])(\\d{2}))?([a-z]{2})(\\d{3,6})[.?]\\S*)", regex::icase);
     
     smatch result;
     regex_search(plateNumber, result, r);
