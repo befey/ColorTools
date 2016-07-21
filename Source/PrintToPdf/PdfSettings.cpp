@@ -16,6 +16,7 @@ using PrintToPdf::PdfSettings;
 using PrintToPdf::PdfPreset;
 using PrintToPdf::PdfResults;
 using SafeguardFile::SafeguardJobFile;
+using SafeguardFile::ProductType;
 
 PdfSettings::PdfSettings(PdfPreset p, string r, bool s) : preset(p), range(r), separateFiles(s)
 {
@@ -35,8 +36,17 @@ PdfSettings::PdfSettings(PdfPreset p, string r, bool s) : preset(p), range(r), s
     
     SetPasswords();
     
-    SetBleeds(SafeguardJobFile().GetBleeds());
-    
+    SafeguardJobFile sgJobFile;
+    ProductType pType = sgJobFile.GetPlateNumber().GetProductType();
+    if ( (pType == ProductType::CutSheet || pType == ProductType::Snapset ) && (preset == PdfPreset::MicrProof || preset == PdfPreset::Proof) )
+    {
+        SetBleeds(AIRealRect{0,0,0,0});
+    }
+    else
+    {
+        SetBleeds(SafeguardJobFile().GetBleeds());
+    }
+        
     SetVpbRange(range);
     
   ////****** Setup common parameters for all PDFs

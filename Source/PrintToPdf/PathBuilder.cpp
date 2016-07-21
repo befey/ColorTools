@@ -9,6 +9,9 @@
 #include "PathBuilder.h"
 #include "PrintToPdfConstants.h"
 #include "SafeguardFileConstants.h"
+#include <boost/filesystem.hpp>
+
+namespace fs = boost::filesystem;
 
 using SafeguardFile::PlateNumber;
 using PrintToPdf::ManufacturingPathBuilder;
@@ -57,7 +60,8 @@ ai::FilePath ProofPathBuilder::GetAiFilePath(const PlateNumber pn) const
     ai::FilePath saveasFilePath(fpUS);
     saveasFilePath.AddComponent(ai::UnicodeString("out"));
     
-    if (saveasFilePath.Exists(true))
+    fs::path outputPath( saveasFilePath.GetFullPath().as_Platform() );
+    if (!fs::is_directory(outputPath))
     {
         UserPathBuilder upb;
         saveasFilePath = upb.GetAiFilePath(pn);
@@ -72,7 +76,8 @@ ai::FilePath MicrProofPathBuilder::GetAiFilePath(const PlateNumber pn) const
     ai::FilePath saveasFilePath(fpUS);
     saveasFilePath.AddComponent(ai::UnicodeString("out"));
     
-    if (saveasFilePath.Exists(true))
+    fs::path outputPath( saveasFilePath.GetFullPath().as_Platform() );
+    if (!fs::is_directory(outputPath))
     {
         UserPathBuilder upb;
         saveasFilePath = upb.GetAiFilePath(pn);
