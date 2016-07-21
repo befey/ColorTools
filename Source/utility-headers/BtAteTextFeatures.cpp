@@ -25,49 +25,54 @@ BtAteTextFeatures& BtAteTextFeatures::operator=(const BtAteTextFeatures& rhs)
     return *this;
 }
 
-void BtAteTextFeatures::SetLeading(ATETextDOM::Real newVal)
+BtAteTextFeatures& BtAteTextFeatures::Leading(ATETextDOM::Real newVal)
 {
     charFeatures.SetLeading(newVal);
+    return *this;
 }
 
-void BtAteTextFeatures::SetFontSize(ATETextDOM::Real newVal)
+BtAteTextFeatures& BtAteTextFeatures::FontSize(ATETextDOM::Real newVal)
 {
     charFeatures.SetFontSize(newVal);
+    return *this;
 }
 
-void BtAteTextFeatures::SetFont(string postscriptFontName)
+BtAteTextFeatures& BtAteTextFeatures::Font(string postscriptFontName)
 {
     AIFontKey currFontKey = NULL;
     sAIFont->FindFont(postscriptFontName.c_str(), kAIAnyFontTechnology, kUnknownAIScript, FALSE, &currFontKey);
     FontRef fontRef = NULL;
     sAIFont->FontFromFontKey(currFontKey, &fontRef);
     charFeatures.SetFont(ATE::IFont(fontRef));
+    return *this;
 }
 
-void BtAteTextFeatures::SetFillColor(AIColor color)
+BtAteTextFeatures& BtAteTextFeatures::FillColor(AIColor color)
 {
     ATE::ApplicationPaintRef paintRef;
     sAIATEPaint->CreateATEApplicationPaint(&color, &paintRef);
     ATE::IApplicationPaint paint(paintRef);
     charFeatures.SetFillColor(paint);
+    return *this;
 }
 
-void BtAteTextFeatures::SetJustification(ATE::ParagraphJustification newVal)
+BtAteTextFeatures& BtAteTextFeatures::Justification(ATE::ParagraphJustification newVal)
 {
     paraFeatures.SetJustification(newVal);
+    return *this;
 }
 
-ATE::IFont BtAteTextFeatures::GetFont(bool* isAssigned) const
+ATE::IFont BtAteTextFeatures::Font(bool* isAssigned) const
 {
     return charFeatures.GetFont(isAssigned);
 }
 
-ATETextDOM::Real BtAteTextFeatures::GetFontSize(bool* isAssigned) const
+ATETextDOM::Real BtAteTextFeatures::FontSize(bool* isAssigned) const
 {
     return charFeatures.GetFontSize(isAssigned);
 }
 
-ATETextDOM::Real BtAteTextFeatures::GetLeading( bool* isAssigned) const
+ATETextDOM::Real BtAteTextFeatures::Leading(bool* isAssigned) const
 {
     return charFeatures.GetLeading(isAssigned);
 }
@@ -89,16 +94,12 @@ void BtAteTextFeatures::AddTextToRangeWithFeatures(const string text, ATE::IText
     //Trash our temporary art objects
     sAIArt->DisposeArt(tempTextHandle);
     tempTextHandle = NULL;
-    
-    return;
 }
 
 void BtAteTextFeatures::AddTextToRangeWithFeatures(ATE::ITextRange sourceRange, ATE::ITextRange& targetRange, int beforeAfter)
 {
     ApplyFeaturesToRange(sourceRange);
     AddTextToRange(sourceRange, targetRange);
-    
-    return;
 }
 
 void BtAteTextFeatures::ApplyFeaturesToRange(ATE::ITextRange& targetRange)

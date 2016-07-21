@@ -139,7 +139,7 @@ void ColorList::AddColorToTextRange(const AIColor color, ATE::ITextRange& target
     
     if (color.kind == kNoneColor)
     {
-        textFeatures.SetFillColor(GetRegistrationColor());
+        textFeatures.FillColor(GetRegistrationColor());
         textFeatures.AddTextToRangeWithFeatures("NO IMPRINT", targetRange);
     }
     else
@@ -148,26 +148,26 @@ void ColorList::AddColorToTextRange(const AIColor color, ATE::ITextRange& target
         if (ColorIsPantone(color))
         {
             name = GetInnerPantoneColorNumber(color);
-            textFeatures.SetFillColor(color);
+            textFeatures.FillColor(color);
         }
         else if (color.kind == kFourColor)
         {
             AIColor c = {.kind = kFourColor, .c.f.cyan = 1, .c.f.magenta = 0, .c.f.yellow = 0, .c.f.black = 0};
-            textFeatures.SetFillColor(c);
+            textFeatures.FillColor(c);
             textFeatures.AddTextToRangeWithFeatures("CYAN  ", targetRange);
             c = {.kind = kFourColor, .c.f.cyan = 0, .c.f.magenta = 1, .c.f.yellow = 0, .c.f.black = 0};
-            textFeatures.SetFillColor(c);
+            textFeatures.FillColor(c);
             textFeatures.AddTextToRangeWithFeatures("MAG  ", targetRange);
             c = {.kind = kFourColor, .c.f.cyan = 0, .c.f.magenta = 0, .c.f.yellow = 1, .c.f.black = 0};
-            textFeatures.SetFillColor(c);
+            textFeatures.FillColor(c);
             textFeatures.AddTextToRangeWithFeatures("YEL  ", targetRange);
-            textFeatures.SetFillColor(GetBlackColor());
+            textFeatures.FillColor(GetBlackColor());
             name = GetColorName(GetBlackColor());
         }
         else
         {
             name = GetColorName(color);
-            textFeatures.SetFillColor(color);
+            textFeatures.FillColor(color);
         }
         
         textFeatures.AddTextToRangeWithFeatures((ai::UnicodeString(name).toUpper()).as_Platform() + "  ", targetRange);

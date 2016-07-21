@@ -172,7 +172,7 @@ string GetFontNameFromFeatures(const BtAteTextFeatures features)
 {
     string fontNameString = "";
     bool isAssigned = false;
-    ATE::IFont font = features.GetFont(&isAssigned);
+    ATE::IFont font = features.Font(&isAssigned);
     if (isAssigned)
     {
         FontRef ref = font.GetRef();
@@ -189,7 +189,7 @@ string GetPostscriptFontNameFromFeatures(const BtAteTextFeatures features)
 {
     string fontNameString = "";
     bool isAssigned = false;
-    ATE::IFont font = features.GetFont(&isAssigned);
+    ATE::IFont font = features.Font(&isAssigned);
     if (isAssigned)
     {
         FontRef ref = font.GetRef();
@@ -237,8 +237,6 @@ void AddTextToRange(const string text, ATE::ITextRange& targetRange, int beforeA
     //Trash our temporary art objects
     sAIArt->DisposeArt(tempTextHandle);
     tempTextHandle = NULL;
-    
-    return;
 }
 
 void AddTextToRange(ATE::ITextRange sourceRange, ATE::ITextRange& targetRange, int beforeAfter)
@@ -247,9 +245,9 @@ void AddTextToRange(ATE::ITextRange sourceRange, ATE::ITextRange& targetRange, i
     if (beforeAfter == 1)
     {
         targetRange.InsertAfter(sourceRange);
-    } else
+    }
+    else
     {
         targetRange.InsertBefore(sourceRange);
     }
 }
-

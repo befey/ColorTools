@@ -46,10 +46,7 @@ AIArtHandle LaserFileNameDateDrawer::Draw()
     AddTextToRange("  " + to_string(month) + "/" + to_string(year), plateInfoTextRange);
 
     BtAteTextFeatures textFeatures;
-    textFeatures.SetFontSize(12.01);
-    textFeatures.SetFont("Helvetica-Bold");
-    textFeatures.SetJustification(ATE::kRightJustify);
-    textFeatures.SetFillColor(GetRegistrationColor());
+    textFeatures.FontSize(12.01).Font("Helvetica-Bold").Justification(ATE::kRightJustify).FillColor(GetRegistrationColor());
     textFeatures.ApplyFeaturesToRange(plateInfoTextRange);
     
     return plateNumberDateArt;

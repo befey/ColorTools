@@ -9,6 +9,7 @@
 #include "ColorListDrawer.h"
 #include "ColorFuncs.h"
 #include "BleedInfo.h"
+#include "BtAteTextFeatures.h"
 
 using SafeguardFile::ColorListDrawer;
 using SafeguardFile::LaserColorListDrawer;
@@ -36,9 +37,8 @@ AIArtHandle LaserColorListDrawer::Draw()
     p_BleedInfo->colorList.GetAsTextRange(colorListTextRange);
     
     BtAteTextFeatures textFeatures;
-    textFeatures.SetFontSize(12.01);
-    textFeatures.SetFont("Helvetica-Bold");
-    textFeatures.SetJustification(ATE::kLeftJustify);
+    textFeatures.FontSize(12.01).Font("Helvetica-Bold").Justification(ATE::kLeftJustify);
+
     textFeatures.ApplyFeaturesToRange(colorListTextRange);
 
     return colorListArt;

@@ -870,10 +870,7 @@ bool CreateMICRBarcode()
 		barcodeTextRange.Remove();
 		
         BtAteTextFeatures barcodeFeatures;
-        barcodeFeatures.SetFontSize(12);
-        barcodeFeatures.SetFont(BARCODE_FONT_NAME);
-        barcodeFeatures.SetJustification(ATE::kCenterJustify);
-        barcodeFeatures.SetFillColor(micrColor);
+        barcodeFeatures.FontSize(12).Font(BARCODE_FONT_NAME).Justification(ATE::kCenterJustify).FillColor(micrColor);
         
 		barcodeFeatures.AddTextToRangeWithFeatures(barcodeString.as_Platform(), barcodeTextRange);
 	}

@@ -10,6 +10,7 @@
 #include "SafeguardToolsPlugin.h"
 #include "DictionaryWriter.h"
 #include "ArtTree.h"
+#include "BtLayer.hpp"
 
 
 using SafeguardFile::BleedInfoDrawer;
@@ -41,7 +42,8 @@ void BleedInfoDrawer::Add() const
     sAIArt->NewArt(kPluginArt, kPlaceAboveAll, NULL, &pluginGroupArt);
     
     sAIPluginGroup->UseAIPluginGroup(pluginGroupArt, gPlugin->GetBleedInfoPluginGroupHandle());
-    PutArtAtTopOfLayer(pluginGroupArt, FOREGROUND_LAYER);
+    BtLayer foregroundLayer(FOREGROUND_LAYER);
+    foregroundLayer.PutArtAtTopOfLayer(pluginGroupArt);
 
     CreateResultArt(pluginGroupArt);
     

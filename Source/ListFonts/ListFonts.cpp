@@ -173,19 +173,18 @@ AIArtHandle ListFonts::WriteVectorOfFontsToArtboard()
         }
         
         infoString += "\t";
-        adjustedFeatures.SetFont("Helvetica-Bold");
-        adjustedFeatures.SetFontSize(8);
+        adjustedFeatures.Font("Helvetica-Bold").FontSize(8);
         adjustedFeatures.AddTextToRangeWithFeatures(infoString, textRange);
         
         infoString = GetFontNameFromFeatures(feature);
         
-        ASReal fontSize = feature.GetFontSize(&isAssigned);
+        ASReal fontSize = feature.FontSize(&isAssigned);
         if (isAssigned)
         {
             infoString += ", Sz: " + to_string(fontSize);
         }
         
-        ASReal leading = feature.GetLeading(&isAssigned);
+        ASReal leading = feature.Leading(&isAssigned);
         if (isAssigned)
         {
             infoString += ", Ld: " + to_string(leading);
@@ -193,7 +192,7 @@ AIArtHandle ListFonts::WriteVectorOfFontsToArtboard()
         
         //Make sure the lines stay spaced apart enough to read
         adjustedFeatures = feature;
-        adjustedFeatures.SetLeading(fontSize + 2);
+        adjustedFeatures.Leading(fontSize + 2);
         
         infoString += "\n";
         adjustedFeatures.AddTextToRangeWithFeatures(infoString, textRange);
@@ -218,11 +217,11 @@ void ListFonts::RemoveDuplicatesFromFeaturesList()
                                               
                                               if (fontNameA == fontNameB)
                                               {
-                                                  ASReal fontSizeA = feature->GetFontSize(&isAAssigned);
+                                                  ASReal fontSizeA = feature->FontSize(&isAAssigned);
                                                   ASReal fontSizeB = f.GetFontSize(&isBAssigned);
                                                   if (isAAssigned && isBAssigned && fontSizeA == fontSizeB)
                                                   {
-                                                      ASReal leadingA = feature->GetLeading(&isAAssigned);
+                                                      ASReal leadingA = feature->Leading(&isAAssigned);
                                                       ASReal leadingB = f.GetLeading(&isBAssigned);
                                                       if (isAAssigned && isBAssigned && leadingA == leadingB)
                                                       {
