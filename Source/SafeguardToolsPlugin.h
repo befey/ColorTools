@@ -45,8 +45,6 @@ public:
 	*/
 	virtual ~SafeguardToolsPlugin();
     
-    
-    shared_ptr<BtSwatchList> GetBtSwatchList() const { return mySwatchList; }
     AIPluginGroupHandle GetBleedInfoPluginGroupHandle() const { return bleedInfoPluginGroupHandle; }
       
     /**	Restores state of SafeguardToolsPlugin during reload.
@@ -120,7 +118,6 @@ protected:
     virtual ASErr Notify(AINotifierMessage* message);
     
 private:
-    shared_ptr<BtSwatchList> mySwatchList;
     shared_ptr<ColorToolsUIController> colorToolsUIController;
     shared_ptr<PrintToPdf::PrintToPdfUIController> printToPdfUIController;
     

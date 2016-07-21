@@ -32,8 +32,7 @@ void FixupReload(Plugin* plugin)
 
 SafeguardToolsPlugin::SafeguardToolsPlugin(SPPluginRef pluginRef) :
 	Plugin(pluginRef),
-    fRegisterEventNotifierHandle(NULL),
-    mySwatchList(NULL)
+    fRegisterEventNotifierHandle(NULL)
 {
 	strncpy(fPluginName, kSafeguardToolsPluginName, kMaxStringLength);
 }
@@ -116,11 +115,6 @@ ASErr SafeguardToolsPlugin::StartupPlugin( SPInterfaceMessage *message )
         
         error = Plugin::LockPlugin(true);
         if (error) { return error; }
-    }
-    
-    if (NULL == mySwatchList)
-    {
-        mySwatchList = std::make_shared<BtSwatchList>();
     }
     
     error = this->AddMenus(message);
@@ -503,7 +497,8 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
         message->notifier == fCustomColorChangeNotifierHandle ||
         message->notifier == fSwatchLibChangeNotifierHandle )
     {
-        string swatchesXml = gPlugin->GetBtSwatchList()->GetColorListAsXMLString();
+        BtSwatchList swatchList;
+        string swatchesXml = swatchList.GetColorListAsXMLString();
         colorToolsUIController->SendColorListXmlToHtml(swatchesXml);
     }
     
