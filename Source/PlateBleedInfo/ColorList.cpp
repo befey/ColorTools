@@ -18,79 +18,79 @@ void ColorList::RemoveDuplicates()
     {
         bool found1 = false;
         p_ColorList.erase(
-                        std::remove_if(p_ColorList.begin(), p_ColorList.end(), [color, &found1](AIColor c)
-                                       {
-                                           //Remove any Gradients and Patterns from the list
-                                           if (c.kind == kPattern || c.kind == kGradient || c.kind == kNoneColor)
-                                           {
-                                               return true;
-                                           }
-                                           else if (color->kind == c.kind)
-                                           {
-                                               if (color->kind == kGrayColor)
-                                               {
-                                                   if (color->c.g == c.c.g)
-                                                   {
-                                                       if (!found1)
-                                                       {
-                                                           found1 = true;
-                                                           return false;
-                                                       }
-                                                       else
-                                                       {
-                                                           return true;
-                                                       }
-                                                   }
-                                               }
-                                               else if (color->kind == kFourColor)
-                                               {
-                                                   if (!found1)
-                                                   {
-                                                       found1 = true;
-                                                       return false;
-                                                   }
-                                                   else
-                                                   {
-                                                       return true;
-                                                   }
-                                               }
-                                               else if (color->kind == kCustomColor)
-                                               {
-                                                   if (color->c.c.color == c.c.c.color)
-                                                   {
-                                                       if (!found1)
-                                                       {
-                                                           found1 = true;
-                                                           return false;
-                                                       }
-                                                       else
-                                                       {
-                                                           return true;
-                                                       }
-                                                   }
-                                               }
-                                               else if (color->kind == kThreeColor)
-                                               {
-                                                   if (!found1)
-                                                   {
-                                                       found1 = true;
-                                                       return false;
-                                                   }
-                                                   else
-                                                   {
-                                                       return true;
-                                                   }
-                                               }
-                                           }
-                                           else if (color->kind == kFourColor && ColorIsBlack(c))
-                                           {
-                                               return true;
-                                           }
-                                           return false;
-                                       }
-                                       ),
-                        p_ColorList.end()
-                        );
+                          std::remove_if(p_ColorList.begin(), p_ColorList.end(), [color, &found1](AIColor c)
+                                         {
+                                             //Remove any Gradients and Patterns from the list
+                                             if (c.kind == kPattern || c.kind == kGradient || c.kind == kNoneColor)
+                                             {
+                                                 return true;
+                                             }
+                                             else if (color->kind == c.kind)
+                                             {
+                                                 if (color->kind == kGrayColor)
+                                                 {
+                                                     if (color->c.g == c.c.g)
+                                                     {
+                                                         if (!found1)
+                                                         {
+                                                             found1 = true;
+                                                             return false;
+                                                         }
+                                                         else
+                                                         {
+                                                             return true;
+                                                         }
+                                                     }
+                                                 }
+                                                 else if (color->kind == kFourColor)
+                                                 {
+                                                     if (!found1)
+                                                     {
+                                                         found1 = true;
+                                                         return false;
+                                                     }
+                                                     else
+                                                     {
+                                                         return true;
+                                                     }
+                                                 }
+                                                 else if (color->kind == kCustomColor)
+                                                 {
+                                                     if (color->c.c.color == c.c.c.color)
+                                                     {
+                                                         if (!found1)
+                                                         {
+                                                             found1 = true;
+                                                             return false;
+                                                         }
+                                                         else
+                                                         {
+                                                             return true;
+                                                         }
+                                                     }
+                                                 }
+                                                 else if (color->kind == kThreeColor)
+                                                 {
+                                                     if (!found1)
+                                                     {
+                                                         found1 = true;
+                                                         return false;
+                                                     }
+                                                     else
+                                                     {
+                                                         return true;
+                                                     }
+                                                 }
+                                             }
+                                             else if (color->kind == kFourColor && ColorIsBlack(c))
+                                             {
+                                                 return true;
+                                             }
+                                             return false;
+                                         }
+                                         ),
+                          p_ColorList.end()
+                          );
     }
 }
 

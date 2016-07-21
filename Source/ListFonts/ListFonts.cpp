@@ -209,40 +209,40 @@ void ListFonts::RemoveDuplicatesFromFeaturesList()
         bool found1 = false;
         featuresList.erase(
                            std::remove_if(featuresList.begin(), featuresList.end(), [feature, &found1](ATE::ICharFeatures f)
-                           {
-                               bool isAAssigned = false;
-                               bool isBAssigned = false;
-                               
-                               string fontNameA = GetFontNameFromFeatures(*feature);
-                               string fontNameB = GetFontNameFromFeatures(f);
-                               
-                               if (fontNameA == fontNameB)
-                               {
-                                   ASReal fontSizeA = feature->GetFontSize(&isAAssigned);
-                                   ASReal fontSizeB = f.GetFontSize(&isBAssigned);
-                                   if (isAAssigned && isBAssigned && fontSizeA == fontSizeB)
-                                   {
-                                       ASReal leadingA = feature->GetLeading(&isAAssigned);
-                                       ASReal leadingB = f.GetLeading(&isBAssigned);
-                                       if (isAAssigned && isBAssigned && leadingA == leadingB)
-                                       {
-                                           if (!found1)
-                                           {
-                                               found1 = true;
-                                               return false;
-                                           }
-                                           else
-                                           {
-                                               return true;
-                                           }
-                                       }
-                                   }
-                               }
-                               return false;
-                           }
+                                          {
+                                              bool isAAssigned = false;
+                                              bool isBAssigned = false;
+                                              
+                                              string fontNameA = GetFontNameFromFeatures(*feature);
+                                              string fontNameB = GetFontNameFromFeatures(f);
+                                              
+                                              if (fontNameA == fontNameB)
+                                              {
+                                                  ASReal fontSizeA = feature->GetFontSize(&isAAssigned);
+                                                  ASReal fontSizeB = f.GetFontSize(&isBAssigned);
+                                                  if (isAAssigned && isBAssigned && fontSizeA == fontSizeB)
+                                                  {
+                                                      ASReal leadingA = feature->GetLeading(&isAAssigned);
+                                                      ASReal leadingB = f.GetLeading(&isBAssigned);
+                                                      if (isAAssigned && isBAssigned && leadingA == leadingB)
+                                                      {
+                                                          if (!found1)
+                                                          {
+                                                              found1 = true;
+                                                              return false;
+                                                          }
+                                                          else
+                                                          {
+                                                              return true;
+                                                          }
+                                                      }
+                                                  }
+                                              }
+                                              return false;
+                                          }
                                           ),
                            featuresList.end()
-        );
+                           );
     }
 }
 
