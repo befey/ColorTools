@@ -18,11 +18,13 @@
 #include "AIColor.h"
 #include "DictionaryWriter.h"
 #include <functional>
+#include <boost/filesystem/operations.hpp>
 
 using SafeguardFile::Plate;
 using SafeguardFile::PlateNumber;
 using PrintToPdf::PdfPreset;
 
+namespace fs = boost::filesystem;
 
 Plate::Plate(ai::ArtboardID id)
 {
@@ -109,14 +111,14 @@ AIRealRect Plate::GetArtboardBounds() const
     return rect;
 }
 
-AIUserDateTime Plate::GetLastModified() const
+tm Plate::GetLastModified() const
 {
-    /*sAIFilePath->GetAsFSRef();
-    SPPlatformFileInfo info;
-    SPGetFileInfo(SPFileRef file, &info);*/
-    AIUserDateTime dt;
-    sAIUser->GetDateAndTime(&dt);
-    return dt;
+    ai::FilePath aiFilePath;
+    sAIDocument->GetDocumentFileSpecification(aiFilePath);
+    
+    time_t lastWrite = fs::last_write_time(aiFilePath.GetFullPath().as_Platform());
+    
+    return *localtime(&lastWrite);
 }
 
 string Plate::GetArtboardName(AIBoolean& isDefault) const

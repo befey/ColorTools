@@ -15,6 +15,7 @@
 #include "TickMarkDrawer.h"
 #include "ColorListDrawer.h"
 #include "FileNameDateDrawer.h"
+#include <ctime>
 
 namespace SafeguardFile
 {
@@ -25,7 +26,7 @@ namespace SafeguardFile
         ColorList colorList;
         PlateNumber plateNumber;
         string token;
-        AIUserDateTime lastModified;
+        tm lastModified;
         shared_ptr<SafeguardFile::TickMarkDrawer> tickMarkDrawer;
         shared_ptr<SafeguardFile::ColorListDrawer> colorListDrawer;
         shared_ptr<SafeguardFile::FileNameDateDrawer> fileNameDateDrawer;

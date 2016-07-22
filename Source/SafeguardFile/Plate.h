@@ -19,6 +19,7 @@
 #include "ColorList.h"
 #include "BleedInfoDrawer.h"
 #include <vector>
+#include <ctime>
 
 extern AIPathStyleSuite* sAIPathStyle;
 extern AIFontSuite* sAIFont;
@@ -34,7 +35,7 @@ namespace SafeguardFile
         //Plate(ai::ArtboardID id, string pn);
         
         AIRealRect GetArtboardBounds() const;
-        AIUserDateTime GetLastModified() const;
+        tm GetLastModified() const;
         
         string GetArtboardName(AIBoolean& isDefault) const;
         const ai::ArtboardID GetArtboardIndex() const { return bleedInfo.artboardIndex; };

@@ -9,6 +9,7 @@
 #include "FileNameDateDrawer.h"
 #include "ColorFuncs.h"
 #include "BleedInfo.h"
+#include <ctime>
 
 using SafeguardFile::FileNameDateDrawer;
 using SafeguardFile::LaserFileNameDateDrawer;
@@ -41,8 +42,9 @@ AIArtHandle LaserFileNameDateDrawer::Draw()
     }
     
     int month, year;
-    sAIUser->GetMonth(&p_BleedInfo->lastModified, &month);
-    sAIUser->GetYear(&p_BleedInfo->lastModified, &year);
+    month = p_BleedInfo->lastModified.tm_mon + 1;
+    year = p_BleedInfo->lastModified.tm_year + 1900;
+    
     AddTextToRange("  " + to_string(month) + "/" + to_string(year), plateInfoTextRange);
 
     BtAteTextFeatures textFeatures;
