@@ -20,7 +20,6 @@ using SafeguardFile::ProductType;
 
 PdfSettings::PdfSettings(PdfPreset p, string r, bool s) : preset(p), range(r), separateFiles(s)
 {
-    
     if (preset == PrintToPdf::PdfPreset::Manufacturing)
     {
         pwRetriever = unique_ptr<PasswordRetriever> { make_unique<NonePasswordRetriever>() };
@@ -65,6 +64,9 @@ PdfSettings::PdfSettings(PdfPreset p, string r, bool s) : preset(p), range(r), s
     
     //Turn off preserve Illustrator editability
     sAIActionManager->AIActionSetBoolean(vpb, kAIPDFRoundTripKey, FALSE);
+    
+    //Turn off Acrobat layers
+    sAIActionManager->AIActionSetBoolean(vpb, kAIPDFGenerateAcrobatLayersKey, FALSE);
   ////*******
 }
 

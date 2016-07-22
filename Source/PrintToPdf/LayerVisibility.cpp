@@ -12,6 +12,7 @@
 using PrintToPdf::LayerVisibility;
 using PrintToPdf::BStatLayerVisibility;
 using PrintToPdf::LaserLayerVisibility;
+using PrintToPdf::BStatProofLayerVisibility;
 
 LayerVisibility::LayerVisibility()
 {
@@ -90,5 +91,42 @@ bool LaserLayerVisibility::CustomLayerVisibility() const
         }
     }
 
+    return true;
+}
+
+bool BStatProofLayerVisibility::CustomLayerVisibility() const
+{
+    for (const auto& kv : layerList)
+    {
+        if (kv.first == SafeguardFile::KEYLINE_LAYER)
+        {
+            kv.second.Visible(false).Editable(true);
+        }
+        else if (kv.first == SafeguardFile::REG_LAYER)
+        {
+            kv.second.Visible(true).Editable(true);
+        }
+        else if (kv.first == SafeguardFile::SLUG_LAYER)
+        {
+            kv.second.Visible(true).Editable(false);
+        }
+        else if (kv.first == SafeguardFile::FOREGROUND_LAYER)
+        {
+            kv.second.Visible(true).Editable(true);
+        }
+        else if (kv.first == SafeguardFile::GUIDE_LAYER)
+        {
+            kv.second.Visible(false).Editable(true);
+        }
+        else if (kv.first == SafeguardFile::BACKGROUND_LAYER)
+        {
+            kv.second.Visible(false).Editable(true);
+        }
+        else
+        {
+            kv.second.Visible(false).Editable(true);
+        }
+    }
+    
     return true;
 }
