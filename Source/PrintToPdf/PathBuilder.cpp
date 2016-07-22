@@ -61,7 +61,8 @@ ai::FilePath ProofPathBuilder::GetAiFilePath(const PlateNumber pn) const
     saveasFilePath.AddComponent(ai::UnicodeString("out"));
     
     fs::path outputPath( saveasFilePath.GetFullPath().as_Platform() );
-    if (!fs::is_directory(outputPath))
+    string prodCode = pn.GetProductIndicator();
+    if (!fs::is_directory(outputPath) || prodCode == "")
     {
         UserPathBuilder upb;
         saveasFilePath = upb.GetAiFilePath(pn);
@@ -77,7 +78,8 @@ ai::FilePath MicrProofPathBuilder::GetAiFilePath(const PlateNumber pn) const
     saveasFilePath.AddComponent(ai::UnicodeString("out"));
     
     fs::path outputPath( saveasFilePath.GetFullPath().as_Platform() );
-    if (!fs::is_directory(outputPath))
+    string prodCode = pn.GetProductIndicator();
+    if (!fs::is_directory(outputPath) || prodCode == "")
     {
         UserPathBuilder upb;
         saveasFilePath = upb.GetAiFilePath(pn);
