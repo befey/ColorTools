@@ -46,8 +46,8 @@ PdfResults ExistingFileDeleter::Delete(PlateNumber pn, ai::FilePath fp)
     };
 
     std::copy(
-              boost::make_filter_iterator(pred, fs::recursive_directory_iterator(p), fs::recursive_directory_iterator()),
-              boost::make_filter_iterator(pred, fs::recursive_directory_iterator(), fs::recursive_directory_iterator()),
+              boost::make_filter_iterator(pred, fs::directory_iterator(p), fs::directory_iterator()),
+              boost::make_filter_iterator(pred, fs::directory_iterator(), fs::directory_iterator()),
               std::back_inserter(filesToDelete)
              );
     

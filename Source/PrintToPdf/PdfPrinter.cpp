@@ -32,7 +32,14 @@ PdfPrinter::PdfPrinter(const PdfPreset preset)
     //SETUP LAYER VISIBILITY
     if (GetPlateNumber().GetProductType() == ProductType::BusinessStat)
     {
-        layerVisibility = unique_ptr<LayerVisibility> { make_unique<BStatLayerVisibility>() };
+        if (preset == PdfPreset::MicrProof || preset == PdfPreset::Proof)
+        {
+            layerVisibility = unique_ptr<LayerVisibility> { make_unique<BStatProofLayerVisibility>() };
+        }
+        else
+        {
+            layerVisibility = unique_ptr<LayerVisibility> { make_unique<BStatLayerVisibility>() };
+        }
     }
     else
     {
