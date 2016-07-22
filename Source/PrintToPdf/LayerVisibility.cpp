@@ -94,9 +94,9 @@ bool LaserLayerVisibility::CustomLayerVisibility()
     return true;
 }
 
-bool BStatProofLayerVisibility::CustomLayerVisibility() const
+bool BStatProofLayerVisibility::CustomLayerVisibility()
 {
-    for (const auto& kv : layerList)
+    for (auto& kv : layerList)
     {
         if (kv.first == SafeguardFile::KEYLINE_LAYER)
         {

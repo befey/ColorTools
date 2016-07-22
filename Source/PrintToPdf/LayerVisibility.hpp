@@ -45,7 +45,7 @@ namespace PrintToPdf
     class BStatProofLayerVisibility : public LayerVisibility
     {
     public:
-        bool CustomLayerVisibility() const override;
+        bool CustomLayerVisibility() override;
     };
 }
 
