@@ -19,11 +19,11 @@ void ColorList::RemoveDuplicates()
     {
         return;
     }
-    for(auto color = p_ColorList.begin(); color != p_ColorList.end() - 1; color++)
+    for(auto color = p_ColorList.begin(); color != p_ColorList.end(); color++)
     {
         bool found1 = false;
         p_ColorList.erase(
-                          std::remove_if(p_ColorList.begin(), p_ColorList.end(), [color, &found1](AIColor c)
+                          std::remove_if(color, p_ColorList.end(), [color, &found1](AIColor c)
                                          {
                                              //Remove any Gradients and Patterns from the list
                                              if (c.kind == kPattern || c.kind == kGradient || c.kind == kNoneColor)
