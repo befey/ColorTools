@@ -12,17 +12,18 @@
 //=================================
 // included dependencies
 #include <string>
-#include <unordered_map>
+#include "AIArtSet.h"
 #include "AISwatchList.h"
 #include "AIPathStyle.h"
-
 #include "BtColor.h"
 
 //=================================
 // forward declared dependencies
 extern AICustomColorSuite* sAICustomColor;
 extern AISwatchListSuite* sAISwatchList;
+extern AISwatchGroupSuite* sAISwatchGroup;
 extern AIPathStyleSuite* sAIPathStyle;
+extern AIArtSetSuite* sAIArtSet;
 
 
 
@@ -31,12 +32,6 @@ extern AIPathStyleSuite* sAIPathStyle;
 class BtSwatchList
 {
 public:
-    //Constuctor
-    BtSwatchList();
-    
-    
-    //Getters/Setters
-
     
     //Behaviors
     void CreateOrConvertToCustomColor(std::string colorName); //colorName must be one of the standard colors defined, see ColorFuncs.h
@@ -50,9 +45,7 @@ public:
     
     
 private:
-    //Members
-    std::unordered_map<std::string, BtColor> stdColorDefinitions;
-    
+    //Members    
     
     static void CreateSwatch(std::string name, AIColor color);
     AISwatchRef GetSwatchByName(std::string name) const;

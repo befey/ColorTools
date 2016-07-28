@@ -4,6 +4,8 @@
 
 #include "AICSXS.h"
 
+#include "GetIllustratorErrorCode.h"
+
 #include "ColorToolsUIController.h"
 #include "PrintToPdfUIController.h"
 #include "BtSwatchList.h"

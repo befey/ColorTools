@@ -10,6 +10,9 @@
 #define __SafeguardTools__BleedInfoDrawer__
 
 #include "BleedInfo.h"
+#include "TickMarkDrawer.h"
+#include "ColorListDrawer.h"
+#include "FileNameDateDrawer.h"
 #include "AIArt.h"
 #include "AIPluginGroup.h"
 
@@ -27,9 +30,17 @@ namespace SafeguardFile
         
         void Draw() const;
         void Remove(AIArtHandle pluginGroupArt) const;
+        
+        BleedInfoDrawer& TickMarkDrawer(shared_ptr<SafeguardFile::TickMarkDrawer> val) { tickMarkDrawer = val; return *this; };
+        BleedInfoDrawer& ColorListDrawer(shared_ptr<SafeguardFile::ColorListDrawer> val) { colorListDrawer = val; return *this; };
+        BleedInfoDrawer& FileNameDateDrawer(shared_ptr<SafeguardFile::FileNameDateDrawer> val) { fileNameDateDrawer = val; return *this; };
 
     private:
         shared_ptr<BleedInfo> p_BleedInfo;
+        
+        shared_ptr<SafeguardFile::TickMarkDrawer> tickMarkDrawer;
+        shared_ptr<SafeguardFile::ColorListDrawer> colorListDrawer;
+        shared_ptr<SafeguardFile::FileNameDateDrawer> fileNameDateDrawer;
         
         void Add() const;
         void Update(AIArtHandle pluginGroupArt) const;

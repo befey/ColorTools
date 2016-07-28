@@ -6,6 +6,8 @@
 #include "ColorFuncs.h"
 #include "DictionaryWriter.h"
 #include "BtAteTextFeatures.h"
+#include "SafeguardFileConstants.h"
+
 
 #include "TextTools.h"
 
@@ -726,7 +728,7 @@ bool CreateMICRBarcode()
 		return FALSE;
 	}
     
-	AISwatchRef micrSwatch = sAISwatchList->GetSwatchByName(NULL, ai::UnicodeString(MICR_BLACK_MAG_COLOR_NAME));
+	AISwatchRef micrSwatch = sAISwatchList->GetSwatchByName(NULL, ai::UnicodeString(SafeguardFile::MICR_BLACK_MAG_COLOR_NAME));
 	AIColor micrColor;
 	sAISwatchList->GetAIColor(micrSwatch, &micrColor);
 	

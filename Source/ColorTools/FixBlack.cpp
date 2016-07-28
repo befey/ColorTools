@@ -10,6 +10,7 @@
 #include "SafeguardToolsSuites.h"
 #include "BtSwatchList.h"
 #include "SafeguardToolsPlugin.h"
+#include "SafeguardFileConstants.h"
 
 bool FixBlack() {
 
@@ -20,8 +21,8 @@ bool FixBlack() {
 	sAIDocument->SetDocumentSpotColorMode(NULL, kAILegacySpotColorMode, TRUE, &converted);
     
     BtSwatchList swatchList;
-    swatchList.CreateOrConvertToCustomColor(BLACK_COLOR_NAME);
-    swatchList.CreateOrConvertToCustomColor(WHITE_COLOR_NAME);
+    swatchList.CreateOrConvertToCustomColor(SafeguardFile::BLACK_COLOR_NAME);
+    swatchList.CreateOrConvertToCustomColor(SafeguardFile::WHITE_COLOR_NAME);
 
     swatchList.AdjustAllColors();
 	

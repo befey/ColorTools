@@ -36,12 +36,6 @@ extern AIATEPaintSuite *sAIATEPaint;
 
 //=================================
 // Constant definitions
-constexpr auto REGISTRATION_COLOR_NAME =    "[Registration]";
-constexpr auto NONE_COLOR_NAME =            "[None]";
-constexpr auto BLACK_COLOR_NAME =           "Black";
-constexpr auto WHITE_COLOR_NAME =           "White";
-constexpr auto MICR_BLACK_MAG_COLOR_NAME =  "MICR - BLACK MAG";
-constexpr auto GRIPPER_COLOR_NAME =         "GRIPPER";
 
 AIReal GetTint(const AIColor color); //Returns the tint of the color to the closest 1%
 bool ColorIsBlack(const AIColor color);

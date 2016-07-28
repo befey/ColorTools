@@ -104,6 +104,9 @@
 		F9DA3B9E1D1D7E6200AB6156 /* BleedTextInfoDrawer.h in Headers */ = {isa = PBXBuildFile; fileRef = F9DA3B9C1D1D7E6200AB6156 /* BleedTextInfoDrawer.h */; };
 		F9E284281D254E2D001B0F98 /* PathCreator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9E284261D254E2D001B0F98 /* PathCreator.cpp */; };
 		F9E284291D254E2D001B0F98 /* PathCreator.h in Headers */ = {isa = PBXBuildFile; fileRef = F9E284271D254E2D001B0F98 /* PathCreator.h */; };
+		F9F079631D47ED21004AC522 /* BleedInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9F079621D47ED21004AC522 /* BleedInfo.cpp */; };
+		F9F079661D47EEC1004AC522 /* TickMarkSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9F079641D47EEC1004AC522 /* TickMarkSettings.cpp */; };
+		F9F079671D47EEC1004AC522 /* TickMarkSettings.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9F079651D47EEC1004AC522 /* TickMarkSettings.hpp */; };
 		F9F1EB6B1D1B19AF0051B716 /* ColorList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9F1EB691D1B19AF0051B716 /* ColorList.cpp */; };
 		F9F1EB6C1D1B19AF0051B716 /* ColorList.h in Headers */ = {isa = PBXBuildFile; fileRef = F9F1EB6A1D1B19AF0051B716 /* ColorList.h */; };
 		F9F55E531CB42D2900FA20EC /* SDKErrors.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9F55E521CB42D2900FA20EC /* SDKErrors.cpp */; };
@@ -213,6 +216,9 @@
 		F9DA3B9C1D1D7E6200AB6156 /* BleedTextInfoDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BleedTextInfoDrawer.h; path = Source/PlateBleedInfo/BleedTextInfoDrawer.h; sourceTree = "<group>"; };
 		F9E284261D254E2D001B0F98 /* PathCreator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PathCreator.cpp; path = Source/PrintToPdf/PathCreator.cpp; sourceTree = "<group>"; };
 		F9E284271D254E2D001B0F98 /* PathCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PathCreator.h; path = Source/PrintToPdf/PathCreator.h; sourceTree = "<group>"; };
+		F9F079621D47ED21004AC522 /* BleedInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BleedInfo.cpp; path = Source/PlateBleedInfo/BleedInfo.cpp; sourceTree = "<group>"; };
+		F9F079641D47EEC1004AC522 /* TickMarkSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TickMarkSettings.cpp; path = Source/PlateBleedInfo/TickMarkSettings.cpp; sourceTree = "<group>"; };
+		F9F079651D47EEC1004AC522 /* TickMarkSettings.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TickMarkSettings.hpp; path = Source/PlateBleedInfo/TickMarkSettings.hpp; sourceTree = "<group>"; };
 		F9F1EB691D1B19AF0051B716 /* ColorList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ColorList.cpp; path = Source/PlateBleedInfo/ColorList.cpp; sourceTree = "<group>"; };
 		F9F1EB6A1D1B19AF0051B716 /* ColorList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColorList.h; path = Source/PlateBleedInfo/ColorList.h; sourceTree = "<group>"; };
 		F9F55E521CB42D2900FA20EC /* SDKErrors.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SDKErrors.cpp; path = "../Adobe Illustrator 2015.3 SDK/samplecode/common/source/SDKErrors.cpp"; sourceTree = "<group>"; };
@@ -379,6 +385,7 @@
 		F9158D571D073E4E00343D57 /* PlateBleedInfo */ = {
 			isa = PBXGroup;
 			children = (
+				F9F079621D47ED21004AC522 /* BleedInfo.cpp */,
 				F910BD691D09FA910029DF62 /* BleedInfo.h */,
 				F9DA3B8F1D1C5EFA00AB6156 /* BleedInfoDrawer.cpp */,
 				F9DA3B901D1C5EFA00AB6156 /* BleedInfoDrawer.h */,
@@ -392,6 +399,8 @@
 				F9DA3B981D1C6C9300AB6156 /* FileNameDateDrawer.h */,
 				F9C44EF21D0AF51100205ADF /* TickMarkDrawer.cpp */,
 				F9C44EF31D0AF51100205ADF /* TickMarkDrawer.h */,
+				F9F079641D47EEC1004AC522 /* TickMarkSettings.cpp */,
+				F9F079651D47EEC1004AC522 /* TickMarkSettings.hpp */,
 			);
 			name = PlateBleedInfo;
 			sourceTree = "<group>";
@@ -494,6 +503,7 @@
 				F96D30741CB6D73500274BDE /* PlateNumber.h in Headers */,
 				F9138E9B1D01EE4D00D23C1F /* PdfResults.h in Headers */,
 				F947263F1CB2E1F400649020 /* VPB.h in Headers */,
+				F9F079671D47EEC1004AC522 /* TickMarkSettings.hpp in Headers */,
 				F9DA3B961D1C6C7D00AB6156 /* ColorListDrawer.h in Headers */,
 				F98BAEE21CA9A0D100965D86 /* BtAiMenuItem.h in Headers */,
 				F965B58F1D1072F200B0C04C /* ListFonts.h in Headers */,
@@ -587,6 +597,7 @@
 				F989A8F11CA465890050C071 /* IText.cpp in Sources */,
 				F979B5FF1CA31E72004BA4AD /* AppContext.cpp in Sources */,
 				F9138E9A1D01EE4D00D23C1F /* PdfResults.cpp in Sources */,
+				F9F079631D47ED21004AC522 /* BleedInfo.cpp in Sources */,
 				F979B6091CA31E8E004BA4AD /* Suites.cpp in Sources */,
 				F9F55E531CB42D2900FA20EC /* SDKErrors.cpp in Sources */,
 				F97B564E1D36759500C10A9F /* LayerVisibility.cpp in Sources */,
@@ -611,6 +622,7 @@
 				F9DA3B951D1C6C7D00AB6156 /* ColorListDrawer.cpp in Sources */,
 				F98BAEE11CA9A0D100965D86 /* BtAiMenuItem.cpp in Sources */,
 				F989A8EA1CA460CE0050C071 /* FindReplaceGraphics.cpp in Sources */,
+				F9F079661D47EEC1004AC522 /* TickMarkSettings.cpp in Sources */,
 				F9138E9C1D01EE4D00D23C1F /* PdfSettings.cpp in Sources */,
 				F90E3F9D1CA475880081C333 /* ATEFuncs.cpp in Sources */,
 				F979B6031CA31E81004BA4AD /* FlashUIController.cpp in Sources */,

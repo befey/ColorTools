@@ -9,6 +9,7 @@
 #include "ColorList.h"
 #include "ColorFuncs.h"
 #include "BtAteTextFeatures.h"
+#include "SafeguardFileConstants.h"
 
 using SafeguardFile::ColorList;
 

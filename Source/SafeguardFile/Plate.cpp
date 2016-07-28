@@ -10,6 +10,7 @@
 #include "SafeguardFileConstants.h"
 #include "BtAteTextFeatures.h"
 #include "TickMarkDrawer.h"
+#include "TickMarkSettings.hpp"
 #include "ColorListDrawer.h"
 #include "FileNameDateDrawer.h"
 #include "ATEFuncs.h"
@@ -39,11 +40,11 @@ Plate::Plate(ai::ArtboardID id)
     SetPlateNumber();
     bleedInfo.token = CreateToken();
     
-    bleedInfo.tickMarkDrawer = make_shared<OuterTickMarkDrawer>(make_shared<BleedInfo>(bleedInfo));
-    bleedInfo.colorListDrawer = make_shared<LaserColorListDrawer>(make_shared<BleedInfo>(bleedInfo));
-    bleedInfo.fileNameDateDrawer = make_shared<LaserFileNameDateDrawer>(make_shared<BleedInfo>(bleedInfo));
-    
     bleedInfoDrawer = make_shared<BleedInfoDrawer>(make_shared<BleedInfo>(bleedInfo));
+    
+    bleedInfoDrawer->TickMarkDrawer( make_shared<TickMarkDrawer>(TickMarkSettings(bleedInfo)) );
+    bleedInfoDrawer->ColorListDrawer( make_shared<LaserColorListDrawer>(make_shared<BleedInfo>(bleedInfo)) );
+    bleedInfoDrawer->FileNameDateDrawer( make_shared<LaserFileNameDateDrawer>(make_shared<BleedInfo>(bleedInfo)) );
 }
 //Plate::Plate(ai::ArtboardID id, string pn) : artboardIndex(id), plateNumber(pn) {}
 
