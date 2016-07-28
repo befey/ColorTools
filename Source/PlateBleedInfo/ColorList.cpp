@@ -9,12 +9,17 @@
 #include "ColorList.h"
 #include "ColorFuncs.h"
 #include "BtAteTextFeatures.h"
+#include "SafeguardFileConstants.h"
 
 using SafeguardFile::ColorList;
 
 void ColorList::RemoveDuplicates()
 {
-    for(auto color = p_ColorList.begin(); color != p_ColorList.end(); color++)
+    if (p_ColorList.size() <= 1)
+    {
+        return;
+    }
+    for(auto color = p_ColorList.begin(); color != p_ColorList.end() - 1; color++)
     {
         bool found1 = false;
         p_ColorList.erase(

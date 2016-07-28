@@ -14,10 +14,10 @@ inline string GetIllustratorErrorCode(ASErr err)
     char byteArray[5];
     
     // convert from an unsigned long int to a 4-byte array
-    byteArray[0] = (int)((err >> 24) & 0xFF) ;
-    byteArray[1] = (int)((err >> 16) & 0xFF) ;
-    byteArray[2] = (int)((err >> 8) & 0XFF);
-    byteArray[3] = (int)((err & 0XFF));
+    byteArray[0] = (char)((err >> 24) & 0xFF);
+    byteArray[1] = (char)((err >> 16) & 0xFF);
+    byteArray[2] = (char)((err >> 8)  & 0XFF);
+    byteArray[3] = (char)((err)       & 0XFF);
     byteArray[4] = '\0';
     return string(byteArray);
 }

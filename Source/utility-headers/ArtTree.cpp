@@ -36,8 +36,10 @@ long CreateArtSetOfPrintingObjectsWithinRect(AIArtSet const targetSet, AIRealRec
                 sAIArt->GetArtBounds(currArtHandle, &artRect);
                 int attr;
                 sAIArt->GetArtUserAttr(currArtHandle, kArtHidden, &attr);
+                short type;
+                sAIArt->GetArtType(currArtHandle, &type);
                 
-                if (sAIRealMath->AIRealRectOverlap(&artRect, &rect) && !(attr & kArtHidden))
+                if (sAIRealMath->AIRealRectOverlap(&artRect, &rect) && !(attr & kArtHidden) && type != kGroupArt)
                 {
                     sAIArtSet->AddArtToArtSet(targetSet, currArtHandle);
                 }

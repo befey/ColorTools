@@ -11,6 +11,7 @@
 #include "IAIRect.h"
 #include <regex>
 #include "GetIllustratorErrorCode.h"
+#include "SafeguardFileConstants.h"
 
 const AIReal TOLERANCE = .002;
 
@@ -60,7 +61,7 @@ bool ColorIsBlack(const AIColor color)
 {
     if (color.kind == kCustomColor)
     {
-        if (GetColorName(color) == MICR_BLACK_MAG_COLOR_NAME)
+        if (GetColorName(color) == SafeguardFile::MICR_BLACK_MAG_COLOR_NAME)
         {
             return FALSE;
         }
@@ -68,7 +69,7 @@ bool ColorIsBlack(const AIColor color)
         AICustomColor cColor;
         sAICustomColor->GetCustomColor(color.c.c.color, &cColor);
         
-        if ((GetColorName(color) == BLACK_COLOR_NAME) ||
+        if ((GetColorName(color) == SafeguardFile::BLACK_COLOR_NAME) ||
             ((cColor.kind == kCustomFourColor &&
               sAIRealMath->EqualWithinTol(cColor.c.f.cyan, 0, TOLERANCE) &&
               sAIRealMath->EqualWithinTol(cColor.c.f.magenta, 0, TOLERANCE) &&
@@ -164,7 +165,7 @@ bool ColorIsWhite(const AIColor color)
 
 bool ColorIsGripper(const AIColor color)
 {
-    if (GetColorName(color) == GRIPPER_COLOR_NAME)
+    if (GetColorName(color) == SafeguardFile::GRIPPER_COLOR_NAME)
     {
         return true;
     }
@@ -691,7 +692,7 @@ AIColor GetRegistrationColor()
 AIColor GetBlackColor()
 {
     AICustomColorHandle blackCch;
-    sAICustomColor->GetCustomColorByName(ai::UnicodeString(BLACK_COLOR_NAME), &blackCch);
+    sAICustomColor->GetCustomColorByName(ai::UnicodeString(SafeguardFile::BLACK_COLOR_NAME), &blackCch);
     AIColor black = { .kind = kCustomColor, .c.c = { .color = blackCch, .tint = 0} };
     return black;
 }

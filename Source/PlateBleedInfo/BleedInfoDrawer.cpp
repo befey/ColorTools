@@ -63,9 +63,9 @@ void BleedInfoDrawer::CreateResultArt(AIArtHandle pluginGroupArt) const
 {
     vector<AIArtHandle> resultHandles;
     
-    resultHandles.push_back(p_BleedInfo->fileNameDateDrawer->Draw());
-    resultHandles.push_back(p_BleedInfo->colorListDrawer->Draw());
-    resultHandles.push_back(p_BleedInfo->tickMarkDrawer->Draw());
+    resultHandles.push_back(fileNameDateDrawer->Draw());
+    resultHandles.push_back(colorListDrawer->Draw());
+    resultHandles.push_back(tickMarkDrawer->Draw());
     
     AIArtHandle resultGroupArt;
     sAIArt->NewArt(kGroupArt, kPlaceAboveAll, NULL, &resultGroupArt);

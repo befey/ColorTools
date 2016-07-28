@@ -8,38 +8,19 @@
 
 #include "BtSwatchList.h"
 #include "ColorFuncs.h"
+#include "SafeguardFileConstants.h"
 #include "GetIllustratorErrorCode.h"
 
-//Constuctor
-BtSwatchList::BtSwatchList()
-{
-    AICustomColorUnion c;
-    c.f.cyan = 0;
-    c.f.yellow = 0;
-    c.f.magenta = 0;
-    c.f.black = 1;
-    BtColor BLACK(BLACK_COLOR_NAME, kCustomFourColor, c, 0);
-    stdColorDefinitions[BLACK_COLOR_NAME] = BLACK;
-    
-    c.f.cyan = 0;
-    c.f.yellow = 0;
-    c.f.magenta = 0;
-    c.f.black = 0;
-    BtColor WHITE(WHITE_COLOR_NAME, kCustomFourColor, c, 0);
-    stdColorDefinitions[WHITE_COLOR_NAME] = WHITE;
-
-    c.f.cyan = 0;
-    c.f.yellow = 0;
-    c.f.magenta = 0;
-    c.f.black = 1;
-    BtColor MICRBLACK(MICR_BLACK_MAG_COLOR_NAME, kCustomFourColor, c, 0);
-    stdColorDefinitions[MICR_BLACK_MAG_COLOR_NAME] = MICRBLACK;
-}
+using SafeguardFile::StdColorDefinitions;
 
 //Behaviors
 void BtSwatchList::CreateOrConvertToCustomColor(std::string colorName)
 {
-    CreateOrConvertToCustomColor(stdColorDefinitions[colorName]);
+    auto it = StdColorDefinitions.find(colorName);
+    if (it != StdColorDefinitions.end())
+    {
+        CreateOrConvertToCustomColor(it->second);
+    }
 }
 
 void BtSwatchList::CreateOrConvertToCustomColor(BtColor color)
@@ -135,10 +116,10 @@ void BtSwatchList::RemoveUnusedColors() {
         }
         
         //Don't remove these swatches whether they're used or not
-        if( !currSwatchName.compare((ai::UnicodeString)NONE_COLOR_NAME) ||  //compare returns 0 if two strings are equal
-           !currSwatchName.compare((ai::UnicodeString)REGISTRATION_COLOR_NAME) ||
-           !currSwatchName.compare((ai::UnicodeString)BLACK_COLOR_NAME) ||
-           !currSwatchName.compare((ai::UnicodeString)WHITE_COLOR_NAME) )
+        if( !currSwatchName.compare((ai::UnicodeString)SafeguardFile::NONE_COLOR_NAME) ||  //compare returns 0 if two strings are equal
+           !currSwatchName.compare((ai::UnicodeString)SafeguardFile::REGISTRATION_COLOR_NAME) ||
+           !currSwatchName.compare((ai::UnicodeString)SafeguardFile::BLACK_COLOR_NAME) ||
+           !currSwatchName.compare((ai::UnicodeString)SafeguardFile::WHITE_COLOR_NAME) )
         {
             if (swatchTint == 0) {
                 used = TRUE;
