@@ -43,7 +43,7 @@ PdfSettings::PdfSettings(PdfPreset p, string r, bool s) : preset(p), range(r), s
     }
     else
     {
-        SetBleeds(SafeguardJobFile().GetBleeds());
+        SetBleeds(sgJobFile.GetBleeds());
     }
         
     SetVpbRange(range);
