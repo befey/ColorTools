@@ -405,7 +405,8 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
         }
         else
         {
-            //TODO: sgJobFile->Update();
+            SafeguardJobFile sgJobFile;
+            sgJobFile.AddBleedInfo();
             sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Add Safeguard Plate Info"), ai::UnicodeString("Redo Add Safeguard Plate Info"));
         }        
     }

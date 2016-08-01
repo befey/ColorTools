@@ -15,17 +15,16 @@ using SafeguardFile::FileNameDateDrawer;
 using SafeguardFile::LaserFileNameDateDrawer;
 using SafeguardFile::ContinuousFileNameDateDrawer;
 using SafeguardFile::BusStatFileNameDateDrawer;
-using SafeguardFile::BleedInfo;
 
-FileNameDateDrawer::FileNameDateDrawer(shared_ptr<BleedInfo> info) : BleedTextInfoDrawer(info) {};
-LaserFileNameDateDrawer::LaserFileNameDateDrawer(shared_ptr<BleedInfo> info) : FileNameDateDrawer(info) {};
-ContinuousFileNameDateDrawer::ContinuousFileNameDateDrawer(shared_ptr<BleedInfo> info) : FileNameDateDrawer(info) {};
-BusStatFileNameDateDrawer::BusStatFileNameDateDrawer(shared_ptr<BleedInfo> info) : FileNameDateDrawer(info) {};
+FileNameDateDrawer::FileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : BleedTextInfoDrawer(bounds), plateNumber(plateNumber), token(token), lastModified(lastModified) {};
+LaserFileNameDateDrawer::LaserFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, plateNumber, token, lastModified) {};
+ContinuousFileNameDateDrawer::ContinuousFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, plateNumber, token, lastModified) {};
+BusStatFileNameDateDrawer::BusStatFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, plateNumber, token, lastModified) {};
 
-AIArtHandle LaserFileNameDateDrawer::Draw()
+AIArtHandle LaserFileNameDateDrawer::DoDraw() const
 {
     AIArtHandle plateNumberDateArt;
-    AIRealPoint anchor = {.h = p_BleedInfo->rect.right - 4, .v = p_BleedInfo->rect.bottom - 14};
+    AIRealPoint anchor = {.h = bounds.right - 4, .v = bounds.bottom - 14};
     sAITextFrame->NewPointText(kPlaceAboveAll, NULL, kHorizontalTextOrientation, anchor, &plateNumberDateArt);
     
     //Create the ATE range
@@ -34,16 +33,16 @@ AIArtHandle LaserFileNameDateDrawer::Draw()
     ATE::ITextRange plateInfoTextRange(plateInfoTextRangeRef);
     plateInfoTextRange.Remove();
     
-    p_BleedInfo->plateNumber.GetAsTextRange(plateInfoTextRange);
+    plateNumber.GetAsTextRange(plateInfoTextRange);
     
-    if (p_BleedInfo->token != "")
+    if (token != "")
     {
-        AddTextToRange("." + p_BleedInfo->token, plateInfoTextRange);
+        AddTextToRange("." + token, plateInfoTextRange);
     }
     
     int month, year;
-    month = p_BleedInfo->lastModified.tm_mon + 1;
-    year = p_BleedInfo->lastModified.tm_year + 1900;
+    month = lastModified.tm_mon + 1;
+    year = lastModified.tm_year + 1900;
     
     AddTextToRange("  " + to_string(month) + "/" + to_string(year), plateInfoTextRange);
 

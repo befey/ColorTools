@@ -13,6 +13,7 @@
 #include "AIArt.h"
 #include "AIPath.h"
 #include "AIPathStyle.h"
+#include "IDrawer.h"
 
 extern AIArtSuite* sAIArt;
 extern AIPathSuite* sAIPath;
@@ -20,18 +21,23 @@ extern AIPathStyleSuite* sAIPathStyle;
 
 namespace SafeguardFile
 {
-    class TickMarkDrawer
+    class TickMarkDrawer : public IDrawer
     {
     public:
         TickMarkDrawer(TickMarkSettings settings);
         
-        AIArtHandle Draw();
-        
     private:
+        struct TickMark
+        {
+            AIRealPoint start, mid, end;
+        };
+        
         TickMarkSettings settings;
         
-        AIArtHandle DrawInner(AIArtHandle tickMarkGroupArt = NULL);
-        AIArtHandle DrawOuter(AIArtHandle tickMarkGroupArt = NULL);
+        AIArtHandle DoDraw() const override;
+        AIArtHandle DrawTickMarks(vector<TickMark> ticks, AIArtHandle tickMarkGroupArt = NULL) const;
+        AIArtHandle DrawInner(AIArtHandle tickMarkGroupArt = NULL) const;
+        AIArtHandle DrawOuter(AIArtHandle tickMarkGroupArt = NULL) const;
     };
 }
 

@@ -40,11 +40,11 @@ Plate::Plate(ai::ArtboardID id)
     SetPlateNumber();
     bleedInfo.token = CreateToken();
     
-    bleedInfoDrawer = make_shared<BleedInfoDrawer>(make_shared<BleedInfo>(bleedInfo));
+    bleedInfoDrawer = make_shared<BleedInfoDrawer>(bleedInfo.artboardIndex);
     
-    bleedInfoDrawer->TickMarkDrawer( make_shared<TickMarkDrawer>(TickMarkSettings(bleedInfo)) );
-    bleedInfoDrawer->ColorListDrawer( make_shared<LaserColorListDrawer>(make_shared<BleedInfo>(bleedInfo)) );
-    bleedInfoDrawer->FileNameDateDrawer( make_shared<LaserFileNameDateDrawer>(make_shared<BleedInfo>(bleedInfo)) );
+    bleedInfoDrawer->AddDrawer( make_shared<TickMarkDrawer>(TickMarkSettings(bleedInfo)) );
+    bleedInfoDrawer->AddDrawer( make_shared<LaserColorListDrawer>(bleedInfo.rect, bleedInfo.colorList) );
+    bleedInfoDrawer->AddDrawer( make_shared<LaserFileNameDateDrawer>(bleedInfo.rect, bleedInfo.plateNumber, bleedInfo.token, bleedInfo.lastModified) );
 }
 //Plate::Plate(ai::ArtboardID id, string pn) : artboardIndex(id), plateNumber(pn) {}
 

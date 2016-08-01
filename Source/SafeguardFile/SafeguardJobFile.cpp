@@ -34,7 +34,7 @@ SafeguardJobFile::SafeguardJobFile()
 
 void SafeguardJobFile::AddBleedInfo()
 {
-    if (ShouldDrawBleedInfo())
+    //if (ShouldDrawBleedInfo())
     {
         for (auto plate : plates)
         {

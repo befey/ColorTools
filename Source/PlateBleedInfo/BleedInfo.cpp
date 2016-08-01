@@ -18,7 +18,7 @@ int BleedInfo::GetTickMarkOffset()
     {
         return 27;
     }
-    else if (pt == ProductType::Snapset)
+    else if (pt == ProductType::Snapset || pt == ProductType::Continuous)
     {
         return 9;
     }

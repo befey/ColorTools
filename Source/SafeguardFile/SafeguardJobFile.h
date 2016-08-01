@@ -30,10 +30,12 @@ namespace SafeguardFile
         const PlateNumber GetPlateNumber(int plateIndex = 0) const;
         const string GetToken(int plateIndex = 0) const;
         AIRealRect GetBleeds(int plateIndex = 0) const;
+        
+        void AddBleedInfo();
     private:
         vector<Plate> plates;
         
-        void AddBleedInfo();
+        
         bool ShouldDrawBleedInfo();
     };
 }

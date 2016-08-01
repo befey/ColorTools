@@ -10,6 +10,7 @@
 #define __SafeguardTools__ColorListDrawer__
 
 #include "BleedTextInfoDrawer.h"
+#include "ColorList.h"
 
 namespace SafeguardFile
 {
@@ -18,28 +19,33 @@ namespace SafeguardFile
     class ColorListDrawer : public BleedTextInfoDrawer
     {
     protected:
-        ColorListDrawer(shared_ptr<BleedInfo> info);
+        ColorListDrawer(AIRealRect bounds, ColorList colorList);
+
+        ColorList colorList;
     };
     
     class LaserColorListDrawer : public ColorListDrawer
     {
     public:
-        LaserColorListDrawer(shared_ptr<BleedInfo> info);
-        AIArtHandle Draw();
+        LaserColorListDrawer(AIRealRect bounds, ColorList colorList);
+    private:
+        AIArtHandle DoDraw() const override;
     };
     
     class ContinuousColorListDrawer : public ColorListDrawer
     {
     public:
-        ContinuousColorListDrawer(shared_ptr<BleedInfo> info);
-        AIArtHandle Draw();
+        ContinuousColorListDrawer(AIRealRect bounds, ColorList colorList);
+    private:
+        AIArtHandle DoDraw() const override;
     };
     
     class BusStatColorListDrawer : public ColorListDrawer
     {
     public:
-        BusStatColorListDrawer(shared_ptr<BleedInfo> info);
-        AIArtHandle Draw();
+        BusStatColorListDrawer(AIRealRect bounds, ColorList colorList);
+    private:
+        AIArtHandle DoDraw() const override;
     };
 }
 

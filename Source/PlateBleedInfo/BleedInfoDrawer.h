@@ -15,6 +15,7 @@
 #include "FileNameDateDrawer.h"
 #include "AIArt.h"
 #include "AIPluginGroup.h"
+#include "IDrawer.h"
 
 extern AIArtSuite* sAIArt;
 extern AIPluginGroupSuite* sAIPluginGroup;
@@ -23,28 +24,24 @@ namespace SafeguardFile
 {
     constexpr auto PLATE_BLEED_INFO_GROUP_LABEL =             "__plate_bleed_info__";
     
-    class BleedInfoDrawer
+    class BleedInfoDrawer : public IDrawer
     {
     public:
-        BleedInfoDrawer(shared_ptr<BleedInfo> info) : p_BleedInfo(info) {};
+        BleedInfoDrawer(ai::ArtboardID artboardIndex) : artboardIndex(artboardIndex) {};
         
-        void Draw() const;
-        void Remove(AIArtHandle pluginGroupArt) const;
-        
-        BleedInfoDrawer& TickMarkDrawer(shared_ptr<SafeguardFile::TickMarkDrawer> val) { tickMarkDrawer = val; return *this; };
-        BleedInfoDrawer& ColorListDrawer(shared_ptr<SafeguardFile::ColorListDrawer> val) { colorListDrawer = val; return *this; };
-        BleedInfoDrawer& FileNameDateDrawer(shared_ptr<SafeguardFile::FileNameDateDrawer> val) { fileNameDateDrawer = val; return *this; };
+        BleedInfoDrawer& AddDrawer(shared_ptr<SafeguardFile::IDrawer> val) { drawers.push_back(val); return *this; };
 
+        void Remove(AIArtHandle pluginGroupArt) const;
     private:
-        shared_ptr<BleedInfo> p_BleedInfo;
+        ai::ArtboardID artboardIndex;
         
-        shared_ptr<SafeguardFile::TickMarkDrawer> tickMarkDrawer;
-        shared_ptr<SafeguardFile::ColorListDrawer> colorListDrawer;
-        shared_ptr<SafeguardFile::FileNameDateDrawer> fileNameDateDrawer;
+        vector<shared_ptr<SafeguardFile::IDrawer>> drawers;
         
-        void Add() const;
-        void Update(AIArtHandle pluginGroupArt) const;
-        void CreateResultArt(AIArtHandle pluginGroupArt) const;
+        AIArtHandle DoDraw() const override;
+        
+        AIArtHandle Add() const;
+        AIArtHandle Update(AIArtHandle pluginGroupArt) const;
+        AIArtHandle CreateResultArt(AIArtHandle pluginGroupArt) const;
         
         //ASErr PluginGroupNotify(AIPluginGroupMessage* message);
         //ASErr PluginGroupUpdate(AIPluginGroupMessage* message);

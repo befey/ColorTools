@@ -8,7 +8,6 @@
 
 #include "ColorListDrawer.h"
 #include "ColorFuncs.h"
-#include "BleedInfo.h"
 #include "BtAteTextFeatures.h"
 
 using SafeguardFile::ColorListDrawer;
@@ -17,15 +16,15 @@ using SafeguardFile::ContinuousColorListDrawer;
 using SafeguardFile::BusStatColorListDrawer;
 using SafeguardFile::BleedInfo;
 
-ColorListDrawer::ColorListDrawer(shared_ptr<BleedInfo> info) : BleedTextInfoDrawer(info) {};
-LaserColorListDrawer::LaserColorListDrawer(shared_ptr<BleedInfo> info) : ColorListDrawer(info) {};
-ContinuousColorListDrawer::ContinuousColorListDrawer(shared_ptr<BleedInfo> info) : ColorListDrawer(info) {};
-BusStatColorListDrawer::BusStatColorListDrawer(shared_ptr<BleedInfo> info) : ColorListDrawer(info) {};
+ColorListDrawer::ColorListDrawer(AIRealRect bounds, ColorList colorList) : BleedTextInfoDrawer(bounds), colorList(colorList) {};
+LaserColorListDrawer::LaserColorListDrawer(AIRealRect bounds, ColorList colorList) : ColorListDrawer(bounds, colorList) {};
+ContinuousColorListDrawer::ContinuousColorListDrawer(AIRealRect bounds, ColorList colorList) : ColorListDrawer(bounds, colorList) {};
+BusStatColorListDrawer::BusStatColorListDrawer(AIRealRect bounds, ColorList colorList) : ColorListDrawer(bounds, colorList) {};
 
-AIArtHandle LaserColorListDrawer::Draw()
+AIArtHandle LaserColorListDrawer::DoDraw() const
 {
     AIArtHandle colorListArt;
-    AIRealPoint anchor = {.h = p_BleedInfo->rect.left + 4, .v = p_BleedInfo->rect.bottom - 14};
+    AIRealPoint anchor = {.h = bounds.left + 4, .v = bounds.bottom - 14};
     sAITextFrame->NewPointText(kPlaceAboveAll, NULL, kHorizontalTextOrientation, anchor, &colorListArt);
     
     //Create the ATE range
@@ -34,7 +33,7 @@ AIArtHandle LaserColorListDrawer::Draw()
     ATE::ITextRange colorListTextRange(colorListTextRangeRef);
     colorListTextRange.Remove();
     
-    p_BleedInfo->colorList.GetAsTextRange(colorListTextRange);
+    colorList.GetAsTextRange(colorListTextRange);
     
     BtAteTextFeatures textFeatures;
     textFeatures.FontSize(12.01).Font("Helvetica-Bold").Justification(ATE::kLeftJustify);
