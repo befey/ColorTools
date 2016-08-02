@@ -17,7 +17,7 @@ namespace SafeguardFile
     class TickMarkSettings
     {
     public:
-        TickMarkSettings(BleedInfo bleedInfo);
+        TickMarkSettings(const BleedInfo bleedInfo);
         
         AIRealRect Bounds() const { return bounds; };
         int Offset() const { return offset; };

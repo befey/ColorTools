@@ -12,7 +12,7 @@
 using SafeguardFile::TickMarkSettings;
 using SafeguardFile::BleedInfo;
 
-TickMarkSettings::TickMarkSettings(BleedInfo bleedInfo)
+TickMarkSettings::TickMarkSettings(const BleedInfo bleedInfo)
 {
     bounds = bleedInfo.rect;
     offset = bleedInfo.GetTickMarkOffset();

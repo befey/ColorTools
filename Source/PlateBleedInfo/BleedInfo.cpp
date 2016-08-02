@@ -10,7 +10,7 @@
 
 using SafeguardFile::BleedInfo;
 
-int BleedInfo::GetTickMarkOffset()
+int BleedInfo::GetTickMarkOffset() const
 {
     ProductType pt = plateNumber.GetProductType();
     
