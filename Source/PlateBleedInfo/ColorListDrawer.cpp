@@ -53,7 +53,7 @@ AIArtHandle ContinuousColorListDrawer::DoDraw() const
     AIArtHandle colorListArt;
     sAITextFrame->NewPointText(kPlaceAboveAll, NULL, kHorizontalTextOrientation, anchor, &colorListArt);
     
-    RotateArt(colorListArt, -90);
+    RotateArt(colorListArt, anchor, -90);
     
     //Create the ATE range
     ATE::TextRangeRef colorListTextRangeRef;

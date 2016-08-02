@@ -52,7 +52,7 @@ AIArtHandle ContinuousFileNameDateDrawer::DoDraw() const
     AIArtHandle plateNumberDateArt;
     sAITextFrame->NewPointText(kPlaceAboveAll, NULL, kHorizontalTextOrientation, anchor, &plateNumberDateArt);
     
-    RotateArt(plateNumberDateArt, -90);
+    RotateArt(plateNumberDateArt, anchor, -90);
     
     //Create the ATE range
     ATE::TextRangeRef plateInfoTextRangeRef;

@@ -8,10 +8,16 @@
 
 #include "BtTransformArt.hpp"
 
-void RotateArt(AIArtHandle art, const AIReal angle)
+void RotateArt(AIArtHandle art, AIRealPoint anchor, const AIReal angle)
 {
     AIRealMatrix transformMatrix;
-    sAIRealMath->AIRealMatrixSetRotate(&transformMatrix, angle);
+    
+    //Move to origin
+    sAIRealMath->AIRealMatrixSetTranslate(&transformMatrix, -anchor.h, -anchor.v);
+    //Rotate
+    sAIRealMath->AIRealMatrixConcatRotate(&transformMatrix, sAIRealMath->DegreeToRadian(angle));
+    //Move back to original position
+    sAIRealMath->AIRealMatrixConcatTranslate(&transformMatrix, anchor.h, anchor.v);
     
     sAITransformArt->TransformArt(art, &transformMatrix, 1, kTransformObjects);
 }

@@ -15,6 +15,6 @@
 extern AITransformArtSuite* sAITransformArt;
 extern AIRealMathSuite* sAIRealMath;
 
-void RotateArt(AIArtHandle art, const AIReal angle);
+void RotateArt(AIArtHandle art, AIRealPoint anchor, const AIReal angle);
 
 #endif /* BtTransformArt_hpp */
