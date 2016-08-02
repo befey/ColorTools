@@ -19,9 +19,13 @@ using SafeguardFile::BleedInfo;
 ColorListDrawer::ColorListDrawer(AIRealRect bounds, AIRealPoint anchor, ColorList colorList) :
     BleedTextInfoDrawer(bounds, anchor),
     colorList(colorList) {};
-LaserColorListDrawer::LaserColorListDrawer(AIRealRect bounds, ColorList colorList) : ColorListDrawer(bounds, {.h = bounds.left + 4, .v = bounds.bottom - 14}, colorList) {};
-ContinuousColorListDrawer::ContinuousColorListDrawer(AIRealRect bounds, ColorList colorList) : ColorListDrawer(bounds, {.h = bounds.left + 4, .v = bounds.bottom - 14}, colorList) {};
-BusStatColorListDrawer::BusStatColorListDrawer(AIRealRect bounds, ColorList colorList) : ColorListDrawer(bounds, {.h = bounds.left + 4, .v = bounds.bottom - 14}, colorList) {};
+
+LaserColorListDrawer::LaserColorListDrawer(AIRealRect bounds, ColorList colorList) :
+    ColorListDrawer(bounds, {.h = bounds.left + 4, .v = bounds.bottom - 14}, colorList) {};
+ContinuousColorListDrawer::ContinuousColorListDrawer(AIRealRect bounds, ColorList colorList) :
+    ColorListDrawer(bounds, {.h = bounds.left + 4, .v = bounds.bottom - 14}, colorList) {};
+BusStatColorListDrawer::BusStatColorListDrawer(AIRealRect bounds, ColorList colorList) :
+    ColorListDrawer(bounds, {.h = bounds.left + 4, .v = bounds.bottom - 14}, colorList) {};
 
 AIArtHandle LaserColorListDrawer::DoDraw() const
 {

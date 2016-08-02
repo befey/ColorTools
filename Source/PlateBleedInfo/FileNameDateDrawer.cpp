@@ -21,6 +21,7 @@ FileNameDateDrawer::FileNameDateDrawer(AIRealRect bounds, AIRealPoint anchor, Pl
     plateNumber(plateNumber),
     token(token),
     lastModified(lastModified) {};
+
 LaserFileNameDateDrawer::LaserFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, {.h = bounds.right - 4, .v = bounds.bottom - 14}, plateNumber, token, lastModified) {};
 ContinuousFileNameDateDrawer::ContinuousFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, {.h = bounds.right - 4, .v = bounds.bottom - 14}, plateNumber, token, lastModified) {};
 BusStatFileNameDateDrawer::BusStatFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, {.h = bounds.right - 4, .v = bounds.bottom - 14}, plateNumber, token, lastModified) {};
