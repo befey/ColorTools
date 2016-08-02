@@ -16,15 +16,16 @@ using SafeguardFile::ContinuousColorListDrawer;
 using SafeguardFile::BusStatColorListDrawer;
 using SafeguardFile::BleedInfo;
 
-ColorListDrawer::ColorListDrawer(AIRealRect bounds, ColorList colorList) : BleedTextInfoDrawer(bounds), colorList(colorList) {};
-LaserColorListDrawer::LaserColorListDrawer(AIRealRect bounds, ColorList colorList) : ColorListDrawer(bounds, colorList) {};
-ContinuousColorListDrawer::ContinuousColorListDrawer(AIRealRect bounds, ColorList colorList) : ColorListDrawer(bounds, colorList) {};
-BusStatColorListDrawer::BusStatColorListDrawer(AIRealRect bounds, ColorList colorList) : ColorListDrawer(bounds, colorList) {};
+ColorListDrawer::ColorListDrawer(AIRealRect bounds, AIRealPoint anchor, ColorList colorList) :
+    BleedTextInfoDrawer(bounds, anchor),
+    colorList(colorList) {};
+LaserColorListDrawer::LaserColorListDrawer(AIRealRect bounds, ColorList colorList) : ColorListDrawer(bounds, {.h = bounds.left + 4, .v = bounds.bottom - 14}, colorList) {};
+ContinuousColorListDrawer::ContinuousColorListDrawer(AIRealRect bounds, ColorList colorList) : ColorListDrawer(bounds, {.h = bounds.left + 4, .v = bounds.bottom - 14}, colorList) {};
+BusStatColorListDrawer::BusStatColorListDrawer(AIRealRect bounds, ColorList colorList) : ColorListDrawer(bounds, {.h = bounds.left + 4, .v = bounds.bottom - 14}, colorList) {};
 
 AIArtHandle LaserColorListDrawer::DoDraw() const
 {
     AIArtHandle colorListArt;
-    AIRealPoint anchor = {.h = bounds.left + 4, .v = bounds.bottom - 14};
     sAITextFrame->NewPointText(kPlaceAboveAll, NULL, kHorizontalTextOrientation, anchor, &colorListArt);
     
     //Create the ATE range

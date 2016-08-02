@@ -20,7 +20,7 @@ namespace SafeguardFile
     class FileNameDateDrawer : public BleedTextInfoDrawer
     {
     protected:
-        FileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified);
+        FileNameDateDrawer(AIRealRect bounds, AIRealPoint anchor, PlateNumber plateNumber, string token, tm lastModified);
         
         PlateNumber plateNumber;
         string token;

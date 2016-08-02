@@ -16,15 +16,18 @@ using SafeguardFile::LaserFileNameDateDrawer;
 using SafeguardFile::ContinuousFileNameDateDrawer;
 using SafeguardFile::BusStatFileNameDateDrawer;
 
-FileNameDateDrawer::FileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : BleedTextInfoDrawer(bounds), plateNumber(plateNumber), token(token), lastModified(lastModified) {};
-LaserFileNameDateDrawer::LaserFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, plateNumber, token, lastModified) {};
-ContinuousFileNameDateDrawer::ContinuousFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, plateNumber, token, lastModified) {};
-BusStatFileNameDateDrawer::BusStatFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, plateNumber, token, lastModified) {};
+FileNameDateDrawer::FileNameDateDrawer(AIRealRect bounds, AIRealPoint anchor, PlateNumber plateNumber, string token, tm lastModified) :
+    BleedTextInfoDrawer(bounds, anchor),
+    plateNumber(plateNumber),
+    token(token),
+    lastModified(lastModified) {};
+LaserFileNameDateDrawer::LaserFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, {.h = bounds.right - 4, .v = bounds.bottom - 14}, plateNumber, token, lastModified) {};
+ContinuousFileNameDateDrawer::ContinuousFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, {.h = bounds.right - 4, .v = bounds.bottom - 14}, plateNumber, token, lastModified) {};
+BusStatFileNameDateDrawer::BusStatFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, {.h = bounds.right - 4, .v = bounds.bottom - 14}, plateNumber, token, lastModified) {};
 
 AIArtHandle LaserFileNameDateDrawer::DoDraw() const
 {
     AIArtHandle plateNumberDateArt;
-    AIRealPoint anchor = {.h = bounds.right - 4, .v = bounds.bottom - 14};
     sAITextFrame->NewPointText(kPlaceAboveAll, NULL, kHorizontalTextOrientation, anchor, &plateNumberDateArt);
     
     //Create the ATE range

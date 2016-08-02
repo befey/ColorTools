@@ -19,7 +19,7 @@ namespace SafeguardFile
     class ColorListDrawer : public BleedTextInfoDrawer
     {
     protected:
-        ColorListDrawer(AIRealRect bounds, ColorList colorList);
+        ColorListDrawer(AIRealRect bounds, AIRealPoint anchor, ColorList colorList);
 
         ColorList colorList;
     };

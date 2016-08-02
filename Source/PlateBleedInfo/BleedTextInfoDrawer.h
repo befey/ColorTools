@@ -19,9 +19,10 @@ namespace SafeguardFile
     class BleedTextInfoDrawer : public IDrawer
     {
     protected:
-        BleedTextInfoDrawer(AIRealRect bounds) : bounds(bounds) {};
+        BleedTextInfoDrawer(AIRealRect bounds, AIRealPoint anchor) : bounds(bounds), anchor(anchor) {};
 
         AIRealRect bounds;
+        AIRealPoint anchor;
         
     private:
         virtual AIArtHandle DoDraw() const = 0;
