@@ -24,7 +24,7 @@ FileNameDateDrawer::FileNameDateDrawer(AIRealRect bounds, AIRealPoint anchor, Pl
 
 LaserFileNameDateDrawer::LaserFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, {.h = bounds.right - 4, .v = bounds.bottom - 14}, plateNumber, token, lastModified) {};
 ContinuousFileNameDateDrawer::ContinuousFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, {.h = bounds.right - 4, .v = bounds.bottom - 14}, plateNumber, token, lastModified) {};
-BusStatFileNameDateDrawer::BusStatFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, {.h = bounds.right - 4, .v = bounds.bottom - 14}, plateNumber, token, lastModified) {};
+BusStatFileNameDateDrawer::BusStatFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, {.h = bounds.right, .v = bounds.bottom - 12}, plateNumber, token, lastModified) {};
 
 AIArtHandle LaserFileNameDateDrawer::DoDraw() const
 {
@@ -37,22 +37,48 @@ AIArtHandle LaserFileNameDateDrawer::DoDraw() const
     ATE::ITextRange plateInfoTextRange(plateInfoTextRangeRef);
     plateInfoTextRange.Remove();
     
-    plateNumber.GetAsTextRange(plateInfoTextRange);
-    
-    if (token != "")
-    {
-        AddTextToRange("." + token, plateInfoTextRange);
-    }
-    
-    int month, year;
-    month = lastModified.tm_mon + 1;
-    year = lastModified.tm_year + 1900;
-    
-    AddTextToRange("  " + to_string(month) + "/" + to_string(year), plateInfoTextRange);
+    PutPlateNumberDateStringInTextRange(plateInfoTextRange);
 
     BtAteTextFeatures textFeatures;
     textFeatures.FontSize(12.01).Font("Helvetica-Bold").Justification(ATE::kRightJustify).FillColor(GetRegistrationColor());
     textFeatures.ApplyFeaturesToRange(plateInfoTextRange);
     
     return plateNumberDateArt;
+}
+
+AIArtHandle BusStatFileNameDateDrawer::DoDraw() const
+{
+    AIArtHandle plateNumberDateArt;
+    sAITextFrame->NewPointText(kPlaceAboveAll, NULL, kHorizontalTextOrientation, anchor, &plateNumberDateArt);
+    
+    //Create the ATE range
+    ATE::TextRangeRef plateInfoTextRangeRef;
+    sAITextFrame->GetATETextRange(plateNumberDateArt, &plateInfoTextRangeRef);
+    ATE::ITextRange plateInfoTextRange(plateInfoTextRangeRef);
+    plateInfoTextRange.Remove();
+    
+    PutPlateNumberDateStringInTextRange(plateInfoTextRange);
+    
+    BtAteTextFeatures textFeatures;
+    textFeatures.FontSize(7).Font("Helvetica-Condensed-Bold").Justification(ATE::kRightJustify).FillColor(GetRegistrationColor());
+    textFeatures.ApplyFeaturesToRange(plateInfoTextRange);
+    
+    return plateNumberDateArt;
+}
+
+
+void FileNameDateDrawer::PutPlateNumberDateStringInTextRange(ATE::ITextRange& targetRange) const
+{
+    plateNumber.GetAsTextRange(targetRange);
+    
+    if (token != "")
+    {
+        AddTextToRange("." + token, targetRange);
+    }
+    
+    int month, year;
+    month = lastModified.tm_mon + 1;
+    year = lastModified.tm_year + 1900;
+    
+    AddTextToRange("  " + to_string(month) + "/" + to_string(year), targetRange);
 }

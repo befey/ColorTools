@@ -25,6 +25,8 @@ namespace SafeguardFile
         PlateNumber plateNumber;
         string token;
         tm lastModified;
+        
+        void PutPlateNumberDateStringInTextRange(ATE::ITextRange& targetRange) const;
     };
     
     class LaserFileNameDateDrawer : public FileNameDateDrawer
