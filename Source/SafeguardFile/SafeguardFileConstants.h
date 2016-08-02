@@ -51,7 +51,8 @@ namespace SafeguardFile
         CutSheet,
         Continuous,
         Snapset,
-        BusinessStat
+        BusinessStat,
+        Envelope
     };
     
     static constexpr auto LENGTH_OF_INNER_TICK_PATH = 18;

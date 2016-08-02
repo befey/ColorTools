@@ -80,6 +80,11 @@ ProductType PlateNumber::GetProductType() const
         return ProductType::Continuous;
     }
     
+    if (productIndicator == "EN")
+    {
+        return ProductType::Envelope;
+    }
+    
     if (productIndicator == "CS")
     {
         if (HasInnerTicks())
@@ -95,7 +100,7 @@ ProductType PlateNumber::GetProductType() const
     //OTHERS
     if (productIndicator == "AR" || productIndicator == "CK" || productIndicator == "CM" || productIndicator == "GC" || productIndicator == "LS" || productIndicator == "QC" || productIndicator == "RC" || productIndicator == "VP")
     {
-        return ProductType::Continuous;
+        return ProductType::Snapset;
     }
     
     return ProductType::INVAL;
