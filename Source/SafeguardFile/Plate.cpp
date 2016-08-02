@@ -43,8 +43,23 @@ Plate::Plate(ai::ArtboardID id)
     bleedInfoDrawer = make_shared<BleedInfoDrawer>(bleedInfo.artboardIndex);
     
     bleedInfoDrawer->AddDrawer( make_shared<TickMarkDrawer>(TickMarkSettings(bleedInfo)) );
-    bleedInfoDrawer->AddDrawer( make_shared<LaserColorListDrawer>(bleedInfo.rect, bleedInfo.colorList) );
-    bleedInfoDrawer->AddDrawer( make_shared<LaserFileNameDateDrawer>(bleedInfo.rect, bleedInfo.plateNumber, bleedInfo.token, bleedInfo.lastModified) );
+    
+    ProductType pt = bleedInfo.plateNumber.GetProductType();
+    if (pt == ProductType::BusinessStat)
+    {
+        bleedInfoDrawer->AddDrawer( make_shared<BusStatColorListDrawer>(bleedInfo.rect, bleedInfo.colorList) );
+        bleedInfoDrawer->AddDrawer( make_shared<BusStatFileNameDateDrawer>(bleedInfo.rect, bleedInfo.plateNumber, bleedInfo.token, bleedInfo.lastModified) );
+    }
+    else if (pt == ProductType::Continuous)
+    {
+        bleedInfoDrawer->AddDrawer( make_shared<ContinuousColorListDrawer>(bleedInfo.rect, bleedInfo.colorList) );
+        bleedInfoDrawer->AddDrawer( make_shared<ContinuousFileNameDateDrawer>(bleedInfo.rect, bleedInfo.plateNumber, bleedInfo.token, bleedInfo.lastModified) );
+    }
+    else if (pt == ProductType::CutSheet || pt == ProductType::Envelope)
+    {
+        bleedInfoDrawer->AddDrawer( make_shared<LaserColorListDrawer>(bleedInfo.rect, bleedInfo.colorList) );
+        bleedInfoDrawer->AddDrawer( make_shared<LaserFileNameDateDrawer>(bleedInfo.rect, bleedInfo.plateNumber, bleedInfo.token, bleedInfo.lastModified) );
+    }
 }
 //Plate::Plate(ai::ArtboardID id, string pn) : artboardIndex(id), plateNumber(pn) {}
 
