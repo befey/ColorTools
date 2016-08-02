@@ -9,6 +9,7 @@
 #include "ColorListDrawer.h"
 #include "ColorFuncs.h"
 #include "BtAteTextFeatures.h"
+#include "BtTransformArt.hpp"
 
 using SafeguardFile::ColorListDrawer;
 using SafeguardFile::LaserColorListDrawer;
@@ -52,7 +53,7 @@ AIArtHandle ContinuousColorListDrawer::DoDraw() const
     AIArtHandle colorListArt;
     sAITextFrame->NewPointText(kPlaceAboveAll, NULL, kHorizontalTextOrientation, anchor, &colorListArt);
     
-    //TODO: Rotate 90°
+    RotateArt(plateNumberDateArt, -90);
     
     //Create the ATE range
     ATE::TextRangeRef colorListTextRangeRef;

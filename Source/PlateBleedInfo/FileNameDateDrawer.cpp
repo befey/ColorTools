@@ -9,6 +9,7 @@
 #include "FileNameDateDrawer.h"
 #include "ColorFuncs.h"
 #include "BleedInfo.h"
+#include "BtTransformArt.hpp"
 #include <ctime>
 
 using SafeguardFile::FileNameDateDrawer;
@@ -51,7 +52,7 @@ AIArtHandle ContinuousFileNameDateDrawer::DoDraw() const
     AIArtHandle plateNumberDateArt;
     sAITextFrame->NewPointText(kPlaceAboveAll, NULL, kHorizontalTextOrientation, anchor, &plateNumberDateArt);
     
-    //TODO: ROTATE -90°
+    RotateArt(plateNumberDateArt, -90);
     
     //Create the ATE range
     ATE::TextRangeRef plateInfoTextRangeRef;
