@@ -23,7 +23,7 @@ ColorListDrawer::ColorListDrawer(AIRealRect bounds, AIRealPoint anchor, ColorLis
 LaserColorListDrawer::LaserColorListDrawer(AIRealRect bounds, ColorList colorList) :
     ColorListDrawer(bounds, {.h = bounds.left + 4, .v = bounds.bottom - 14}, colorList) {};
 ContinuousColorListDrawer::ContinuousColorListDrawer(AIRealRect bounds, ColorList colorList) :
-    ColorListDrawer(bounds, {.h = bounds.left + 4, .v = bounds.bottom - 14}, colorList) {};
+    ColorListDrawer(bounds, {.h = bounds.right + 2, .v = bounds.top - 120}, colorList) {};
 BusStatColorListDrawer::BusStatColorListDrawer(AIRealRect bounds, ColorList colorList) :
     ColorListDrawer(bounds, {.h = bounds.left, .v = bounds.bottom - 12}, colorList) {};
 
@@ -41,9 +41,31 @@ AIArtHandle LaserColorListDrawer::DoDraw() const
     colorList.GetAsTextRange(colorListTextRange);
     
     BtAteTextFeatures textFeatures;
-    textFeatures.FontSize(12.01).Font("Helvetica-Bold").Justification(ATE::kLeftJustify);
+    textFeatures.FontSize(12).Font("Helvetica-Bold").Justification(ATE::kLeftJustify);
     textFeatures.ApplyFeaturesToRange(colorListTextRange);
 
+    return colorListArt;
+}
+
+AIArtHandle ContinuousColorListDrawer::DoDraw() const
+{
+    AIArtHandle colorListArt;
+    sAITextFrame->NewPointText(kPlaceAboveAll, NULL, kHorizontalTextOrientation, anchor, &colorListArt);
+    
+    //TODO: Rotate 90°
+    
+    //Create the ATE range
+    ATE::TextRangeRef colorListTextRangeRef;
+    sAITextFrame->GetATETextRange(colorListArt, &colorListTextRangeRef);
+    ATE::ITextRange colorListTextRange(colorListTextRangeRef);
+    colorListTextRange.Remove();
+    
+    colorList.GetAsTextRange(colorListTextRange);
+    
+    BtAteTextFeatures textFeatures;
+    textFeatures.FontSize(9).Font("Helvetica-Bold").Justification(ATE::kLeftJustify);
+    textFeatures.ApplyFeaturesToRange(colorListTextRange);
+    
     return colorListArt;
 }
 

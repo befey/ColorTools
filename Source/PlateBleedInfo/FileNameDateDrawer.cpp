@@ -23,7 +23,7 @@ FileNameDateDrawer::FileNameDateDrawer(AIRealRect bounds, AIRealPoint anchor, Pl
     lastModified(lastModified) {};
 
 LaserFileNameDateDrawer::LaserFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, {.h = bounds.right - 4, .v = bounds.bottom - 14}, plateNumber, token, lastModified) {};
-ContinuousFileNameDateDrawer::ContinuousFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, {.h = bounds.right - 4, .v = bounds.bottom - 14}, plateNumber, token, lastModified) {};
+ContinuousFileNameDateDrawer::ContinuousFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, {.h = bounds.right + 2, .v = bounds.top - 14}, plateNumber, token, lastModified) {};
 BusStatFileNameDateDrawer::BusStatFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, {.h = bounds.right, .v = bounds.bottom - 12}, plateNumber, token, lastModified) {};
 
 AIArtHandle LaserFileNameDateDrawer::DoDraw() const
@@ -40,7 +40,29 @@ AIArtHandle LaserFileNameDateDrawer::DoDraw() const
     PutPlateNumberDateStringInTextRange(plateInfoTextRange);
 
     BtAteTextFeatures textFeatures;
-    textFeatures.FontSize(12.01).Font("Helvetica-Bold").Justification(ATE::kRightJustify).FillColor(GetRegistrationColor());
+    textFeatures.FontSize(12).Font("Helvetica-Bold").Justification(ATE::kRightJustify).FillColor(GetRegistrationColor());
+    textFeatures.ApplyFeaturesToRange(plateInfoTextRange);
+    
+    return plateNumberDateArt;
+}
+
+AIArtHandle ContinuousFileNameDateDrawer::DoDraw() const
+{
+    AIArtHandle plateNumberDateArt;
+    sAITextFrame->NewPointText(kPlaceAboveAll, NULL, kHorizontalTextOrientation, anchor, &plateNumberDateArt);
+    
+    //TODO: ROTATE -90°
+    
+    //Create the ATE range
+    ATE::TextRangeRef plateInfoTextRangeRef;
+    sAITextFrame->GetATETextRange(plateNumberDateArt, &plateInfoTextRangeRef);
+    ATE::ITextRange plateInfoTextRange(plateInfoTextRangeRef);
+    plateInfoTextRange.Remove();
+    
+    PutPlateNumberDateStringInTextRange(plateInfoTextRange);
+    
+    BtAteTextFeatures textFeatures;
+    textFeatures.FontSize(8).Font("Helvetica").Justification(ATE::kLeftJustify).FillColor(GetRegistrationColor());
     textFeatures.ApplyFeaturesToRange(plateInfoTextRange);
     
     return plateNumberDateArt;
