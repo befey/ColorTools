@@ -119,6 +119,14 @@ ASErr SafeguardToolsPlugin::StartupPlugin( SPInterfaceMessage *message )
         if (error) { return error; }
     }
     
+    if (NULL == plateBleedInfoUIController)
+    {
+        plateBleedInfoUIController = std::make_shared<SafeguardFile::PlateBleedInfoUIController>();
+        
+        error = Plugin::LockPlugin(true);
+        if (error) { return error; }
+    }
+    
     error = this->AddMenus(message);
     if (error) { return error; }
     
@@ -171,10 +179,14 @@ ASErr SafeguardToolsPlugin::ShutdownPlugin( SPInterfaceMessage *message )
         printToPdfUIController->RemoveEventListeners();
         Plugin::LockPlugin(false);
     }
+    if (plateBleedInfoUIController)
+    {
+        plateBleedInfoUIController->RemoveEventListeners();
+        Plugin::LockPlugin(false);
+    }
 
     message->d.globals = NULL;
     return Plugin::ShutdownPlugin(message);
-
 }
 
 ASErr SafeguardToolsPlugin::ReloadPlugin(SPInterfaceMessage *message)
@@ -396,12 +408,13 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
     }
     else if ( message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
     {
-        ai::UnicodeString menuText;
-        sAIMenu->GetItemText(message->menuItem, menuText);
-        if (menuText.find(ai::UnicodeString("Remove"),0) != ai::UnicodeString::npos)
+        unique_ptr<DictionaryWriter> dw = make_unique<DictionaryWriter>();
+        if ( dw->CheckDictionaryForArtObjectWithIdentifier(SafeguardFile::PLATE_BLEED_INFO_GROUP_LABEL, 0) )
         {
-            //TODO: sgJobFile->RemoveBleedInfo();
-            sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Remove Safeguard Plate Info"), ai::UnicodeString("Redo Remove Safeguard Plate Info"));
+            SafeguardJobFile sgJobFile;
+            plateBleedInfoUIController->LoadExtension();
+            plateBleedInfoUIController->EditBleedInfo(sgJobFile);
+            sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Edit Safeguard Plate Info"), ai::UnicodeString("Redo Edit Safeguard Plate Info"));
         }
         else
         {
@@ -410,7 +423,6 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
             sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Add Safeguard Plate Info"), ai::UnicodeString("Redo Add Safeguard Plate Info"));
         }        
     }
-
 	
 	if (error)
 		goto error;
@@ -467,7 +479,7 @@ ASErr SafeguardToolsPlugin::UpdateMenuItem(AIMenuMessage* message)
         unique_ptr<DictionaryWriter> dw = make_unique<DictionaryWriter>();
         if ( dw->CheckDictionaryForArtObjectWithIdentifier(SafeguardFile::PLATE_BLEED_INFO_GROUP_LABEL, 0) )
         {
-            sAIMenu->SetItemText( message->menuItem, ai::UnicodeString("Remove Safeguard Plate Info") );
+            sAIMenu->SetItemText( message->menuItem, ai::UnicodeString("Edit Safeguard Plate Info") );
         }
         else
         {
@@ -511,7 +523,8 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
     }
     if (message->notifier == fDocumentCropAreaModifiedNotifierHandle )
     {
-        //TODO: SafeguardJobFile Update
+        SafeguardJobFile sgJobFile;
+        sgJobFile.UpdateBleedInfo();
     }
     return kNoErr;
 }

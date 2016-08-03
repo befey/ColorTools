@@ -9,6 +9,7 @@
 #include "SafeguardToolsID.h"
 #include "BtAiMenuItemHandles.h"
 #include "PrintToPdfUIController.h"
+#include "PlateBleedInfoUIController.hpp"
 #include "SafeguardJobFile.h"
 
 //=================================
@@ -120,6 +121,7 @@ protected:
 private:
     shared_ptr<ColorToolsUIController> colorToolsUIController;
     shared_ptr<PrintToPdf::PrintToPdfUIController> printToPdfUIController;
+    shared_ptr<SafeguardFile::PlateBleedInfoUIController> plateBleedInfoUIController;
     
     /**	Notifier handles**/
     AINotifierHandle fRegisterEventNotifierHandle;

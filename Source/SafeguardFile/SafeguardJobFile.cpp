@@ -43,6 +43,14 @@ void SafeguardJobFile::AddBleedInfo()
     }
 }
 
+void SafeguardJobFile::UpdateBleedInfo()
+{
+    for (auto plate : plates)
+    {
+        plate.AddBleedInfo();
+    }
+}
+
 void SafeguardJobFile::RemoveBleedInfo()
 {
     for (auto plate : plates)

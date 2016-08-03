@@ -50,6 +50,8 @@
 		F934B1591CC9645A002EAB43 /* ReplaceDataBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F934B1571CC9645A002EAB43 /* ReplaceDataBuilder.h */; };
 		F937ABE41D51149C006DD5C4 /* BtTransformArt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F937ABE21D51149C006DD5C4 /* BtTransformArt.cpp */; };
 		F937ABE51D51149C006DD5C4 /* BtTransformArt.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F937ABE31D51149C006DD5C4 /* BtTransformArt.hpp */; };
+		F937ABE81D5241EB006DD5C4 /* PlateBleedInfoUIController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F937ABE61D5241EB006DD5C4 /* PlateBleedInfoUIController.cpp */; };
+		F937ABE91D5241EB006DD5C4 /* PlateBleedInfoUIController.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F937ABE71D5241EB006DD5C4 /* PlateBleedInfoUIController.hpp */; };
 		F947263F1CB2E1F400649020 /* VPB.h in Headers */ = {isa = PBXBuildFile; fileRef = F947263D1CB2E1F400649020 /* VPB.h */; };
 		F94726401CB2E1F400649020 /* VPB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F947263E1CB2E1F400649020 /* VPB.cpp */; };
 		F965B58E1D1072F200B0C04C /* ListFonts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F965B58C1D1072F200B0C04C /* ListFonts.cpp */; };
@@ -163,6 +165,8 @@
 		F934B1571CC9645A002EAB43 /* ReplaceDataBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceDataBuilder.h; sourceTree = "<group>"; };
 		F937ABE21D51149C006DD5C4 /* BtTransformArt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BtTransformArt.cpp; path = "Source/utility-headers/BtTransformArt.cpp"; sourceTree = "<group>"; };
 		F937ABE31D51149C006DD5C4 /* BtTransformArt.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = BtTransformArt.hpp; path = "Source/utility-headers/BtTransformArt.hpp"; sourceTree = "<group>"; };
+		F937ABE61D5241EB006DD5C4 /* PlateBleedInfoUIController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlateBleedInfoUIController.cpp; path = Source/PlateBleedInfo/PlateBleedInfoUIController.cpp; sourceTree = "<group>"; };
+		F937ABE71D5241EB006DD5C4 /* PlateBleedInfoUIController.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PlateBleedInfoUIController.hpp; path = Source/PlateBleedInfo/PlateBleedInfoUIController.hpp; sourceTree = "<group>"; };
 		F947263D1CB2E1F400649020 /* VPB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPB.h; path = "Source/utility-headers/VPB.h"; sourceTree = "<group>"; };
 		F947263E1CB2E1F400649020 /* VPB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VPB.cpp; path = "Source/utility-headers/VPB.cpp"; sourceTree = "<group>"; };
 		F965B58C1D1072F200B0C04C /* ListFonts.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ListFonts.cpp; path = Source/ListFonts/ListFonts.cpp; sourceTree = "<group>"; };
@@ -406,6 +410,8 @@
 				F9DA3B981D1C6C9300AB6156 /* FileNameDateDrawer.h */,
 				F9F079691D4BC7D1004AC522 /* IDrawer.cpp */,
 				F9F079681D4BC4D3004AC522 /* IDrawer.h */,
+				F937ABE61D5241EB006DD5C4 /* PlateBleedInfoUIController.cpp */,
+				F937ABE71D5241EB006DD5C4 /* PlateBleedInfoUIController.hpp */,
 				F9C44EF21D0AF51100205ADF /* TickMarkDrawer.cpp */,
 				F9C44EF31D0AF51100205ADF /* TickMarkDrawer.h */,
 				F9F079641D47EEC1004AC522 /* TickMarkSettings.cpp */,
@@ -521,6 +527,7 @@
 				F965B58F1D1072F200B0C04C /* ListFonts.h in Headers */,
 				F90DB92F1D08A25B0039CE5F /* BtAteTextFeatures.h in Headers */,
 				6868C927150BA192003DAAF2 /* SafeguardToolsPlugin.h in Headers */,
+				F937ABE91D5241EB006DD5C4 /* PlateBleedInfoUIController.hpp in Headers */,
 				F9158D561D05FBE900343D57 /* ExistingFileDeleter.h in Headers */,
 				F9C44EF91D0B14AE00205ADF /* SafeguardJobFile.h in Headers */,
 				F90E3FA21CA475880081C333 /* BtSwatchList.h in Headers */,
@@ -606,6 +613,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F937ABE81D5241EB006DD5C4 /* PlateBleedInfoUIController.cpp in Sources */,
 				F989A8F11CA465890050C071 /* IText.cpp in Sources */,
 				F979B5FF1CA31E72004BA4AD /* AppContext.cpp in Sources */,
 				F937ABE41D51149C006DD5C4 /* BtTransformArt.cpp in Sources */,

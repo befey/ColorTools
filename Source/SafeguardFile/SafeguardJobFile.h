@@ -25,16 +25,15 @@ namespace SafeguardFile
     public:
         SafeguardJobFile();
         
-        void RemoveBleedInfo();
-        
         const PlateNumber GetPlateNumber(int plateIndex = 0) const;
         const string GetToken(int plateIndex = 0) const;
         AIRealRect GetBleeds(int plateIndex = 0) const;
         
         void AddBleedInfo();
+        void UpdateBleedInfo();
+        void RemoveBleedInfo();
     private:
         vector<Plate> plates;
-        
         
         bool ShouldDrawBleedInfo();
     };
