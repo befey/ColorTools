@@ -172,6 +172,15 @@ bool ColorIsGripper(const AIColor color)
     return false;
 }
 
+bool ColorIsKeyline(const AIColor color)
+{
+    if (GetColorName(color) == SafeguardFile::KEYLINE_COLOR_NAME)
+    {
+        return true;
+    }
+    return false;
+}
+
 bool ColorIsPantone(const AIColor color)
 {
     //If the swatch name includes "PANTONE" return true
@@ -195,6 +204,10 @@ bool ColorIsNonPrinting(const AIColor color)
         return true;
     }
 */  if (ColorIsGripper(color))
+    {
+        return true;
+    }
+    if (ColorIsKeyline(color))
     {
         return true;
     }

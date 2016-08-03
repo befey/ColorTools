@@ -20,6 +20,7 @@ namespace SafeguardFile
     constexpr auto WHITE_COLOR_NAME =           "White";
     constexpr auto MICR_BLACK_MAG_COLOR_NAME =  "MICR - BLACK MAG";
     constexpr auto GRIPPER_COLOR_NAME =         "GRIPPER";
+    constexpr auto KEYLINE_COLOR_NAME =         "KEYLINE - does not print";
     
     const std::unordered_map<std::string, BtColor> StdColorDefinitions
     {
