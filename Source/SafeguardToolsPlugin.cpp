@@ -501,6 +501,7 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
     {
         colorToolsUIController->RegisterCSXSEventListeners();
         printToPdfUIController->RegisterCSXSEventListeners();
+        plateBleedInfoUIController->RegisterCSXSEventListeners();
     }
     
     if ( message->notifier == fAppStartedNotifierHandle )

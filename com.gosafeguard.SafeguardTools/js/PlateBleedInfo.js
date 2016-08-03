@@ -17,12 +17,12 @@ $(function()
 
 function sendDataToIllustrator()
 {
-	var data = {
-		"preset-select"			:	parseInt($("#preset-select").val(), 10),
-		"range-text"			:	$("#range-text").val(),
-		"allpages-check"		:	$("#allpages-check").is(':checked'),
-		"separatefiles-check"	:	$("#separatefiles-check").is(':checked')
-	};
-	makePdfEvent.data = JSON.stringify(data);
-	csInterface.dispatchEvent(makePdfEvent);
+//	var data = {
+//		"preset-select"			:	parseInt($("#preset-select").val(), 10),
+//		"range-text"			:	$("#range-text").val(),
+//		"allpages-check"		:	$("#allpages-check").is(':checked'),
+//		"separatefiles-check"	:	$("#separatefiles-check").is(':checked')
+//	};
+//	makePdfEvent.data = JSON.stringify(data);
+//	csInterface.dispatchEvent(makePdfEvent);
 }

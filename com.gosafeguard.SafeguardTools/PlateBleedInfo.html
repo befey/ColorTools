@@ -13,26 +13,8 @@
     <body>
         
 <form>
-  <div class="preset">        
-    <label for="preset-select">Choose PDF Preset:</label>
-    <select id="preset-select"> 
-      <option value="0" selected="selected">Manufacturing</option>
-      <option value="1">Proof</option>
-      <option value="2">Proof with MICR Password</option>
-    </select>
-  </div>
-  <div class="field">
-  <input type="checkbox" id="allpages-check" checked="true"><label for="allpages-check">All pages</label> <span class="or">or<br></span>
-    <label for="range-text">Enter page range:</label>
-    <input type="text" id="range-text" placeholder="ie. 1-2,4" title="Must use standard range notation." pattern="(?:\d+(?:-?\d*),?)+"><br>
-    <input type="checkbox" id="separatefiles-check" checked="true"><label for="separatefiles-check">Output separate files</label>
-  </div>
-  <div class="wide-field">
-    <div id="results-textarea"></div>
-  </div>
   <span class="buttons">
     <input type="button" id="cancel-button" onClick="csInterface.dispatchEvent(cancelEvent)" value="Close" />
-    <input type="button" id="makepdf-button" onClick="sendDataToIllustrator()" value="Make PDF" autofocus />
   </span>
 </form>
         
