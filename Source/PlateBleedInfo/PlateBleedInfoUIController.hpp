@@ -48,7 +48,7 @@ namespace SafeguardFile
         
         //=================================
         // Constant definitions
-        static constexpr auto PLATEBLEEDINFO_UI_EXTENSION =     "com.gosafeguard.SafeguardTools.PlateBleedInfoUIController";
+        static constexpr auto PLATEBLEEDINFO_UI_EXTENSION =     "com.gosafeguard.SafeguardTools.PlateBleedInfo";
         static constexpr auto ILST_APP =                        "ILST";
         
     private:
