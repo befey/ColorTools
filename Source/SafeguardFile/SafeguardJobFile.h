@@ -17,6 +17,9 @@
 #include "PdfResults.h"
 #include "PdfSettings.h"
 #include "PrintToPdfConstants.h"
+#include "AICSXS.h"
+
+extern AICSXSExtensionSuite* sAICSXSExtension;
 
 namespace SafeguardFile
 {
@@ -31,6 +34,7 @@ namespace SafeguardFile
         
         void AddBleedInfo();
         void UpdateBleedInfo();
+        void EditBleedInfo();
         void RemoveBleedInfo();
     private:
         vector<Plate> plates;

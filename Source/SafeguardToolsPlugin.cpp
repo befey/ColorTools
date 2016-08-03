@@ -412,8 +412,7 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
         if ( dw->CheckDictionaryForArtObjectWithIdentifier(SafeguardFile::PLATE_BLEED_INFO_GROUP_LABEL, 0) )
         {
             SafeguardJobFile sgJobFile;
-            plateBleedInfoUIController->LoadExtension();
-            plateBleedInfoUIController->EditBleedInfo(sgJobFile);
+            sgJobFile.EditBleedInfo();
             sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Edit Safeguard Plate Info"), ai::UnicodeString("Redo Edit Safeguard Plate Info"));
         }
         else

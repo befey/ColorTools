@@ -43,9 +43,7 @@ namespace SafeguardFile
         ASErr SendData();
         
         void ParseData(const char* eventData);
-        
-        void EditBleedInfo(SafeguardFile::SafeguardJobFile sgJobFile);
-        
+              
         static void CancelButtonClickedFunc (const csxs::event::Event* const event, void* const context);
         void SendCloseMessageToHtml();
 

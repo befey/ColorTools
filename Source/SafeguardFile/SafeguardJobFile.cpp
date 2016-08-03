@@ -7,11 +7,13 @@
 //
 
 #include "SafeguardJobFile.h"
+#include "PlateBleedInfoUIController.hpp"
 
 using SafeguardFile::SafeguardJobFile;
 using SafeguardFile::PlateNumber;
 using PrintToPdf::PdfResults;
 using PrintToPdf::PdfSettings;
+using SafeguardFile::PlateBleedInfoUIController;
 
 SafeguardJobFile::SafeguardJobFile()
 {
@@ -50,6 +52,14 @@ void SafeguardJobFile::UpdateBleedInfo()
         plate.AddBleedInfo();
     }
 }
+
+void SafeguardJobFile::EditBleedInfo()
+{
+    PlateBleedInfoUIController plateBleedInfoUIController;
+    plateBleedInfoUIController.LoadExtension();
+    sAICSXSExtension->LaunchExtension(PlateBleedInfoUIController::PLATEBLEEDINFO_UI_EXTENSION);
+}
+
 
 void SafeguardJobFile::RemoveBleedInfo()
 {

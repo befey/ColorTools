@@ -83,11 +83,6 @@ void PlateBleedInfoUIController::ParseData(const char* eventData)
     return;
 }
 
-void PlateBleedInfoUIController::EditBleedInfo(SafeguardJobFile sgJobFile)
-{
-    sAICSXSExtension->LaunchExtension(SafeguardFile::PlateBleedInfoUIController::PLATEBLEEDINFO_UI_EXTENSION);
-}
-
 void PlateBleedInfoUIController::SendCloseMessageToHtml()
 {
     csxs::event::Event event = {
