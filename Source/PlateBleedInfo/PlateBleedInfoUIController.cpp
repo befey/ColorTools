@@ -14,6 +14,24 @@
 using SafeguardFile::PlateBleedInfoUIController;
 using SafeguardFile::SafeguardJobFile;
 
+void PlateBleedInfoUIController::CancelButtonClickedFunc (const csxs::event::Event* const event, void* const context)
+{
+    PlateBleedInfoUIController *plateBleedInfoUIController = (PlateBleedInfoUIController *)context;
+    if(NULL == plateBleedInfoUIController || event == NULL)
+        return;
+    
+    do {
+        // Set up the application context, so that suite calls can work.
+        AppContext appContext(gPlugin->GetPluginRef());
+        
+        plateBleedInfoUIController->SendCloseMessageToHtml();
+        
+        // Clean up the application context and return.
+    } while(false);
+    return;
+}
+
+
 PlateBleedInfoUIController::PlateBleedInfoUIController(void)
 : FlashUIController(PLATEBLEEDINFO_UI_EXTENSION)
 {
@@ -26,11 +44,11 @@ csxs::event::EventErrorCode PlateBleedInfoUIController::RegisterCSXSEventListene
 {
     csxs::event::EventErrorCode result = csxs::event::kEventErrorCode_Success;
     do {
-//        result =  fPPLib.AddEventListener(EVENT_TYPE_MAKEPDF_CLICKED, MakePdfButtonClickedFunc, this);
-//        if (result != csxs::event::kEventErrorCode_Success)
-//        {
-//            break;
-//        }
+        result =  fPPLib.AddEventListener(EVENT_TYPE_CANCEL_CLICKED, CancelButtonClickedFunc, this);
+        if (result != csxs::event::kEventErrorCode_Success)
+        {
+            break;
+        }
     }
     while(false);
     return result;
@@ -42,11 +60,11 @@ csxs::event::EventErrorCode PlateBleedInfoUIController::RemoveEventListeners()
 {
     csxs::event::EventErrorCode result = csxs::event::kEventErrorCode_Success;
     do {
-//        result =  fPPLib.RemoveEventListener(EVENT_TYPE_MAKEPDF_CLICKED, MakePdfButtonClickedFunc, this);
-//        if (result != csxs::event::kEventErrorCode_Success)
-//        {
-//            break;
-//        }
+        result =  fPPLib.RemoveEventListener(EVENT_TYPE_CANCEL_CLICKED, CancelButtonClickedFunc, this);
+        if (result != csxs::event::kEventErrorCode_Success)
+        {
+            break;
+        }
     }
     while(false);
     return result;
@@ -68,4 +86,16 @@ void PlateBleedInfoUIController::ParseData(const char* eventData)
 void PlateBleedInfoUIController::EditBleedInfo(SafeguardJobFile sgJobFile)
 {
     sAICSXSExtension->LaunchExtension(SafeguardFile::PlateBleedInfoUIController::PLATEBLEEDINFO_UI_EXTENSION);
+}
+
+void PlateBleedInfoUIController::SendCloseMessageToHtml()
+{
+    csxs::event::Event event = {
+        EVENT_TYPE_FORCE_PANEL_CLOSE,
+        csxs::event::kEventScope_Application,
+        ILST_APP,
+        NULL,
+        NULL
+    };
+    fPPLib.DispatchEvent(&event);
 }

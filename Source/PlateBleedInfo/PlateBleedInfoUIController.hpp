@@ -46,9 +46,15 @@ namespace SafeguardFile
         
         void EditBleedInfo(SafeguardFile::SafeguardJobFile sgJobFile);
         
+        static void CancelButtonClickedFunc (const csxs::event::Event* const event, void* const context);
+        void SendCloseMessageToHtml();
+
+        
         //=================================
         // Constant definitions
         static constexpr auto PLATEBLEEDINFO_UI_EXTENSION =     "com.gosafeguard.SafeguardTools.PlateBleedInfo";
+        static constexpr auto EVENT_TYPE_CANCEL_CLICKED =       "com.gosafeguard.SafeguardTools.PlateBleedInfo.cancelbutton";
+        static constexpr auto EVENT_TYPE_FORCE_PANEL_CLOSE =    "com.gosafeguard.SafeguardTools.PlateBleedInfo.forcepanelclose";
         static constexpr auto ILST_APP =                        "ILST";
         
     private:
