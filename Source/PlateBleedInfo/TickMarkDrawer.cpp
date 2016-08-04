@@ -7,6 +7,7 @@
 //
 
 #include "TickMarkDrawer.h"
+#include "BtLayer.hpp"
 
 using SafeguardFile::TickMarkDrawer;
 
@@ -31,7 +32,9 @@ AIArtHandle TickMarkDrawer::DrawOuter(AIArtHandle tickMarkGroupArt) const
 {
     if (tickMarkGroupArt == NULL)
     {
-        sAIArt->NewArt(kGroupArt, kPlaceAboveAll, NULL, &tickMarkGroupArt);
+        BtLayer foregroundLayer(FOREGROUND_LAYER);
+        AIArtHandle prep = foregroundLayer.GetLayerGroupArt();
+        sAIArt->NewArt(kGroupArt, kPlaceInsideOnTop, prep, &tickMarkGroupArt);
     }
     
     vector<TickMark> tickMarks =
@@ -65,7 +68,9 @@ AIArtHandle TickMarkDrawer::DrawInner(AIArtHandle tickMarkGroupArt) const
 {
     if (tickMarkGroupArt == NULL)
     {
-        sAIArt->NewArt(kGroupArt, kPlaceAboveAll, NULL, &tickMarkGroupArt);
+        BtLayer foregroundLayer(FOREGROUND_LAYER);
+        AIArtHandle prep = foregroundLayer.GetLayerGroupArt();
+        sAIArt->NewArt(kGroupArt, kPlaceInsideOnTop, prep, &tickMarkGroupArt);
     }
     
     vector<TickMark> tickMarks =
@@ -99,7 +104,9 @@ AIArtHandle TickMarkDrawer::DrawTickMarks(vector<TickMark> ticks, AIArtHandle ti
 {
     if (tickMarkGroupArt == NULL)
     {
-        sAIArt->NewArt(kGroupArt, kPlaceAboveAll, NULL, &tickMarkGroupArt);
+        BtLayer foregroundLayer(FOREGROUND_LAYER);
+        AIArtHandle prep = foregroundLayer.GetLayerGroupArt();
+        sAIArt->NewArt(kGroupArt, kPlaceInsideOnTop, prep, &tickMarkGroupArt);
     }
     
     for ( auto tick : ticks )

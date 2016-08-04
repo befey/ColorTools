@@ -10,6 +10,8 @@
 #include "ColorFuncs.h"
 #include "BleedInfo.h"
 #include "BtTransformArt.hpp"
+#include "BtLayer.hpp"
+#include "SafeguardFileConstants.h"
 #include <ctime>
 
 using SafeguardFile::FileNameDateDrawer;
@@ -30,7 +32,10 @@ BusStatFileNameDateDrawer::BusStatFileNameDateDrawer(AIRealRect bounds, PlateNum
 AIArtHandle LaserFileNameDateDrawer::DoDraw() const
 {
     AIArtHandle plateNumberDateArt;
-    sAITextFrame->NewPointText(kPlaceAboveAll, NULL, kHorizontalTextOrientation, anchor, &plateNumberDateArt);
+    BtLayer foregroundLayer(FOREGROUND_LAYER);
+    AIArtHandle prep = foregroundLayer.GetLayerGroupArt();
+    
+    sAITextFrame->NewPointText(kPlaceInsideOnTop, prep, kHorizontalTextOrientation, anchor, &plateNumberDateArt);
     
     //Create the ATE range
     ATE::TextRangeRef plateInfoTextRangeRef;
@@ -50,7 +55,10 @@ AIArtHandle LaserFileNameDateDrawer::DoDraw() const
 AIArtHandle ContinuousFileNameDateDrawer::DoDraw() const
 {
     AIArtHandle plateNumberDateArt;
-    sAITextFrame->NewPointText(kPlaceAboveAll, NULL, kHorizontalTextOrientation, anchor, &plateNumberDateArt);
+    BtLayer foregroundLayer(FOREGROUND_LAYER);
+    AIArtHandle prep = foregroundLayer.GetLayerGroupArt();
+    
+    sAITextFrame->NewPointText(kPlaceInsideOnTop, prep, kHorizontalTextOrientation, anchor, &plateNumberDateArt);
     
     RotateArt(plateNumberDateArt, anchor, -90);
     
@@ -72,7 +80,10 @@ AIArtHandle ContinuousFileNameDateDrawer::DoDraw() const
 AIArtHandle BusStatFileNameDateDrawer::DoDraw() const
 {
     AIArtHandle plateNumberDateArt;
-    sAITextFrame->NewPointText(kPlaceAboveAll, NULL, kHorizontalTextOrientation, anchor, &plateNumberDateArt);
+    BtLayer foregroundLayer(FOREGROUND_LAYER);
+    AIArtHandle prep = foregroundLayer.GetLayerGroupArt();
+    
+    sAITextFrame->NewPointText(kPlaceInsideOnTop, prep, kHorizontalTextOrientation, anchor, &plateNumberDateArt);
     
     //Create the ATE range
     ATE::TextRangeRef plateInfoTextRangeRef;

@@ -10,6 +10,8 @@
 #include "ColorFuncs.h"
 #include "BtAteTextFeatures.h"
 #include "BtTransformArt.hpp"
+#include "SafeguardFileConstants.h"
+#include "BtLayer.hpp"
 
 using SafeguardFile::ColorListDrawer;
 using SafeguardFile::LaserColorListDrawer;
@@ -31,8 +33,10 @@ BusStatColorListDrawer::BusStatColorListDrawer(AIRealRect bounds, ColorList colo
 AIArtHandle LaserColorListDrawer::DoDraw() const
 {
     AIArtHandle colorListArt;
-    sAITextFrame->NewPointText(kPlaceAboveAll, NULL, kHorizontalTextOrientation, anchor, &colorListArt);
+    BtLayer foregroundLayer(FOREGROUND_LAYER);
+    AIArtHandle prep = foregroundLayer.GetLayerGroupArt();
     
+    sAITextFrame->NewPointText(kPlaceInsideOnTop, prep, kHorizontalTextOrientation, anchor, &colorListArt);
     //Create the ATE range
     ATE::TextRangeRef colorListTextRangeRef;
     sAITextFrame->GetATETextRange(colorListArt, &colorListTextRangeRef);
@@ -51,7 +55,10 @@ AIArtHandle LaserColorListDrawer::DoDraw() const
 AIArtHandle ContinuousColorListDrawer::DoDraw() const
 {
     AIArtHandle colorListArt;
-    sAITextFrame->NewPointText(kPlaceAboveAll, NULL, kHorizontalTextOrientation, anchor, &colorListArt);
+    BtLayer foregroundLayer(FOREGROUND_LAYER);
+    AIArtHandle prep = foregroundLayer.GetLayerGroupArt();
+    
+    sAITextFrame->NewPointText(kPlaceInsideOnTop, prep, kHorizontalTextOrientation, anchor, &colorListArt);
     
     RotateArt(colorListArt, anchor, -90);
     
@@ -73,7 +80,10 @@ AIArtHandle ContinuousColorListDrawer::DoDraw() const
 AIArtHandle BusStatColorListDrawer::DoDraw() const
 {
     AIArtHandle colorListArt;
-    sAITextFrame->NewPointText(kPlaceAboveAll, NULL, kHorizontalTextOrientation, anchor, &colorListArt);
+    BtLayer foregroundLayer(FOREGROUND_LAYER);
+    AIArtHandle prep = foregroundLayer.GetLayerGroupArt();
+    
+    sAITextFrame->NewPointText(kPlaceInsideOnTop, prep, kHorizontalTextOrientation, anchor, &colorListArt);
     
     //Create the ATE range
     ATE::TextRangeRef colorListTextRangeRef;

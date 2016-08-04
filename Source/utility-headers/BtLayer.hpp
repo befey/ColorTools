@@ -43,6 +43,7 @@ public:
     void ConvertTextToPaths() const;
     
     void PutArtAtTopOfLayer(AIArtHandle art);
+    AIArtHandle GetLayerGroupArt() const;
 private:
     AILayerHandle layerHandle;
     

@@ -7,6 +7,7 @@
 //
 
 #include "BtAteTextFeatures.h"
+#include "ArtTree.h"
 
 BtAteTextFeatures::BtAteTextFeatures() {};
 BtAteTextFeatures::BtAteTextFeatures(ATE::ICharFeatures cFeatures) : charFeatures(ATE::ICharFeatures(cFeatures)) {};
@@ -81,8 +82,11 @@ ATETextDOM::Real BtAteTextFeatures::Leading(bool* isAssigned) const
 void BtAteTextFeatures::AddTextToRangeWithFeatures(const string text, ATE::ITextRange& targetRange, int beforeAfter)
 {
     //We have to create a new point text so we can get a new blank range
-    AIArtHandle tempTextHandle = NULL;
-    sAITextFrame->NewPointText(kPlaceAboveAll, NULL, kHorizontalTextOrientation, AIRealPoint{0,0}, &tempTextHandle);
+    AIArtHandle tempTextHandle;
+    
+    AIArtHandle prep = GetGroupArtOfFirstEditableLayer();
+    sAITextFrame->NewPointText(kPlaceInsideOnTop, prep, kHorizontalTextOrientation, AIRealPoint{0,0}, &tempTextHandle);
+    
     ATE::TextRangeRef newTextRangeRef;
     sAITextFrame->GetATETextRange(tempTextHandle, &newTextRangeRef);
     ATE::ITextRange newTextRange(newTextRangeRef);

@@ -42,4 +42,6 @@ void GetBoundsOfSelectionFromRoot(AIArtHandle root, AIArtHandle currArtHandle, A
 void GetBoundsOfClipGroup(AIArtHandle root, AIArtHandle currArtHandle, AIRealRect* bounds, bool* boundsValid);
 //Traverses the tree defined by "root" and returns the bounds of the clipping masks contained
 
+AIArtHandle GetGroupArtOfFirstEditableLayer();
+
 #endif //ARTTREE_H

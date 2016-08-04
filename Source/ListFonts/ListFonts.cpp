@@ -148,7 +148,9 @@ AIArtHandle ListFonts::WriteVectorOfFontsToArtboard()
     
     AIRealPoint anchor = {.h = rect.left, .v = rect.bottom - 52};
     AIArtHandle textFrame;
-    sAITextFrame->NewPointText(kPlaceAboveAll, NULL, kHorizontalTextOrientation, anchor, &textFrame);
+    AIArtHandle prep = GetGroupArtOfFirstEditableLayer();
+    
+    sAITextFrame->NewPointText(kPlaceInsideOnTop, prep, kHorizontalTextOrientation, anchor, &textFrame);
     
     //Create the ATE range
     ATE::TextRangeRef textRangeRef;

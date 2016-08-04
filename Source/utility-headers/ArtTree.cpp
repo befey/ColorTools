@@ -8,6 +8,7 @@
  */
 
 #include "ArtTree.h"
+#include "BtLayer.hpp"
 
 
 long CreateArtSetOfPrintingObjectsWithinRect(AIArtSet const targetSet, AIRealRect rect)
@@ -54,13 +55,15 @@ long CreateArtSetOfPrintingObjectsWithinRect(AIArtSet const targetSet, AIRealRec
 }
 
 void PutArtInGroup(AIArtHandle currArtHandle, AIArtHandle theGroup) {
-	AILayerHandle layer = NULL; sAIArt->GetLayerOfArt(currArtHandle, &layer);
-	if (!layer) {
+	AILayerHandle layer = NULL;
+    sAIArt->GetLayerOfArt(currArtHandle, &layer);
+	if (!layer)
+    {
 		return;
 	}
-	AIArtHandle layerGroup; sAIArt->GetFirstArtOfLayer(layer, &layerGroup);
 
-	int eflag = 0; int vflag = 0;
+	int eflag = 0;
+    int vflag = 0;
 	ASBoolean editable = FALSE;
 	ASBoolean visible = FALSE;
 	
@@ -394,4 +397,23 @@ bool ProcessArtSet(const AIArtSet artSet, std::function<void(AIArtHandle)> callb
         callback(art);
     }
     return true;
+}
+
+AIArtHandle GetGroupArtOfFirstEditableLayer()
+{
+    ai::int32 count;
+    sAILayer->CountLayers(&count);
+    
+    for (int i = 0; i < count; i++)
+    {
+        AILayerHandle layer;
+        sAILayer->GetNthLayer(i, &layer);
+        BtLayer btLayer(layer);
+        if (btLayer.Editable() && btLayer.Visible())
+        {
+            return btLayer.GetLayerGroupArt();
+        }
+    }
+    
+    return NULL;
 }

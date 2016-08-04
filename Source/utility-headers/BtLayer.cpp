@@ -167,8 +167,7 @@ void BtLayer::ConvertTextToPaths() const
 
 void BtLayer::PutArtAtTopOfLayer(AIArtHandle art)
 {
-    AIArtHandle layerGroup;
-    sAIArt->GetFirstArtOfLayer(layerHandle, &layerGroup);
+    AIArtHandle layerGroup = GetLayerGroupArt();
 
     MakeLayerEditableAndStorePreviousState();
     
@@ -186,6 +185,13 @@ void BtLayer::PutArtAtTopOfLayer(AIArtHandle art)
     ApplyStoredAttributes();
     
     sAIArt->SetArtUserAttr(art, kArtLocked | kArtHidden, attr);
+}
+
+AIArtHandle BtLayer::GetLayerGroupArt() const
+{
+    AIArtHandle layerGroup;
+    sAIArt->GetFirstArtOfLayer(layerHandle, &layerGroup);
+    return layerGroup;
 }
 
 void BtLayer::MakeLayerEditableAndStorePreviousState()

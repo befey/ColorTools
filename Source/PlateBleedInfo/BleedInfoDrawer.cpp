@@ -11,6 +11,7 @@
 #include "DictionaryWriter.h"
 #include "ArtTree.h"
 #include "BtLayer.hpp"
+#include "GetIllustratorErrorCode.h"
 
 
 using SafeguardFile::BleedInfoDrawer;
@@ -39,12 +40,14 @@ AIArtHandle BleedInfoDrawer::DoDraw() const
 AIArtHandle BleedInfoDrawer::Add() const
 {
     AIArtHandle pluginGroupArt;
-    sAIArt->NewArt(kPluginArt, kPlaceAboveAll, NULL, &pluginGroupArt);
     
-    sAIPluginGroup->UseAIPluginGroup(pluginGroupArt, gPlugin->GetBleedInfoPluginGroupHandle());
     BtLayer foregroundLayer(FOREGROUND_LAYER);
-    foregroundLayer.PutArtAtTopOfLayer(pluginGroupArt);
-
+    AIArtHandle prep = foregroundLayer.GetLayerGroupArt();
+    
+    AIErr err = sAIArt->NewArt(kPluginArt, kPlaceInsideOnBottom, prep, &pluginGroupArt);
+    string error = GetIllustratorErrorCode(err);
+    sAIPluginGroup->UseAIPluginGroup(pluginGroupArt, gPlugin->GetBleedInfoPluginGroupHandle());
+    
     CreateResultArt(pluginGroupArt);
     
     unique_ptr<DictionaryWriter> dw = make_unique<DictionaryWriter>();
@@ -65,14 +68,14 @@ AIArtHandle BleedInfoDrawer::CreateResultArt(AIArtHandle pluginGroupArt) const
 {
     vector<AIArtHandle> resultHandles;
     
-    for ( auto drawer : drawers )
+    for (auto drawer : drawers)
     {
         resultHandles.push_back(drawer->Draw());
     }
     
     AIArtHandle resultGroupArt;
-    sAIArt->NewArt(kGroupArt, kPlaceAboveAll, NULL, &resultGroupArt);
-    
+    ASErr err = sAIArt->NewArt(kGroupArt, kPlaceInsideOnBottom, GetGroupArtOfFirstEditableLayer(), &resultGroupArt);
+    string error = GetIllustratorErrorCode(err);
     for (auto art : resultHandles)
     {
         if (art != NULL)

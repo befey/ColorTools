@@ -52,6 +52,8 @@
 		F937ABE51D51149C006DD5C4 /* BtTransformArt.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F937ABE31D51149C006DD5C4 /* BtTransformArt.hpp */; };
 		F937ABE81D5241EB006DD5C4 /* PlateBleedInfoUIController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F937ABE61D5241EB006DD5C4 /* PlateBleedInfoUIController.cpp */; };
 		F937ABE91D5241EB006DD5C4 /* PlateBleedInfoUIController.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F937ABE71D5241EB006DD5C4 /* PlateBleedInfoUIController.hpp */; };
+		F937ABEC1D5267CB006DD5C4 /* BtDocumentView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F937ABEA1D5267CB006DD5C4 /* BtDocumentView.cpp */; };
+		F937ABED1D5267CB006DD5C4 /* BtDocumentView.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F937ABEB1D5267CB006DD5C4 /* BtDocumentView.hpp */; };
 		F947263F1CB2E1F400649020 /* VPB.h in Headers */ = {isa = PBXBuildFile; fileRef = F947263D1CB2E1F400649020 /* VPB.h */; };
 		F94726401CB2E1F400649020 /* VPB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F947263E1CB2E1F400649020 /* VPB.cpp */; };
 		F965B58E1D1072F200B0C04C /* ListFonts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F965B58C1D1072F200B0C04C /* ListFonts.cpp */; };
@@ -167,6 +169,8 @@
 		F937ABE31D51149C006DD5C4 /* BtTransformArt.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = BtTransformArt.hpp; path = "Source/utility-headers/BtTransformArt.hpp"; sourceTree = "<group>"; };
 		F937ABE61D5241EB006DD5C4 /* PlateBleedInfoUIController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlateBleedInfoUIController.cpp; path = Source/PlateBleedInfo/PlateBleedInfoUIController.cpp; sourceTree = "<group>"; };
 		F937ABE71D5241EB006DD5C4 /* PlateBleedInfoUIController.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PlateBleedInfoUIController.hpp; path = Source/PlateBleedInfo/PlateBleedInfoUIController.hpp; sourceTree = "<group>"; };
+		F937ABEA1D5267CB006DD5C4 /* BtDocumentView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BtDocumentView.cpp; path = "Source/utility-headers/BtDocumentView.cpp"; sourceTree = "<group>"; };
+		F937ABEB1D5267CB006DD5C4 /* BtDocumentView.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = BtDocumentView.hpp; path = "Source/utility-headers/BtDocumentView.hpp"; sourceTree = "<group>"; };
 		F947263D1CB2E1F400649020 /* VPB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPB.h; path = "Source/utility-headers/VPB.h"; sourceTree = "<group>"; };
 		F947263E1CB2E1F400649020 /* VPB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VPB.cpp; path = "Source/utility-headers/VPB.cpp"; sourceTree = "<group>"; };
 		F965B58C1D1072F200B0C04C /* ListFonts.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ListFonts.cpp; path = Source/ListFonts/ListFonts.cpp; sourceTree = "<group>"; };
@@ -464,6 +468,8 @@
 				F90DB92D1D08A25B0039CE5F /* BtAteTextFeatures.h */,
 				F90E3F971CA475880081C333 /* BtColor.cpp */,
 				F90E3F981CA475880081C333 /* BtColor.h */,
+				F937ABEA1D5267CB006DD5C4 /* BtDocumentView.cpp */,
+				F937ABEB1D5267CB006DD5C4 /* BtDocumentView.hpp */,
 				F97B56501D367CA900C10A9F /* BtLayer.cpp */,
 				F97B56511D367CA900C10A9F /* BtLayer.hpp */,
 				F90E3F991CA475880081C333 /* BtSwatchList.cpp */,
@@ -494,6 +500,7 @@
 				F90E3F9E1CA475880081C333 /* ATEFuncs.h in Headers */,
 				F910BD6B1D09FA910029DF62 /* BleedInfo.h in Headers */,
 				F90AE3F31CAAF8AF0076A9BC /* BtAiMenuItemHandles.h in Headers */,
+				F937ABED1D5267CB006DD5C4 /* BtDocumentView.hpp in Headers */,
 				F98BAEDE1CA99E1E00965D86 /* ArtTree.h in Headers */,
 				F9FAE8FF1CBD87E700938893 /* BtArtboardRange.h in Headers */,
 				F9DA3B9E1D1D7E6200AB6156 /* BleedTextInfoDrawer.h in Headers */,
@@ -668,6 +675,7 @@
 				6868C926150BA192003DAAF2 /* SafeguardToolsPlugin.cpp in Sources */,
 				6868C928150BA192003DAAF2 /* SafeguardToolsSuites.cpp in Sources */,
 				F9158D511D05EC4700343D57 /* PathBuilder.cpp in Sources */,
+				F937ABEC1D5267CB006DD5C4 /* BtDocumentView.cpp in Sources */,
 				F97B56561D36B92600C10A9F /* TypeToPathsConverter.cpp in Sources */,
 				F905605E1D3526E30084AB31 /* DictionaryWriter.cpp in Sources */,
 				F989A8E81CA460CE0050C071 /* ColorToolsUIController.cpp in Sources */,

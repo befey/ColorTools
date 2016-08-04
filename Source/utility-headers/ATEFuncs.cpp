@@ -9,6 +9,7 @@
 
 #include "ATEFuncs.h"
 #include "BtAteTextFeatures.h"
+#include "ArtTree.h"
 
 ai::UnicodeString GetNameFromATETextRange(ATE::ITextRange targetRange) {
 	ATE::ITextFramesIterator itemFrameIterator = targetRange.GetTextFramesIterator();
@@ -219,7 +220,10 @@ void AddTextToRange(const string text, ATE::ITextRange& targetRange, int beforeA
 {
     //We have to create a new point text so we can get a new blank range
     AIArtHandle tempTextHandle = NULL; AIRealPoint anchor ={0,0};
-    sAITextFrame->NewPointText(kPlaceAboveAll, NULL, kHorizontalTextOrientation, anchor, &tempTextHandle);
+    
+    AIArtHandle prep = GetGroupArtOfFirstEditableLayer();
+        
+    sAITextFrame->NewPointText(kPlaceInsideOnTop, prep, kHorizontalTextOrientation, anchor, &tempTextHandle);
     ATE::TextRangeRef newTextRangeRef;
     sAITextFrame->GetATETextRange(tempTextHandle, &newTextRangeRef);
     ATE::ITextRange newTextRange(newTextRangeRef);

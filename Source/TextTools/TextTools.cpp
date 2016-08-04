@@ -857,7 +857,7 @@ bool CreateMICRBarcode()
         {
 			AIRealPoint anchor;
 			FindBarcodeAnchorPoint(&anchor);
-			sAITextFrame->NewPointText(kPlaceAboveAll, micrLineHandle, kHorizontalTextOrientation, anchor, &barcodeTextFrame);
+			sAITextFrame->NewPointText(kPlaceAbove, micrLineHandle, kHorizontalTextOrientation, anchor, &barcodeTextFrame);
 			sAIArt->SetArtName(barcodeTextFrame, ai::UnicodeString(MICR_BARCODE_LABEL));
 			
 			dw->AddArtHandleToDictionary(barcodeTextFrame, MICR_BARCODE_LABEL);
