@@ -58,10 +58,9 @@ AIArtHandle BleedInfoDrawer::Add() const
 
 AIArtHandle BleedInfoDrawer::Update(AIArtHandle pluginGroupArt) const
 {
-    AIArtHandle resultArt;
-    sAIPluginGroup->GetPluginArtResultArt(pluginGroupArt, &resultArt);
-    sAIArt->DisposeArt(resultArt);
-    return CreateResultArt(pluginGroupArt);
+    CreateResultArt(pluginGroupArt);
+    sAIPluginGroup->MarkPluginArtDirty(pluginGroupArt);
+    return pluginGroupArt;
 }
 
 AIArtHandle BleedInfoDrawer::CreateResultArt(AIArtHandle pluginGroupArt) const
