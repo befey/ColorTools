@@ -10,14 +10,55 @@
 <link rel="stylesheet" href="css/PlateBleedInfo.css" type="text/css" />
 </head>
 
-    <body>
-        
-<form>
-  <span class="buttons">
+<body>
+
+  <form>
+    <div class="container">
+      <div class="column column-one">
+        <a class="arrow arrow-left" role="button"></a>
+      </div>
+      <div class="column column-two">
+        <div class="header-label"><input type="text" id="artboard-name"><br />Artboard #1</div>
+      </div>
+      <div class="column column-three">
+        <a class="arrow arrow-right" role="button"></a>
+      </div>
+    </div><br />
+    <div class="container">
+      <div class="column column-one">
+        <label for="tickmark-select">Choose tick mark style:</label>
+      </div>
+      <div class="column column-two">
+        <select id="tickmark-select"> 
+      <option value="0" selected="selected">Outer</option>
+      <option value="1">Inner</option>
+      <option value="2">Both</option>
+      <option value="3">None</option>
+    </select>
+        <input type="checkbox" id="allartboardssametick-check" checked="true"><label for="allartboardssametick-check">Use for all artboards</label>
+      </div>
+    </div>
+    <label for="inktype-select">Set ink methods:<br /></label>
+    <div class="container" id="inks">
+      <div id="colorname-text" class="column column-one">
+        ColorName
+      </div>
+      <div class="column column-two">
+        <select id="inktype-select">
+      <option value="0" selected="selected"></option>
+      <option value="1">Flat</option>
+      <option value="2">Thermo</option>
+      <option value="3">Foil</option>
+      <option value="4">Emboss</option>
+    </select>
+      </div>
+    </div>
+    <span class="buttons">
     <input type="button" id="cancel-button" onClick="csInterface.dispatchEvent(cancelEvent)" value="Close" />
+    <input type="button" id="ok-button" onClick="sendDataToIllustrator()" value="OK" autofocus />
   </span>
-</form>
-        
-    </body>
+  </form>
+
+</body>
     
-</html>
+</html> 
