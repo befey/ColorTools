@@ -186,12 +186,12 @@
 		F937ABEA1D5267CB006DD5C4 /* BtDocumentView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BtDocumentView.cpp; path = "Source/utility-headers/BtDocumentView.cpp"; sourceTree = "<group>"; };
 		F937ABEB1D5267CB006DD5C4 /* BtDocumentView.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = BtDocumentView.hpp; path = "Source/utility-headers/BtDocumentView.hpp"; sourceTree = "<group>"; };
 		F937ABF21D551D72006DD5C4 /* PrintToPdf.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = PrintToPdf.js; path = com.gosafeguard.SafeguardTools/js/PrintToPdf.js; sourceTree = "<group>"; };
-		F937ABF51D551E1F006DD5C4 /* ColorTools.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = ColorTools.html; path = com.gosafeguard.SafeguardTools/ColorTools.html; sourceTree = "<group>"; };
-		F937ABF61D551E1F006DD5C4 /* ColorTools.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = ColorTools.js; path = com.gosafeguard.SafeguardTools/js/ColorTools.js; sourceTree = "<group>"; };
+		F937ABF51D551E1F006DD5C4 /* ColorTools.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = ColorTools.html; path = ../../com.gosafeguard.SafeguardTools/ColorTools.html; sourceTree = "<group>"; };
+		F937ABF61D551E1F006DD5C4 /* ColorTools.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = ColorTools.js; path = ../../com.gosafeguard.SafeguardTools/js/ColorTools.js; sourceTree = "<group>"; };
 		F937ABF71D551E1F006DD5C4 /* PlateBleedInfo.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = PlateBleedInfo.js; path = com.gosafeguard.SafeguardTools/js/PlateBleedInfo.js; sourceTree = "<group>"; };
 		F937ABF81D551E1F006DD5C4 /* PlateBleedInfo.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = PlateBleedInfo.html; path = com.gosafeguard.SafeguardTools/PlateBleedInfo.html; sourceTree = "<group>"; };
 		F937ABF91D551E1F006DD5C4 /* PrintToPdf.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = PrintToPdf.html; path = com.gosafeguard.SafeguardTools/PrintToPdf.html; sourceTree = "<group>"; };
-		F937ABFF1D551ED7006DD5C4 /* ColorTools.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = ColorTools.css; path = com.gosafeguard.SafeguardTools/css/ColorTools.css; sourceTree = "<group>"; };
+		F937ABFF1D551ED7006DD5C4 /* ColorTools.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = ColorTools.css; path = ../../com.gosafeguard.SafeguardTools/css/ColorTools.css; sourceTree = "<group>"; };
 		F937AC001D551ED7006DD5C4 /* PlateBleedInfo.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = PlateBleedInfo.css; path = com.gosafeguard.SafeguardTools/css/PlateBleedInfo.css; sourceTree = "<group>"; };
 		F937AC011D551ED7006DD5C4 /* PrintToPdf.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = PrintToPdf.css; path = com.gosafeguard.SafeguardTools/css/PrintToPdf.css; sourceTree = "<group>"; };
 		F937AC0F1D552051006DD5C4 /* com.gosafeguard.SafeguardTools */ = {isa = PBXFileReference; lastKnownFileType = folder; path = com.gosafeguard.SafeguardTools; sourceTree = "<group>"; };
@@ -303,7 +303,6 @@
 		2AE97C910BBC0FAB0041212F /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				F937ABF41D551DEF006DD5C4 /* Extension Panels */,
 				F989A8CF1CA4606E0050C071 /* My Headers */,
 				F963C91C1CC7D3AA00A0D519 /* ColorTools */,
 				F905605B1D35267A0084AB31 /* DictionaryWriter */,
@@ -386,6 +385,9 @@
 		F91180761CE3B37600AA7AC8 /* PrintToPdf */ = {
 			isa = PBXGroup;
 			children = (
+				F937ABF91D551E1F006DD5C4 /* PrintToPdf.html */,
+				F937ABF21D551D72006DD5C4 /* PrintToPdf.js */,
+				F937AC011D551ED7006DD5C4 /* PrintToPdf.css */,
 				F9158D531D05FBE900343D57 /* ExistingFileDeleter.cpp */,
 				F9158D541D05FBE900343D57 /* ExistingFileDeleter.h */,
 				F97B564C1D36759400C10A9F /* LayerVisibility.cpp */,
@@ -426,6 +428,9 @@
 		F9158D571D073E4E00343D57 /* PlateBleedInfo */ = {
 			isa = PBXGroup;
 			children = (
+				F937ABF81D551E1F006DD5C4 /* PlateBleedInfo.html */,
+				F937ABF71D551E1F006DD5C4 /* PlateBleedInfo.js */,
+				F937AC001D551ED7006DD5C4 /* PlateBleedInfo.css */,
 				F9F079621D47ED21004AC522 /* BleedInfo.cpp */,
 				F910BD691D09FA910029DF62 /* BleedInfo.h */,
 				F9DA3B8F1D1C5EFA00AB6156 /* BleedInfoDrawer.cpp */,
@@ -450,25 +455,12 @@
 			name = PlateBleedInfo;
 			sourceTree = "<group>";
 		};
-		F937ABF41D551DEF006DD5C4 /* Extension Panels */ = {
+		F963C91C1CC7D3AA00A0D519 /* ColorTools */ = {
 			isa = PBXGroup;
 			children = (
 				F937ABF51D551E1F006DD5C4 /* ColorTools.html */,
 				F937ABF61D551E1F006DD5C4 /* ColorTools.js */,
 				F937ABFF1D551ED7006DD5C4 /* ColorTools.css */,
-				F937ABF81D551E1F006DD5C4 /* PlateBleedInfo.html */,
-				F937ABF71D551E1F006DD5C4 /* PlateBleedInfo.js */,
-				F937AC001D551ED7006DD5C4 /* PlateBleedInfo.css */,
-				F937ABF91D551E1F006DD5C4 /* PrintToPdf.html */,
-				F937ABF21D551D72006DD5C4 /* PrintToPdf.js */,
-				F937AC011D551ED7006DD5C4 /* PrintToPdf.css */,
-			);
-			name = "Extension Panels";
-			sourceTree = "<group>";
-		};
-		F963C91C1CC7D3AA00A0D519 /* ColorTools */ = {
-			isa = PBXGroup;
-			children = (
 				F989A8E01CA460CE0050C071 /* ColorToolsUIController.cpp */,
 				F989A8E11CA460CE0050C071 /* ColorToolsUIController.h */,
 				F989A8E21CA460CE0050C071 /* FindReplaceGraphics.cpp */,
