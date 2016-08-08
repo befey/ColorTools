@@ -773,7 +773,7 @@
 				STRIP_INSTALLED_PRODUCT = YES;
 				STRIP_STYLE = all;
 				SYMROOT = "$(SRCROOT)/output/mac/$(AI_CONFIGURATION)";
-				USER_HEADER_SEARCH_PATHS = "";
+				USER_HEADER_SEARCH_PATHS = "/Users/t431962/Desktop/boost_1_60_0 /Users/t431962/Desktop/rapidjson/include/rapidjson \"$(PATH_TO_SDK_ILLUSTRATORAPI_FOLDER)/**\" \"$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common/**\" /Users/t431962/Desktop/SafeguardTools/Source/utility-headers";
 				VALID_ARCHS = "i386 x86_64";
 				WRAPPER_EXTENSION = aip;
 				ZERO_LINK = NO;
@@ -832,7 +832,7 @@
 				STRIP_INSTALLED_PRODUCT = YES;
 				STRIP_STYLE = all;
 				SYMROOT = "$(SRCROOT)/output/mac/$(AI_CONFIGURATION)";
-				USER_HEADER_SEARCH_PATHS = "";
+				USER_HEADER_SEARCH_PATHS = "/Users/t431962/Desktop/boost_1_60_0 /Users/t431962/Desktop/rapidjson/include/rapidjson \"$(PATH_TO_SDK_ILLUSTRATORAPI_FOLDER)/**\" \"$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common/**\" /Users/t431962/Desktop/SafeguardTools/Source/utility-headers";
 				VALID_ARCHS = "i386 x86_64";
 				WRAPPER_EXTENSION = aip;
 				ZERO_LINK = NO;
