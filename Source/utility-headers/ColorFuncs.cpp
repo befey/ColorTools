@@ -702,6 +702,16 @@ AIColor GetRegistrationColor()
     return registration;
 }
 
+bool ColorIsRegistration(AIColor color)
+{
+    AIColor regColor = GetRegistrationColor();
+    if (color.c.c.color == regColor.c.c.color)
+    {
+        return true;
+    }
+    return false;
+}
+
 AIColor GetBlackColor()
 {
     AICustomColorHandle blackCch;

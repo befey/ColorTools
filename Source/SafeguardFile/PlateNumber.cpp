@@ -9,6 +9,7 @@
 #include "PlateNumber.h"
 #include "ATEFuncs.h"
 #include <regex>
+#include "ColorFuncs.h"
 
 using SafeguardFile::PlateNumber;
 using SafeguardFile::ProductType;
@@ -148,8 +149,14 @@ Boolean PlateNumber::HasInnerTicks() const
             sAIPath->GetPathLength(currArtHandle, &length, NULL);
             if (overlap && sAIRealMath->EqualWithinTol(length, LENGTH_OF_INNER_TICK_PATH, 1))
             {
-                //TODO: do we need to check for registration color here too?
-                return true;
+                vector<AIColor> colors = GetColorsFromArt(currArtHandle);
+                for (auto color : colors)
+                {
+                    if (ColorIsRegistration(color))
+                    {
+                        return true;
+                    }
+                }
             }
         }
     }

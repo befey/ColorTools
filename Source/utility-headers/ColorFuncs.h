@@ -72,6 +72,7 @@ void ChangeColor(AIColor *targetColor, AIColor colorToCopy);
 void ConvertObjectsToGlobalCMYK(AIColor *color, void *userData, AIErr *result, AIBoolean *altered);
 
 AIColor GetRegistrationColor();
+bool ColorIsRegistration(AIColor color);
 AIColor GetBlackColor();
 
 vector<AIColor> GetColorsFromArt(AIArtHandle art);
