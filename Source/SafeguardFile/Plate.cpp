@@ -132,7 +132,13 @@ tm Plate::GetLastModified() const
     ai::FilePath aiFilePath;
     sAIDocument->GetDocumentFileSpecification(aiFilePath);
     
-    time_t lastWrite = fs::last_write_time(aiFilePath.GetFullPath().as_Platform());
+    boost::system::error_code ec;
+    time_t lastWrite = fs::last_write_time(aiFilePath.GetFullPath().as_Platform(), ec);
+    
+    if (ec != boost::system::errc::success)
+    {
+        std::time(&lastWrite);
+    }
     
     return *localtime(&lastWrite);
 }
