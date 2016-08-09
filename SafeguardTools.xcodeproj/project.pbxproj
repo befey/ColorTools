@@ -764,7 +764,7 @@
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = NO;
 				PRODUCT_NAME = SafeguardTools;
 				PROJECTNAME = SafeguardTools;
-				REZ_SEARCH_PATHS = "";
+				REZ_SEARCH_PATHS = "\"$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common\"/**";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = macosx;
 				SEPARATE_STRIP = NO;
@@ -773,7 +773,7 @@
 				STRIP_INSTALLED_PRODUCT = YES;
 				STRIP_STYLE = all;
 				SYMROOT = "$(SRCROOT)/output/mac/$(AI_CONFIGURATION)";
-				USER_HEADER_SEARCH_PATHS = "/Users/t431962/Desktop/boost_1_60_0 /Users/t431962/Desktop/rapidjson/include/rapidjson \"$(PATH_TO_SDK_ILLUSTRATORAPI_FOLDER)/**\" \"$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common/**\" /Users/t431962/Desktop/SafeguardTools/Source/utility-headers";
+				USER_HEADER_SEARCH_PATHS = "\"$(PATH_TO_SDK_ILLUSTRATORAPI_FOLDER)\"/** \"$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common\"/** /Users/t431962/Desktop/SafeguardTools/Source/utility-headers /Users/t431962/Desktop/cereal/include /Users/t431962/Desktop/boost_1_60_0 /Users/t431962/Desktop/rapidjson/include";
 				VALID_ARCHS = "i386 x86_64";
 				WRAPPER_EXTENSION = aip;
 				ZERO_LINK = NO;
@@ -823,7 +823,7 @@
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = NO;
 				PRODUCT_NAME = SafeguardTools;
 				PROJECTNAME = SafeguardTools;
-				REZ_SEARCH_PATHS = "";
+				REZ_SEARCH_PATHS = "\"$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common\"/**";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = macosx;
 				SEPARATE_STRIP = NO;
@@ -832,7 +832,7 @@
 				STRIP_INSTALLED_PRODUCT = YES;
 				STRIP_STYLE = all;
 				SYMROOT = "$(SRCROOT)/output/mac/$(AI_CONFIGURATION)";
-				USER_HEADER_SEARCH_PATHS = "/Users/t431962/Desktop/boost_1_60_0 /Users/t431962/Desktop/rapidjson/include/rapidjson \"$(PATH_TO_SDK_ILLUSTRATORAPI_FOLDER)/**\" \"$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common/**\" /Users/t431962/Desktop/SafeguardTools/Source/utility-headers";
+				USER_HEADER_SEARCH_PATHS = "\"$(PATH_TO_SDK_ILLUSTRATORAPI_FOLDER)\"/** \"$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common\"/** /Users/t431962/Desktop/SafeguardTools/Source/utility-headers /Users/t431962/Desktop/cereal/include /Users/t431962/Desktop/boost_1_60_0 /Users/t431962/Desktop/rapidjson/include";
 				VALID_ARCHS = "i386 x86_64";
 				WRAPPER_EXTENSION = aip;
 				ZERO_LINK = NO;
@@ -850,11 +850,8 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				HEADER_SEARCH_PATHS = (
-					/Users/t431962/Desktop/boost_1_60_0,
-					/Users/t431962/Desktop/rapidjson/include/rapidjson,
 					"/Developer/Headers/FlatCarbon/**",
-					"\"$(PATH_TO_SDK_ILLUSTRATORAPI_FOLDER)/**\"",
-					"\"$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common/**\"",
+					/Users/t431962/Desktop/boost_1_60_0,
 				);
 				LIBRARY_SEARCH_PATHS = /Users/t431962/Desktop/boost_1_60_0/stage/lib;
 				OTHER_LDFLAGS = "-lboost_system";
@@ -879,11 +876,8 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				HEADER_SEARCH_PATHS = (
-					/Users/t431962/Desktop/boost_1_60_0,
-					/Users/t431962/Desktop/rapidjson/include/rapidjson,
 					"/Developer/Headers/FlatCarbon/**",
-					"\"$(PATH_TO_SDK_ILLUSTRATORAPI_FOLDER)/**\"",
-					"\"$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common/**\"",
+					/Users/t431962/Desktop/boost_1_60_0,
 				);
 				LIBRARY_SEARCH_PATHS = /Users/t431962/Desktop/boost_1_60_0/stage/lib;
 				OTHER_LDFLAGS = "-lboost_system";

@@ -891,13 +891,12 @@ ai::UnicodeString CreateBarcodeStringFromMICRString(ai::UnicodeString micrString
 	 We need to add ! at the start and end
 	 We need to replace any spaces with =
 	 */
-    using namespace std;
     
     string s = micrString.as_Platform();
     
-    regex r("(?:[C]*[\\d]*[C]*[ ]*)((([A][\\d|D]{9}[A])[ ]*([C]|[D]|[B]|[\\d]|[ ])+[C])([ ]*[\\d]*)?)");
-    smatch result;
-    regex_search(s,result, r);
+    std::regex r("(?:[C]*[\\d]*[C]*[ ]*)((([A][\\d|D]{9}[A])[ ]*([C]|[D]|[B]|[\\d]|[ ])+[C])([ ]*[\\d]*)?)");
+    std::smatch result;
+    std::regex_search(s,result, r);
     
     if (result.length() < 2) return ai::UnicodeString();
     

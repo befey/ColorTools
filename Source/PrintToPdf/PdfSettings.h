@@ -37,7 +37,7 @@ namespace PrintToPdf
     public:
         PdfSettings(PrintToPdf::PdfPreset p, string range = "", bool separateFiles = false);
         
-        static PdfSettings MakePdfSettingsFromXml(const char* xmlData);
+        static PdfSettings MakePdfSettingsFromJson(const char* json);
         
         PrintToPdf::PdfPreset GetPreset() const { return preset; };
         const BtArtboardRange& GetRange() const { return range; };
