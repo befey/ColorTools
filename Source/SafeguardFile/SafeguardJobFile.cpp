@@ -8,12 +8,14 @@
 
 #include "SafeguardJobFile.h"
 #include "PlateBleedInfoUIController.hpp"
+#include "rapidjson/document.h"
 
 using SafeguardFile::SafeguardJobFile;
 using SafeguardFile::PlateNumber;
 using PrintToPdf::PdfResults;
 using PrintToPdf::PdfSettings;
 using SafeguardFile::PlateBleedInfoUIController;
+using SafeguardFile::BleedInfo;
 
 SafeguardJobFile::SafeguardJobFile()
 {
@@ -58,6 +60,7 @@ void SafeguardJobFile::EditBleedInfo()
     PlateBleedInfoUIController plateBleedInfoUIController;
     plateBleedInfoUIController.LoadExtension();
     sAICSXSExtension->LaunchExtension(PlateBleedInfoUIController::PLATEBLEEDINFO_UI_EXTENSION);
+    plateBleedInfoUIController.SendBleedInfoToHtml(GetBleedInfoAsJson());
 }
 
 
@@ -76,6 +79,14 @@ bool SafeguardJobFile::ShouldDrawBleedInfo()
     //    return true;
     //}
     return false;
+}
+
+const BleedInfo SafeguardJobFile::GetBleedInfo(int plateIndex) const
+{
+    if (plates.size() > plateIndex)
+    {
+        return plates[plateIndex].GetBleedInfo();
+    }
 }
 
 const PlateNumber SafeguardJobFile::GetPlateNumber(int plateIndex) const
@@ -103,4 +114,23 @@ AIRealRect SafeguardJobFile::GetBleeds(int plateIndex) const
         return plates[0].GetBleeds();
     }
     return AIRealRect{0,0,0,0};
+}
+
+ai::ArtboardID SafeguardJobFile::GetArtboardIdFromJson(const char* json)
+{
+    using namespace rapidjson;
+    
+    Document d;
+    d.Parse(json);
+    
+    Value& v = d[PlateBleedInfoUIController::PLATEBLEEDINFO_ARTBOARD_ID];
+    
+    return ai::ArtboardID(v.GetInt());
+}
+
+string SafeguardJobFile::GetBleedInfoAsJson() const
+{
+    using namespace rapidjson;
+    string json;
+    return json;
 }

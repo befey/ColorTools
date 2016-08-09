@@ -28,12 +28,10 @@ PlateNumber::PlateNumber(string pNum)
 
 Boolean PlateNumber::TokenizePlateNumber()
 {
-    using namespace std;
+    std::regex r("(?:^(?:([a-z])(\\d{2}))?([a-z]{2})(\\d{3,6}).?\\S*)", std::regex::icase);
     
-    regex r("(?:^(?:([a-z])(\\d{2}))?([a-z]{2})(\\d{3,6}).?\\S*)", regex::icase);
-    
-    smatch result;
-    regex_search(plateNumber, result, r);
+    std::smatch result;
+    std::regex_search(plateNumber, result, r);
     
     /*There's two different plate number formats -- Y16SF000123 and SF00123 if we have a plate number in one of those formats we will get a result with matches:
         0: <the input plate number>

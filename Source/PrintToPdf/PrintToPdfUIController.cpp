@@ -27,7 +27,7 @@ void PrintToPdfUIController::MakePdfButtonClickedFunc (const csxs::event::Event*
         
         printToPdfUIController->ClearResultsBox();
         
-        PdfSettings settings = PdfSettings::MakePdfSettingsFromXml(event->data);
+        PdfSettings settings = PdfSettings::MakePdfSettingsFromJson(event->data);
         string results = PdfPrinter::GetPrinter(settings.GetPreset(), settings.OutputSeparateFiles())->Print(settings).MakeXmlString();
         printToPdfUIController->SendResultsXmlToHtml(results);
         

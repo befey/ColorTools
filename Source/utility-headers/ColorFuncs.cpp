@@ -270,9 +270,9 @@ AIColor GetColorDefinitionFromBook(string name, bool& found)
 
 string GetInnerPantoneColorNumber(string fullName)
 {
-    regex r("PANTONE ([\\w\\s]+) [CVU]{1,3}", regex::icase);
-    smatch result;
-    regex_search(fullName, result, r);
+    std::regex r("PANTONE ([\\w\\s]+) [CVU]{1,3}", std::regex::icase);
+    std::smatch result;
+    std::regex_search(fullName, result, r);
     
     return result[1];
 }
