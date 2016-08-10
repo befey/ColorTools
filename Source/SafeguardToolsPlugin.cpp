@@ -525,8 +525,8 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
     }
     if (message->notifier == fDocumentCropAreaModifiedNotifierHandle )
     {
-        SafeguardJobFile sgJobFile;
-        sgJobFile.UpdateBleedInfo();
+//        SafeguardJobFile sgJobFile;
+//        sgJobFile.UpdateBleedInfo();
     }
     return kNoErr;
 }
