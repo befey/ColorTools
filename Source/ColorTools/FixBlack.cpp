@@ -10,6 +10,7 @@
 #include "SafeguardToolsSuites.h"
 #include "BtSwatchList.h"
 #include "SafeguardToolsPlugin.h"
+#include "SafeguardFileConstants.h"
 
 bool FixBlack() {
 
@@ -19,18 +20,18 @@ bool FixBlack() {
 	AIBoolean converted = FALSE;
 	sAIDocument->SetDocumentSpotColorMode(NULL, kAILegacySpotColorMode, TRUE, &converted);
     
-    
-    gPlugin->GetBtSwatchList()->CreateOrConvertToCustomColor(BLACK_COLOR_NAME);
-    gPlugin->GetBtSwatchList()->CreateOrConvertToCustomColor(WHITE_COLOR_NAME);
+    BtSwatchList swatchList;
+    swatchList.CreateOrConvertToCustomColor(SafeguardFile::BLACK_COLOR_NAME);
+    swatchList.CreateOrConvertToCustomColor(SafeguardFile::WHITE_COLOR_NAME);
 
-    gPlugin->GetBtSwatchList()->AdjustAllColors();
+    swatchList.AdjustAllColors();
 	
 	// 4. Name all the colors
     VisitAIColorFlags controlFlags = kVisitColorsSolidOnly | kVisitGlobalObjectsOnceOnly;
 	sAIPathStyle->AdjustObjectAIColors( NULL , nameAllColors , NULL , controlFlags , NULL );
 	
 	// 5. Remove unused colors
-	gPlugin->GetBtSwatchList()->RemoveUnusedColors();
+	swatchList.RemoveUnusedColors();
 	
 	return TRUE;
 }

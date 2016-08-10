@@ -10,20 +10,22 @@
 #define __SafeguardTools__BleedTextInfoDrawer__
 
 #include "BtAteTextFeatures.h"
+#include "IDrawer.h"
 
 namespace SafeguardFile
 {
     class BleedInfo;
     
-    class BleedTextInfoDrawer
+    class BleedTextInfoDrawer : public IDrawer
     {
-    public:
-        virtual AIArtHandle Draw() = 0;
-        
     protected:
-        BleedTextInfoDrawer(shared_ptr<BleedInfo> info) : p_BleedInfo(info) {};
+        BleedTextInfoDrawer(AIRealRect bounds, AIRealPoint anchor) : bounds(bounds), anchor(anchor) {};
 
-        shared_ptr<BleedInfo> p_BleedInfo;
+        AIRealRect bounds;
+        AIRealPoint anchor;
+        
+    private:
+        virtual AIArtHandle DoDraw() const = 0;
     };
 }
 

@@ -25,24 +25,33 @@ public:
     void DeleteLayer();
     
     string Title() const;
-    const BtLayer& Title(string title) const;
+    BtLayer& Title(string title);
     
     bool Visible() const;
-    const BtLayer& Visible(bool visible) const;
+    BtLayer& Visible(bool visible);
     
     bool Editable() const;
-    const BtLayer& Editable(bool editable) const;
+    BtLayer& Editable(bool editable);
     
     bool Printed() const;
-    const BtLayer& Printed(bool printed) const;
+    BtLayer& Printed(bool printed);
     
     void DeselectArt() const;
     void SelectArt() const;
     
     long GetArtSet(AIArtSet const targetSet) const;
     void ConvertTextToPaths() const;
+    
+    void PutArtAtTopOfLayer(AIArtHandle art);
+    AIArtHandle GetLayerGroupArt() const;
 private:
     AILayerHandle layerHandle;
+    
+    bool editableWasFalse = false;
+    bool visibleWasFalse = false;
+    
+    void MakeLayerEditableAndStorePreviousState();
+    void ApplyStoredAttributes();
 };
 
 #endif /* BtLayer_hpp */

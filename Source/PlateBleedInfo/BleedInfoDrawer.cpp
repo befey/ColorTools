@@ -10,23 +10,25 @@
 #include "SafeguardToolsPlugin.h"
 #include "DictionaryWriter.h"
 #include "ArtTree.h"
+#include "BtLayer.hpp"
+#include "GetIllustratorErrorCode.h"
 
 
 using SafeguardFile::BleedInfoDrawer;
 
-void BleedInfoDrawer::Draw() const
+AIArtHandle BleedInfoDrawer::DoDraw() const
 {
     unique_ptr<DictionaryWriter> dw = make_unique<DictionaryWriter>();
-    if (dw->CheckDictionaryForArtObjectWithIdentifier(PLATE_BLEED_INFO_GROUP_LABEL, p_BleedInfo->artboardIndex))
+    if (dw->CheckDictionaryForArtObjectWithIdentifier(PLATE_BLEED_INFO_GROUP_LABEL, artboardIndex))
     {
-        AIArtHandle foundArt = dw->GetArtHandleFromIdentifier(PLATE_BLEED_INFO_GROUP_LABEL, p_BleedInfo->artboardIndex);
+        AIArtHandle foundArt = dw->GetArtHandleFromIdentifier(PLATE_BLEED_INFO_GROUP_LABEL, artboardIndex);
         if (foundArt)
         {
             Update(foundArt);
         }
         else
         {
-            dw->RemoveIdentifierFromDictionary(PLATE_BLEED_INFO_GROUP_LABEL, p_BleedInfo->artboardIndex);
+            dw->RemoveIdentifierFromDictionary(PLATE_BLEED_INFO_GROUP_LABEL, artboardIndex);
         }
     }
     else
@@ -35,39 +37,44 @@ void BleedInfoDrawer::Draw() const
     }
 }
 
-void BleedInfoDrawer::Add() const
+AIArtHandle BleedInfoDrawer::Add() const
 {
     AIArtHandle pluginGroupArt;
-    sAIArt->NewArt(kPluginArt, kPlaceAboveAll, NULL, &pluginGroupArt);
     
+    BtLayer foregroundLayer(FOREGROUND_LAYER);
+    AIArtHandle prep = foregroundLayer.GetLayerGroupArt();
+    
+    AIErr err = sAIArt->NewArt(kPluginArt, kPlaceInsideOnBottom, prep, &pluginGroupArt);
+    string error = GetIllustratorErrorCode(err);
     sAIPluginGroup->UseAIPluginGroup(pluginGroupArt, gPlugin->GetBleedInfoPluginGroupHandle());
-    PutArtAtTopOfLayer(pluginGroupArt, FOREGROUND_LAYER);
-
+    
     CreateResultArt(pluginGroupArt);
     
     unique_ptr<DictionaryWriter> dw = make_unique<DictionaryWriter>();
-    dw->AddArtHandleToDictionary(pluginGroupArt, PLATE_BLEED_INFO_GROUP_LABEL, p_BleedInfo->artboardIndex);
+    dw->AddArtHandleToDictionary(pluginGroupArt, PLATE_BLEED_INFO_GROUP_LABEL, artboardIndex);
+    
+    return pluginGroupArt;
 }
 
-void BleedInfoDrawer::Update(AIArtHandle pluginGroupArt) const
+AIArtHandle BleedInfoDrawer::Update(AIArtHandle pluginGroupArt) const
 {
-    AIArtHandle resultArt;
-    sAIPluginGroup->GetPluginArtResultArt(pluginGroupArt, &resultArt);
-    sAIArt->DisposeArt(resultArt);
     CreateResultArt(pluginGroupArt);
+    sAIPluginGroup->MarkPluginArtDirty(pluginGroupArt);
+    return pluginGroupArt;
 }
 
-void BleedInfoDrawer::CreateResultArt(AIArtHandle pluginGroupArt) const
+AIArtHandle BleedInfoDrawer::CreateResultArt(AIArtHandle pluginGroupArt) const
 {
     vector<AIArtHandle> resultHandles;
     
-    resultHandles.push_back(p_BleedInfo->fileNameDateDrawer->Draw());
-    resultHandles.push_back(p_BleedInfo->colorListDrawer->Draw());
-    resultHandles.push_back(p_BleedInfo->tickMarkDrawer->Draw());
+    for (auto drawer : drawers)
+    {
+        resultHandles.push_back(drawer->Draw());
+    }
     
     AIArtHandle resultGroupArt;
-    sAIArt->NewArt(kGroupArt, kPlaceAboveAll, NULL, &resultGroupArt);
-    
+    ASErr err = sAIArt->NewArt(kGroupArt, kPlaceInsideOnBottom, GetGroupArtOfFirstEditableLayer(), &resultGroupArt);
+    string error = GetIllustratorErrorCode(err);
     for (auto art : resultHandles)
     {
         if (art != NULL)
@@ -77,13 +84,15 @@ void BleedInfoDrawer::CreateResultArt(AIArtHandle pluginGroupArt) const
     }
     
     sAIPluginGroup->SetPluginArtResultArt(pluginGroupArt, resultGroupArt);
+    
+    return pluginGroupArt;
 }
 
 
 void BleedInfoDrawer::Remove(AIArtHandle pluginGroupArt) const
 {
     unique_ptr<DictionaryWriter> dw = make_unique<DictionaryWriter>();
-    dw->RemoveIdentifierFromDictionary(PLATE_BLEED_INFO_GROUP_LABEL, p_BleedInfo->artboardIndex);
+    dw->RemoveIdentifierFromDictionary(PLATE_BLEED_INFO_GROUP_LABEL, artboardIndex);
     sAIArt->DisposeArt(pluginGroupArt);
 }
 /*

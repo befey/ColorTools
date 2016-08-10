@@ -35,7 +35,7 @@ string BtLayer::Title() const
     }
     return usTitle.as_Platform();
 }
-const BtLayer& BtLayer::Title(string title) const
+BtLayer& BtLayer::Title(string title)
 {
     if (layerHandle)
     {
@@ -53,7 +53,7 @@ bool BtLayer::Visible() const
     }
     return vis;
 }
-const BtLayer& BtLayer::Visible(bool visible) const
+BtLayer& BtLayer::Visible(bool visible)
 {
     if (layerHandle)
     {
@@ -71,7 +71,7 @@ bool BtLayer::Editable() const
     }
     return edit;
 }
-const BtLayer& BtLayer::Editable(bool editable) const
+BtLayer& BtLayer::Editable(bool editable)
 {
     if (layerHandle)
     {
@@ -89,7 +89,7 @@ bool BtLayer::Printed() const
     }
     return print;
 }
-const BtLayer& BtLayer::Printed(bool printed) const
+BtLayer& BtLayer::Printed(bool printed)
 {
     if (layerHandle)
     {
@@ -121,35 +121,9 @@ long BtLayer::GetArtSet(AIArtSet const targetSet) const
     }
     size_t count = 0;
     
-    //Store the User Attributes
-    bool editableWasFalse = false;
-    bool visibleWasFalse = false;
-    
-    //Unlock and Unhide the layer
-    if (!Editable())
-    {
-        Editable(TRUE);
-        editableWasFalse = true;
-    }
-    if (!Visible())
-    {
-        Visible(TRUE);
-        visibleWasFalse = true;
-    }
-    
     sAIArtSet->LayerArtSet(layerHandle, targetSet);
     
     sAIArtSet->CountArtSet(targetSet, &count);
-    
-    //Set the layer and art attributes back the way they were
-    if (editableWasFalse)
-    {
-        Editable(FALSE);
-    }
-    if (visibleWasFalse)
-    {
-        Visible(FALSE);
-    }
     
     return count;
 }
@@ -188,5 +162,62 @@ void BtLayer::ConvertTextToPaths() const
                           }
                       }
                   });
+    
+}
 
+void BtLayer::PutArtAtTopOfLayer(AIArtHandle art)
+{
+    AIArtHandle layerGroup = GetLayerGroupArt();
+
+    MakeLayerEditableAndStorePreviousState();
+    
+    int attr = 0;
+    
+    //Check if the art itself is editable
+    sAIArt->GetArtUserAttr(art, kArtLocked | kArtHidden, &attr);
+    if ((attr & kArtLocked) || (attr & kArtHidden))
+    {
+        sAIArt->SetArtUserAttr(art, kArtLocked | kArtHidden, 0);
+    }
+    
+    sAIArt->ReorderArt(art, kPlaceInsideOnTop, layerGroup);
+    
+    ApplyStoredAttributes();
+    
+    sAIArt->SetArtUserAttr(art, kArtLocked | kArtHidden, attr);
+}
+
+AIArtHandle BtLayer::GetLayerGroupArt() const
+{
+    AIArtHandle layerGroup;
+    sAIArt->GetFirstArtOfLayer(layerHandle, &layerGroup);
+    return layerGroup;
+}
+
+void BtLayer::MakeLayerEditableAndStorePreviousState()
+{
+    //Unlock and Unhide the layer
+    if (!Editable())
+    {
+        Editable(TRUE);
+        editableWasFalse = true;
+    }
+    if (!Visible())
+    {
+        Visible(TRUE);
+        visibleWasFalse = true;
+    }
+}
+
+void BtLayer::ApplyStoredAttributes()
+{
+    //Set the layer and art attributes back the way they were
+    if (editableWasFalse)
+    {
+        Editable(FALSE);
+    }
+    if (visibleWasFalse)
+    {
+        Visible(FALSE);
+    }
 }

@@ -11,6 +11,7 @@
 #include "IAIRect.h"
 #include <regex>
 #include "GetIllustratorErrorCode.h"
+#include "SafeguardFileConstants.h"
 
 const AIReal TOLERANCE = .002;
 
@@ -60,7 +61,7 @@ bool ColorIsBlack(const AIColor color)
 {
     if (color.kind == kCustomColor)
     {
-        if (GetColorName(color) == MICR_BLACK_MAG_COLOR_NAME)
+        if (GetColorName(color) == SafeguardFile::MICR_BLACK_MAG_COLOR_NAME)
         {
             return FALSE;
         }
@@ -68,7 +69,7 @@ bool ColorIsBlack(const AIColor color)
         AICustomColor cColor;
         sAICustomColor->GetCustomColor(color.c.c.color, &cColor);
         
-        if ((GetColorName(color) == BLACK_COLOR_NAME) ||
+        if ((GetColorName(color) == SafeguardFile::BLACK_COLOR_NAME) ||
             ((cColor.kind == kCustomFourColor &&
               sAIRealMath->EqualWithinTol(cColor.c.f.cyan, 0, TOLERANCE) &&
               sAIRealMath->EqualWithinTol(cColor.c.f.magenta, 0, TOLERANCE) &&
@@ -164,7 +165,16 @@ bool ColorIsWhite(const AIColor color)
 
 bool ColorIsGripper(const AIColor color)
 {
-    if (GetColorName(color) == GRIPPER_COLOR_NAME)
+    if (GetColorName(color) == SafeguardFile::GRIPPER_COLOR_NAME)
+    {
+        return true;
+    }
+    return false;
+}
+
+bool ColorIsKeyline(const AIColor color)
+{
+    if (GetColorName(color) == SafeguardFile::KEYLINE_COLOR_NAME)
     {
         return true;
     }
@@ -194,6 +204,10 @@ bool ColorIsNonPrinting(const AIColor color)
         return true;
     }
 */  if (ColorIsGripper(color))
+    {
+        return true;
+    }
+    if (ColorIsKeyline(color))
     {
         return true;
     }
@@ -256,9 +270,9 @@ AIColor GetColorDefinitionFromBook(string name, bool& found)
 
 string GetInnerPantoneColorNumber(string fullName)
 {
-    regex r("PANTONE ([\\w\\s]+) [CVU]{1,3}", regex::icase);
-    smatch result;
-    regex_search(fullName, result, r);
+    std::regex r("PANTONE ([\\w\\s]+) [CVU]{1,3}", std::regex::icase);
+    std::smatch result;
+    std::regex_search(fullName, result, r);
     
     return result[1];
 }
@@ -688,10 +702,20 @@ AIColor GetRegistrationColor()
     return registration;
 }
 
+bool ColorIsRegistration(AIColor color)
+{
+    AIColor regColor = GetRegistrationColor();
+    if (color.c.c.color == regColor.c.c.color)
+    {
+        return true;
+    }
+    return false;
+}
+
 AIColor GetBlackColor()
 {
     AICustomColorHandle blackCch;
-    sAICustomColor->GetCustomColorByName(ai::UnicodeString(BLACK_COLOR_NAME), &blackCch);
+    sAICustomColor->GetCustomColorByName(ai::UnicodeString(SafeguardFile::BLACK_COLOR_NAME), &blackCch);
     AIColor black = { .kind = kCustomColor, .c.c = { .color = blackCch, .tint = 0} };
     return black;
 }

@@ -17,6 +17,10 @@
 #include "PdfResults.h"
 #include "PdfSettings.h"
 #include "PrintToPdfConstants.h"
+#include "AICSXS.h"
+#include "BleedInfo.h"
+
+extern AICSXSExtensionSuite* sAICSXSExtension;
 
 namespace SafeguardFile
 {
@@ -25,15 +29,21 @@ namespace SafeguardFile
     public:
         SafeguardJobFile();
         
-        void RemoveBleedInfo();
+        const BleedInfo GetBleedInfo(int plateIndex = 0) const;
         
         const PlateNumber GetPlateNumber(int plateIndex = 0) const;
         const string GetToken(int plateIndex = 0) const;
         AIRealRect GetBleeds(int plateIndex = 0) const;
+        
+        int GetNumPlates() const { return plates.size(); };
+        
+        void AddBleedInfo();
+        void UpdateBleedInfo();
+        void EditBleedInfo();
+        void RemoveBleedInfo();
     private:
         vector<Plate> plates;
         
-        void AddBleedInfo();
         bool ShouldDrawBleedInfo();
     };
 }

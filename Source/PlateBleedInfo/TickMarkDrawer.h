@@ -9,42 +9,35 @@
 #ifndef __SafeguardTools__TickMarkDrawer__
 #define __SafeguardTools__TickMarkDrawer__
 
-#include <vector>
+#include "TickMarkSettings.hpp"
+#include "AIArt.h"
+#include "AIPath.h"
+#include "AIPathStyle.h"
+#include "IDrawer.h"
+
+extern AIArtSuite* sAIArt;
+extern AIPathSuite* sAIPath;
+extern AIPathStyleSuite* sAIPathStyle;
 
 namespace SafeguardFile
 {
-    class BleedInfo;
-    
-    class TickMarkDrawer
+    class TickMarkDrawer : public IDrawer
     {
     public:
-        virtual AIArtHandle Draw() = 0;
+        TickMarkDrawer(TickMarkSettings settings);
         
-    protected:
-        TickMarkDrawer(shared_ptr<BleedInfo> info);
+    private:
+        struct TickMark
+        {
+            AIRealPoint start, mid, end;
+        };
         
-        shared_ptr<BleedInfo> p_BleedInfo;
-    };
-    
-    class OuterTickMarkDrawer : public TickMarkDrawer
-    {
-    public:
-        OuterTickMarkDrawer(shared_ptr<BleedInfo> info);
-        AIArtHandle Draw();
-    };
-    
-    class InnerTickMarkDrawer : public TickMarkDrawer
-    {
-    public:
-        InnerTickMarkDrawer(shared_ptr<BleedInfo> info);
-        AIArtHandle Draw();
-    };
-    
-    class ContinuousTickMarkDrawer : public TickMarkDrawer
-    {
-    public:
-        ContinuousTickMarkDrawer(shared_ptr<BleedInfo> info);
-        AIArtHandle Draw();
+        TickMarkSettings settings;
+        
+        AIArtHandle DoDraw() const override;
+        AIArtHandle DrawTickMarks(vector<TickMark> ticks, AIArtHandle tickMarkGroupArt = NULL) const;
+        AIArtHandle DrawInner(AIArtHandle tickMarkGroupArt = NULL) const;
+        AIArtHandle DrawOuter(AIArtHandle tickMarkGroupArt = NULL) const;
     };
 }
 

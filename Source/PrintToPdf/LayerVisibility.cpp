@@ -27,14 +27,14 @@ LayerVisibility::LayerVisibility()
     }
 }
 
-bool LayerVisibility::SetLayerVisibility() const
+bool LayerVisibility::SetLayerVisibility()
 {
     return CustomLayerVisibility();
 }
 
-bool BStatLayerVisibility::CustomLayerVisibility() const
+bool BStatLayerVisibility::CustomLayerVisibility()
 {
-    for (const auto& kv : layerList)
+    for (auto& kv : layerList)
     {
         if (kv.first == SafeguardFile::KEYLINE_LAYER)
         {
@@ -69,9 +69,9 @@ bool BStatLayerVisibility::CustomLayerVisibility() const
     return true;
 }
 
-bool LaserLayerVisibility::CustomLayerVisibility() const
+bool LaserLayerVisibility::CustomLayerVisibility()
 {
-    for (const auto& kv : layerList)
+    for (auto& kv : layerList)
     {
         if (kv.first == SafeguardFile::FOREGROUND_LAYER)
         {
@@ -94,9 +94,9 @@ bool LaserLayerVisibility::CustomLayerVisibility() const
     return true;
 }
 
-bool BStatProofLayerVisibility::CustomLayerVisibility() const
+bool BStatProofLayerVisibility::CustomLayerVisibility()
 {
-    for (const auto& kv : layerList)
+    for (auto& kv : layerList)
     {
         if (kv.first == SafeguardFile::KEYLINE_LAYER)
         {

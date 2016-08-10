@@ -28,11 +28,6 @@ bool ProcessArtSet(const AIArtSet artSet, std::function<void(AIArtHandle)> callb
 
 long CreateArtSetOfPrintingObjectsWithinRect(AIArtSet const targetSet, AIRealRect rect);
 
-void MoveArtToTopOfLayer(AIArtHandle currArtHandle); //Checks whether the art is at the top level of its layer, moves it there if not
-
-//Moves the art to the top of the passed layer, if the layer can't be found, moves to the top of current layer
-void PutArtAtTopOfLayer(AIArtHandle art, string layerName);
-
 void PutArtInGroup(AIArtHandle theArt, AIArtHandle theGroup); //Moves the art to the group, preserving editability flags
 
 bool AllLinkedFilesValid(); //Checks whether the paths for linked files are valid, if not, returns false
@@ -46,5 +41,7 @@ void GetBoundsOfSelectionFromRoot(AIArtHandle root, AIArtHandle currArtHandle, A
 
 void GetBoundsOfClipGroup(AIArtHandle root, AIArtHandle currArtHandle, AIRealRect* bounds, bool* boundsValid);
 //Traverses the tree defined by "root" and returns the bounds of the clipping masks contained
+
+AIArtHandle GetGroupArtOfFirstEditableLayer();
 
 #endif //ARTTREE_H

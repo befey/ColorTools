@@ -7,11 +7,14 @@
 //
 
 #include "SafeguardJobFile.h"
+#include "PlateBleedInfoUIController.hpp"
 
 using SafeguardFile::SafeguardJobFile;
 using SafeguardFile::PlateNumber;
 using PrintToPdf::PdfResults;
 using PrintToPdf::PdfSettings;
+using SafeguardFile::PlateBleedInfoUIController;
+using SafeguardFile::BleedInfo;
 
 SafeguardJobFile::SafeguardJobFile()
 {
@@ -34,7 +37,7 @@ SafeguardJobFile::SafeguardJobFile()
 
 void SafeguardJobFile::AddBleedInfo()
 {
-    if (ShouldDrawBleedInfo())
+    //if (ShouldDrawBleedInfo())
     {
         for (auto plate : plates)
         {
@@ -42,6 +45,22 @@ void SafeguardJobFile::AddBleedInfo()
         }
     }
 }
+
+void SafeguardJobFile::UpdateBleedInfo()
+{
+    for (auto plate : plates)
+    {
+        plate.AddBleedInfo();
+    }
+}
+
+void SafeguardJobFile::EditBleedInfo()
+{
+    PlateBleedInfoUIController plateBleedInfoUIController;
+    plateBleedInfoUIController.LoadExtension();
+    sAICSXSExtension->LaunchExtension(PlateBleedInfoUIController::PLATEBLEEDINFO_UI_EXTENSION);
+}
+
 
 void SafeguardJobFile::RemoveBleedInfo()
 {
@@ -58,6 +77,14 @@ bool SafeguardJobFile::ShouldDrawBleedInfo()
     //    return true;
     //}
     return false;
+}
+
+const BleedInfo SafeguardJobFile::GetBleedInfo(int plateIndex) const
+{
+    if (plates.size() > plateIndex)
+    {
+        return plates[plateIndex].GetBleedInfo();
+    }
 }
 
 const PlateNumber SafeguardJobFile::GetPlateNumber(int plateIndex) const

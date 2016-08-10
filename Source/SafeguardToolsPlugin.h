@@ -9,6 +9,7 @@
 #include "SafeguardToolsID.h"
 #include "BtAiMenuItemHandles.h"
 #include "PrintToPdfUIController.h"
+#include "PlateBleedInfoUIController.hpp"
 #include "SafeguardJobFile.h"
 
 //=================================
@@ -45,8 +46,6 @@ public:
 	*/
 	virtual ~SafeguardToolsPlugin();
     
-    
-    shared_ptr<BtSwatchList> GetBtSwatchList() const { return mySwatchList; }
     AIPluginGroupHandle GetBleedInfoPluginGroupHandle() const { return bleedInfoPluginGroupHandle; }
       
     /**	Restores state of SafeguardToolsPlugin during reload.
@@ -120,9 +119,9 @@ protected:
     virtual ASErr Notify(AINotifierMessage* message);
     
 private:
-    shared_ptr<BtSwatchList> mySwatchList;
     shared_ptr<ColorToolsUIController> colorToolsUIController;
     shared_ptr<PrintToPdf::PrintToPdfUIController> printToPdfUIController;
+    shared_ptr<SafeguardFile::PlateBleedInfoUIController> plateBleedInfoUIController;
     
     /**	Notifier handles**/
     AINotifierHandle fRegisterEventNotifierHandle;

@@ -10,6 +10,8 @@
 #define __SafeguardTools__FileNameDateDrawer__
 
 #include "BleedTextInfoDrawer.h"
+#include "PlateNumber.h"
+#include <ctime>
 
 namespace SafeguardFile
 {
@@ -18,28 +20,37 @@ namespace SafeguardFile
     class FileNameDateDrawer : public BleedTextInfoDrawer
     {
     protected:
-        FileNameDateDrawer(shared_ptr<BleedInfo> info);
+        FileNameDateDrawer(AIRealRect bounds, AIRealPoint anchor, PlateNumber plateNumber, string token, tm lastModified);
+        
+        PlateNumber plateNumber;
+        string token;
+        tm lastModified;
+        
+        void PutPlateNumberDateStringInTextRange(ATE::ITextRange& targetRange) const;
     };
     
     class LaserFileNameDateDrawer : public FileNameDateDrawer
     {
     public:
-        LaserFileNameDateDrawer(shared_ptr<BleedInfo> info);
-        AIArtHandle Draw();
+        LaserFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified);
+    private:
+        AIArtHandle DoDraw() const override;
     };
     
     class ContinuousFileNameDateDrawer : public FileNameDateDrawer
     {
     public:
-        ContinuousFileNameDateDrawer(shared_ptr<BleedInfo> info);
-        AIArtHandle Draw();
+        ContinuousFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified);
+    private:
+        AIArtHandle DoDraw() const override;
     };
     
     class BusStatFileNameDateDrawer : public FileNameDateDrawer
     {
     public:
-        BusStatFileNameDateDrawer(shared_ptr<BleedInfo> info);
-        AIArtHandle Draw();
+        BusStatFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified);
+    private:
+        AIArtHandle DoDraw() const override;
     };
 }
 

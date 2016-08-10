@@ -9,6 +9,7 @@
 #include "PlateNumber.h"
 #include "ATEFuncs.h"
 #include <regex>
+#include "ColorFuncs.h"
 
 using SafeguardFile::PlateNumber;
 using SafeguardFile::ProductType;
@@ -28,12 +29,10 @@ PlateNumber::PlateNumber(string pNum)
 
 Boolean PlateNumber::TokenizePlateNumber()
 {
-    using namespace std;
+    std::regex r("(?:^(?:([a-z])(\\d{2}))?([a-z]{2})(\\d{3,6}).?\\S*)", std::regex::icase);
     
-    regex r("(?:^(?:([a-z])(\\d{2}))?([a-z]{2})(\\d{3,6}).?\\S*)", regex::icase);
-    
-    smatch result;
-    regex_search(plateNumber, result, r);
+    std::smatch result;
+    std::regex_search(plateNumber, result, r);
     
     /*There's two different plate number formats -- Y16SF000123 and SF00123 if we have a plate number in one of those formats we will get a result with matches:
         0: <the input plate number>
@@ -80,6 +79,11 @@ ProductType PlateNumber::GetProductType() const
         return ProductType::Continuous;
     }
     
+    if (productIndicator == "EN")
+    {
+        return ProductType::Envelope;
+    }
+    
     if (productIndicator == "CS")
     {
         if (HasInnerTicks())
@@ -95,7 +99,7 @@ ProductType PlateNumber::GetProductType() const
     //OTHERS
     if (productIndicator == "AR" || productIndicator == "CK" || productIndicator == "CM" || productIndicator == "GC" || productIndicator == "LS" || productIndicator == "QC" || productIndicator == "RC" || productIndicator == "VP")
     {
-        return ProductType::Continuous;
+        return ProductType::Snapset;
     }
     
     return ProductType::INVAL;
@@ -143,8 +147,14 @@ Boolean PlateNumber::HasInnerTicks() const
             sAIPath->GetPathLength(currArtHandle, &length, NULL);
             if (overlap && sAIRealMath->EqualWithinTol(length, LENGTH_OF_INNER_TICK_PATH, 1))
             {
-                //TODO: do we need to check for registration color here too?
-                return true;
+                vector<AIColor> colors = GetColorsFromArt(currArtHandle);
+                for (auto color : colors)
+                {
+                    if (ColorIsRegistration(color))
+                    {
+                        return true;
+                    }
+                }
             }
         }
     }

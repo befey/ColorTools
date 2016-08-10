@@ -10,8 +10,12 @@
 #define __SafeguardTools__BleedInfoDrawer__
 
 #include "BleedInfo.h"
+#include "TickMarkDrawer.h"
+#include "ColorListDrawer.h"
+#include "FileNameDateDrawer.h"
 #include "AIArt.h"
 #include "AIPluginGroup.h"
+#include "IDrawer.h"
 
 extern AIArtSuite* sAIArt;
 extern AIPluginGroupSuite* sAIPluginGroup;
@@ -20,20 +24,24 @@ namespace SafeguardFile
 {
     constexpr auto PLATE_BLEED_INFO_GROUP_LABEL =             "__plate_bleed_info__";
     
-    class BleedInfoDrawer
+    class BleedInfoDrawer : public IDrawer
     {
     public:
-        BleedInfoDrawer(shared_ptr<BleedInfo> info) : p_BleedInfo(info) {};
+        BleedInfoDrawer(ai::ArtboardID artboardIndex) : artboardIndex(artboardIndex) {};
         
-        void Draw() const;
-        void Remove(AIArtHandle pluginGroupArt) const;
+        BleedInfoDrawer& AddDrawer(shared_ptr<SafeguardFile::IDrawer> val) { drawers.push_back(val); return *this; };
 
+        void Remove(AIArtHandle pluginGroupArt) const;
     private:
-        shared_ptr<BleedInfo> p_BleedInfo;
+        ai::ArtboardID artboardIndex;
         
-        void Add() const;
-        void Update(AIArtHandle pluginGroupArt) const;
-        void CreateResultArt(AIArtHandle pluginGroupArt) const;
+        vector<shared_ptr<SafeguardFile::IDrawer>> drawers;
+        
+        AIArtHandle DoDraw() const override;
+        
+        AIArtHandle Add() const;
+        AIArtHandle Update(AIArtHandle pluginGroupArt) const;
+        AIArtHandle CreateResultArt(AIArtHandle pluginGroupArt) const;
         
         //ASErr PluginGroupNotify(AIPluginGroupMessage* message);
         //ASErr PluginGroupUpdate(AIPluginGroupMessage* message);

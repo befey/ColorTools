@@ -8,7 +8,7 @@
 
 #include "PdfSettings.h"
 #include "PdfResults.h"
-#include "document.h"
+#include "rapidjson/document.h"
 #include "Plate.h"
 #include "SafeguardJobFile.h"
 
@@ -43,7 +43,7 @@ PdfSettings::PdfSettings(PdfPreset p, string r, bool s) : preset(p), range(r), s
     }
     else
     {
-        SetBleeds(SafeguardJobFile().GetBleeds());
+        SetBleeds(sgJobFile.GetBleeds());
     }
         
     SetVpbRange(range);
@@ -70,12 +70,12 @@ PdfSettings::PdfSettings(PdfPreset p, string r, bool s) : preset(p), range(r), s
   ////*******
 }
 
-PdfSettings PdfSettings::MakePdfSettingsFromXml(const char* xmlData)
+PdfSettings PdfSettings::MakePdfSettingsFromJson(const char* json)
 {
     using namespace rapidjson;
     
     Document d;
-    d.Parse(xmlData);
+    d.Parse(json);
     
     Value& v = d[PrintToPdfUIController::PRESET_SELECT];
     PrintToPdf::PdfPreset preset = static_cast<PrintToPdf::PdfPreset>(v.GetInt());

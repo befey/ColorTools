@@ -51,7 +51,8 @@ void ColorToolsUIController::RemoveButtonClickedFunc (const csxs::event::Event* 
         //Set the undo/redo text
         sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Remove Unused Colors"), ai::UnicodeString("Redo Remove Unused Colors"));
         
-        gPlugin->GetBtSwatchList()->RemoveUnusedColors();
+        BtSwatchList swatchList;
+        swatchList.RemoveUnusedColors();
         UpdateListFunc(event, context);
         // Clean up the application context and return.
     } while(false);
@@ -68,7 +69,8 @@ void ColorToolsUIController::UpdateListFunc (const csxs::event::Event* const eve
         // Set up the application context, so that suite calls can work.
         AppContext appContext(gPlugin->GetPluginRef());
         
-        string swatchesXml = gPlugin->GetBtSwatchList()->GetColorListAsXMLString();
+        BtSwatchList swatchList;
+        string swatchesXml = swatchList.GetColorListAsXMLString();
         
         colorToolsUIController->SendColorListXmlToHtml(swatchesXml);
         

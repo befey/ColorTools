@@ -10,6 +10,7 @@
 #include "SafeguardFileConstants.h"
 #include "BtAteTextFeatures.h"
 #include "TickMarkDrawer.h"
+#include "TickMarkSettings.hpp"
 #include "ColorListDrawer.h"
 #include "FileNameDateDrawer.h"
 #include "ATEFuncs.h"
@@ -18,11 +19,14 @@
 #include "AIColor.h"
 #include "DictionaryWriter.h"
 #include <functional>
+#include <boost/filesystem/operations.hpp>
 
 using SafeguardFile::Plate;
 using SafeguardFile::PlateNumber;
 using PrintToPdf::PdfPreset;
+using SafeguardFile::BleedInfo;
 
+namespace fs = boost::filesystem;
 
 Plate::Plate(ai::ArtboardID id)
 {
@@ -37,11 +41,26 @@ Plate::Plate(ai::ArtboardID id)
     SetPlateNumber();
     bleedInfo.token = CreateToken();
     
-    bleedInfo.tickMarkDrawer = make_shared<OuterTickMarkDrawer>(make_shared<BleedInfo>(bleedInfo));
-    bleedInfo.colorListDrawer = make_shared<LaserColorListDrawer>(make_shared<BleedInfo>(bleedInfo));
-    bleedInfo.fileNameDateDrawer = make_shared<LaserFileNameDateDrawer>(make_shared<BleedInfo>(bleedInfo));
+    bleedInfoDrawer = make_shared<BleedInfoDrawer>(bleedInfo.artboardIndex);
     
-    bleedInfoDrawer = make_shared<BleedInfoDrawer>(make_shared<BleedInfo>(bleedInfo));
+    bleedInfoDrawer->AddDrawer( make_shared<TickMarkDrawer>(TickMarkSettings(bleedInfo)) );
+    
+    ProductType pt = bleedInfo.plateNumber.GetProductType();
+    if (pt == ProductType::BusinessStat)
+    {
+        bleedInfoDrawer->AddDrawer( make_shared<BusStatColorListDrawer>(bleedInfo.rect, bleedInfo.colorList) );
+        bleedInfoDrawer->AddDrawer( make_shared<BusStatFileNameDateDrawer>(bleedInfo.rect, bleedInfo.plateNumber, bleedInfo.token, bleedInfo.lastModified) );
+    }
+    else if (pt == ProductType::Continuous)
+    {
+        bleedInfoDrawer->AddDrawer( make_shared<ContinuousColorListDrawer>(bleedInfo.rect, bleedInfo.colorList) );
+        bleedInfoDrawer->AddDrawer( make_shared<ContinuousFileNameDateDrawer>(bleedInfo.rect, bleedInfo.plateNumber, bleedInfo.token, bleedInfo.lastModified) );
+    }
+    else if (pt == ProductType::CutSheet || pt == ProductType::Envelope)
+    {
+        bleedInfoDrawer->AddDrawer( make_shared<LaserColorListDrawer>(bleedInfo.rect, bleedInfo.colorList) );
+        bleedInfoDrawer->AddDrawer( make_shared<LaserFileNameDateDrawer>(bleedInfo.rect, bleedInfo.plateNumber, bleedInfo.token, bleedInfo.lastModified) );
+    }
 }
 //Plate::Plate(ai::ArtboardID id, string pn) : artboardIndex(id), plateNumber(pn) {}
 
@@ -66,6 +85,11 @@ const PlateNumber Plate::GetPlateNumber() const
 const string Plate::GetToken() const
 {
     return CreateToken();
+}
+
+const BleedInfo Plate::GetBleedInfo() const
+{
+    return bleedInfo;
 }
 
 void Plate::AddBleedInfo()
@@ -109,14 +133,20 @@ AIRealRect Plate::GetArtboardBounds() const
     return rect;
 }
 
-AIUserDateTime Plate::GetLastModified() const
+tm Plate::GetLastModified() const
 {
-    /*sAIFilePath->GetAsFSRef();
-    SPPlatformFileInfo info;
-    SPGetFileInfo(SPFileRef file, &info);*/
-    AIUserDateTime dt;
-    sAIUser->GetDateAndTime(&dt);
-    return dt;
+    ai::FilePath aiFilePath;
+    sAIDocument->GetDocumentFileSpecification(aiFilePath);
+    
+    boost::system::error_code ec;
+    time_t lastWrite = fs::last_write_time(aiFilePath.GetFullPath().as_Platform(), ec);
+    
+    if (ec != boost::system::errc::success)
+    {
+        std::time(&lastWrite);
+    }
+    
+    return *localtime(&lastWrite);
 }
 
 string Plate::GetArtboardName(AIBoolean& isDefault) const

@@ -8,7 +8,10 @@
 
 #include "ColorListDrawer.h"
 #include "ColorFuncs.h"
-#include "BleedInfo.h"
+#include "BtAteTextFeatures.h"
+#include "BtTransformArt.hpp"
+#include "SafeguardFileConstants.h"
+#include "BtLayer.hpp"
 
 using SafeguardFile::ColorListDrawer;
 using SafeguardFile::LaserColorListDrawer;
@@ -16,16 +19,48 @@ using SafeguardFile::ContinuousColorListDrawer;
 using SafeguardFile::BusStatColorListDrawer;
 using SafeguardFile::BleedInfo;
 
-ColorListDrawer::ColorListDrawer(shared_ptr<BleedInfo> info) : BleedTextInfoDrawer(info) {};
-LaserColorListDrawer::LaserColorListDrawer(shared_ptr<BleedInfo> info) : ColorListDrawer(info) {};
-ContinuousColorListDrawer::ContinuousColorListDrawer(shared_ptr<BleedInfo> info) : ColorListDrawer(info) {};
-BusStatColorListDrawer::BusStatColorListDrawer(shared_ptr<BleedInfo> info) : ColorListDrawer(info) {};
+ColorListDrawer::ColorListDrawer(AIRealRect bounds, AIRealPoint anchor, ColorList colorList) :
+    BleedTextInfoDrawer(bounds, anchor),
+    colorList(colorList) {};
 
-AIArtHandle LaserColorListDrawer::Draw()
+LaserColorListDrawer::LaserColorListDrawer(AIRealRect bounds, ColorList colorList) :
+    ColorListDrawer(bounds, {.h = bounds.left + 4, .v = bounds.bottom - 14}, colorList) {};
+ContinuousColorListDrawer::ContinuousColorListDrawer(AIRealRect bounds, ColorList colorList) :
+    ColorListDrawer(bounds, {.h = bounds.right + 2, .v = bounds.top - 120}, colorList) {};
+BusStatColorListDrawer::BusStatColorListDrawer(AIRealRect bounds, ColorList colorList) :
+    ColorListDrawer(bounds, {.h = bounds.left, .v = bounds.bottom - 12}, colorList) {};
+
+AIArtHandle LaserColorListDrawer::DoDraw() const
 {
     AIArtHandle colorListArt;
-    AIRealPoint anchor = {.h = p_BleedInfo->rect.left + 4, .v = p_BleedInfo->rect.bottom - 14};
-    sAITextFrame->NewPointText(kPlaceAboveAll, NULL, kHorizontalTextOrientation, anchor, &colorListArt);
+    BtLayer foregroundLayer(FOREGROUND_LAYER);
+    AIArtHandle prep = foregroundLayer.GetLayerGroupArt();
+    
+    sAITextFrame->NewPointText(kPlaceInsideOnTop, prep, kHorizontalTextOrientation, anchor, &colorListArt);
+    //Create the ATE range
+    ATE::TextRangeRef colorListTextRangeRef;
+    sAITextFrame->GetATETextRange(colorListArt, &colorListTextRangeRef);
+    ATE::ITextRange colorListTextRange(colorListTextRangeRef);
+    colorListTextRange.Remove();
+    
+    colorList.GetAsTextRange(colorListTextRange);
+    
+    BtAteTextFeatures textFeatures;
+    textFeatures.FontSize(12).Font("Helvetica-Bold").Justification(ATE::kLeftJustify);
+    textFeatures.ApplyFeaturesToRange(colorListTextRange);
+
+    return colorListArt;
+}
+
+AIArtHandle ContinuousColorListDrawer::DoDraw() const
+{
+    AIArtHandle colorListArt;
+    BtLayer foregroundLayer(FOREGROUND_LAYER);
+    AIArtHandle prep = foregroundLayer.GetLayerGroupArt();
+    
+    sAITextFrame->NewPointText(kPlaceInsideOnTop, prep, kHorizontalTextOrientation, anchor, &colorListArt);
+    
+    RotateArt(colorListArt, anchor, -90);
     
     //Create the ATE range
     ATE::TextRangeRef colorListTextRangeRef;
@@ -33,13 +68,34 @@ AIArtHandle LaserColorListDrawer::Draw()
     ATE::ITextRange colorListTextRange(colorListTextRangeRef);
     colorListTextRange.Remove();
     
-    p_BleedInfo->colorList.GetAsTextRange(colorListTextRange);
+    colorList.GetAsTextRange(colorListTextRange);
     
     BtAteTextFeatures textFeatures;
-    textFeatures.SetFontSize(12.01);
-    textFeatures.SetFont("Helvetica-Bold");
-    textFeatures.SetJustification(ATE::kLeftJustify);
+    textFeatures.FontSize(9).Font("Helvetica-Bold").Justification(ATE::kLeftJustify);
     textFeatures.ApplyFeaturesToRange(colorListTextRange);
+    
+    return colorListArt;
+}
 
+AIArtHandle BusStatColorListDrawer::DoDraw() const
+{
+    AIArtHandle colorListArt;
+    BtLayer foregroundLayer(FOREGROUND_LAYER);
+    AIArtHandle prep = foregroundLayer.GetLayerGroupArt();
+    
+    sAITextFrame->NewPointText(kPlaceInsideOnTop, prep, kHorizontalTextOrientation, anchor, &colorListArt);
+    
+    //Create the ATE range
+    ATE::TextRangeRef colorListTextRangeRef;
+    sAITextFrame->GetATETextRange(colorListArt, &colorListTextRangeRef);
+    ATE::ITextRange colorListTextRange(colorListTextRangeRef);
+    colorListTextRange.Remove();
+    
+    colorList.GetAsTextRange(colorListTextRange);
+    
+    BtAteTextFeatures textFeatures;
+    textFeatures.FontSize(7).Font("Helvetica-Condensed-Bold").Justification(ATE::kLeftJustify);
+    textFeatures.ApplyFeaturesToRange(colorListTextRange);
+    
     return colorListArt;
 }

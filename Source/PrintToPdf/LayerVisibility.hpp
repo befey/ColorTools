@@ -21,31 +21,31 @@ namespace PrintToPdf
     {
     public:
         LayerVisibility();
-        bool SetLayerVisibility() const;
+        bool SetLayerVisibility();
         
     protected:
         map<string, BtLayer> layerList; // Layername, BtLayer
         
     private:
-        virtual bool CustomLayerVisibility() const = 0;
+        virtual bool CustomLayerVisibility() = 0;
     };
     
     class BStatLayerVisibility : public LayerVisibility
     {
     public:
-        bool CustomLayerVisibility() const override;
+        bool CustomLayerVisibility() override;
     };
     
     class LaserLayerVisibility : public LayerVisibility
     {
     public:
-        bool CustomLayerVisibility() const override;
+        bool CustomLayerVisibility() override;
     };
     
     class BStatProofLayerVisibility : public LayerVisibility
     {
     public:
-        bool CustomLayerVisibility() const override;
+        bool CustomLayerVisibility() override;
     };
 }
 

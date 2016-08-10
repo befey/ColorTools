@@ -48,6 +48,13 @@
 		F93027D91CA46E7D00D3B41E /* SafeguardTools.r in Rez */ = {isa = PBXBuildFile; fileRef = F93027D81CA46E7D00D3B41E /* SafeguardTools.r */; };
 		F934B1581CC9645A002EAB43 /* ReplaceDataBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F934B1561CC9645A002EAB43 /* ReplaceDataBuilder.cpp */; };
 		F934B1591CC9645A002EAB43 /* ReplaceDataBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F934B1571CC9645A002EAB43 /* ReplaceDataBuilder.h */; };
+		F937ABE41D51149C006DD5C4 /* BtTransformArt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F937ABE21D51149C006DD5C4 /* BtTransformArt.cpp */; };
+		F937ABE51D51149C006DD5C4 /* BtTransformArt.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F937ABE31D51149C006DD5C4 /* BtTransformArt.hpp */; };
+		F937ABE81D5241EB006DD5C4 /* PlateBleedInfoUIController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F937ABE61D5241EB006DD5C4 /* PlateBleedInfoUIController.cpp */; };
+		F937ABE91D5241EB006DD5C4 /* PlateBleedInfoUIController.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F937ABE71D5241EB006DD5C4 /* PlateBleedInfoUIController.hpp */; };
+		F937ABEC1D5267CB006DD5C4 /* BtDocumentView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F937ABEA1D5267CB006DD5C4 /* BtDocumentView.cpp */; };
+		F937ABED1D5267CB006DD5C4 /* BtDocumentView.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F937ABEB1D5267CB006DD5C4 /* BtDocumentView.hpp */; };
+		F937AC101D552051006DD5C4 /* com.gosafeguard.SafeguardTools in CopyFiles */ = {isa = PBXBuildFile; fileRef = F937AC0F1D552051006DD5C4 /* com.gosafeguard.SafeguardTools */; };
 		F947263F1CB2E1F400649020 /* VPB.h in Headers */ = {isa = PBXBuildFile; fileRef = F947263D1CB2E1F400649020 /* VPB.h */; };
 		F94726401CB2E1F400649020 /* VPB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F947263E1CB2E1F400649020 /* VPB.cpp */; };
 		F965B58E1D1072F200B0C04C /* ListFonts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F965B58C1D1072F200B0C04C /* ListFonts.cpp */; };
@@ -104,6 +111,10 @@
 		F9DA3B9E1D1D7E6200AB6156 /* BleedTextInfoDrawer.h in Headers */ = {isa = PBXBuildFile; fileRef = F9DA3B9C1D1D7E6200AB6156 /* BleedTextInfoDrawer.h */; };
 		F9E284281D254E2D001B0F98 /* PathCreator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9E284261D254E2D001B0F98 /* PathCreator.cpp */; };
 		F9E284291D254E2D001B0F98 /* PathCreator.h in Headers */ = {isa = PBXBuildFile; fileRef = F9E284271D254E2D001B0F98 /* PathCreator.h */; };
+		F9F079631D47ED21004AC522 /* BleedInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9F079621D47ED21004AC522 /* BleedInfo.cpp */; };
+		F9F079661D47EEC1004AC522 /* TickMarkSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9F079641D47EEC1004AC522 /* TickMarkSettings.cpp */; };
+		F9F079671D47EEC1004AC522 /* TickMarkSettings.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9F079651D47EEC1004AC522 /* TickMarkSettings.hpp */; };
+		F9F0796A1D4BC7D1004AC522 /* IDrawer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9F079691D4BC7D1004AC522 /* IDrawer.cpp */; };
 		F9F1EB6B1D1B19AF0051B716 /* ColorList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9F1EB691D1B19AF0051B716 /* ColorList.cpp */; };
 		F9F1EB6C1D1B19AF0051B716 /* ColorList.h in Headers */ = {isa = PBXBuildFile; fileRef = F9F1EB6A1D1B19AF0051B716 /* ColorList.h */; };
 		F9F55E531CB42D2900FA20EC /* SDKErrors.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9F55E521CB42D2900FA20EC /* SDKErrors.cpp */; };
@@ -111,6 +122,19 @@
 		F9FAE8FF1CBD87E700938893 /* BtArtboardRange.h in Headers */ = {isa = PBXBuildFile; fileRef = F9FAE8FD1CBD87E700938893 /* BtArtboardRange.h */; };
 		F9FEC8291CB576280097473A /* IAIArtboards.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9FEC8281CB576280097473A /* IAIArtboards.cpp */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F937AC051D551F86006DD5C4 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "/Applications/Adobe Illustrator CC 2015.3/CEP/extensions";
+			dstSubfolderSpec = 0;
+			files = (
+				F937AC101D552051006DD5C4 /* com.gosafeguard.SafeguardTools in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		6868C920150BA192003DAAF2 /* SafeguardToolsID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SafeguardToolsID.h; path = Source/SafeguardToolsID.h; sourceTree = "<group>"; };
@@ -155,6 +179,22 @@
 		F93027D81CA46E7D00D3B41E /* SafeguardTools.r */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; name = SafeguardTools.r; path = Resources/Mac/SafeguardTools.r; sourceTree = "<group>"; };
 		F934B1561CC9645A002EAB43 /* ReplaceDataBuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ReplaceDataBuilder.cpp; sourceTree = "<group>"; };
 		F934B1571CC9645A002EAB43 /* ReplaceDataBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceDataBuilder.h; sourceTree = "<group>"; };
+		F937ABE21D51149C006DD5C4 /* BtTransformArt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BtTransformArt.cpp; path = "Source/utility-headers/BtTransformArt.cpp"; sourceTree = "<group>"; };
+		F937ABE31D51149C006DD5C4 /* BtTransformArt.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = BtTransformArt.hpp; path = "Source/utility-headers/BtTransformArt.hpp"; sourceTree = "<group>"; };
+		F937ABE61D5241EB006DD5C4 /* PlateBleedInfoUIController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlateBleedInfoUIController.cpp; path = Source/PlateBleedInfo/PlateBleedInfoUIController.cpp; sourceTree = "<group>"; };
+		F937ABE71D5241EB006DD5C4 /* PlateBleedInfoUIController.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PlateBleedInfoUIController.hpp; path = Source/PlateBleedInfo/PlateBleedInfoUIController.hpp; sourceTree = "<group>"; };
+		F937ABEA1D5267CB006DD5C4 /* BtDocumentView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BtDocumentView.cpp; path = "Source/utility-headers/BtDocumentView.cpp"; sourceTree = "<group>"; };
+		F937ABEB1D5267CB006DD5C4 /* BtDocumentView.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = BtDocumentView.hpp; path = "Source/utility-headers/BtDocumentView.hpp"; sourceTree = "<group>"; };
+		F937ABF21D551D72006DD5C4 /* PrintToPdf.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = PrintToPdf.js; path = com.gosafeguard.SafeguardTools/js/PrintToPdf.js; sourceTree = "<group>"; };
+		F937ABF51D551E1F006DD5C4 /* ColorTools.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = ColorTools.html; path = ../../com.gosafeguard.SafeguardTools/ColorTools.html; sourceTree = "<group>"; };
+		F937ABF61D551E1F006DD5C4 /* ColorTools.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = ColorTools.js; path = ../../com.gosafeguard.SafeguardTools/js/ColorTools.js; sourceTree = "<group>"; };
+		F937ABF71D551E1F006DD5C4 /* PlateBleedInfo.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = PlateBleedInfo.js; path = com.gosafeguard.SafeguardTools/js/PlateBleedInfo.js; sourceTree = "<group>"; };
+		F937ABF81D551E1F006DD5C4 /* PlateBleedInfo.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = PlateBleedInfo.html; path = com.gosafeguard.SafeguardTools/PlateBleedInfo.html; sourceTree = "<group>"; };
+		F937ABF91D551E1F006DD5C4 /* PrintToPdf.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = PrintToPdf.html; path = com.gosafeguard.SafeguardTools/PrintToPdf.html; sourceTree = "<group>"; };
+		F937ABFF1D551ED7006DD5C4 /* ColorTools.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = ColorTools.css; path = ../../com.gosafeguard.SafeguardTools/css/ColorTools.css; sourceTree = "<group>"; };
+		F937AC001D551ED7006DD5C4 /* PlateBleedInfo.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = PlateBleedInfo.css; path = com.gosafeguard.SafeguardTools/css/PlateBleedInfo.css; sourceTree = "<group>"; };
+		F937AC011D551ED7006DD5C4 /* PrintToPdf.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = PrintToPdf.css; path = com.gosafeguard.SafeguardTools/css/PrintToPdf.css; sourceTree = "<group>"; };
+		F937AC0F1D552051006DD5C4 /* com.gosafeguard.SafeguardTools */ = {isa = PBXFileReference; lastKnownFileType = folder; path = com.gosafeguard.SafeguardTools; sourceTree = "<group>"; };
 		F947263D1CB2E1F400649020 /* VPB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPB.h; path = "Source/utility-headers/VPB.h"; sourceTree = "<group>"; };
 		F947263E1CB2E1F400649020 /* VPB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VPB.cpp; path = "Source/utility-headers/VPB.cpp"; sourceTree = "<group>"; };
 		F965B58C1D1072F200B0C04C /* ListFonts.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ListFonts.cpp; path = Source/ListFonts/ListFonts.cpp; sourceTree = "<group>"; };
@@ -213,6 +253,11 @@
 		F9DA3B9C1D1D7E6200AB6156 /* BleedTextInfoDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BleedTextInfoDrawer.h; path = Source/PlateBleedInfo/BleedTextInfoDrawer.h; sourceTree = "<group>"; };
 		F9E284261D254E2D001B0F98 /* PathCreator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PathCreator.cpp; path = Source/PrintToPdf/PathCreator.cpp; sourceTree = "<group>"; };
 		F9E284271D254E2D001B0F98 /* PathCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PathCreator.h; path = Source/PrintToPdf/PathCreator.h; sourceTree = "<group>"; };
+		F9F079621D47ED21004AC522 /* BleedInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BleedInfo.cpp; path = Source/PlateBleedInfo/BleedInfo.cpp; sourceTree = "<group>"; };
+		F9F079641D47EEC1004AC522 /* TickMarkSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TickMarkSettings.cpp; path = Source/PlateBleedInfo/TickMarkSettings.cpp; sourceTree = "<group>"; };
+		F9F079651D47EEC1004AC522 /* TickMarkSettings.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TickMarkSettings.hpp; path = Source/PlateBleedInfo/TickMarkSettings.hpp; sourceTree = "<group>"; };
+		F9F079681D4BC4D3004AC522 /* IDrawer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IDrawer.h; path = Source/PlateBleedInfo/IDrawer.h; sourceTree = "<group>"; };
+		F9F079691D4BC7D1004AC522 /* IDrawer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IDrawer.cpp; path = Source/PlateBleedInfo/IDrawer.cpp; sourceTree = "<group>"; };
 		F9F1EB691D1B19AF0051B716 /* ColorList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ColorList.cpp; path = Source/PlateBleedInfo/ColorList.cpp; sourceTree = "<group>"; };
 		F9F1EB6A1D1B19AF0051B716 /* ColorList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColorList.h; path = Source/PlateBleedInfo/ColorList.h; sourceTree = "<group>"; };
 		F9F55E521CB42D2900FA20EC /* SDKErrors.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SDKErrors.cpp; path = "../Adobe Illustrator 2015.3 SDK/samplecode/common/source/SDKErrors.cpp"; sourceTree = "<group>"; };
@@ -280,6 +325,7 @@
 			isa = PBXGroup;
 			children = (
 				C4A3F94D134C5A7F00128D2D /* Libraries */,
+				F937AC0F1D552051006DD5C4 /* com.gosafeguard.SafeguardTools */,
 				2AE97C910BBC0FAB0041212F /* Sources */,
 				6EE2BA590A40BDD300CC7CE2 /* Resources */,
 				508817D509F0C9AD0071BF1A /* Products */,
@@ -339,6 +385,9 @@
 		F91180761CE3B37600AA7AC8 /* PrintToPdf */ = {
 			isa = PBXGroup;
 			children = (
+				F937ABF91D551E1F006DD5C4 /* PrintToPdf.html */,
+				F937ABF21D551D72006DD5C4 /* PrintToPdf.js */,
+				F937AC011D551ED7006DD5C4 /* PrintToPdf.css */,
 				F9158D531D05FBE900343D57 /* ExistingFileDeleter.cpp */,
 				F9158D541D05FBE900343D57 /* ExistingFileDeleter.h */,
 				F97B564C1D36759400C10A9F /* LayerVisibility.cpp */,
@@ -379,6 +428,10 @@
 		F9158D571D073E4E00343D57 /* PlateBleedInfo */ = {
 			isa = PBXGroup;
 			children = (
+				F937ABF81D551E1F006DD5C4 /* PlateBleedInfo.html */,
+				F937ABF71D551E1F006DD5C4 /* PlateBleedInfo.js */,
+				F937AC001D551ED7006DD5C4 /* PlateBleedInfo.css */,
+				F9F079621D47ED21004AC522 /* BleedInfo.cpp */,
 				F910BD691D09FA910029DF62 /* BleedInfo.h */,
 				F9DA3B8F1D1C5EFA00AB6156 /* BleedInfoDrawer.cpp */,
 				F9DA3B901D1C5EFA00AB6156 /* BleedInfoDrawer.h */,
@@ -390,8 +443,14 @@
 				F9DA3B941D1C6C7D00AB6156 /* ColorListDrawer.h */,
 				F9DA3B971D1C6C9300AB6156 /* FileNameDateDrawer.cpp */,
 				F9DA3B981D1C6C9300AB6156 /* FileNameDateDrawer.h */,
+				F9F079691D4BC7D1004AC522 /* IDrawer.cpp */,
+				F9F079681D4BC4D3004AC522 /* IDrawer.h */,
+				F937ABE61D5241EB006DD5C4 /* PlateBleedInfoUIController.cpp */,
+				F937ABE71D5241EB006DD5C4 /* PlateBleedInfoUIController.hpp */,
 				F9C44EF21D0AF51100205ADF /* TickMarkDrawer.cpp */,
 				F9C44EF31D0AF51100205ADF /* TickMarkDrawer.h */,
+				F9F079641D47EEC1004AC522 /* TickMarkSettings.cpp */,
+				F9F079651D47EEC1004AC522 /* TickMarkSettings.hpp */,
 			);
 			name = PlateBleedInfo;
 			sourceTree = "<group>";
@@ -399,6 +458,9 @@
 		F963C91C1CC7D3AA00A0D519 /* ColorTools */ = {
 			isa = PBXGroup;
 			children = (
+				F937ABF51D551E1F006DD5C4 /* ColorTools.html */,
+				F937ABF61D551E1F006DD5C4 /* ColorTools.js */,
+				F937ABFF1D551ED7006DD5C4 /* ColorTools.css */,
 				F989A8E01CA460CE0050C071 /* ColorToolsUIController.cpp */,
 				F989A8E11CA460CE0050C071 /* ColorToolsUIController.h */,
 				F989A8E21CA460CE0050C071 /* FindReplaceGraphics.cpp */,
@@ -440,10 +502,14 @@
 				F90DB92D1D08A25B0039CE5F /* BtAteTextFeatures.h */,
 				F90E3F971CA475880081C333 /* BtColor.cpp */,
 				F90E3F981CA475880081C333 /* BtColor.h */,
+				F937ABEA1D5267CB006DD5C4 /* BtDocumentView.cpp */,
+				F937ABEB1D5267CB006DD5C4 /* BtDocumentView.hpp */,
 				F97B56501D367CA900C10A9F /* BtLayer.cpp */,
 				F97B56511D367CA900C10A9F /* BtLayer.hpp */,
 				F90E3F991CA475880081C333 /* BtSwatchList.cpp */,
 				F90E3F9A1CA475880081C333 /* BtSwatchList.h */,
+				F937ABE21D51149C006DD5C4 /* BtTransformArt.cpp */,
+				F937ABE31D51149C006DD5C4 /* BtTransformArt.hpp */,
 				F90E3F9B1CA475880081C333 /* ColorFuncs.cpp */,
 				F90E3F9C1CA475880081C333 /* ColorFuncs.h */,
 				F9DA3B8E1D1C4A4A00AB6156 /* GetIllustratorErrorCode.h */,
@@ -468,6 +534,7 @@
 				F90E3F9E1CA475880081C333 /* ATEFuncs.h in Headers */,
 				F910BD6B1D09FA910029DF62 /* BleedInfo.h in Headers */,
 				F90AE3F31CAAF8AF0076A9BC /* BtAiMenuItemHandles.h in Headers */,
+				F937ABED1D5267CB006DD5C4 /* BtDocumentView.hpp in Headers */,
 				F98BAEDE1CA99E1E00965D86 /* ArtTree.h in Headers */,
 				F9FAE8FF1CBD87E700938893 /* BtArtboardRange.h in Headers */,
 				F9DA3B9E1D1D7E6200AB6156 /* BleedTextInfoDrawer.h in Headers */,
@@ -491,14 +558,17 @@
 				F9CE24FB1D11A56E0075DDDF /* TextTools.h in Headers */,
 				F97B564F1D36759500C10A9F /* LayerVisibility.hpp in Headers */,
 				F9138EA01D01EE4D00D23C1F /* PrintToPdfConstants.h in Headers */,
+				F937ABE51D51149C006DD5C4 /* BtTransformArt.hpp in Headers */,
 				F96D30741CB6D73500274BDE /* PlateNumber.h in Headers */,
 				F9138E9B1D01EE4D00D23C1F /* PdfResults.h in Headers */,
 				F947263F1CB2E1F400649020 /* VPB.h in Headers */,
+				F9F079671D47EEC1004AC522 /* TickMarkSettings.hpp in Headers */,
 				F9DA3B961D1C6C7D00AB6156 /* ColorListDrawer.h in Headers */,
 				F98BAEE21CA9A0D100965D86 /* BtAiMenuItem.h in Headers */,
 				F965B58F1D1072F200B0C04C /* ListFonts.h in Headers */,
 				F90DB92F1D08A25B0039CE5F /* BtAteTextFeatures.h in Headers */,
 				6868C927150BA192003DAAF2 /* SafeguardToolsPlugin.h in Headers */,
+				F937ABE91D5241EB006DD5C4 /* PlateBleedInfoUIController.hpp in Headers */,
 				F9158D561D05FBE900343D57 /* ExistingFileDeleter.h in Headers */,
 				F9C44EF91D0B14AE00205ADF /* SafeguardJobFile.h in Headers */,
 				F90E3FA21CA475880081C333 /* BtSwatchList.h in Headers */,
@@ -517,6 +587,7 @@
 				6EE2BA0A0A40B76300CC7CE2 /* Headers */,
 				508817D109F0C9AD0071BF1A /* Sources */,
 				508817D009F0C9AD0071BF1A /* Resources */,
+				F937AC051D551F86006DD5C4 /* CopyFiles */,
 				508817D209F0C9AD0071BF1A /* Frameworks */,
 				6EE2BA0C0A40B77400CC7CE2 /* Rez */,
 			);
@@ -584,9 +655,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F937ABE81D5241EB006DD5C4 /* PlateBleedInfoUIController.cpp in Sources */,
 				F989A8F11CA465890050C071 /* IText.cpp in Sources */,
 				F979B5FF1CA31E72004BA4AD /* AppContext.cpp in Sources */,
+				F937ABE41D51149C006DD5C4 /* BtTransformArt.cpp in Sources */,
 				F9138E9A1D01EE4D00D23C1F /* PdfResults.cpp in Sources */,
+				F9F079631D47ED21004AC522 /* BleedInfo.cpp in Sources */,
 				F979B6091CA31E8E004BA4AD /* Suites.cpp in Sources */,
 				F9F55E531CB42D2900FA20EC /* SDKErrors.cpp in Sources */,
 				F97B564E1D36759500C10A9F /* LayerVisibility.cpp in Sources */,
@@ -607,10 +681,12 @@
 				F9C44EF01D0AF26100205ADF /* Plate.cpp in Sources */,
 				F90E3F9F1CA475880081C333 /* BtColor.cpp in Sources */,
 				F9E284281D254E2D001B0F98 /* PathCreator.cpp in Sources */,
+				F9F0796A1D4BC7D1004AC522 /* IDrawer.cpp in Sources */,
 				F9CE24FA1D11A56E0075DDDF /* TextTools.cpp in Sources */,
 				F9DA3B951D1C6C7D00AB6156 /* ColorListDrawer.cpp in Sources */,
 				F98BAEE11CA9A0D100965D86 /* BtAiMenuItem.cpp in Sources */,
 				F989A8EA1CA460CE0050C071 /* FindReplaceGraphics.cpp in Sources */,
+				F9F079661D47EEC1004AC522 /* TickMarkSettings.cpp in Sources */,
 				F9138E9C1D01EE4D00D23C1F /* PdfSettings.cpp in Sources */,
 				F90E3F9D1CA475880081C333 /* ATEFuncs.cpp in Sources */,
 				F979B6031CA31E81004BA4AD /* FlashUIController.cpp in Sources */,
@@ -634,6 +710,7 @@
 				6868C926150BA192003DAAF2 /* SafeguardToolsPlugin.cpp in Sources */,
 				6868C928150BA192003DAAF2 /* SafeguardToolsSuites.cpp in Sources */,
 				F9158D511D05EC4700343D57 /* PathBuilder.cpp in Sources */,
+				F937ABEC1D5267CB006DD5C4 /* BtDocumentView.cpp in Sources */,
 				F97B56561D36B92600C10A9F /* TypeToPathsConverter.cpp in Sources */,
 				F905605E1D3526E30084AB31 /* DictionaryWriter.cpp in Sources */,
 				F989A8E81CA460CE0050C071 /* ColorToolsUIController.cpp in Sources */,
@@ -679,6 +756,10 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OBJROOT = .;
 				ONLY_LINK_ESSENTIAL_SYMBOLS = YES;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-D__ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES=0",
+				);
 				OTHER_LDFLAGS = "";
 				PATH_TO_SDK_ILLUSTRATORAPI_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator 2015.3 SDK/illustratorapi";
 				PATH_TO_SDK_SAMPLECODE_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator 2015.3 SDK/samplecode";
@@ -687,7 +768,7 @@
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = NO;
 				PRODUCT_NAME = SafeguardTools;
 				PROJECTNAME = SafeguardTools;
-				REZ_SEARCH_PATHS = "";
+				REZ_SEARCH_PATHS = "\"$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common\"/**";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = macosx;
 				SEPARATE_STRIP = NO;
@@ -696,7 +777,7 @@
 				STRIP_INSTALLED_PRODUCT = YES;
 				STRIP_STYLE = all;
 				SYMROOT = "$(SRCROOT)/output/mac/$(AI_CONFIGURATION)";
-				USER_HEADER_SEARCH_PATHS = "";
+				USER_HEADER_SEARCH_PATHS = "\"$(PATH_TO_SDK_ILLUSTRATORAPI_FOLDER)\"/** \"$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common\"/** /Users/t431962/Desktop/SafeguardTools/Source/utility-headers /Users/t431962/Desktop/cereal/include /Users/t431962/Desktop/boost_1_60_0 /Users/t431962/Desktop/rapidjson/include";
 				VALID_ARCHS = "i386 x86_64";
 				WRAPPER_EXTENSION = aip;
 				ZERO_LINK = NO;
@@ -738,6 +819,10 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OBJROOT = .;
 				ONLY_LINK_ESSENTIAL_SYMBOLS = YES;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-D__ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES=0",
+				);
 				OTHER_LDFLAGS = "";
 				PATH_TO_SDK_ILLUSTRATORAPI_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator 2015.3 SDK/illustratorapi";
 				PATH_TO_SDK_SAMPLECODE_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator 2015.3 SDK/samplecode";
@@ -746,7 +831,7 @@
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = NO;
 				PRODUCT_NAME = SafeguardTools;
 				PROJECTNAME = SafeguardTools;
-				REZ_SEARCH_PATHS = "";
+				REZ_SEARCH_PATHS = "\"$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common\"/**";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = macosx;
 				SEPARATE_STRIP = NO;
@@ -755,7 +840,7 @@
 				STRIP_INSTALLED_PRODUCT = YES;
 				STRIP_STYLE = all;
 				SYMROOT = "$(SRCROOT)/output/mac/$(AI_CONFIGURATION)";
-				USER_HEADER_SEARCH_PATHS = "";
+				USER_HEADER_SEARCH_PATHS = "\"$(PATH_TO_SDK_ILLUSTRATORAPI_FOLDER)\"/** \"$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common\"/** /Users/t431962/Desktop/SafeguardTools/Source/utility-headers /Users/t431962/Desktop/cereal/include /Users/t431962/Desktop/boost_1_60_0 /Users/t431962/Desktop/rapidjson/include";
 				VALID_ARCHS = "i386 x86_64";
 				WRAPPER_EXTENSION = aip;
 				ZERO_LINK = NO;
@@ -773,11 +858,8 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				HEADER_SEARCH_PATHS = (
-					/Users/t431962/Desktop/boost_1_60_0,
-					/Users/t431962/Desktop/rapidjson/include/rapidjson,
 					"/Developer/Headers/FlatCarbon/**",
-					"\"$(PATH_TO_SDK_ILLUSTRATORAPI_FOLDER)/**\"",
-					"\"$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common/**\"",
+					/Users/t431962/Desktop/boost_1_60_0,
 				);
 				LIBRARY_SEARCH_PATHS = /Users/t431962/Desktop/boost_1_60_0/stage/lib;
 				OTHER_LDFLAGS = "-lboost_system";
@@ -802,11 +884,8 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				HEADER_SEARCH_PATHS = (
-					/Users/t431962/Desktop/boost_1_60_0,
-					/Users/t431962/Desktop/rapidjson/include/rapidjson,
 					"/Developer/Headers/FlatCarbon/**",
-					"\"$(PATH_TO_SDK_ILLUSTRATORAPI_FOLDER)/**\"",
-					"\"$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common/**\"",
+					/Users/t431962/Desktop/boost_1_60_0,
 				);
 				LIBRARY_SEARCH_PATHS = /Users/t431962/Desktop/boost_1_60_0/stage/lib;
 				OTHER_LDFLAGS = "-lboost_system";

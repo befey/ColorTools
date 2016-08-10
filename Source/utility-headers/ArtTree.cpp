@@ -8,6 +8,7 @@
  */
 
 #include "ArtTree.h"
+#include "BtLayer.hpp"
 
 
 long CreateArtSetOfPrintingObjectsWithinRect(AIArtSet const targetSet, AIRealRect rect)
@@ -36,8 +37,10 @@ long CreateArtSetOfPrintingObjectsWithinRect(AIArtSet const targetSet, AIRealRec
                 sAIArt->GetArtBounds(currArtHandle, &artRect);
                 int attr;
                 sAIArt->GetArtUserAttr(currArtHandle, kArtHidden, &attr);
+                short type;
+                sAIArt->GetArtType(currArtHandle, &type);
                 
-                if (sAIRealMath->AIRealRectOverlap(&artRect, &rect) && !(attr & kArtHidden))
+                if (sAIRealMath->AIRealRectOverlap(&artRect, &rect) && !(attr & kArtHidden) && type != kGroupArt)
                 {
                     sAIArtSet->AddArtToArtSet(targetSet, currArtHandle);
                 }
@@ -51,94 +54,16 @@ long CreateArtSetOfPrintingObjectsWithinRect(AIArtSet const targetSet, AIRealRec
     return c;
 }
 
-void MoveArtToTopOfLayer(AIArtHandle currArtHandle) {
-	AILayerHandle layer = NULL; sAIArt->GetLayerOfArt(currArtHandle, &layer);
-	if (!layer) {
-		return;
-	}
-	AIArtHandle layerGroup; sAIArt->GetFirstArtOfLayer(layer, &layerGroup);
-	
-	int eflag = 0; int vflag = 0;
-	ASBoolean editable = FALSE;
-	ASBoolean visible = FALSE;
-	
-	int attr = 0;
-	
-	//Check if the layer is editable
-	sAILayer->GetLayerEditable(layer, &editable);
-	sAILayer->GetLayerVisible(layer, &visible);
-	
-	//Set the layer editable and visible, set flags so we can set it back the way it was
-	if (!editable) { sAILayer->SetLayerEditable(layer, TRUE); eflag = 1; }
-	if (!visible) { sAILayer->SetLayerVisible(layer, TRUE); vflag = 1; }
-	
-	//Check if the art itself is editable
-	sAIArt->GetArtUserAttr(currArtHandle, kArtLocked | kArtHidden, &attr);
-	if ((attr & kArtLocked) || (attr & kArtHidden)) {
-		sAIArt->SetArtUserAttr(currArtHandle, kArtLocked | kArtHidden, 0);
-	}
-	
-	//Move it out of the group
-	sAIArt->ReorderArt(currArtHandle, kPlaceInsideOnTop, layerGroup);
-	
-	//Set the layer and art attributes back the way they were
-	if(eflag) { sAILayer->SetLayerEditable(layer, FALSE); }
-	if(vflag) { sAILayer->SetLayerVisible(layer, FALSE); }
-	sAIArt->SetArtUserAttr(currArtHandle, kArtLocked | kArtHidden, attr);
-	
-	return;
-}
-
-void PutArtAtTopOfLayer(AIArtHandle art, string layerName)
-{
-    AILayerHandle layer = NULL;
-    sAILayer->GetLayerByTitle(&layer, ai::UnicodeString(layerName));
-    if (layer)
-    {
-        AIArtHandle layerGroup; sAIArt->GetFirstArtOfLayer(layer, &layerGroup);
-        
-        int eflag = 0; int vflag = 0;
-        ASBoolean editable = FALSE;
-        ASBoolean visible = FALSE;
-        
-        int attr = 0;
-        
-        //Check if the layer is editable
-        sAILayer->GetLayerEditable(layer, &editable);
-        sAILayer->GetLayerVisible(layer, &visible);
-        
-        //Set the layer editable and visible, set flags so we can set it back the way it was
-        if (!editable) { sAILayer->SetLayerEditable(layer, TRUE); eflag = 1; }
-        if (!visible) { sAILayer->SetLayerVisible(layer, TRUE); vflag = 1; }
-        
-        //Check if the art itself is editable
-        sAIArt->GetArtUserAttr(art, kArtLocked | kArtHidden, &attr);
-        if ((attr & kArtLocked) || (attr & kArtHidden)) {
-            sAIArt->SetArtUserAttr(art, kArtLocked | kArtHidden, 0);
-        }
-        
-        //Move it to the top of the layer
-        sAIArt->ReorderArt(art, kPlaceInsideOnTop, layerGroup);
-
-        //Set the layer and art attributes back the way they were
-        if(eflag) { sAILayer->SetLayerEditable(layer, FALSE); }
-        if(vflag) { sAILayer->SetLayerVisible(layer, FALSE); }
-        sAIArt->SetArtUserAttr(art, kArtLocked | kArtHidden, attr);
-    }
-    else
-    {
-        MoveArtToTopOfLayer(art);
-    }
-}
-
 void PutArtInGroup(AIArtHandle currArtHandle, AIArtHandle theGroup) {
-	AILayerHandle layer = NULL; sAIArt->GetLayerOfArt(currArtHandle, &layer);
-	if (!layer) {
+	AILayerHandle layer = NULL;
+    sAIArt->GetLayerOfArt(currArtHandle, &layer);
+	if (!layer)
+    {
 		return;
 	}
-	AIArtHandle layerGroup; sAIArt->GetFirstArtOfLayer(layer, &layerGroup);
 
-	int eflag = 0; int vflag = 0;
+	int eflag = 0;
+    int vflag = 0;
 	ASBoolean editable = FALSE;
 	ASBoolean visible = FALSE;
 	
@@ -472,4 +397,23 @@ bool ProcessArtSet(const AIArtSet artSet, std::function<void(AIArtHandle)> callb
         callback(art);
     }
     return true;
+}
+
+AIArtHandle GetGroupArtOfFirstEditableLayer()
+{
+    ai::int32 count;
+    sAILayer->CountLayers(&count);
+    
+    for (int i = 0; i < count; i++)
+    {
+        AILayerHandle layer;
+        sAILayer->GetNthLayer(i, &layer);
+        BtLayer btLayer(layer);
+        if (btLayer.Editable() && btLayer.Visible())
+        {
+            return btLayer.GetLayerGroupArt();
+        }
+    }
+    
+    return NULL;
 }

@@ -6,6 +6,8 @@
 #include "ColorFuncs.h"
 #include "DictionaryWriter.h"
 #include "BtAteTextFeatures.h"
+#include "SafeguardFileConstants.h"
+
 
 #include "TextTools.h"
 
@@ -726,7 +728,7 @@ bool CreateMICRBarcode()
 		return FALSE;
 	}
     
-	AISwatchRef micrSwatch = sAISwatchList->GetSwatchByName(NULL, ai::UnicodeString(MICR_BLACK_MAG_COLOR_NAME));
+	AISwatchRef micrSwatch = sAISwatchList->GetSwatchByName(NULL, ai::UnicodeString(SafeguardFile::MICR_BLACK_MAG_COLOR_NAME));
 	AIColor micrColor;
 	sAISwatchList->GetAIColor(micrSwatch, &micrColor);
 	
@@ -855,7 +857,7 @@ bool CreateMICRBarcode()
         {
 			AIRealPoint anchor;
 			FindBarcodeAnchorPoint(&anchor);
-			sAITextFrame->NewPointText(kPlaceAboveAll, micrLineHandle, kHorizontalTextOrientation, anchor, &barcodeTextFrame);
+			sAITextFrame->NewPointText(kPlaceAbove, micrLineHandle, kHorizontalTextOrientation, anchor, &barcodeTextFrame);
 			sAIArt->SetArtName(barcodeTextFrame, ai::UnicodeString(MICR_BARCODE_LABEL));
 			
 			dw->AddArtHandleToDictionary(barcodeTextFrame, MICR_BARCODE_LABEL);
@@ -870,10 +872,7 @@ bool CreateMICRBarcode()
 		barcodeTextRange.Remove();
 		
         BtAteTextFeatures barcodeFeatures;
-        barcodeFeatures.SetFontSize(12);
-        barcodeFeatures.SetFont(BARCODE_FONT_NAME);
-        barcodeFeatures.SetJustification(ATE::kCenterJustify);
-        barcodeFeatures.SetFillColor(micrColor);
+        barcodeFeatures.FontSize(12).Font(BARCODE_FONT_NAME).Justification(ATE::kCenterJustify).FillColor(micrColor);
         
 		barcodeFeatures.AddTextToRangeWithFeatures(barcodeString.as_Platform(), barcodeTextRange);
 	}
@@ -892,13 +891,12 @@ ai::UnicodeString CreateBarcodeStringFromMICRString(ai::UnicodeString micrString
 	 We need to add ! at the start and end
 	 We need to replace any spaces with =
 	 */
-    using namespace std;
     
     string s = micrString.as_Platform();
     
-    regex r("(?:[C]*[\\d]*[C]*[ ]*)((([A][\\d|D]{9}[A])[ ]*([C]|[D]|[B]|[\\d]|[ ])+[C])([ ]*[\\d]*)?)");
-    smatch result;
-    regex_search(s,result, r);
+    std::regex r("(?:[C]*[\\d]*[C]*[ ]*)((([A][\\d|D]{9}[A])[ ]*([C]|[D]|[B]|[\\d]|[ ])+[C])([ ]*[\\d]*)?)");
+    std::smatch result;
+    std::regex_search(s,result, r);
     
     if (result.length() < 2) return ai::UnicodeString();
     

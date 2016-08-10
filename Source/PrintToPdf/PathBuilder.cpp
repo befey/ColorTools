@@ -38,17 +38,16 @@ ai::FilePath ManufacturingPathBuilder::GetAiFilePath(const PlateNumber pn) const
         prodCode = pn.GetProductIndicator();
     }
     
-    if (prodCode == "")
+    ai::UnicodeString fpUS = ai::UnicodeString(PATH_TO_PLANT_MANUFACTURING);
+    saveasFilePath.Set(fpUS);
+    saveasFilePath.AddComponent(ai::UnicodeString(prodCode + " to be Plated"));
+    saveasFilePath.AddComponent(ai::UnicodeString(pn.GetPlantIndicator() + " " + prodCode + " to be Plated"));
+    
+    fs::path outputPath( saveasFilePath.GetFullPath().as_Platform() );
+    if (!fs::is_directory(outputPath) || prodCode == "")
     {
         UserPathBuilder upb;
         saveasFilePath = upb.GetAiFilePath(pn);
-    }
-    else
-    {
-        ai::UnicodeString fpUS = ai::UnicodeString(PATH_TO_PLANT_MANUFACTURING);
-        saveasFilePath.Set(fpUS);
-        saveasFilePath.AddComponent(ai::UnicodeString(prodCode + " to be Plated"));
-        saveasFilePath.AddComponent(ai::UnicodeString(pn.GetPlantIndicator() + " " + prodCode + " to be Plated"));
     }
     
     return saveasFilePath;

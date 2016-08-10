@@ -4,6 +4,8 @@
 
 #include "AICSXS.h"
 
+#include "GetIllustratorErrorCode.h"
+
 #include "ColorToolsUIController.h"
 #include "PrintToPdfUIController.h"
 #include "BtSwatchList.h"
@@ -17,6 +19,7 @@
 #include "PdfPrinter.h"
 #include "BleedInfo.h"
 #include "ListFonts.h"
+#include "BtDocumentView.hpp"
 
 SafeguardToolsPlugin *gPlugin = NULL;
 
@@ -32,8 +35,7 @@ void FixupReload(Plugin* plugin)
 
 SafeguardToolsPlugin::SafeguardToolsPlugin(SPPluginRef pluginRef) :
 	Plugin(pluginRef),
-    fRegisterEventNotifierHandle(NULL),
-    mySwatchList(NULL)
+    fRegisterEventNotifierHandle(NULL)
 {
 	strncpy(fPluginName, kSafeguardToolsPluginName, kMaxStringLength);
 }
@@ -118,9 +120,12 @@ ASErr SafeguardToolsPlugin::StartupPlugin( SPInterfaceMessage *message )
         if (error) { return error; }
     }
     
-    if (NULL == mySwatchList)
+    if (NULL == plateBleedInfoUIController)
     {
-        mySwatchList = std::make_shared<BtSwatchList>();
+        plateBleedInfoUIController = std::make_shared<SafeguardFile::PlateBleedInfoUIController>();
+        
+        error = Plugin::LockPlugin(true);
+        if (error) { return error; }
     }
     
     error = this->AddMenus(message);
@@ -175,10 +180,14 @@ ASErr SafeguardToolsPlugin::ShutdownPlugin( SPInterfaceMessage *message )
         printToPdfUIController->RemoveEventListeners();
         Plugin::LockPlugin(false);
     }
+    if (plateBleedInfoUIController)
+    {
+        plateBleedInfoUIController->RemoveEventListeners();
+        Plugin::LockPlugin(false);
+    }
 
     message->d.globals = NULL;
     return Plugin::ShutdownPlugin(message);
-
 }
 
 ASErr SafeguardToolsPlugin::ReloadPlugin(SPInterfaceMessage *message)
@@ -400,16 +409,17 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
     }
 /*    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
     {
-        ai::UnicodeString menuText;
-        sAIMenu->GetItemText(message->menuItem, menuText);
-        if (menuText.find(ai::UnicodeString("Remove"),0) != ai::UnicodeString::npos)
+        unique_ptr<DictionaryWriter> dw = make_unique<DictionaryWriter>();
+        if ( dw->CheckDictionaryForArtObjectWithIdentifier(SafeguardFile::PLATE_BLEED_INFO_GROUP_LABEL, 0) )
         {
-            //TODO: sgJobFile->RemoveBleedInfo();
-            sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Remove Safeguard Plate Info"), ai::UnicodeString("Redo Remove Safeguard Plate Info"));
+            SafeguardJobFile sgJobFile;
+            sgJobFile.EditBleedInfo();
+            sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Edit Safeguard Plate Info"), ai::UnicodeString("Redo Edit Safeguard Plate Info"));
         }
         else
         {
-            //TODO: sgJobFile->Update();
+            SafeguardJobFile sgJobFile;
+            sgJobFile.AddBleedInfo();
             sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Add Safeguard Plate Info"), ai::UnicodeString("Redo Add Safeguard Plate Info"));
         }
     }
@@ -470,7 +480,7 @@ ASErr SafeguardToolsPlugin::UpdateMenuItem(AIMenuMessage* message)
         unique_ptr<DictionaryWriter> dw = make_unique<DictionaryWriter>();
         if ( dw->CheckDictionaryForArtObjectWithIdentifier(SafeguardFile::PLATE_BLEED_INFO_GROUP_LABEL, 0) )
         {
-            sAIMenu->SetItemText( message->menuItem, ai::UnicodeString("Remove Safeguard Plate Info") );
+            sAIMenu->SetItemText( message->menuItem, ai::UnicodeString("Edit Safeguard Plate Info") );
         }
         else
         {
@@ -492,6 +502,7 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
     {
         colorToolsUIController->RegisterCSXSEventListeners();
         printToPdfUIController->RegisterCSXSEventListeners();
+        plateBleedInfoUIController->RegisterCSXSEventListeners();
     }
     
     if ( message->notifier == fAppStartedNotifierHandle )
@@ -503,7 +514,8 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
         message->notifier == fCustomColorChangeNotifierHandle ||
         message->notifier == fSwatchLibChangeNotifierHandle )
     {
-        string swatchesXml = gPlugin->GetBtSwatchList()->GetColorListAsXMLString();
+        BtSwatchList swatchList;
+        string swatchesXml = swatchList.GetColorListAsXMLString();
         colorToolsUIController->SendColorListXmlToHtml(swatchesXml);
     }
     
@@ -513,7 +525,8 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
     }
     if (message->notifier == fDocumentCropAreaModifiedNotifierHandle )
     {
-        //TODO: SafeguardJobFile Update
+        SafeguardJobFile sgJobFile;
+        sgJobFile.UpdateBleedInfo();
     }
     return kNoErr;
 }

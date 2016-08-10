@@ -9,6 +9,7 @@
 
 #include "ATEFuncs.h"
 #include "BtAteTextFeatures.h"
+#include "ArtTree.h"
 
 ai::UnicodeString GetNameFromATETextRange(ATE::ITextRange targetRange) {
 	ATE::ITextFramesIterator itemFrameIterator = targetRange.GetTextFramesIterator();
@@ -172,7 +173,7 @@ string GetFontNameFromFeatures(const BtAteTextFeatures features)
 {
     string fontNameString = "";
     bool isAssigned = false;
-    ATE::IFont font = features.GetFont(&isAssigned);
+    ATE::IFont font = features.Font(&isAssigned);
     if (isAssigned)
     {
         FontRef ref = font.GetRef();
@@ -189,7 +190,7 @@ string GetPostscriptFontNameFromFeatures(const BtAteTextFeatures features)
 {
     string fontNameString = "";
     bool isAssigned = false;
-    ATE::IFont font = features.GetFont(&isAssigned);
+    ATE::IFont font = features.Font(&isAssigned);
     if (isAssigned)
     {
         FontRef ref = font.GetRef();
@@ -219,7 +220,10 @@ void AddTextToRange(const string text, ATE::ITextRange& targetRange, int beforeA
 {
     //We have to create a new point text so we can get a new blank range
     AIArtHandle tempTextHandle = NULL; AIRealPoint anchor ={0,0};
-    sAITextFrame->NewPointText(kPlaceAboveAll, NULL, kHorizontalTextOrientation, anchor, &tempTextHandle);
+    
+    AIArtHandle prep = GetGroupArtOfFirstEditableLayer();
+        
+    sAITextFrame->NewPointText(kPlaceInsideOnTop, prep, kHorizontalTextOrientation, anchor, &tempTextHandle);
     ATE::TextRangeRef newTextRangeRef;
     sAITextFrame->GetATETextRange(tempTextHandle, &newTextRangeRef);
     ATE::ITextRange newTextRange(newTextRangeRef);
@@ -237,8 +241,6 @@ void AddTextToRange(const string text, ATE::ITextRange& targetRange, int beforeA
     //Trash our temporary art objects
     sAIArt->DisposeArt(tempTextHandle);
     tempTextHandle = NULL;
-    
-    return;
 }
 
 void AddTextToRange(ATE::ITextRange sourceRange, ATE::ITextRange& targetRange, int beforeAfter)
@@ -247,9 +249,9 @@ void AddTextToRange(ATE::ITextRange sourceRange, ATE::ITextRange& targetRange, i
     if (beforeAfter == 1)
     {
         targetRange.InsertAfter(sourceRange);
-    } else
+    }
+    else
     {
         targetRange.InsertBefore(sourceRange);
     }
 }
-

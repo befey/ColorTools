@@ -55,8 +55,8 @@ private:
         ai::int32 ifObjectIsNotSelected = 0;
         ai::int32 ifIsTrue = 0;
         ai::int32 ifIsNotTrue = 0;
-    };
-    AutoUpdateOptions autoUpdateOptions;
+    } autoUpdateOptions;
+    
     bool wantsAutoUpdate = false;
     
     bool IsMenuGroup();

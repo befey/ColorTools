@@ -51,8 +51,10 @@ void BtAiMenuItem::AddMenu(BtAiMenuItem menuItem, BtAiMenuItemHandles* addedMenu
     string t = menuItem.menuItemData.itemText.getInStdString(kAIPlatformCharacterEncoding);
     const char* c = t.c_str();
     
-    if (menuItem.IsMenuGroup()) {
-        if ( !SDKGroupAlreadyMade(menuItem.menuItemData.itemText) ) {
+    if (menuItem.IsMenuGroup())
+    {
+        if ( !SDKGroupAlreadyMade(menuItem.menuItemData.itemText) )
+        {
             AIMenuItemHandle dummyItem;
             AIMenuGroup dummyGroup;
 
@@ -69,7 +71,8 @@ void BtAiMenuItem::AddMenu(BtAiMenuItem menuItem, BtAiMenuItemHandles* addedMenu
     {
         AIMenuItemHandle dummyHandle;
         sAIMenu->AddMenuItem( gPlugin->GetPluginRef(), c, &menuItem.menuItemData, menuItem.options, &dummyHandle );
-        if (menuItem.wantsAutoUpdate) {
+        if (menuItem.wantsAutoUpdate)
+        {
             sAIMenu->UpdateMenuItemAutomatically(dummyHandle,
                                                  menuItem.autoUpdateOptions.action,
                                                  menuItem.autoUpdateOptions.ifObjectIsInArtwork,
@@ -86,14 +89,16 @@ void BtAiMenuItem::AddMenu(BtAiMenuItem menuItem, BtAiMenuItemHandles* addedMenu
 
 bool BtAiMenuItem::IsMenuGroup()
 {
-    if (subMenuItems.empty()) {
+    if (subMenuItems.empty())
+    {
         return false;
     }
     return true;
 }
 
 
-bool BtAiMenuItem::SDKGroupAlreadyMade(ai::UnicodeString menuGroup) {
+bool BtAiMenuItem::SDKGroupAlreadyMade(ai::UnicodeString menuGroup)
+{
     AIMenuGroup dummyGroup;
     const char* cstr = menuGroup.as_Platform().c_str();
     

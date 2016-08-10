@@ -10,6 +10,9 @@
 #define __SafeguardTools__ColorList__
 
 #include <vector>
+#include "ColorFuncs.h"
+#include "cereal/cereal.hpp"
+#include "cereal/access.hpp"
 
 namespace SafeguardFile
 {
@@ -26,6 +29,16 @@ namespace SafeguardFile
         vector<AIColor> p_ColorList;
         
         void AddColorToTextRange(const AIColor color, ATE::ITextRange& targetRange) const;
+        
+        friend class cereal::access;
+        template <class Archive>
+        void serialize(Archive& ar)
+        {
+            for (auto color : p_ColorList)
+            {
+                ar(CEREAL_NVP(GetColorName(color)));
+            }
+        }
     };
 }
 #endif /* defined(__SafeguardTools__ColorList__) */
