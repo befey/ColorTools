@@ -67,6 +67,9 @@ PdfSettings::PdfSettings(PdfPreset p, string r, bool s) : preset(p), range(r), s
     
     //Turn off Acrobat layers
     sAIActionManager->AIActionSetBoolean(vpb, kAIPDFGenerateAcrobatLayersKey, FALSE);
+    
+    //Turn off Compress art
+    sAIActionManager->AIActionSetBoolean(vpb, kAIPDFCompressArtKey, FALSE);
   ////*******
 }
 

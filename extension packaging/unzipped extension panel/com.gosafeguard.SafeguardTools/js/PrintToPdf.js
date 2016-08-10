@@ -1,4 +1,4 @@
-var csInterface = new CSInterface(); 
+var csInterface = new CSInterface();
 
 // Create events for the button presses
 var makePdfEvent = new CSEvent("com.gosafeguard.SafeguardTools.PrintToPdf.makepdfbutton", "APPLICATION", "ILST", "PrintToPdf");
@@ -8,60 +8,93 @@ var cancelEvent = new CSEvent("com.gosafeguard.SafeguardTools.PrintToPdf.cancelb
 var resultsBackEvent = new CSEvent("com.gosafeguard.SafeguardTools.PrintToPdf.resultsback", "APPLICATION", "ILST", "PrintToPdf");
 
 $(function()
-{
-	csInterface.setWindowTitle("Print To PDF");
-	
-	$('#allpages-check').change(function()
-	{
-   		$("#range-text").prop("disabled", $(this).is(':checked'));
-   		
-   		if ($(this).is(':checked'))
-   		{
-   			$("#range-text").css("color","gray");
-   		}
-   		else
-   		{
-   			$("#range-text").focus();
-   			$("#range-text").css("color","black");
-   		}
-	});
-	
-	csInterface.addEventListener("com.gosafeguard.SafeguardTools.PrintToPdf.resultsback", onResultsBack);
-	csInterface.addEventListener("com.gosafeguard.SafeguardTools.PrintToPdf.forcepanelclose", 
-	function(event)
-	{
-		csInterface.closeExtension();
-	});
-});
+  {
+  csInterface.setWindowTitle("Print To PDF");
+  $('#preset-select').change(function()
+                             {
+                             if ( $('#preset-select').val() == 0 ) //Manufacturing
+                             {
+                             $('#separatefiles-check').prop('checked', true);
+                             }
+                             else
+                             {
+                             $('#separatefiles-check').prop('checked', false);
+                             }
+                             });
+  
+  $('#allpages-check').change(function()
+                              {
+                              if ($(this).is(':checked'))
+                              {
+                              $("#range-text").css("color","gray");
+                              }
+                              else
+                              {
+                              $("#range-text").css("color","black");
+                              $("#range-text").focus();
+                              }
+                              });
+  
+  $("#range-text").on('focus', function()
+                      {
+                      $("#allpages-check").attr('checked', false);
+                      $("#range-text").css("color","black");
+                      
+                      $("#range-text")
+                      .one('mouseup.mouseupSelect', function() {
+                           $("#range-text").select();
+                           return false;
+                           })
+                      .one('mousedown', function() {
+                           // compensate for untriggered 'mouseup' caused by focus via tab
+                           $("#range-text").off('mouseup.mouseupSelect');
+                           })
+                      .select();
+                      });
+  
+  csInterface.addEventListener("com.gosafeguard.SafeguardTools.PrintToPdf.resultsback", onResultsBack);
+  csInterface.addEventListener("com.gosafeguard.SafeguardTools.PrintToPdf.clearresultbox", clearResultBox);
+  csInterface.addEventListener("com.gosafeguard.SafeguardTools.PrintToPdf.forcepanelclose",
+                               function(event)
+                               {
+                               csInterface.closeExtension();
+                               });
+  }
+  );
 
 
 function sendDataToIllustrator()
 {
-	
-	var data = {
-		"preset-select"			:	parseInt($("#preset-select").val(), 10),
-		"range-text"			:	$("#range-text").val(),
-		"allpages-check"		:	$("#allpages-check").is(':checked'),
-		"separatefiles-check"	:	$("#separatefiles-check").is(':checked')
-	};
-	makePdfEvent.data = JSON.stringify(data);
-	csInterface.dispatchEvent(makePdfEvent);
+    
+    var data = {
+        "preset-select"			:	parseInt($("#preset-select").val(), 10),
+        "range-text"			:	$("#range-text").val(),
+        "allpages-check"		:	$("#allpages-check").is(':checked'),
+        "separatefiles-check"	:	$("#separatefiles-check").is(':checked')
+    };
+    makePdfEvent.data = JSON.stringify(data);
+    csInterface.dispatchEvent(makePdfEvent);
 }
 
 function onResultsBack(event)
 {
-	var xmlData = $.parseXML(event.data);
-	var $xml = $(xmlData);
-	
-	$xml.find("delete").each( function(index)
-	{
-		$("#results-textarea").append("<div>" + this.textContent + "</div><br />").addClass("deleted");
-	});
-	$("#results-textarea").append("-----<br />")
-	$xml.find("create").each( function(index)
-	{
-		$("#results-textarea").append("<div>" + this.textContent + "</div><br />").addClass("created");
-	});
-	
-	$("#cancel-button").focus();
+    var xmlData = $.parseXML(event.data);
+    var $xml = $(xmlData);
+    
+    $xml.find("delete").each( function(index)
+                             {
+                             $("#results-textarea").append("<div class='deleted'> - " + this.textContent + "</div><br />"); //.addClass("deleted");
+                             });
+    $("#results-textarea").append("-----<br />")
+    $xml.find("create").each( function(index)
+                             {
+                             $("#results-textarea").append("<div class='created'> + " + this.textContent + "</div><br />"); //.addClass("created");
+                             });
+    
+    $("#cancel-button").focus();
+}
+
+function clearResultBox(event)
+{
+    $("#results-textarea").text('');
 }

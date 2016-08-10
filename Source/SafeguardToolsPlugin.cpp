@@ -308,14 +308,14 @@ ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
     BtAiMenuItem::AddMenu(*PrintToPdfMenuItem, &menuItemHandles);
 
     
-    //CREATE SLUG INFO
+/*    //CREATE SLUG INFO
     menuItem.groupName = kDocumentUtilsMenuGroup;
     menuItem.itemText = ai::UnicodeString(CREATE_PLATE_BLEED_INFO_MENU_ITEM);
     BtAiMenuItem* CreatePlateBleedInfoMenuItem = new BtAiMenuItem(menuItem, kMenuItemWantsUpdateOption);
     CreatePlateBleedInfoMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, 0, 0, kIfOpenDocument, 0);
     
     BtAiMenuItem::AddMenu(*CreatePlateBleedInfoMenuItem, &menuItemHandles);
-
+*/
     return kNoErr;
  
 }
@@ -407,7 +407,7 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
         printToPdfUIController->LoadExtension();
         sAICSXSExtension->LaunchExtension(PrintToPdf::PrintToPdfUIController::PRINTTOPDF_UI_EXTENSION);
     }
-    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
+/*    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
     {
         unique_ptr<DictionaryWriter> dw = make_unique<DictionaryWriter>();
         if ( dw->CheckDictionaryForArtObjectWithIdentifier(SafeguardFile::PLATE_BLEED_INFO_GROUP_LABEL, 0) )
@@ -421,8 +421,9 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
             SafeguardJobFile sgJobFile;
             sgJobFile.AddBleedInfo();
             sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Add Safeguard Plate Info"), ai::UnicodeString("Redo Add Safeguard Plate Info"));
-        }        
+        }
     }
+*/
 	
 	if (error)
 		goto error;
@@ -472,7 +473,7 @@ ASErr SafeguardToolsPlugin::UpdateMenuItem(AIMenuMessage* message)
         }
     }
     
-    if (message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
+/*    if (message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
     {
         //Check if we have a bleed info in the dictionary
         //If we do, change to "Remove"
@@ -486,7 +487,7 @@ ASErr SafeguardToolsPlugin::UpdateMenuItem(AIMenuMessage* message)
             sAIMenu->SetItemText( message->menuItem, ai::UnicodeString("Add Safeguard Plate Info") );
         }
     }
-
+*/
 
 	if (error)
 		goto error;
@@ -524,8 +525,8 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
     }
     if (message->notifier == fDocumentCropAreaModifiedNotifierHandle )
     {
-        SafeguardJobFile sgJobFile;
-        sgJobFile.UpdateBleedInfo();
+//        SafeguardJobFile sgJobFile;
+//        sgJobFile.UpdateBleedInfo();
     }
     return kNoErr;
 }
