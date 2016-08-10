@@ -459,17 +459,15 @@ AISwatchRef checkSwatchListForColor( AIColor& matchColor , AIReal tolerance )
 			sAISwatchList->GetAIColor(currSwatch, &currColor);
             string n1 = GetColorName(matchColor);
             string n2 = GetColorName(currColor);
-            //if (GetColorName(matchColor) == GetColorName(currColor))
-            //{
-            //    return currSwatch;
-            //}
-            //else
+            if (n1 == n2)
             {
-                AIBoolean TintsCloseEnough = sAIRealMath->EqualWithinTol(currColor.c.c.tint, matchColor.c.c.tint, tolerance);
-                AIBoolean ColorsSame = ColorIsEqual(currColor, matchColor, TRUE);
-                if (currColor.kind == kCustomColor && ColorsSame && TintsCloseEnough )
                 {
-                    return currSwatch;
+                    AIBoolean TintsCloseEnough = sAIRealMath->EqualWithinTol(currColor.c.c.tint, matchColor.c.c.tint, tolerance);
+                    AIBoolean ColorsSame = ColorIsEqual(currColor, matchColor, TRUE);
+                    if (currColor.kind == kCustomColor && ColorsSame && TintsCloseEnough )
+                    {
+                        return currSwatch;
+                    }
                 }
             }
 		}
