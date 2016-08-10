@@ -350,7 +350,6 @@ bool SetColorByName( const string& name , AIColor &color)
 
 string GetColorName(const AIColor color)
 {
-    string name;
     ai::UnicodeString nameUS;
     
     if (color.kind == kCustomColor)

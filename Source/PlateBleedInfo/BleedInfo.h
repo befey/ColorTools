@@ -38,7 +38,7 @@ namespace SafeguardFile
         {
             ar(CEREAL_NVP(artboardIndex),
                CEREAL_NVP(colorList),
-               CEREAL_NVP(string(plateNumber)),
+               cereal::make_nvp("plateNumber", string(plateNumber)),
                CEREAL_NVP(token),
                CEREAL_NVP(ShouldAddCMYKBlocks)
                );

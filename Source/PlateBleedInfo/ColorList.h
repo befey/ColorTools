@@ -34,9 +34,10 @@ namespace SafeguardFile
         template <class Archive>
         void serialize(Archive& ar)
         {
+            int i = 0;
             for (auto color : p_ColorList)
             {
-                ar(CEREAL_NVP(GetColorName(color)));
+                ar(cereal::make_nvp("color-" + to_string(i++), GetColorName(color)));
             }
         }
     };
