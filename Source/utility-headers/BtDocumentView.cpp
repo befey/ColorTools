@@ -42,7 +42,7 @@ void BtDocumentView::SetViewOnArtboard(ai::ArtboardID id)
     
     AIReal viewWidth = viewBounds.right - viewBounds.left;
     AIReal viewHeight = viewBounds.top - viewBounds.bottom;
-     
+    
     auto abRatio = abWidth / abHeight;
     auto viewRatio = viewWidth / viewHeight;
 
@@ -50,5 +50,4 @@ void BtDocumentView::SetViewOnArtboard(ai::ArtboardID id)
     AIReal currZoom;
     sAIDocumentView->GetDocumentViewZoom(NULL, &currZoom);
     sAIDocumentView->SetDocumentViewZoom(NULL, currZoom * zoom * .9);
-
 }

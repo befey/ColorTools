@@ -8,7 +8,6 @@
 
 #include "SafeguardJobFile.h"
 #include "PlateBleedInfoUIController.hpp"
-#include "rapidjson/document.h"
 
 using SafeguardFile::SafeguardJobFile;
 using SafeguardFile::PlateNumber;
@@ -60,7 +59,6 @@ void SafeguardJobFile::EditBleedInfo()
     PlateBleedInfoUIController plateBleedInfoUIController;
     plateBleedInfoUIController.LoadExtension();
     sAICSXSExtension->LaunchExtension(PlateBleedInfoUIController::PLATEBLEEDINFO_UI_EXTENSION);
-    plateBleedInfoUIController.SendBleedInfoToHtml(GetBleedInfoAsJson());
 }
 
 
@@ -114,23 +112,4 @@ AIRealRect SafeguardJobFile::GetBleeds(int plateIndex) const
         return plates[0].GetBleeds();
     }
     return AIRealRect{0,0,0,0};
-}
-
-ai::ArtboardID SafeguardJobFile::GetArtboardIdFromJson(const char* json)
-{
-    using namespace rapidjson;
-    
-    Document d;
-    d.Parse(json);
-    
-    Value& v = d[PlateBleedInfoUIController::PLATEBLEEDINFO_ARTBOARD_ID];
-    
-    return ai::ArtboardID(v.GetInt());
-}
-
-string SafeguardJobFile::GetBleedInfoAsJson() const
-{
-    using namespace rapidjson;
-    string json;
-    return json;
 }

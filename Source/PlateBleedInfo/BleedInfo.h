@@ -13,6 +13,8 @@
 #include "ColorList.h"
 #include "PlateNumber.h"
 #include <ctime>
+#include "cereal/cereal.hpp"
+#include "cereal/access.hpp"
 
 namespace SafeguardFile
 {
@@ -28,6 +30,19 @@ namespace SafeguardFile
         string token;
         tm lastModified;;
         bool ShouldAddCMYKBlocks;
+    
+    private:
+        friend class cereal::access;
+        template <class Archive>
+        void serialize(Archive& ar)
+        {
+            ar(CEREAL_NVP(artboardIndex),
+               CEREAL_NVP(colorList),
+               CEREAL_NVP(string(plateNumber)),
+               CEREAL_NVP(token),
+               CEREAL_NVP(ShouldAddCMYKBlocks)
+               );
+        }
     };
 }
 

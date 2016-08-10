@@ -41,10 +41,12 @@ namespace SafeguardFile
         const ai::ArtboardID GetArtboardIndex() const { return bleedInfo.artboardIndex; };
         const PlateNumber GetPlateNumber() const;
         const string GetToken() const;
+        
         void SetPlateNumber();
         
         AIRealRect GetBleeds() const;
         
+        const BleedInfo GetBleedInfo() const;
         void AddBleedInfo();
         void RemoveBleedInfo();
     private:

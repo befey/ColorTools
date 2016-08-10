@@ -418,11 +418,8 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
         }
         else
         {
-            BtDocumentView view;
-            view.SetViewOnArtboard(0);
-
             SafeguardJobFile sgJobFile;
-            //sgJobFile.AddBleedInfo();
+            sgJobFile.AddBleedInfo();
             sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Add Safeguard Plate Info"), ai::UnicodeString("Redo Add Safeguard Plate Info"));
         }        
     }

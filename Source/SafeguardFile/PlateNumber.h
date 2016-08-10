@@ -55,7 +55,7 @@ namespace SafeguardFile
         
         void GetAsTextRange(ATE::ITextRange& targetRange) const;
         
-        inline operator const string(void) const { return plateNumber; }
+        inline operator string(void) const { return plateNumber; }
         
     private:
         string plateNumber;

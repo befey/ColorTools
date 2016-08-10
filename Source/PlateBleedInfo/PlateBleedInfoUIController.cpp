@@ -10,15 +10,41 @@
 #include "PlateBleedInfoUIController.hpp"
 #include "SafeguardToolsPlugin.h"
 #include "SafeguardToolsSuites.h"
+#include "BtDocumentView.hpp"
+#include "GetIllustratorErrorCode.h"
+#include "rapidjson/document.h"
+#include "cereal/archives/json.hpp"
 
 using SafeguardFile::PlateBleedInfoUIController;
 using SafeguardFile::SafeguardJobFile;
 
+void PlateBleedInfoUIController::PanelLoaded (const csxs::event::Event* const event, void* const context)
+{
+    PlateBleedInfoUIController *plateBleedInfoUIController = (PlateBleedInfoUIController *)context;
+    if (NULL == plateBleedInfoUIController || event == NULL)
+    {
+        return;
+    }
+    
+    do {
+        // Set up the application context, so that suite calls can work.
+        AppContext appContext(gPlugin->GetPluginRef());
+        
+        plateBleedInfoUIController->SendBleedInfoToHtml();
+        
+        // Clean up the application context and return.
+    } while(false);
+    return;
+}
+
+
 void PlateBleedInfoUIController::CancelButtonClickedFunc (const csxs::event::Event* const event, void* const context)
 {
     PlateBleedInfoUIController *plateBleedInfoUIController = (PlateBleedInfoUIController *)context;
-    if(NULL == plateBleedInfoUIController || event == NULL)
+    if (NULL == plateBleedInfoUIController || event == NULL)
+    {
         return;
+    }
     
     do {
         // Set up the application context, so that suite calls can work.
@@ -26,6 +52,29 @@ void PlateBleedInfoUIController::CancelButtonClickedFunc (const csxs::event::Eve
         
         plateBleedInfoUIController->SendCloseMessageToHtml();
         
+        // Clean up the application context and return.
+    } while(false);
+    return;
+}
+
+void PlateBleedInfoUIController::ChangeArtboardFunc (const csxs::event::Event* const event, void* const context)
+{
+    PlateBleedInfoUIController *plateBleedInfoUIController = (PlateBleedInfoUIController *)context;
+    if (NULL == plateBleedInfoUIController || event == NULL)
+    {
+        return;
+    }
+    
+    do {
+        // Set up the application context, so that suite calls can work.
+        AppContext appContext(gPlugin->GetPluginRef());
+        
+        //TODO: Center on the new artboard
+        BtDocumentView docview;
+        docview.SetViewOnArtboard( GetArtboardIdFromJson(event->data) );
+        
+        sAIDocument->RedrawDocument();
+        sAIDocument->RedrawDocument();
         // Clean up the application context and return.
     } while(false);
     return;
@@ -44,7 +93,17 @@ csxs::event::EventErrorCode PlateBleedInfoUIController::RegisterCSXSEventListene
 {
     csxs::event::EventErrorCode result = csxs::event::kEventErrorCode_Success;
     do {
+        result =  fPPLib.AddEventListener(PLATEBLEEDINFO_PANEL_LOADED, PanelLoaded, this);
+        if (result != csxs::event::kEventErrorCode_Success)
+        {
+            break;
+        }
         result =  fPPLib.AddEventListener(EVENT_TYPE_CANCEL_CLICKED, CancelButtonClickedFunc, this);
+        if (result != csxs::event::kEventErrorCode_Success)
+        {
+            break;
+        }
+        result =  fPPLib.AddEventListener(PLATEBLEEDINFO_CHANGE_ARTBOARD, ChangeArtboardFunc, this);
         if (result != csxs::event::kEventErrorCode_Success)
         {
             break;
@@ -60,7 +119,17 @@ csxs::event::EventErrorCode PlateBleedInfoUIController::RemoveEventListeners()
 {
     csxs::event::EventErrorCode result = csxs::event::kEventErrorCode_Success;
     do {
+        result =  fPPLib.RemoveEventListener(PLATEBLEEDINFO_PANEL_LOADED, PanelLoaded, this);
+        if (result != csxs::event::kEventErrorCode_Success)
+        {
+            break;
+        }
         result =  fPPLib.RemoveEventListener(EVENT_TYPE_CANCEL_CLICKED, CancelButtonClickedFunc, this);
+        if (result != csxs::event::kEventErrorCode_Success)
+        {
+            break;
+        }
+        result =  fPPLib.RemoveEventListener(PLATEBLEEDINFO_CHANGE_ARTBOARD, ChangeArtboardFunc, this);
         if (result != csxs::event::kEventErrorCode_Success)
         {
             break;
@@ -93,4 +162,44 @@ void PlateBleedInfoUIController::SendCloseMessageToHtml()
         NULL
     };
     fPPLib.DispatchEvent(&event);
+}
+
+void PlateBleedInfoUIController::SendBleedInfoToHtml()
+{
+    string json = GetBleedInfoAsJson();
+    csxs::event::Event event = {
+        PLATEBLEEDINFO_DATA_FROM_PLUGIN,
+        csxs::event::kEventScope_Application,
+        ILST_APP,
+        NULL,
+        json.c_str()
+    };
+    fPPLib.DispatchEvent(&event);
+}
+
+ai::ArtboardID PlateBleedInfoUIController::GetArtboardIdFromJson(const char* json)
+{
+    using namespace rapidjson;
+    
+    Document d;
+    d.Parse(json);
+    
+    Value& v = d[PlateBleedInfoUIController::PLATEBLEEDINFO_ARTBOARD_ID];
+    
+    return ai::ArtboardID(v.GetInt());
+}
+
+string PlateBleedInfoUIController::GetBleedInfoAsJson() const
+{
+    std::stringstream ss;
+    SafeguardJobFile sgJobFile;
+    {
+        cereal::JSONOutputArchive oarchive(ss); // Create an output archive
+        for (int i = 0; i < sgJobFile.GetNumPlates(); i++)
+        {
+            oarchive(cereal::make_nvp("artboard-" + to_string(i), sgJobFile.GetBleedInfo(i)));
+        }
+        
+    }
+    return ss.str();
 }

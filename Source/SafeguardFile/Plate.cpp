@@ -24,6 +24,7 @@
 using SafeguardFile::Plate;
 using SafeguardFile::PlateNumber;
 using PrintToPdf::PdfPreset;
+using SafeguardFile::BleedInfo;
 
 namespace fs = boost::filesystem;
 
@@ -84,6 +85,11 @@ const PlateNumber Plate::GetPlateNumber() const
 const string Plate::GetToken() const
 {
     return CreateToken();
+}
+
+const BleedInfo Plate::GetBleedInfo() const
+{
+    return bleedInfo;
 }
 
 void Plate::AddBleedInfo()
