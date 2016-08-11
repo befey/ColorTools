@@ -16,6 +16,8 @@
 #include "AISwatchList.h"
 #include "AIPathStyle.h"
 #include "BtColor.h"
+#include <unordered_map>
+#include "SafeguardFileConstants.h"
 
 //=================================
 // forward declared dependencies
@@ -43,7 +45,30 @@ public:
     std::vector<std::string> GetCurrentSwatchesAsStringVector();
     string GetColorListAsXMLString();
     
-    
+    const std::unordered_map<std::string, BtColor> StdColorDefinitions
+    {
+        { SafeguardFile::BLACK_COLOR_NAME,
+            { SafeguardFile::BLACK_COLOR_NAME,
+                kCustomFourColor,
+                {.f.cyan = 0, .f.yellow = 0, .f.magenta = 0, .f.black = 1},
+                0
+            }
+        },
+        { SafeguardFile::WHITE_COLOR_NAME,
+            { SafeguardFile::WHITE_COLOR_NAME,
+                kCustomFourColor,
+                {.f.cyan = 0, .f.yellow = 0, .f.magenta = 0, .f.black = 0},
+                0
+            }
+        },
+        { SafeguardFile::MICR_BLACK_MAG_COLOR_NAME,
+            { SafeguardFile::MICR_BLACK_MAG_COLOR_NAME,
+                kCustomFourColor,
+                {.f.cyan = 0, .f.yellow = 0, .f.magenta = 0, .f.black = 1},
+                0
+            }
+        },
+    };
 private:
     //Members    
     

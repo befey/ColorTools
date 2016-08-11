@@ -8,10 +8,7 @@
 
 #include "BtSwatchList.h"
 #include "ColorFuncs.h"
-#include "SafeguardFileConstants.h"
 #include "GetIllustratorErrorCode.h"
-
-using SafeguardFile::StdColorDefinitions;
 
 //Behaviors
 void BtSwatchList::CreateOrConvertToCustomColor(std::string colorName)
@@ -25,10 +22,7 @@ void BtSwatchList::CreateOrConvertToCustomColor(std::string colorName)
 
 void BtSwatchList::CreateOrConvertToCustomColor(BtColor color)
 {
-    AICustomColor newCustomColorDefinition;
-    newCustomColorDefinition.kind = color.GetKind();
-    newCustomColorDefinition.c = color.GetCustomColorUnion();
-    newCustomColorDefinition.flag = color.GetCustomColorFlags();
+    AICustomColor newCustomColorDefinition = color.AiCustomColor();
     
     AIColor newAiColorDefinition;
     
@@ -40,7 +34,7 @@ void BtSwatchList::CreateOrConvertToCustomColor(BtColor color)
     else
     {
         AICustomColorHandle hCreatedCustomColor;
-        sAICustomColor->NewCustomColor(&newCustomColorDefinition, ai::UnicodeString(color.GetName()), &hCreatedCustomColor);
+        sAICustomColor->NewCustomColor(&newCustomColorDefinition, ai::UnicodeString(color.Name()), &hCreatedCustomColor);
         newAiColorDefinition.kind = kCustomColor;
         newAiColorDefinition.c.c.tint = 0;
         newAiColorDefinition.c.c.color = hCreatedCustomColor;
@@ -52,9 +46,9 @@ void BtSwatchList::CreateOrConvertToCustomColor(BtColor color)
     {
         AIColor dColor;
         AISwatchRef swatch = NULL;
-        if (SwatchNameExists(color.GetName(), &dColor))
+        if (SwatchNameExists(color.Name(), &dColor))
         {
-            swatch = sAISwatchList->GetSwatchByName(NULL, ai::UnicodeString(color.GetName()));
+            swatch = sAISwatchList->GetSwatchByName(NULL, ai::UnicodeString(color.Name()));
         }
         else
         {
@@ -182,7 +176,7 @@ AISwatchRef BtSwatchList::GetSwatchByName(std::string name) const
 
 bool BtSwatchList::ColorHasDefinitionAlready(BtColor color, AIColor* outFoundColor) const
 {
-    return SwatchNameExists(color.GetName(), outFoundColor) || CustomColorExists(color, outFoundColor);
+    return SwatchNameExists(color.Name(), outFoundColor) || CustomColorExists(color, outFoundColor);
 }
 
 bool BtSwatchList::SwatchNameExists(std::string name, AIColor* outFoundColor) const
@@ -207,7 +201,7 @@ bool BtSwatchList::CustomColorExists(BtColor color, AIColor* outFoundColor) cons
         ai::UnicodeString currName;
         sAICustomColor->GetCustomColorName(hFoundColor, currName);
         string sName = currName.as_Platform();
-        if (sName == color.GetName())
+        if (sName == color.Name())
         {
             outFoundColor->kind = kCustomColor;
             outFoundColor->c.c.color = hFoundColor;

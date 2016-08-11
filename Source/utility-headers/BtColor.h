@@ -17,7 +17,7 @@
 
 //=================================
 // forward declared dependencies
-
+extern AICustomColorSuite* sAICustomColor;
 
 
 //=================================
@@ -26,25 +26,28 @@ class BtColor
 {
 public:
     //Constuctor
-    BtColor(string name, AICustomColorTag kind, AICustomColorUnion c, AICustomColorFlags flag);
-    BtColor();
+    BtColor(AIColor aiColor);
+    BtColor(AICustomColor aiCustomColor, std::string name, AIReal tint = 0);
+    BtColor(AIColorTag kind, AIColorUnion c);
+    BtColor(std::string name, AICustomColorTag kind, AICustomColorUnion c, AICustomColorFlags flag, AIReal tint = 0);
 
     //Getters/Setters
-    std::string GetName() const;
-    AICustomColorTag GetKind() const;
-    AICustomColorUnion GetCustomColorUnion() const;
-    AICustomColorFlags GetCustomColorFlags() const;
+    BtColor& AiColor(AIColor newVal);
+    AIColor AiColor() const { return aiColor; };
+    BtColor& AiCustomColor(AICustomColor newVal, std::string name, AIReal tint = 0);
+    AICustomColor AiCustomColor() const;
+    
+    BtColor& Name(std::string newVal);
+    std::string Name() const;
+    AIColorTag Kind() const;
     
     //Behaviors
     
     
 private:
-    
-    //Members
-    string pName;
-    AICustomColorTag pKind;
-    AICustomColorUnion pC;
-    AICustomColorFlags pFlag;
+    AIColor aiColor;
+    AICustomColor aiCustomColor;
+    AICustomColorHandle aiCustomColorHandle = NULL;
 };
 
 

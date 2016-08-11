@@ -9,9 +9,6 @@
 #ifndef SafeguardFileConstants_h
 #define SafeguardFileConstants_h
 
-#include "BtColor.h"
-#include <unordered_map>
-
 namespace SafeguardFile
 {
     constexpr auto REGISTRATION_COLOR_NAME =    "[Registration]";
@@ -21,31 +18,6 @@ namespace SafeguardFile
     constexpr auto MICR_BLACK_MAG_COLOR_NAME =  "MICR - BLACK MAG";
     constexpr auto GRIPPER_COLOR_NAME =         "GRIPPER";
     constexpr auto KEYLINE_COLOR_NAME =         "KEYLINE - does not print";
-    
-    const std::unordered_map<std::string, BtColor> StdColorDefinitions
-    {
-        { BLACK_COLOR_NAME,
-          { BLACK_COLOR_NAME,
-            kCustomFourColor,
-            {.f.cyan = 0, .f.yellow = 0, .f.magenta = 0, .f.black = 1},
-            0
-          }
-        },
-        { WHITE_COLOR_NAME,
-          { WHITE_COLOR_NAME,
-            kCustomFourColor,
-            {.f.cyan = 0, .f.yellow = 0, .f.magenta = 0, .f.black = 0},
-            0
-          }
-        },
-        { MICR_BLACK_MAG_COLOR_NAME,
-          { MICR_BLACK_MAG_COLOR_NAME,
-            kCustomFourColor,
-            {.f.cyan = 0, .f.yellow = 0, .f.magenta = 0, .f.black = 1},
-            0
-          }
-        },
-     };
     
     enum ProductType {
         INVAL,
