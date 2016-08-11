@@ -127,8 +127,6 @@ private:
     AINotifierHandle fRegisterEventNotifierHandle;
     AINotifierHandle fAppStartedNotifierHandle;
     AINotifierHandle fDocOpenedNotifierHandle;
-    AINotifierHandle fCustomColorChangeNotifierHandle;
-    AINotifierHandle fSwatchLibChangeNotifierHandle;
     AINotifierHandle fArtSelectionChangeNotifierHandle;
     AINotifierHandle fDocumentCropAreaModifiedNotifierHandle;
     

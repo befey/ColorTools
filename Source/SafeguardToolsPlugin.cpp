@@ -142,12 +142,6 @@ ASErr SafeguardToolsPlugin::StartupPlugin( SPInterfaceMessage *message )
                                      kAIDocumentOpenedNotifier, &fDocOpenedNotifierHandle);
     if (error) { return error; }
     error = sAINotifier->AddNotifier( fPluginRef, kSafeguardToolsPluginName,
-                                     kAIArtCustomColorChangedNotifier, &fCustomColorChangeNotifierHandle);
-    if (error) { return error; }
-    error = sAINotifier->AddNotifier( fPluginRef, kSafeguardToolsPluginName,
-                                     kAISwatchLibraryChangedNotifier, &fSwatchLibChangeNotifierHandle);
-    if (error) { return error; }
-    error = sAINotifier->AddNotifier( fPluginRef, kSafeguardToolsPluginName,
                                      kAIArtSelectionChangedNotifier, &fArtSelectionChangeNotifierHandle);
     if (error) { return error; }
     error = sAINotifier->AddNotifier( fPluginRef, kSafeguardToolsPluginName,
@@ -509,9 +503,7 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
         // Whatever we want to do when the app starts
     }
     
-    if (message->notifier == fDocOpenedNotifierHandle ||
-        message->notifier == fCustomColorChangeNotifierHandle ||
-        message->notifier == fSwatchLibChangeNotifierHandle )
+    if (message->notifier == fDocOpenedNotifierHandle)
     {
         BtSwatchList swatchList;
         string swatchesXml = swatchList.GetColorListAsXMLString();
