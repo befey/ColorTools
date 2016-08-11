@@ -37,7 +37,7 @@ namespace SafeguardFile
             int i = 0;
             for (auto color : p_ColorList)
             {
-                ar(cereal::make_nvp("color-" + to_string(i++), GetColorName(color)));
+                ar(cereal::make_nvp(to_string(i++), GetColorName(color)));
             }
         }
     };
