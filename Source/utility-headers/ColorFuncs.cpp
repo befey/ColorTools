@@ -459,33 +459,35 @@ void nameAllColors(AIColor *color, void* userData, AIErr *result, AIBoolean *alt
 
 AISwatchRef checkSwatchListForColor( AIColor& matchColor , AIReal tolerance )
 {
-	AISwatchRef currSwatch;
-	AIColor currColor;
-	int numSwatches = sAISwatchList->CountSwatches(NULL);
-	
-	//Loop through the swatches to see if the swatch is already there
-	for (int i = 0 ; i < numSwatches ; i++ )
+    AISwatchRef currSwatch;
+    AIColor currColor;
+    int numSwatches = sAISwatchList->CountSwatches(NULL);
+    
+    //Loop through the swatches to see if the swatch is already there
+    for (int i = 0 ; i < numSwatches ; i++ )
     {
-		currSwatch = sAISwatchList->GetNthSwatch(NULL, i);
-		if (currSwatch)
+        currSwatch = sAISwatchList->GetNthSwatch(NULL, i);
+        if (currSwatch)
         {
-			sAISwatchList->GetAIColor(currSwatch, &currColor);
+            sAISwatchList->GetAIColor(currSwatch, &currColor);
             string n1 = GetColorName(matchColor);
             string n2 = GetColorName(currColor);
+            AIBoolean TintsCloseEnough = sAIRealMath->EqualWithinTol(GetTint(currColor), GetTint(matchColor), tolerance);
             if (n1 == n2)
             {
+                AIBoolean ColorsSame = ColorIsEqual(currColor, matchColor, TRUE);
+                if (currColor.kind == kCustomColor && ColorsSame && TintsCloseEnough )
                 {
-                    AIBoolean TintsCloseEnough = sAIRealMath->EqualWithinTol(currColor.c.c.tint, matchColor.c.c.tint, tolerance);
-                    AIBoolean ColorsSame = ColorIsEqual(currColor, matchColor, TRUE);
-                    if (currColor.kind == kCustomColor && ColorsSame && TintsCloseEnough )
-                    {
-                        return currSwatch;
-                    }
+                    return currSwatch;
                 }
             }
-		}
-	}
-	return NULL;
+            if (TintsCloseEnough && ((ColorIsBlack(matchColor) && n2 == BLACK_COLOR_NAME) || (ColorIsWhite(matchColor) && n2 == WHITE_COLOR_NAME)))
+            {
+                return currSwatch;
+            }
+        }
+    }
+    return NULL;
 }
 
 
