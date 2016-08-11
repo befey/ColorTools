@@ -481,7 +481,7 @@ AISwatchRef checkSwatchListForColor( AIColor& matchColor , AIReal tolerance )
                     return currSwatch;
                 }
             }
-            if (TintsCloseEnough && ((ColorIsBlack(matchColor) && n2 == BLACK_COLOR_NAME) || (ColorIsWhite(matchColor) && n2 == WHITE_COLOR_NAME)))
+            if (TintsCloseEnough && ((ColorIsBlack(matchColor) && n2 == SafeguardFile::BLACK_COLOR_NAME) || (ColorIsWhite(matchColor) && n2 == SafeguardFile::WHITE_COLOR_NAME)))
             {
                 return currSwatch;
             }
