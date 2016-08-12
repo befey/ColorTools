@@ -49,6 +49,9 @@ PdfSettings::PdfSettings(PdfPreset p, string r, bool s) : preset(p), range(r), s
     SetVpbRange(range);
     
   ////****** Setup common parameters for all PDFs
+    //Set High Quality Print settings
+    sAIActionManager->AIActionSetString(vpb, kAIPDFOptionSetNameKey, "[High Quality Print]");
+    
     // Format parameter.
     sAIActionManager->AIActionSetString(vpb, kAIExportDocumentFormatKey, kAIPDFFileFormat);
     sAIActionManager->AIActionSetString(vpb, kAIExportDocumentExtensionKey, kAIPDFFileFormatExtension);
@@ -69,7 +72,7 @@ PdfSettings::PdfSettings(PdfPreset p, string r, bool s) : preset(p), range(r), s
     sAIActionManager->AIActionSetBoolean(vpb, kAIPDFGenerateAcrobatLayersKey, FALSE);
     
     //Turn off Compress art
-    sAIActionManager->AIActionSetBoolean(vpb, kAIPDFCompressArtKey, FALSE);
+    sAIActionManager->AIActionSetBoolean(vpb, kAIPDFCompressArtKey, FALSE);    
   ////*******
 }
 
