@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ExtensionList>
-<Extension Id="com.gosafeguard.SafeguardTools.ColorTools">
+<Extension Id="com.gosafeguard.SafeguardTools.PlateBleedInfo">
 	<HostList>
 		<Host Name=“ILST” Port=“8000”/>
 	</HostList>
