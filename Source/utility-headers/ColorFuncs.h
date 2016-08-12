@@ -17,7 +17,7 @@
 #include "AIATEPaint.h"
 #include "AISwatchLibraries.h"
 #include "ReplaceData.h"
-
+#include "SafeguardFileConstants.h"
 #include <string.h>
 #include <vector>
 
@@ -33,6 +33,7 @@ extern AISwatchLibrariesSuite *sAISwatchLibrary;
 extern AIRealMathSuite *sAIRealMath;
 extern AITextFrameSuite *sAITextFrame;
 extern AIATEPaintSuite *sAIATEPaint;
+
 
 //=================================
 // Constant definitions
@@ -50,6 +51,7 @@ bool SetColorByName( const string& name , AIColor &color);
 string GetColorName(const AIColor color);
 string GetInnerPantoneColorNumber(string fullName);
 string GetInnerPantoneColorNumber(AIColor color);
+SafeguardFile::InkMethod GetInkMethodFromColorName(std::string name);
 
 bool ColorIsEqual (const AIColor& color1, const AIColor& color2 , const bool includeTints ); //returns TRUE if they're the same color
 

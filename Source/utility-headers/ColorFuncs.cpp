@@ -12,6 +12,7 @@
 #include <regex>
 #include "GetIllustratorErrorCode.h"
 #include "SafeguardFileConstants.h"
+#include <boost/algorithm/string.hpp>
 
 const AIReal TOLERANCE = .002;
 
@@ -284,6 +285,20 @@ string GetInnerPantoneColorNumber(AIColor color)
         return GetInnerPantoneColorNumber(GetColorName(color));
     }
     return "";
+}
+
+SafeguardFile::InkMethod GetInkMethodFromColorName(std::string name)
+{
+    boost::algorithm::to_upper(name);
+    for (auto method : SafeguardFile::InkMethodStrings)
+    {
+        std::size_t found = name.find(method.second);
+        if (found != string::npos)
+        {
+            return method.first;
+        }
+    }
+    return SafeguardFile::InkMethod::NONE;
 }
 
 bool SetColorByName( const string& name , AIColor &color)

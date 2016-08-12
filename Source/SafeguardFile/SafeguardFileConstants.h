@@ -9,6 +9,8 @@
 #ifndef SafeguardFileConstants_h
 #define SafeguardFileConstants_h
 
+#include <map>
+
 namespace SafeguardFile
 {
     constexpr auto REGISTRATION_COLOR_NAME =    "[Registration]";
@@ -38,6 +40,23 @@ namespace SafeguardFile
     constexpr auto BACKGROUND_LAYER =           "Background";
     
     static constexpr auto NO_TOKEN_DESIG =      "F";
+    
+    enum InkMethod {
+        NONE,
+        Flat,
+        Thermo,
+        Foil,
+        Emboss
+    };
+    
+    const std::map<InkMethod, string> InkMethodStrings
+    {
+        {NONE, "NONE"},
+        {Flat, "FLAT"},
+        {Thermo, "THERMO"},
+        {Foil, "FOIL"},
+        {Emboss, "EMBOSS"}
+    };
 }
 
 

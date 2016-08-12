@@ -23,18 +23,18 @@ void ColorList::RemoveDuplicates()
     {
         bool found1 = false;
         p_ColorList.erase(
-                          std::remove_if(color, p_ColorList.end(), [color, &found1](AIColor c)
+                          std::remove_if(color, p_ColorList.end(), [color, &found1](BtColor c)
                                          {
                                              //Remove any Gradients and Patterns from the list
-                                             if (c.kind == kPattern || c.kind == kGradient || c.kind == kNoneColor)
+                                             if (c.Kind() == kPattern || c.Kind() == kGradient || c.Kind() == kNoneColor)
                                              {
                                                  return true;
                                              }
-                                             else if (color->kind == c.kind)
+                                             else if (color->Kind() == c.Kind() && color->Method() == c.Method())
                                              {
-                                                 if (color->kind == kGrayColor)
+                                                 if (color->Kind() == kGrayColor)
                                                  {
-                                                     if (color->c.g == c.c.g)
+                                                     if (color->AiColor().c.g == c.AiColor().c.g)
                                                      {
                                                          if (!found1)
                                                          {
@@ -47,7 +47,7 @@ void ColorList::RemoveDuplicates()
                                                          }
                                                      }
                                                  }
-                                                 else if (color->kind == kFourColor)
+                                                 else if (color->Kind() == kFourColor)
                                                  {
                                                      if (!found1)
                                                      {
@@ -59,9 +59,9 @@ void ColorList::RemoveDuplicates()
                                                          return true;
                                                      }
                                                  }
-                                                 else if (color->kind == kCustomColor)
+                                                 else if (color->Kind() == kCustomColor)
                                                  {
-                                                     if (color->c.c.color == c.c.c.color)
+                                                     if (color->AiColor().c.c.color == c.AiColor().c.c.color)
                                                      {
                                                          if (!found1)
                                                          {
@@ -74,7 +74,7 @@ void ColorList::RemoveDuplicates()
                                                          }
                                                      }
                                                  }
-                                                 else if (color->kind == kThreeColor)
+                                                 else if (color->Kind() == kThreeColor)
                                                  {
                                                      if (!found1)
                                                      {
@@ -87,7 +87,7 @@ void ColorList::RemoveDuplicates()
                                                      }
                                                  }
                                              }
-                                             else if (color->kind == kFourColor && ColorIsBlack(c))
+                                             else if (color->Kind() == kFourColor && ColorIsBlack(c.AiColor()))
                                              {
                                                  return true;
                                              }
@@ -102,13 +102,13 @@ void ColorList::RemoveDuplicates()
 void ColorList::RemoveNonPrintingColors()
 {
     p_ColorList.erase(
-                    std::remove_if(p_ColorList.begin(), p_ColorList.end(), [this](AIColor c)
+                    std::remove_if(p_ColorList.begin(), p_ColorList.end(), [this](BtColor c)
                                    {
-                                       if (ColorIsNonPrinting(c))
+                                       if (ColorIsNonPrinting(c.AiColor()))
                                        {
                                            return true;
                                        }
-                                       else if ((GetColorName(c) == REGISTRATION_COLOR_NAME) && (p_ColorList.size() > 1))
+                                       else if ((c.Name() == REGISTRATION_COLOR_NAME) && (p_ColorList.size() > 1))
                                        {
                                            return true;
                                        }
@@ -138,11 +138,11 @@ void ColorList::GetAsTextRange(ATE::ITextRange& targetRange) const
     }
 }
 
-void ColorList::AddColorToTextRange(const AIColor color, ATE::ITextRange& targetRange) const
+void ColorList::AddColorToTextRange(const BtColor color, ATE::ITextRange& targetRange) const
 {
     BtAteTextFeatures textFeatures;
     
-    if (color.kind == kNoneColor)
+    if (color.Kind() == kNoneColor)
     {
         textFeatures.FillColor(GetRegistrationColor());
         textFeatures.AddTextToRangeWithFeatures("NO IMPRINT", targetRange);
@@ -150,12 +150,16 @@ void ColorList::AddColorToTextRange(const AIColor color, ATE::ITextRange& target
     else
     {
         string name;
-        if (ColorIsPantone(color))
+        if (ColorIsPantone(color.AiColor()))
         {
-            name = GetInnerPantoneColorNumber(color);
-            textFeatures.FillColor(color);
+            name = GetInnerPantoneColorNumber(color.AiColor());
+            if (color.Method() != SafeguardFile::InkMethod::NONE)
+            {
+                name += " " + InkMethodStrings.at(color.Method());
+            }
+            textFeatures.FillColor(color.AiColor());
         }
-        else if (color.kind == kFourColor)
+        else if (color.Kind() == kFourColor)
         {
             AIColor c = {.kind = kFourColor, .c.f.cyan = 1, .c.f.magenta = 0, .c.f.yellow = 0, .c.f.black = 0};
             textFeatures.FillColor(c);
@@ -171,8 +175,8 @@ void ColorList::AddColorToTextRange(const AIColor color, ATE::ITextRange& target
         }
         else
         {
-            name = GetColorName(color);
-            textFeatures.FillColor(color);
+            name = color.Name();
+            textFeatures.FillColor(color.AiColor());
         }
         
         textFeatures.AddTextToRangeWithFeatures((ai::UnicodeString(name).toUpper()).as_Platform() + "  ", targetRange);

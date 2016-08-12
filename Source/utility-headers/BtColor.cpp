@@ -48,6 +48,7 @@ BtColor& BtColor::AiColor(AIColor newVal)
         sAICustomColor->GetCustomColor(aiColor.c.c.color, &aiCustomColor);
         aiCustomColorHandle = aiColor.c.c.color;
     }
+    method = GetInkMethodFromColorName(Name());
     return *this;
 }
 
@@ -61,7 +62,7 @@ BtColor& BtColor::AiCustomColor(AICustomColor newVal, std::string name, AIReal t
     aiColor.kind = kCustomColor;
     aiColor.c.c.color = aiCustomColorHandle;
     aiColor.c.c.tint = tint;
-    
+    method = GetInkMethodFromColorName(Name());
     return *this;
 }
 
@@ -89,9 +90,4 @@ BtColor& BtColor::Name(std::string newVal)
 std::string BtColor::Name() const
 {
     return GetColorName(aiColor);
-}
-
-AIColorTag BtColor::Kind() const
-{
-    return aiColor.kind;
 }
