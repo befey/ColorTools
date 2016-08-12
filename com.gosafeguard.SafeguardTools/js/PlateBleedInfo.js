@@ -26,7 +26,7 @@ function ReceiveDataFromPlugin(event)
 {
     //TODO: CHANGE THIS FOR BLEED INFO PLUGIN
     //var json = JSON.parse(event.data);
-    var json = JSON.stringify(event.data);
+    var json = JSON.stringify(event.data, null, '\t');
     alert(json);
 }
 
