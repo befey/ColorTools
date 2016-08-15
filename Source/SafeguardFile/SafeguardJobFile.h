@@ -19,6 +19,9 @@
 #include "PrintToPdfConstants.h"
 #include "AICSXS.h"
 #include "BleedInfo.h"
+#include "cereal/cereal.hpp"
+#include "cereal/access.hpp"
+#include "cereal/types/vector.hpp"
 
 extern AICSXSExtensionSuite* sAICSXSExtension;
 
@@ -45,6 +48,13 @@ namespace SafeguardFile
         vector<Plate> plates;
         
         bool ShouldDrawBleedInfo();
+        
+        friend class cereal::access;
+        template <class Archive>
+        void serialize(Archive& ar)
+        {
+            ar( CEREAL_NVP(plates) );
+        }
     };
 }
 #endif /* defined(__SafeguardTools__SafeguardJobFile__) */

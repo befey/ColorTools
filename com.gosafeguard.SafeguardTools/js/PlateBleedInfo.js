@@ -1,4 +1,6 @@
 var csInterface = new CSInterface(); 
+var jsonArtboardData;
+var currArtboardId = 0;
 
 // Create events for the button presses
 var panelLoadedEvent = new CSEvent("com.gosafeguard.SafeguardTools.PlateBleedInfo.panelloaded", "APPLICATION", "ILST", "PlateBleedInfo");
@@ -18,22 +20,25 @@ $(function()
                                });
   
   csInterface.addEventListener("com.gosafeguard.SafeguardTools.PlateBleedInfo.datafromplugin", ReceiveDataFromPlugin);
+  
+  ChangeArtboard(0);
+  
   csInterface.dispatchEvent(panelLoadedEvent);
+  
   }
   );
 
 function ReceiveDataFromPlugin(event)
 {
-    //TODO: CHANGE THIS FOR BLEED INFO PLUGIN
-    //var json = JSON.parse(event.data);
-    var json = JSON.stringify(event.data, null, '\t');
-    alert(json);
+    jsonArtboardData = event.data;
+    //jsonArtboardData = JSON.stringify(event.data, null, '\t');
+    //alert(json);
 }
 
 function ChangeArtboard(direction)
 {
     var data = {
-        "artboard-id"     :       direction
+        "artboard-id"     :       currArtboardId
     };
     changeArtboardEvent.data = JSON.stringify(data);
     csInterface.dispatchEvent(changeArtboardEvent);

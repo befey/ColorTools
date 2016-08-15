@@ -28,7 +28,7 @@ namespace SafeguardFile
         ColorList colorList;
         PlateNumber plateNumber;
         string token;
-        tm lastModified;;
+        tm lastModified;
         bool ShouldAddCMYKBlocks;
     
     private:

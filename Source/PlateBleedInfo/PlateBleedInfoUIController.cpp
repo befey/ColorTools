@@ -195,11 +195,7 @@ string PlateBleedInfoUIController::GetBleedInfoAsJson() const
     SafeguardJobFile sgJobFile;
     {
         cereal::JSONOutputArchive oarchive(ss); // Create an output archive
-        for (int i = 0; i < sgJobFile.GetNumPlates(); i++)
-        {
-            oarchive(cereal::make_nvp("artboard-" + to_string(i), sgJobFile.GetBleedInfo(i)));
-        }
-        
+        oarchive(CEREAL_NVP(sgJobFile));
     }
     return ss.str();
 }

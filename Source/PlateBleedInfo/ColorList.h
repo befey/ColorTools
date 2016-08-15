@@ -14,6 +14,7 @@
 #include "ColorFuncs.h"
 #include "cereal/cereal.hpp"
 #include "cereal/access.hpp"
+#include "cereal/types/vector.hpp"
 
 namespace SafeguardFile
 {
@@ -35,11 +36,7 @@ namespace SafeguardFile
         template <class Archive>
         void serialize(Archive& ar)
         {
-            int i = 0;
-            for (auto color : p_ColorList)
-            {
-                ar( cereal::make_nvp(to_string(i++), color) );
-            }
+            ar( cereal::make_nvp("color", p_ColorList) );
         }
     };
 }
