@@ -198,7 +198,7 @@ string PlateBleedInfoUIController::GetBleedInfoAsJson() const
     SafeguardJobFile sgJobFile;
     {
         cereal::JSONOutputArchive oarchive(ss); // Create an output archive
-        oarchive(CEREAL_NVP(sgJobFile));
+        oarchive(cereal::make_nvp("plateBleedInfoDTO", sgJobFile.GetPlateBleedInfoDTO()));
     }
     return ss.str();
 }

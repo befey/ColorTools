@@ -20,8 +20,6 @@
 #include "BleedInfoDrawer.h"
 #include <vector>
 #include <ctime>
-#include "cereal/cereal.hpp"
-#include "cereal/access.hpp"
 
 extern AIPathStyleSuite* sAIPathStyle;
 extern AIFontSuite* sAIFont;
@@ -39,7 +37,7 @@ namespace SafeguardFile
         AIRealRect GetArtboardBounds() const;
         tm GetLastModified() const;
         
-        string GetArtboardName(AIBoolean& isDefault) const;
+        string GetArtboardName(bool& isDefault) const;
         const ai::ArtboardID GetArtboardIndex() const { return bleedInfo.artboardIndex; };
         const PlateNumber GetPlateNumber() const;
         const string GetToken() const;
@@ -60,13 +58,6 @@ namespace SafeguardFile
         
         void AddColorsOfArtToColorList(AIArtHandle art);
         void FillColorList();
-        
-        friend class cereal::access;
-        template <class Archive>
-        void serialize(Archive& ar)
-        {
-            ar( CEREAL_NVP(bleedInfo) );
-        }
     };
 }
 #endif /* defined(__SafeguardTools__Plate__) */

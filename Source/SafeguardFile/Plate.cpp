@@ -109,7 +109,7 @@ void Plate::RemoveBleedInfo()
 
 string Plate::CreateToken() const
 {
-    AIBoolean isDefaultName;
+    bool isDefaultName;
     string abNameS = GetArtboardName(isDefaultName);
     
     if (isDefaultName || abNameS == NO_TOKEN_DESIG)
@@ -149,7 +149,7 @@ tm Plate::GetLastModified() const
     return *localtime(&lastWrite);
 }
 
-string Plate::GetArtboardName(AIBoolean& isDefault) const
+string Plate::GetArtboardName(bool& isDefault) const
 {
     ai::ArtboardList abList;
     sAIArtboard->GetArtboardList(abList);
@@ -158,7 +158,10 @@ string Plate::GetArtboardName(AIBoolean& isDefault) const
     ai::UnicodeString abName;
     props.GetName(abName);
     string abNameS = abName.getInStdString(kAIPlatformCharacterEncoding);
-    sAIArtboard->IsDefaultName(props, isDefault);
+    
+    AIBoolean aiboolIsDefault;
+    sAIArtboard->IsDefaultName(props, aiboolIsDefault);
+    isDefault = aiboolIsDefault;
     
     return abNameS;
 }

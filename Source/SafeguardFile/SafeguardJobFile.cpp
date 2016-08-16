@@ -117,3 +117,13 @@ AIRealRect SafeguardJobFile::GetBleeds(int plateIndex) const
     }
     return AIRealRect{0,0,0,0};
 }
+
+vector<SafeguardFile::PlateBleedInfoDTO> SafeguardJobFile::GetPlateBleedInfoDTO() const
+{
+    vector<PlateBleedInfoDTO> dto;
+    for (auto plate : plates)
+    {
+        dto.push_back(PlateBleedInfoDTO(plate));
+    }
+    return dto;
+}
