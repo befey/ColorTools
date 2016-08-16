@@ -8,6 +8,7 @@
 
 #include "SafeguardJobFile.h"
 #include "PlateBleedInfoUIController.hpp"
+#include "BtDocumentView.hpp"
 
 using SafeguardFile::SafeguardJobFile;
 using SafeguardFile::PlateNumber;
@@ -56,6 +57,9 @@ void SafeguardJobFile::UpdateBleedInfo()
 
 void SafeguardJobFile::EditBleedInfo()
 {
+    BtDocumentView docView;
+    docView.StoreCurrentDocumentView();
+    
     PlateBleedInfoUIController plateBleedInfoUIController;
     plateBleedInfoUIController.LoadExtension();
     sAICSXSExtension->LaunchExtension(PlateBleedInfoUIController::PLATEBLEEDINFO_UI_EXTENSION);

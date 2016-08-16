@@ -105,6 +105,31 @@ ASBoolean DictionaryWriter::CheckArtHandleFromUIDRef(AIUIDRef uidRef)
     }
 }
 
+AIReal DictionaryWriter::GetAIRealFromIdentifier(string identifier, int CAIndex)
+{
+    AIReal realValue = 0;
+    
+    AIDictKey dictKey = GenerateKey(identifier, CAIndex);
+    if (sAIDictionary->IsKnown(dictionary, dictKey))
+    {
+        sAIDictionary->GetRealEntry(dictionary, dictKey, &realValue);
+    }
+    
+    return realValue;
+}
+
+AIBoolean DictionaryWriter::AddAIRealToDictionary(AIReal value, string identifier, int CAIndex)
+{
+    AIDictKey dictKey = GenerateKey(identifier, CAIndex);
+    if (dictKey)
+    {
+        sAIDictionary->SetRealEntry(dictionary, dictKey, value);
+        return TRUE;
+    }
+    
+    return FALSE;
+}
+
 AIArtHandle DictionaryWriter::GetArtHandleFromIdentifier(string identifier, int CAIndex)
 {
     AIArtHandle foundArtHandle = NULL;

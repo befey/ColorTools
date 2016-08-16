@@ -7,16 +7,25 @@
 //
 
 #include "BtDocumentView.hpp"
+#include "DictionaryWriter.h"
 
 
 void BtDocumentView::StoreCurrentDocumentView()
 {
     sAIDocumentView->GetDocumentViewCenter(NULL, &center);
     sAIDocumentView->GetDocumentViewZoom(NULL, &zoom);
+    DictionaryWriter dw;
+    dw.AddAIRealToDictionary(center.h, BTDOCVIEW_CENTERH);
+    dw.AddAIRealToDictionary(center.v, BTDOCVIEW_CENTERV);
+    dw.AddAIRealToDictionary(zoom, BTDOCVIEW_ZOOM);
 }
 
 void BtDocumentView::RecallDocumentView()
 {
+    DictionaryWriter dw;
+    center.h = dw.GetAIRealFromIdentifier(BTDOCVIEW_CENTERH);
+    center.v = dw.GetAIRealFromIdentifier(BTDOCVIEW_CENTERV);
+    zoom = dw.GetAIRealFromIdentifier(BTDOCVIEW_ZOOM);
     sAIDocumentView->SetDocumentViewCenter(NULL, &center);
     sAIDocumentView->SetDocumentViewZoom(NULL, zoom);
 }
