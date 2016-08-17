@@ -11,6 +11,7 @@
 
 #include "BleedInfo.h"
 #include "AIColor.h"
+#include "SafeguardFileConstants.h"
 
 namespace SafeguardFile
 {  
@@ -23,15 +24,20 @@ namespace SafeguardFile
         int Offset() const { return offset; };
         float Weight() const { return weight; };
         AIColor Color() const { return color; };
-        bool DrawInner() const { return drawInner; };
-        bool DrawOuter() const { return drawOuter; };
+        bool DrawInner() const;
+        bool DrawOuter() const;
     private:
         AIRealRect bounds;
         int offset;
         float weight = .5;
         AIColor color;
-        bool drawInner = false;
-        bool drawOuter = false;
+        SafeguardFile::TickMarkStyle tmStyle;
+        
+        static constexpr auto TICK_LENGTH_CUTSHEET = 27;
+        static constexpr auto TICK_LENGTH_CONTINUOUS = 9;
+        static constexpr auto TICK_LENGTH_NONE = 0;
+        
+        static constexpr auto TICK_TINT_CUTSHEET = .8;
     };
 }
 

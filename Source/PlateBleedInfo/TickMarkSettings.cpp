@@ -15,21 +15,51 @@ using SafeguardFile::BleedInfo;
 TickMarkSettings::TickMarkSettings(const BleedInfo bleedInfo)
 {
     bounds = bleedInfo.rect;
-    offset = bleedInfo.GetTickMarkOffset();
 
     ProductType pt = bleedInfo.plateNumber.GetProductType();
-    if (pt == ProductType::Continuous || pt == ProductType::Snapset)
+    if (pt == ProductType::Continuous)
     {
-        drawInner = true;
+        tmStyle = TickMarkStyle::Both;
     }
-    if (pt == ProductType::Continuous || pt == ProductType::CutSheet)
+    else if (pt == ProductType::Snapset)
     {
-        drawOuter = true;
+        tmStyle = TickMarkStyle::Inner;
+    }
+    else if (pt == ProductType::CutSheet)
+    {
+        tmStyle = TickMarkStyle::Outer;
+    }
+    else
+    {
+        tmStyle = TickMarkStyle::NONE;
+    }
+    
+    if (pt == ProductType::CutSheet)
+    {
+        offset = TICK_LENGTH_CUTSHEET;
+    }
+    else if (pt == ProductType::Snapset || pt == ProductType::Continuous)
+    {
+        offset = TICK_LENGTH_CONTINUOUS;
+    }
+    else
+    {
+        offset = TICK_LENGTH_NONE;
     }
     
     color = GetRegistrationColor();
     if (pt == ProductType::CutSheet)
     {
-        color.c.c.tint = .8;
+        color.c.c.tint = TICK_TINT_CUTSHEET;
     }
+}
+
+bool TickMarkSettings::DrawInner() const
+{
+    return tmStyle == TickMarkStyle::Both || tmStyle == TickMarkStyle::Inner;
+}
+
+bool TickMarkSettings::DrawOuter() const
+{
+    return tmStyle == TickMarkStyle::Both || tmStyle == TickMarkStyle::Outer;
 }

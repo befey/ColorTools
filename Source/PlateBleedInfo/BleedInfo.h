@@ -21,8 +21,6 @@ namespace SafeguardFile
     class BleedInfo
     {
     public:
-        int GetTickMarkOffset() const;
-
         ai::ArtboardID artboardIndex;
         AIRealRect rect;
         ColorList colorList;

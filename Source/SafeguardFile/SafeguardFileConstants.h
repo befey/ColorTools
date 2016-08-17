@@ -41,7 +41,7 @@ namespace SafeguardFile
     
     static constexpr auto NO_TOKEN_DESIG =      "F";
     
-    enum InkMethod {
+    enum class InkMethod {
         NONE,
         Flat,
         Thermo,
@@ -51,11 +51,18 @@ namespace SafeguardFile
     
     const std::map<InkMethod, string> InkMethodStrings
     {
-        {NONE, "NONE"},
-        {Flat, "FLAT"},
-        {Thermo, "THERMO"},
-        {Foil, "FOIL"},
-        {Emboss, "EMBOSS"}
+        {InkMethod::NONE, "NONE"},
+        {InkMethod::Flat, "FLAT"},
+        {InkMethod::Thermo, "THERMO"},
+        {InkMethod::Foil, "FOIL"},
+        {InkMethod::Emboss, "EMBOSS"}
+    };
+    
+    enum class TickMarkStyle {
+        NONE,
+        Outer,
+        Inner,
+        Both
     };
 }
 
