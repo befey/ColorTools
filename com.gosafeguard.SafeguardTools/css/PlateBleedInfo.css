@@ -16,6 +16,26 @@
   left: 0;
 }
 
+.table {
+    display: block;
+}
+
+.trow {
+    display: block;
+    width: 100%;
+    border: 1px solid #e6e6e6;
+}
+
+.tcell1 {
+    display: inline-block;
+    width: 66%;
+}
+
+.tcell2 {
+    display: inline-block;
+    width: 33%;
+}
+
 .container {
   display: flex;
 }
@@ -26,6 +46,7 @@
   background: #f2f2f2;
   border: 1px solid #e6e6e6;
   box-sizing: border-box;
+  
 }
 
 .column-one {
@@ -92,13 +113,13 @@ select {
 }
 
 input[type=button] {
-  display: inline: block;
+  display: inline-block;
   font-size: 18px;
   width: 4em;
 }
 
 .or {
-  display: inline: block;
+  display: inline-block;
   font-style: oblique;
 }
 

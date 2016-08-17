@@ -21,8 +21,6 @@ $(function()
   
   csInterface.addEventListener("com.gosafeguard.SafeguardTools.PlateBleedInfo.datafromplugin", ReceiveDataFromPlugin);
   
-  ChangeArtboard(0);
-  
   csInterface.dispatchEvent(panelLoadedEvent);
   
   }
@@ -31,12 +29,15 @@ $(function()
 function ReceiveDataFromPlugin(event)
 {
     jsonArtboardData = event.data;
-    //jsonArtboardData = JSON.stringify(event.data, null, '\t');
-    //alert(json);
+    
+    LoadJsonDataForCurrentArtboard();
+    ChangeArtboard(currArtboardId);
 }
 
 function ChangeArtboard(direction)
 {
+    currArtboardId = (currArtboardId + direction) % jsonArtboardData.plateBleedInfoDTO.length;
+    LoadJsonDataForCurrentArtboard();
     var data = {
         "artboard-id"     :       currArtboardId
     };
@@ -47,4 +48,36 @@ function ChangeArtboard(direction)
 function SendDataToIllustrator()
 {
 
+}
+
+function LoadJsonDataForCurrentArtboard()
+{
+    $("#artboard-name").val(jsonArtboardData.plateBleedInfoDTO[currArtboardId].artboardName);
+    $("#artboard-number").text(currArtboardId + 1);
+    $("#inks").html(function() {
+                    var newHtml = "";
+                    for (var i = 0; i < jsonArtboardData.plateBleedInfoDTO[currArtboardId].bleedInfo.colorList.color.length; i++)
+                    {
+                        color = jsonArtboardData.plateBleedInfoDTO[currArtboardId].bleedInfo.colorList.color[i];
+                        newHtml += "<div class='trow'><div id='colorname-text" + i + "' class='tcell1'>" +
+                        color.colorName +
+                        "</div>" +
+                        "<div class='tcell2'>" +
+                        "<select id='inktype-select" + i + "'>" +
+                        "<option value='0'></option>" +
+                        "<option value='1'>Flat</option>" +
+                        "<option value='2'>Thermo</option>" +
+                        "<option value='3'>Foil</option>" +
+                        "<option value='4'>Emboss</option>" +
+                        "</select>" +
+                        "</div></div>";
+                    }
+                    return newHtml;
+                    });
+    
+    for (var i = 0; i < jsonArtboardData.plateBleedInfoDTO[currArtboardId].bleedInfo.colorList.color.length; i++)
+    {
+        color = jsonArtboardData.plateBleedInfoDTO[currArtboardId].bleedInfo.colorList.color[i];
+        $("#inktype-select" + i + " option").eq(color.method).attr("selected", "selected");
+    }
 }
