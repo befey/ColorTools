@@ -41,7 +41,9 @@ namespace SafeguardFile
     
     static constexpr auto NO_TOKEN_DESIG =      "F";
     
+    //These values map to the "Value" property of our extension panel select options
     enum class InkMethod {
+        INVAL = -1,
         NONE,
         Flat,
         Thermo,
@@ -58,6 +60,7 @@ namespace SafeguardFile
         {InkMethod::Emboss, "EMBOSS"}
     };
     
+    //These values map to the "Value" property of our extension panel select options
     enum class TickMarkStyle {
         NONE,
         Outer,

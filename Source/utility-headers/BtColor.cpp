@@ -14,33 +14,33 @@
 #define TMPWHITENAME "CustomWhite"
 
 //Constructor
-BtColor::BtColor(AIColor aiColor)
+BtColor::BtColor(AIColor aiColor, SafeguardFile::InkMethod method)
 {
-    AiColor(aiColor);
+    AiColor(aiColor, method);
 }
 
-BtColor::BtColor(AICustomColor aiCustomColor, std::string name, AIReal tint)
+BtColor::BtColor(AICustomColor aiCustomColor, std::string name, AIReal tint, SafeguardFile::InkMethod method)
 {
-    AiCustomColor(aiCustomColor, name, tint);
+    AiCustomColor(aiCustomColor, name, tint, method);
 }
 
-BtColor::BtColor(AIColorTag kind, AIColorUnion c)
+BtColor::BtColor(AIColorTag kind, AIColorUnion c, SafeguardFile::InkMethod method)
 {
     aiColor.c = c;
     aiColor.kind = kind;
-    AiColor(aiColor);
+    AiColor(aiColor, method);
 }
 
-BtColor::BtColor(string name, AICustomColorTag kind, AICustomColorUnion c, AICustomColorFlags flag, AIReal tint)
+BtColor::BtColor(string name, AICustomColorTag kind, AICustomColorUnion c, AICustomColorFlags flag, AIReal tint, SafeguardFile::InkMethod method)
 {
     aiCustomColor.c = c;
     aiCustomColor.flag = flag;
     aiCustomColor.kind = kind;
-    AiCustomColor(aiCustomColor, name, tint);
+    AiCustomColor(aiCustomColor, name, tint, method);
 }
 
 //Getters/Setters
-BtColor& BtColor::AiColor(AIColor newVal)
+BtColor& BtColor::AiColor(AIColor newVal, SafeguardFile::InkMethod method)
 {
     aiColor = newVal;
     if (Kind() == kCustomColor)
@@ -48,11 +48,20 @@ BtColor& BtColor::AiColor(AIColor newVal)
         sAICustomColor->GetCustomColor(aiColor.c.c.color, &aiCustomColor);
         aiCustomColorHandle = aiColor.c.c.color;
     }
-    method = GetInkMethodFromColorName(Name());
+    
+    if (method == SafeguardFile::InkMethod::INVAL)
+    {
+        this->method = GetInkMethodFromColorName(Name());
+    }
+    else
+    {
+        this->method = method;
+    }
+    
     return *this;
 }
 
-BtColor& BtColor::AiCustomColor(AICustomColor newVal, std::string name, AIReal tint)
+BtColor& BtColor::AiCustomColor(AICustomColor newVal, std::string name, AIReal tint, SafeguardFile::InkMethod method)
 {
     ASErr err = sAICustomColor->GetCustomColorByName(ai::UnicodeString(name),  &aiCustomColorHandle);
     if (err == kNameNotFoundErr)
@@ -62,7 +71,16 @@ BtColor& BtColor::AiCustomColor(AICustomColor newVal, std::string name, AIReal t
     aiColor.kind = kCustomColor;
     aiColor.c.c.color = aiCustomColorHandle;
     aiColor.c.c.tint = tint;
-    method = GetInkMethodFromColorName(Name());
+    
+    if (method == SafeguardFile::InkMethod::INVAL)
+    {
+        this->method = GetInkMethodFromColorName(Name());
+    }
+    else
+    {
+        this->method = method;
+    }
+    
     return *this;
 }
 

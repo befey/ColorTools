@@ -30,16 +30,25 @@ class BtColor
 {
 public:
     //Constuctor
-    BtColor(AIColor aiColor);
-    BtColor(AICustomColor aiCustomColor, std::string name, AIReal tint = 0);
-    BtColor(AIColorTag kind, AIColorUnion c);
-    BtColor(std::string name, AICustomColorTag kind, AICustomColorUnion c, AICustomColorFlags flag, AIReal tint = 0);
+    BtColor(AIColor aiColor) :  BtColor(aiColor, SafeguardFile::InkMethod::INVAL) {};
+    BtColor(AIColor aiColor, SafeguardFile::InkMethod method);
+    
+    BtColor(AICustomColor aiCustomColor, std::string name) : BtColor(aiCustomColor, name, 0) {};
+    BtColor(AICustomColor aiCustomColor, std::string name, AIReal tint) : BtColor(aiCustomColor, name, 0, SafeguardFile::InkMethod::INVAL) {};
+    BtColor(AICustomColor aiCustomColor, std::string name, AIReal tint, SafeguardFile::InkMethod method);
+    
+    BtColor(AIColorTag kind, AIColorUnion c) : BtColor(kind, c, SafeguardFile::InkMethod::INVAL) {};
+    BtColor(AIColorTag kind, AIColorUnion c, SafeguardFile::InkMethod method);
+    
+    BtColor(std::string name, AICustomColorTag kind, AICustomColorUnion c, AICustomColorFlags flag) : BtColor(name, kind, c, flag, 0) {};
+    BtColor(std::string name, AICustomColorTag kind, AICustomColorUnion c, AICustomColorFlags flag, AIReal tint) : BtColor(name, kind, c, flag, tint, SafeguardFile::InkMethod::INVAL) {};
+    BtColor(std::string name, AICustomColorTag kind, AICustomColorUnion c, AICustomColorFlags flag, AIReal tint, SafeguardFile::InkMethod method);
 
     //Getters/Setters
-    BtColor& AiColor(AIColor newVal);
+    BtColor& AiColor(AIColor newVal, SafeguardFile::InkMethod method);
     AIColor AiColor() const { return aiColor; };
     
-    BtColor& AiCustomColor(AICustomColor newVal, std::string name, AIReal tint = 0);
+    BtColor& AiCustomColor(AICustomColor newVal, std::string name, AIReal tint, SafeguardFile::InkMethod method);
     AICustomColor AiCustomColor() const;
     
     BtColor& Name(std::string newVal);
@@ -55,7 +64,7 @@ private:
     AICustomColor aiCustomColor;
     AICustomColorHandle aiCustomColorHandle = NULL;
     
-    SafeguardFile::InkMethod method = SafeguardFile::InkMethod::NONE;
+    SafeguardFile::InkMethod method = SafeguardFile::InkMethod::INVAL;
     
     friend class cereal::access;
     template <class Archive>
