@@ -29,11 +29,13 @@
 .tcell1 {
     display: inline-block;
     width: 66%;
+    vertical-align: middle;
 }
 
 .tcell2 {
     display: inline-block;
     width: 33%;
+    vertical-align: middle;
 }
 
 .container {

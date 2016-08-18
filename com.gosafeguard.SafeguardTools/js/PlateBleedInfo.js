@@ -56,9 +56,9 @@ function LoadJsonDataForCurrentArtboard()
     $("#artboard-number").text(currArtboardId + 1);
     $("#inks").html(function() {
                     var newHtml = "";
-                    for (var i = 0; i < jsonArtboardData.plateBleedInfoDTO[currArtboardId].bleedInfo.colorList.color.length; i++)
+                    for (var i = 0; i < jsonArtboardData.plateBleedInfoDTO[currArtboardId].colorList.color.length; i++)
                     {
-                        color = jsonArtboardData.plateBleedInfoDTO[currArtboardId].bleedInfo.colorList.color[i];
+                        color = jsonArtboardData.plateBleedInfoDTO[currArtboardId].colorList.color[i];
                         newHtml += "<div class='trow'><div id='colorname-text" + i + "' class='tcell1'>" +
                         color.colorName +
                         "</div>" +
@@ -75,9 +75,9 @@ function LoadJsonDataForCurrentArtboard()
                     return newHtml;
                     });
     
-    for (var i = 0; i < jsonArtboardData.plateBleedInfoDTO[currArtboardId].bleedInfo.colorList.color.length; i++)
+    for (var i = 0; i < jsonArtboardData.plateBleedInfoDTO[currArtboardId].colorList.color.length; i++)
     {
-        color = jsonArtboardData.plateBleedInfoDTO[currArtboardId].bleedInfo.colorList.color[i];
+        color = jsonArtboardData.plateBleedInfoDTO[currArtboardId].colorList.color[i];
         $("#inktype-select" + i + " option").eq(color.method).attr("selected", "selected");
     }
 }

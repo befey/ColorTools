@@ -55,7 +55,11 @@ namespace SafeguardFile
         template <class Archive>
         void serialize(Archive& ar)
         {
+            bool isDefaultArtboardName;
+            string artboardName = GetArtboardName(isDefaultArtboardName);
             ar(CEREAL_NVP(artboardIndex),
+               CEREAL_NVP(artboardName),
+               CEREAL_NVP(isDefaultArtboardName),
                CEREAL_NVP(colorList),
                cereal::make_nvp("plateNumber", string(plateNumber)),
                cereal::make_nvp("token", Token()),

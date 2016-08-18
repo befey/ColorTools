@@ -19,7 +19,6 @@
 #include "PrintToPdfConstants.h"
 #include "AICSXS.h"
 #include "BleedInfo.h"
-#include "PlateBleedInfoDTO.hpp"
 
 extern AICSXSExtensionSuite* sAICSXSExtension;
 
@@ -43,7 +42,7 @@ namespace SafeguardFile
         void EditBleedInfo();
         void RemoveBleedInfo();
         
-        vector<SafeguardFile::PlateBleedInfoDTO> GetPlateBleedInfoDTO() const;
+        vector<SafeguardFile::BleedInfo> GetPlateBleedInfoDTO() const;
     private:
         vector<Plate> plates;
         
