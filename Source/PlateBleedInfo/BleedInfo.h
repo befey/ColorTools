@@ -12,24 +12,45 @@
 #include "AIUser.h"
 #include "ColorList.h"
 #include "PlateNumber.h"
+#include "TickMarkSettings.hpp"
 #include <ctime>
 #include "cereal/cereal.hpp"
 #include "cereal/access.hpp"
+#include "AIDocument.h"
+#include "AIArtboard.h"
+
+extern AIDocumentSuite* sAIDocument;
+extern AIArtboardSuite* sAIArtboard;
 
 namespace SafeguardFile
 {
     class BleedInfo
     {
     public:
-        ai::ArtboardID artboardIndex;
-        AIRealRect rect;
-        ColorList colorList;
-        PlateNumber plateNumber;
-        string token;
-        tm lastModified;
-        bool ShouldAddCMYKBlocks;
-    
+        BleedInfo(ai::ArtboardID artboardIndex);
+        
+        ai::ArtboardID ArtboardIndex() const { return artboardIndex; };
+        AIRealRect ArtboardBounds() const;
+        tm LastModified() const;
+        const TickMarkSettings TickMarkSettings() const { return tmSettings; };
+        string Token() const;
+        string GetArtboardName(bool& isDefault) const;
+        const SafeguardFile::PlateNumber PlateNumber() const { return plateNumber; };
+        const SafeguardFile::ColorList ColorList() const { return colorList; };
+        AIRealRect Bleeds() const;
     private:
+        ai::ArtboardID artboardIndex;
+        SafeguardFile::ColorList colorList;
+        SafeguardFile::PlateNumber plateNumber;
+        bool shouldAddCMYKBlocks;
+        SafeguardFile::TickMarkSettings tmSettings;
+        
+        void AddColorsOfArtToColorList(AIArtHandle art);
+        void FillColorList();
+        
+        void SetPlateNumber();
+        void SetPlateNumber(string pn);
+        
         friend class cereal::access;
         template <class Archive>
         void serialize(Archive& ar)
@@ -37,8 +58,9 @@ namespace SafeguardFile
             ar(CEREAL_NVP(artboardIndex),
                CEREAL_NVP(colorList),
                cereal::make_nvp("plateNumber", string(plateNumber)),
-               CEREAL_NVP(token),
-               CEREAL_NVP(ShouldAddCMYKBlocks)
+               cereal::make_nvp("token", Token()),
+               CEREAL_NVP(shouldAddCMYKBlocks),
+               cereal::make_nvp("tickStyle", tmSettings.TickMarkStyle())
                );
         }
     };

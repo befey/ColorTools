@@ -40,7 +40,6 @@ extern AIRealMathSuite* sAIRealMath;
 
 namespace SafeguardFile
 {
-    
     class PlateNumber
     {
     public:

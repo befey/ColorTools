@@ -10,13 +10,13 @@
 #include "ColorFuncs.h"
 
 using SafeguardFile::TickMarkSettings;
-using SafeguardFile::BleedInfo;
 
-TickMarkSettings::TickMarkSettings(const BleedInfo bleedInfo)
+TickMarkSettings::TickMarkSettings()
+: TickMarkSettings(AIRealRect(), SafeguardFile::ProductType::INVAL, SafeguardFile::TickMarkStyle::NONE) {}
+
+TickMarkSettings::TickMarkSettings(const AIRealRect rect, const ProductType pt, const SafeguardFile::TickMarkStyle tms)
+: bounds(rect), color(GetRegistrationColor())
 {
-    bounds = bleedInfo.rect;
-
-    ProductType pt = bleedInfo.plateNumber.GetProductType();
     if (pt == ProductType::Continuous)
     {
         tmStyle = TickMarkStyle::Both;
@@ -47,7 +47,6 @@ TickMarkSettings::TickMarkSettings(const BleedInfo bleedInfo)
         offset = TICK_LENGTH_NONE;
     }
     
-    color = GetRegistrationColor();
     if (pt == ProductType::CutSheet)
     {
         color.c.c.tint = TICK_TINT_CUTSHEET;

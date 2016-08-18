@@ -10,7 +10,6 @@
 #define PlateBleedInfoDTO_hpp
 
 #include "BleedInfo.h"
-#include "Plate.h"
 #include <vector>
 #include "cereal/cereal.hpp"
 #include "cereal/access.hpp"
@@ -21,11 +20,8 @@ namespace SafeguardFile
     class PlateBleedInfoDTO
     {
     public:
-        PlateBleedInfoDTO(Plate plate)
-        {
-            bleedInfo = plate.GetBleedInfo();
-            artboardName = plate.GetArtboardName(isDefaultArtboardName);
-        };
+        PlateBleedInfoDTO(BleedInfo bleedInfo)
+        : bleedInfo(bleedInfo), artboardName(bleedInfo.GetArtboardName(isDefaultArtboardName)) {};
         
     private:
         BleedInfo bleedInfo;

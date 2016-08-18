@@ -9,7 +9,6 @@
 #ifndef TickMarkSettings_hpp
 #define TickMarkSettings_hpp
 
-#include "BleedInfo.h"
 #include "AIColor.h"
 #include "SafeguardFileConstants.h"
 
@@ -18,7 +17,8 @@ namespace SafeguardFile
     class TickMarkSettings
     {
     public:
-        TickMarkSettings(const BleedInfo bleedInfo);
+        TickMarkSettings();
+        TickMarkSettings(const AIRealRect rect, const ProductType pt, const SafeguardFile::TickMarkStyle tms);
         
         AIRealRect Bounds() const { return bounds; };
         int Offset() const { return offset; };
@@ -26,6 +26,7 @@ namespace SafeguardFile
         AIColor Color() const { return color; };
         bool DrawInner() const;
         bool DrawOuter() const;
+        SafeguardFile::TickMarkStyle TickMarkStyle() const { return tmStyle; };
     private:
         AIRealRect bounds;
         int offset;
