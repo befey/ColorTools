@@ -32,12 +32,18 @@ namespace SafeguardFile
         ai::ArtboardID ArtboardIndex() const { return artboardIndex; };
         AIRealRect ArtboardBounds() const;
         tm LastModified() const;
+        
         const TickMarkSettings TickMarkSettings() const { return tmSettings; };
+        
         string Token() const;
-        string GetArtboardName(bool& isDefault) const;
+        BleedInfo& Token(string newVal);
+        string ArtboardName(bool& isDefault) const;
+        BleedInfo& ArtboardName(string newVal);
+        
         const SafeguardFile::PlateNumber PlateNumber() const { return plateNumber; };
         const SafeguardFile::ColorList ColorList() const { return colorList; };
         AIRealRect Bleeds() const;
+        
     private:
         ai::ArtboardID artboardIndex;
         SafeguardFile::ColorList colorList;
@@ -56,7 +62,7 @@ namespace SafeguardFile
         void serialize(Archive& ar)
         {
             bool isDefaultArtboardName;
-            string artboardName = GetArtboardName(isDefaultArtboardName);
+            string artboardName = ArtboardName(isDefaultArtboardName);
             ar(CEREAL_NVP(artboardIndex),
                CEREAL_NVP(artboardName),
                CEREAL_NVP(isDefaultArtboardName),

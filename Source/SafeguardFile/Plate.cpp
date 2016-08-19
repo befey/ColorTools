@@ -95,7 +95,7 @@ tm Plate::GetLastModified() const
 
 string Plate::GetArtboardName(bool& isDefault) const
 {
-    return bleedInfo.GetArtboardName(isDefault);
+    return bleedInfo.ArtboardName(isDefault);
 }
 
 AIRealRect Plate::GetBleeds() const

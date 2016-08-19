@@ -59,7 +59,7 @@ tm BleedInfo::LastModified() const
 string BleedInfo::Token() const
 {
     bool isDefaultName;
-    string abNameS = GetArtboardName(isDefaultName);
+    string abNameS = ArtboardName(isDefaultName);
     
     if (isDefaultName || abNameS == NO_TOKEN_DESIG)
     {
@@ -71,7 +71,17 @@ string BleedInfo::Token() const
     }
 }
 
-string BleedInfo::GetArtboardName(bool& isDefault) const
+BleedInfo& BleedInfo::Token(string newVal)
+{
+    if (newVal == "")
+    {
+        newVal = NO_TOKEN_DESIG;
+    }
+    return ArtboardName(newVal);
+}
+
+
+string BleedInfo::ArtboardName(bool& isDefault) const
 {
     ai::ArtboardList abList;
     sAIArtboard->GetArtboardList(abList);
@@ -86,6 +96,16 @@ string BleedInfo::GetArtboardName(bool& isDefault) const
     isDefault = aiboolIsDefault;
     
     return abNameS;
+}
+
+BleedInfo& BleedInfo::ArtboardName(string newVal)
+{
+    ai::ArtboardList abList;
+    sAIArtboard->GetArtboardList(abList);
+    ai::ArtboardProperties props;
+    sAIArtboard->GetArtboardProperties(abList, ArtboardIndex(), props);
+    props.SetName(ai::UnicodeString(newVal));
+    return *this;
 }
 
 void BleedInfo::FillColorList()
