@@ -54,6 +54,8 @@ function LoadJsonDataForCurrentArtboard()
 {
     $("#artboard-name").val(jsonArtboardData.plateBleedInfoDTO[currArtboardId].artboardName);
     $("#artboard-number").text(currArtboardId + 1);
+    $("#tickmark-select").val(jsonArtboardData.plateBleedInfoDTO[currArtboardId].tickStyle);
+    
     $("#inks").html(function() {
                     var newHtml = "";
                     for (var i = 0; i < jsonArtboardData.plateBleedInfoDTO[currArtboardId].colorList.color.length; i++)
