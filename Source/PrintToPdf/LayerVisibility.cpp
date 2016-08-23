@@ -13,6 +13,7 @@ using PrintToPdf::LayerVisibility;
 using PrintToPdf::BStatLayerVisibility;
 using PrintToPdf::LaserLayerVisibility;
 using PrintToPdf::BStatProofLayerVisibility;
+using PrintToPdf::NonStandardLayerVisibility;
 
 LayerVisibility::LayerVisibility()
 {
@@ -121,6 +122,23 @@ bool BStatProofLayerVisibility::CustomLayerVisibility()
         else if (kv.first == SafeguardFile::BACKGROUND_LAYER)
         {
             kv.second.Visible(false).Editable(true);
+        }
+        else
+        {
+            kv.second.Visible(false).Editable(true);
+        }
+    }
+    
+    return true;
+}
+
+bool NonStandardLayerVisibility::CustomLayerVisibility()
+{
+    for (auto& kv : layerList)
+    {
+        if (kv.second.Printed())
+        {
+            kv.second.Visible(true).Editable(true);
         }
         else
         {
