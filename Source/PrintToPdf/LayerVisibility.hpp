@@ -47,6 +47,12 @@ namespace PrintToPdf
     public:
         bool CustomLayerVisibility() override;
     };
+    
+    class NonStandardLayerVisibility : public LayerVisibility
+    {
+    public:
+        bool CustomLayerVisibility() override;
+    };
 }
 
 #endif /* LayerVisibility_hpp */
