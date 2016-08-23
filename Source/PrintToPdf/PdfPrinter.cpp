@@ -41,6 +41,10 @@ PdfPrinter::PdfPrinter(const PdfPreset preset)
             layerVisibility = unique_ptr<LayerVisibility> { make_unique<BStatLayerVisibility>() };
         }
     }
+    else if (GetPlateNumber().GetProductType() == ProductType::INVAL)
+    {
+        layerVisibility = unique_ptr<LayerVisibility> { make_unique<NonStandardLayerVisibility>() };
+    }
     else
     {
         layerVisibility = unique_ptr<LayerVisibility> { make_unique<LaserLayerVisibility>() };
