@@ -93,11 +93,11 @@ function LoadJsonDataForCurrentArtboard()
 function StoreCurrentArtboardData()
 {
     jsonArtboardData.dto.plates[currArtboardId].artboardName = $("#artboard-name").val();
-    jsonArtboardData.dto.plates[currArtboardId].tmStyle = $("#tickmark-select").val();
+    jsonArtboardData.dto.plates[currArtboardId].tmStyle = parseInt($("#tickmark-select").val(), 10);
     
     for (var i = 0; i < jsonArtboardData.dto.plates[currArtboardId].c.length; i++)
     {
         color = jsonArtboardData.dto.plates[currArtboardId].c[i];
-        color.method = $("#inktype-select" + i).val();
+        color.method = parseInt($("#inktype-select" + i).val(), 10);
     }
 }
