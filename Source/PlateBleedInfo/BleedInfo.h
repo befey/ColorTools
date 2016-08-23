@@ -14,8 +14,6 @@
 #include "PlateNumber.h"
 #include "TickMarkSettings.hpp"
 #include <ctime>
-#include "cereal/cereal.hpp"
-#include "cereal/access.hpp"
 #include "AIDocument.h"
 #include "AIArtboard.h"
 
@@ -27,6 +25,7 @@ namespace SafeguardFile
     class BleedInfo
     {
     public:
+        BleedInfo() {};
         BleedInfo(ai::ArtboardID artboardIndex);
         
         ai::ArtboardID ArtboardIndex() const { return artboardIndex; };
@@ -40,8 +39,11 @@ namespace SafeguardFile
         string ArtboardName(bool& isDefault) const;
         BleedInfo& ArtboardName(string newVal);
         
+        bool AddCmykBlocks() const { return shouldAddCMYKBlocks; };
+        
         const SafeguardFile::PlateNumber PlateNumber() const { return plateNumber; };
         const SafeguardFile::ColorList ColorList() const { return colorList; };
+    
         AIRealRect Bleeds() const;
         
     private:
@@ -56,23 +58,6 @@ namespace SafeguardFile
         
         void SetPlateNumber();
         void SetPlateNumber(string pn);
-        
-        friend class cereal::access;
-        template <class Archive>
-        void serialize(Archive& ar)
-        {
-            bool isDefaultArtboardName;
-            string artboardName = ArtboardName(isDefaultArtboardName);
-            ar(CEREAL_NVP(artboardIndex),
-               CEREAL_NVP(artboardName),
-               CEREAL_NVP(isDefaultArtboardName),
-               CEREAL_NVP(colorList),
-               cereal::make_nvp("plateNumber", string(plateNumber)),
-               cereal::make_nvp("token", Token()),
-               CEREAL_NVP(shouldAddCMYKBlocks),
-               cereal::make_nvp("tickStyle", tmSettings.TickMarkStyle())
-               );
-        }
     };
 }
 

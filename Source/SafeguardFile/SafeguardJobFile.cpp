@@ -49,10 +49,10 @@ void SafeguardJobFile::AddBleedInfo()
 
 void SafeguardJobFile::UpdateBleedInfo()
 {
-    for (auto plate : plates)
-    {
-        plate.DrawBleedInfo();
-    }
+    //for (auto plate : plates)
+    //{
+    //    plate.DrawBleedInfo();
+    //}
 }
 
 void SafeguardJobFile::EditBleedInfo()
@@ -116,14 +116,4 @@ AIRealRect SafeguardJobFile::GetBleeds(int plateIndex) const
         return plates[0].GetBleeds();
     }
     return AIRealRect{0,0,0,0};
-}
-
-vector<SafeguardFile::BleedInfo> SafeguardJobFile::GetPlateBleedInfoDTO() const
-{
-    vector<BleedInfo> dtos;
-    for (auto plate : plates)
-    {
-        dtos.push_back(plate.GetBleedInfo());
-    }
-    return dtos;
 }

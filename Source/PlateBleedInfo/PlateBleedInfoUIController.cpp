@@ -12,6 +12,7 @@
 #include "SafeguardToolsSuites.h"
 #include "BtDocumentView.hpp"
 #include "GetIllustratorErrorCode.h"
+#include "PlateBleedInfoDTO.hpp"
 #include "rapidjson/document.h"
 #include "cereal/archives/json.hpp"
 
@@ -37,6 +38,42 @@ void PlateBleedInfoUIController::PanelLoaded (const csxs::event::Event* const ev
     return;
 }
 
+void PlateBleedInfoUIController::OkButtonClickedFunc (const csxs::event::Event* const event, void* const context)
+{
+    PlateBleedInfoUIController *plateBleedInfoUIController = (PlateBleedInfoUIController *)context;
+    if (NULL == plateBleedInfoUIController || event == NULL)
+    {
+        return;
+    }
+    
+    do {
+        // Set up the application context, so that suite calls can work.
+        AppContext appContext(gPlugin->GetPluginRef());
+        
+        SafeguardFile::PlateBleedInfoDTO plateBleedInfoDTO;
+        std::stringstream ss;
+        ss << event->data;
+        string s = ss.str();
+        {
+            cereal::JSONInputArchive iarchive(ss); // Create an input archive
+            try {
+            iarchive(plateBleedInfoDTO);
+            }
+            catch(cereal::Exception const& e) {
+                string es = e.what();
+                int foo = 0;
+            }
+        }
+        
+        BtDocumentView docView;
+        docView.RecallDocumentView();
+        
+        plateBleedInfoUIController->SendCloseMessageToHtml();
+        
+        // Clean up the application context and return.
+    } while(false);
+    return;
+}
 
 void PlateBleedInfoUIController::CancelButtonClickedFunc (const csxs::event::Event* const event, void* const context)
 {
@@ -101,6 +138,11 @@ csxs::event::EventErrorCode PlateBleedInfoUIController::RegisterCSXSEventListene
         {
             break;
         }
+        result =  fPPLib.AddEventListener(PLATEBLEEDINFO_DATA_FROM_EXT, OkButtonClickedFunc, this);
+        if (result != csxs::event::kEventErrorCode_Success)
+        {
+            break;
+        }
         result =  fPPLib.AddEventListener(EVENT_TYPE_CANCEL_CLICKED, CancelButtonClickedFunc, this);
         if (result != csxs::event::kEventErrorCode_Success)
         {
@@ -123,6 +165,11 @@ csxs::event::EventErrorCode PlateBleedInfoUIController::RemoveEventListeners()
     csxs::event::EventErrorCode result = csxs::event::kEventErrorCode_Success;
     do {
         result =  fPPLib.RemoveEventListener(PLATEBLEEDINFO_PANEL_LOADED, PanelLoaded, this);
+        if (result != csxs::event::kEventErrorCode_Success)
+        {
+            break;
+        }
+        result =  fPPLib.RemoveEventListener(PLATEBLEEDINFO_DATA_FROM_EXT, OkButtonClickedFunc, this);
         if (result != csxs::event::kEventErrorCode_Success)
         {
             break;
@@ -195,10 +242,10 @@ ai::ArtboardID PlateBleedInfoUIController::GetArtboardIdFromJson(const char* jso
 string PlateBleedInfoUIController::GetBleedInfoAsJson() const
 {
     std::stringstream ss;
-    SafeguardJobFile sgJobFile;
     {
+        SafeguardFile::PlateBleedInfoDTO dto;
         cereal::JSONOutputArchive oarchive(ss); // Create an output archive
-        oarchive(cereal::make_nvp("plateBleedInfoDTO", sgJobFile.GetPlateBleedInfoDTO()));
+        oarchive(CEREAL_NVP(dto));
     }
     return ss.str();
 }

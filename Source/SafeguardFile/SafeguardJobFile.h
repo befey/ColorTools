@@ -42,7 +42,6 @@ namespace SafeguardFile
         void EditBleedInfo();
         void RemoveBleedInfo();
         
-        vector<SafeguardFile::BleedInfo> GetPlateBleedInfoDTO() const;
     private:
         vector<Plate> plates;
         

@@ -12,9 +12,6 @@
 #include <vector>
 #include "BtColor.h"
 #include "ColorFuncs.h"
-#include "cereal/cereal.hpp"
-#include "cereal/access.hpp"
-#include "cereal/types/vector.hpp"
 
 namespace SafeguardFile
 {
@@ -26,18 +23,11 @@ namespace SafeguardFile
         void RemoveNonPrintingColors();
         
         void GetAsTextRange(ATE::ITextRange& targetRange) const;
-    
+        const vector<BtColor> GetColorList() const { return p_ColorList; };
     private:
         vector<BtColor> p_ColorList;
         
         void AddColorToTextRange(const BtColor color, ATE::ITextRange& targetRange) const;
-        
-        friend class cereal::access;
-        template <class Archive>
-        void serialize(Archive& ar)
-        {
-            ar( cereal::make_nvp("color", p_ColorList) );
-        }
     };
 }
 #endif /* defined(__SafeguardTools__ColorList__) */

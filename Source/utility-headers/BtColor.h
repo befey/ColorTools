@@ -16,8 +16,6 @@
 #include "AIColor.h"
 #include "SafeguardFileConstants.h"
 #include "ColorFuncs.h"
-#include "cereal/cereal.hpp"
-#include "cereal/access.hpp"
 
 //=================================
 // forward declared dependencies
@@ -30,6 +28,7 @@ class BtColor
 {
 public:
     //Constuctor
+    BtColor() {};
     BtColor(AIColor aiColor) :  BtColor(aiColor, SafeguardFile::InkMethod::INVAL) {};
     BtColor(AIColor aiColor, SafeguardFile::InkMethod method);
     
@@ -65,25 +64,6 @@ private:
     AICustomColorHandle aiCustomColorHandle = NULL;
     
     SafeguardFile::InkMethod method = SafeguardFile::InkMethod::INVAL;
-    
-    friend class cereal::access;
-    template <class Archive>
-    void serialize(Archive& ar)
-    {
-        std::string colorName;
-        if (ColorIsPantone(aiColor))
-        {
-            colorName = GetInnerPantoneColorNumber(Name());
-        }
-        else
-        {
-            colorName = Name();
-        }
-        ar(
-           CEREAL_NVP(colorName),
-           cereal::make_nvp("method", Method())
-           );
-    }
 };
 
 

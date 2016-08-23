@@ -6,6 +6,7 @@ var currArtboardId = 0;
 var panelLoadedEvent = new CSEvent("com.gosafeguard.SafeguardTools.PlateBleedInfo.panelloaded", "APPLICATION", "ILST", "PlateBleedInfo");
 var changeArtboardEvent = new CSEvent("com.gosafeguard.SafeguardTools.PlateBleedInfo.changeartboard", "APPLICATION", "ILST", "PlateBleedInfo");
 var cancelEvent = new CSEvent("com.gosafeguard.SafeguardTools.PlateBleedInfo.cancelbutton", "APPLICATION", "ILST", "PlateBleedInfo");
+var sendDataBackEvent = new CSEvent("com.gosafeguard.SafeguardTools.PlateBleedInfo.datafromext", "APPLICATION", "ILST", "PlateBleedInfo");
 
 
 
@@ -36,6 +37,8 @@ function ReceiveDataFromPlugin(event)
 
 function ChangeArtboard(direction)
 {
+    StoreCurrentArtboardData();
+    
     currArtboardId = (currArtboardId + direction) % jsonArtboardData.plateBleedInfoDTO.length;
     LoadJsonDataForCurrentArtboard();
     var data = {
@@ -47,20 +50,23 @@ function ChangeArtboard(direction)
 
 function SendDataToIllustrator()
 {
-
+    StoreCurrentArtboardData();
+    
+    sendDataBackEvent.data = jsonArtboardData;
+    csInterface.dispatchEvent(sendDataBackEvent);
 }
 
 function LoadJsonDataForCurrentArtboard()
 {
-    $("#artboard-name").val(jsonArtboardData.plateBleedInfoDTO[currArtboardId].artboardName);
+    $("#artboard-name").val(jsonArtboardData.dto.plates[currArtboardId].artboardName);
     $("#artboard-number").text(currArtboardId + 1);
-    $("#tickmark-select").val(jsonArtboardData.plateBleedInfoDTO[currArtboardId].tickStyle);
+    $("#tickmark-select").val(jsonArtboardData.dto.plates[currArtboardId].tmStyle);
     
     $("#inks").html(function() {
                     var newHtml = "";
-                    for (var i = 0; i < jsonArtboardData.plateBleedInfoDTO[currArtboardId].colorList.color.length; i++)
+                    for (var i = 0; i < jsonArtboardData.dto.plates[currArtboardId].c.length; i++)
                     {
-                        color = jsonArtboardData.plateBleedInfoDTO[currArtboardId].colorList.color[i];
+                        color = jsonArtboardData.dto.plates[currArtboardId].c[i];
                         newHtml += "<div class='trow'><div id='colorname-text" + i + "' class='tcell1'>" +
                         color.colorName +
                         "</div>" +
@@ -77,9 +83,21 @@ function LoadJsonDataForCurrentArtboard()
                     return newHtml;
                     });
     
-    for (var i = 0; i < jsonArtboardData.plateBleedInfoDTO[currArtboardId].colorList.color.length; i++)
+    for (var i = 0; i < jsonArtboardData.dto.plates[currArtboardId].c.length; i++)
     {
-        color = jsonArtboardData.plateBleedInfoDTO[currArtboardId].colorList.color[i];
+        color = jsonArtboardData.dto.plates[currArtboardId].c[i];
         $("#inktype-select" + i + " option").eq(color.method).attr("selected", "selected");
+    }
+}
+
+function StoreCurrentArtboardData()
+{
+    jsonArtboardData.dto.plates[currArtboardId].artboardName = $("#artboard-name").val();
+    jsonArtboardData.dto.plates[currArtboardId].tmStyle = $("#tickmark-select").val();
+    
+    for (var i = 0; i < jsonArtboardData.dto.plates[currArtboardId].c.length; i++)
+    {
+        color = jsonArtboardData.dto.plates[currArtboardId].c[i];
+        color.method = $("#inktype-select" + i).val();
     }
 }
