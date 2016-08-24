@@ -59,38 +59,33 @@ PlateBleedInfoDTO::PlateBleedInfoDTO()
 
 void PlateBleedInfoDTO::WriteToDocumentDictionary()
 {
-    std::ostringstream ss(std::stringstream::binary);
+    std::ostringstream os(std::stringstream::binary);
     {
-        cereal::BinaryOutputArchive oarchive(ss); // Create an output archive
-        oarchive(CEREAL_NVP(*this));
+        cereal::BinaryOutputArchive oarchive(os); // Create an output archive
+        oarchive(*this);
     }
     
-    string binaryoutput = ss.str();
-    const char* data = binaryoutput.c_str();
+    string binaryoutput = os.str();
     size_t size = binaryoutput.length();
     DictionaryWriter dw;
-    dw.AddBinaryDataToDictionary((void*)binaryoutput.c_str(), size, PLATEBLEEDINFO_DTO_ID);
+    dw.AddBinaryDataToDictionary((void*)binaryoutput.c_str(), size + 1, PLATEBLEEDINFO_DTO_ID);
 }
 
 void PlateBleedInfoDTO::RecallFromDocumentDictionary()
 {
     DictionaryWriter dw;
-    void* data;
+    char* data;
     size_t size;
-    dw.GetBinaryDataFromIdentifier(data, &size, PLATEBLEEDINFO_DTO_ID);
-    string s((char*)data, size);
-    std::istringstream ss(std::stringstream::binary);
-    PlateBleedInfoDTO dto;
-    ss >> s;
-    {
-        cereal::BinaryInputArchive iarchive(ss); // Create an output archive
-        try {
-        iarchive(dto);
-        }
-        catch (std::runtime_error e) {
-            e.what();
-        }
-    }
+    dw.GetBinaryDataFromIdentifier((void*)data, &size, PLATEBLEEDINFO_DTO_ID);
+    
+    assert(size != 0);
+    
+    string s(data, size);
+    
+    std::istringstream is(s, std::stringstream::binary);
 
-    int foo = 0;
+    {
+        cereal::BinaryInputArchive iarchive(is); // Create an input archive
+        iarchive(*this);
+    }
 }

@@ -21,7 +21,7 @@ namespace SafeguardFile
     {
     public:
         PlateBleedInfoDTO();
-        
+                
         void WriteToDocumentDictionary();
         void RecallFromDocumentDictionary();
     private:

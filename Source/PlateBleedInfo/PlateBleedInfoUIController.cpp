@@ -51,16 +51,13 @@ void PlateBleedInfoUIController::OkButtonClickedFunc (const csxs::event::Event* 
         AppContext appContext(gPlugin->GetPluginRef());
         
         SafeguardFile::PlateBleedInfoDTO plateBleedInfoDTO;
-        std::stringstream ss;
-        ss << event->data;
-        string s = ss.str();
+        std::stringstream ss(event->data);
         {
             cereal::JSONInputArchive iarchive(ss); // Create an input archive
             iarchive(plateBleedInfoDTO);
         }
         
         plateBleedInfoDTO.WriteToDocumentDictionary();
-        plateBleedInfoDTO.RecallFromDocumentDictionary();
         
         BtDocumentView docView;
         docView.RecallDocumentView();
