@@ -105,6 +105,7 @@ BleedInfo& BleedInfo::ArtboardName(string newVal)
     ai::ArtboardProperties props;
     sAIArtboard->GetArtboardProperties(abList, ArtboardIndex(), props);
     props.SetName(ai::UnicodeString(newVal));
+    sAIArtboard->Update(abList, ArtboardIndex(), props);
     return *this;
 }
 

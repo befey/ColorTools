@@ -43,11 +43,13 @@ namespace SafeguardFile
         
         AIRealRect GetBleeds() const;
         
-        const BleedInfo GetBleedInfo() const;
+        BleedInfo BleedInfo() const;
+        Plate& BleedInfo(class BleedInfo newValue) { bleedInfo = newValue; };
+        
         void DrawBleedInfo();
         void RemoveBleedInfo();
     private:
-        BleedInfo bleedInfo;
+        class BleedInfo bleedInfo;
         shared_ptr<SafeguardFile::BleedInfoDrawer> bleedInfoDrawer;
     };
 }

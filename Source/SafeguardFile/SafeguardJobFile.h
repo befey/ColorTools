@@ -19,6 +19,7 @@
 #include "PrintToPdfConstants.h"
 #include "AICSXS.h"
 #include "BleedInfo.h"
+#include "PlateBleedInfoDTO.hpp"
 
 extern AICSXSExtensionSuite* sAICSXSExtension;
 
@@ -28,6 +29,7 @@ namespace SafeguardFile
     {
     public:
         SafeguardJobFile();
+        SafeguardJobFile(SafeguardFile::PlateBleedInfoDTO dto);
         
         const BleedInfo GetBleedInfo(int plateIndex = 0) const;
         

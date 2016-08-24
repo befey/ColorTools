@@ -9,7 +9,6 @@
 #ifndef PlateBleedInfoDTO_hpp
 #define PlateBleedInfoDTO_hpp
 
-#include "SafeguardJobFile.h"
 #include "cereal/cereal.hpp"
 #include "cereal/access.hpp"
 #include "cereal/types/vector.hpp"
@@ -21,6 +20,8 @@ namespace SafeguardFile
     {
     public:
         PlateBleedInfoDTO();
+        
+        string ArtboardName(int index) const { return plates.at(index).artboardName; };
                 
         void WriteToDocumentDictionary();
         void RecallFromDocumentDictionary();

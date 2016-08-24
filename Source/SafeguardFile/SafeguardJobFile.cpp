@@ -29,10 +29,17 @@ SafeguardJobFile::SafeguardJobFile()
     {
         plates.push_back(Plate(i));
     }
-//  Don't want to create side effects here. All document changes need to be made on purpose.  
-//    if (ShouldDrawBleedInfo()) {
-//        AddBleedInfo();
-//    }
+}
+
+SafeguardJobFile::SafeguardJobFile(SafeguardFile::PlateBleedInfoDTO dto)
+: SafeguardJobFile()
+{
+    for (int i = 0; i < plates.size(); i++)
+    {
+        BleedInfo bi = plates[i].BleedInfo();
+        bi.ArtboardName(dto.ArtboardName(i));
+        plates[i].BleedInfo(bi);
+    }
 }
 
 
@@ -87,7 +94,7 @@ const BleedInfo SafeguardJobFile::GetBleedInfo(int plateIndex) const
 {
     if (plates.size() > plateIndex)
     {
-        return plates[plateIndex].GetBleedInfo();
+        return plates[plateIndex].BleedInfo();
     }
 }
 

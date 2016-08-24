@@ -58,6 +58,7 @@ void PlateBleedInfoUIController::OkButtonClickedFunc (const csxs::event::Event* 
         }
         
         plateBleedInfoDTO.WriteToDocumentDictionary();
+        SafeguardJobFile sgJobFile(plateBleedInfoDTO);
         
         BtDocumentView docView;
         docView.RecallDocumentView();
