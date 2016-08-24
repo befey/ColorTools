@@ -13,6 +13,7 @@
 #include "cereal/cereal.hpp"
 #include "cereal/access.hpp"
 #include "cereal/types/vector.hpp"
+#include "cereal/types/string.hpp"
 
 namespace SafeguardFile
 {
@@ -21,7 +22,12 @@ namespace SafeguardFile
     public:
         PlateBleedInfoDTO();
         
+        void WriteToDocumentDictionary();
+        void RecallFromDocumentDictionary();
     private:
+        static constexpr auto PLATEBLEEDINFO_DTO_VERSION =  1.0;
+        static constexpr auto PLATEBLEEDINFO_DTO_ID =       "plate_bleed_info_dto";
+        
         struct Plate
         {
             struct Color

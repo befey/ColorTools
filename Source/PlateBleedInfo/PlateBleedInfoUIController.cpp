@@ -56,14 +56,11 @@ void PlateBleedInfoUIController::OkButtonClickedFunc (const csxs::event::Event* 
         string s = ss.str();
         {
             cereal::JSONInputArchive iarchive(ss); // Create an input archive
-            try {
             iarchive(plateBleedInfoDTO);
-            }
-            catch(cereal::Exception const& e) {
-                string es = e.what();
-                int foo = 0;
-            }
         }
+        
+        plateBleedInfoDTO.WriteToDocumentDictionary();
+        plateBleedInfoDTO.RecallFromDocumentDictionary();
         
         BtDocumentView docView;
         docView.RecallDocumentView();

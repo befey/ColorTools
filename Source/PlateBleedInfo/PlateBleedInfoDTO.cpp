@@ -7,6 +7,8 @@
 //
 
 #include "PlateBleedInfoDTO.hpp"
+#include "DictionaryWriter.h"
+#include "cereal/archives/binary.hpp"
 
 using SafeguardFile::PlateBleedInfoDTO;
 
@@ -53,4 +55,42 @@ PlateBleedInfoDTO::PlateBleedInfoDTO()
         
         plates.push_back(p);
     }
+}
+
+void PlateBleedInfoDTO::WriteToDocumentDictionary()
+{
+    std::ostringstream ss(std::stringstream::binary);
+    {
+        cereal::BinaryOutputArchive oarchive(ss); // Create an output archive
+        oarchive(CEREAL_NVP(*this));
+    }
+    
+    string binaryoutput = ss.str();
+    const char* data = binaryoutput.c_str();
+    size_t size = binaryoutput.length();
+    DictionaryWriter dw;
+    dw.AddBinaryDataToDictionary((void*)binaryoutput.c_str(), size, PLATEBLEEDINFO_DTO_ID);
+}
+
+void PlateBleedInfoDTO::RecallFromDocumentDictionary()
+{
+    DictionaryWriter dw;
+    void* data;
+    size_t size;
+    dw.GetBinaryDataFromIdentifier(data, &size, PLATEBLEEDINFO_DTO_ID);
+    string s((char*)data, size);
+    std::istringstream ss(std::stringstream::binary);
+    PlateBleedInfoDTO dto;
+    ss >> s;
+    {
+        cereal::BinaryInputArchive iarchive(ss); // Create an output archive
+        try {
+        iarchive(dto);
+        }
+        catch (std::runtime_error e) {
+            e.what();
+        }
+    }
+
+    int foo = 0;
 }

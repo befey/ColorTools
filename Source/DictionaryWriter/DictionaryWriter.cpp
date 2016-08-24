@@ -130,6 +130,30 @@ AIBoolean DictionaryWriter::AddAIRealToDictionary(AIReal value, string identifie
     return FALSE;
 }
 
+AIBoolean DictionaryWriter::GetBinaryDataFromIdentifier(void *value, size_t *size, string identifier, int CAIndex)
+{
+    AIDictKey dictKey = GenerateKey(identifier, CAIndex);
+    if (sAIDictionary->IsKnown(dictionary, dictKey))
+    {
+        sAIDictionary->GetBinaryEntry(dictionary, dictKey, value, size);
+        return TRUE;
+    }
+    
+    return FALSE;
+}
+
+AIBoolean DictionaryWriter::AddBinaryDataToDictionary(void *value, size_t size, string identifier, int CAIndex)
+{
+    AIDictKey dictKey = GenerateKey(identifier, CAIndex);
+    if (dictKey)
+    {
+        sAIDictionary->SetBinaryEntry(dictionary, dictKey, value, size);
+        return TRUE;
+    }
+    
+    return FALSE;
+}
+
 AIArtHandle DictionaryWriter::GetArtHandleFromIdentifier(string identifier, int CAIndex)
 {
     AIArtHandle foundArtHandle = NULL;
