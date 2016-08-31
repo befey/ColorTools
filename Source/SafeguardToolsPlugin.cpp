@@ -481,7 +481,6 @@ ASErr SafeguardToolsPlugin::UpdateMenuItem(AIMenuMessage* message)
         }
     }
 
-
 	if (error)
 		goto error;
 

@@ -18,8 +18,6 @@ using SafeguardFile::BleedInfo;
 BleedInfo::BleedInfo(ai::ArtboardID artboardIndex)
 : artboardIndex(artboardIndex)
 {
-    shouldAddCMYKBlocks = true;
-    
     FillColorList();
     colorList.RemoveDuplicates();
     colorList.RemoveNonPrintingColors();

@@ -26,7 +26,9 @@ namespace SafeguardFile
         AIColor Color() const { return color; };
         bool DrawInner() const;
         bool DrawOuter() const;
+        
         SafeguardFile::TickMarkStyle TickMarkStyle() const { return tmStyle; };
+        TickMarkSettings& TickMarkStyle(SafeguardFile::TickMarkStyle newVal) { tmStyle = newVal; };
     private:
         AIRealRect bounds;
         int offset;

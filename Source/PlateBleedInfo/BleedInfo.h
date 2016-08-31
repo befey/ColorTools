@@ -40,6 +40,10 @@ namespace SafeguardFile
         BleedInfo& ArtboardName(string newVal);
         
         bool AddCmykBlocks() const { return shouldAddCMYKBlocks; };
+        BleedInfo& AddCmykBlocks(bool newVal) { shouldAddCMYKBlocks = newVal; };
+        
+        bool ShouldDrawBleedInfo() const { return shouldDrawBleedInfo; };
+        BleedInfo& ShouldDrawBleedInfo(bool newVal) { shouldDrawBleedInfo = newVal; };
         
         const SafeguardFile::PlateNumber PlateNumber() const { return plateNumber; };
         const SafeguardFile::ColorList ColorList() const { return colorList; };
@@ -47,10 +51,11 @@ namespace SafeguardFile
         AIRealRect Bleeds() const;
         
     private:
+        bool shouldDrawBleedInfo = true;
         ai::ArtboardID artboardIndex;
         SafeguardFile::ColorList colorList;
         SafeguardFile::PlateNumber plateNumber;
-        bool shouldAddCMYKBlocks;
+        bool shouldAddCMYKBlocks = true;
         SafeguardFile::TickMarkSettings tmSettings;
         
         void AddColorsOfArtToColorList(AIArtHandle art);

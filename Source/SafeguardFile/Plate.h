@@ -48,6 +48,7 @@ namespace SafeguardFile
         
         void DrawBleedInfo();
         void RemoveBleedInfo();
+        bool ShouldDrawBleedInfo();
     private:
         class BleedInfo bleedInfo;
         shared_ptr<SafeguardFile::BleedInfoDrawer> bleedInfoDrawer;

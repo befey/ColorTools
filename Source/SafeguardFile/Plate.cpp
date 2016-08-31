@@ -70,13 +70,22 @@ BleedInfo Plate::BleedInfo() const
 
 void Plate::DrawBleedInfo()
 {
-    bleedInfoDrawer->Draw();
+    if (ShouldDrawBleedInfo())
+    {
+        bleedInfoDrawer->Draw();
+    }
 }
+
+bool Plate::ShouldDrawBleedInfo()
+{
+    return bleedInfo.ShouldDrawBleedInfo();
+}
+
 
 void Plate::RemoveBleedInfo()
 {
     unique_ptr<DictionaryWriter> dw = make_unique<DictionaryWriter>();
-    AIArtHandle foundArt = dw->GetArtHandleFromIdentifier(PLATE_BLEED_INFO_GROUP_LABEL, bleedInfo.ArtboardIndex());
+    AIArtHandle foundArt = dw->GetArtHandleFromIdentifier(PLATE_BLEED_INFO_GROUP_LABEL, GetArtboardIndex());
     if (foundArt)
     {
         bleedInfoDrawer->Remove(foundArt);
