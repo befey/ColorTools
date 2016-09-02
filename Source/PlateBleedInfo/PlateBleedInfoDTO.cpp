@@ -9,84 +9,42 @@
 #include "PlateBleedInfoDTO.hpp"
 #include "DictionaryWriter.h"
 #include "SafeguardJobFile.h"
-#include "cereal/archives/binary.hpp"
+#include "cereal/archives/json.hpp"
 
 using SafeguardFile::PlateBleedInfoDTO;
 
-PlateBleedInfoDTO::PlateBleedInfoDTO()
-{
-    SafeguardJobFile sgJobFile;
-    
-    for (int i = 0; i < sgJobFile.GetNumPlates(); i++)
-    {
-        BleedInfo bi = sgJobFile.GetBleedInfo(i);
-        
-        bool dan;
-        string n = bi.ArtboardName(dan);
-        
-        vector<Plate::Color> colors;
-        for(auto col : bi.ColorList().GetColorList())
-        {
-            std::string nm;
-            if (ColorIsPantone(col.AiColor()))
-            {
-                nm = GetInnerPantoneColorNumber(col.Name());
-            }
-            else
-            {
-                nm = col.Name();
-            }
-
-            int mtd = int(col.Method());
-            
-            colors.push_back(Plate::Color{.colorName = nm, .method = mtd});
-        }
-        
-        Plate p
-        {
-            .artboardIndex = i,
-            .artboardName = n,
-            .isDefaultArtboardName = dan,
-            .c = colors,
-            .plateNumber = string(bi.PlateNumber()),
-            .token = bi.Token(),
-            .shouldAddCmykBlocks = bi.AddCmykBlocks(),
-            .tmStyle = int(bi.TickMarkSettings().TickMarkStyle())
-        };
-        
-        plates.push_back(p);
-    }
-}
-
 void PlateBleedInfoDTO::WriteToDocumentDictionary()
 {
-    std::ostringstream os(std::stringstream::binary);
+    std::stringstream ss;
     {
-        cereal::BinaryOutputArchive oarchive(os); // Create an output archive
+        cereal::JSONOutputArchive oarchive(ss); // Create an output archive
         oarchive(*this);
     }
-    
-    string binaryoutput = os.str();
-    size_t size = binaryoutput.length();
+
     DictionaryWriter dw;
-    dw.AddBinaryDataToDictionary((void*)binaryoutput.c_str(), size + 1, PLATEBLEEDINFO_DTO_ID);
+    dw.AddStringDataToDictionary(ss.str(), PLATEBLEEDINFO_DTO_ID);
 }
 
-void PlateBleedInfoDTO::RecallFromDocumentDictionary()
+bool PlateBleedInfoDTO::RecallFromDocumentDictionary()
 {
     DictionaryWriter dw;
-    char* data;
-    size_t size;
-    dw.GetBinaryDataFromIdentifier((void*)data, &size, PLATEBLEEDINFO_DTO_ID);
-    
-    assert(size != 0);
-    
-    string s(data, size);
-    
-    std::istringstream is(s, std::stringstream::binary);
-
+    string data;
+    if ( dw.GetStringDataFromIdentifier(data, PLATEBLEEDINFO_DTO_ID) )
     {
-        cereal::BinaryInputArchive iarchive(is); // Create an input archive
-        iarchive(*this);
+        std::istringstream is(data);
+        {
+            cereal::JSONInputArchive iarchive(is); // Create an input archive
+            try
+            {
+                iarchive(*this);
+            }
+            catch (std::runtime_error e)
+            {
+                return false;
+            }
+        }
+        
+        return true;
     }
+    return false;
 }

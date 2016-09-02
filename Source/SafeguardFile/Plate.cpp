@@ -63,7 +63,7 @@ const string Plate::GetToken() const
     return bleedInfo.Token();
 }
 
-BleedInfo Plate::BleedInfo() const
+BleedInfo& Plate::BleedInfo()
 {
     return bleedInfo;
 }

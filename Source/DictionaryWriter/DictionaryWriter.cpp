@@ -129,25 +129,27 @@ AIBoolean DictionaryWriter::AddAIRealToDictionary(AIReal value, string identifie
     
     return FALSE;
 }
-
-AIBoolean DictionaryWriter::GetBinaryDataFromIdentifier(void *value, size_t *size, string identifier, int CAIndex)
+AIBoolean DictionaryWriter::GetStringDataFromIdentifier(string& data, string identifier, int CAIndex)
 {
     AIDictKey dictKey = GenerateKey(identifier, CAIndex);
     if (sAIDictionary->IsKnown(dictionary, dictKey))
     {
-        sAIDictionary->GetBinaryEntry(dictionary, dictKey, value, size);
+        ai::UnicodeString value;
+        sAIDictionary->GetUnicodeStringEntry(dictionary, dictKey, value);
+        data = value.as_Platform();
         return TRUE;
     }
     
     return FALSE;
 }
 
-AIBoolean DictionaryWriter::AddBinaryDataToDictionary(void *value, size_t size, string identifier, int CAIndex)
+AIBoolean DictionaryWriter::AddStringDataToDictionary(string data, string identifier, int CAIndex)
 {
     AIDictKey dictKey = GenerateKey(identifier, CAIndex);
     if (dictKey)
     {
-        sAIDictionary->SetBinaryEntry(dictionary, dictKey, value, size);
+        ai::UnicodeString value(data);
+        sAIDictionary->SetUnicodeStringEntry(dictionary, dictKey, value);
         return TRUE;
     }
     

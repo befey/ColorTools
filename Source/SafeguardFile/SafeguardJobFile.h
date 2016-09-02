@@ -29,9 +29,8 @@ namespace SafeguardFile
     {
     public:
         SafeguardJobFile();
-        SafeguardJobFile(SafeguardFile::PlateBleedInfoDTO dto);
         
-        const BleedInfo GetBleedInfo(int plateIndex = 0) const;
+        vector<BleedInfo> GetBleedInfo() const;
         
         const PlateNumber GetPlateNumber(int plateIndex = 0) const;
         const string GetToken(int plateIndex = 0) const;
@@ -44,10 +43,12 @@ namespace SafeguardFile
         void EditBleedInfo();
         void RemoveBleedInfo();
         
+        void PutDataInDTO(SafeguardFile::PlateBleedInfoDTO& dto);
     private:
         vector<Plate> plates;
         
-        bool ShouldDrawBleedInfo();
+        void LoadDataFromDTO(SafeguardFile::PlateBleedInfoDTO dto);
+
     };
 }
 #endif /* defined(__SafeguardTools__SafeguardJobFile__) */

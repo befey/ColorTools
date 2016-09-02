@@ -43,8 +43,8 @@ public:
     AIBoolean CheckDictionaryForArtObjectWithIdentifier(string identifier, int CAIndex = -1);
     AIBoolean AddArtHandleToDictionary(AIArtHandle currArt, string identifier, int CAIndex = -1);
     
-    AIBoolean GetBinaryDataFromIdentifier(void *value, size_t *size, string identifier, int CAIndex = -1);
-    AIBoolean AddBinaryDataToDictionary(void *value, size_t size, string identifier, int CAIndex = -1);
+    AIBoolean GetStringDataFromIdentifier(string& data, string identifier, int CAIndex = -1);
+    AIBoolean AddStringDataToDictionary(string data, string identifier, int CAIndex = -1);
     
 private:
     AIDictionaryRef dictionary;

@@ -52,6 +52,7 @@ public:
     
     BtColor& Name(std::string newVal);
     std::string Name() const;
+    bool CompareName(std::string name) const;
     
     AIColorTag Kind() const { return aiColor.kind; };
     

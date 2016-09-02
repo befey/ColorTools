@@ -107,6 +107,17 @@ BleedInfo& BleedInfo::ArtboardName(string newVal)
     return *this;
 }
 
+bool BleedInfo::SetColorMethod(string colorName, SafeguardFile::InkMethod method)
+{
+    for (auto color : colorList.GetColorList() )
+    {
+        if (color.CompareName(colorName))
+        {
+            color.Method(method);
+        }
+    }
+}
+
 void BleedInfo::FillColorList()
 {
     AIArtSet artSet;

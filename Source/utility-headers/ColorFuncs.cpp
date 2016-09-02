@@ -275,7 +275,14 @@ string GetInnerPantoneColorNumber(string fullName)
     std::smatch result;
     std::regex_search(fullName, result, r);
     
-    return result[1];
+    if (result[1] != "")
+    {
+        return result[1];
+    }
+    else
+    {
+        return fullName;
+    }
 }
 
 string GetInnerPantoneColorNumber(AIColor color)

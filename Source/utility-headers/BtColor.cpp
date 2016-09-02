@@ -109,3 +109,12 @@ std::string BtColor::Name() const
 {
     return GetColorName(aiColor);
 }
+
+bool BtColor::CompareName(std::string name) const
+{
+    if (this->Name() == name || GetInnerPantoneColorNumber(this->Name()) == name)
+    {
+        return true;
+    }
+    return false;
+}

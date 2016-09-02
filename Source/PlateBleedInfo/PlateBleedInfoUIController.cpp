@@ -14,6 +14,9 @@
 #include "GetIllustratorErrorCode.h"
 #include "PlateBleedInfoDTO.hpp"
 #include "rapidjson/document.h"
+
+#include "cereal/cereal.hpp"
+#include "cereal/types/vector.hpp"
 #include "cereal/archives/json.hpp"
 
 using SafeguardFile::PlateBleedInfoUIController;
@@ -58,7 +61,7 @@ void PlateBleedInfoUIController::OkButtonClickedFunc (const csxs::event::Event* 
         }
         
         plateBleedInfoDTO.WriteToDocumentDictionary();
-        SafeguardJobFile sgJobFile(plateBleedInfoDTO);
+        SafeguardJobFile sgJobFile; //Refresh the file with the new data
         
         BtDocumentView docView;
         docView.RecallDocumentView();
@@ -238,7 +241,9 @@ string PlateBleedInfoUIController::GetBleedInfoAsJson() const
 {
     std::stringstream ss;
     {
-        SafeguardFile::PlateBleedInfoDTO dto;
+        SafeguardJobFile sgJobFile;
+        PlateBleedInfoDTO dto;
+        sgJobFile.PutDataInDTO(dto);
         cereal::JSONOutputArchive oarchive(ss); // Create an output archive
         oarchive(CEREAL_NVP(dto));
     }

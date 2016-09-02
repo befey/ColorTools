@@ -19,16 +19,6 @@ namespace SafeguardFile
     class PlateBleedInfoDTO
     {
     public:
-        PlateBleedInfoDTO();
-        
-        string ArtboardName(int index) const { return plates.at(index).artboardName; };
-                
-        void WriteToDocumentDictionary();
-        void RecallFromDocumentDictionary();
-    private:
-        static constexpr auto PLATEBLEEDINFO_DTO_VERSION =  1.0;
-        static constexpr auto PLATEBLEEDINFO_DTO_ID =       "plate_bleed_info_dto";
-        
         struct Plate
         {
             struct Color
@@ -45,6 +35,7 @@ namespace SafeguardFile
                 }
             };
             
+            bool shouldDrawBleedInfo;
             int artboardIndex;
             string artboardName;
             bool isDefaultArtboardName;
@@ -57,7 +48,8 @@ namespace SafeguardFile
             template <class Archive>
             void serialize(Archive& ar)
             {
-                ar(CEREAL_NVP(artboardIndex),
+                ar(CEREAL_NVP(shouldDrawBleedInfo),
+                   CEREAL_NVP(artboardIndex),
                    CEREAL_NVP(artboardName),
                    CEREAL_NVP(isDefaultArtboardName),
                    CEREAL_NVP(c),
@@ -69,6 +61,27 @@ namespace SafeguardFile
             }
         };
         
+        PlateBleedInfoDTO() {};
+        
+        int NumPlates() const { return plates.size(); };
+        void AddPlate(Plate p) { plates.push_back(p); };
+        
+        bool ShouldDrawBleedInfo(int index) const { return plates.at(index).shouldDrawBleedInfo; };
+        string ArtboardName(int index) const { return plates.at(index).artboardName; };
+        bool IsDefaultArtboardName(int index) const { return plates.at(index).isDefaultArtboardName; };
+        vector<Plate::Color> ColorList(int index) const { return plates.at(index).c; };
+        string PlateNumber(int index) const { return plates.at(index).plateNumber; };
+        string Token(int index) const { return plates.at(index).token; };
+        bool ShouldAddCmykBlocks(int index) const { return plates.at(index).shouldAddCmykBlocks; };
+        int TickMarkStyle(int index) const { return plates.at(index).tmStyle; };
+        
+        void WriteToDocumentDictionary();
+        bool RecallFromDocumentDictionary();
+        
+    private:
+        static constexpr auto PLATEBLEEDINFO_DTO_VERSION =  1.0;
+        static constexpr auto PLATEBLEEDINFO_DTO_ID =       "plate_bleed_info_dto";
+        
         vector<Plate> plates;
         
         friend class cereal::access;
@@ -77,7 +90,6 @@ namespace SafeguardFile
         {
             ar( CEREAL_NVP(plates) );
         }
-
     };
 }
 

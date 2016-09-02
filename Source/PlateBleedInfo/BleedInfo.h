@@ -33,6 +33,7 @@ namespace SafeguardFile
         tm LastModified() const;
         
         const TickMarkSettings TickMarkSettings() const { return tmSettings; };
+        BleedInfo& TickMarkStyle(TickMarkStyle newVal) { tmSettings.TickMarkStyle(newVal); return *this;};
         
         string Token() const;
         BleedInfo& Token(string newVal);
@@ -40,13 +41,14 @@ namespace SafeguardFile
         BleedInfo& ArtboardName(string newVal);
         
         bool AddCmykBlocks() const { return shouldAddCMYKBlocks; };
-        BleedInfo& AddCmykBlocks(bool newVal) { shouldAddCMYKBlocks = newVal; };
+        BleedInfo& AddCmykBlocks(bool newVal) { shouldAddCMYKBlocks = newVal; return *this;};
         
         bool ShouldDrawBleedInfo() const { return shouldDrawBleedInfo; };
-        BleedInfo& ShouldDrawBleedInfo(bool newVal) { shouldDrawBleedInfo = newVal; };
+        BleedInfo& ShouldDrawBleedInfo(bool newVal) { shouldDrawBleedInfo = newVal; return *this;};
         
         const SafeguardFile::PlateNumber PlateNumber() const { return plateNumber; };
         const SafeguardFile::ColorList ColorList() const { return colorList; };
+        bool SetColorMethod(string colorName, SafeguardFile::InkMethod method);
     
         AIRealRect Bleeds() const;
         
