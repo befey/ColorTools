@@ -32,25 +32,6 @@ Plate::Plate(ai::ArtboardID id)
 : bleedInfo(id)
 {
     bleedInfoDrawer = make_shared<BleedInfoDrawer>(bleedInfo.ArtboardIndex());
-    
-    bleedInfoDrawer->AddDrawer( make_shared<TickMarkDrawer>(bleedInfo.TickMarkSettings()) );
-    
-    ProductType pt = bleedInfo.PlateNumber().GetProductType();
-    if (pt == ProductType::BusinessStat)
-    {
-        bleedInfoDrawer->AddDrawer( make_shared<BusStatColorListDrawer>(bleedInfo.ArtboardBounds(), bleedInfo.ColorList()) );
-        bleedInfoDrawer->AddDrawer( make_shared<BusStatFileNameDateDrawer>(bleedInfo.ArtboardBounds(), bleedInfo.PlateNumber(), bleedInfo.Token(), bleedInfo.LastModified()) );
-    }
-    else if (pt == ProductType::Continuous)
-    {
-        bleedInfoDrawer->AddDrawer( make_shared<ContinuousColorListDrawer>(bleedInfo.ArtboardBounds(), bleedInfo.ColorList()) );
-        bleedInfoDrawer->AddDrawer( make_shared<ContinuousFileNameDateDrawer>(bleedInfo.ArtboardBounds(), bleedInfo.PlateNumber(), bleedInfo.Token(), bleedInfo.LastModified()) );
-    }
-    else if (pt == ProductType::CutSheet || pt == ProductType::Envelope)
-    {
-        bleedInfoDrawer->AddDrawer( make_shared<LaserColorListDrawer>(bleedInfo.ArtboardBounds(), bleedInfo.ColorList()) );
-        bleedInfoDrawer->AddDrawer( make_shared<LaserFileNameDateDrawer>(bleedInfo.ArtboardBounds(), bleedInfo.PlateNumber(), bleedInfo.Token(), bleedInfo.LastModified()) );
-    }
 }
 
 const PlateNumber Plate::GetPlateNumber() const
@@ -70,6 +51,25 @@ BleedInfo& Plate::BleedInfo()
 
 void Plate::DrawBleedInfo()
 {
+    bleedInfoDrawer->AddDrawer( make_shared<TickMarkDrawer>(bleedInfo.TickMarkSettings()) );
+    
+    ProductType pt = bleedInfo.PlateNumber().GetProductType();
+    if (pt == ProductType::BusinessStat)
+    {
+        bleedInfoDrawer->AddDrawer( make_shared<BusStatColorListDrawer>(bleedInfo.ArtboardBounds(), bleedInfo.ColorList()) );
+        bleedInfoDrawer->AddDrawer( make_shared<BusStatFileNameDateDrawer>(bleedInfo.ArtboardBounds(), bleedInfo.PlateNumber(), bleedInfo.Token(), bleedInfo.LastModified()) );
+    }
+    else if (pt == ProductType::Continuous)
+    {
+        bleedInfoDrawer->AddDrawer( make_shared<ContinuousColorListDrawer>(bleedInfo.ArtboardBounds(), bleedInfo.ColorList()) );
+        bleedInfoDrawer->AddDrawer( make_shared<ContinuousFileNameDateDrawer>(bleedInfo.ArtboardBounds(), bleedInfo.PlateNumber(), bleedInfo.Token(), bleedInfo.LastModified()) );
+    }
+    else if (pt == ProductType::CutSheet || pt == ProductType::Envelope)
+    {
+        bleedInfoDrawer->AddDrawer( make_shared<LaserColorListDrawer>(bleedInfo.ArtboardBounds(), bleedInfo.ColorList()) );
+        bleedInfoDrawer->AddDrawer( make_shared<LaserFileNameDateDrawer>(bleedInfo.ArtboardBounds(), bleedInfo.PlateNumber(), bleedInfo.Token(), bleedInfo.LastModified()) );
+    }
+
     if (ShouldDrawBleedInfo())
     {
         bleedInfoDrawer->Draw();

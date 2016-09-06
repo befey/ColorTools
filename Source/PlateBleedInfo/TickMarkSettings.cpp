@@ -34,21 +34,13 @@ TickMarkSettings::TickMarkSettings(const AIRealRect rect, const ProductType pt, 
         tmStyle = TickMarkStyle::NONE;
     }
     
-    if (pt == ProductType::CutSheet)
-    {
-        offset = TICK_LENGTH_CUTSHEET;
-    }
-    else if (pt == ProductType::Snapset || pt == ProductType::Continuous)
+    if (pt == ProductType::Snapset || pt == ProductType::Continuous)
     {
         offset = TICK_LENGTH_CONTINUOUS;
     }
     else
     {
-        offset = TICK_LENGTH_NONE;
-    }
-    
-    if (pt == ProductType::CutSheet)
-    {
+        offset = TICK_LENGTH_CUTSHEET;
         color.c.c.tint = TICK_TINT_CUTSHEET;
     }
 }

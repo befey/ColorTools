@@ -153,10 +153,6 @@ void ColorList::AddColorToTextRange(const BtColor color, ATE::ITextRange& target
         if (ColorIsPantone(color.AiColor()))
         {
             name = GetInnerPantoneColorNumber(color.AiColor());
-            if (color.Method() != SafeguardFile::InkMethod::NONE)
-            {
-                name += " " + InkMethodStrings.at(color.Method());
-            }
             textFeatures.FillColor(color.AiColor());
         }
         else if (color.Kind() == kFourColor)
@@ -178,7 +174,23 @@ void ColorList::AddColorToTextRange(const BtColor color, ATE::ITextRange& target
             name = color.Name();
             textFeatures.FillColor(color.AiColor());
         }
+        if (color.Method() != SafeguardFile::InkMethod::NONE)
+        {
+            name += " " + InkMethodStrings.at(color.Method());
+        }
         
         textFeatures.AddTextToRangeWithFeatures((ai::UnicodeString(name).toUpper()).as_Platform() + "  ", targetRange);
+    }
+}
+
+bool ColorList::SetColorMethod(string colorName, SafeguardFile::InkMethod method)
+{
+    for (auto& color : p_ColorList )
+    {
+        if (color.CompareName(colorName))
+        {
+            color.Method(method);
+            break;
+        }
     }
 }

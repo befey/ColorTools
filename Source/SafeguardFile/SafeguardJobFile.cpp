@@ -52,7 +52,7 @@ void SafeguardJobFile::LoadDataFromDTO(SafeguardFile::PlateBleedInfoDTO dto)
             .TickMarkStyle(TickMarkStyle(dto.TickMarkStyle(i)));
         for ( auto color : dto.ColorList(i) )
         {
-            plates.at(i).BleedInfo().SetColorMethod(color.colorName, InkMethod(color.method) );
+            plates.at(i).BleedInfo().ColorList().SetColorMethod(color.colorName, InkMethod(color.method) );
         }
     }
 }

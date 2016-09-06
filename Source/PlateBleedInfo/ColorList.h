@@ -12,6 +12,7 @@
 #include <vector>
 #include "BtColor.h"
 #include "ColorFuncs.h"
+#include "SafeguardFileConstants.h"
 
 namespace SafeguardFile
 {
@@ -21,6 +22,8 @@ namespace SafeguardFile
         void AddColorsToList(vector<AIColor> colors);
         void RemoveDuplicates();
         void RemoveNonPrintingColors();
+        
+        bool SetColorMethod(string colorName, SafeguardFile::InkMethod method);
         
         void GetAsTextRange(ATE::ITextRange& targetRange) const;
         const vector<BtColor> GetColorList() const { return p_ColorList; };

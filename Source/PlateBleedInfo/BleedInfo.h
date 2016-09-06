@@ -47,8 +47,7 @@ namespace SafeguardFile
         BleedInfo& ShouldDrawBleedInfo(bool newVal) { shouldDrawBleedInfo = newVal; return *this;};
         
         const SafeguardFile::PlateNumber PlateNumber() const { return plateNumber; };
-        const SafeguardFile::ColorList ColorList() const { return colorList; };
-        bool SetColorMethod(string colorName, SafeguardFile::InkMethod method);
+        SafeguardFile::ColorList& ColorList() { return colorList; };
     
         AIRealRect Bleeds() const;
         
