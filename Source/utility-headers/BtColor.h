@@ -33,7 +33,7 @@ public:
     BtColor(AIColor aiColor, SafeguardFile::InkMethod method);
     
     BtColor(AICustomColor aiCustomColor, std::string name) : BtColor(aiCustomColor, name, 0) {};
-    BtColor(AICustomColor aiCustomColor, std::string name, AIReal tint) : BtColor(aiCustomColor, name, 0, SafeguardFile::InkMethod::INVAL) {};
+    BtColor(AICustomColor aiCustomColor, std::string name, AIReal tint) : BtColor(aiCustomColor, name, tint, SafeguardFile::InkMethod::INVAL) {};
     BtColor(AICustomColor aiCustomColor, std::string name, AIReal tint, SafeguardFile::InkMethod method);
     
     BtColor(AIColorTag kind, AIColorUnion c) : BtColor(kind, c, SafeguardFile::InkMethod::INVAL) {};
