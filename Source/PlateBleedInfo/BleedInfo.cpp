@@ -102,8 +102,14 @@ BleedInfo& BleedInfo::ArtboardName(string newVal)
     sAIArtboard->GetArtboardList(abList);
     ai::ArtboardProperties props;
     sAIArtboard->GetArtboardProperties(abList, ArtboardIndex(), props);
-    props.SetName(ai::UnicodeString(newVal));
-    sAIArtboard->Update(abList, ArtboardIndex(), props);
+    ai::UnicodeString oldNameUS;
+    props.GetName(oldNameUS);
+    if (oldNameUS.as_Platform() != newVal)
+    {
+        props.SetName(ai::UnicodeString(newVal));
+        sAIArtboard->Update(abList, ArtboardIndex(), props);
+    }
+    
     return *this;
 }
 
