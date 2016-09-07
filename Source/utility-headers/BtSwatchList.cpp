@@ -248,7 +248,7 @@ void BtSwatchList::AdjustAllColorsCallback(AIColor *color, void *userData, AIErr
         color->c.c.tint = tintPercent;
         color->c.c.color = hBlack;
         
-        AISwatchRef existingSwatch = checkSwatchListForColor( *color , .0001 );
+        AISwatchRef existingSwatch = CheckSwatchListForColor( *color , .0001 );
         
         if(existingSwatch != NULL) {
             sAISwatchList->GetAIColor(existingSwatch, color);
