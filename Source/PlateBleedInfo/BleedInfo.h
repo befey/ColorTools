@@ -33,18 +33,18 @@ namespace SafeguardFile
         tm LastModified() const;
         
         const TickMarkSettings TickMarkSettings() const { return tmSettings; };
-        BleedInfo& TickMarkStyle(TickMarkStyle newVal) { tmSettings.TickMarkStyle(newVal); return *this;};
+        BleedInfo& TickMarkStyle(TickMarkStyle newVal) { tmSettings.TickMarkStyle(newVal); return *this; };
         
         string Token() const;
         BleedInfo& Token(string newVal);
         string ArtboardName(bool& isDefault) const;
         BleedInfo& ArtboardName(string newVal);
         
-        bool AddCmykBlocks() const { return shouldAddCMYKBlocks; };
-        BleedInfo& AddCmykBlocks(bool newVal) { shouldAddCMYKBlocks = newVal; return *this;};
-        
         bool ShouldDrawBleedInfo() const { return shouldDrawBleedInfo; };
-        BleedInfo& ShouldDrawBleedInfo(bool newVal) { shouldDrawBleedInfo = newVal; return *this;};
+        BleedInfo& ShouldDrawBleedInfo(bool newVal) { shouldDrawBleedInfo = newVal; return *this; };
+        bool ShouldAddCmykBlocks() const { return shouldAddCMYKBlocks; };
+        BleedInfo& ShouldAddCmykBlocks(bool newVal) { shouldAddCMYKBlocks = newVal; return *this; };
+
         
         const SafeguardFile::PlateNumber PlateNumber() const { return plateNumber; };
         SafeguardFile::ColorList& ColorList() { return colorList; };
@@ -53,10 +53,11 @@ namespace SafeguardFile
         
     private:
         bool shouldDrawBleedInfo = true;
+        bool shouldAddCMYKBlocks = true;
+        
         ai::ArtboardID artboardIndex;
         SafeguardFile::ColorList colorList;
         SafeguardFile::PlateNumber plateNumber;
-        bool shouldAddCMYKBlocks = true;
         SafeguardFile::TickMarkSettings tmSettings;
         
         void AddColorsOfArtToColorList(AIArtHandle art);
