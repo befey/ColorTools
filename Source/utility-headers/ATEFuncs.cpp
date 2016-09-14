@@ -171,14 +171,12 @@ void AddTextToRange(const string text, ATE::ITextRange& targetRange, int beforeA
     sAITextFrame->GetATETextRange(tempTextHandle, &newTextRangeRef);
     ATE::ITextRange newTextRange(newTextRangeRef);
     
-    ai::UnicodeString ustring(text);
-    newTextRange.InsertAfter((ASUnicode*)(ustring.as_ASUnicode().data()));
+    newTextRange.InsertAfter(ai::UnicodeString(text).as_ASUnicode().c_str());
         
     AddTextToRange(newTextRange, targetRange, beforeAfter);
     
     //Trash our temporary art objects
     sAIArt->DisposeArt(tempTextHandle);
-    tempTextHandle = NULL;
 }
 
 void AddTextToRange(ATE::ITextRange sourceRange, ATE::ITextRange& targetRange, int beforeAfter)
