@@ -389,9 +389,8 @@ void AlignPointType(AIArtHandle currArtHandle, ATE::ParagraphJustification align
 	
 	if (!iTextRange.GetSize())
     {
-        ASUnicode* asuString = new ASUnicode [2];
-        StdStringToASUnicode(" ", asuString, 2);
-		iTextRange.InsertAfter(asuString);
+        ai::UnicodeString ustring(" ");
+        iTextRange.InsertAfter((ASUnicode*)(ustring.as_ASUnicode().data()));
 		iTextRange.SetLocalParaFeatures(pFeat);
 		iTextRange.Remove();
 	}

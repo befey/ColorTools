@@ -233,8 +233,7 @@ void GetBoundsOfSelectionFromRoot(AIArtHandle root, AIArtHandle currArtHandle, A
 		//RETURN BOUNDS OF SELECTED SEGMENTS
 		short count;
 		sAIPath->GetPathSegmentCount(currArtHandle, &count);
-		AIPathSegment* segments = NULL;
-		segments = new AIPathSegment[count];
+		AIPathSegment* segments = new AIPathSegment[count];
 		
 		AIRealRect segBounds;
 		bool segBoundsSetFlag = FALSE;

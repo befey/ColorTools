@@ -211,19 +211,19 @@ ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
     
     menuItem.groupName = kEditMenuGroup;
     menuItem.itemText = ai::UnicodeString(MODIFY_SWATCHES_MENU);
-    BtAiMenuItem* ModifySwatchesMenu = new BtAiMenuItem(menuItem, kMenuGroupSortedAlphabeticallyOption);
+    BtAiMenuItem ModifySwatchesMenu = BtAiMenuItem(menuItem, kMenuGroupSortedAlphabeticallyOption);
     
     menuItem.groupName = modifySwatchesGroup;
     menuItem.itemText = ai::UnicodeString(FIX_BLACK_MENU_ITEM);
-    BtAiMenuItem* FixBlackMenuItem = new BtAiMenuItem(menuItem, kMenuItemNoOptions);
-    ModifySwatchesMenu->AddSubMenuItem(*FixBlackMenuItem);
+    BtAiMenuItem FixBlackMenuItem = BtAiMenuItem(menuItem, kMenuItemNoOptions);
+    ModifySwatchesMenu.AddSubMenuItem(FixBlackMenuItem);
     
     menuItem.groupName = modifySwatchesGroup;
     menuItem.itemText = ai::UnicodeString(FIND_AND_REPLACE_MENU_ITEM);
-    BtAiMenuItem* FindAndReplaceGraphicsMenuItem = new BtAiMenuItem(menuItem, kMenuItemWantsUpdateOption);
-    ModifySwatchesMenu->AddSubMenuItem(*FindAndReplaceGraphicsMenuItem);
+    BtAiMenuItem FindAndReplaceGraphicsMenuItem = BtAiMenuItem(menuItem, kMenuItemWantsUpdateOption);
+    ModifySwatchesMenu.AddSubMenuItem(FindAndReplaceGraphicsMenuItem);
     
-    BtAiMenuItem::AddMenu(*ModifySwatchesMenu, &menuItemHandles);
+    BtAiMenuItem::AddMenu(ModifySwatchesMenu, &menuItemHandles);
     
 	
     //TEXT TOOLS MENU
@@ -231,21 +231,21 @@ ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
     
     menuItem.groupName = kTypeLayoutMenuGroup;
     menuItem.itemText = ai::UnicodeString(TEXT_TOOLS_MENU);
-    BtAiMenuItem* TextToolsMenu = new BtAiMenuItem(menuItem, kMenuGroupSortedAlphabeticallyOption);
+    BtAiMenuItem TextToolsMenu = BtAiMenuItem(menuItem, kMenuGroupSortedAlphabeticallyOption);
     
 /*    menuItem.groupName = textToolsGroup;
     menuItem.itemText = ai::UnicodeString(MAKE_POINT_TYPE_MENU_ITEM);
-    BtAiMenuItem* MakePointTypeMenuItem = new BtAiMenuItem(menuItem, kMenuItemNoOptions);
-    MakePointTypeMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, kIfText, 0, 0, 0);
-    TextToolsMenu->AddSubMenuItem(*MakePointTypeMenuItem);
+    BtAiMenuItem MakePointTypeMenuItem = BtAiMenuItem(menuItem, kMenuItemNoOptions);
+    MakePointTypeMenuItem.SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, kIfText, 0, 0, 0);
+    TextToolsMenu.AddSubMenuItem(MakePointTypeMenuItem);
 */
     menuItem.groupName = textToolsGroup;
     menuItem.itemText = ai::UnicodeString(FIX_FREEHAND_TYPE_MENU_ITEM);
-    BtAiMenuItem* FixFreehandTypeMenuItem = new BtAiMenuItem(menuItem, kMenuItemNoOptions);
-    FixFreehandTypeMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, kIfText, 0, 0, 0);
-    TextToolsMenu->AddSubMenuItem(*FixFreehandTypeMenuItem);
+    BtAiMenuItem FixFreehandTypeMenuItem = BtAiMenuItem(menuItem, kMenuItemNoOptions);
+    FixFreehandTypeMenuItem.SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, kIfText, 0, 0, 0);
+    TextToolsMenu.AddSubMenuItem(FixFreehandTypeMenuItem);
     
-    BtAiMenuItem::AddMenu(*TextToolsMenu, &menuItemHandles);
+    BtAiMenuItem::AddMenu(TextToolsMenu, &menuItemHandles);
     
     
     //ALIGN MENU
@@ -253,62 +253,62 @@ ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
     
     menuItem.groupName = kObjectAttribsMenuGroup;
     menuItem.itemText = ai::UnicodeString(ALIGN_MENU);
-    BtAiMenuItem* AlignMenu = new BtAiMenuItem(menuItem, kMenuGroupSortedAlphabeticallyOption);
+    BtAiMenuItem AlignMenu = BtAiMenuItem(menuItem, kMenuGroupSortedAlphabeticallyOption);
     
     menuItem.groupName = alignGroup;
     menuItem.itemText = ai::UnicodeString(ALIGN_LEFT_MENU_ITEM);
-    BtAiMenuItem* AlignLeftMenuItem = new BtAiMenuItem(menuItem, kMenuItemIgnoreSort);
-    AlignLeftMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, kIfAnyArt, 0, 0, 0);
-    AlignMenu->AddSubMenuItem(*AlignLeftMenuItem);
+    BtAiMenuItem AlignLeftMenuItem = BtAiMenuItem(menuItem, kMenuItemIgnoreSort);
+    AlignLeftMenuItem.SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, kIfAnyArt, 0, 0, 0);
+    AlignMenu.AddSubMenuItem(AlignLeftMenuItem);
     
     menuItem.groupName = alignGroup;
     menuItem.itemText = ai::UnicodeString(ALIGN_CENTER_MENU_ITEM);
-    BtAiMenuItem* AlignCenterMenuItem = new BtAiMenuItem(menuItem, kMenuItemIgnoreSort);
-    AlignCenterMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, kIfAnyArt, 0, 0, 0);
-    AlignMenu->AddSubMenuItem(*AlignCenterMenuItem);
+    BtAiMenuItem AlignCenterMenuItem = BtAiMenuItem(menuItem, kMenuItemIgnoreSort);
+    AlignCenterMenuItem.SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, kIfAnyArt, 0, 0, 0);
+    AlignMenu.AddSubMenuItem(AlignCenterMenuItem);
     
     menuItem.groupName = alignGroup;
     menuItem.itemText = ai::UnicodeString(ALIGN_RIGHT_MENU_ITEM);
-    BtAiMenuItem* AlignRightMenuItem = new BtAiMenuItem(menuItem, kMenuItemIgnoreSort);
-    AlignRightMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, kIfAnyArt, 0, 0, 0);
-    AlignMenu->AddSubMenuItem(*AlignRightMenuItem);
+    BtAiMenuItem AlignRightMenuItem = BtAiMenuItem(menuItem, kMenuItemIgnoreSort);
+    AlignRightMenuItem.SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, kIfAnyArt, 0, 0, 0);
+    AlignMenu.AddSubMenuItem(AlignRightMenuItem);
     
-    BtAiMenuItem::AddMenu(*AlignMenu, &menuItemHandles);
+    BtAiMenuItem::AddMenu(AlignMenu, &menuItemHandles);
 
     
     //CREATE MICR BARCODE
     menuItem.groupName = kTypePluginsMenuGroup1;
     menuItem.itemText = ai::UnicodeString(CREATE_MICR_BARCODE_MENU_ITEM);
-    BtAiMenuItem* CreateMicrBarcodeMenuItem = new BtAiMenuItem(menuItem, kMenuItemIgnoreSort|kMenuItemWantsUpdateOption);
+    BtAiMenuItem CreateMicrBarcodeMenuItem = BtAiMenuItem(menuItem, kMenuItemIgnoreSort|kMenuItemWantsUpdateOption);
     
-    BtAiMenuItem::AddMenu(*CreateMicrBarcodeMenuItem, &menuItemHandles);
+    BtAiMenuItem::AddMenu(CreateMicrBarcodeMenuItem, &menuItemHandles);
     
     
     //List Fonts
     menuItem.groupName = kTypePluginsMenuGroup1;
     menuItem.itemText = ai::UnicodeString(LIST_FONTS_MENU_ITEM);
-    BtAiMenuItem* ListFontsMenuItem = new BtAiMenuItem(menuItem, kMenuItemIgnoreSort);
-    ListFontsMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, 0, 0, kIfOpenDocument, 0);
+    BtAiMenuItem ListFontsMenuItem = BtAiMenuItem(menuItem, kMenuItemIgnoreSort);
+    ListFontsMenuItem.SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, 0, 0, kIfOpenDocument, 0);
     
-    BtAiMenuItem::AddMenu(*ListFontsMenuItem, &menuItemHandles);
+    BtAiMenuItem::AddMenu(ListFontsMenuItem, &menuItemHandles);
     
 
     //PRINT TO PDF
     menuItem.groupName = kSaveForMenuGroup;
     menuItem.itemText = ai::UnicodeString(PRINT_TO_PDF_MENU_ITEM);
-    BtAiMenuItem* PrintToPdfMenuItem = new BtAiMenuItem(menuItem, kMenuItemNoOptions);
-    PrintToPdfMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, 0, 0, kIfOpenDocument, 0);
+    BtAiMenuItem PrintToPdfMenuItem = BtAiMenuItem(menuItem, kMenuItemNoOptions);
+    PrintToPdfMenuItem.SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, 0, 0, kIfOpenDocument, 0);
     
-    BtAiMenuItem::AddMenu(*PrintToPdfMenuItem, &menuItemHandles);
+    BtAiMenuItem::AddMenu(PrintToPdfMenuItem, &menuItemHandles);
 
     
     //CREATE SLUG INFO
     menuItem.groupName = kDocumentUtilsMenuGroup;
     menuItem.itemText = ai::UnicodeString(CREATE_PLATE_BLEED_INFO_MENU_ITEM);
-    BtAiMenuItem* CreatePlateBleedInfoMenuItem = new BtAiMenuItem(menuItem, kMenuItemWantsUpdateOption);
-    CreatePlateBleedInfoMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, 0, 0, kIfOpenDocument, 0);
+    BtAiMenuItem CreatePlateBleedInfoMenuItem = BtAiMenuItem(menuItem, kMenuItemWantsUpdateOption);
+    CreatePlateBleedInfoMenuItem.SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, 0, 0, kIfOpenDocument, 0);
     
-    BtAiMenuItem::AddMenu(*CreatePlateBleedInfoMenuItem, &menuItemHandles);
+    BtAiMenuItem::AddMenu(CreatePlateBleedInfoMenuItem, &menuItemHandles);
 
     return kNoErr;
  
@@ -515,10 +515,10 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
     }
     if (message->notifier == fDocumentCropAreaModifiedNotifierHandle )
     {
-        sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, false);
-        SafeguardJobFile sgJobFile;
-        sgJobFile.UpdateBleedInfo();
-        sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, true);
+//        sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, false);
+//        SafeguardJobFile sgJobFile;
+//        sgJobFile.UpdateBleedInfo();
+//        sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, true);
     }
     return kNoErr;
 }

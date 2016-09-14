@@ -108,7 +108,6 @@ void PlateBleedInfoUIController::ChangeArtboardFunc (const csxs::event::Event* c
         // Set up the application context, so that suite calls can work.
         AppContext appContext(gPlugin->GetPluginRef());
         
-        //TODO: Center on the new artboard
         BtDocumentView docview;
         docview.SetViewOnArtboard( GetArtboardIdFromJson(event->data) );
         
