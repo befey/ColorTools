@@ -20,7 +20,7 @@ namespace SafeguardFile
     {
     protected:
         ColorListDrawer(AIRealRect bounds, AIRealPoint anchor, ColorList colorList);
-
+        
         ColorList colorList;
     };
     

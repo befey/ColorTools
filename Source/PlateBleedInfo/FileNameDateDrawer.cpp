@@ -32,22 +32,14 @@ BusStatFileNameDateDrawer::BusStatFileNameDateDrawer(AIRealRect bounds, PlateNum
 AIArtHandle LaserFileNameDateDrawer::DoDraw() const
 {
     AIArtHandle plateNumberDateArt;
-    BtLayer foregroundLayer(FOREGROUND_LAYER);
-    AIArtHandle prep = foregroundLayer.GetLayerGroupArt();
     
-    sAITextFrame->NewPointText(kPlaceInsideOnTop, prep, kHorizontalTextOrientation, anchor, &plateNumberDateArt);
+    ATE::ITextRange range = SetupTextRange(kHorizontalTextOrientation, &plateNumberDateArt);
     
-    //Create the ATE range
-    ATE::TextRangeRef plateInfoTextRangeRef;
-    sAITextFrame->GetATETextRange(plateNumberDateArt, &plateInfoTextRangeRef);
-    ATE::ITextRange plateInfoTextRange(plateInfoTextRangeRef);
-    plateInfoTextRange.Remove();
-    
-    PutPlateNumberDateStringInTextRange(plateInfoTextRange);
+    PutPlateNumberDateStringInTextRange(range);
 
     BtAteTextFeatures textFeatures;
     textFeatures.FontSize(12).Font("Helvetica-Bold").Justification(ATE::kRightJustify).FillColor(GetRegistrationColor());
-    textFeatures.ApplyFeaturesToRange(plateInfoTextRange);
+    textFeatures.ApplyFeaturesToRange(range);
     
     return plateNumberDateArt;
 }
@@ -55,24 +47,16 @@ AIArtHandle LaserFileNameDateDrawer::DoDraw() const
 AIArtHandle ContinuousFileNameDateDrawer::DoDraw() const
 {
     AIArtHandle plateNumberDateArt;
-    BtLayer foregroundLayer(FOREGROUND_LAYER);
-    AIArtHandle prep = foregroundLayer.GetLayerGroupArt();
     
-    sAITextFrame->NewPointText(kPlaceInsideOnTop, prep, kHorizontalTextOrientation, anchor, &plateNumberDateArt);
+    ATE::ITextRange range = SetupTextRange(kHorizontalTextOrientation, &plateNumberDateArt);
     
     RotateArt(plateNumberDateArt, anchor, -90);
     
-    //Create the ATE range
-    ATE::TextRangeRef plateInfoTextRangeRef;
-    sAITextFrame->GetATETextRange(plateNumberDateArt, &plateInfoTextRangeRef);
-    ATE::ITextRange plateInfoTextRange(plateInfoTextRangeRef);
-    plateInfoTextRange.Remove();
-    
-    PutPlateNumberDateStringInTextRange(plateInfoTextRange);
+    PutPlateNumberDateStringInTextRange(range);
     
     BtAteTextFeatures textFeatures;
     textFeatures.FontSize(8).Font("Helvetica").Justification(ATE::kLeftJustify).FillColor(GetRegistrationColor());
-    textFeatures.ApplyFeaturesToRange(plateInfoTextRange);
+    textFeatures.ApplyFeaturesToRange(range);
     
     return plateNumberDateArt;
 }
@@ -80,22 +64,14 @@ AIArtHandle ContinuousFileNameDateDrawer::DoDraw() const
 AIArtHandle BusStatFileNameDateDrawer::DoDraw() const
 {
     AIArtHandle plateNumberDateArt;
-    BtLayer foregroundLayer(FOREGROUND_LAYER);
-    AIArtHandle prep = foregroundLayer.GetLayerGroupArt();
     
-    sAITextFrame->NewPointText(kPlaceInsideOnTop, prep, kHorizontalTextOrientation, anchor, &plateNumberDateArt);
+    ATE::ITextRange range = SetupTextRange(kHorizontalTextOrientation, &plateNumberDateArt);
     
-    //Create the ATE range
-    ATE::TextRangeRef plateInfoTextRangeRef;
-    sAITextFrame->GetATETextRange(plateNumberDateArt, &plateInfoTextRangeRef);
-    ATE::ITextRange plateInfoTextRange(plateInfoTextRangeRef);
-    plateInfoTextRange.Remove();
-    
-    PutPlateNumberDateStringInTextRange(plateInfoTextRange);
+    PutPlateNumberDateStringInTextRange(range);
     
     BtAteTextFeatures textFeatures;
     textFeatures.FontSize(7).Font("Helvetica-Condensed-Bold").Justification(ATE::kRightJustify).FillColor(GetRegistrationColor());
-    textFeatures.ApplyFeaturesToRange(plateInfoTextRange);
+    textFeatures.ApplyFeaturesToRange(range);
     
     return plateNumberDateArt;
 }

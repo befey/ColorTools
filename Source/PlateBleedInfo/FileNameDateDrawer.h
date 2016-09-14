@@ -21,12 +21,11 @@ namespace SafeguardFile
     {
     protected:
         FileNameDateDrawer(AIRealRect bounds, AIRealPoint anchor, PlateNumber plateNumber, string token, tm lastModified);
+        void PutPlateNumberDateStringInTextRange(ATE::ITextRange& targetRange) const;
         
         PlateNumber plateNumber;
         string token;
         tm lastModified;
-        
-        void PutPlateNumberDateStringInTextRange(ATE::ITextRange& targetRange) const;
     };
     
     class LaserFileNameDateDrawer : public FileNameDateDrawer
