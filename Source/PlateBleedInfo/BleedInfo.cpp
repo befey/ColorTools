@@ -121,6 +121,7 @@ void BleedInfo::FillColorList()
     
     std::function<void(AIArtHandle)> func = std::bind(&BleedInfo::AddColorsOfArtToColorList, this, std::placeholders::_1);
     ProcessArtSet(artSet, func);
+    sAIArtSet->DisposeArtSet(&artSet);
 }
 
 void BleedInfo::AddColorsOfArtToColorList(AIArtHandle art)

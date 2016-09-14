@@ -214,6 +214,8 @@ bool ConvertToPointType()
 				}
 			}
 		}
+        
+        sAIArtSet->DisposeArtSet(&artSet);
 	}
 	return TRUE;
 }

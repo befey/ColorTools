@@ -163,6 +163,7 @@ void BtLayer::ConvertTextToPaths() const
                       }
                   });
     
+    sAIArtSet->DisposeArtSet(&artSet);
 }
 
 void BtLayer::PutArtAtTopOfLayer(AIArtHandle art)

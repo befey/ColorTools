@@ -84,7 +84,8 @@ void BtSwatchList::RemoveUnusedColors() {
     };
     sAIArtSet->MatchingArtSet( allSpecs , 8, artSet );
     
-    size_t count;		sAIArtSet->CountArtSet( artSet, &count );
+    size_t count;
+    sAIArtSet->CountArtSet( artSet, &count );
     bool used = FALSE;
     
     //Loop through all the swatches in the list
@@ -141,7 +142,8 @@ void BtSwatchList::RemoveUnusedColors() {
         if (!used) { sAISwatchList->RemoveNthSwatch(NULL, i); numSwatches--; i--; }
     }
     //DISPOSE OF THE ART SET
-    sAIArtSet->DisposeArtSet(&artSet); artSet = NULL;
+    sAIArtSet->DisposeArtSet(&artSet);
+    artSet = NULL;
     
     //Loop through the swatch groups and remove any empty ones
     count = sAISwatchGroup->CountSwatchGroups(NULL);
@@ -150,7 +152,6 @@ void BtSwatchList::RemoveUnusedColors() {
         int currCount = sAISwatchGroup->CountSwatches(currSwatchGroup);
         if (!currCount) { sAISwatchGroup->RemoveSwatchGroup(NULL, currSwatchGroup, FALSE); i--; count--; }
     }
-    
 }
 
 

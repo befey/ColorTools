@@ -99,7 +99,8 @@ bool AllLinkedFilesValid() {
 	ai::UnicodeString currArtName;
 	AIArtHandle currArtObj = NULL;
 
-	AIArtSet artSet; sAIArtSet->NewArtSet(&artSet);
+	AIArtSet artSet;
+    sAIArtSet->NewArtSet(&artSet);
 	
 	AIArtSpec specs[] = { { kPlacedArt , 0 , 0 } };
 
@@ -119,7 +120,7 @@ bool AllLinkedFilesValid() {
 		}
 	}
 	
-	sAIArtSet->DisposeArtSet(&artSet); artSet = NULL;
+	sAIArtSet->DisposeArtSet(&artSet);
 	return TRUE;
 }
 
