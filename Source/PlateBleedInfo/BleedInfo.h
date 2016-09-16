@@ -30,7 +30,8 @@ namespace SafeguardFile
         string token;
         tm lastModified;;
         bool ShouldAddCMYKBlocks;
-    
+        
+        SafeguardFile::ColorList& ColorList() { return colorList; };
     private:
         friend class cereal::access;
         template <class Archive>

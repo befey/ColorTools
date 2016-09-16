@@ -124,6 +124,11 @@ void ColorList::AddColorsToList(vector<AIColor> colors)
     p_ColorList.insert(std::end(p_ColorList), std::begin(colors), std::end(colors));
 }
 
+void ColorList::AddColorsToList(ColorList colors)
+{
+    AddColorsToList(colors.p_ColorList);
+}
+
 void ColorList::GetAsTextRange(ATE::ITextRange& targetRange) const
 {
     if (p_ColorList.size() == 0)

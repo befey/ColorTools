@@ -199,3 +199,8 @@ AIRealRect Plate::GetBleeds() const
     
     return bleedRect;
 }
+
+SafeguardFile::ColorList Plate::GetColors() const
+{
+    return bleedInfo.colorList;
+}

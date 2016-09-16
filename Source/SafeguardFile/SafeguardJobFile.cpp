@@ -11,8 +11,6 @@
 
 using SafeguardFile::SafeguardJobFile;
 using SafeguardFile::PlateNumber;
-using PrintToPdf::PdfResults;
-using PrintToPdf::PdfSettings;
 using SafeguardFile::PlateBleedInfoUIController;
 using SafeguardFile::BleedInfo;
 
@@ -112,4 +110,14 @@ AIRealRect SafeguardJobFile::GetBleeds(int plateIndex) const
         return plates[0].GetBleeds();
     }
     return AIRealRect{0,0,0,0};
+}
+
+SafeguardFile::ColorList SafeguardJobFile::GetAllColorsOnJob() const
+{
+    SafeguardFile::ColorList colorList;
+    for (auto plate : plates)
+    {
+        colorList.AddColorsToList(plate.GetColors());
+    }
+    return colorList;
 }

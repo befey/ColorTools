@@ -43,12 +43,15 @@ namespace PrintToPdf
         
         void ParseData(const char* eventData);
         
+        static void PanelLoaded (const csxs::event::Event* const event, void* const context);
         static void MakePdfButtonClickedFunc (const csxs::event::Event* const event, void* const context);
         static void CancelButtonClickedFunc (const csxs::event::Event* const event, void* const context);
         
         ASErr SendResultsXmlToHtml(string resultsXml);
         void SendCloseMessageToHtml();
         void ClearResultsBox();
+        void SendColorListToHtml();
+        string GetColorListAsJson() const;
         
         //=================================
         // Constant definitions
@@ -57,6 +60,8 @@ namespace PrintToPdf
         static constexpr auto EVENT_TYPE_CANCEL_CLICKED =       "com.gosafeguard.SafeguardTools.PrintToPdf.cancelbutton";
         static constexpr auto EVENT_TYPE_RESULTS_BACK =         "com.gosafeguard.SafeguardTools.PrintToPdf.resultsback";
         static constexpr auto EVENT_TYPE_FORCE_PANEL_CLOSE =    "com.gosafeguard.SafeguardTools.PrintToPdf.forcepanelclose";
+        static constexpr auto EVENT_TYPE_PANEL_LOADED =         "com.gosafeguard.SafeguardTools.PrintToPdf.panelloaded";
+        static constexpr auto EVENT_TYPE_DATA_FROM_PLUGIN =     "com.gosafeguard.SafeguardTools.PrintToPdf.datafromplugin";
         static constexpr auto EVENT_TYPE_CLEAR_RESULT_BOX =     "com.gosafeguard.SafeguardTools.PrintToPdf.clearresultbox";
         static constexpr auto ILST_APP =                        "ILST";
         

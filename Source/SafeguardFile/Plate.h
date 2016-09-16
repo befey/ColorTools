@@ -45,6 +45,7 @@ namespace SafeguardFile
         void SetPlateNumber();
         
         AIRealRect GetBleeds() const;
+        SafeguardFile::ColorList GetColors() const;
         
         const BleedInfo GetBleedInfo() const;
         void AddBleedInfo();

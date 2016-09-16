@@ -20,6 +20,7 @@ namespace SafeguardFile
     {
     public:
         void AddColorsToList(vector<AIColor> colors);
+        void AddColorsToList(ColorList colors);
         void RemoveDuplicates();
         void RemoveNonPrintingColors();
         

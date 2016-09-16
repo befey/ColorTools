@@ -372,7 +372,7 @@ string GetColorName(const AIColor color)
         }
     }
     
-    return nameUS.getInStdString(kAIPlatformCharacterEncoding);;
+    return nameUS.getInStdString(kAIPlatformCharacterEncoding);
 }
 
 bool ColorIsEqual ( const AIColor& color1 , const AIColor& color2 , const bool ignoreTints )
