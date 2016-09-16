@@ -12,13 +12,10 @@
 #include <vector>
 #include "Plate.h"
 #include "PlateNumber.h"
-#include "TickMarkDrawer.h"
-#include "PdfPrinter.h"
-#include "PdfResults.h"
-#include "PdfSettings.h"
+#include "BleedInfo.h"
+#include "ColorList.h"
 #include "PrintToPdfConstants.h"
 #include "AICSXS.h"
-#include "BleedInfo.h"
 #include "PlateBleedInfoDTO.hpp"
 
 extern AICSXSExtensionSuite* sAICSXSExtension;
@@ -37,6 +34,8 @@ namespace SafeguardFile
         AIRealRect GetBleeds(int plateIndex = 0) const;
         
         int GetNumPlates() const { return plates.size(); };
+        
+        SafeguardFile::ColorList GetAllColorsOnJob() const;
         
         void AddBleedInfo();
         void UpdateBleedInfo();

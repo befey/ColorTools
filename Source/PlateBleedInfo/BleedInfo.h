@@ -44,13 +44,11 @@ namespace SafeguardFile
         BleedInfo& ShouldDrawBleedInfo(bool newVal) { shouldDrawBleedInfo = newVal; return *this; };
         bool ShouldAddCmykBlocks() const { return shouldAddCMYKBlocks; };
         BleedInfo& ShouldAddCmykBlocks(bool newVal) { shouldAddCMYKBlocks = newVal; return *this; };
-
-        
         const SafeguardFile::PlateNumber PlateNumber() const { return plateNumber; };
         SafeguardFile::ColorList& ColorList() { return colorList; };
     
         AIRealRect Bleeds() const;
-        
+
     private:
         bool shouldDrawBleedInfo = true;
         bool shouldAddCMYKBlocks = true;

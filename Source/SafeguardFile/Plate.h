@@ -42,6 +42,7 @@ namespace SafeguardFile
         const string GetToken() const;
         
         AIRealRect GetBleeds() const;
+        SafeguardFile::ColorList GetColors();
         
         BleedInfo& BleedInfo();
         
