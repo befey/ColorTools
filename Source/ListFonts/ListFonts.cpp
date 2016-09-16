@@ -14,12 +14,12 @@
 
 bool ListFonts::PutFontList()
 {
-    unique_ptr<DictionaryWriter> dw = make_unique<DictionaryWriter>();
-    AIArtHandle fontListArt = dw->GetArtHandleFromIdentifier(HENCE_FONT_LIST_LABEL);
+    DictionaryWriter dw;
+    AIArtHandle fontListArt = dw.GetArtHandleFromIdentifier(HENCE_FONT_LIST_LABEL);
     
     if (fontListArt)
     {
-        dw->RemoveIdentifierFromDictionary(HENCE_FONT_LIST_LABEL);
+        dw.RemoveIdentifierFromDictionary(HENCE_FONT_LIST_LABEL);
         sAIArt->DisposeArt(fontListArt);
     }
     
@@ -47,7 +47,7 @@ bool ListFonts::PutFontList()
         }
         fontListArt = WriteVectorOfFontsToArtboard();
         
-        dw->AddArtHandleToDictionary(fontListArt, HENCE_FONT_LIST_LABEL);
+        dw.AddArtHandleToDictionary(fontListArt, HENCE_FONT_LIST_LABEL);
     }
     else
     {

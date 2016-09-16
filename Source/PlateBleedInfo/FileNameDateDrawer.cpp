@@ -29,11 +29,11 @@ LaserFileNameDateDrawer::LaserFileNameDateDrawer(AIRealRect bounds, PlateNumber 
 ContinuousFileNameDateDrawer::ContinuousFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, {.h = bounds.right + 2, .v = bounds.top - 14}, plateNumber, token, lastModified) {};
 BusStatFileNameDateDrawer::BusStatFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, {.h = bounds.right, .v = bounds.bottom - 12}, plateNumber, token, lastModified) {};
 
-AIArtHandle LaserFileNameDateDrawer::DoDraw() const
+AIArtHandle LaserFileNameDateDrawer::DoDraw(AIArtHandle resultGroup) const
 {
     AIArtHandle plateNumberDateArt;
     
-    ATE::ITextRange range = SetupTextRange(kHorizontalTextOrientation, &plateNumberDateArt);
+    ATE::ITextRange range = SetupTextRange(resultGroup, kHorizontalTextOrientation, &plateNumberDateArt);
     
     PutPlateNumberDateStringInTextRange(range);
 
@@ -44,11 +44,11 @@ AIArtHandle LaserFileNameDateDrawer::DoDraw() const
     return plateNumberDateArt;
 }
 
-AIArtHandle ContinuousFileNameDateDrawer::DoDraw() const
+AIArtHandle ContinuousFileNameDateDrawer::DoDraw(AIArtHandle resultGroup) const
 {
     AIArtHandle plateNumberDateArt;
     
-    ATE::ITextRange range = SetupTextRange(kHorizontalTextOrientation, &plateNumberDateArt);
+    ATE::ITextRange range = SetupTextRange(resultGroup, kHorizontalTextOrientation, &plateNumberDateArt);
     
     RotateArt(plateNumberDateArt, anchor, -90);
     
@@ -61,11 +61,11 @@ AIArtHandle ContinuousFileNameDateDrawer::DoDraw() const
     return plateNumberDateArt;
 }
 
-AIArtHandle BusStatFileNameDateDrawer::DoDraw() const
+AIArtHandle BusStatFileNameDateDrawer::DoDraw(AIArtHandle resultGroup) const
 {
     AIArtHandle plateNumberDateArt;
     
-    ATE::ITextRange range = SetupTextRange(kHorizontalTextOrientation, &plateNumberDateArt);
+    ATE::ITextRange range = SetupTextRange(resultGroup, kHorizontalTextOrientation, &plateNumberDateArt);
     
     PutPlateNumberDateStringInTextRange(range);
     

@@ -37,11 +37,12 @@ namespace SafeguardFile
         
         vector<shared_ptr<IDrawer>> drawers;
         
-        AIArtHandle DoDraw() const override;
+        AIArtHandle DoDraw(AIArtHandle resultGroup = NULL) const override;
         
         AIArtHandle Add() const;
         AIArtHandle Update(AIArtHandle pluginGroupArt) const;
         AIArtHandle CreateResultArt(AIArtHandle pluginGroupArt) const;
+        void ClearResultArt(AIArtHandle resultGroupArt) const;
         
         //ASErr PluginGroupNotify(AIPluginGroupMessage* message);
         //ASErr PluginGroupUpdate(AIPluginGroupMessage* message);

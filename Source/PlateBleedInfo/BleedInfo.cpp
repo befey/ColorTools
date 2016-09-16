@@ -21,7 +21,7 @@ BleedInfo::BleedInfo(ai::ArtboardID artboardIndex)
     FillColorList();
     colorList.RemoveDuplicates();
     colorList.RemoveNonPrintingColors();
-    
+
     SetPlateNumber();
     
     tmSettings = SafeguardFile::TickMarkSettings(ArtboardBounds(), plateNumber.GetProductType(), SafeguardFile::TickMarkStyle::NONE);

@@ -9,6 +9,7 @@
 
 #include "ArtTree.h"
 #include "BtLayer.hpp"
+#include "GetIllustratorErrorCode.h"
 
 
 long CreateArtSetOfPrintingObjectsWithinRect(AIArtSet const targetSet, AIRealRect rect)
@@ -83,9 +84,12 @@ void PutArtInGroup(AIArtHandle currArtHandle, AIArtHandle theGroup) {
 		sAIArt->SetArtUserAttr(currArtHandle, kArtLocked | kArtHidden, 0);
 	}
 	
-	//Move it out of the group
-	sAIArt->ReorderArt(currArtHandle, kPlaceInsideOnTop, theGroup);
-	
+	//Put it in the group
+    short type;
+    AIErr err = sAIArt->GetArtType(theGroup, &type);
+    string error = GetIllustratorErrorCode(err);
+	err = sAIArt->ReorderArt(currArtHandle, kPlaceInsideOnTop, theGroup);
+    error = GetIllustratorErrorCode(err);
 	//Set the layer and art attributes back the way they were
 	if(eflag) { sAILayer->SetLayerEditable(layer, FALSE); }
 	if(vflag) { sAILayer->SetLayerVisible(layer, FALSE); }

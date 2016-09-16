@@ -84,8 +84,8 @@ bool Plate::ShouldDrawBleedInfo()
 
 void Plate::RemoveBleedInfo()
 {
-    unique_ptr<DictionaryWriter> dw = make_unique<DictionaryWriter>();
-    AIArtHandle foundArt = dw->GetArtHandleFromIdentifier(PLATE_BLEED_INFO_GROUP_LABEL, GetArtboardIndex());
+    DictionaryWriter dw;
+    AIArtHandle foundArt = dw.GetArtHandleFromIdentifier(PLATE_BLEED_INFO_GROUP_LABEL, GetArtboardIndex());
     if (foundArt)
     {
         bleedInfoDrawer->Remove(foundArt);

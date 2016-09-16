@@ -33,7 +33,7 @@ namespace SafeguardFile
     public:
         LaserFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified);
     private:
-        AIArtHandle DoDraw() const override;
+        AIArtHandle DoDraw(AIArtHandle resultGroup) const override;
     };
     
     class ContinuousFileNameDateDrawer : public FileNameDateDrawer
@@ -41,7 +41,7 @@ namespace SafeguardFile
     public:
         ContinuousFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified);
     private:
-        AIArtHandle DoDraw() const override;
+        AIArtHandle DoDraw(AIArtHandle resultGroup) const override;
     };
     
     class BusStatFileNameDateDrawer : public FileNameDateDrawer
@@ -49,7 +49,7 @@ namespace SafeguardFile
     public:
         BusStatFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified);
     private:
-        AIArtHandle DoDraw() const override;
+        AIArtHandle DoDraw(AIArtHandle resultGroup) const override;
     };
 }
 

@@ -12,17 +12,14 @@
 
 using SafeguardFile::BleedTextInfoDrawer;
 
-ATE::ITextRange BleedTextInfoDrawer::SetupTextRange(AITextOrientation orientation, AIArtHandle *newTextFrame) const
+ATE::ITextRange BleedTextInfoDrawer::SetupTextRange(AIArtHandle resultGroup, AITextOrientation orientation, AIArtHandle *newTextFrame) const
 {
-    BtLayer foregroundLayer(FOREGROUND_LAYER);
-    AIArtHandle prep = foregroundLayer.GetLayerGroupArt();
-    
-    sAITextFrame->NewPointText(kPlaceInsideOnTop, prep, orientation, anchor, newTextFrame);
+    sAITextFrame->NewPointText(kPlaceInsideOnTop, resultGroup, orientation, anchor, newTextFrame);
     //Create the ATE range
-    ATE::TextRangeRef colorListTextRangeRef;
-    sAITextFrame->GetATETextRange(*newTextFrame, &colorListTextRangeRef);
-    ATE::ITextRange colorListTextRange(colorListTextRangeRef);
-    colorListTextRange.Remove();
+    ATE::TextRangeRef textRangeRef;
+    sAITextFrame->GetATETextRange(*newTextFrame, &textRangeRef);
+    ATE::ITextRange textRange(textRangeRef);
+    textRange.Remove();
     
-    return colorListTextRange;
+    return textRange;
 }

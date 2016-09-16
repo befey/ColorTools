@@ -34,8 +34,12 @@ void FixupReload(Plugin* plugin)
 }
 
 SafeguardToolsPlugin::SafeguardToolsPlugin(SPPluginRef pluginRef) :
-	Plugin(pluginRef),
-    fRegisterEventNotifierHandle(NULL)
+    Plugin(pluginRef),
+    fRegisterEventNotifierHandle(NULL),
+    fAppStartedNotifierHandle(NULL),
+    fDocOpenedNotifierHandle(NULL),
+    fArtSelectionChangeNotifierHandle(NULL),
+    fDocumentCropAreaModifiedNotifierHandle(NULL)
 {
 	strncpy(fPluginName, kSafeguardToolsPluginName, kMaxStringLength);
 }
@@ -48,20 +52,20 @@ ASErr SafeguardToolsPlugin::Message(char* caller, char* selector, void *message)
 {
 	ASErr error = kNoErr;
     
-    if (strcmp(caller, kCallerAIPluginGroup) == 0)
+/*    if (strcmp(caller, kCallerAIPluginGroup) == 0)
     {
         if (strcmp( selector, kSelectorAINotifyEdits ) == 0)
         {
-            //error = BleedInfo::PluginGroupNotify((AIPluginGroupMessage *)message);
+            error = BleedInfo::PluginGroupNotify((AIPluginGroupMessage *)message);
         }
         else if (strcmp( selector, kSelectorAIUpdateArt ) == 0)
         {
-            //error = BleedInfo::PluginGroupUpdate((AIPluginGroupMessage *)message);
+            error = BleedInfo::PluginGroupUpdate((AIPluginGroupMessage *)message);
         }
     }
     else
     {
-        try
+ */       try
         {
             error = Plugin::Message(caller, selector, message);
         }
@@ -73,7 +77,7 @@ ASErr SafeguardToolsPlugin::Message(char* caller, char* selector, void *message)
         {
             error = kCantHappenErr;
         }
-    }
+//    }
     
     if (error)
     {
@@ -104,31 +108,18 @@ ASErr SafeguardToolsPlugin::StartupPlugin( SPInterfaceMessage *message )
     error = Plugin::StartupPlugin(message);
     if (error) { return error; }
     
-    if (NULL == colorToolsUIController)
-    {
-        colorToolsUIController = std::make_shared<ColorToolsUIController>();
-        
-        error = Plugin::LockPlugin(true);
-        if (error) { return error; }
-    }
-    
-    if (NULL == printToPdfUIController)
-    {
-        printToPdfUIController = std::make_shared<PrintToPdf::PrintToPdfUIController>();
-        
-        error = Plugin::LockPlugin(true);
-        if (error) { return error; }
-    }
-    
-    if (NULL == plateBleedInfoUIController)
-    {
-        plateBleedInfoUIController = std::make_shared<SafeguardFile::PlateBleedInfoUIController>();
-        
-        error = Plugin::LockPlugin(true);
-        if (error) { return error; }
-    }
-    
     error = this->AddMenus(message);
+    if (error) { return error; }
+    
+    //Register PlateBleedInfo plugin group
+    pluginGroupData.major = 1;
+    pluginGroupData.minor = 0;
+    pluginGroupData.desc = "__SafeguardPlateInfo__";
+    error = sAIPluginGroup->AddAIPluginGroup (message->d.self,
+                                      CREATE_PLATE_BLEED_INFO_PLUGIN_GROUP,
+                                      &pluginGroupData,
+                                      kPluginGroupKeepWhenEmptyOption | kPluginGroupDoNotTarget | kPluginGroupDoNotSmartTarget | kPluginGroupAskToShowContents,
+                                      &bleedInfoPluginGroupHandle);
     if (error) { return error; }
     
     //Register for notifiers
@@ -147,17 +138,6 @@ ASErr SafeguardToolsPlugin::StartupPlugin( SPInterfaceMessage *message )
     error = sAINotifier->AddNotifier( fPluginRef, kSafeguardToolsPluginName,
                                      kAIDocumentCropAreaModifiedNotifier, &fDocumentCropAreaModifiedNotifierHandle);
     if (error) { return error; }
-    
-    //Register PlateBleedInfo plugin group
-    AIAddPluginGroupData pluginGroupData;
-    pluginGroupData.major = 1;
-    pluginGroupData.minor = 0;
-    pluginGroupData.desc = "__SafeguardPlateInfo__";
-    sAIPluginGroup->AddAIPluginGroup (message->d.self,
-                                      CREATE_PLATE_BLEED_INFO_PLUGIN_GROUP,
-                                      &pluginGroupData,
-                                      kPluginGroupKeepWhenEmptyOption | kPluginGroupDoNotTarget | kPluginGroupDoNotSmartTarget | kPluginGroupAskToShowContents,
-                                      &bleedInfoPluginGroupHandle);
     
     return error;
 }
@@ -198,7 +178,34 @@ ASErr SafeguardToolsPlugin::UnloadPlugin(SPInterfaceMessage *message)
  */
 ASErr SafeguardToolsPlugin::PostStartupPlugin()
 {
-    return kNoErr;
+    ASErr error = kNoErr;
+    
+    if (NULL == colorToolsUIController)
+    {
+        colorToolsUIController = std::make_shared<ColorToolsUIController>();
+        
+        error = Plugin::LockPlugin(true);
+        if (error) { return error; }
+    }
+    
+    if (NULL == printToPdfUIController)
+    {
+        printToPdfUIController = std::make_shared<PrintToPdf::PrintToPdfUIController>();
+        
+        error = Plugin::LockPlugin(true);
+        if (error) { return error; }
+    }
+    
+    if (NULL == plateBleedInfoUIController)
+    {
+        plateBleedInfoUIController = std::make_shared<SafeguardFile::PlateBleedInfoUIController>();
+        
+        error = Plugin::LockPlugin(true);
+        if (error) { return error; }
+    }
+
+    
+    return error;
 }
 
 /*
@@ -403,8 +410,8 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
     }
     else if ( message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
     {
-        unique_ptr<DictionaryWriter> dw = make_unique<DictionaryWriter>();
-        if ( dw->CheckDictionaryForArtObjectWithIdentifier(SafeguardFile::PLATE_BLEED_INFO_GROUP_LABEL, 0) )
+        DictionaryWriter dw;
+        if ( dw.CheckDictionaryForArtObjectWithIdentifier(SafeguardFile::PLATE_BLEED_INFO_GROUP_LABEL, 0) )
         {
             SafeguardJobFile sgJobFile;
             sgJobFile.EditBleedInfo();
@@ -448,8 +455,8 @@ ASErr SafeguardToolsPlugin::UpdateMenuItem(AIMenuMessage* message)
     {
         //Check if we have a micr line object in the document dictionary
         //If we do, nothing needs to be selected, as we already know where the micr line is
-        unique_ptr<DictionaryWriter> dw = make_unique<DictionaryWriter>();
-        if (dw->CheckDictionaryForArtObjectWithIdentifier(MICR_LINE_LABEL) )
+        DictionaryWriter dw;
+        if (dw.CheckDictionaryForArtObjectWithIdentifier(MICR_LINE_LABEL) )
         {
             sAIMenu->EnableItem(message->menuItem);
         }
@@ -470,8 +477,8 @@ ASErr SafeguardToolsPlugin::UpdateMenuItem(AIMenuMessage* message)
     {
         //Check if we have a bleed info in the dictionary
         //If we do, change to "Remove"
-        unique_ptr<DictionaryWriter> dw = make_unique<DictionaryWriter>();
-        if ( dw->CheckDictionaryForArtObjectWithIdentifier(SafeguardFile::PLATE_BLEED_INFO_GROUP_LABEL, 0) )
+        DictionaryWriter dw;
+        if ( dw.CheckDictionaryForArtObjectWithIdentifier(SafeguardFile::PLATE_BLEED_INFO_GROUP_LABEL, 0) )
         {
             sAIMenu->SetItemText( message->menuItem, ai::UnicodeString("Edit Safeguard Plate Info") );
         }
@@ -486,6 +493,16 @@ ASErr SafeguardToolsPlugin::UpdateMenuItem(AIMenuMessage* message)
 
 error:
 	return error;
+}
+
+ASErr SafeguardToolsPlugin::PluginGroupUpdate(AIPluginGroupMessage* message)
+{
+    ASErr result = kNoErr;
+    
+    SafeguardJobFile sgJobFile;
+    sgJobFile.AddBleedInfo();
+    
+    return result;
 }
 
 ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )

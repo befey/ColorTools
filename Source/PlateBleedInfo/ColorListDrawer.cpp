@@ -30,11 +30,11 @@ ContinuousColorListDrawer::ContinuousColorListDrawer(AIRealRect bounds, ColorLis
 BusStatColorListDrawer::BusStatColorListDrawer(AIRealRect bounds, ColorList colorList) :
     ColorListDrawer(bounds, {.h = bounds.left, .v = bounds.bottom - 12}, colorList) {};
 
-AIArtHandle LaserColorListDrawer::DoDraw() const
+AIArtHandle LaserColorListDrawer::DoDraw(AIArtHandle resultGroup) const
 {
     AIArtHandle colorListArt;
     
-    ATE::ITextRange range = SetupTextRange(kHorizontalTextOrientation, &colorListArt);
+    ATE::ITextRange range = SetupTextRange(resultGroup, kHorizontalTextOrientation, &colorListArt);
     
     colorList.GetAsTextRange(range);
     
@@ -45,11 +45,11 @@ AIArtHandle LaserColorListDrawer::DoDraw() const
     return colorListArt;
 }
 
-AIArtHandle ContinuousColorListDrawer::DoDraw() const
+AIArtHandle ContinuousColorListDrawer::DoDraw(AIArtHandle resultGroup) const
 {
     AIArtHandle colorListArt;
     
-    ATE::ITextRange range = SetupTextRange(kHorizontalTextOrientation, &colorListArt);
+    ATE::ITextRange range = SetupTextRange(resultGroup, kHorizontalTextOrientation, &colorListArt);
     
     RotateArt(colorListArt, anchor, -90);
     
@@ -62,11 +62,11 @@ AIArtHandle ContinuousColorListDrawer::DoDraw() const
     return colorListArt;
 }
 
-AIArtHandle BusStatColorListDrawer::DoDraw() const
+AIArtHandle BusStatColorListDrawer::DoDraw(AIArtHandle resultGroup) const
 {
     AIArtHandle colorListArt;
     
-    ATE::ITextRange range = SetupTextRange(kHorizontalTextOrientation, &colorListArt);
+    ATE::ITextRange range = SetupTextRange(resultGroup, kHorizontalTextOrientation, &colorListArt);
     
     colorList.GetAsTextRange(range);
     

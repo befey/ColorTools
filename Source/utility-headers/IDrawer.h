@@ -12,11 +12,11 @@
 class IDrawer
 {
 public:
-    AIArtHandle Draw() const { return DoDraw(); };
+    AIArtHandle Draw(AIArtHandle resultGroup = NULL) const { return DoDraw(resultGroup); };
 protected:
     ~IDrawer() {};
 private:
-    virtual AIArtHandle DoDraw() const = 0;
+    virtual AIArtHandle DoDraw(AIArtHandle resultGroup) const = 0;
 };
 
 #endif /* IDrawer_h */
