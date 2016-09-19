@@ -20,7 +20,7 @@ namespace SafeguardFile
     {
     protected:
         ColorListDrawer(AIRealRect bounds, AIRealPoint anchor, ColorList colorList);
-
+        
         ColorList colorList;
     };
     
@@ -29,7 +29,7 @@ namespace SafeguardFile
     public:
         LaserColorListDrawer(AIRealRect bounds, ColorList colorList);
     private:
-        AIArtHandle DoDraw() const override;
+        AIArtHandle DoDraw(AIArtHandle resultGroup) const override;
     };
     
     class ContinuousColorListDrawer : public ColorListDrawer
@@ -37,7 +37,7 @@ namespace SafeguardFile
     public:
         ContinuousColorListDrawer(AIRealRect bounds, ColorList colorList);
     private:
-        AIArtHandle DoDraw() const override;
+        AIArtHandle DoDraw(AIArtHandle resultGroup) const override;
     };
     
     class BusStatColorListDrawer : public ColorListDrawer
@@ -45,7 +45,7 @@ namespace SafeguardFile
     public:
         BusStatColorListDrawer(AIRealRect bounds, ColorList colorList);
     private:
-        AIArtHandle DoDraw() const override;
+        AIArtHandle DoDraw(AIArtHandle resultGroup) const override;
     };
 }
 

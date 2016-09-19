@@ -20,12 +20,13 @@ namespace SafeguardFile
     {
     protected:
         BleedTextInfoDrawer(AIRealRect bounds, AIRealPoint anchor) : bounds(bounds), anchor(anchor) {};
-
+        ATE::ITextRange SetupTextRange(AIArtHandle resultGroup, AITextOrientation orientation, AIArtHandle *newTextFrame) const;
+        
         AIRealRect bounds;
         AIRealPoint anchor;
         
     private:
-        virtual AIArtHandle DoDraw() const = 0;
+        virtual AIArtHandle DoDraw(AIArtHandle resultGroup) const = 0;
     };
 }
 

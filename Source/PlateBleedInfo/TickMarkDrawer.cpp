@@ -13,28 +13,26 @@ using SafeguardFile::TickMarkDrawer;
 
 TickMarkDrawer::TickMarkDrawer(TickMarkSettings settings) : settings(settings) {};
 
-AIArtHandle TickMarkDrawer::DoDraw() const
+AIArtHandle TickMarkDrawer::DoDraw(AIArtHandle resultGroup) const
 {
     AIArtHandle tickMarkGroupArt = NULL;
     if (settings.DrawInner())
     {
-        tickMarkGroupArt = DrawInner(tickMarkGroupArt);
+        tickMarkGroupArt = DrawInner(resultGroup, tickMarkGroupArt);
     }
     if (settings.DrawOuter())
     {
-        tickMarkGroupArt = DrawOuter(tickMarkGroupArt);
+        tickMarkGroupArt = DrawOuter(resultGroup, tickMarkGroupArt);
     }
     
     return tickMarkGroupArt;
 }
 
-AIArtHandle TickMarkDrawer::DrawOuter(AIArtHandle tickMarkGroupArt) const
+AIArtHandle TickMarkDrawer::DrawOuter(AIArtHandle resultGroup, AIArtHandle tickMarkGroupArt) const
 {
     if (tickMarkGroupArt == NULL)
     {
-        BtLayer foregroundLayer(FOREGROUND_LAYER);
-        AIArtHandle prep = foregroundLayer.GetLayerGroupArt();
-        sAIArt->NewArt(kGroupArt, kPlaceInsideOnTop, prep, &tickMarkGroupArt);
+        sAIArt->NewArt(kGroupArt, kPlaceInsideOnTop, resultGroup, &tickMarkGroupArt);
     }
     
     vector<TickMark> tickMarks =
@@ -64,13 +62,11 @@ AIArtHandle TickMarkDrawer::DrawOuter(AIArtHandle tickMarkGroupArt) const
     return DrawTickMarks(tickMarks, tickMarkGroupArt);
 }
 
-AIArtHandle TickMarkDrawer::DrawInner(AIArtHandle tickMarkGroupArt) const
+AIArtHandle TickMarkDrawer::DrawInner(AIArtHandle resultGroup, AIArtHandle tickMarkGroupArt) const
 {
     if (tickMarkGroupArt == NULL)
     {
-        BtLayer foregroundLayer(FOREGROUND_LAYER);
-        AIArtHandle prep = foregroundLayer.GetLayerGroupArt();
-        sAIArt->NewArt(kGroupArt, kPlaceInsideOnTop, prep, &tickMarkGroupArt);
+        sAIArt->NewArt(kGroupArt, kPlaceInsideOnTop, resultGroup, &tickMarkGroupArt);
     }
     
     vector<TickMark> tickMarks =
@@ -101,14 +97,7 @@ AIArtHandle TickMarkDrawer::DrawInner(AIArtHandle tickMarkGroupArt) const
 }
 
 AIArtHandle TickMarkDrawer::DrawTickMarks(vector<TickMark> ticks, AIArtHandle tickMarkGroupArt) const
-{
-    if (tickMarkGroupArt == NULL)
-    {
-        BtLayer foregroundLayer(FOREGROUND_LAYER);
-        AIArtHandle prep = foregroundLayer.GetLayerGroupArt();
-        sAIArt->NewArt(kGroupArt, kPlaceInsideOnTop, prep, &tickMarkGroupArt);
-    }
-    
+{    
     for ( auto tick : ticks )
     {
         AIArtHandle tickMarkArt;

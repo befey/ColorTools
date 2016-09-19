@@ -44,23 +44,30 @@ select {
 }
 
 input[type=button] {
-    display: inline:block;
+    display: inline-block;
     font-size: 18px;
 }
 
 .or {
-  display: inline:block;
+  display: inline-block;
   font-style: oblique;
 }
 
-
 #results-textarea {
+    height: 25em;
+}
+
+#colorlist-textarea {
+    height: 15em;
+}
+
+.info-area {
   border: 1px solid black;
 	font-size: 14px;
     width: 100%;
-    height: 40em;
     resize: none;
 	overflow: auto;
+    padding: 5px;
 }
 
 .deleted {

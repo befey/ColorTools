@@ -28,9 +28,6 @@ class BtAteTextFeatures;
 
 ai::UnicodeString GetNameFromATETextRange(ATE::ITextRange targetRange);
 
-std::string GetStdStringFromAITextFrame(AIArtHandle textFrame);
-//This function assumes the art handle passed is a valid textFrame, will return NULL if it is not
-
 ASReal GetFontSizeFromAITextFrame(AIArtHandle textFrame);
 //This function assumes the art handle passed is a valid textFrame, will return 0 if it is not
 //Returns the first font size encountered in the text frame
@@ -38,18 +35,12 @@ ASReal GetFontSizeFromAITextFrame(AIArtHandle textFrame);
 //Takes the passed TextFrame art object and passes each text run to the passed callback function
 bool ProcessTextFrameArt(AIArtHandle textFrame, std::function<bool(ATE::ITextRange)> callback);
 
-//Checks if a Text Range is composed entirely of whitespace characters
-bool IsAllWhitespace(ATE::ITextRange theRange);
-
 //Retrieves the color of a Text Range
 // 0 = FILL,     1 = STROKE    DEFAULT = FILL
 AIColor GetAIColorFromATETextRange(ATE::ITextRange theRange, bool fillOrStroke = 0);
 
 //Sets the color of a Text Range
 void SetAIColorForATETextRange(ATE::ITextRange theRange, AIColor theColor, bool fillOrStroke = 0);
-
-//Turns a std::string into a ASUnicode array, returns the size of the array+terminator
-size_t StdStringToASUnicode(const std::string text, ASUnicode* buffer, size_t bufferMax);
 
 string GetFontNameFromFeatures(const BtAteTextFeatures features);
 string GetPostscriptFontNameFromFeatures(const BtAteTextFeatures features);

@@ -34,8 +34,12 @@ void FixupReload(Plugin* plugin)
 }
 
 SafeguardToolsPlugin::SafeguardToolsPlugin(SPPluginRef pluginRef) :
-	Plugin(pluginRef),
-    fRegisterEventNotifierHandle(NULL)
+    Plugin(pluginRef),
+    fRegisterEventNotifierHandle(NULL),
+    fAppStartedNotifierHandle(NULL),
+    fDocOpenedNotifierHandle(NULL),
+    fArtSelectionChangeNotifierHandle(NULL),
+    fDocumentCropAreaModifiedNotifierHandle(NULL)
 {
 	strncpy(fPluginName, kSafeguardToolsPluginName, kMaxStringLength);
 }
@@ -48,20 +52,20 @@ ASErr SafeguardToolsPlugin::Message(char* caller, char* selector, void *message)
 {
 	ASErr error = kNoErr;
     
-    if (strcmp(caller, kCallerAIPluginGroup) == 0)
+/*    if (strcmp(caller, kCallerAIPluginGroup) == 0)
     {
         if (strcmp( selector, kSelectorAINotifyEdits ) == 0)
         {
-            //error = BleedInfo::PluginGroupNotify((AIPluginGroupMessage *)message);
+            error = BleedInfo::PluginGroupNotify((AIPluginGroupMessage *)message);
         }
         else if (strcmp( selector, kSelectorAIUpdateArt ) == 0)
         {
-            //error = BleedInfo::PluginGroupUpdate((AIPluginGroupMessage *)message);
+            error = BleedInfo::PluginGroupUpdate((AIPluginGroupMessage *)message);
         }
     }
     else
     {
-        try
+ */       try
         {
             error = Plugin::Message(caller, selector, message);
         }
@@ -73,7 +77,7 @@ ASErr SafeguardToolsPlugin::Message(char* caller, char* selector, void *message)
         {
             error = kCantHappenErr;
         }
-    }
+//    }
     
     if (error)
     {
@@ -104,31 +108,18 @@ ASErr SafeguardToolsPlugin::StartupPlugin( SPInterfaceMessage *message )
     error = Plugin::StartupPlugin(message);
     if (error) { return error; }
     
-    if (NULL == colorToolsUIController)
-    {
-        colorToolsUIController = std::make_shared<ColorToolsUIController>();
-        
-        error = Plugin::LockPlugin(true);
-        if (error) { return error; }
-    }
-    
-    if (NULL == printToPdfUIController)
-    {
-        printToPdfUIController = std::make_shared<PrintToPdf::PrintToPdfUIController>();
-        
-        error = Plugin::LockPlugin(true);
-        if (error) { return error; }
-    }
-    
-    if (NULL == plateBleedInfoUIController)
-    {
-        plateBleedInfoUIController = std::make_shared<SafeguardFile::PlateBleedInfoUIController>();
-        
-        error = Plugin::LockPlugin(true);
-        if (error) { return error; }
-    }
-    
     error = this->AddMenus(message);
+    if (error) { return error; }
+    
+    //Register PlateBleedInfo plugin group
+    pluginGroupData.major = 1;
+    pluginGroupData.minor = 0;
+    pluginGroupData.desc = "__SafeguardPlateInfo__";
+    error = sAIPluginGroup->AddAIPluginGroup (message->d.self,
+                                      CREATE_PLATE_BLEED_INFO_PLUGIN_GROUP,
+                                      &pluginGroupData,
+                                      kPluginGroupKeepWhenEmptyOption | kPluginGroupDoNotTarget | kPluginGroupDoNotSmartTarget | kPluginGroupAskToShowContents,
+                                      &bleedInfoPluginGroupHandle);
     if (error) { return error; }
     
     //Register for notifiers
@@ -142,28 +133,11 @@ ASErr SafeguardToolsPlugin::StartupPlugin( SPInterfaceMessage *message )
                                      kAIDocumentOpenedNotifier, &fDocOpenedNotifierHandle);
     if (error) { return error; }
     error = sAINotifier->AddNotifier( fPluginRef, kSafeguardToolsPluginName,
-                                     kAIArtCustomColorChangedNotifier, &fCustomColorChangeNotifierHandle);
-    if (error) { return error; }
-    error = sAINotifier->AddNotifier( fPluginRef, kSafeguardToolsPluginName,
-                                     kAISwatchLibraryChangedNotifier, &fSwatchLibChangeNotifierHandle);
-    if (error) { return error; }
-    error = sAINotifier->AddNotifier( fPluginRef, kSafeguardToolsPluginName,
                                      kAIArtSelectionChangedNotifier, &fArtSelectionChangeNotifierHandle);
     if (error) { return error; }
     error = sAINotifier->AddNotifier( fPluginRef, kSafeguardToolsPluginName,
                                      kAIDocumentCropAreaModifiedNotifier, &fDocumentCropAreaModifiedNotifierHandle);
     if (error) { return error; }
-    
-    //Register PlateBleedInfo plugin group
-    AIAddPluginGroupData pluginGroupData;
-    pluginGroupData.major = 1;
-    pluginGroupData.minor = 0;
-    pluginGroupData.desc = "__SafeguardPlateInfo__";
-    sAIPluginGroup->AddAIPluginGroup (message->d.self,
-                                      CREATE_PLATE_BLEED_INFO_PLUGIN_GROUP,
-                                      &pluginGroupData,
-                                      kPluginGroupKeepWhenEmptyOption | kPluginGroupDoNotTarget | kPluginGroupDoNotSmartTarget | kPluginGroupAskToShowContents,
-                                      &bleedInfoPluginGroupHandle);
     
     return error;
 }
@@ -204,7 +178,34 @@ ASErr SafeguardToolsPlugin::UnloadPlugin(SPInterfaceMessage *message)
  */
 ASErr SafeguardToolsPlugin::PostStartupPlugin()
 {
-    return kNoErr;
+    ASErr error = kNoErr;
+    
+    if (NULL == colorToolsUIController)
+    {
+        colorToolsUIController = std::make_shared<ColorToolsUIController>();
+        
+        error = Plugin::LockPlugin(true);
+        if (error) { return error; }
+    }
+    
+    if (NULL == printToPdfUIController)
+    {
+        printToPdfUIController = std::make_shared<PrintToPdf::PrintToPdfUIController>();
+        
+        error = Plugin::LockPlugin(true);
+        if (error) { return error; }
+    }
+    
+    if (NULL == plateBleedInfoUIController)
+    {
+        plateBleedInfoUIController = std::make_shared<SafeguardFile::PlateBleedInfoUIController>();
+        
+        error = Plugin::LockPlugin(true);
+        if (error) { return error; }
+    }
+
+    
+    return error;
 }
 
 /*
@@ -217,19 +218,19 @@ ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
     
     menuItem.groupName = kEditMenuGroup;
     menuItem.itemText = ai::UnicodeString(MODIFY_SWATCHES_MENU);
-    BtAiMenuItem* ModifySwatchesMenu = new BtAiMenuItem(menuItem, kMenuGroupSortedAlphabeticallyOption);
+    BtAiMenuItem ModifySwatchesMenu = BtAiMenuItem(menuItem, kMenuGroupSortedAlphabeticallyOption);
     
     menuItem.groupName = modifySwatchesGroup;
     menuItem.itemText = ai::UnicodeString(FIX_BLACK_MENU_ITEM);
-    BtAiMenuItem* FixBlackMenuItem = new BtAiMenuItem(menuItem, kMenuItemNoOptions);
-    ModifySwatchesMenu->AddSubMenuItem(*FixBlackMenuItem);
+    BtAiMenuItem FixBlackMenuItem = BtAiMenuItem(menuItem, kMenuItemNoOptions);
+    ModifySwatchesMenu.AddSubMenuItem(FixBlackMenuItem);
     
     menuItem.groupName = modifySwatchesGroup;
     menuItem.itemText = ai::UnicodeString(FIND_AND_REPLACE_MENU_ITEM);
-    BtAiMenuItem* FindAndReplaceGraphicsMenuItem = new BtAiMenuItem(menuItem, kMenuItemWantsUpdateOption);
-    ModifySwatchesMenu->AddSubMenuItem(*FindAndReplaceGraphicsMenuItem);
+    BtAiMenuItem FindAndReplaceGraphicsMenuItem = BtAiMenuItem(menuItem, kMenuItemWantsUpdateOption);
+    ModifySwatchesMenu.AddSubMenuItem(FindAndReplaceGraphicsMenuItem);
     
-    BtAiMenuItem::AddMenu(*ModifySwatchesMenu, &menuItemHandles);
+    BtAiMenuItem::AddMenu(ModifySwatchesMenu, &menuItemHandles);
     
 	
     //TEXT TOOLS MENU
@@ -237,21 +238,21 @@ ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
     
     menuItem.groupName = kTypeLayoutMenuGroup;
     menuItem.itemText = ai::UnicodeString(TEXT_TOOLS_MENU);
-    BtAiMenuItem* TextToolsMenu = new BtAiMenuItem(menuItem, kMenuGroupSortedAlphabeticallyOption);
+    BtAiMenuItem TextToolsMenu = BtAiMenuItem(menuItem, kMenuGroupSortedAlphabeticallyOption);
     
 /*    menuItem.groupName = textToolsGroup;
     menuItem.itemText = ai::UnicodeString(MAKE_POINT_TYPE_MENU_ITEM);
-    BtAiMenuItem* MakePointTypeMenuItem = new BtAiMenuItem(menuItem, kMenuItemNoOptions);
-    MakePointTypeMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, kIfText, 0, 0, 0);
-    TextToolsMenu->AddSubMenuItem(*MakePointTypeMenuItem);
+    BtAiMenuItem MakePointTypeMenuItem = BtAiMenuItem(menuItem, kMenuItemNoOptions);
+    MakePointTypeMenuItem.SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, kIfText, 0, 0, 0);
+    TextToolsMenu.AddSubMenuItem(MakePointTypeMenuItem);
 */
     menuItem.groupName = textToolsGroup;
     menuItem.itemText = ai::UnicodeString(FIX_FREEHAND_TYPE_MENU_ITEM);
-    BtAiMenuItem* FixFreehandTypeMenuItem = new BtAiMenuItem(menuItem, kMenuItemNoOptions);
-    FixFreehandTypeMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, kIfText, 0, 0, 0);
-    TextToolsMenu->AddSubMenuItem(*FixFreehandTypeMenuItem);
+    BtAiMenuItem FixFreehandTypeMenuItem = BtAiMenuItem(menuItem, kMenuItemNoOptions);
+    FixFreehandTypeMenuItem.SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, kIfText, 0, 0, 0);
+    TextToolsMenu.AddSubMenuItem(FixFreehandTypeMenuItem);
     
-    BtAiMenuItem::AddMenu(*TextToolsMenu, &menuItemHandles);
+    BtAiMenuItem::AddMenu(TextToolsMenu, &menuItemHandles);
     
     
     //ALIGN MENU
@@ -259,63 +260,63 @@ ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
     
     menuItem.groupName = kObjectAttribsMenuGroup;
     menuItem.itemText = ai::UnicodeString(ALIGN_MENU);
-    BtAiMenuItem* AlignMenu = new BtAiMenuItem(menuItem, kMenuGroupSortedAlphabeticallyOption);
+    BtAiMenuItem AlignMenu = BtAiMenuItem(menuItem, kMenuGroupSortedAlphabeticallyOption);
     
     menuItem.groupName = alignGroup;
     menuItem.itemText = ai::UnicodeString(ALIGN_LEFT_MENU_ITEM);
-    BtAiMenuItem* AlignLeftMenuItem = new BtAiMenuItem(menuItem, kMenuItemIgnoreSort);
-    AlignLeftMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, kIfAnyArt, 0, 0, 0);
-    AlignMenu->AddSubMenuItem(*AlignLeftMenuItem);
+    BtAiMenuItem AlignLeftMenuItem = BtAiMenuItem(menuItem, kMenuItemIgnoreSort);
+    AlignLeftMenuItem.SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, kIfAnyArt, 0, 0, 0);
+    AlignMenu.AddSubMenuItem(AlignLeftMenuItem);
     
     menuItem.groupName = alignGroup;
     menuItem.itemText = ai::UnicodeString(ALIGN_CENTER_MENU_ITEM);
-    BtAiMenuItem* AlignCenterMenuItem = new BtAiMenuItem(menuItem, kMenuItemIgnoreSort);
-    AlignCenterMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, kIfAnyArt, 0, 0, 0);
-    AlignMenu->AddSubMenuItem(*AlignCenterMenuItem);
+    BtAiMenuItem AlignCenterMenuItem = BtAiMenuItem(menuItem, kMenuItemIgnoreSort);
+    AlignCenterMenuItem.SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, kIfAnyArt, 0, 0, 0);
+    AlignMenu.AddSubMenuItem(AlignCenterMenuItem);
     
     menuItem.groupName = alignGroup;
     menuItem.itemText = ai::UnicodeString(ALIGN_RIGHT_MENU_ITEM);
-    BtAiMenuItem* AlignRightMenuItem = new BtAiMenuItem(menuItem, kMenuItemIgnoreSort);
-    AlignRightMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, kIfAnyArt, 0, 0, 0);
-    AlignMenu->AddSubMenuItem(*AlignRightMenuItem);
+    BtAiMenuItem AlignRightMenuItem = BtAiMenuItem(menuItem, kMenuItemIgnoreSort);
+    AlignRightMenuItem.SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, kIfAnyArt, 0, 0, 0);
+    AlignMenu.AddSubMenuItem(AlignRightMenuItem);
     
-    BtAiMenuItem::AddMenu(*AlignMenu, &menuItemHandles);
+    BtAiMenuItem::AddMenu(AlignMenu, &menuItemHandles);
 
     
     //CREATE MICR BARCODE
     menuItem.groupName = kTypePluginsMenuGroup1;
     menuItem.itemText = ai::UnicodeString(CREATE_MICR_BARCODE_MENU_ITEM);
-    BtAiMenuItem* CreateMicrBarcodeMenuItem = new BtAiMenuItem(menuItem, kMenuItemIgnoreSort|kMenuItemWantsUpdateOption);
+    BtAiMenuItem CreateMicrBarcodeMenuItem = BtAiMenuItem(menuItem, kMenuItemIgnoreSort|kMenuItemWantsUpdateOption);
     
-    BtAiMenuItem::AddMenu(*CreateMicrBarcodeMenuItem, &menuItemHandles);
+    BtAiMenuItem::AddMenu(CreateMicrBarcodeMenuItem, &menuItemHandles);
     
     
     //List Fonts
     menuItem.groupName = kTypePluginsMenuGroup1;
     menuItem.itemText = ai::UnicodeString(LIST_FONTS_MENU_ITEM);
-    BtAiMenuItem* ListFontsMenuItem = new BtAiMenuItem(menuItem, kMenuItemIgnoreSort);
-    ListFontsMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, 0, 0, kIfOpenDocument, 0);
+    BtAiMenuItem ListFontsMenuItem = BtAiMenuItem(menuItem, kMenuItemIgnoreSort);
+    ListFontsMenuItem.SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, 0, 0, kIfOpenDocument, 0);
     
-    BtAiMenuItem::AddMenu(*ListFontsMenuItem, &menuItemHandles);
+    BtAiMenuItem::AddMenu(ListFontsMenuItem, &menuItemHandles);
     
 
     //PRINT TO PDF
     menuItem.groupName = kSaveForMenuGroup;
     menuItem.itemText = ai::UnicodeString(PRINT_TO_PDF_MENU_ITEM);
-    BtAiMenuItem* PrintToPdfMenuItem = new BtAiMenuItem(menuItem, kMenuItemNoOptions);
-    PrintToPdfMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, 0, 0, kIfOpenDocument, 0);
+    BtAiMenuItem PrintToPdfMenuItem = BtAiMenuItem(menuItem, kMenuItemNoOptions);
+    PrintToPdfMenuItem.SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, 0, 0, kIfOpenDocument, 0);
     
-    BtAiMenuItem::AddMenu(*PrintToPdfMenuItem, &menuItemHandles);
+    BtAiMenuItem::AddMenu(PrintToPdfMenuItem, &menuItemHandles);
 
     
-/*    //CREATE SLUG INFO
+    //CREATE SLUG INFO
     menuItem.groupName = kDocumentUtilsMenuGroup;
     menuItem.itemText = ai::UnicodeString(CREATE_PLATE_BLEED_INFO_MENU_ITEM);
-    BtAiMenuItem* CreatePlateBleedInfoMenuItem = new BtAiMenuItem(menuItem, kMenuItemWantsUpdateOption);
-    CreatePlateBleedInfoMenuItem->SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, 0, 0, kIfOpenDocument, 0);
+    BtAiMenuItem CreatePlateBleedInfoMenuItem = BtAiMenuItem(menuItem, kMenuItemWantsUpdateOption);
+    CreatePlateBleedInfoMenuItem.SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, 0, 0, kIfOpenDocument, 0);
     
-    BtAiMenuItem::AddMenu(*CreatePlateBleedInfoMenuItem, &menuItemHandles);
-*/
+    BtAiMenuItem::AddMenu(CreatePlateBleedInfoMenuItem, &menuItemHandles);
+
     return kNoErr;
  
 }
@@ -407,10 +408,10 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
         printToPdfUIController->LoadExtension();
         sAICSXSExtension->LaunchExtension(PrintToPdf::PrintToPdfUIController::PRINTTOPDF_UI_EXTENSION);
     }
-/*    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
+    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
     {
-        unique_ptr<DictionaryWriter> dw = make_unique<DictionaryWriter>();
-        if ( dw->CheckDictionaryForArtObjectWithIdentifier(SafeguardFile::PLATE_BLEED_INFO_GROUP_LABEL, 0) )
+        DictionaryWriter dw;
+        if ( dw.CheckDictionaryForArtObjectWithIdentifier(SafeguardFile::PLATE_BLEED_INFO_GROUP_LABEL, 0) )
         {
             SafeguardJobFile sgJobFile;
             sgJobFile.EditBleedInfo();
@@ -423,7 +424,6 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
             sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Add Safeguard Plate Info"), ai::UnicodeString("Redo Add Safeguard Plate Info"));
         }
     }
-*/
 	
 	if (error)
 		goto error;
@@ -455,8 +455,8 @@ ASErr SafeguardToolsPlugin::UpdateMenuItem(AIMenuMessage* message)
     {
         //Check if we have a micr line object in the document dictionary
         //If we do, nothing needs to be selected, as we already know where the micr line is
-        unique_ptr<DictionaryWriter> dw = make_unique<DictionaryWriter>();
-        if (dw->CheckDictionaryForArtObjectWithIdentifier(MICR_LINE_LABEL) )
+        DictionaryWriter dw;
+        if (dw.CheckDictionaryForArtObjectWithIdentifier(MICR_LINE_LABEL) )
         {
             sAIMenu->EnableItem(message->menuItem);
         }
@@ -473,12 +473,12 @@ ASErr SafeguardToolsPlugin::UpdateMenuItem(AIMenuMessage* message)
         }
     }
     
-/*    if (message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
+    if (message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
     {
         //Check if we have a bleed info in the dictionary
         //If we do, change to "Remove"
-        unique_ptr<DictionaryWriter> dw = make_unique<DictionaryWriter>();
-        if ( dw->CheckDictionaryForArtObjectWithIdentifier(SafeguardFile::PLATE_BLEED_INFO_GROUP_LABEL, 0) )
+        DictionaryWriter dw;
+        if ( dw.CheckDictionaryForArtObjectWithIdentifier(SafeguardFile::PLATE_BLEED_INFO_GROUP_LABEL, 0) )
         {
             sAIMenu->SetItemText( message->menuItem, ai::UnicodeString("Edit Safeguard Plate Info") );
         }
@@ -487,13 +487,22 @@ ASErr SafeguardToolsPlugin::UpdateMenuItem(AIMenuMessage* message)
             sAIMenu->SetItemText( message->menuItem, ai::UnicodeString("Add Safeguard Plate Info") );
         }
     }
-*/
 
 	if (error)
 		goto error;
 
 error:
 	return error;
+}
+
+ASErr SafeguardToolsPlugin::PluginGroupUpdate(AIPluginGroupMessage* message)
+{
+    ASErr result = kNoErr;
+    
+    SafeguardJobFile sgJobFile;
+    sgJobFile.AddBleedInfo();
+    
+    return result;
 }
 
 ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
@@ -510,9 +519,7 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
         // Whatever we want to do when the app starts
     }
     
-    if (message->notifier == fDocOpenedNotifierHandle ||
-        message->notifier == fCustomColorChangeNotifierHandle ||
-        message->notifier == fSwatchLibChangeNotifierHandle )
+    if (message->notifier == fDocOpenedNotifierHandle)
     {
         BtSwatchList swatchList;
         string swatchesXml = swatchList.GetColorListAsXMLString();
@@ -525,8 +532,10 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
     }
     if (message->notifier == fDocumentCropAreaModifiedNotifierHandle )
     {
-//        SafeguardJobFile sgJobFile;
-//        sgJobFile.UpdateBleedInfo();
+        sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, false);
+        SafeguardJobFile sgJobFile;
+        sgJobFile.UpdateBleedInfo();
+        sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, true);
     }
     return kNoErr;
 }

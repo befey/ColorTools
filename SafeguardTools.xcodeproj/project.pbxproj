@@ -68,7 +68,7 @@
 		F979B6011CA31E78004BA4AD /* SDKPlugPlug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F979B6001CA31E78004BA4AD /* SDKPlugPlug.cpp */; };
 		F979B6031CA31E81004BA4AD /* FlashUIController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F979B6021CA31E81004BA4AD /* FlashUIController.cpp */; };
 		F979B6051CA31E87004BA4AD /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F979B6041CA31E87004BA4AD /* Main.cpp */; };
-		F979B6071CA31E8B004BA4AD /* Plugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F979B6061CA31E8B004BA4AD /* Plugin.cpp */; };
+		F979B6071CA31E8B004BA4AD /* Plugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F979B6061CA31E8B004BA4AD /* Plugin.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
 		F979B6091CA31E8E004BA4AD /* Suites.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F979B6081CA31E8E004BA4AD /* Suites.cpp */; };
 		F979B60B1CA31E92004BA4AD /* IllustratorSDK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F979B60A1CA31E92004BA4AD /* IllustratorSDK.cpp */; };
 		F97B564E1D36759500C10A9F /* LayerVisibility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F97B564C1D36759400C10A9F /* LayerVisibility.cpp */; };
@@ -91,6 +91,8 @@
 		F98BAEDE1CA99E1E00965D86 /* ArtTree.h in Headers */ = {isa = PBXBuildFile; fileRef = F98BAEDC1CA99E1E00965D86 /* ArtTree.h */; };
 		F98BAEE11CA9A0D100965D86 /* BtAiMenuItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F98BAEDF1CA9A0D100965D86 /* BtAiMenuItem.cpp */; };
 		F98BAEE21CA9A0D100965D86 /* BtAiMenuItem.h in Headers */ = {isa = PBXBuildFile; fileRef = F98BAEE01CA9A0D100965D86 /* BtAiMenuItem.h */; };
+		F992803B1D6B723F00E7EBF2 /* PlateBleedInfoDTO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F99280391D6B723F00E7EBF2 /* PlateBleedInfoDTO.cpp */; };
+		F992803C1D6B723F00E7EBF2 /* PlateBleedInfoDTO.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F992803A1D6B723F00E7EBF2 /* PlateBleedInfoDTO.hpp */; };
 		F9C44EF01D0AF26100205ADF /* Plate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9C44EEE1D0AF26100205ADF /* Plate.cpp */; };
 		F9C44EF11D0AF26100205ADF /* Plate.h in Headers */ = {isa = PBXBuildFile; fileRef = F9C44EEF1D0AF26100205ADF /* Plate.h */; };
 		F9C44EF41D0AF51100205ADF /* TickMarkDrawer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9C44EF21D0AF51100205ADF /* TickMarkDrawer.cpp */; };
@@ -114,7 +116,6 @@
 		F9F079631D47ED21004AC522 /* BleedInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9F079621D47ED21004AC522 /* BleedInfo.cpp */; };
 		F9F079661D47EEC1004AC522 /* TickMarkSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9F079641D47EEC1004AC522 /* TickMarkSettings.cpp */; };
 		F9F079671D47EEC1004AC522 /* TickMarkSettings.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9F079651D47EEC1004AC522 /* TickMarkSettings.hpp */; };
-		F9F0796A1D4BC7D1004AC522 /* IDrawer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9F079691D4BC7D1004AC522 /* IDrawer.cpp */; };
 		F9F1EB6B1D1B19AF0051B716 /* ColorList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9F1EB691D1B19AF0051B716 /* ColorList.cpp */; };
 		F9F1EB6C1D1B19AF0051B716 /* ColorList.h in Headers */ = {isa = PBXBuildFile; fileRef = F9F1EB6A1D1B19AF0051B716 /* ColorList.h */; };
 		F9F55E531CB42D2900FA20EC /* SDKErrors.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9F55E521CB42D2900FA20EC /* SDKErrors.cpp */; };
@@ -232,6 +233,8 @@
 		F98BAEDC1CA99E1E00965D86 /* ArtTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ArtTree.h; path = "Source/utility-headers/ArtTree.h"; sourceTree = "<group>"; };
 		F98BAEDF1CA9A0D100965D86 /* BtAiMenuItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BtAiMenuItem.cpp; path = "Source/utility-headers/BtAiMenuItem.cpp"; sourceTree = "<group>"; };
 		F98BAEE01CA9A0D100965D86 /* BtAiMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BtAiMenuItem.h; path = "Source/utility-headers/BtAiMenuItem.h"; sourceTree = "<group>"; };
+		F99280391D6B723F00E7EBF2 /* PlateBleedInfoDTO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlateBleedInfoDTO.cpp; path = Source/PlateBleedInfo/PlateBleedInfoDTO.cpp; sourceTree = "<group>"; };
+		F992803A1D6B723F00E7EBF2 /* PlateBleedInfoDTO.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PlateBleedInfoDTO.hpp; path = Source/PlateBleedInfo/PlateBleedInfoDTO.hpp; sourceTree = "<group>"; };
 		F9C44EEE1D0AF26100205ADF /* Plate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Plate.cpp; path = Source/SafeguardFile/Plate.cpp; sourceTree = "<group>"; };
 		F9C44EEF1D0AF26100205ADF /* Plate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Plate.h; path = Source/SafeguardFile/Plate.h; sourceTree = "<group>"; };
 		F9C44EF21D0AF51100205ADF /* TickMarkDrawer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TickMarkDrawer.cpp; path = Source/PlateBleedInfo/TickMarkDrawer.cpp; sourceTree = "<group>"; };
@@ -256,8 +259,7 @@
 		F9F079621D47ED21004AC522 /* BleedInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BleedInfo.cpp; path = Source/PlateBleedInfo/BleedInfo.cpp; sourceTree = "<group>"; };
 		F9F079641D47EEC1004AC522 /* TickMarkSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TickMarkSettings.cpp; path = Source/PlateBleedInfo/TickMarkSettings.cpp; sourceTree = "<group>"; };
 		F9F079651D47EEC1004AC522 /* TickMarkSettings.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TickMarkSettings.hpp; path = Source/PlateBleedInfo/TickMarkSettings.hpp; sourceTree = "<group>"; };
-		F9F079681D4BC4D3004AC522 /* IDrawer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IDrawer.h; path = Source/PlateBleedInfo/IDrawer.h; sourceTree = "<group>"; };
-		F9F079691D4BC7D1004AC522 /* IDrawer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IDrawer.cpp; path = Source/PlateBleedInfo/IDrawer.cpp; sourceTree = "<group>"; };
+		F9F079681D4BC4D3004AC522 /* IDrawer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IDrawer.h; path = "Source/utility-headers/IDrawer.h"; sourceTree = SOURCE_ROOT; };
 		F9F1EB691D1B19AF0051B716 /* ColorList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ColorList.cpp; path = Source/PlateBleedInfo/ColorList.cpp; sourceTree = "<group>"; };
 		F9F1EB6A1D1B19AF0051B716 /* ColorList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColorList.h; path = Source/PlateBleedInfo/ColorList.h; sourceTree = "<group>"; };
 		F9F55E521CB42D2900FA20EC /* SDKErrors.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SDKErrors.cpp; path = "../Adobe Illustrator 2015.3 SDK/samplecode/common/source/SDKErrors.cpp"; sourceTree = "<group>"; };
@@ -431,24 +433,15 @@
 				F937ABF81D551E1F006DD5C4 /* PlateBleedInfo.html */,
 				F937ABF71D551E1F006DD5C4 /* PlateBleedInfo.js */,
 				F937AC001D551ED7006DD5C4 /* PlateBleedInfo.css */,
-				F9F079621D47ED21004AC522 /* BleedInfo.cpp */,
-				F910BD691D09FA910029DF62 /* BleedInfo.h */,
-				F9DA3B8F1D1C5EFA00AB6156 /* BleedInfoDrawer.cpp */,
-				F9DA3B901D1C5EFA00AB6156 /* BleedInfoDrawer.h */,
-				F9DA3B9B1D1D7E6200AB6156 /* BleedTextInfoDrawer.cpp */,
-				F9DA3B9C1D1D7E6200AB6156 /* BleedTextInfoDrawer.h */,
-				F9F1EB691D1B19AF0051B716 /* ColorList.cpp */,
-				F9F1EB6A1D1B19AF0051B716 /* ColorList.h */,
-				F9DA3B931D1C6C7D00AB6156 /* ColorListDrawer.cpp */,
-				F9DA3B941D1C6C7D00AB6156 /* ColorListDrawer.h */,
-				F9DA3B971D1C6C9300AB6156 /* FileNameDateDrawer.cpp */,
-				F9DA3B981D1C6C9300AB6156 /* FileNameDateDrawer.h */,
-				F9F079691D4BC7D1004AC522 /* IDrawer.cpp */,
-				F9F079681D4BC4D3004AC522 /* IDrawer.h */,
+				F96A0ABF1D832EA800509B39 /* Drawers */,
 				F937ABE61D5241EB006DD5C4 /* PlateBleedInfoUIController.cpp */,
 				F937ABE71D5241EB006DD5C4 /* PlateBleedInfoUIController.hpp */,
-				F9C44EF21D0AF51100205ADF /* TickMarkDrawer.cpp */,
-				F9C44EF31D0AF51100205ADF /* TickMarkDrawer.h */,
+				F99280391D6B723F00E7EBF2 /* PlateBleedInfoDTO.cpp */,
+				F992803A1D6B723F00E7EBF2 /* PlateBleedInfoDTO.hpp */,
+				F9F079621D47ED21004AC522 /* BleedInfo.cpp */,
+				F910BD691D09FA910029DF62 /* BleedInfo.h */,
+				F9F1EB691D1B19AF0051B716 /* ColorList.cpp */,
+				F9F1EB6A1D1B19AF0051B716 /* ColorList.h */,
 				F9F079641D47EEC1004AC522 /* TickMarkSettings.cpp */,
 				F9F079651D47EEC1004AC522 /* TickMarkSettings.hpp */,
 			);
@@ -485,6 +478,23 @@
 			name = ListFonts;
 			sourceTree = "<group>";
 		};
+		F96A0ABF1D832EA800509B39 /* Drawers */ = {
+			isa = PBXGroup;
+			children = (
+				F9DA3B8F1D1C5EFA00AB6156 /* BleedInfoDrawer.cpp */,
+				F9DA3B901D1C5EFA00AB6156 /* BleedInfoDrawer.h */,
+				F9DA3B9B1D1D7E6200AB6156 /* BleedTextInfoDrawer.cpp */,
+				F9DA3B9C1D1D7E6200AB6156 /* BleedTextInfoDrawer.h */,
+				F9DA3B931D1C6C7D00AB6156 /* ColorListDrawer.cpp */,
+				F9DA3B941D1C6C7D00AB6156 /* ColorListDrawer.h */,
+				F9DA3B971D1C6C9300AB6156 /* FileNameDateDrawer.cpp */,
+				F9DA3B981D1C6C9300AB6156 /* FileNameDateDrawer.h */,
+				F9C44EF21D0AF51100205ADF /* TickMarkDrawer.cpp */,
+				F9C44EF31D0AF51100205ADF /* TickMarkDrawer.h */,
+			);
+			name = Drawers;
+			sourceTree = "<group>";
+		};
 		F989A8CF1CA4606E0050C071 /* My Headers */ = {
 			isa = PBXGroup;
 			children = (
@@ -513,6 +523,7 @@
 				F90E3F9B1CA475880081C333 /* ColorFuncs.cpp */,
 				F90E3F9C1CA475880081C333 /* ColorFuncs.h */,
 				F9DA3B8E1D1C4A4A00AB6156 /* GetIllustratorErrorCode.h */,
+				F9F079681D4BC4D3004AC522 /* IDrawer.h */,
 				F947263E1CB2E1F400649020 /* VPB.cpp */,
 				F947263D1CB2E1F400649020 /* VPB.h */,
 			);
@@ -531,6 +542,7 @@
 				F9158D521D05EC4700343D57 /* PathBuilder.h in Headers */,
 				F9F1EB6C1D1B19AF0051B716 /* ColorList.h in Headers */,
 				F9C44EF11D0AF26100205ADF /* Plate.h in Headers */,
+				F992803C1D6B723F00E7EBF2 /* PlateBleedInfoDTO.hpp in Headers */,
 				F90E3F9E1CA475880081C333 /* ATEFuncs.h in Headers */,
 				F910BD6B1D09FA910029DF62 /* BleedInfo.h in Headers */,
 				F90AE3F31CAAF8AF0076A9BC /* BtAiMenuItemHandles.h in Headers */,
@@ -606,7 +618,7 @@
 		508817C409F0C9740071BF1A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 			};
 			buildConfigurationList = 508817C509F0C9740071BF1A /* Build configuration list for PBXProject "SafeguardTools" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -671,6 +683,7 @@
 				F9DA3B9D1D1D7E6200AB6156 /* BleedTextInfoDrawer.cpp in Sources */,
 				F9FEC8291CB576280097473A /* IAIArtboards.cpp in Sources */,
 				F9158D551D05FBE900343D57 /* ExistingFileDeleter.cpp in Sources */,
+				F992803B1D6B723F00E7EBF2 /* PlateBleedInfoDTO.cpp in Sources */,
 				F90AE3F21CAAF8AF0076A9BC /* BtAiMenuItemHandles.cpp in Sources */,
 				F9FAE8FE1CBD87E700938893 /* BtArtboardRange.cpp in Sources */,
 				F989A8F31CA465F30050C071 /* IThrowException.cpp in Sources */,
@@ -681,7 +694,6 @@
 				F9C44EF01D0AF26100205ADF /* Plate.cpp in Sources */,
 				F90E3F9F1CA475880081C333 /* BtColor.cpp in Sources */,
 				F9E284281D254E2D001B0F98 /* PathCreator.cpp in Sources */,
-				F9F0796A1D4BC7D1004AC522 /* IDrawer.cpp in Sources */,
 				F9CE24FA1D11A56E0075DDDF /* TextTools.cpp in Sources */,
 				F9DA3B951D1C6C7D00AB6156 /* ColorListDrawer.cpp in Sources */,
 				F98BAEE11CA9A0D100965D86 /* BtAiMenuItem.cpp in Sources */,
@@ -728,23 +740,40 @@
 				AI_LOCALE = en_US;
 				AI_PLATFORM = xcode;
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CONFIGURATION_BUILD_DIR = "$(PATH_TO_SDK_SAMPLECODE_FOLDER)/output/mac/$(AI_CONFIGURATION)";
 				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)/Default";
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DSTROOT = "/tmp/$(PROJECT_NAME).dst";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				EXPORTED_SYMBOLS_FILE = "";
 				FRAMEWORK_SEARCH_PATHS = "$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)";
 				GCC_DEBUGGING_SYMBOLS = used;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.cpp;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common/includes/IllustratorSDK$(AI_CONFIGURATION).pch";
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNKNOWN_PRAGMAS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = "";
@@ -791,23 +820,40 @@
 				AI_LOCALE = en_US;
 				AI_PLATFORM = xcode;
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CONFIGURATION_BUILD_DIR = "$(PATH_TO_SDK_SAMPLECODE_FOLDER)/output/mac/$(AI_CONFIGURATION)";
 				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)/Default";
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DSTROOT = "/tmp/$(PROJECT_NAME).dst";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				EXPORTED_SYMBOLS_FILE = "";
 				FRAMEWORK_SEARCH_PATHS = "$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)";
 				GCC_DEBUGGING_SYMBOLS = used;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.cpp;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common/includes/IllustratorSDK$(AI_CONFIGURATION).pch";
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNKNOWN_PRAGMAS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = "";

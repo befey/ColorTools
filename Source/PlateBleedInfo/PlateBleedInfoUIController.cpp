@@ -12,7 +12,11 @@
 #include "SafeguardToolsSuites.h"
 #include "BtDocumentView.hpp"
 #include "GetIllustratorErrorCode.h"
+#include "PlateBleedInfoDTO.hpp"
 #include "rapidjson/document.h"
+
+#include "cereal/cereal.hpp"
+#include "cereal/types/vector.hpp"
 #include "cereal/archives/json.hpp"
 
 using SafeguardFile::PlateBleedInfoUIController;
@@ -37,6 +41,38 @@ void PlateBleedInfoUIController::PanelLoaded (const csxs::event::Event* const ev
     return;
 }
 
+void PlateBleedInfoUIController::OkButtonClickedFunc (const csxs::event::Event* const event, void* const context)
+{
+    PlateBleedInfoUIController *plateBleedInfoUIController = (PlateBleedInfoUIController *)context;
+    if (NULL == plateBleedInfoUIController || event == NULL)
+    {
+        return;
+    }
+    
+    do {
+        // Set up the application context, so that suite calls can work.
+        AppContext appContext(gPlugin->GetPluginRef());
+        
+        SafeguardFile::PlateBleedInfoDTO plateBleedInfoDTO;
+        std::stringstream ss(event->data);
+        {
+            cereal::JSONInputArchive iarchive(ss); // Create an input archive
+            iarchive(plateBleedInfoDTO);
+        }
+        
+        plateBleedInfoDTO.WriteToDocumentDictionary();
+        SafeguardJobFile sgJobFile;
+        sgJobFile.UpdateBleedInfo();  //Refresh the file with the new data
+        
+        BtDocumentView docView;
+        docView.RecallDocumentView();
+        
+        plateBleedInfoUIController->SendCloseMessageToHtml();
+        
+        // Clean up the application context and return.
+    } while(false);
+    return;
+}
 
 void PlateBleedInfoUIController::CancelButtonClickedFunc (const csxs::event::Event* const event, void* const context)
 {
@@ -49,6 +85,9 @@ void PlateBleedInfoUIController::CancelButtonClickedFunc (const csxs::event::Eve
     do {
         // Set up the application context, so that suite calls can work.
         AppContext appContext(gPlugin->GetPluginRef());
+        
+        BtDocumentView docView;
+        docView.RecallDocumentView();
         
         plateBleedInfoUIController->SendCloseMessageToHtml();
         
@@ -69,7 +108,6 @@ void PlateBleedInfoUIController::ChangeArtboardFunc (const csxs::event::Event* c
         // Set up the application context, so that suite calls can work.
         AppContext appContext(gPlugin->GetPluginRef());
         
-        //TODO: Center on the new artboard
         BtDocumentView docview;
         docview.SetViewOnArtboard( GetArtboardIdFromJson(event->data) );
         
@@ -98,6 +136,11 @@ csxs::event::EventErrorCode PlateBleedInfoUIController::RegisterCSXSEventListene
         {
             break;
         }
+        result =  fPPLib.AddEventListener(PLATEBLEEDINFO_DATA_FROM_EXT, OkButtonClickedFunc, this);
+        if (result != csxs::event::kEventErrorCode_Success)
+        {
+            break;
+        }
         result =  fPPLib.AddEventListener(EVENT_TYPE_CANCEL_CLICKED, CancelButtonClickedFunc, this);
         if (result != csxs::event::kEventErrorCode_Success)
         {
@@ -120,6 +163,11 @@ csxs::event::EventErrorCode PlateBleedInfoUIController::RemoveEventListeners()
     csxs::event::EventErrorCode result = csxs::event::kEventErrorCode_Success;
     do {
         result =  fPPLib.RemoveEventListener(PLATEBLEEDINFO_PANEL_LOADED, PanelLoaded, this);
+        if (result != csxs::event::kEventErrorCode_Success)
+        {
+            break;
+        }
+        result =  fPPLib.RemoveEventListener(PLATEBLEEDINFO_DATA_FROM_EXT, OkButtonClickedFunc, this);
         if (result != csxs::event::kEventErrorCode_Success)
         {
             break;
@@ -192,14 +240,12 @@ ai::ArtboardID PlateBleedInfoUIController::GetArtboardIdFromJson(const char* jso
 string PlateBleedInfoUIController::GetBleedInfoAsJson() const
 {
     std::stringstream ss;
-    SafeguardJobFile sgJobFile;
     {
+        SafeguardJobFile sgJobFile;
+        PlateBleedInfoDTO dto;
+        sgJobFile.PutDataInDTO(dto);
         cereal::JSONOutputArchive oarchive(ss); // Create an output archive
-        for (int i = 0; i < sgJobFile.GetNumPlates(); i++)
-        {
-            oarchive(cereal::make_nvp("artboard-" + to_string(i), sgJobFile.GetBleedInfo(i)));
-        }
-        
+        oarchive(CEREAL_NVP(dto));
     }
     return ss.str();
 }

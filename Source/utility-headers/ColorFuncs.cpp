@@ -12,6 +12,7 @@
 #include <regex>
 #include "GetIllustratorErrorCode.h"
 #include "SafeguardFileConstants.h"
+#include <boost/algorithm/string.hpp>
 
 const AIReal TOLERANCE = .002;
 
@@ -274,7 +275,14 @@ string GetInnerPantoneColorNumber(string fullName)
     std::smatch result;
     std::regex_search(fullName, result, r);
     
-    return result[1];
+    if (result[1] != "")
+    {
+        return result[1];
+    }
+    else
+    {
+        return fullName;
+    }
 }
 
 string GetInnerPantoneColorNumber(AIColor color)
@@ -284,6 +292,20 @@ string GetInnerPantoneColorNumber(AIColor color)
         return GetInnerPantoneColorNumber(GetColorName(color));
     }
     return "";
+}
+
+SafeguardFile::InkMethod GetInkMethodFromColorName(std::string name)
+{
+    boost::algorithm::to_upper(name);
+    for (auto method : SafeguardFile::InkMethodStrings)
+    {
+        std::size_t found = name.find(method.second);
+        if (found != string::npos)
+        {
+            return method.first;
+        }
+    }
+    return SafeguardFile::InkMethod::NONE;
 }
 
 bool SetColorByName( const string& name , AIColor &color)
@@ -350,7 +372,6 @@ bool SetColorByName( const string& name , AIColor &color)
 
 string GetColorName(const AIColor color)
 {
-    string name;
     ai::UnicodeString nameUS;
     
     if (color.kind == kCustomColor)
@@ -372,7 +393,7 @@ string GetColorName(const AIColor color)
         }
     }
     
-    return nameUS.getInStdString(kAIPlatformCharacterEncoding);;
+    return nameUS.getInStdString(kAIPlatformCharacterEncoding);
 }
 
 bool ColorIsEqual ( const AIColor& color1 , const AIColor& color2 , const bool ignoreTints )
@@ -442,7 +463,7 @@ bool ColorIsEqual ( const AIColor& color1 , const AIColor& color2 , const bool i
 }
 
 
-void nameAllColors(AIColor *color, void* userData, AIErr *result, AIBoolean *altered)
+void NameAllColors(AIColor *color, void* userData, AIErr *result, AIBoolean *altered)
 {
 	if ( sAISwatchList->GetSwatchByColor( NULL , color ) )
     {
@@ -458,7 +479,7 @@ void nameAllColors(AIColor *color, void* userData, AIErr *result, AIBoolean *alt
 
 
 
-AISwatchRef checkSwatchListForColor( AIColor& matchColor , AIReal tolerance )
+AISwatchRef CheckSwatchListForColor( AIColor& matchColor , AIReal tolerance )
 {
     AISwatchRef currSwatch;
     AIColor currColor;
@@ -679,7 +700,7 @@ void ConvertObjectsToGlobalCMYK(AIColor *color, void *userData, AIErr *result, A
             tempColor.c.c.color = htColor;
             
             //Check swatch list for a close tint
-            AISwatchRef tempSwatch = checkSwatchListForColor( tempColor , .01 );
+            AISwatchRef tempSwatch = CheckSwatchListForColor( tempColor , .01 );
             if ( tempSwatch )
             {
                 AIColor currColor;

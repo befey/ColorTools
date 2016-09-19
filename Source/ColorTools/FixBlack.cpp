@@ -28,7 +28,7 @@ bool FixBlack() {
 	
 	// 4. Name all the colors
     VisitAIColorFlags controlFlags = kVisitColorsSolidOnly | kVisitGlobalObjectsOnceOnly;
-	sAIPathStyle->AdjustObjectAIColors( NULL , nameAllColors , NULL , controlFlags , NULL );
+	sAIPathStyle->AdjustObjectAIColors( NULL , NameAllColors , NULL , controlFlags , NULL );
 	
 	// 5. Remove unused colors
 	swatchList.RemoveUnusedColors();

@@ -8,10 +8,7 @@
 
 #include "BtSwatchList.h"
 #include "ColorFuncs.h"
-#include "SafeguardFileConstants.h"
 #include "GetIllustratorErrorCode.h"
-
-using SafeguardFile::StdColorDefinitions;
 
 //Behaviors
 void BtSwatchList::CreateOrConvertToCustomColor(std::string colorName)
@@ -25,10 +22,7 @@ void BtSwatchList::CreateOrConvertToCustomColor(std::string colorName)
 
 void BtSwatchList::CreateOrConvertToCustomColor(BtColor color)
 {
-    AICustomColor newCustomColorDefinition;
-    newCustomColorDefinition.kind = color.GetKind();
-    newCustomColorDefinition.c = color.GetCustomColorUnion();
-    newCustomColorDefinition.flag = color.GetCustomColorFlags();
+    AICustomColor newCustomColorDefinition = color.AiCustomColor();
     
     AIColor newAiColorDefinition;
     
@@ -40,7 +34,7 @@ void BtSwatchList::CreateOrConvertToCustomColor(BtColor color)
     else
     {
         AICustomColorHandle hCreatedCustomColor;
-        sAICustomColor->NewCustomColor(&newCustomColorDefinition, ai::UnicodeString(color.GetName()), &hCreatedCustomColor);
+        sAICustomColor->NewCustomColor(&newCustomColorDefinition, ai::UnicodeString(color.Name()), &hCreatedCustomColor);
         newAiColorDefinition.kind = kCustomColor;
         newAiColorDefinition.c.c.tint = 0;
         newAiColorDefinition.c.c.color = hCreatedCustomColor;
@@ -52,9 +46,9 @@ void BtSwatchList::CreateOrConvertToCustomColor(BtColor color)
     {
         AIColor dColor;
         AISwatchRef swatch = NULL;
-        if (SwatchNameExists(color.GetName(), &dColor))
+        if (SwatchNameExists(color.Name(), &dColor))
         {
-            swatch = sAISwatchList->GetSwatchByName(NULL, ai::UnicodeString(color.GetName()));
+            swatch = sAISwatchList->GetSwatchByName(NULL, ai::UnicodeString(color.Name()));
         }
         else
         {
@@ -90,7 +84,8 @@ void BtSwatchList::RemoveUnusedColors() {
     };
     sAIArtSet->MatchingArtSet( allSpecs , 8, artSet );
     
-    size_t count;		sAIArtSet->CountArtSet( artSet, &count );
+    size_t count;
+    sAIArtSet->CountArtSet( artSet, &count );
     bool used = FALSE;
     
     //Loop through all the swatches in the list
@@ -147,7 +142,8 @@ void BtSwatchList::RemoveUnusedColors() {
         if (!used) { sAISwatchList->RemoveNthSwatch(NULL, i); numSwatches--; i--; }
     }
     //DISPOSE OF THE ART SET
-    sAIArtSet->DisposeArtSet(&artSet); artSet = NULL;
+    sAIArtSet->DisposeArtSet(&artSet);
+    artSet = NULL;
     
     //Loop through the swatch groups and remove any empty ones
     count = sAISwatchGroup->CountSwatchGroups(NULL);
@@ -156,7 +152,6 @@ void BtSwatchList::RemoveUnusedColors() {
         int currCount = sAISwatchGroup->CountSwatches(currSwatchGroup);
         if (!currCount) { sAISwatchGroup->RemoveSwatchGroup(NULL, currSwatchGroup, FALSE); i--; count--; }
     }
-    
 }
 
 
@@ -182,7 +177,7 @@ AISwatchRef BtSwatchList::GetSwatchByName(std::string name) const
 
 bool BtSwatchList::ColorHasDefinitionAlready(BtColor color, AIColor* outFoundColor) const
 {
-    return SwatchNameExists(color.GetName(), outFoundColor) || CustomColorExists(color, outFoundColor);
+    return SwatchNameExists(color.Name(), outFoundColor) || CustomColorExists(color, outFoundColor);
 }
 
 bool BtSwatchList::SwatchNameExists(std::string name, AIColor* outFoundColor) const
@@ -207,7 +202,7 @@ bool BtSwatchList::CustomColorExists(BtColor color, AIColor* outFoundColor) cons
         ai::UnicodeString currName;
         sAICustomColor->GetCustomColorName(hFoundColor, currName);
         string sName = currName.as_Platform();
-        if (sName == color.GetName())
+        if (sName == color.Name())
         {
             outFoundColor->kind = kCustomColor;
             outFoundColor->c.c.color = hFoundColor;
@@ -254,7 +249,7 @@ void BtSwatchList::AdjustAllColorsCallback(AIColor *color, void *userData, AIErr
         color->c.c.tint = tintPercent;
         color->c.c.color = hBlack;
         
-        AISwatchRef existingSwatch = checkSwatchListForColor( *color , .0001 );
+        AISwatchRef existingSwatch = CheckSwatchListForColor( *color , .0001 );
         
         if(existingSwatch != NULL) {
             sAISwatchList->GetAIColor(existingSwatch, color);

@@ -18,6 +18,10 @@ extern AIArtboardSuite* sAIArtboard;
 class BtDocumentView
 {
 public:
+    static constexpr auto BTDOCVIEW_ZOOM =    "btdocview_zoom";
+    static constexpr auto BTDOCVIEW_CENTERH = "btdocview_centerh";
+    static constexpr auto BTDOCVIEW_CENTERV = "btdocview_centerv";
+    
     void StoreCurrentDocumentView();
     void RecallDocumentView();
     void SetViewOnArtboard(ai::ArtboardID id);

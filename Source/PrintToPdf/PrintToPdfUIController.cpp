@@ -12,8 +12,31 @@
 #include "SafeguardToolsSuites.h"
 #include "PdfPrinter.h"
 #include "PdfSettings.h"
+#include "PlateBleedInfoDTO.hpp"
+
+#include "cereal/cereal.hpp"
+#include "cereal/archives/json.hpp"
 
 using PrintToPdf::PrintToPdfUIController;
+
+void PrintToPdfUIController::PanelLoaded (const csxs::event::Event* const event, void* const context)
+{
+    PrintToPdfUIController *printToPdfUIController = (PrintToPdfUIController *)context;
+    if (NULL == printToPdfUIController || event == NULL)
+    {
+        return;
+    }
+    
+    do {
+        // Set up the application context, so that suite calls can work.
+        AppContext appContext(gPlugin->GetPluginRef());
+        
+        printToPdfUIController->SendColorListToHtml();
+        
+        // Clean up the application context and return.
+    } while(false);
+    return;
+}
 
 void PrintToPdfUIController::MakePdfButtonClickedFunc (const csxs::event::Event* const event, void* const context)
 {
@@ -76,6 +99,11 @@ csxs::event::EventErrorCode PrintToPdfUIController::RegisterCSXSEventListeners()
         {
             break;
         }
+        result =  fPPLib.AddEventListener(EVENT_TYPE_PANEL_LOADED, PanelLoaded, this);
+        if (result != csxs::event::kEventErrorCode_Success)
+        {
+            break;
+        }
     }
     while(false);
     return result;
@@ -93,6 +121,11 @@ csxs::event::EventErrorCode PrintToPdfUIController::RemoveEventListeners()
             break;
         }
         result =  fPPLib.RemoveEventListener(EVENT_TYPE_CANCEL_CLICKED, CancelButtonClickedFunc, this);
+        if (result != csxs::event::kEventErrorCode_Success)
+        {
+            break;
+        }
+        result =  fPPLib.RemoveEventListener(EVENT_TYPE_PANEL_LOADED, PanelLoaded, this);
         if (result != csxs::event::kEventErrorCode_Success)
         {
             break;
@@ -153,4 +186,30 @@ void PrintToPdfUIController::ClearResultsBox()
         NULL
     };
     fPPLib.DispatchEvent(&event);
+}
+
+void PrintToPdfUIController::SendColorListToHtml()
+{
+    string json = GetJsonBleedInfoDto();
+    csxs::event::Event event = {
+        EVENT_TYPE_DATA_FROM_PLUGIN,
+        csxs::event::kEventScope_Application,
+        ILST_APP,
+        NULL,
+        json.c_str()
+    };
+    fPPLib.DispatchEvent(&event);
+}
+
+string PrintToPdfUIController::GetJsonBleedInfoDto() const
+{
+    std::stringstream ss;
+    {
+        SafeguardJobFile sgJobFile;
+        SafeguardFile::PlateBleedInfoDTO dto;
+        sgJobFile.PutDataInDTO(dto, true);
+        cereal::JSONOutputArchive oarchive(ss); // Create an output archive
+        oarchive(CEREAL_NVP(dto));
+    }
+    return ss.str();
 }
