@@ -9,6 +9,7 @@
 
 #include "ArtTree.h"
 #include "BtLayer.hpp"
+#include "GetIllustratorErrorCode.h"
 
 
 long CreateArtSetOfPrintingObjectsWithinRect(AIArtSet const targetSet, AIRealRect rect)
@@ -83,9 +84,12 @@ void PutArtInGroup(AIArtHandle currArtHandle, AIArtHandle theGroup) {
 		sAIArt->SetArtUserAttr(currArtHandle, kArtLocked | kArtHidden, 0);
 	}
 	
-	//Move it out of the group
-	sAIArt->ReorderArt(currArtHandle, kPlaceInsideOnTop, theGroup);
-	
+	//Put it in the group
+    short type;
+    AIErr err = sAIArt->GetArtType(theGroup, &type);
+    string error = GetIllustratorErrorCode(err);
+	err = sAIArt->ReorderArt(currArtHandle, kPlaceInsideOnTop, theGroup);
+    error = GetIllustratorErrorCode(err);
 	//Set the layer and art attributes back the way they were
 	if(eflag) { sAILayer->SetLayerEditable(layer, FALSE); }
 	if(vflag) { sAILayer->SetLayerVisible(layer, FALSE); }
@@ -99,7 +103,8 @@ bool AllLinkedFilesValid() {
 	ai::UnicodeString currArtName;
 	AIArtHandle currArtObj = NULL;
 
-	AIArtSet artSet; sAIArtSet->NewArtSet(&artSet);
+	AIArtSet artSet;
+    sAIArtSet->NewArtSet(&artSet);
 	
 	AIArtSpec specs[] = { { kPlacedArt , 0 , 0 } };
 
@@ -119,7 +124,7 @@ bool AllLinkedFilesValid() {
 		}
 	}
 	
-	sAIArtSet->DisposeArtSet(&artSet); artSet = NULL;
+	sAIArtSet->DisposeArtSet(&artSet);
 	return TRUE;
 }
 
@@ -233,8 +238,7 @@ void GetBoundsOfSelectionFromRoot(AIArtHandle root, AIArtHandle currArtHandle, A
 		//RETURN BOUNDS OF SELECTED SEGMENTS
 		short count;
 		sAIPath->GetPathSegmentCount(currArtHandle, &count);
-		AIPathSegment* segments = NULL;
-		segments = new AIPathSegment[count];
+		AIPathSegment* segments = new AIPathSegment[count];
 		
 		AIRealRect segBounds;
 		bool segBoundsSetFlag = FALSE;

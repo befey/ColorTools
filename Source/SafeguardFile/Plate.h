@@ -32,33 +32,26 @@ namespace SafeguardFile
     {
     public:
         Plate(ai::ArtboardID id);
-        //Plate(ai::ArtboardID id, string pn);
         
         AIRealRect GetArtboardBounds() const;
         tm GetLastModified() const;
         
-        string GetArtboardName(AIBoolean& isDefault) const;
-        const ai::ArtboardID GetArtboardIndex() const { return bleedInfo.artboardIndex; };
+        string GetArtboardName(bool& isDefault) const;
+        const ai::ArtboardID GetArtboardIndex() const { return bleedInfo.ArtboardIndex(); };
         const PlateNumber GetPlateNumber() const;
         const string GetToken() const;
         
-        void SetPlateNumber();
-        
         AIRealRect GetBleeds() const;
-        SafeguardFile::ColorList GetColors() const;
+        SafeguardFile::ColorList GetColors();
         
-        const BleedInfo GetBleedInfo() const;
-        void AddBleedInfo();
+        BleedInfo& BleedInfo();
+        
+        void DrawBleedInfo();
         void RemoveBleedInfo();
+        bool ShouldDrawBleedInfo();
     private:
-        BleedInfo bleedInfo;
+        class BleedInfo bleedInfo;
         shared_ptr<SafeguardFile::BleedInfoDrawer> bleedInfoDrawer;
-        
-        void SetPlateNumber(string pn);
-        string CreateToken() const;
-        
-        void AddColorsOfArtToColorList(AIArtHandle art);
-        void FillColorList();
     };
 }
 #endif /* defined(__SafeguardTools__Plate__) */

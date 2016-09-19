@@ -51,7 +51,7 @@ namespace PrintToPdf
         void SendCloseMessageToHtml();
         void ClearResultsBox();
         void SendColorListToHtml();
-        string GetColorListAsJson() const;
+        string GetJsonBleedInfoDto() const;
         
         //=================================
         // Constant definitions

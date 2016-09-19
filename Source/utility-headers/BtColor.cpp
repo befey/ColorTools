@@ -7,37 +7,114 @@
 //
 
 #include "BtColor.h"
+#include "ColorFuncs.h"
+#include "GetIllustratorErrorCode.h"
 
 #define TMPBLACKNAME "CustomBlack"
 #define TMPWHITENAME "CustomWhite"
 
-
 //Constructor
-BtColor::BtColor(string name, AICustomColorTag kind, AICustomColorUnion c, AICustomColorFlags flag) : pName(name), pKind(kind), pC(c), pFlag (flag)
+BtColor::BtColor(AIColor aiColor, SafeguardFile::InkMethod method)
 {
-
+    AiColor(aiColor, method);
 }
 
-BtColor::BtColor() : BtColor("", kCustomFourColor, {}, 0) {}
+BtColor::BtColor(AICustomColor aiCustomColor, std::string name, AIReal tint, SafeguardFile::InkMethod method)
+{
+    AiCustomColor(aiCustomColor, name, tint, method);
+}
+
+BtColor::BtColor(AIColorTag kind, AIColorUnion c, SafeguardFile::InkMethod method)
+{
+    aiColor.c = c;
+    aiColor.kind = kind;
+    AiColor(aiColor, method);
+}
+
+BtColor::BtColor(string name, AICustomColorTag kind, AICustomColorUnion c, AICustomColorFlags flag, AIReal tint, SafeguardFile::InkMethod method)
+{
+    aiCustomColor.c = c;
+    aiCustomColor.flag = flag;
+    aiCustomColor.kind = kind;
+    AiCustomColor(aiCustomColor, name, tint, method);
+}
 
 //Getters/Setters
+BtColor& BtColor::AiColor(AIColor newVal, SafeguardFile::InkMethod method)
+{
+    aiColor = newVal;
+    if (Kind() == kCustomColor)
+    {
+        sAICustomColor->GetCustomColor(aiColor.c.c.color, &aiCustomColor);
+        aiCustomColorHandle = aiColor.c.c.color;
+    }
+    
+    if (method == SafeguardFile::InkMethod::INVAL)
+    {
+        this->method = GetInkMethodFromColorName(Name());
+    }
+    else
+    {
+        this->method = method;
+    }
+    
+    return *this;
+}
 
-std::string BtColor::GetName() const
+BtColor& BtColor::AiCustomColor(AICustomColor newVal, std::string name, AIReal tint, SafeguardFile::InkMethod method)
 {
-    return pName;
-}
-AICustomColorTag BtColor::GetKind() const
-{
-    return pKind;
-}
-AICustomColorUnion BtColor::GetCustomColorUnion() const
-{
-    return pC;
-}
-AICustomColorFlags BtColor::GetCustomColorFlags() const
-{
-    return pFlag;
+    ASErr err = sAICustomColor->GetCustomColorByName(ai::UnicodeString(name),  &aiCustomColorHandle);
+    if (err == kNameNotFoundErr)
+    {
+        sAICustomColor->NewCustomColor(&newVal, ai::UnicodeString(name), &aiCustomColorHandle);
+    }
+    aiColor.kind = kCustomColor;
+    aiColor.c.c.color = aiCustomColorHandle;
+    aiColor.c.c.tint = tint;
+    
+    if (method == SafeguardFile::InkMethod::INVAL)
+    {
+        this->method = GetInkMethodFromColorName(Name());
+    }
+    else
+    {
+        this->method = method;
+    }
+    
+    return *this;
 }
 
+AICustomColor BtColor::AiCustomColor() const
+{
+    if (Kind() == kCustomColor)
+    {
+        return aiCustomColor;
+    }
+    else
+    {
+        return AICustomColor();
+    }
+}
 
-//Behaviors
+BtColor& BtColor::Name(std::string newVal)
+{
+    if (Kind() == kCustomColor)
+    {
+        sAICustomColor->SetCustomColorName(aiCustomColorHandle, ai::UnicodeString(newVal));
+    }
+    return *this;
+}
+
+std::string BtColor::Name() const
+{
+    return GetColorName(aiColor);
+}
+
+bool BtColor::CompareName(std::string name) const
+{
+    if (this->Name() == name || GetInnerPantoneColorNumber(this->Name()) == name)
+    {
+        return true;
+    }
+    return false;
+}

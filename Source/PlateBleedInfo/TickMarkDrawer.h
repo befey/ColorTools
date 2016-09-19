@@ -34,10 +34,10 @@ namespace SafeguardFile
         
         TickMarkSettings settings;
         
-        AIArtHandle DoDraw() const override;
+        AIArtHandle DoDraw(AIArtHandle resultGroup) const override;
         AIArtHandle DrawTickMarks(vector<TickMark> ticks, AIArtHandle tickMarkGroupArt = NULL) const;
-        AIArtHandle DrawInner(AIArtHandle tickMarkGroupArt = NULL) const;
-        AIArtHandle DrawOuter(AIArtHandle tickMarkGroupArt = NULL) const;
+        AIArtHandle DrawInner(AIArtHandle resultGroup, AIArtHandle tickMarkGroupArt = NULL) const;
+        AIArtHandle DrawOuter(AIArtHandle resultGroup, AIArtHandle tickMarkGroupArt = NULL) const;
     };
 }
 

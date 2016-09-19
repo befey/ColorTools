@@ -29,73 +29,49 @@ LaserFileNameDateDrawer::LaserFileNameDateDrawer(AIRealRect bounds, PlateNumber 
 ContinuousFileNameDateDrawer::ContinuousFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, {.h = bounds.right + 2, .v = bounds.top - 14}, plateNumber, token, lastModified) {};
 BusStatFileNameDateDrawer::BusStatFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, {.h = bounds.right, .v = bounds.bottom - 12}, plateNumber, token, lastModified) {};
 
-AIArtHandle LaserFileNameDateDrawer::DoDraw() const
+AIArtHandle LaserFileNameDateDrawer::DoDraw(AIArtHandle resultGroup) const
 {
     AIArtHandle plateNumberDateArt;
-    BtLayer foregroundLayer(FOREGROUND_LAYER);
-    AIArtHandle prep = foregroundLayer.GetLayerGroupArt();
     
-    sAITextFrame->NewPointText(kPlaceInsideOnTop, prep, kHorizontalTextOrientation, anchor, &plateNumberDateArt);
+    ATE::ITextRange range = SetupTextRange(resultGroup, kHorizontalTextOrientation, &plateNumberDateArt);
     
-    //Create the ATE range
-    ATE::TextRangeRef plateInfoTextRangeRef;
-    sAITextFrame->GetATETextRange(plateNumberDateArt, &plateInfoTextRangeRef);
-    ATE::ITextRange plateInfoTextRange(plateInfoTextRangeRef);
-    plateInfoTextRange.Remove();
-    
-    PutPlateNumberDateStringInTextRange(plateInfoTextRange);
+    PutPlateNumberDateStringInTextRange(range);
 
     BtAteTextFeatures textFeatures;
     textFeatures.FontSize(12).Font("Helvetica-Bold").Justification(ATE::kRightJustify).FillColor(GetRegistrationColor());
-    textFeatures.ApplyFeaturesToRange(plateInfoTextRange);
+    textFeatures.ApplyFeaturesToRange(range);
     
     return plateNumberDateArt;
 }
 
-AIArtHandle ContinuousFileNameDateDrawer::DoDraw() const
+AIArtHandle ContinuousFileNameDateDrawer::DoDraw(AIArtHandle resultGroup) const
 {
     AIArtHandle plateNumberDateArt;
-    BtLayer foregroundLayer(FOREGROUND_LAYER);
-    AIArtHandle prep = foregroundLayer.GetLayerGroupArt();
     
-    sAITextFrame->NewPointText(kPlaceInsideOnTop, prep, kHorizontalTextOrientation, anchor, &plateNumberDateArt);
+    ATE::ITextRange range = SetupTextRange(resultGroup, kHorizontalTextOrientation, &plateNumberDateArt);
     
     RotateArt(plateNumberDateArt, anchor, -90);
     
-    //Create the ATE range
-    ATE::TextRangeRef plateInfoTextRangeRef;
-    sAITextFrame->GetATETextRange(plateNumberDateArt, &plateInfoTextRangeRef);
-    ATE::ITextRange plateInfoTextRange(plateInfoTextRangeRef);
-    plateInfoTextRange.Remove();
-    
-    PutPlateNumberDateStringInTextRange(plateInfoTextRange);
+    PutPlateNumberDateStringInTextRange(range);
     
     BtAteTextFeatures textFeatures;
     textFeatures.FontSize(8).Font("Helvetica").Justification(ATE::kLeftJustify).FillColor(GetRegistrationColor());
-    textFeatures.ApplyFeaturesToRange(plateInfoTextRange);
+    textFeatures.ApplyFeaturesToRange(range);
     
     return plateNumberDateArt;
 }
 
-AIArtHandle BusStatFileNameDateDrawer::DoDraw() const
+AIArtHandle BusStatFileNameDateDrawer::DoDraw(AIArtHandle resultGroup) const
 {
     AIArtHandle plateNumberDateArt;
-    BtLayer foregroundLayer(FOREGROUND_LAYER);
-    AIArtHandle prep = foregroundLayer.GetLayerGroupArt();
     
-    sAITextFrame->NewPointText(kPlaceInsideOnTop, prep, kHorizontalTextOrientation, anchor, &plateNumberDateArt);
+    ATE::ITextRange range = SetupTextRange(resultGroup, kHorizontalTextOrientation, &plateNumberDateArt);
     
-    //Create the ATE range
-    ATE::TextRangeRef plateInfoTextRangeRef;
-    sAITextFrame->GetATETextRange(plateNumberDateArt, &plateInfoTextRangeRef);
-    ATE::ITextRange plateInfoTextRange(plateInfoTextRangeRef);
-    plateInfoTextRange.Remove();
-    
-    PutPlateNumberDateStringInTextRange(plateInfoTextRange);
+    PutPlateNumberDateStringInTextRange(range);
     
     BtAteTextFeatures textFeatures;
     textFeatures.FontSize(7).Font("Helvetica-Condensed-Bold").Justification(ATE::kRightJustify).FillColor(GetRegistrationColor());
-    textFeatures.ApplyFeaturesToRange(plateInfoTextRange);
+    textFeatures.ApplyFeaturesToRange(range);
     
     return plateNumberDateArt;
 }

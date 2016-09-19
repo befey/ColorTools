@@ -9,7 +9,10 @@
 #ifndef SafeguardTools_GetIllustratorErrorCode_h
 #define SafeguardTools_GetIllustratorErrorCode_h
 
-inline string GetIllustratorErrorCode(ASErr err)
+#include <string>
+#include "ASTypes.h"
+
+inline std::string GetIllustratorErrorCode(ASErr err)
 {
     char byteArray[5];
     
@@ -19,7 +22,7 @@ inline string GetIllustratorErrorCode(ASErr err)
     byteArray[2] = (char)((err >> 8)  & 0XFF);
     byteArray[3] = (char)((err)       & 0XFF);
     byteArray[4] = '\0';
-    return string(byteArray);
+    return std::string(byteArray);
 }
 
 #endif

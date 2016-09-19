@@ -158,7 +158,7 @@ Boolean PlateNumber::HasInnerTicks() const
             }
         }
     }
-    sAIArtSet->DisposeArtSet(&artSet); artSet = NULL;
+    sAIArtSet->DisposeArtSet(&artSet);
     
     return false;
 }

@@ -45,6 +45,7 @@ namespace SafeguardFile
         void ParseData(const char* eventData);
         
         static void PanelLoaded (const csxs::event::Event* const event, void* const context);
+        static void OkButtonClickedFunc (const csxs::event::Event* const event, void* const context);
         static void CancelButtonClickedFunc (const csxs::event::Event* const event, void* const context);
         static void ChangeArtboardFunc (const csxs::event::Event* const event, void* const context);
         void SendCloseMessageToHtml();
@@ -56,6 +57,7 @@ namespace SafeguardFile
         static constexpr auto PLATEBLEEDINFO_UI_EXTENSION =     "com.gosafeguard.SafeguardTools.PlateBleedInfo";
         static constexpr auto PLATEBLEEDINFO_PANEL_LOADED =     "com.gosafeguard.SafeguardTools.PlateBleedInfo.panelloaded";
         static constexpr auto PLATEBLEEDINFO_DATA_FROM_PLUGIN = "com.gosafeguard.SafeguardTools.PlateBleedInfo.datafromplugin";
+        static constexpr auto PLATEBLEEDINFO_DATA_FROM_EXT =    "com.gosafeguard.SafeguardTools.PlateBleedInfo.datafromext";
         static constexpr auto PLATEBLEEDINFO_CHANGE_ARTBOARD =  "com.gosafeguard.SafeguardTools.PlateBleedInfo.changeartboard";
         static constexpr auto EVENT_TYPE_CANCEL_CLICKED =       "com.gosafeguard.SafeguardTools.PlateBleedInfo.cancelbutton";
         static constexpr auto EVENT_TYPE_FORCE_PANEL_CLOSE =    "com.gosafeguard.SafeguardTools.PlateBleedInfo.forcepanelclose";

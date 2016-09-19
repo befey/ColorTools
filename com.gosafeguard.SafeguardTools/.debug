@@ -5,9 +5,9 @@
 		<Host Name="ILST" Port="8003"/>
 	</HostList>
 </Extension>
-<Extension Id="com.gosafeguard.SafeguardTools.PrintToPdf”>
+<Extension Id="com.gosafeguard.SafeguardTools.PrintToPdf">
 	<HostList>
-		<Host Name="ILST" Port=“8004”/>
+		<Host Name="ILST" Port="8004"/>
 	</HostList>
 </Extension>
 </ExtensionList>

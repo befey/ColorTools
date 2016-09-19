@@ -112,6 +112,12 @@ protected:
      */
 	virtual ASErr UpdateMenuItem(AIMenuMessage* message);
     
+    /**	Updates the plugin group item.
+     @param message IN pointer to plugin and call information.
+     @return kNoErr on success, other ASErr otherwise.
+     */
+    virtual ASErr PluginGroupUpdate(AIPluginGroupMessage* message);
+    
     virtual ASErr ReloadPlugin(SPInterfaceMessage *message);
     
     virtual ASErr UnloadPlugin(SPInterfaceMessage *message);
@@ -127,8 +133,6 @@ private:
     AINotifierHandle fRegisterEventNotifierHandle;
     AINotifierHandle fAppStartedNotifierHandle;
     AINotifierHandle fDocOpenedNotifierHandle;
-    AINotifierHandle fCustomColorChangeNotifierHandle;
-    AINotifierHandle fSwatchLibChangeNotifierHandle;
     AINotifierHandle fArtSelectionChangeNotifierHandle;
     AINotifierHandle fDocumentCropAreaModifiedNotifierHandle;
     
@@ -136,6 +140,7 @@ private:
     BtAiMenuItemHandles menuItemHandles;
     
     /** Plugin Group handle **/
+    AIAddPluginGroupData pluginGroupData;
     AIPluginGroupHandle bleedInfoPluginGroupHandle;
      
 	/**	Adds the menu items for this plugin to the application UI.

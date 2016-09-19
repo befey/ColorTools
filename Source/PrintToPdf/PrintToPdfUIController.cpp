@@ -12,6 +12,8 @@
 #include "SafeguardToolsSuites.h"
 #include "PdfPrinter.h"
 #include "PdfSettings.h"
+#include "PlateBleedInfoDTO.hpp"
+
 #include "cereal/cereal.hpp"
 #include "cereal/archives/json.hpp"
 
@@ -188,7 +190,7 @@ void PrintToPdfUIController::ClearResultsBox()
 
 void PrintToPdfUIController::SendColorListToHtml()
 {
-    string json = GetColorListAsJson();
+    string json = GetJsonBleedInfoDto();
     csxs::event::Event event = {
         EVENT_TYPE_DATA_FROM_PLUGIN,
         csxs::event::kEventScope_Application,
@@ -199,13 +201,15 @@ void PrintToPdfUIController::SendColorListToHtml()
     fPPLib.DispatchEvent(&event);
 }
 
-string PrintToPdfUIController::GetColorListAsJson() const
+string PrintToPdfUIController::GetJsonBleedInfoDto() const
 {
     std::stringstream ss;
-    SafeguardJobFile sgJobFile;
     {
+        SafeguardJobFile sgJobFile;
+        SafeguardFile::PlateBleedInfoDTO dto;
+        sgJobFile.PutDataInDTO(dto, true);
         cereal::JSONOutputArchive oarchive(ss); // Create an output archive
-        oarchive(cereal::make_nvp("colors", sgJobFile.GetAllColorsOnJob()));
+        oarchive(CEREAL_NVP(dto));
     }
     return ss.str();
 }

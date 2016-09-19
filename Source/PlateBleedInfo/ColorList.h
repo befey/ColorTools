@@ -10,9 +10,9 @@
 #define __SafeguardTools__ColorList__
 
 #include <vector>
+#include "BtColor.h"
 #include "ColorFuncs.h"
-#include "cereal/cereal.hpp"
-#include "cereal/access.hpp"
+#include "SafeguardFileConstants.h"
 
 namespace SafeguardFile
 {
@@ -24,22 +24,14 @@ namespace SafeguardFile
         void RemoveDuplicates();
         void RemoveNonPrintingColors();
         
+        void SetColorMethod(string colorName, SafeguardFile::InkMethod method);
+        
         void GetAsTextRange(ATE::ITextRange& targetRange) const;
-    
+        const vector<BtColor> GetColorList() const { return p_ColorList; };
     private:
-        vector<AIColor> p_ColorList;
+        vector<BtColor> p_ColorList;
         
-        void AddColorToTextRange(const AIColor color, ATE::ITextRange& targetRange) const;
-        
-        friend class cereal::access;
-        template <class Archive>
-        void serialize(Archive& ar)
-        {
-            for (auto color : p_ColorList)
-            {
-                ar(CEREAL_NVP(GetColorName(color)));
-            }
-        }
+        void AddColorToTextRange(const BtColor color, ATE::ITextRange& targetRange) const;
     };
 }
 #endif /* defined(__SafeguardTools__ColorList__) */

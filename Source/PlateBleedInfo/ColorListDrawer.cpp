@@ -30,72 +30,49 @@ ContinuousColorListDrawer::ContinuousColorListDrawer(AIRealRect bounds, ColorLis
 BusStatColorListDrawer::BusStatColorListDrawer(AIRealRect bounds, ColorList colorList) :
     ColorListDrawer(bounds, {.h = bounds.left, .v = bounds.bottom - 12}, colorList) {};
 
-AIArtHandle LaserColorListDrawer::DoDraw() const
+AIArtHandle LaserColorListDrawer::DoDraw(AIArtHandle resultGroup) const
 {
     AIArtHandle colorListArt;
-    BtLayer foregroundLayer(FOREGROUND_LAYER);
-    AIArtHandle prep = foregroundLayer.GetLayerGroupArt();
     
-    sAITextFrame->NewPointText(kPlaceInsideOnTop, prep, kHorizontalTextOrientation, anchor, &colorListArt);
-    //Create the ATE range
-    ATE::TextRangeRef colorListTextRangeRef;
-    sAITextFrame->GetATETextRange(colorListArt, &colorListTextRangeRef);
-    ATE::ITextRange colorListTextRange(colorListTextRangeRef);
-    colorListTextRange.Remove();
+    ATE::ITextRange range = SetupTextRange(resultGroup, kHorizontalTextOrientation, &colorListArt);
     
-    colorList.GetAsTextRange(colorListTextRange);
+    colorList.GetAsTextRange(range);
     
     BtAteTextFeatures textFeatures;
     textFeatures.FontSize(12).Font("Helvetica-Bold").Justification(ATE::kLeftJustify);
-    textFeatures.ApplyFeaturesToRange(colorListTextRange);
+    textFeatures.ApplyFeaturesToRange(range);
 
     return colorListArt;
 }
 
-AIArtHandle ContinuousColorListDrawer::DoDraw() const
+AIArtHandle ContinuousColorListDrawer::DoDraw(AIArtHandle resultGroup) const
 {
     AIArtHandle colorListArt;
-    BtLayer foregroundLayer(FOREGROUND_LAYER);
-    AIArtHandle prep = foregroundLayer.GetLayerGroupArt();
     
-    sAITextFrame->NewPointText(kPlaceInsideOnTop, prep, kHorizontalTextOrientation, anchor, &colorListArt);
+    ATE::ITextRange range = SetupTextRange(resultGroup, kHorizontalTextOrientation, &colorListArt);
     
     RotateArt(colorListArt, anchor, -90);
     
-    //Create the ATE range
-    ATE::TextRangeRef colorListTextRangeRef;
-    sAITextFrame->GetATETextRange(colorListArt, &colorListTextRangeRef);
-    ATE::ITextRange colorListTextRange(colorListTextRangeRef);
-    colorListTextRange.Remove();
-    
-    colorList.GetAsTextRange(colorListTextRange);
+    colorList.GetAsTextRange(range);
     
     BtAteTextFeatures textFeatures;
     textFeatures.FontSize(9).Font("Helvetica-Bold").Justification(ATE::kLeftJustify);
-    textFeatures.ApplyFeaturesToRange(colorListTextRange);
+    textFeatures.ApplyFeaturesToRange(range);
     
     return colorListArt;
 }
 
-AIArtHandle BusStatColorListDrawer::DoDraw() const
+AIArtHandle BusStatColorListDrawer::DoDraw(AIArtHandle resultGroup) const
 {
     AIArtHandle colorListArt;
-    BtLayer foregroundLayer(FOREGROUND_LAYER);
-    AIArtHandle prep = foregroundLayer.GetLayerGroupArt();
     
-    sAITextFrame->NewPointText(kPlaceInsideOnTop, prep, kHorizontalTextOrientation, anchor, &colorListArt);
+    ATE::ITextRange range = SetupTextRange(resultGroup, kHorizontalTextOrientation, &colorListArt);
     
-    //Create the ATE range
-    ATE::TextRangeRef colorListTextRangeRef;
-    sAITextFrame->GetATETextRange(colorListArt, &colorListTextRangeRef);
-    ATE::ITextRange colorListTextRange(colorListTextRangeRef);
-    colorListTextRange.Remove();
-    
-    colorList.GetAsTextRange(colorListTextRange);
+    colorList.GetAsTextRange(range);
     
     BtAteTextFeatures textFeatures;
     textFeatures.FontSize(7).Font("Helvetica-Condensed-Bold").Justification(ATE::kLeftJustify);
-    textFeatures.ApplyFeaturesToRange(colorListTextRange);
+    textFeatures.ApplyFeaturesToRange(range);
     
     return colorListArt;
 }

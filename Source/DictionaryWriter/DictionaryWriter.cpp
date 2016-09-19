@@ -105,6 +105,57 @@ ASBoolean DictionaryWriter::CheckArtHandleFromUIDRef(AIUIDRef uidRef)
     }
 }
 
+AIReal DictionaryWriter::GetAIRealFromIdentifier(string identifier, int CAIndex)
+{
+    AIReal realValue = 0;
+    
+    AIDictKey dictKey = GenerateKey(identifier, CAIndex);
+    if (sAIDictionary->IsKnown(dictionary, dictKey))
+    {
+        sAIDictionary->GetRealEntry(dictionary, dictKey, &realValue);
+    }
+    
+    return realValue;
+}
+
+AIBoolean DictionaryWriter::AddAIRealToDictionary(AIReal value, string identifier, int CAIndex)
+{
+    AIDictKey dictKey = GenerateKey(identifier, CAIndex);
+    if (dictKey)
+    {
+        sAIDictionary->SetRealEntry(dictionary, dictKey, value);
+        return TRUE;
+    }
+    
+    return FALSE;
+}
+AIBoolean DictionaryWriter::GetStringDataFromIdentifier(string& data, string identifier, int CAIndex)
+{
+    AIDictKey dictKey = GenerateKey(identifier, CAIndex);
+    if (sAIDictionary->IsKnown(dictionary, dictKey))
+    {
+        ai::UnicodeString value;
+        sAIDictionary->GetUnicodeStringEntry(dictionary, dictKey, value);
+        data = value.as_Platform();
+        return TRUE;
+    }
+    
+    return FALSE;
+}
+
+AIBoolean DictionaryWriter::AddStringDataToDictionary(string data, string identifier, int CAIndex)
+{
+    AIDictKey dictKey = GenerateKey(identifier, CAIndex);
+    if (dictKey)
+    {
+        ai::UnicodeString value(data);
+        sAIDictionary->SetUnicodeStringEntry(dictionary, dictKey, value);
+        return TRUE;
+    }
+    
+    return FALSE;
+}
+
 AIArtHandle DictionaryWriter::GetArtHandleFromIdentifier(string identifier, int CAIndex)
 {
     AIArtHandle foundArtHandle = NULL;

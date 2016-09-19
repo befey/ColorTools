@@ -179,7 +179,7 @@ bool ConvertToPointType()
 					sAIArt->DisposeArt(tempDuplicate);
 					
 					//Find the x and y translation
-					AIReal tx, ty;	
+					AIReal tx = 0.0, ty = 0.0;	
 					
 					if (firstRunJustification == ATE::kLeftJustify || firstRunJustification == ATE::kFullJustifyLastLineLeft ||
 						firstRunJustification == ATE::kFullJustifyLastLineFull || firstRunJustification == ATE::kFullJustifyLastLineCenter ||
@@ -214,6 +214,8 @@ bool ConvertToPointType()
 				}
 			}
 		}
+        
+        sAIArtSet->DisposeArtSet(&artSet);
 	}
 	return TRUE;
 }
@@ -389,9 +391,7 @@ void AlignPointType(AIArtHandle currArtHandle, ATE::ParagraphJustification align
 	
 	if (!iTextRange.GetSize())
     {
-        ASUnicode* asuString = new ASUnicode [2];
-        StdStringToASUnicode(" ", asuString, 2);
-		iTextRange.InsertAfter(asuString);
+        iTextRange.InsertAfter(ai::UnicodeString(" ").as_ASUnicode().c_str());
 		iTextRange.SetLocalParaFeatures(pFeat);
 		iTextRange.Remove();
 	}
@@ -403,7 +403,7 @@ void AlignPointType(AIArtHandle currArtHandle, ATE::ParagraphJustification align
 	sAIArt->GetArtTransformBounds(currArtHandle, NULL, kVisibleBounds|kExcludeHiddenObjectBounds, &postAlignBounds);
 	
 	//Find the x and y translation
-	AIReal tx, ty;	
+	AIReal tx = 0.0, ty = 0.0;	
 	
 	if (alignStyle == ATE::kLeftJustify || alignStyle == ATE::kFullJustifyLastLineLeft ||
 		alignStyle == ATE::kFullJustifyLastLineFull || alignStyle == ATE::kFullJustifyLastLineCenter ||
@@ -733,9 +733,9 @@ bool CreateMICRBarcode()
 	sAISwatchList->GetAIColor(micrSwatch, &micrColor);
 	
 	//Check if we already have a micr line in the document dictionary
-    unique_ptr<DictionaryWriter> dw = make_unique<DictionaryWriter>();
+    DictionaryWriter dw;
 	AIArtHandle micrLineHandle = NULL;
-	micrLineHandle = dw->GetArtHandleFromIdentifier(MICR_LINE_LABEL);
+	micrLineHandle = dw.GetArtHandleFromIdentifier(MICR_LINE_LABEL);
 	
 	//Create an art set of the selected objects
 	//CREATE THE ART SET
@@ -816,11 +816,11 @@ bool CreateMICRBarcode()
 				//Tag the MICR line when we've found it, and store the handle in the dictionary
 				if (micrLineHandle && (micrLineHandle != currArtHandle))
                 {
-					dw->RemoveIdentifierFromDictionary(MICR_LINE_LABEL);
+					dw.RemoveIdentifierFromDictionary(MICR_LINE_LABEL);
 				}
 				micrLineHandle = currArtHandle;
 				sAIArt->SetArtName(currArtHandle, ai::UnicodeString(MICR_LINE_LABEL));
-				dw->AddArtHandleToDictionary(currArtHandle, MICR_LINE_LABEL);
+				dw.AddArtHandleToDictionary(currArtHandle, MICR_LINE_LABEL);
 				break;
 			}
 		}
@@ -851,7 +851,7 @@ bool CreateMICRBarcode()
 		
 		//Check if we already have a MICR barcode, if not, create the new point text
 		AIArtHandle barcodeTextFrame = NULL;
-		barcodeTextFrame = dw->GetArtHandleFromIdentifier(MICR_BARCODE_LABEL);
+		barcodeTextFrame = dw.GetArtHandleFromIdentifier(MICR_BARCODE_LABEL);
 		
 		if (!barcodeTextFrame)
         {
@@ -860,7 +860,7 @@ bool CreateMICRBarcode()
 			sAITextFrame->NewPointText(kPlaceAbove, micrLineHandle, kHorizontalTextOrientation, anchor, &barcodeTextFrame);
 			sAIArt->SetArtName(barcodeTextFrame, ai::UnicodeString(MICR_BARCODE_LABEL));
 			
-			dw->AddArtHandleToDictionary(barcodeTextFrame, MICR_BARCODE_LABEL);
+			dw.AddArtHandleToDictionary(barcodeTextFrame, MICR_BARCODE_LABEL);
 		}
 		
 		//Create the ATE range

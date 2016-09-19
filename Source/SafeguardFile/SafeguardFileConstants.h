@@ -9,8 +9,7 @@
 #ifndef SafeguardFileConstants_h
 #define SafeguardFileConstants_h
 
-#include "BtColor.h"
-#include <unordered_map>
+#include <map>
 
 namespace SafeguardFile
 {
@@ -21,31 +20,6 @@ namespace SafeguardFile
     constexpr auto MICR_BLACK_MAG_COLOR_NAME =  "MICR - BLACK MAG";
     constexpr auto GRIPPER_COLOR_NAME =         "GRIPPER";
     constexpr auto KEYLINE_COLOR_NAME =         "KEYLINE - does not print";
-    
-    const std::unordered_map<std::string, BtColor> StdColorDefinitions
-    {
-        { BLACK_COLOR_NAME,
-          { BLACK_COLOR_NAME,
-            kCustomFourColor,
-            {.f.cyan = 0, .f.yellow = 0, .f.magenta = 0, .f.black = 1},
-            0
-          }
-        },
-        { WHITE_COLOR_NAME,
-          { WHITE_COLOR_NAME,
-            kCustomFourColor,
-            {.f.cyan = 0, .f.yellow = 0, .f.magenta = 0, .f.black = 0},
-            0
-          }
-        },
-        { MICR_BLACK_MAG_COLOR_NAME,
-          { MICR_BLACK_MAG_COLOR_NAME,
-            kCustomFourColor,
-            {.f.cyan = 0, .f.yellow = 0, .f.magenta = 0, .f.black = 1},
-            0
-          }
-        },
-     };
     
     enum ProductType {
         INVAL,
@@ -66,6 +40,33 @@ namespace SafeguardFile
     constexpr auto BACKGROUND_LAYER =           "Background";
     
     static constexpr auto NO_TOKEN_DESIG =      "F";
+    
+    //These values map to the "Value" property of our extension panel select options
+    enum class InkMethod {
+        INVAL = -1,
+        NONE,
+        Flat,
+        Thermo,
+        Foil,
+        Emboss
+    };
+    
+    const std::map<InkMethod, string> InkMethodStrings
+    {
+        {InkMethod::NONE, "NONE"},
+        {InkMethod::Flat, "FLAT"},
+        {InkMethod::Thermo, "THERMO"},
+        {InkMethod::Foil, "FOIL"},
+        {InkMethod::Emboss, "EMBOSS"}
+    };
+    
+    //These values map to the "Value" property of our extension panel select options
+    enum class TickMarkStyle {
+        NONE,
+        Outer,
+        Inner,
+        Both
+    };
 }
 
 

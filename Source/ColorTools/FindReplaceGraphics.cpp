@@ -138,7 +138,7 @@ void adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *alter
                     AIColor tempColor = data->toColor;  //Make a new temporary color that is the same as the ToColor,
                     tempColor.c.c.tint = color->c.c.tint;   //except the tint is the same as the object's
                     
-                    AISwatchRef toColorTintSwatch = checkSwatchListForColor(tempColor, .01);
+                    AISwatchRef toColorTintSwatch = CheckSwatchListForColor(tempColor, .01);
                     
                     if ( toColorTintSwatch )
                     { //If the swatch already exists
