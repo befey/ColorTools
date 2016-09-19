@@ -179,7 +179,7 @@ bool ConvertToPointType()
 					sAIArt->DisposeArt(tempDuplicate);
 					
 					//Find the x and y translation
-					AIReal tx, ty;	
+					AIReal tx = 0.0, ty = 0.0;	
 					
 					if (firstRunJustification == ATE::kLeftJustify || firstRunJustification == ATE::kFullJustifyLastLineLeft ||
 						firstRunJustification == ATE::kFullJustifyLastLineFull || firstRunJustification == ATE::kFullJustifyLastLineCenter ||
@@ -403,7 +403,7 @@ void AlignPointType(AIArtHandle currArtHandle, ATE::ParagraphJustification align
 	sAIArt->GetArtTransformBounds(currArtHandle, NULL, kVisibleBounds|kExcludeHiddenObjectBounds, &postAlignBounds);
 	
 	//Find the x and y translation
-	AIReal tx, ty;	
+	AIReal tx = 0.0, ty = 0.0;	
 	
 	if (alignStyle == ATE::kLeftJustify || alignStyle == ATE::kFullJustifyLastLineLeft ||
 		alignStyle == ATE::kFullJustifyLastLineFull || alignStyle == ATE::kFullJustifyLastLineCenter ||

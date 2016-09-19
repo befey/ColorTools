@@ -24,7 +24,7 @@ namespace SafeguardFile
         void RemoveDuplicates();
         void RemoveNonPrintingColors();
         
-        bool SetColorMethod(string colorName, SafeguardFile::InkMethod method);
+        void SetColorMethod(string colorName, SafeguardFile::InkMethod method);
         
         void GetAsTextRange(ATE::ITextRange& targetRange) const;
         const vector<BtColor> GetColorList() const { return p_ColorList; };

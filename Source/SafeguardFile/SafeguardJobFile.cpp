@@ -39,7 +39,7 @@ SafeguardJobFile::SafeguardJobFile()
 void SafeguardJobFile::LoadDataFromDTO(SafeguardFile::PlateBleedInfoDTO dto)
 {
     int size = 0;
-    dto.NumPlates() >= plates.size() ? size = plates.size() : size = dto.NumPlates();
+    dto.NumPlates() >= plates.size() ? size = int(plates.size()) : size = dto.NumPlates();
    
     for ( int i = 0; i < size; i++ )
     {

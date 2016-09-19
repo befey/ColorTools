@@ -109,7 +109,7 @@ long ListFonts::MakeArtSetOfPrintingTextArts(AIArtSet const targetSet)
 }
 
 
-long ListFonts::MakeVectorOfFontsFromArtSet(AIArtSet const srcArtSet)
+void ListFonts::MakeVectorOfFontsFromArtSet(AIArtSet const srcArtSet)
 {
     size_t count;
     sAIArtSet->CountArtSet(srcArtSet, &count);

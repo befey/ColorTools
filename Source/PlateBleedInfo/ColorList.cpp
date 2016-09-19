@@ -188,7 +188,7 @@ void ColorList::AddColorToTextRange(const BtColor color, ATE::ITextRange& target
     }
 }
 
-bool ColorList::SetColorMethod(string colorName, SafeguardFile::InkMethod method)
+void ColorList::SetColorMethod(string colorName, SafeguardFile::InkMethod method)
 {
     for (auto& color : p_ColorList )
     {

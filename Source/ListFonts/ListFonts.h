@@ -39,7 +39,7 @@ private:
     vector<string> listofBadFonts;
     
     long MakeArtSetOfPrintingTextArts(AIArtSet const targetSet);
-    long MakeVectorOfFontsFromArtSet(AIArtSet const srcArtSet);
+    void MakeVectorOfFontsFromArtSet(AIArtSet const srcArtSet);
     void RemoveDuplicatesFromFeaturesList();
     void FillJobPostscriptFontList();
     AIArtHandle WriteVectorOfFontsToArtboard();

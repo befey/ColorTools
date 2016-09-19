@@ -28,7 +28,7 @@ namespace SafeguardFile
         bool DrawOuter() const;
         
         SafeguardFile::TickMarkStyle TickMarkStyle() const { return tmStyle; };
-        TickMarkSettings& TickMarkStyle(SafeguardFile::TickMarkStyle newVal) { tmStyle = newVal; };
+        TickMarkSettings& TickMarkStyle(SafeguardFile::TickMarkStyle newVal) { tmStyle = newVal; return *this;};
     private:
         AIRealRect bounds;
         int offset;

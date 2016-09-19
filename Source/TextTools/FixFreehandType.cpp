@@ -156,4 +156,5 @@ bool FixTextAttributes(ATE::ITextRange theRange, ASReal firstRunBaselineShift) {
 			}
 		}
 	}
+    return isAssigned;
 }

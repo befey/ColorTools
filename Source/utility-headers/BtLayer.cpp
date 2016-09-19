@@ -46,7 +46,7 @@ BtLayer& BtLayer::Title(string title)
 
 bool BtLayer::Visible() const
 {
-    AIBoolean vis;
+    AIBoolean vis = false;
     if (layerHandle)
     {
         sAILayer->GetLayerVisible(layerHandle, &vis);
@@ -64,7 +64,7 @@ BtLayer& BtLayer::Visible(bool visible)
 
 bool BtLayer::Editable() const
 {
-    AIBoolean edit;
+    AIBoolean edit = false;
     if (layerHandle)
     {
         sAILayer->GetLayerEditable(layerHandle, &edit);
@@ -82,7 +82,7 @@ BtLayer& BtLayer::Editable(bool editable)
 
 bool BtLayer::Printed() const
 {
-    AIBoolean print;
+    AIBoolean print = false;
     if (layerHandle)
     {
         sAILayer->GetLayerPrinted(layerHandle, &print);

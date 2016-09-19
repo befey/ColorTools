@@ -24,7 +24,7 @@ AIArtHandle BleedInfoDrawer::DoDraw(AIArtHandle resultGroup) const
         AIArtHandle foundArt = dw.GetArtHandleFromIdentifier(PLATE_BLEED_INFO_GROUP_LABEL, artboardIndex);
         if (foundArt)
         {
-            Update(foundArt);
+            return Update(foundArt);
         }
         else
         {
@@ -33,8 +33,9 @@ AIArtHandle BleedInfoDrawer::DoDraw(AIArtHandle resultGroup) const
     }
     else
     {
-        Add();
+        return Add();
     }
+    return NULL;
 }
 
 AIArtHandle BleedInfoDrawer::Add() const

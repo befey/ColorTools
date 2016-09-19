@@ -63,7 +63,7 @@ namespace SafeguardFile
         
         PlateBleedInfoDTO() {};
         
-        int NumPlates() const { return plates.size(); };
+        int NumPlates() const { return int(plates.size()); };
         void AddPlate(Plate p) { plates.push_back(p); };
         
         bool ShouldDrawBleedInfo(int index) const { return plates.at(index).shouldDrawBleedInfo; };

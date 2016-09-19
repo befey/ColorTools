@@ -33,7 +33,7 @@ namespace SafeguardFile
         const string GetToken(int plateIndex = 0) const;
         AIRealRect GetBleeds(int plateIndex = 0) const;
         
-        int GetNumPlates() const { return plates.size(); };
+        int GetNumPlates() const { return int(plates.size()); };
         
         SafeguardFile::ColorList GetAllColorsOnJob() const;
         
