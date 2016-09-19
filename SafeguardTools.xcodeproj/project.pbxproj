@@ -68,7 +68,7 @@
 		F979B6011CA31E78004BA4AD /* SDKPlugPlug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F979B6001CA31E78004BA4AD /* SDKPlugPlug.cpp */; };
 		F979B6031CA31E81004BA4AD /* FlashUIController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F979B6021CA31E81004BA4AD /* FlashUIController.cpp */; };
 		F979B6051CA31E87004BA4AD /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F979B6041CA31E87004BA4AD /* Main.cpp */; };
-		F979B6071CA31E8B004BA4AD /* Plugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F979B6061CA31E8B004BA4AD /* Plugin.cpp */; };
+		F979B6071CA31E8B004BA4AD /* Plugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F979B6061CA31E8B004BA4AD /* Plugin.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
 		F979B6091CA31E8E004BA4AD /* Suites.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F979B6081CA31E8E004BA4AD /* Suites.cpp */; };
 		F979B60B1CA31E92004BA4AD /* IllustratorSDK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F979B60A1CA31E92004BA4AD /* IllustratorSDK.cpp */; };
 		F97B564E1D36759500C10A9F /* LayerVisibility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F97B564C1D36759400C10A9F /* LayerVisibility.cpp */; };
