@@ -42,7 +42,7 @@ namespace SafeguardFile
         void EditBleedInfo();
         void RemoveBleedInfo();
         
-        void PutDataInDTO(SafeguardFile::PlateBleedInfoDTO& dto);
+        void PutDataInDTO(SafeguardFile::PlateBleedInfoDTO& dto, bool fullColorName = false);
     private:
         vector<Plate> plates;
         

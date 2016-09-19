@@ -53,14 +53,21 @@ input[type=button] {
   font-style: oblique;
 }
 
-
 #results-textarea {
+    height: 25em;
+}
+
+#colorlist-textarea {
+    height: 15em;
+}
+
+.info-area {
   border: 1px solid black;
 	font-size: 14px;
     width: 100%;
-    height: 25em;
     resize: none;
 	overflow: auto;
+    padding: 5px;
 }
 
 .deleted {

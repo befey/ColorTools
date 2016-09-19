@@ -55,7 +55,7 @@ void SafeguardJobFile::LoadDataFromDTO(SafeguardFile::PlateBleedInfoDTO dto)
     }
 }
 
-void SafeguardJobFile::PutDataInDTO(SafeguardFile::PlateBleedInfoDTO& dto)
+void SafeguardJobFile::PutDataInDTO(SafeguardFile::PlateBleedInfoDTO& dto, bool fullColorName)
 {
     for ( auto plate : plates )
     {
@@ -71,7 +71,11 @@ void SafeguardJobFile::PutDataInDTO(SafeguardFile::PlateBleedInfoDTO& dto)
         
         for ( auto color : plate.BleedInfo().ColorList().GetColorList() )
         {
-            p.c.push_back(PlateBleedInfoDTO::Plate::Color{.colorName = GetInnerPantoneColorNumber(color.Name()), .method = int(color.Method())});
+            p.c.push_back(PlateBleedInfoDTO::Plate::Color
+                          {
+                              .colorName = fullColorName ? color.Name() : GetInnerPantoneColorNumber(color.Name()),
+                              .method = int(color.Method())
+                          });
         }
         
         dto.AddPlate(p);
