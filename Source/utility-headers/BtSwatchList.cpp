@@ -25,16 +25,17 @@ void BtSwatchList::CreateOrConvertToCustomColor(BtColor color)
     AICustomColor newCustomColorDefinition = color.AiCustomColor();
     
     AIColor newAiColorDefinition;
+    AICustomColorHandle hCreatedCustomColor = NULL;
     
-    if (ColorHasDefinitionAlready(color, &newAiColorDefinition) && newAiColorDefinition.kind == kCustomColor)
+    if ( ColorHasDefinitionAlready(color, &newAiColorDefinition) && newAiColorDefinition.kind == kCustomColor)
     {
         newAiColorDefinition.c.c.tint = 0;
         sAICustomColor->SetCustomColor(newAiColorDefinition.c.c.color, &newCustomColorDefinition);
     }
     else
     {
-        AICustomColorHandle hCreatedCustomColor;
-        sAICustomColor->NewCustomColor(&newCustomColorDefinition, ai::UnicodeString(color.Name()), &hCreatedCustomColor);
+        ASErr err = sAICustomColor->NewCustomColor(&newCustomColorDefinition, ai::UnicodeString(color.Name().append("1")), &hCreatedCustomColor);
+        string error = GetIllustratorErrorCode(err);
         newAiColorDefinition.kind = kCustomColor;
         newAiColorDefinition.c.c.tint = 0;
         newAiColorDefinition.c.c.color = hCreatedCustomColor;
@@ -52,9 +53,11 @@ void BtSwatchList::CreateOrConvertToCustomColor(BtColor color)
         }
         else
         {
-            swatch = sAISwatchList->InsertNthSwatch(NULL, -1);
+            swatch = sAISwatchList->InsertNthSwatch(NULL, 2);
         }
-        sAISwatchList->SetAIColor(swatch, &newAiColorDefinition);
+        ASErr err = sAISwatchList->SetAIColor(swatch, &newAiColorDefinition);
+        sAISwatchList->SetSwatchName(swatch, ai::UnicodeString(color.Name()));
+        string error = GetIllustratorErrorCode(err);
     }
 }
 
@@ -188,6 +191,7 @@ bool BtSwatchList::SwatchNameExists(std::string name, AIColor* outFoundColor) co
         sAISwatchList->GetAIColor(hFoundSwatch, outFoundColor);
         return TRUE;
     }
+    outFoundColor->kind = kNoneColor;
     return FALSE;
 }
 
