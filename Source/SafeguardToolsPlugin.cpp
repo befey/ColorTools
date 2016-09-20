@@ -331,6 +331,7 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
 	if ( message->menuItem == menuItemHandles.GetHandleWithKey(FIX_BLACK_MENU_ITEM) )
 	{
         FixBlack();
+        FixBlack();
     }
 	else if ( message->menuItem == menuItemHandles.GetHandleWithKey(FIND_AND_REPLACE_MENU_ITEM) )
 	{
