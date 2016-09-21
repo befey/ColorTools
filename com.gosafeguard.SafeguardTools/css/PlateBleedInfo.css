@@ -1,19 +1,19 @@
 .arrow {
-  width: 0;
-  height: 0;
-  border-top: 15px solid transparent;
-  border-bottom: 15px solid transparent;
-  position: absolute;
+    width: 0;
+    height: 0;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    position: absolute;
 }
 
 .arrow-right {
-  border-left: 15px solid #000;
-  right: 0;
+    border-left: 15px solid #000;
+    right: 0;
 }
 
 .arrow-left {
-  border-right: 15px solid #000;
-  left: 0;
+    border-right: 15px solid #000;
+    left: 0;
 }
 
 .table {
@@ -39,39 +39,39 @@
 }
 
 .container {
-  display: flex;
+    display: flex;
 }
 
 .column {
-  flex: 1;
-  /*for demo purposes only */
-  background: #f2f2f2;
-  border: 1px solid #e6e6e6;
-  box-sizing: border-box;
-  
+    flex: 1;
+    /*for demo purposes only */
+    background: #f2f2f2;
+    border: 1px solid #e6e6e6;
+    box-sizing: border-box;
+    
 }
 
 .column-one {
-  order: 1;
+    order: 1;
 }
 
 .column-two {
-  order: 2;
+    order: 2;
 }
 
 .column-three {
-  order: 3;
+    order: 3;
 }
 
 .header-label {
-  display: table-cell;
-  vertical-align: middle;
-  text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
 }
 
 .preset {
-  display: inline-block;
-  width: 45%;
-  padding: 2%;
-  vertical-align: top;
+    display: inline-block;
+    width: 45%;
+    padding: 2%;
+    vertical-align: top;
 }

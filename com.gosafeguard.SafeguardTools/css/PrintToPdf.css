@@ -6,8 +6,8 @@
 }
 
 .or {
-  display: inline-block;
-  font-style: oblique;
+    display: inline-block;
+    font-style: oblique;
 }
 
 #results-textarea {
@@ -45,9 +45,9 @@
 }
 
 .deleted {
-	color: red;
+    color: red;
 }
 
 .created {
-	color: green;
+    color: green;
 }
