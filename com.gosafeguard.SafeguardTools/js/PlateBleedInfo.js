@@ -66,7 +66,7 @@ function LoadJsonDataForCurrentArtboard()
                     var newHtml = "";
                     for (var i = 0; i < jsonArtboardData.dto.plates[currArtboardId].c.length; i++)
                     {
-                        color = jsonArtboardData.dto.plates[currArtboardId].c[i];
+                        var color = jsonArtboardData.dto.plates[currArtboardId].c[i];
                         newHtml += "<div class='trow'><div id='colorname-text" + i + "' class='tcell1'>" +
                         color.colorName +
                         "</div>" +
@@ -85,7 +85,7 @@ function LoadJsonDataForCurrentArtboard()
     
     for (var i = 0; i < jsonArtboardData.dto.plates[currArtboardId].c.length; i++)
     {
-        color = jsonArtboardData.dto.plates[currArtboardId].c[i];
+        var color = jsonArtboardData.dto.plates[currArtboardId].c[i];
         $("#inktype-select" + i + " option").eq(color.method).attr("selected", "selected");
     }
 }
@@ -97,7 +97,7 @@ function StoreCurrentArtboardData()
     
     for (var i = 0; i < jsonArtboardData.dto.plates[currArtboardId].c.length; i++)
     {
-        color = jsonArtboardData.dto.plates[currArtboardId].c[i];
+        var color = jsonArtboardData.dto.plates[currArtboardId].c[i];
         color.method = parseInt($("#inktype-select" + i).val(), 10);
     }
 }
