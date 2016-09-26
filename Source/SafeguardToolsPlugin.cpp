@@ -309,14 +309,14 @@ ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
     BtAiMenuItem::AddMenu(PrintToPdfMenuItem, &menuItemHandles);
 
     
-    //CREATE SLUG INFO
+/*    //CREATE SLUG INFO
     menuItem.groupName = kDocumentUtilsMenuGroup;
     menuItem.itemText = ai::UnicodeString(CREATE_PLATE_BLEED_INFO_MENU_ITEM);
     BtAiMenuItem CreatePlateBleedInfoMenuItem = BtAiMenuItem(menuItem, kMenuItemWantsUpdateOption);
     CreatePlateBleedInfoMenuItem.SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, 0, 0, kIfOpenDocument, 0);
     
     BtAiMenuItem::AddMenu(CreatePlateBleedInfoMenuItem, &menuItemHandles);
-
+*/
     return kNoErr;
  
 }
@@ -409,7 +409,7 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
         printToPdfUIController->LoadExtension();
         sAICSXSExtension->LaunchExtension(PrintToPdf::PrintToPdfUIController::PRINTTOPDF_UI_EXTENSION);
     }
-    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
+/*    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
     {
         DictionaryWriter dw;
         if ( dw.CheckDictionaryForArtObjectWithIdentifier(SafeguardFile::PLATE_BLEED_INFO_GROUP_LABEL, 0) )
@@ -425,7 +425,7 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
             sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Add Safeguard Plate Info"), ai::UnicodeString("Redo Add Safeguard Plate Info"));
         }
     }
-	
+*/	
 	if (error)
 		goto error;
 	
@@ -533,10 +533,10 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
     }
     if (message->notifier == fDocumentCropAreaModifiedNotifierHandle )
     {
-        sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, false);
+/*        sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, false);
         SafeguardJobFile sgJobFile;
         sgJobFile.UpdateBleedInfo();
         sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, true);
-    }
+*/    }
     return kNoErr;
 }

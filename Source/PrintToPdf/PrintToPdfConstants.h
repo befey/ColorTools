@@ -16,8 +16,8 @@ namespace PrintToPdf
     static constexpr auto REG_PROOF_PDF_PRESET =            "Proof";
     
     static constexpr auto PATH_TO_PLANT_MANUFACTURING =     "/Volumes/Plant_Manufacturing/Safeguard_Mfg_Files";
-    static constexpr auto PATH_TO_PDFPROOFS =               "/Volumes/PDFProofs/out";
-    static constexpr auto PATH_TO_MICR_PDF =                "/Volumes/MICR_PDF/out";
+    static constexpr auto PATH_TO_PDFPROOFS =               "/Volumes/PDFProofs/BAM Proofs";
+    static constexpr auto PATH_TO_MICR_PDF =                "/Volumes/PDFProofs/BAM Proofs";
     static constexpr auto TESTING_OUTPUTPATH =              "/Users/t431962/Desktop/WORKING";
 
     
