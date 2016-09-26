@@ -1,24 +1,3 @@
-form {
-    width: 500px;
-    height: 720px;
-    position: relative;
-    font-family: Tahoma, Geneva, sans-serif;
-    font-size: 14px;
-    margin: 5px;
-}
-
-label {
-    line-height: 200%;
-    width: 10%
-}
-
-select {
-    display: inline;
-    font-size: 14px;
-    width: 100%;
-    margin: 2px;
-}
-
 .preset {
     display: inline-block;
     width: 45%;
@@ -26,47 +5,49 @@ select {
     vertical-align: top;
 }
 
-.field {
-    display: inline-block;
-    width: 45%;
-    padding: 2%;
-}
-
-.wide-field {
-    display: inline-block;
-    width: 98%;
-}
-
-.buttons {
-    position:absolute;
-    bottom:0;
-    right:0;
-}
-
-input[type=button] {
-    display: inline:block;
-    font-size: 18px;
-}
-
 .or {
-  display: inline:block;
-  font-style: oblique;
+    display: inline-block;
+    font-style: oblique;
 }
-
 
 #results-textarea {
-  border: 1px solid black;
-	font-size: 14px;
-    width: 100%;
-    height: 40em;
-    resize: none;
-	overflow: auto;
+    height: 25em;
+}
+
+#colorlist-textarea {
+    height: 15em;
+}
+
+.artboard-colors {
+    display: inline-block;
+    width: 97%;
+    border: 1px dashed darkgreen;
+    padding: 1%;
+    margin: 1px;
+    position: relative;
+}
+
+.colorName {
+    display: block;
+}
+
+.artboard-id {
+    position: absolute;
+    right: 0;
+    margin-right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: right;
+    vertical-align: middle;
+    font-size: 20px;
+    font-weight: bold;
+    color: lightgray;
 }
 
 .deleted {
-	color: red;
+    color: red;
 }
 
 .created {
-	color: green;
+    color: green;
 }

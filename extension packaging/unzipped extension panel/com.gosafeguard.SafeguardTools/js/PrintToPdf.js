@@ -7,6 +7,8 @@ var cancelEvent = new CSEvent("com.gosafeguard.SafeguardTools.PrintToPdf.cancelb
 
 var resultsBackEvent = new CSEvent("com.gosafeguard.SafeguardTools.PrintToPdf.resultsback", "APPLICATION", "ILST", "PrintToPdf");
 
+var panelLoadedEvent = new CSEvent("com.gosafeguard.SafeguardTools.PrintToPdf.panelloaded", "APPLICATION", "ILST", "PrintToPdf");
+
 $(function()
   {
   csInterface.setWindowTitle("Print To PDF");
@@ -59,9 +61,16 @@ $(function()
                                {
                                csInterface.closeExtension();
                                });
+  csInterface.addEventListener("com.gosafeguard.SafeguardTools.PrintToPdf.datafromplugin", ReceiveDataFromPlugin);
+  
+  csInterface.dispatchEvent(panelLoadedEvent);
   }
   );
 
+function ReceiveDataFromPlugin(event)
+{
+    PutColorList(event.data);
+}
 
 function sendDataToIllustrator()
 {
@@ -97,4 +106,23 @@ function onResultsBack(event)
 function clearResultBox(event)
 {
     $("#results-textarea").text('');
+}
+
+function PutColorList(data)
+{
+    $("#colorlist-textarea").html(function() {
+                                  var newHtml = "";
+                                  for (var j = 0; j < data.dto.plates.length; j++)
+                                  {
+                                    newHtml += "<div class='artboard-colors'>";
+                                    for (var i = 0; i < data.dto.plates[j].c.length; i++)
+                                    {
+                                        color = data.dto.plates[j].c[i];
+                                        newHtml += "<div class='colorName'>" + color.colorName + "</div>";
+                                    }
+                                    newHtml += "<div class='artboard-id'>" + data.dto.plates[j].artboardName + "</div></div>";
+                                  }
+                                  return newHtml;
+                                  });
+    
 }
