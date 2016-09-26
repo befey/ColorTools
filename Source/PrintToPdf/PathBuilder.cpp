@@ -57,7 +57,6 @@ ai::FilePath ProofPathBuilder::GetAiFilePath(const PlateNumber pn) const
 {
     ai::UnicodeString fpUS = ai::UnicodeString(PATH_TO_PDFPROOFS);
     ai::FilePath saveasFilePath(fpUS);
-    saveasFilePath.AddComponent(ai::UnicodeString("out"));
     
     fs::path outputPath( saveasFilePath.GetFullPath().as_Platform() );
     string prodCode = pn.GetProductIndicator();
@@ -74,7 +73,6 @@ ai::FilePath MicrProofPathBuilder::GetAiFilePath(const PlateNumber pn) const
 {
     ai::UnicodeString fpUS = ai::UnicodeString(PATH_TO_MICR_PDF);
     ai::FilePath saveasFilePath(fpUS);
-    saveasFilePath.AddComponent(ai::UnicodeString("out"));
     
     fs::path outputPath( saveasFilePath.GetFullPath().as_Platform() );
     string prodCode = pn.GetProductIndicator();
