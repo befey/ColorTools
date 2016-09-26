@@ -156,7 +156,11 @@ AIRealRect BleedInfo::Bleeds() const
     {
         sAIRealMath->AIRealRectSet(&bleedRect, 12, 12, 12, 12);
     }
-    else //Continuous and Snapsets
+    else if (pt == ProductType::Continuous)
+    {
+        sAIRealMath->AIRealRectSet(&bleedRect, 9, 9, 9, 9);
+    }
+    else //No bleed
     {
         sAIRealMath->AIRealRectSet(&bleedRect, 0, 0, 0, 0);
     }
