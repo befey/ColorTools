@@ -114,13 +114,13 @@ function PutColorList(data)
                                   var newHtml = "";
                                   for (var j = 0; j < data.dto.plates.length; j++)
                                   {
-                                  newHtml += "<div class='artboard-colors'>";
-                                  for (var i = 0; i < data.dto.plates[j].c.length; i++)
-                                  {
-                                  color = data.dto.plates[j].c[i];
-                                  newHtml += "<div class='colorName'>" + color.colorName + "</div>";
-                                  }
-                                  newHtml += "<div class='artboard-id'>" + data.dto.plates[j].artboardName + "</div></div>";
+                                    newHtml += "<div class='artboard-colors'>";
+                                    for (var i = 0; i < data.dto.plates[j].c.length; i++)
+                                    {
+                                        color = data.dto.plates[j].c[i];
+                                        newHtml += "<div class='colorName'>" + color.colorName + "</div>";
+                                    }
+                                    newHtml += "<div class='artboard-id'>" + data.dto.plates[j].artboardName + "</div></div>";
                                   }
                                   return newHtml;
                                   });
