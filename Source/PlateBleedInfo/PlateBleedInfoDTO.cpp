@@ -9,6 +9,7 @@
 #include "PlateBleedInfoDTO.hpp"
 #include "DictionaryWriter.h"
 #include "SafeguardJobFile.h"
+#include "cereal/cereal.hpp"
 #include "cereal/archives/json.hpp"
 
 using SafeguardFile::PlateBleedInfoDTO;
