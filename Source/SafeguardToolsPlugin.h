@@ -73,6 +73,7 @@ public:
     static constexpr auto PRINT_TO_PDF_MENU_ITEM =         "Print to PDF...";
     
     static constexpr auto CREATE_PLATE_BLEED_INFO_PLUGIN_GROUP =  "bt.SafeguardTools.PlateBleedInfo";
+    static constexpr auto BLEED_INFO_PLUGIN_GROUP_DESC =          "__SafeguardPlateInfo__";
     static constexpr auto CREATE_PLATE_BLEED_INFO_MENU_ITEM =     "Add Safeguard Plate Info";
 
 protected:
@@ -117,6 +118,7 @@ protected:
      @return kNoErr on success, other ASErr otherwise.
      */
     virtual ASErr PluginGroupUpdate(AIPluginGroupMessage* message);
+    virtual ASErr PluginGroupNotify(AIPluginGroupMessage* message);
     
     virtual ASErr ReloadPlugin(SPInterfaceMessage *message);
     

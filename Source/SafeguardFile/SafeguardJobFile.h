@@ -37,7 +37,6 @@ namespace SafeguardFile
         
         SafeguardFile::ColorList GetAllColorsOnJob() const;
         
-        void AddBleedInfo();
         void UpdateBleedInfo();
         void EditBleedInfo();
         void RemoveBleedInfo();

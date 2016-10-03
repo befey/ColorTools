@@ -3,6 +3,7 @@
 #include "SafeguardToolsSuites.h"
 
 #include "AICSXS.h"
+#include "AIArtboardMessage.h"
 
 #include "GetIllustratorErrorCode.h"
 
@@ -114,7 +115,7 @@ ASErr SafeguardToolsPlugin::StartupPlugin( SPInterfaceMessage *message )
     //Register PlateBleedInfo plugin group
     pluginGroupData.major = 1;
     pluginGroupData.minor = 0;
-    pluginGroupData.desc = "__SafeguardPlateInfo__";
+    pluginGroupData.desc = BLEED_INFO_PLUGIN_GROUP_DESC;
     error = sAIPluginGroup->AddAIPluginGroup (message->d.self,
                                       CREATE_PLATE_BLEED_INFO_PLUGIN_GROUP,
                                       &pluginGroupData,
@@ -421,7 +422,7 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
         else
         {
             SafeguardJobFile sgJobFile;
-            sgJobFile.AddBleedInfo();
+            sgJobFile.UpdateBleedInfo();
             sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Add Safeguard Plate Info"), ai::UnicodeString("Redo Add Safeguard Plate Info"));
         }
     }
@@ -498,12 +499,27 @@ error:
 
 ASErr SafeguardToolsPlugin::PluginGroupUpdate(AIPluginGroupMessage* message)
 {
-    ASErr result = kNoErr;
-    
     SafeguardJobFile sgJobFile;
-    sgJobFile.AddBleedInfo();
+    sgJobFile.UpdateBleedInfo();
     
-    return result;
+    return kNoErr;
+}
+
+ASErr SafeguardToolsPlugin::PluginGroupNotify(AIPluginGroupMessage* message)
+{
+    if (strcmp( message->code, kAttachOperationCode ) == 0 && strcmp( message->time, kCheckOperationTime ) == 0)
+    {
+        return kNoErr;
+    }
+    if (strcmp( message->code, kAttachOperationCode ) == 0 && strcmp( message->time, kBeforeOperationTime ) == 0)
+    {
+        return kNoErr;
+    }
+    if (strcmp( message->code, kAttachOperationCode ) == 0 && strcmp( message->time, kAfterOperationTime ) == 0)
+    {
+        return kMarkValidPluginGroupReply;
+    }
+    return kUnhandledMsgErr;
 }
 
 ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
@@ -533,10 +549,18 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
     }
     if (message->notifier == fDocumentCropAreaModifiedNotifierHandle )
     {
-        sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, false);
-        SafeguardJobFile sgJobFile;
-        sgJobFile.UpdateBleedInfo();
-        sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, true);
+        DictionaryWriter dw;
+        if ( dw.CheckDictionaryForArtObjectWithIdentifier(SafeguardFile::PLATE_BLEED_INFO_GROUP_LABEL, 0) )
+        {
+            AIArtboardMessage* m = (AIArtboardMessage*)message->notifyData;
+            if (m->msgSrc == kUpdate)
+            {
+                sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, false);
+                SafeguardJobFile sgJobFile;
+                sgJobFile.UpdateBleedInfo();
+                sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, true);
+            }
+        }
     }
     return kNoErr;
 }

@@ -237,6 +237,7 @@
 		F98BAEE01CA9A0D100965D86 /* BtAiMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BtAiMenuItem.h; path = "Source/utility-headers/BtAiMenuItem.h"; sourceTree = "<group>"; };
 		F99280391D6B723F00E7EBF2 /* PlateBleedInfoDTO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlateBleedInfoDTO.cpp; path = Source/PlateBleedInfo/PlateBleedInfoDTO.cpp; sourceTree = "<group>"; };
 		F992803A1D6B723F00E7EBF2 /* PlateBleedInfoDTO.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PlateBleedInfoDTO.hpp; path = Source/PlateBleedInfo/PlateBleedInfoDTO.hpp; sourceTree = "<group>"; };
+		F9B3FE381D9EBC6F002E10EB /* AIArtboardMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AIArtboardMessage.h; path = "Source/utility-headers/AIArtboardMessage.h"; sourceTree = "<group>"; };
 		F9C44EEE1D0AF26100205ADF /* Plate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Plate.cpp; path = Source/SafeguardFile/Plate.cpp; sourceTree = "<group>"; };
 		F9C44EEF1D0AF26100205ADF /* Plate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Plate.h; path = Source/SafeguardFile/Plate.h; sourceTree = "<group>"; };
 		F9C44EF21D0AF51100205ADF /* TickMarkDrawer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TickMarkDrawer.cpp; path = Source/PlateBleedInfo/TickMarkDrawer.cpp; sourceTree = "<group>"; };
@@ -501,6 +502,7 @@
 		F989A8CF1CA4606E0050C071 /* My Headers */ = {
 			isa = PBXGroup;
 			children = (
+				F9B3FE381D9EBC6F002E10EB /* AIArtboardMessage.h */,
 				F98BAEDB1CA99E1E00965D86 /* ArtTree.cpp */,
 				F98BAEDC1CA99E1E00965D86 /* ArtTree.h */,
 				F90E3F951CA475880081C333 /* ATEFuncs.cpp */,

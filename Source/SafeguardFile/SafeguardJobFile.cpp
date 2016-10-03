@@ -82,23 +82,11 @@ void SafeguardJobFile::PutDataInDTO(SafeguardFile::PlateBleedInfoDTO& dto, bool 
     }
 }
 
-void SafeguardJobFile::AddBleedInfo()
+void SafeguardJobFile::UpdateBleedInfo()
 {
     for ( auto plate : plates )
     {
         plate.DrawBleedInfo();
-    }
-}
-
-void SafeguardJobFile::UpdateBleedInfo()
-{
-    for ( int i = 0; i < plates.size(); i++ )
-    {
-        DictionaryWriter dw;
-        if ( dw.CheckDictionaryForArtObjectWithIdentifier(SafeguardFile::PLATE_BLEED_INFO_GROUP_LABEL, i) )
-        {
-            plates[i].DrawBleedInfo();
-        }
     }
 }
 

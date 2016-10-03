@@ -50,7 +50,6 @@ AIArtHandle BleedInfoDrawer::Add() const
     sAIPluginGroup->UseAIPluginGroup(pluginGroupArt, gPlugin->GetBleedInfoPluginGroupHandle());
     
     CreateResultArt(pluginGroupArt);
-    sAIPluginGroup->MarkPluginArtSilent(pluginGroupArt);
     
     DictionaryWriter dw;
     dw.AddArtHandleToDictionary(pluginGroupArt, PLATE_BLEED_INFO_GROUP_LABEL, artboardIndex);
@@ -62,13 +61,11 @@ AIArtHandle BleedInfoDrawer::Update(AIArtHandle pluginGroupArt) const
 {
     CreateResultArt(pluginGroupArt);
     
-    sAIPluginGroup->MarkPluginArtDirty(pluginGroupArt);
     return pluginGroupArt;
 }
 
 AIArtHandle BleedInfoDrawer::CreateResultArt(AIArtHandle pluginGroupArt) const
 {
-    vector<AIArtHandle> resultHandles;
     AIArtHandle resultGroup;
     sAIPluginGroup->GetPluginArtResultArt(pluginGroupArt, &resultGroup);
     
@@ -76,7 +73,7 @@ AIArtHandle BleedInfoDrawer::CreateResultArt(AIArtHandle pluginGroupArt) const
     
     for (auto drawer : drawers)
     {
-        resultHandles.push_back(drawer->Draw(resultGroup));
+        drawer->Draw(resultGroup);
     }
     
     return pluginGroupArt;
@@ -100,14 +97,3 @@ void BleedInfoDrawer::Remove(AIArtHandle pluginGroupArt) const
     dw.RemoveIdentifierFromDictionary(PLATE_BLEED_INFO_GROUP_LABEL, artboardIndex);
     sAIArt->DisposeArt(pluginGroupArt);
 }
-/*
- ASErr BleedInfo::PluginGroupNotify(AIPluginGroupMessage* message)
- {
- return kUnhandledMsgErr;
- }
- 
- ASErr BleedInfo::PluginGroupUpdate(AIPluginGroupMessage* message)
- {
- return kUnhandledMsgErr;
- }
- */
