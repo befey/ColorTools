@@ -74,6 +74,10 @@ void Plate::DrawBleedInfo()
     {
         bleedInfoDrawer->Draw();
     }
+    else
+    {
+        RemoveBleedInfo();
+    }
 }
 
 bool Plate::ShouldDrawBleedInfo()

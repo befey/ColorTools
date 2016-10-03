@@ -54,10 +54,17 @@ void PlateBleedInfoUIController::OkButtonClickedFunc (const csxs::event::Event* 
         AppContext appContext(gPlugin->GetPluginRef());
         
         SafeguardFile::PlateBleedInfoDTO plateBleedInfoDTO;
-        std::stringstream ss(event->data);
+        std::istringstream is(event->data);
         {
-            cereal::JSONInputArchive iarchive(ss); // Create an input archive
-            iarchive(plateBleedInfoDTO);
+            try
+            {
+                cereal::JSONInputArchive iarchive(is); // Create an input archive
+                iarchive(plateBleedInfoDTO);
+            }
+            catch (std::runtime_error e)
+            {
+                string s(e.what());
+            }
         }
         
         plateBleedInfoDTO.WriteToDocumentDictionary();
@@ -239,13 +246,13 @@ ai::ArtboardID PlateBleedInfoUIController::GetArtboardIdFromJson(const char* jso
 
 string PlateBleedInfoUIController::GetBleedInfoAsJson() const
 {
-    std::stringstream ss;
+    std::ostringstream os;
     {
         SafeguardJobFile sgJobFile;
         PlateBleedInfoDTO dto;
         sgJobFile.PutDataInDTO(dto);
-        cereal::JSONOutputArchive oarchive(ss); // Create an output archive
+        cereal::JSONOutputArchive oarchive(os); // Create an output archive
         oarchive(CEREAL_NVP(dto));
     }
-    return ss.str();
+    return os.str();
 }
