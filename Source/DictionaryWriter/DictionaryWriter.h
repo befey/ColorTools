@@ -31,6 +31,7 @@ class DictionaryWriter
 {
 public:
     DictionaryWriter();
+    DictionaryWriter(AIArtHandle art);
     ~DictionaryWriter();
     
     AIBoolean RemoveIdentifierFromDictionary(string identifier, int CAIndex = -1);

@@ -13,6 +13,11 @@ DictionaryWriter::DictionaryWriter()
     sAIDocument->GetDictionary(&dictionary);
 }
 
+DictionaryWriter::DictionaryWriter(AIArtHandle art)
+{
+    sAIArt->GetDictionary(art, &dictionary);
+}
+
 DictionaryWriter::~DictionaryWriter()
 {
     sAIDictionary->Release(dictionary);
