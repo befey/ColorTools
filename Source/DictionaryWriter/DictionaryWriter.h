@@ -47,6 +47,8 @@ public:
     AIBoolean GetStringDataFromIdentifier(string& data, string identifier, int CAIndex = -1);
     AIBoolean AddStringDataToDictionary(string data, string identifier, int CAIndex = -1);
     
+    AIBoolean GetArrayDataFromIdentifier(AIArrayRef& data, string identifier, int CAIndex = -1);
+    AIBoolean AddArrayDataToDictionary(AIArrayRef data, string identifier, int CAIndex = -1);
 private:
     AIDictionaryRef dictionary;
     

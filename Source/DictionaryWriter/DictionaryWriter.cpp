@@ -161,6 +161,30 @@ AIBoolean DictionaryWriter::AddStringDataToDictionary(string data, string identi
     return FALSE;
 }
 
+AIBoolean DictionaryWriter::GetArrayDataFromIdentifier(AIArrayRef& data, string identifier, int CAIndex)
+{
+    AIDictKey dictKey = GenerateKey(identifier, CAIndex);
+    if (sAIDictionary->IsKnown(dictionary, dictKey))
+    {
+        sAIDictionary->GetArrayEntry(dictionary, dictKey, &data);
+        return TRUE;
+    }
+    
+    return FALSE;
+}
+
+AIBoolean DictionaryWriter::AddArrayDataToDictionary(AIArrayRef data, string identifier, int CAIndex)
+{
+    AIDictKey dictKey = GenerateKey(identifier, CAIndex);
+    if (dictKey)
+    {
+        sAIDictionary->SetArrayEntry(dictionary, dictKey, data);
+        return TRUE;
+    }
+    
+    return FALSE;
+}
+
 AIArtHandle DictionaryWriter::GetArtHandleFromIdentifier(string identifier, int CAIndex)
 {
     AIArtHandle foundArtHandle = NULL;
@@ -211,9 +235,10 @@ AIBoolean DictionaryWriter::AddArtHandleToDictionary(AIArtHandle currArt, string
             sAIUIDREF->Release(uidREFRef);
         }
         sAIUID->Release(uid);
+        return TRUE;
     }
     
-    return TRUE;
+    return FALSE;
 }
 
 AIBoolean DictionaryWriter::RemoveIdentifierFromDictionary(string identifier, int CAIndex)
