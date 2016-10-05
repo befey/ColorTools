@@ -74,7 +74,7 @@ ProductType PlateNumber::GetProductType() const
         return ProductType::CutSheet;
     }
     
-    if (productIndicator == "CF" || productIndicator == "SC" || productIndicator == "SS" || productIndicator == "EN")
+    if (productIndicator == "CF" || productIndicator == "SC" || productIndicator == "SS")
     {
         return ProductType::Continuous;
     }
