@@ -96,6 +96,12 @@ string BleedInfo::ArtboardName(bool& isDefault) const
     return abNameS;
 }
 
+string BleedInfo::ArtboardName() const
+{
+    bool aiboolIsDefault;
+    return ArtboardName(aiboolIsDefault);
+}
+
 BleedInfo& BleedInfo::ArtboardName(string newVal)
 {
     ai::ArtboardList abList;

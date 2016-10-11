@@ -59,23 +59,22 @@ void SafeguardJobFile::PutDataInDTO(PlateBleedInfoDTO::SafeguardJobFileDTO& dto,
 {
     for ( auto plate : plates )
     {
-        PlateBleedInfoDTO::PlateDTO p {
-            .shouldDrawBleedInfo  = plate.BleedInfo().ShouldDrawBleedInfo(),
-            .artboardIndex = plate.BleedInfo().ArtboardIndex(),
-            .artboardName = plate.BleedInfo().ArtboardName(p.isDefaultArtboardName),
-            .plateNumber = plate.BleedInfo().PlateNumber(),
-            .token = plate.BleedInfo().Token(),
-            .shouldAddCmykBlocks = plate.BleedInfo().ShouldAddCmykBlocks(),
-            .tmStyle = int(plate.BleedInfo().TickMarkSettings().TickMarkStyle())
-        };
+        PlateBleedInfoDTO::PlateDTO p;
+        p.shouldDrawBleedInfo  = plate.BleedInfo().ShouldDrawBleedInfo();
+        p.artboardIndex = plate.BleedInfo().ArtboardIndex();
+        p.artboardName = plate.BleedInfo().ArtboardName(p.isDefaultArtboardName);
+        p.plateNumber = plate.BleedInfo().PlateNumber();
+        p.token = plate.BleedInfo().Token();
+        p.shouldAddCmykBlocks = plate.BleedInfo().ShouldAddCmykBlocks();
+        p.tmStyle = int(plate.BleedInfo().TickMarkSettings().TickMarkStyle());
+
         
         for ( auto color : plate.BleedInfo().ColorList().GetColorList() )
         {
-            p.c.push_back(PlateBleedInfoDTO::ColorDTO
-                          {
-                              .colorName = fullColorName ? color.Name() : GetInnerPantoneColorNumber(color.Name()),
-                              .method = int(color.Method())
-                          });
+            PlateBleedInfoDTO::ColorDTO c;
+            c.colorName = fullColorName ? color.Name() : GetInnerPantoneColorNumber(color.Name());
+            c.method = int(color.Method());
+            p.c.push_back(c);
         }
         
         dto.AddPlate(p);

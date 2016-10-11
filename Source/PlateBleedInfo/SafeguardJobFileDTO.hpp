@@ -9,6 +9,8 @@
 #ifndef PlateBleedInfoDTO_hpp
 #define PlateBleedInfoDTO_hpp
 
+#include "BleedInfo.h"
+#include "BtColor.h"
 #include "cereal/cereal.hpp"
 #include "cereal/access.hpp"
 #include "cereal/types/vector.hpp"
@@ -16,11 +18,17 @@
 
 namespace PlateBleedInfoDTO
 {
-    struct ColorDTO
+    class ColorDTO
     {
+    public:
+        ColorDTO() {};
+        ColorDTO(BtColor color);
+        
         string colorName;
         int method;
         
+    private:
+        friend class cereal::access;
         template <class Archive>
         void serialize(Archive& ar)
         {
@@ -30,8 +38,12 @@ namespace PlateBleedInfoDTO
         }
     };
     
-    struct PlateDTO
+    class PlateDTO
     {
+    public:
+        PlateDTO() {};
+        PlateDTO(SafeguardFile::BleedInfo bleedInfo);
+        
         bool shouldDrawBleedInfo;
         int artboardIndex;
         string artboardName;
@@ -42,6 +54,8 @@ namespace PlateBleedInfoDTO
         bool shouldAddCmykBlocks;
         int tmStyle;
         
+    private:
+        friend class cereal::access;
         template <class Archive>
         void serialize(Archive& ar)
         {
