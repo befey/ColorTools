@@ -12,7 +12,7 @@
 #include "SafeguardToolsSuites.h"
 #include "BtDocumentView.hpp"
 #include "GetIllustratorErrorCode.h"
-#include "PlateBleedInfoDTO.hpp"
+#include "SafeguardJobFileDTO.hpp"
 #include "rapidjson/document.h"
 
 #include "cereal/cereal.hpp"
@@ -53,7 +53,7 @@ void PlateBleedInfoUIController::OkButtonClickedFunc (const csxs::event::Event* 
         // Set up the application context, so that suite calls can work.
         AppContext appContext(gPlugin->GetPluginRef());
         
-        SafeguardFile::PlateBleedInfoDTO plateBleedInfoDTO;
+        PlateBleedInfoDTO::SafeguardJobFileDTO plateBleedInfoDTO;
         std::istringstream is(event->data);
         {
             try
@@ -249,7 +249,7 @@ string PlateBleedInfoUIController::GetBleedInfoAsJson() const
     std::ostringstream os;
     {
         SafeguardJobFile sgJobFile;
-        PlateBleedInfoDTO dto;
+        PlateBleedInfoDTO::SafeguardJobFileDTO dto;
         sgJobFile.PutDataInDTO(dto);
         cereal::JSONOutputArchive oarchive(os); // Create an output archive
         oarchive(CEREAL_NVP(dto));

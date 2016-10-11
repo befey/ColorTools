@@ -29,14 +29,14 @@ SafeguardJobFile::SafeguardJobFile()
         plates.push_back(Plate(i));
     }
     
-    PlateBleedInfoDTO dto;
+    PlateBleedInfoDTO::SafeguardJobFileDTO dto;
     if ( dto.RecallFromDocumentDictionary() )
     {
         LoadDataFromDTO(dto);
     }
 }
 
-void SafeguardJobFile::LoadDataFromDTO(SafeguardFile::PlateBleedInfoDTO dto)
+void SafeguardJobFile::LoadDataFromDTO(PlateBleedInfoDTO::SafeguardJobFileDTO dto)
 {
     int size = 0;
     dto.NumPlates() >= plates.size() ? size = int(plates.size()) : size = dto.NumPlates();
@@ -55,11 +55,11 @@ void SafeguardJobFile::LoadDataFromDTO(SafeguardFile::PlateBleedInfoDTO dto)
     }
 }
 
-void SafeguardJobFile::PutDataInDTO(SafeguardFile::PlateBleedInfoDTO& dto, bool fullColorName)
+void SafeguardJobFile::PutDataInDTO(PlateBleedInfoDTO::SafeguardJobFileDTO& dto, bool fullColorName)
 {
     for ( auto plate : plates )
     {
-        PlateBleedInfoDTO::Plate p {
+        PlateBleedInfoDTO::PlateDTO p {
             .shouldDrawBleedInfo  = plate.BleedInfo().ShouldDrawBleedInfo(),
             .artboardIndex = plate.BleedInfo().ArtboardIndex(),
             .artboardName = plate.BleedInfo().ArtboardName(p.isDefaultArtboardName),
@@ -71,7 +71,7 @@ void SafeguardJobFile::PutDataInDTO(SafeguardFile::PlateBleedInfoDTO& dto, bool 
         
         for ( auto color : plate.BleedInfo().ColorList().GetColorList() )
         {
-            p.c.push_back(PlateBleedInfoDTO::Plate::Color
+            p.c.push_back(PlateBleedInfoDTO::ColorDTO
                           {
                               .colorName = fullColorName ? color.Name() : GetInnerPantoneColorNumber(color.Name()),
                               .method = int(color.Method())

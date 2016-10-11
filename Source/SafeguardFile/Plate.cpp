@@ -72,7 +72,9 @@ void Plate::DrawBleedInfo()
 
     if (ShouldDrawBleedInfo())
     {
-        bleedInfoDrawer->Draw();
+        AIArtHandle pluginArt = bleedInfoDrawer->Draw();
+        DictionaryWriter dw(pluginArt);
+        dw.StoreBleedInfoInDictionary(bleedInfo);
     }
     else
     {

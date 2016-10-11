@@ -16,7 +16,7 @@
 #include "ColorList.h"
 #include "PrintToPdfConstants.h"
 #include "AICSXS.h"
-#include "PlateBleedInfoDTO.hpp"
+#include "SafeguardJobFileDTO.hpp"
 
 extern AICSXSExtensionSuite* sAICSXSExtension;
 
@@ -41,11 +41,11 @@ namespace SafeguardFile
         void EditBleedInfo();
         void RemoveBleedInfo();
         
-        void PutDataInDTO(SafeguardFile::PlateBleedInfoDTO& dto, bool fullColorName = false);
+        void PutDataInDTO(PlateBleedInfoDTO::SafeguardJobFileDTO& dto, bool fullColorName = false);
     private:
         vector<Plate> plates;
         
-        void LoadDataFromDTO(SafeguardFile::PlateBleedInfoDTO dto);
+        void LoadDataFromDTO(PlateBleedInfoDTO::SafeguardJobFileDTO dto);
 
     };
 }

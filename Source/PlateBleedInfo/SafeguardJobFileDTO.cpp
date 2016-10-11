@@ -1,20 +1,20 @@
 //
-//  PlateBleedInfoDTO.cpp
+//  SafeguardJobFileDTO.cpp
 //  SafeguardTools
 //
 //  Created by T431962 on 8/22/16.
 //
 //
 
-#include "PlateBleedInfoDTO.hpp"
+#include "SafeguardJobFileDTO.hpp"
 #include "DictionaryWriter.h"
 #include "SafeguardJobFile.h"
 #include "cereal/cereal.hpp"
 #include "cereal/archives/json.hpp"
 
-using SafeguardFile::PlateBleedInfoDTO;
+using PlateBleedInfoDTO::SafeguardJobFileDTO;
 
-void PlateBleedInfoDTO::WriteToDocumentDictionary()
+void SafeguardJobFileDTO::WriteToDocumentDictionary()
 {
     std::stringstream ss;
     {
@@ -23,14 +23,14 @@ void PlateBleedInfoDTO::WriteToDocumentDictionary()
     }
 
     DictionaryWriter dw;
-    dw.AddStringDataToDictionary(ss.str(), PLATEBLEEDINFO_DTO_ID);
+    dw.AddStringDataToDictionary(ss.str(), JOBFILE_DTO_ID);
 }
 
-bool PlateBleedInfoDTO::RecallFromDocumentDictionary()
+bool SafeguardJobFileDTO::RecallFromDocumentDictionary()
 {
     DictionaryWriter dw;
     string data;
-    if ( dw.GetStringDataFromIdentifier(data, PLATEBLEEDINFO_DTO_ID) )
+    if ( dw.GetStringDataFromIdentifier(data, JOBFILE_DTO_ID) )
     {
         std::istringstream is(data);
         {

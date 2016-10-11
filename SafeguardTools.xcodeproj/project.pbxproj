@@ -92,8 +92,8 @@
 		F98BAEDE1CA99E1E00965D86 /* ArtTree.h in Headers */ = {isa = PBXBuildFile; fileRef = F98BAEDC1CA99E1E00965D86 /* ArtTree.h */; };
 		F98BAEE11CA9A0D100965D86 /* BtAiMenuItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F98BAEDF1CA9A0D100965D86 /* BtAiMenuItem.cpp */; };
 		F98BAEE21CA9A0D100965D86 /* BtAiMenuItem.h in Headers */ = {isa = PBXBuildFile; fileRef = F98BAEE01CA9A0D100965D86 /* BtAiMenuItem.h */; };
-		F992803B1D6B723F00E7EBF2 /* PlateBleedInfoDTO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F99280391D6B723F00E7EBF2 /* PlateBleedInfoDTO.cpp */; };
-		F992803C1D6B723F00E7EBF2 /* PlateBleedInfoDTO.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F992803A1D6B723F00E7EBF2 /* PlateBleedInfoDTO.hpp */; };
+		F992803B1D6B723F00E7EBF2 /* SafeguardJobFileDTO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F99280391D6B723F00E7EBF2 /* SafeguardJobFileDTO.cpp */; };
+		F992803C1D6B723F00E7EBF2 /* SafeguardJobFileDTO.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F992803A1D6B723F00E7EBF2 /* SafeguardJobFileDTO.hpp */; };
 		F9C44EF01D0AF26100205ADF /* Plate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9C44EEE1D0AF26100205ADF /* Plate.cpp */; };
 		F9C44EF11D0AF26100205ADF /* Plate.h in Headers */ = {isa = PBXBuildFile; fileRef = F9C44EEF1D0AF26100205ADF /* Plate.h */; };
 		F9C44EF41D0AF51100205ADF /* TickMarkDrawer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9C44EF21D0AF51100205ADF /* TickMarkDrawer.cpp */; };
@@ -235,8 +235,8 @@
 		F98BAEDC1CA99E1E00965D86 /* ArtTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ArtTree.h; path = "Source/utility-headers/ArtTree.h"; sourceTree = "<group>"; };
 		F98BAEDF1CA9A0D100965D86 /* BtAiMenuItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BtAiMenuItem.cpp; path = "Source/utility-headers/BtAiMenuItem.cpp"; sourceTree = "<group>"; };
 		F98BAEE01CA9A0D100965D86 /* BtAiMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BtAiMenuItem.h; path = "Source/utility-headers/BtAiMenuItem.h"; sourceTree = "<group>"; };
-		F99280391D6B723F00E7EBF2 /* PlateBleedInfoDTO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlateBleedInfoDTO.cpp; path = Source/PlateBleedInfo/PlateBleedInfoDTO.cpp; sourceTree = "<group>"; };
-		F992803A1D6B723F00E7EBF2 /* PlateBleedInfoDTO.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PlateBleedInfoDTO.hpp; path = Source/PlateBleedInfo/PlateBleedInfoDTO.hpp; sourceTree = "<group>"; };
+		F99280391D6B723F00E7EBF2 /* SafeguardJobFileDTO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SafeguardJobFileDTO.cpp; path = Source/PlateBleedInfo/SafeguardJobFileDTO.cpp; sourceTree = "<group>"; };
+		F992803A1D6B723F00E7EBF2 /* SafeguardJobFileDTO.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SafeguardJobFileDTO.hpp; path = Source/PlateBleedInfo/SafeguardJobFileDTO.hpp; sourceTree = "<group>"; };
 		F9B3FE381D9EBC6F002E10EB /* AIArtboardMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AIArtboardMessage.h; path = "Source/utility-headers/AIArtboardMessage.h"; sourceTree = "<group>"; };
 		F9C44EEE1D0AF26100205ADF /* Plate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Plate.cpp; path = Source/SafeguardFile/Plate.cpp; sourceTree = "<group>"; };
 		F9C44EEF1D0AF26100205ADF /* Plate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Plate.h; path = Source/SafeguardFile/Plate.h; sourceTree = "<group>"; };
@@ -440,8 +440,8 @@
 				F96A0ABF1D832EA800509B39 /* Drawers */,
 				F937ABE61D5241EB006DD5C4 /* PlateBleedInfoUIController.cpp */,
 				F937ABE71D5241EB006DD5C4 /* PlateBleedInfoUIController.hpp */,
-				F99280391D6B723F00E7EBF2 /* PlateBleedInfoDTO.cpp */,
-				F992803A1D6B723F00E7EBF2 /* PlateBleedInfoDTO.hpp */,
+				F99280391D6B723F00E7EBF2 /* SafeguardJobFileDTO.cpp */,
+				F992803A1D6B723F00E7EBF2 /* SafeguardJobFileDTO.hpp */,
 				F9F079621D47ED21004AC522 /* BleedInfo.cpp */,
 				F910BD691D09FA910029DF62 /* BleedInfo.h */,
 				F9F1EB691D1B19AF0051B716 /* ColorList.cpp */,
@@ -547,7 +547,7 @@
 				F9158D521D05EC4700343D57 /* PathBuilder.h in Headers */,
 				F9F1EB6C1D1B19AF0051B716 /* ColorList.h in Headers */,
 				F9C44EF11D0AF26100205ADF /* Plate.h in Headers */,
-				F992803C1D6B723F00E7EBF2 /* PlateBleedInfoDTO.hpp in Headers */,
+				F992803C1D6B723F00E7EBF2 /* SafeguardJobFileDTO.hpp in Headers */,
 				F90E3F9E1CA475880081C333 /* ATEFuncs.h in Headers */,
 				F910BD6B1D09FA910029DF62 /* BleedInfo.h in Headers */,
 				F90AE3F31CAAF8AF0076A9BC /* BtAiMenuItemHandles.h in Headers */,
@@ -689,7 +689,7 @@
 				F9DA3B9D1D1D7E6200AB6156 /* BleedTextInfoDrawer.cpp in Sources */,
 				F9FEC8291CB576280097473A /* IAIArtboards.cpp in Sources */,
 				F9158D551D05FBE900343D57 /* ExistingFileDeleter.cpp in Sources */,
-				F992803B1D6B723F00E7EBF2 /* PlateBleedInfoDTO.cpp in Sources */,
+				F992803B1D6B723F00E7EBF2 /* SafeguardJobFileDTO.cpp in Sources */,
 				F90AE3F21CAAF8AF0076A9BC /* BtAiMenuItemHandles.cpp in Sources */,
 				F9FAE8FE1CBD87E700938893 /* BtArtboardRange.cpp in Sources */,
 				F989A8F31CA465F30050C071 /* IThrowException.cpp in Sources */,
