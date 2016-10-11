@@ -18,8 +18,12 @@
 #include "ArtTree.h"
 #include "AIColor.h"
 #include "DictionaryWriter.h"
+#include "SafeguardJobFileDTO.hpp"
 #include <functional>
 #include <boost/filesystem/operations.hpp>
+
+#include "cereal/cereal.hpp"
+#include "cereal/archives/json.hpp"
 
 using SafeguardFile::Plate;
 using SafeguardFile::PlateNumber;
@@ -72,9 +76,9 @@ void Plate::DrawBleedInfo()
 
     if (ShouldDrawBleedInfo())
     {
-        AIArtHandle pluginArt = bleedInfoDrawer->Draw();
-        DictionaryWriter dw(pluginArt);
-        dw.StoreBleedInfoInDictionary(bleedInfo);
+        bleedInfoPluginArt = bleedInfoDrawer->Draw();
+        DictionaryWriter dw(bleedInfoPluginArt);
+        dw.AddStringDataToDictionary(GetBleedInfoAsJson(), PLATE_BLEEDINFO);
     }
     else
     {
@@ -90,12 +94,11 @@ bool Plate::ShouldDrawBleedInfo()
 
 void Plate::RemoveBleedInfo()
 {
-    DictionaryWriter dw;
-    AIArtHandle foundArt = dw.GetArtHandleFromIdentifier(PLATE_BLEED_INFO_GROUP_LABEL, GetArtboardIndex());
-    if (foundArt)
+    if (bleedInfoPluginArt)
     {
-        bleedInfoDrawer->Remove(foundArt);
+        bleedInfoDrawer->Remove(bleedInfoPluginArt);
     }
+    bleedInfoPluginArt = NULL; //This is done by the drawer, but we'll point out here that it's NULL
 }
                     
 AIRealRect Plate::GetArtboardBounds() const
@@ -121,4 +124,15 @@ AIRealRect Plate::GetBleeds() const
 SafeguardFile::ColorList Plate::GetColors()
 {
     return bleedInfo.ColorList();
+}
+
+string Plate::GetBleedInfoAsJson() const
+{
+    std::ostringstream os;
+    {
+        PlateBleedInfoDTO::PlateDTO pdto(bleedInfo);
+        cereal::JSONOutputArchive oarchive(os); // Create an output archive
+        oarchive(pdto);
+    }
+    return os.str();
 }

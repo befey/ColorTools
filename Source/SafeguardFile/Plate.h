@@ -51,7 +51,11 @@ namespace SafeguardFile
         bool ShouldDrawBleedInfo();
     private:
         class BleedInfo bleedInfo;
+        AIArtHandle bleedInfoPluginArt = NULL;
+        
         shared_ptr<SafeguardFile::BleedInfoDrawer> bleedInfoDrawer;
+        
+        string GetBleedInfoAsJson() const;
     };
 }
 #endif /* defined(__SafeguardTools__Plate__) */
