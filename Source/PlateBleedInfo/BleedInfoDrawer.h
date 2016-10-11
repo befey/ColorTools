@@ -31,13 +31,13 @@ namespace SafeguardFile
         
         BleedInfoDrawer& AddDrawer(shared_ptr<IDrawer> val) { drawers.push_back(val); return *this; };
 
-        void Remove(AIArtHandle pluginGroupArt) const;
+        void Remove(AIArtHandle& pluginGroupArt) const;
     private:
         ai::ArtboardID artboardIndex;
         
         vector<shared_ptr<IDrawer>> drawers;
         
-        AIArtHandle DoDraw(AIArtHandle resultGroup = NULL) const override;
+        AIArtHandle DoDraw(AIArtHandle pluginGroupArt = NULL) const override;
         
         AIArtHandle Add() const;
         AIArtHandle Update(AIArtHandle pluginGroupArt) const;
