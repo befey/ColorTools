@@ -12,6 +12,7 @@
 #include "AILayer.h"
 #include "AIGroup.h"
 #include "AIPath.h"
+#include "AIArtboard.h"
 #include <functional>
 #include <vector>
 
@@ -22,6 +23,7 @@ extern AIPlacedSuite* sAIPlaced;
 extern AIGroupSuite* sAIGroup;
 extern AIPathSuite* sAIPath;
 extern AIRealMathSuite* sAIRealMath;
+extern AIArtboardSuite* sAIArtboard;
 
 
 bool ProcessArtSet(const AIArtSet artSet, std::function<void(AIArtHandle)> callback);
@@ -43,5 +45,11 @@ void GetBoundsOfClipGroup(AIArtHandle root, AIArtHandle currArtHandle, AIRealRec
 //Traverses the tree defined by "root" and returns the bounds of the clipping masks contained
 
 AIArtHandle GetGroupArtOfFirstEditableLayer();
+
+int GetArtboardCount();
+int GetArtboardOfArt(AIArtHandle artHandle);
+AIRealRect GetArtboardBounds(int index);
+AIRealPoint GetCenterOfArt(AIArtHandle art);
+AIRealRect GetBoundsOfArt(AIArtHandle art);
 
 #endif //ARTTREE_H

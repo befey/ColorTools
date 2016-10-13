@@ -31,7 +31,8 @@ namespace SafeguardFile
     class Plate
     {
     public:
-        Plate(ai::ArtboardID id);
+        Plate(ai::ArtboardID id) : Plate(id, NULL) {};
+        Plate(ai::ArtboardID id, AIArtHandle pluginArtHandle);
         
         AIRealRect GetArtboardBounds() const;
         tm GetLastModified() const;
@@ -40,6 +41,7 @@ namespace SafeguardFile
         const ai::ArtboardID GetArtboardIndex() const { return bleedInfo.ArtboardIndex(); };
         const PlateNumber GetPlateNumber() const;
         const string GetToken() const;
+        AIArtHandle GetBleedInfoPluginArtHandle() const { return bleedInfoPluginArt; };
         
         AIRealRect GetBleeds() const;
         SafeguardFile::ColorList GetColors();

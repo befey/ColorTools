@@ -32,8 +32,8 @@ using SafeguardFile::BleedInfo;
 
 namespace fs = boost::filesystem;
 
-Plate::Plate(ai::ArtboardID id)
-: bleedInfo(id)
+Plate::Plate(ai::ArtboardID id, AIArtHandle pluginArtHandle)
+: bleedInfo(id), bleedInfoPluginArt(pluginArtHandle)
 {
     bleedInfoDrawer = make_shared<BleedInfoDrawer>(bleedInfo.ArtboardIndex());
 }
@@ -82,7 +82,7 @@ void Plate::DrawBleedInfo()
     }
     else
     {
-        RemoveBleedInfo();
+        RemoveBleedInfo(); // bleedInfoPluginArt = NULL;
     }
 }
 
@@ -96,9 +96,8 @@ void Plate::RemoveBleedInfo()
 {
     if (bleedInfoPluginArt)
     {
-        bleedInfoDrawer->Remove(bleedInfoPluginArt);
+        bleedInfoDrawer->Remove(bleedInfoPluginArt); // bleedInfoPluginArt = NULL;
     }
-    bleedInfoPluginArt = NULL; //This is done by the drawer, but we'll point out here that it's NULL
 }
                     
 AIRealRect Plate::GetArtboardBounds() const

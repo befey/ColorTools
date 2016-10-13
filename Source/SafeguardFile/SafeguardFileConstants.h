@@ -14,6 +14,7 @@
 namespace SafeguardFile
 {
     constexpr auto PLATE_BLEEDINFO =            "__plate_bleedinfo__";
+    constexpr auto SG_BLEEDINFO_ARTHANDLES =    "__sg_bleedinfo_arthandles__";
     
     constexpr auto REGISTRATION_COLOR_NAME =    "[Registration]";
     constexpr auto NONE_COLOR_NAME =            "[None]";

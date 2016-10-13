@@ -49,7 +49,8 @@
     
     AIDictionarySuite*      sAIDictionary = NULL;
     AIEntrySuite*           sAIEntry = NULL;
-    
+    AIArraySuite*           sAIArray = NULL;
+
     AIActionManagerSuite*   sAIActionManager = NULL;
 
     
@@ -106,6 +107,7 @@ ImportSuite gImportSuites[] =
     
     kAIDictionarySuite, kAIDictionarySuiteVersion, &sAIDictionary,
     kAIEntrySuite, kAIEntrySuiteVersion, &sAIEntry,
+    kAIArraySuite, kAIArraySuiteVersion, &sAIArray,
     
     kAIActionManagerSuite, kAIActionManagerSuiteVersion, &sAIActionManager,
 

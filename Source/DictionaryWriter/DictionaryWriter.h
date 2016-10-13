@@ -15,7 +15,9 @@
 #include "AIDocument.h"
 #include "AIArt.h"
 #include "AIUID.h"
+#include "AIArray.h"
 #include <string>
+#include <vector>
 
 //=================================
 // forward declared dependencies
@@ -26,6 +28,7 @@ extern AIUIDSuite *sAIUID;
 extern AIUIDREFSuite *sAIUIDREF;
 extern AIUIDUtilsSuite *sAIUIDUtils;
 extern AIEntrySuite *sAIEntry;
+extern AIArraySuite *sAIArray;
 
 class DictionaryWriter
 {
@@ -49,6 +52,9 @@ public:
     
     AIBoolean GetArrayDataFromIdentifier(AIArrayRef& data, string identifier, int CAIndex = -1);
     AIBoolean AddArrayDataToDictionary(AIArrayRef data, string identifier, int CAIndex = -1);
+    
+    AIBoolean GetVectorOfAIArtHandleFromIdentifier(vector<AIArtHandle>& handles, string identifier, int CAIndex = -1);
+    AIBoolean AddVectorOfAIArtHandleToDictionary(vector<AIArtHandle> handles, string identifier, int CAIndex = -1);
 private:
     AIDictionaryRef dictionary;
     

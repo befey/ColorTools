@@ -9,7 +9,7 @@
 #ifndef __SafeguardTools__SafeguardJobFile__
 #define __SafeguardTools__SafeguardJobFile__
 
-#include <vector>
+#include <map>
 #include "Plate.h"
 #include "PlateNumber.h"
 #include "BleedInfo.h"
@@ -26,6 +26,7 @@ namespace SafeguardFile
     {
     public:
         SafeguardJobFile();
+        ~SafeguardJobFile();
         
         vector<BleedInfo> GetBleedInfo() const;
         
@@ -43,7 +44,7 @@ namespace SafeguardFile
         
         void PutDataInDTO(PlateBleedInfoDTO::SafeguardJobFileDTO& dto, bool fullColorName = false);
     private:
-        vector<Plate> plates;
+        map<int, Plate> plates;
         
         void LoadDataFromDTO(PlateBleedInfoDTO::SafeguardJobFileDTO dto);
 
