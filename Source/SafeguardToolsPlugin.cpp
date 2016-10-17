@@ -412,8 +412,7 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
     }
     else if ( message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
     {
-        DictionaryWriter dw;
-        if ( dw.CheckDictionaryForArtObjectWithIdentifier(SafeguardFile::PLATE_BLEED_INFO_GROUP_LABEL, 0) )
+        if ( IsBleedInfoPluginArtCreated() )
         {
             SafeguardJobFile sgJobFile;
             sgJobFile.EditBleedInfo();
@@ -477,10 +476,7 @@ ASErr SafeguardToolsPlugin::UpdateMenuItem(AIMenuMessage* message)
     
     if (message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
     {
-        //Check if we have a bleed info in the dictionary
-        //If we do, change to "Remove"
-        DictionaryWriter dw;
-        if ( dw.CheckDictionaryForArtObjectWithIdentifier(SafeguardFile::PLATE_BLEED_INFO_GROUP_LABEL, 0) )
+        if ( IsBleedInfoPluginArtCreated() )
         {
             sAIMenu->SetItemText( message->menuItem, ai::UnicodeString("Edit Safeguard Plate Info") );
         }
@@ -549,8 +545,7 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
     }
     if (message->notifier == fDocumentCropAreaModifiedNotifierHandle )
     {
-        DictionaryWriter dw;
-        if ( dw.CheckDictionaryForArtObjectWithIdentifier(SafeguardFile::PLATE_BLEED_INFO_GROUP_LABEL, 0) )
+        if ( IsBleedInfoPluginArtCreated() )
         {
             AIArtboardMessage* m = (AIArtboardMessage*)message->notifyData;
             if (m->msgSrc == kUpdate)
@@ -563,4 +558,14 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
         }
     }
     return kNoErr;
+}
+
+bool SafeguardToolsPlugin::IsBleedInfoPluginArtCreated()
+{
+    DictionaryWriter dw;
+    if ( dw.CheckDictionaryForIdentifier(SafeguardFile::SG_BLEEDINFO_ARTHANDLES) )
+    {
+        return true;
+    }
+    return false;
 }

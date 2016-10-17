@@ -22,7 +22,7 @@ namespace PlateBleedInfoDTO
     {
     public:
         ColorDTO() {};
-        ColorDTO(BtColor color);
+        ColorDTO(BtColor color, bool fullColorName = false);
         
         string colorName;
         int method;
@@ -42,7 +42,8 @@ namespace PlateBleedInfoDTO
     {
     public:
         PlateDTO() {};
-        PlateDTO(SafeguardFile::BleedInfo bleedInfo);
+        PlateDTO(SafeguardFile::BleedInfo bleedInfo, bool fullColorName = false);
+        PlateDTO(string jsonBleedInfo);
         
         bool shouldDrawBleedInfo;
         int artboardIndex;
@@ -79,6 +80,7 @@ namespace PlateBleedInfoDTO
         
         int NumPlates() const { return int(plates.size()); };
         void AddPlate(PlateDTO p) { plates.push_back(p); };
+        vector<PlateDTO> GetPlateDTOs() const { return plates; };
         
         bool ShouldDrawBleedInfo(int index) const { return plates.at(index).shouldDrawBleedInfo; };
         string ArtboardName(int index) const { return plates.at(index).artboardName; };

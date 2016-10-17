@@ -36,6 +36,17 @@ Plate::Plate(ai::ArtboardID id, AIArtHandle pluginArtHandle)
 : bleedInfo(id), bleedInfoPluginArt(pluginArtHandle)
 {
     bleedInfoDrawer = make_shared<BleedInfoDrawer>(bleedInfo.ArtboardIndex());
+    
+    if (bleedInfoPluginArt)
+    {
+        DictionaryWriter dw(bleedInfoPluginArt);
+        string json;
+        dw.GetStringDataFromIdentifier(json, PLATE_BLEEDINFO);
+        
+        PlateBleedInfoDTO::PlateDTO dto(json);
+
+        FillBleedInfoFromPlateDTO(&dto);
+    }
 }
 
 const PlateNumber Plate::GetPlateNumber() const
@@ -76,9 +87,8 @@ void Plate::DrawBleedInfo()
 
     if (ShouldDrawBleedInfo())
     {
-        bleedInfoPluginArt = bleedInfoDrawer->Draw();
-        DictionaryWriter dw(bleedInfoPluginArt);
-        dw.AddStringDataToDictionary(GetBleedInfoAsJson(), PLATE_BLEEDINFO);
+        bleedInfoPluginArt = bleedInfoDrawer->Draw(bleedInfoPluginArt);
+        WriteBleedInfoToPluginArt();
     }
     else
     {
@@ -125,13 +135,36 @@ SafeguardFile::ColorList Plate::GetColors()
     return bleedInfo.ColorList();
 }
 
-string Plate::GetBleedInfoAsJson() const
+string Plate::GetBleedInfoAsJson(bool fullColorName) const
 {
     std::ostringstream os;
     {
-        PlateBleedInfoDTO::PlateDTO pdto(bleedInfo);
+        PlateBleedInfoDTO::PlateDTO pdto(bleedInfo, fullColorName);
         cereal::JSONOutputArchive oarchive(os); // Create an output archive
         oarchive(pdto);
     }
     return os.str();
+}
+
+void Plate::FillBleedInfoFromPlateDTO(PlateBleedInfoDTO::PlateDTO* dto)
+{
+    BleedInfo()
+    .ShouldDrawBleedInfo(dto->shouldDrawBleedInfo)
+    .ArtboardName(dto->artboardName)
+    .ShouldAddCmykBlocks(dto->shouldAddCmykBlocks)
+    .TickMarkStyle(TickMarkStyle(dto->tmStyle));
+    for ( auto color : dto->c )
+    {
+        BleedInfo().ColorList().SetColorMethod(color.colorName, InkMethod(color.method) );
+    }
+    WriteBleedInfoToPluginArt();
+}
+
+void Plate::WriteBleedInfoToPluginArt()
+{
+    if (bleedInfoPluginArt)
+    {
+        DictionaryWriter dw(bleedInfoPluginArt);
+        dw.AddStringDataToDictionary(GetBleedInfoAsJson(false), PLATE_BLEEDINFO);
+    }
 }

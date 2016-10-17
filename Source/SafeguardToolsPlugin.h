@@ -126,6 +126,7 @@ protected:
     
     virtual ASErr Notify(AINotifierMessage* message);
     
+    bool IsBleedInfoPluginArtCreated();
 private:
     shared_ptr<ColorToolsUIController> colorToolsUIController;
     shared_ptr<PrintToPdf::PrintToPdfUIController> printToPdfUIController;

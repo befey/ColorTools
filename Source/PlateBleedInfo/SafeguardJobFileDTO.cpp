@@ -16,13 +16,14 @@ using PlateBleedInfoDTO::SafeguardJobFileDTO;
 using PlateBleedInfoDTO::PlateDTO;
 using PlateBleedInfoDTO::ColorDTO;
 
-ColorDTO::ColorDTO(BtColor color)
+ColorDTO::ColorDTO(BtColor color, bool fullColorName)
 :
-colorName(color.Name()),
 method(int(color.Method()))
-{}
+{
+    colorName = fullColorName ? color.Name() : GetInnerPantoneColorNumber(color.Name());
+}
 
-PlateDTO::PlateDTO(SafeguardFile::BleedInfo bleedInfo)
+PlateDTO::PlateDTO(SafeguardFile::BleedInfo bleedInfo, bool fullColorName)
 :
 shouldDrawBleedInfo(bleedInfo.ShouldDrawBleedInfo()),
 artboardIndex(bleedInfo.ArtboardIndex()),
@@ -35,7 +36,23 @@ tmStyle(int(bleedInfo.TickMarkSettings().TickMarkStyle()))
     
     for (auto color : bleedInfo.ColorList().GetColorList())
     {
-        c.push_back(ColorDTO(color));
+        c.push_back(ColorDTO(color, fullColorName));
+    }
+}
+
+PlateDTO::PlateDTO(string jsonBleedInfo)
+{
+    std::istringstream is(jsonBleedInfo);
+    {
+        try
+        {
+            cereal::JSONInputArchive iarchive(is); // Create an input archive
+            iarchive(*this);
+        }
+        catch (std::runtime_error e)
+        {
+            string s(e.what());
+        }
     }
 }
 

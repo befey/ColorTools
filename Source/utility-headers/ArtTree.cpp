@@ -440,16 +440,21 @@ int GetArtboardOfArt(AIArtHandle artHandle)
     ai::ArtboardID count;
     sAIArtboard->GetCount(abList, count);
     
+    int closestArtboard = -1;
+    AIReal closestDistance = kAIRealMax;
     for ( int i = 0; i < count; i++ )
     {
-        AIRealRect abRect = GetArtboardBounds(i);
+        AIRealPoint abCenter = GetCenterOfRect(GetArtboardBounds(i));
         
-        if (sAIRealMath->AIRealPointInAIRealRect(&artCenter, &abRect))
+        AIReal distance = sAIRealMath->AIRealPointLength(&abCenter, &artCenter);
+        
+        if (distance < closestDistance)
         {
-            return i;
+            closestDistance = distance;
+            closestArtboard = i;
         }
     }
-    return -1;
+    return closestArtboard;
 }
 
 AIRealRect GetArtboardBounds(int index)
@@ -473,10 +478,14 @@ AIRealRect GetBoundsOfArt(AIArtHandle art)
 AIRealPoint GetCenterOfArt(AIArtHandle art)
 {
     AIRealRect rect = GetBoundsOfArt(art);
+    return GetCenterOfRect(rect);
+}
+
+AIRealPoint GetCenterOfRect(AIRealRect rect)
+{
     AIRealPoint center;
     AIRealPoint a = {.h = rect.left, .v = rect.top};
     AIRealPoint b = {.h = rect.right, .v = rect.bottom};
     sAIRealMath->AIRealPointInterpolate(&a, &b, .5, &center);
-    
     return center;
 }

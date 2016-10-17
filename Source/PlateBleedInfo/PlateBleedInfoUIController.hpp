@@ -68,7 +68,7 @@ namespace SafeguardFile
         
     private:
         static ai::ArtboardID GetArtboardIdFromJson(const char* json);
-        string GetBleedInfoAsJson() const;
+        string GetBleedInfoAsJson(bool fullColorName = false) const;
 
     };
 }

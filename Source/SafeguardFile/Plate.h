@@ -26,6 +26,11 @@ extern AIFontSuite* sAIFont;
 extern AIArtboardSuite* sAIArtboard;
 extern AIDocumentSuite* sAIDocument;
 
+namespace PlateBleedInfoDTO
+{
+    class PlateDTO;
+}
+    
 namespace SafeguardFile
 {    
     class Plate
@@ -47,6 +52,7 @@ namespace SafeguardFile
         SafeguardFile::ColorList GetColors();
         
         BleedInfo& BleedInfo();
+        void FillBleedInfoFromPlateDTO(PlateBleedInfoDTO::PlateDTO* dto);
         
         void DrawBleedInfo();
         void RemoveBleedInfo();
@@ -57,7 +63,8 @@ namespace SafeguardFile
         
         shared_ptr<SafeguardFile::BleedInfoDrawer> bleedInfoDrawer;
         
-        string GetBleedInfoAsJson() const;
+        string GetBleedInfoAsJson(bool fullColorName = false) const;
+        void WriteBleedInfoToPluginArt();
     };
 }
 #endif /* defined(__SafeguardTools__Plate__) */

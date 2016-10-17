@@ -67,8 +67,8 @@ void PlateBleedInfoUIController::OkButtonClickedFunc (const csxs::event::Event* 
             }
         }
         
-        plateBleedInfoDTO.WriteToDocumentDictionary();
         SafeguardJobFile sgJobFile;
+        sgJobFile.LoadDataFromDTO(plateBleedInfoDTO);
         sgJobFile.UpdateBleedInfo();  //Refresh the file with the new data
         
         BtDocumentView docView;
@@ -244,13 +244,13 @@ ai::ArtboardID PlateBleedInfoUIController::GetArtboardIdFromJson(const char* jso
     return ai::ArtboardID(v.GetInt());
 }
 
-string PlateBleedInfoUIController::GetBleedInfoAsJson() const
+string PlateBleedInfoUIController::GetBleedInfoAsJson(bool fullColorName) const
 {
     std::ostringstream os;
     {
         SafeguardJobFile sgJobFile;
         PlateBleedInfoDTO::SafeguardJobFileDTO dto;
-        sgJobFile.PutDataInDTO(dto);
+        sgJobFile.PutDataInDTO(dto, fullColorName);
         cereal::JSONOutputArchive oarchive(os); // Create an output archive
         oarchive(CEREAL_NVP(dto));
     }
