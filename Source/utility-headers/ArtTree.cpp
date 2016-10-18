@@ -421,3 +421,71 @@ AIArtHandle GetGroupArtOfFirstEditableLayer()
     
     return NULL;
 }
+
+int GetArtboardCount()
+{
+    ai::ArtboardList abList;
+    sAIArtboard->GetArtboardList(abList);
+    ai::ArtboardID count;
+    sAIArtboard->GetCount(abList, count);
+    return count;
+}
+
+int GetArtboardOfArt(AIArtHandle artHandle)
+{
+    AIRealPoint artCenter = GetCenterOfArt(artHandle);
+    
+    ai::ArtboardList abList;
+    sAIArtboard->GetArtboardList(abList);
+    ai::ArtboardID count;
+    sAIArtboard->GetCount(abList, count);
+    
+    int closestArtboard = -1;
+    AIReal closestDistance = kAIRealMax;
+    for ( int i = 0; i < count; i++ )
+    {
+        AIRealPoint abCenter = GetCenterOfRect(GetArtboardBounds(i));
+        
+        AIReal distance = sAIRealMath->AIRealPointLength(&abCenter, &artCenter);
+        
+        if (distance < closestDistance)
+        {
+            closestDistance = distance;
+            closestArtboard = i;
+        }
+    }
+    return closestArtboard;
+}
+
+AIRealRect GetArtboardBounds(int index)
+{
+    ai::ArtboardList abList;
+    sAIArtboard->GetArtboardList(abList);
+    ai::ArtboardProperties props;
+    sAIArtboard->GetArtboardProperties(abList, index, props);
+    AIRealRect rect;
+    props.GetPosition(rect);
+    return rect;
+}
+
+AIRealRect GetBoundsOfArt(AIArtHandle art)
+{
+    AIRealRect rect;
+    sAIArt->GetArtBounds(art, &rect);
+    return rect;
+}
+
+AIRealPoint GetCenterOfArt(AIArtHandle art)
+{
+    AIRealRect rect = GetBoundsOfArt(art);
+    return GetCenterOfRect(rect);
+}
+
+AIRealPoint GetCenterOfRect(AIRealRect rect)
+{
+    AIRealPoint center;
+    AIRealPoint a = {.h = rect.left, .v = rect.top};
+    AIRealPoint b = {.h = rect.right, .v = rect.bottom};
+    sAIRealMath->AIRealPointInterpolate(&a, &b, .5, &center);
+    return center;
+}

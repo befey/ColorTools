@@ -7,6 +7,7 @@
 //
 
 #include "DictionaryWriter.h"
+#include "GetIllustratorErrorCode.h"
 
 DictionaryWriter::DictionaryWriter()
 {
@@ -24,7 +25,7 @@ DictionaryWriter::~DictionaryWriter()
 }
 
 
-AIDictKey DictionaryWriter::GenerateKey(string identifier, int CAIndex)
+AIDictKey DictionaryWriter::Key(string identifier, int CAIndex)
 {
     AIDictKey currKey = NULL;
     currKey = sAIDictionary->Key(GenerateUIDString(identifier, CAIndex).c_str());
@@ -41,7 +42,7 @@ AIUIDRef DictionaryWriter::GetUIDRefFromIdentifier(string identifier, int CAInde
 {
     AIUIDRef uidForIdentifier = NULL;
     
-    AIDictKey keyForIdentifier = GenerateKey(identifier, CAIndex);
+    AIDictKey keyForIdentifier = Key(identifier, CAIndex);
     AIEntryRef entryForIdentifier = sAIDictionary->Get(dictionary, keyForIdentifier);
     
     if (entryForIdentifier)
@@ -114,7 +115,7 @@ AIReal DictionaryWriter::GetAIRealFromIdentifier(string identifier, int CAIndex)
 {
     AIReal realValue = 0;
     
-    AIDictKey dictKey = GenerateKey(identifier, CAIndex);
+    AIDictKey dictKey = Key(identifier, CAIndex);
     if (sAIDictionary->IsKnown(dictionary, dictKey))
     {
         sAIDictionary->GetRealEntry(dictionary, dictKey, &realValue);
@@ -125,7 +126,7 @@ AIReal DictionaryWriter::GetAIRealFromIdentifier(string identifier, int CAIndex)
 
 AIBoolean DictionaryWriter::AddAIRealToDictionary(AIReal value, string identifier, int CAIndex)
 {
-    AIDictKey dictKey = GenerateKey(identifier, CAIndex);
+    AIDictKey dictKey = Key(identifier, CAIndex);
     if (dictKey)
     {
         sAIDictionary->SetRealEntry(dictionary, dictKey, value);
@@ -136,7 +137,7 @@ AIBoolean DictionaryWriter::AddAIRealToDictionary(AIReal value, string identifie
 }
 AIBoolean DictionaryWriter::GetStringDataFromIdentifier(string& data, string identifier, int CAIndex)
 {
-    AIDictKey dictKey = GenerateKey(identifier, CAIndex);
+    AIDictKey dictKey = Key(identifier, CAIndex);
     if (sAIDictionary->IsKnown(dictionary, dictKey))
     {
         ai::UnicodeString value;
@@ -150,7 +151,7 @@ AIBoolean DictionaryWriter::GetStringDataFromIdentifier(string& data, string ide
 
 AIBoolean DictionaryWriter::AddStringDataToDictionary(string data, string identifier, int CAIndex)
 {
-    AIDictKey dictKey = GenerateKey(identifier, CAIndex);
+    AIDictKey dictKey = Key(identifier, CAIndex);
     if (dictKey)
     {
         ai::UnicodeString value(data);
@@ -163,7 +164,7 @@ AIBoolean DictionaryWriter::AddStringDataToDictionary(string data, string identi
 
 AIBoolean DictionaryWriter::GetArrayDataFromIdentifier(AIArrayRef& data, string identifier, int CAIndex)
 {
-    AIDictKey dictKey = GenerateKey(identifier, CAIndex);
+    AIDictKey dictKey = Key(identifier, CAIndex);
     if (sAIDictionary->IsKnown(dictionary, dictKey))
     {
         sAIDictionary->GetArrayEntry(dictionary, dictKey, &data);
@@ -175,7 +176,7 @@ AIBoolean DictionaryWriter::GetArrayDataFromIdentifier(AIArrayRef& data, string 
 
 AIBoolean DictionaryWriter::AddArrayDataToDictionary(AIArrayRef data, string identifier, int CAIndex)
 {
-    AIDictKey dictKey = GenerateKey(identifier, CAIndex);
+    AIDictKey dictKey = Key(identifier, CAIndex);
     if (dictKey)
     {
         sAIDictionary->SetArrayEntry(dictionary, dictKey, data);
@@ -229,7 +230,7 @@ AIBoolean DictionaryWriter::AddArtHandleToDictionary(AIArtHandle currArt, string
             newEntry = sAIEntry->FromUIDREF(uidREFRef);
             if (newEntry)
             {
-                sAIDictionary->Set(dictionary, GenerateKey(identifier, CAIndex), newEntry);
+                sAIDictionary->Set(dictionary, Key(identifier, CAIndex), newEntry);
                 sAIEntry->Release(newEntry);
             }
             sAIUIDREF->Release(uidREFRef);
@@ -241,10 +242,15 @@ AIBoolean DictionaryWriter::AddArtHandleToDictionary(AIArtHandle currArt, string
     return FALSE;
 }
 
+AIBoolean DictionaryWriter::CheckDictionaryForIdentifier(string identifier, int CAIndex)
+{
+    return sAIDictionary->IsKnown(dictionary, Key(identifier, CAIndex));
+}
+
 AIBoolean DictionaryWriter::RemoveIdentifierFromDictionary(string identifier, int CAIndex)
 {
     AIErr error = kNoErr;
-    AIDictKey keyForIdentifier = GenerateKey(identifier, CAIndex);
+    AIDictKey keyForIdentifier = Key(identifier, CAIndex);
     
     error = sAIDictionary->DeleteEntry(dictionary, keyForIdentifier);
     
@@ -256,4 +262,81 @@ AIBoolean DictionaryWriter::RemoveIdentifierFromDictionary(string identifier, in
     {
         return FALSE;
     }
+}
+
+AIBoolean DictionaryWriter::GetVectorOfAIArtHandleFromIdentifier(vector<AIArtHandle>& handles, string identifier, int CAIndex)
+{
+    AIArrayRef array = NULL;
+    sAIArray->CreateArray(&array);
+    AIBoolean result = GetArrayDataFromIdentifier(array, identifier, CAIndex);
+    
+    if (array)
+    {
+        int size = sAIArray->Size(array);
+        for ( int i = 0; i < size; i++ )
+        {
+            AIEntryRef newEntry = NULL;
+            newEntry = sAIArray->Get(array, i);
+            if (newEntry)
+            {
+                AIUIDREFRef uidREFRef = NULL;
+                sAIEntry->ToUIDREF(newEntry, &uidREFRef);
+                
+                if (uidREFRef)
+                {
+                    AIArtHandle ah = NULL;
+                    sAIUIDUtils->GetReferencedArt(uidREFRef, &ah);
+                    
+                    if (ah)
+                    {
+                        handles.push_back(ah);
+                    }
+                    
+                    sAIUIDREF->Release(uidREFRef);
+                }
+                
+                sAIEntry->Release(newEntry);
+            }
+        }
+        
+        sAIArray->Release(array);
+    }
+    
+    return result;
+}
+
+AIBoolean DictionaryWriter::AddVectorOfAIArtHandleToDictionary(vector<AIArtHandle> handles, string identifier, int CAIndex)
+{
+    AIArrayRef array;
+    sAIArray->CreateArray(&array);
+    
+    for ( auto ah : handles )
+    {
+        AIUIDRef uid = NULL;
+        AIErr err = sAIUIDUtils->GetArtUID(ah, TRUE /*To create one if there is none*/, &uid);
+        string error = GetIllustratorErrorCode(err);
+        
+        if (uid)
+        {
+            AIUIDREFRef uidREFRef = NULL;
+            sAIUID->NewUIDREF(uid, &uidREFRef);
+            if (uidREFRef)
+            {
+                AIEntryRef newEntry = NULL;
+                newEntry = sAIEntry->FromUIDREF(uidREFRef);
+                if (newEntry)
+                {
+                    sAIArray->AppendEntry(array, newEntry);
+                    sAIEntry->Release(newEntry);
+                }
+                sAIUIDREF->Release(uidREFRef);
+            }
+            sAIUID->Release(uid);
+        }
+    }
+    
+    AIBoolean result = AddArrayDataToDictionary(array, identifier, CAIndex);
+    sAIArray->Release(array);
+    
+    return result;
 }

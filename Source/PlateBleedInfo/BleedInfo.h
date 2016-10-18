@@ -38,6 +38,7 @@ namespace SafeguardFile
         string Token() const;
         BleedInfo& Token(string newVal);
         string ArtboardName(bool& isDefault) const;
+        string ArtboardName() const;
         BleedInfo& ArtboardName(string newVal);
         
         bool ShouldDrawBleedInfo() const { return shouldDrawBleedInfo; };

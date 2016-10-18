@@ -18,8 +18,12 @@
 #include "ArtTree.h"
 #include "AIColor.h"
 #include "DictionaryWriter.h"
+#include "SafeguardJobFileDTO.hpp"
 #include <functional>
 #include <boost/filesystem/operations.hpp>
+
+#include "cereal/cereal.hpp"
+#include "cereal/archives/json.hpp"
 
 using SafeguardFile::Plate;
 using SafeguardFile::PlateNumber;
@@ -28,10 +32,21 @@ using SafeguardFile::BleedInfo;
 
 namespace fs = boost::filesystem;
 
-Plate::Plate(ai::ArtboardID id)
-: bleedInfo(id)
+Plate::Plate(ai::ArtboardID id, AIArtHandle pluginArtHandle)
+: bleedInfo(id), bleedInfoPluginArt(pluginArtHandle)
 {
     bleedInfoDrawer = make_shared<BleedInfoDrawer>(bleedInfo.ArtboardIndex());
+    
+    if (bleedInfoPluginArt)
+    {
+        DictionaryWriter dw(bleedInfoPluginArt);
+        string json;
+        dw.GetStringDataFromIdentifier(json, PLATE_BLEEDINFO);
+        
+        PlateBleedInfoDTO::PlateDTO dto(json);
+
+        FillBleedInfoFromPlateDTO(&dto);
+    }
 }
 
 const PlateNumber Plate::GetPlateNumber() const
@@ -72,11 +87,12 @@ void Plate::DrawBleedInfo()
 
     if (ShouldDrawBleedInfo())
     {
-        bleedInfoDrawer->Draw();
+        bleedInfoPluginArt = bleedInfoDrawer->Draw(bleedInfoPluginArt);
+        WriteBleedInfoToPluginArt();
     }
     else
     {
-        RemoveBleedInfo();
+        RemoveBleedInfo(); // bleedInfoPluginArt = NULL;
     }
 }
 
@@ -88,11 +104,9 @@ bool Plate::ShouldDrawBleedInfo()
 
 void Plate::RemoveBleedInfo()
 {
-    DictionaryWriter dw;
-    AIArtHandle foundArt = dw.GetArtHandleFromIdentifier(PLATE_BLEED_INFO_GROUP_LABEL, GetArtboardIndex());
-    if (foundArt)
+    if (bleedInfoPluginArt)
     {
-        bleedInfoDrawer->Remove(foundArt);
+        bleedInfoDrawer->Remove(bleedInfoPluginArt); // bleedInfoPluginArt = NULL;
     }
 }
                     
@@ -119,4 +133,38 @@ AIRealRect Plate::GetBleeds() const
 SafeguardFile::ColorList Plate::GetColors()
 {
     return bleedInfo.ColorList();
+}
+
+string Plate::GetBleedInfoAsJson(bool fullColorName) const
+{
+    std::ostringstream os;
+    {
+        PlateBleedInfoDTO::PlateDTO pdto(bleedInfo, fullColorName);
+        cereal::JSONOutputArchive oarchive(os); // Create an output archive
+        oarchive(pdto);
+    }
+    return os.str();
+}
+
+void Plate::FillBleedInfoFromPlateDTO(PlateBleedInfoDTO::PlateDTO* dto)
+{
+    BleedInfo()
+    .ShouldDrawBleedInfo(dto->shouldDrawBleedInfo)
+    .ArtboardName(dto->artboardName)
+    .ShouldAddCmykBlocks(dto->shouldAddCmykBlocks)
+    .TickMarkStyle(TickMarkStyle(dto->tmStyle));
+    for ( auto color : dto->c )
+    {
+        BleedInfo().ColorList().SetColorMethod(color.colorName, InkMethod(color.method) );
+    }
+    WriteBleedInfoToPluginArt();
+}
+
+void Plate::WriteBleedInfoToPluginArt()
+{
+    if (bleedInfoPluginArt)
+    {
+        DictionaryWriter dw(bleedInfoPluginArt);
+        dw.AddStringDataToDictionary(GetBleedInfoAsJson(false), PLATE_BLEEDINFO);
+    }
 }

@@ -126,6 +126,7 @@ protected:
     
     virtual ASErr Notify(AINotifierMessage* message);
     
+    bool IsBleedInfoPluginArtCreated();
 private:
     shared_ptr<ColorToolsUIController> colorToolsUIController;
     shared_ptr<PrintToPdf::PrintToPdfUIController> printToPdfUIController;
@@ -137,6 +138,7 @@ private:
     AINotifierHandle fDocOpenedNotifierHandle;
     AINotifierHandle fArtSelectionChangeNotifierHandle;
     AINotifierHandle fDocumentCropAreaModifiedNotifierHandle;
+    AINotifierHandle fArtPropertiesChangedNotifierHandle;
     
 	/**	Menu item handles**/
     BtAiMenuItemHandles menuItemHandles;

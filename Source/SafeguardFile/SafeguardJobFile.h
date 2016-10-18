@@ -9,14 +9,14 @@
 #ifndef __SafeguardTools__SafeguardJobFile__
 #define __SafeguardTools__SafeguardJobFile__
 
-#include <vector>
+#include <map>
 #include "Plate.h"
 #include "PlateNumber.h"
 #include "BleedInfo.h"
 #include "ColorList.h"
 #include "PrintToPdfConstants.h"
 #include "AICSXS.h"
-#include "PlateBleedInfoDTO.hpp"
+#include "SafeguardJobFileDTO.hpp"
 
 extern AICSXSExtensionSuite* sAICSXSExtension;
 
@@ -26,6 +26,7 @@ namespace SafeguardFile
     {
     public:
         SafeguardJobFile();
+        ~SafeguardJobFile();
         
         vector<BleedInfo> GetBleedInfo() const;
         
@@ -41,11 +42,10 @@ namespace SafeguardFile
         void EditBleedInfo();
         void RemoveBleedInfo();
         
-        void PutDataInDTO(SafeguardFile::PlateBleedInfoDTO& dto, bool fullColorName = false);
+        void PutDataInDTO(PlateBleedInfoDTO::SafeguardJobFileDTO& dto, bool fullColorName = false);
+        void LoadDataFromDTO(PlateBleedInfoDTO::SafeguardJobFileDTO dto);
     private:
-        vector<Plate> plates;
-        
-        void LoadDataFromDTO(SafeguardFile::PlateBleedInfoDTO dto);
+        map<int, Plate> plates;       
 
     };
 }

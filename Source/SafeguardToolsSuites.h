@@ -42,6 +42,7 @@
 
 #include "AIDictionary.h"
 #include "AIUID.h"
+#include "AIArray.h"
 
 #include "AIActionManager.h"
 
@@ -93,6 +94,7 @@ extern AIUIDPoolSuite *sAIUIDPool;
 
 extern AIDictionarySuite *sAIDictionary;
 extern AIEntrySuite *sAIEntry;
+extern AIArraySuite *sAIArray;
 
 extern AIActionManagerSuite *sAIActionManager;
 

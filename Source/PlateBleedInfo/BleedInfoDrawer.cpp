@@ -8,7 +8,6 @@
 
 #include "BleedInfoDrawer.h"
 #include "SafeguardToolsPlugin.h"
-#include "DictionaryWriter.h"
 #include "ArtTree.h"
 #include "BtLayer.hpp"
 #include "GetIllustratorErrorCode.h"
@@ -16,20 +15,11 @@
 
 using SafeguardFile::BleedInfoDrawer;
 
-AIArtHandle BleedInfoDrawer::DoDraw(AIArtHandle resultGroup) const
+AIArtHandle BleedInfoDrawer::DoDraw(AIArtHandle pluginGroupArt) const
 {
-    DictionaryWriter dw;
-    if (dw.CheckDictionaryForArtObjectWithIdentifier(PLATE_BLEED_INFO_GROUP_LABEL, artboardIndex))
+    if (pluginGroupArt)
     {
-        AIArtHandle foundArt = dw.GetArtHandleFromIdentifier(PLATE_BLEED_INFO_GROUP_LABEL, artboardIndex);
-        if (foundArt)
-        {
-            return Update(foundArt);
-        }
-        else
-        {
-            dw.RemoveIdentifierFromDictionary(PLATE_BLEED_INFO_GROUP_LABEL, artboardIndex);
-        }
+        return Update(pluginGroupArt);
     }
     else
     {
@@ -50,9 +40,6 @@ AIArtHandle BleedInfoDrawer::Add() const
     sAIPluginGroup->UseAIPluginGroup(pluginGroupArt, gPlugin->GetBleedInfoPluginGroupHandle());
     
     CreateResultArt(pluginGroupArt);
-    
-    DictionaryWriter dw;
-    dw.AddArtHandleToDictionary(pluginGroupArt, PLATE_BLEED_INFO_GROUP_LABEL, artboardIndex);
     
     return pluginGroupArt;
 }
@@ -91,9 +78,8 @@ void BleedInfoDrawer::ClearResultArt(AIArtHandle resultGroupArt) const
     }
 }
 
-void BleedInfoDrawer::Remove(AIArtHandle pluginGroupArt) const
+void BleedInfoDrawer::Remove(AIArtHandle& pluginGroupArt) const
 {
-    DictionaryWriter dw;
-    dw.RemoveIdentifierFromDictionary(PLATE_BLEED_INFO_GROUP_LABEL, artboardIndex);
     sAIArt->DisposeArt(pluginGroupArt);
+    pluginGroupArt = NULL;
 }
