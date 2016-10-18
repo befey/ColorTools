@@ -29,7 +29,10 @@ namespace SafeguardFile
     public:
         BleedInfoDrawer(ai::ArtboardID artboardIndex) : artboardIndex(artboardIndex) {};
         
-        BleedInfoDrawer& AddDrawer(shared_ptr<IDrawer> val) { drawers.push_back(val); return *this; };
+        BleedInfoDrawer& AddDrawer(shared_ptr<IDrawer> val);
+        shared_ptr<IDrawer> MakeColorListDrawer(ProductType pt, AIRealRect artboardBounds, SafeguardFile::ColorList colorList);
+        shared_ptr<IDrawer> MakeFileNameDateDrawer(ProductType pt, AIRealRect artboardBounds, SafeguardFile::PlateNumber plateNumber, string token, tm lastModified);
+        shared_ptr<IDrawer> MakeTickMarkDrawer(TickMarkSettings tmSettings);
 
         void Remove(AIArtHandle& pluginGroupArt) const;
     private:

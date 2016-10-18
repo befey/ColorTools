@@ -15,6 +15,56 @@
 
 using SafeguardFile::BleedInfoDrawer;
 
+BleedInfoDrawer& BleedInfoDrawer::AddDrawer(shared_ptr<IDrawer> val)
+{
+    if (val != nullptr)
+    {
+        drawers.push_back(val);
+    }
+    return *this;
+}
+
+shared_ptr<IDrawer> BleedInfoDrawer::MakeColorListDrawer(ProductType pt, AIRealRect artboardBounds, SafeguardFile::ColorList colorList)
+{
+    if (pt == ProductType::BusinessStat)
+    {
+        return make_shared<BusStatColorListDrawer>(artboardBounds, colorList);
+    }
+    else if (pt == ProductType::Continuous)
+    {
+        return make_shared<ContinuousColorListDrawer>(artboardBounds, colorList);
+    }
+    else if (pt == ProductType::CutSheet || pt == ProductType::Envelope)
+    {
+        return make_shared<LaserColorListDrawer>(artboardBounds, colorList);
+    }
+    
+    return nullptr;
+}
+
+shared_ptr<IDrawer> BleedInfoDrawer::MakeFileNameDateDrawer(ProductType pt, AIRealRect artboardBounds, SafeguardFile::PlateNumber plateNumber, string token, tm lastModified)
+{
+    if (pt == ProductType::BusinessStat)
+    {
+        return make_shared<BusStatFileNameDateDrawer>(artboardBounds, plateNumber, token, lastModified);
+    }
+    else if (pt == ProductType::Continuous)
+    {
+        return make_shared<ContinuousFileNameDateDrawer>(artboardBounds, plateNumber, token, lastModified);
+    }
+    else if (pt == ProductType::CutSheet || pt == ProductType::Envelope)
+    {
+        return make_shared<LaserFileNameDateDrawer>(artboardBounds, plateNumber, token, lastModified);
+    }
+    
+    return nullptr;
+}
+
+shared_ptr<IDrawer> BleedInfoDrawer::MakeTickMarkDrawer(TickMarkSettings tmSettings)
+{
+    return make_shared<TickMarkDrawer>(tmSettings);
+}
+
 AIArtHandle BleedInfoDrawer::DoDraw(AIArtHandle pluginGroupArt) const
 {
     if (pluginGroupArt)
