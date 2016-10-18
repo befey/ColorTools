@@ -16,6 +16,7 @@
 #include "AIArt.h"
 #include "AIPluginGroup.h"
 #include "IDrawer.h"
+#include <ctime>
 
 extern AIArtSuite* sAIArt;
 extern AIPluginGroupSuite* sAIPluginGroup;

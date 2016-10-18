@@ -9,22 +9,11 @@
 #ifndef __SafeguardTools__Plate__
 #define __SafeguardTools__Plate__
 
-#include "AIPathStyle.h"
-#include "AIFont.h"
-#include "AIArtboard.h"
-#include "AIDocument.h"
 #include "PlateNumber.h"
 #include "BleedInfo.h"
 #include "PrintToPdfConstants.h"
 #include "ColorList.h"
 #include "BleedInfoDrawer.h"
-#include <vector>
-#include <ctime>
-
-extern AIPathStyleSuite* sAIPathStyle;
-extern AIFontSuite* sAIFont;
-extern AIArtboardSuite* sAIArtboard;
-extern AIDocumentSuite* sAIDocument;
 
 namespace PlateBleedInfoDTO
 {

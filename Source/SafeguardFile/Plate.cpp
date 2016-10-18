@@ -8,19 +8,11 @@
 
 #include "Plate.h"
 #include "SafeguardFileConstants.h"
-#include "BtAteTextFeatures.h"
-#include "TickMarkDrawer.h"
 #include "TickMarkSettings.hpp"
-#include "ColorListDrawer.h"
-#include "FileNameDateDrawer.h"
-#include "ATEFuncs.h"
-#include "ColorFuncs.h"
-#include "ArtTree.h"
-#include "AIColor.h"
 #include "DictionaryWriter.h"
 #include "SafeguardJobFileDTO.hpp"
-#include <functional>
 #include <boost/filesystem/operations.hpp>
+#include <ctime>
 
 #include "cereal/cereal.hpp"
 #include "cereal/archives/json.hpp"
