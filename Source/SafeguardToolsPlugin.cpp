@@ -139,6 +139,9 @@ ASErr SafeguardToolsPlugin::StartupPlugin( SPInterfaceMessage *message )
     error = sAINotifier->AddNotifier( fPluginRef, kSafeguardToolsPluginName,
                                      kAIDocumentCropAreaModifiedNotifier, &fDocumentCropAreaModifiedNotifierHandle);
     if (error) { return error; }
+    error = sAINotifier->AddNotifier( fPluginRef, kSafeguardToolsPluginName,
+                                     kAIArtPropertiesChangedNotifier, &fArtPropertiesChangedNotifierHandle);
+    if (error) { return error; }
     
     return error;
 }
@@ -543,12 +546,13 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
     {
         colorToolsUIController->DetermineChangeInStatus();
     }
-    if (message->notifier == fDocumentCropAreaModifiedNotifierHandle )
+    if (message->notifier == fDocumentCropAreaModifiedNotifierHandle ||
+        message->notifier == fArtPropertiesChangedNotifierHandle)
     {
         if ( IsBleedInfoPluginArtCreated() )
         {
             AIArtboardMessage* m = (AIArtboardMessage*)message->notifyData;
-            if (m->msgSrc == kUpdate)
+            //if (m->msgSrc == kUpdate)
             {
                 sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, false);
                 SafeguardJobFile sgJobFile;
