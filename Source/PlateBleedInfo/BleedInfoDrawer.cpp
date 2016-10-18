@@ -24,7 +24,7 @@ BleedInfoDrawer& BleedInfoDrawer::AddDrawer(shared_ptr<IDrawer> val)
     return *this;
 }
 
-shared_ptr<IDrawer> BleedInfoDrawer::MakeColorListDrawer(ProductType pt, AIRealRect artboardBounds, SafeguardFile::ColorList colorList)
+shared_ptr<IDrawer> BleedInfoDrawer::MakeColorListDrawer(ProductType pt, AIRealRect artboardBounds, ColorList colorList)
 {
     if (pt == ProductType::BusinessStat)
     {
@@ -42,7 +42,7 @@ shared_ptr<IDrawer> BleedInfoDrawer::MakeColorListDrawer(ProductType pt, AIRealR
     return nullptr;
 }
 
-shared_ptr<IDrawer> BleedInfoDrawer::MakeFileNameDateDrawer(ProductType pt, AIRealRect artboardBounds, SafeguardFile::PlateNumber plateNumber, string token, tm lastModified)
+shared_ptr<IDrawer> BleedInfoDrawer::MakeFileNameDateDrawer(ProductType pt, AIRealRect artboardBounds, PlateNumber plateNumber, string token, tm lastModified)
 {
     if (pt == ProductType::BusinessStat)
     {
