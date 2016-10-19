@@ -546,12 +546,18 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
     {
         colorToolsUIController->DetermineChangeInStatus();
     }
-    if (message->notifier == fDocumentCropAreaModifiedNotifierHandle ||
-        message->notifier == fArtPropertiesChangedNotifierHandle)
+    
+    size_t count;
+    if (message->notifier == fArtPropertiesChangedNotifierHandle)
     {
+        count = (size_t)message->notifyData;
+    }
+    
+    if (message->notifier == fDocumentCropAreaModifiedNotifierHandle)
+    {
+        AIArtboardMessage* m = (AIArtboardMessage*)message->notifyData;
         if ( IsBleedInfoPluginArtCreated() )
         {
-            AIArtboardMessage* m = (AIArtboardMessage*)message->notifyData;
             //if (m->msgSrc == kUpdate)
             {
                 sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, false);

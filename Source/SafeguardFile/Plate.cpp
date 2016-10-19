@@ -130,7 +130,7 @@ void Plate::FillBleedInfoFromPlateDTO(PlateBleedInfoDTO::PlateDTO* dto)
 {
     BleedInfo()
     .ShouldDrawBleedInfo(dto->shouldDrawBleedInfo)
-    .ArtboardName(dto->artboardName)
+    //.ArtboardName(dto->artboardName) //Do not set artboard name here or we'll overwrite what's been set in artboards panel.
     .ShouldAddCmykBlocks(dto->shouldAddCmykBlocks)
     .TickMarkStyle(TickMarkStyle(dto->tmStyle));
     for ( auto color : dto->c )
