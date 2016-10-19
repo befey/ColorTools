@@ -38,11 +38,16 @@ SafeguardJobFile::SafeguardJobFile()
             }
         }
     }
-    else
+    
+    if (plates.size() < GetArtboardCount())
     {
         for ( int i = 0; i < GetArtboardCount(); i++ )
         {
-            plates.emplace(i, Plate(i));
+            auto iter = plates.find(i);
+            if (iter == plates.end())
+            {
+                plates.emplace(i, Plate(i));
+            }
         }
     }
 }

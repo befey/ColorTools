@@ -561,8 +561,15 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
             //if (m->msgSrc == kUpdate)
             {
                 sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, false);
-                SafeguardJobFile sgJobFile;
-                sgJobFile.UpdateBleedInfo();
+                try
+                {
+                    SafeguardJobFile sgJobFile;
+                    sgJobFile.UpdateBleedInfo();
+                }
+                catch (std::runtime_error e)
+                {
+                    e.what(); //BALLS!
+                }
                 sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, true);
             }
         }
