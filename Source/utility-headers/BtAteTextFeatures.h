@@ -37,6 +37,9 @@ public:
     BtAteTextFeatures& Font(string postscriptFontName);
     ATE::IFont Font(bool* isAssigned) const;
     
+    BtAteTextFeatures& NoBreak(bool newVal);
+    bool NoBreak(bool* isAssigned) const;
+    
     BtAteTextFeatures& FillColor(AIColor color);
     
     BtAteTextFeatures& Justification(ATE::ParagraphJustification newVal);

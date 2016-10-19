@@ -184,7 +184,10 @@ void ColorList::AddColorToTextRange(const BtColor color, ATE::ITextRange& target
             name += " " + InkMethodStrings.at(color.Method());
         }
         
-        textFeatures.AddTextToRangeWithFeatures((ai::UnicodeString(name).toUpper()).as_Platform() + "  ", targetRange);
+        textFeatures.NoBreak(true);
+        textFeatures.AddTextToRangeWithFeatures((ai::UnicodeString(name).toUpper()).as_Platform(), targetRange);
+        textFeatures.NoBreak(false);
+        textFeatures.AddTextToRangeWithFeatures("  ", targetRange);
     }
 }
 
