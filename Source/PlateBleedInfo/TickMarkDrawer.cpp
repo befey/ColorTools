@@ -16,6 +16,8 @@ TickMarkDrawer::TickMarkDrawer(TickMarkSettings settings) : settings(settings) {
 AIArtHandle TickMarkDrawer::DoDraw(AIArtHandle resultGroup) const
 {
     AIArtHandle tickMarkGroupArt = NULL;
+    tickMarkGroupArt = DrawInvisiblePath(resultGroup, tickMarkGroupArt);
+    
     if (settings.DrawInner())
     {
         tickMarkGroupArt = DrawInner(resultGroup, tickMarkGroupArt);
@@ -27,6 +29,39 @@ AIArtHandle TickMarkDrawer::DoDraw(AIArtHandle resultGroup) const
     
     return tickMarkGroupArt;
 }
+
+AIArtHandle TickMarkDrawer::DrawInvisiblePath(AIArtHandle resultGroup, AIArtHandle tickMarkGroupArt) const
+{
+    if (tickMarkGroupArt == NULL)
+    {
+        sAIArt->NewArt(kGroupArt, kPlaceInsideOnTop, resultGroup, &tickMarkGroupArt);
+    }
+    
+    AIArtHandle invisiblePathArt;
+    sAIArt->NewArt(kPathArt, kPlaceInsideOnTop, tickMarkGroupArt, &invisiblePathArt);
+    
+    AIRealPoint topLeft = {.h = settings.Bounds().left, .v = settings.Bounds().top};
+    AIRealPoint topRight = {.h = settings.Bounds().right, .v = settings.Bounds().top};
+    AIRealPoint bottomLeft = {.h = settings.Bounds().left, .v = settings.Bounds().bottom};
+    AIRealPoint bottomRight = {.h = settings.Bounds().right, .v = settings.Bounds().bottom};
+    AIPathSegment segments[4];
+    segments[0] = { .corner = true, .p = topLeft, .in = topLeft, .out = topLeft };
+    segments[1] = { .corner = true, .p = topRight, .in = topRight, .out = topRight };
+    segments[2] = { .corner = true, .p = bottomRight, .in = bottomRight, .out = bottomRight };
+    segments[3] = { .corner = true, .p = bottomLeft, .in = bottomLeft, .out = bottomLeft };
+    
+    sAIPath->SetPathSegments(invisiblePathArt, 0, 4, segments);
+    sAIPath->SetPathClosed(invisiblePathArt, true);
+    
+    AIPathStyle currPathStyle;
+    sAIPathStyle->GetPathStyle(invisiblePathArt, &currPathStyle);
+    currPathStyle.strokePaint = false;
+    currPathStyle.fillPaint = false;
+    sAIPathStyle->SetPathStyle(invisiblePathArt, &currPathStyle);
+    
+    return tickMarkGroupArt;
+}
+
 
 AIArtHandle TickMarkDrawer::DrawOuter(AIArtHandle resultGroup, AIArtHandle tickMarkGroupArt) const
 {
