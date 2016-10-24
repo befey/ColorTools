@@ -21,7 +21,10 @@ using SafeguardFile::BleedInfo;
 
 ColorListDrawer::ColorListDrawer(AIRealRect bounds, AIRealPoint anchor, ColorList colorList) :
     BleedTextInfoDrawer(bounds, anchor),
-    colorList(colorList) {};
+    colorList(colorList)
+{
+    maxWidth = (bounds.right - bounds.left) * .6;
+}
 
 LaserColorListDrawer::LaserColorListDrawer(AIRealRect bounds, ColorList colorList) :
     ColorListDrawer(bounds, {.h = bounds.left + 4, .v = bounds.bottom - 14}, colorList) {};
@@ -36,7 +39,7 @@ AIArtHandle LaserColorListDrawer::DoDraw(AIArtHandle resultGroup) const
     
     ATE::ITextRange range = SetupTextRange(resultGroup, kHorizontalTextOrientation, &colorListArt);
     
-    colorList.GetAsTextRange(range);
+    colorList.GetAsTextRange(range, maxWidth);
     
     BtAteTextFeatures textFeatures;
     textFeatures.FontSize(12).Font("Helvetica-Bold").Justification(ATE::kLeftJustify);
@@ -53,7 +56,7 @@ AIArtHandle ContinuousColorListDrawer::DoDraw(AIArtHandle resultGroup) const
     
     RotateArt(colorListArt, anchor, -90);
     
-    colorList.GetAsTextRange(range);
+    colorList.GetAsTextRange(range, maxWidth);
     
     BtAteTextFeatures textFeatures;
     textFeatures.FontSize(9).Font("Helvetica-Bold").Justification(ATE::kLeftJustify);
@@ -68,7 +71,7 @@ AIArtHandle BusStatColorListDrawer::DoDraw(AIArtHandle resultGroup) const
     
     ATE::ITextRange range = SetupTextRange(resultGroup, kHorizontalTextOrientation, &colorListArt);
     
-    colorList.GetAsTextRange(range);
+    colorList.GetAsTextRange(range, maxWidth);
     
     BtAteTextFeatures textFeatures;
     textFeatures.FontSize(7).Font("Helvetica-Condensed-Bold").Justification(ATE::kLeftJustify);

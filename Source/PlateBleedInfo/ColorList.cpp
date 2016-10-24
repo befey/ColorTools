@@ -129,21 +129,21 @@ void ColorList::AddColorsToList(ColorList colors)
     p_ColorList.insert(p_ColorList.end(), colors.p_ColorList.begin(), colors.p_ColorList.end());
 }
 
-void ColorList::GetAsTextRange(ATE::ITextRange& targetRange) const
+void ColorList::GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) const
 {
     if (p_ColorList.size() == 0)
     {
         AIColor c = {.kind = kNoneColor};
-        AddColorToTextRange(c, targetRange);
+        AddColorToTextRange(c, targetRange, maxWidth);
     }
     
     for (auto c : p_ColorList)
     {
-        AddColorToTextRange(c, targetRange);
+        AddColorToTextRange(c, targetRange, maxWidth);
     }
 }
 
-void ColorList::AddColorToTextRange(const BtColor color, ATE::ITextRange& targetRange) const
+void ColorList::AddColorToTextRange(const BtColor color, ATE::ITextRange& targetRange, AIReal maxWidth) const
 {
     BtAteTextFeatures textFeatures;
     
@@ -184,10 +184,22 @@ void ColorList::AddColorToTextRange(const BtColor color, ATE::ITextRange& target
             name += " " + InkMethodStrings.at(color.Method());
         }
         
+        ATETextDOM::Int32 beforeEnd = targetRange.GetEnd();
         textFeatures.NoBreak(true);
         textFeatures.AddTextToRangeWithFeatures((ai::UnicodeString(name).toUpper()).as_Platform(), targetRange);
         textFeatures.NoBreak(false);
         textFeatures.AddTextToRangeWithFeatures("  ", targetRange);
+        ATETextDOM::Int32 afterEnd = targetRange.GetEnd();
+        
+        AIRealRect bounds;
+        sAIATETextUtil->GetBoundsFromTextRange(targetRange.GetRef(), &bounds);
+        if ( (bounds.right - bounds.left) > maxWidth )
+        {
+            targetRange.SetEnd(beforeEnd);
+            targetRange.InsertAfter(ai::UnicodeString("\n").as_ASUnicode().c_str());
+            ATETextDOM::Int32 newEnd = targetRange.GetEnd();
+            targetRange.SetEnd(newEnd - beforeEnd + afterEnd);
+        }
     }
 }
 

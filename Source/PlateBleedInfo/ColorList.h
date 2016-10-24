@@ -9,10 +9,13 @@
 #ifndef __SafeguardTools__ColorList__
 #define __SafeguardTools__ColorList__
 
+#include "AIATETextUtil.h"
 #include <vector>
 #include "BtColor.h"
 #include "ColorFuncs.h"
 #include "SafeguardFileConstants.h"
+
+extern AIATETextUtilSuite* sAIATETextUtil;
 
 namespace SafeguardFile
 {
@@ -26,12 +29,12 @@ namespace SafeguardFile
         
         void SetColorMethod(string colorName, SafeguardFile::InkMethod method);
         
-        void GetAsTextRange(ATE::ITextRange& targetRange) const;
+        void GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) const;
         const vector<BtColor> GetColorList() const { return p_ColorList; };
     private:
         vector<BtColor> p_ColorList;
         
-        void AddColorToTextRange(const BtColor color, ATE::ITextRange& targetRange) const;
+        void AddColorToTextRange(const BtColor color, ATE::ITextRange& targetRange, AIReal maxWidth) const;
     };
 }
 #endif /* defined(__SafeguardTools__ColorList__) */

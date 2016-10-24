@@ -22,6 +22,7 @@ namespace SafeguardFile
         ColorListDrawer(AIRealRect bounds, AIRealPoint anchor, ColorList colorList);
         
         ColorList colorList;
+        AIReal maxWidth;
     };
     
     class LaserColorListDrawer : public ColorListDrawer
