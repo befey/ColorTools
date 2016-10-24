@@ -47,7 +47,7 @@ namespace SafeguardFile
     private:
         map<int, Plate> plates;
         
-        void CleanupPluginArtHandles(vector<AIArtHandle> pluginArts, vector<AIArtHandle> sortedPluginArts) const;
+        void CleanupPluginArtHandles(vector<AIArtHandle> pluginArts, vector<pair<int, AIArtHandle>> sortedPluginArts) const;
     };
 }
 #endif /* defined(__SafeguardTools__SafeguardJobFile__) */

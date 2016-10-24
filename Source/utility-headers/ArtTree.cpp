@@ -433,28 +433,8 @@ int GetArtboardCount()
 
 int GetArtboardOfArt(AIArtHandle artHandle)
 {
-    AIRealPoint artCenter = GetCenterOfArt(artHandle);
-    
-    ai::ArtboardList abList;
-    sAIArtboard->GetArtboardList(abList);
-    ai::ArtboardID count;
-    sAIArtboard->GetCount(abList, count);
-    
-    int closestArtboard = -1;
-    AIReal closestDistance = kAIRealMax;
-    for ( int i = 0; i < count; i++ )
-    {
-        AIRealPoint abCenter = GetCenterOfRect(GetArtboardBounds(i));
-        
-        AIReal distance = sAIRealMath->AIRealPointLength(&abCenter, &artCenter);
-        
-        if (distance < closestDistance)
-        {
-            closestDistance = distance;
-            closestArtboard = i;
-        }
-    }
-    return closestArtboard;
+    vector<AIArtHandle> v {artHandle};
+    return GetArtboardOfArts(v)[0].first;
 }
 
 AIRealRect GetArtboardBounds(int index)
@@ -490,7 +470,7 @@ AIRealPoint GetCenterOfRect(AIRealRect rect)
     return center;
 }
 
-vector<AIArtHandle> GetArtboardOfPluginArts(vector<AIArtHandle> pluginArts)
+vector<pair<int,AIArtHandle>> GetArtboardOfArts(vector<AIArtHandle> arts)
 {
     vector<tuple<int,AIArtHandle,AIReal>> d;
     
@@ -504,7 +484,7 @@ vector<AIArtHandle> GetArtboardOfPluginArts(vector<AIArtHandle> pluginArts)
     {
         AIRealPoint abCenter = GetCenterOfRect(GetArtboardBounds(i));
         
-        for ( auto ah : pluginArts )
+        for ( auto ah : arts )
         {
             AIRealPoint artCenter = GetCenterOfArt(ah);
             AIReal distance = sAIRealMath->AIRealPointLength(&abCenter, &artCenter);
@@ -555,10 +535,10 @@ vector<AIArtHandle> GetArtboardOfPluginArts(vector<AIArtHandle> pluginArts)
               });
     
     //Create the vector of just ArtHandles
-    vector<AIArtHandle> result;
+    vector<pair<int,AIArtHandle>> result;
     for ( auto m : d )
     {
-        result.push_back(std::get<1>(m));
+        result.push_back( std::pair<int,AIArtHandle>(std::get<0>(m), std::get<1>(m)) );
     }
     return result;
 }

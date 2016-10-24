@@ -24,6 +24,7 @@ ColorListDrawer::ColorListDrawer(AIRealRect bounds, AIRealPoint anchor, ColorLis
     colorList(colorList)
 {
     maxWidth = (bounds.right - bounds.left) * .6;
+    maxHeight = (bounds.top - bounds.bottom) * .6;
 }
 
 LaserColorListDrawer::LaserColorListDrawer(AIRealRect bounds, ColorList colorList) :
@@ -54,9 +55,10 @@ AIArtHandle ContinuousColorListDrawer::DoDraw(AIArtHandle resultGroup) const
     
     ATE::ITextRange range = SetupTextRange(resultGroup, kHorizontalTextOrientation, &colorListArt);
     
-    RotateArt(colorListArt, anchor, -90);
+    colorList.GetAsTextRange(range, maxHeight);
     
-    colorList.GetAsTextRange(range, maxWidth);
+    RotateArt(colorListArt, anchor, -90);
+    MoveArtOffArtboard(colorListArt, Direction::Right, 2);
     
     BtAteTextFeatures textFeatures;
     textFeatures.FontSize(9).Font("Helvetica-Bold").Justification(ATE::kLeftJustify);

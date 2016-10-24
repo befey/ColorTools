@@ -27,12 +27,12 @@ SafeguardJobFile::SafeguardJobFile()
     
     if (pluginArts.size() > 0)
     {
-        vector<AIArtHandle> sortedPluginArts = GetArtboardOfPluginArts(pluginArts);
+        vector<pair<int, AIArtHandle>> sortedPluginArts = GetArtboardOfArts(pluginArts);
         CleanupPluginArtHandles(pluginArts, sortedPluginArts);
         
-        for ( int i = 0; i < sortedPluginArts.size(); i++ )
+        for ( auto item : sortedPluginArts )
         {
-            auto success = plates.emplace(i, Plate(i, sortedPluginArts[i]));
+            auto success = plates.emplace(item.first, Plate(item.first, item.second));
             if (success.second == false)
             {
                 throw std::runtime_error("The artboard already has a Plate constructed!");
@@ -163,10 +163,14 @@ SafeguardFile::ColorList SafeguardJobFile::GetAllColorsOnJob() const
     return colorList;
 }
 
-void SafeguardJobFile::CleanupPluginArtHandles(vector<AIArtHandle> pluginArts, vector<AIArtHandle> sortedPluginArts) const
+void SafeguardJobFile::CleanupPluginArtHandles(vector<AIArtHandle> pluginArts, vector<pair<int, AIArtHandle>> sortedPluginArts) const
 {
     std::vector<AIArtHandle> sortedPa(pluginArts);
-    std::vector<AIArtHandle> sortedSpa(sortedPluginArts);
+    std::vector<AIArtHandle> sortedSpa;
+    for ( auto item : sortedPluginArts )
+    {
+        sortedSpa.push_back(item.second);
+    }
     
     std::sort(sortedPa.begin(),sortedPa.end());
     std::sort(sortedSpa.begin(),sortedSpa.end());

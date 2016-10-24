@@ -7,6 +7,7 @@
 //
 
 #include "BtTransformArt.hpp"
+#include "ArtTree.h"
 
 void RotateArt(AIArtHandle art, AIRealPoint anchor, const AIReal angle)
 {
@@ -18,6 +19,36 @@ void RotateArt(AIArtHandle art, AIRealPoint anchor, const AIReal angle)
     sAIRealMath->AIRealMatrixConcatRotate(&transformMatrix, sAIRealMath->DegreeToRadian(angle));
     //Move back to original position
     sAIRealMath->AIRealMatrixConcatTranslate(&transformMatrix, anchor.h, anchor.v);
+    
+    sAITransformArt->TransformArt(art, &transformMatrix, 1, kTransformObjects);
+}
+
+void MoveArtOffArtboard(AIArtHandle art, Direction dir, AIReal offset)
+{
+    AIRealMatrix transformMatrix;
+    
+    AIRealRect abRect = GetArtboardBounds(GetArtboardOfArt(art));
+    AIRealRect artRect = GetBoundsOfArt(art);
+    
+    AIReal hMove = 0, vMove = 0;
+    
+    switch (dir)
+    {
+        case Direction::Top:
+            vMove = abRect.top - artRect.bottom - offset;
+            break;
+        case Direction::Bottom:
+            hMove = abRect.bottom - artRect.top + offset;
+            break;
+        case Direction::Left:
+            hMove = abRect.left - artRect.right - offset;
+            break;
+        case Direction::Right:
+            hMove = abRect.right - artRect.left + offset;
+            break;
+    }
+    
+    sAIRealMath->AIRealMatrixSetTranslate(&transformMatrix, hMove, vMove);
     
     sAITransformArt->TransformArt(art, &transformMatrix, 1, kTransformObjects);
 }
