@@ -10,7 +10,7 @@
 #include "ArtTree.h"
 #include "BtLayer.hpp"
 #include "GetIllustratorErrorCode.h"
-
+#include <map>
 
 long CreateArtSetOfPrintingObjectsWithinRect(AIArtSet const targetSet, AIRealRect rect)
 {
@@ -488,4 +488,77 @@ AIRealPoint GetCenterOfRect(AIRealRect rect)
     AIRealPoint b = {.h = rect.right, .v = rect.bottom};
     sAIRealMath->AIRealPointInterpolate(&a, &b, .5, &center);
     return center;
+}
+
+vector<AIArtHandle> GetArtboardOfPluginArts(vector<AIArtHandle> pluginArts)
+{
+    vector<tuple<int,AIArtHandle,AIReal>> d;
+    
+    ai::ArtboardList abList;
+    sAIArtboard->GetArtboardList(abList);
+    ai::ArtboardID count;
+    sAIArtboard->GetCount(abList, count);
+    
+    //Calculate the distance of each art from each artboard
+    for ( int i = 0; i < count; i++ )
+    {
+        AIRealPoint abCenter = GetCenterOfRect(GetArtboardBounds(i));
+        
+        for ( auto ah : pluginArts )
+        {
+            AIRealPoint artCenter = GetCenterOfArt(ah);
+            AIReal distance = sAIRealMath->AIRealPointLength(&abCenter, &artCenter);
+            
+            d.push_back( {i, ah, distance} );
+        }
+    }
+    
+    //Sort by distance
+    std::sort(d.begin(), d.end(),
+              [](auto &left, auto &right)
+              {
+                  return std::get<2>(left) < std::get<2>(right);
+              });
+    
+    //Starting with the art that is closest to an artboard, remove all arts which are not closest to that artboard
+    for(auto item = d.begin(); item != d.end(); item++)
+    {
+        bool found1 = false;
+        d.erase(
+                std::remove_if(item, d.end(),
+                               [item, &found1](tuple<int,AIArtHandle,AIReal> curr)
+                               {
+                                   if (std::get<1>(*item) == std::get<1>(curr) || std::get<0>(*item) == std::get<0>(curr))
+                                   {
+                                       if (!found1)
+                                       {
+                                           found1 = true;
+                                           return false;
+                                       }
+                                       else
+                                       {
+                                           return true;
+                                       }
+                                   }
+                                   return false;
+                               }
+                               ),
+                d.end()
+                );
+    }
+    
+    //Sort by artboard index
+    std::sort(d.begin(), d.end(),
+              [](auto &left, auto &right)
+              {
+                  return std::get<0>(left) < std::get<0>(right);
+              });
+    
+    //Create the vector of just ArtHandles
+    vector<AIArtHandle> result;
+    for ( auto m : d )
+    {
+        result.push_back(std::get<1>(m));
+    }
+    return result;
 }

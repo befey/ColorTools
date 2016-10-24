@@ -45,8 +45,9 @@ namespace SafeguardFile
         void PutDataInDTO(PlateBleedInfoDTO::SafeguardJobFileDTO& dto, bool fullColorName = false);
         void LoadDataFromDTO(PlateBleedInfoDTO::SafeguardJobFileDTO dto);
     private:
-        map<int, Plate> plates;       
-
+        map<int, Plate> plates;
+        
+        void CleanupPluginArtHandles(vector<AIArtHandle> pluginArts, vector<AIArtHandle> sortedPluginArts) const;
     };
 }
 #endif /* defined(__SafeguardTools__SafeguardJobFile__) */

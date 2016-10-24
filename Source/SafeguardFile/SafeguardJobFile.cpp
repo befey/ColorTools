@@ -24,14 +24,15 @@ SafeguardJobFile::SafeguardJobFile()
     vector<AIArtHandle> pluginArts;
     DictionaryWriter dw;
     dw.GetVectorOfAIArtHandleFromIdentifier(pluginArts, SG_BLEEDINFO_ARTHANDLES);
-        
+    
     if (pluginArts.size() > 0)
     {
-        for ( auto ah : pluginArts )
+        vector<AIArtHandle> sortedPluginArts = GetArtboardOfPluginArts(pluginArts);
+        CleanupPluginArtHandles(pluginArts, sortedPluginArts);
+        
+        for ( int i = 0; i < sortedPluginArts.size(); i++ )
         {
-            int i = GetArtboardOfArt(ah);
-
-            auto success = plates.emplace(i, Plate(i, ah));
+            auto success = plates.emplace(i, Plate(i, sortedPluginArts[i]));
             if (success.second == false)
             {
                 throw std::runtime_error("The artboard already has a Plate constructed!");
@@ -160,4 +161,27 @@ SafeguardFile::ColorList SafeguardJobFile::GetAllColorsOnJob() const
         colorList.AddColorsToList(plate.second.GetColors());
     }
     return colorList;
+}
+
+void SafeguardJobFile::CleanupPluginArtHandles(vector<AIArtHandle> pluginArts, vector<AIArtHandle> sortedPluginArts) const
+{
+    std::vector<AIArtHandle> sortedPa(pluginArts);
+    std::vector<AIArtHandle> sortedSpa(sortedPluginArts);
+    
+    std::sort(sortedPa.begin(),sortedPa.end());
+    std::sort(sortedSpa.begin(),sortedSpa.end());
+    
+    // Now that we have sorted ranges (i.e., containers), find the differences
+    std::vector<AIArtHandle> vDifferences;
+    
+    std::set_difference(sortedPa.begin(),
+                        sortedPa.end(),
+                        sortedSpa.begin(),
+                        sortedSpa.end(),
+                        std::back_inserter(vDifferences));
+    
+    for ( auto item : vDifferences )
+    {
+        sAIArt->DisposeArt(item);
+    }
 }

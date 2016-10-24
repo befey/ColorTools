@@ -52,5 +52,6 @@ AIRealRect GetArtboardBounds(int index);
 AIRealPoint GetCenterOfArt(AIArtHandle art);
 AIRealRect GetBoundsOfArt(AIArtHandle art);
 AIRealPoint GetCenterOfRect(AIRealRect rect);
+vector<AIArtHandle> GetArtboardOfPluginArts(vector<AIArtHandle> pluginArts);
 
 #endif //ARTTREE_H
