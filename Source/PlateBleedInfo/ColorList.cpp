@@ -137,7 +137,7 @@ void ColorList::GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) co
         AddColorToTextRange(c, targetRange, maxWidth);
     }
     
-    for (auto c : p_ColorList)
+    for (auto c : GetSortedColorList())
     {
         AddColorToTextRange(c, targetRange, maxWidth);
     }
@@ -213,4 +213,11 @@ void ColorList::SetColorMethod(string colorName, SafeguardFile::InkMethod method
             break;
         }
     }
+}
+
+const vector<BtColor> ColorList::GetSortedColorList() const
+{
+    vector<BtColor> sortedVector = p_ColorList;
+    std::sort(sortedVector.begin(), sortedVector.end());
+    return sortedVector;
 }

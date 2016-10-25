@@ -31,6 +31,7 @@ namespace SafeguardFile
         
         void GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) const;
         const vector<BtColor> GetColorList() const { return p_ColorList; };
+        const vector<BtColor> GetSortedColorList() const;
     private:
         vector<BtColor> p_ColorList;
         

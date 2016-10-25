@@ -34,7 +34,7 @@ tmStyle(int(bleedInfo.TickMarkSettings().TickMarkStyle()))
 {
     artboardName = bleedInfo.ArtboardName(isDefaultArtboardName);
     
-    for (auto color : bleedInfo.ColorList().GetColorList())
+    for (auto color : bleedInfo.ColorList().GetSortedColorList())
     {
         c.push_back(ColorDTO(color, fullColorName));
     }

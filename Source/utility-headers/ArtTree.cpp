@@ -542,3 +542,24 @@ vector<pair<int,AIArtHandle>> GetArtboardOfArts(vector<AIArtHandle> arts)
     }
     return result;
 }
+
+AIArtHandle DrawRectangle(AIRealRect rect, AIArtHandle prep)
+{
+    AIArtHandle pathArt;
+    sAIArt->NewArt(kPathArt, kPlaceInsideOnTop, prep, &pathArt);
+    
+    AIRealPoint topLeft = {.h = rect.left, .v = rect.top};
+    AIRealPoint topRight = {.h = rect.right, .v = rect.top};
+    AIRealPoint bottomLeft = {.h = rect.left, .v = rect.bottom};
+    AIRealPoint bottomRight = {.h = rect.right, .v = rect.bottom};
+    AIPathSegment segments[4];
+    segments[0] = { .corner = true, .p = topLeft, .in = topLeft, .out = topLeft };
+    segments[1] = { .corner = true, .p = topRight, .in = topRight, .out = topRight };
+    segments[2] = { .corner = true, .p = bottomRight, .in = bottomRight, .out = bottomRight };
+    segments[3] = { .corner = true, .p = bottomLeft, .in = bottomLeft, .out = bottomLeft };
+    
+    sAIPath->SetPathSegments(pathArt, 0, 4, segments);
+    sAIPath->SetPathClosed(pathArt, true);
+    
+    return pathArt;
+}

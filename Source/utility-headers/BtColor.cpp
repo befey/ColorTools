@@ -39,6 +39,101 @@ BtColor::BtColor(string name, AICustomColorTag kind, AICustomColorUnion c, AICus
     AiCustomColor(aiCustomColor, name, tint, method);
 }
 
+bool operator< (const BtColor& lhs, const BtColor& rhs)
+{
+    AILabColorStyle labLhs = lhs.GetLabApproximation();
+    AILabColorStyle labRhs = rhs.GetLabApproximation();
+    
+    if (labLhs.l != labRhs.l)
+    {
+        return labLhs.l < labRhs.l;
+    }
+    if (labLhs.a != labRhs.a)
+    {
+        return labLhs.a < labRhs.a;
+    }
+    else
+    {
+        return labLhs.b < labRhs.b;
+    }
+}
+
+AILabColorStyle BtColor::GetLabApproximation() const
+{
+    if (aiCustomColorHandle && aiCustomColor.kind == kCustomLabColor)
+    {
+        return aiCustomColor.c.lab;
+    }
+    if (aiCustomColor.kind == kCustomFourColor || aiColor.kind == kFourColor)
+    {
+        AIFourColorStyle s;
+        if (aiCustomColorHandle)
+        {
+            s = aiCustomColor.c.f;
+        }
+        else
+        {
+            s = aiColor.c.f;
+        }
+        
+        AIFloatSampleComponent values[4] =
+        {
+            static_cast<AIFloatSampleComponent>(s.cyan),
+            static_cast<AIFloatSampleComponent>(s.magenta),
+            static_cast<AIFloatSampleComponent>(s.yellow),
+            static_cast<AIFloatSampleComponent>(s.black)
+        };
+        AIFloatSampleComponent result[3];
+        AIBoolean inGamut;
+        sAIColorConversion->ConvertSampleColor(kAICMYKColorSpace, values, kAILabColorSpace, result, AIColorConvertOptions::Purpose
+                                               ::kDefault, &inGamut);
+        
+        return AILabColorStyle{result[0], result[1], result[2]};
+    }
+    if (aiCustomColor.kind == kCustomThreeColor || aiColor.kind == kThreeColor)
+    {
+        AIThreeColorStyle s;
+        if (aiCustomColorHandle)
+        {
+            s = aiCustomColor.c.rgb;
+        }
+        else
+        {
+            s = aiColor.c.rgb;
+        }
+        
+        AIFloatSampleComponent values[3] =
+        {
+            static_cast<AIFloatSampleComponent>(s.red),
+            static_cast<AIFloatSampleComponent>(s.green),
+            static_cast<AIFloatSampleComponent>(s.blue),
+        };
+        AIFloatSampleComponent result[3];
+        AIBoolean inGamut;
+        sAIColorConversion->ConvertSampleColor(kAIRGBColorSpace, values, kAILabColorSpace, result, AIColorConvertOptions::Purpose
+                                               ::kDefault, &inGamut);
+        
+        return AILabColorStyle{result[0], result[1], result[2]};
+    }
+    if (aiColor.kind == kGrayColor)
+    {
+        AIGrayColorStyle s = aiColor.c.g;
+        
+        AIFloatSampleComponent values[1] =
+        {
+            static_cast<AIFloatSampleComponent>(s.gray),
+        };
+        AIFloatSampleComponent result[3];
+        AIBoolean inGamut;
+        sAIColorConversion->ConvertSampleColor(kAIGrayColorSpace, values, kAILabColorSpace, result, AIColorConvertOptions::Purpose
+                                               ::kDefault, &inGamut);
+        
+        return AILabColorStyle{result[0], result[1], result[2]};
+    }
+    
+    return AILabColorStyle{0, 0, 0};
+}
+
 //Getters/Setters
 BtColor& BtColor::AiColor(AIColor newVal, SafeguardFile::InkMethod method)
 {

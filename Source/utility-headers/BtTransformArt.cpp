@@ -23,10 +23,15 @@ void RotateArt(AIArtHandle art, AIRealPoint anchor, const AIReal angle)
     sAITransformArt->TransformArt(art, &transformMatrix, 1, kTransformObjects);
 }
 
-void MoveArtOffArtboard(AIArtHandle art, Direction dir, AIReal offset)
+void TransformArt(AIArtHandle art, AIReal h, AIReal v)
 {
     AIRealMatrix transformMatrix;
-    
+    sAIRealMath->AIRealMatrixSetTranslate(&transformMatrix, h, v);
+    sAITransformArt->TransformArt(art, &transformMatrix, 1, kTransformObjects);
+}
+
+void MoveArtOffArtboard(AIArtHandle art, Direction dir, AIReal offset)
+{
     AIRealRect abRect = GetArtboardBounds(GetArtboardOfArt(art));
     AIRealRect artRect = GetBoundsOfArt(art);
     
@@ -48,7 +53,5 @@ void MoveArtOffArtboard(AIArtHandle art, Direction dir, AIReal offset)
             break;
     }
     
-    sAIRealMath->AIRealMatrixSetTranslate(&transformMatrix, hMove, vMove);
-    
-    sAITransformArt->TransformArt(art, &transformMatrix, 1, kTransformObjects);
+    TransformArt(art, hMove, vMove);
 }

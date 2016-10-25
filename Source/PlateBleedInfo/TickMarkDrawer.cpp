@@ -8,6 +8,7 @@
 
 #include "TickMarkDrawer.h"
 #include "BtLayer.hpp"
+#include "ArtTree.h"
 
 using SafeguardFile::TickMarkDrawer;
 
@@ -37,21 +38,7 @@ AIArtHandle TickMarkDrawer::DrawInvisiblePath(AIArtHandle resultGroup, AIArtHand
         sAIArt->NewArt(kGroupArt, kPlaceInsideOnTop, resultGroup, &tickMarkGroupArt);
     }
     
-    AIArtHandle invisiblePathArt;
-    sAIArt->NewArt(kPathArt, kPlaceInsideOnTop, tickMarkGroupArt, &invisiblePathArt);
-    
-    AIRealPoint topLeft = {.h = settings.Bounds().left, .v = settings.Bounds().top};
-    AIRealPoint topRight = {.h = settings.Bounds().right, .v = settings.Bounds().top};
-    AIRealPoint bottomLeft = {.h = settings.Bounds().left, .v = settings.Bounds().bottom};
-    AIRealPoint bottomRight = {.h = settings.Bounds().right, .v = settings.Bounds().bottom};
-    AIPathSegment segments[4];
-    segments[0] = { .corner = true, .p = topLeft, .in = topLeft, .out = topLeft };
-    segments[1] = { .corner = true, .p = topRight, .in = topRight, .out = topRight };
-    segments[2] = { .corner = true, .p = bottomRight, .in = bottomRight, .out = bottomRight };
-    segments[3] = { .corner = true, .p = bottomLeft, .in = bottomLeft, .out = bottomLeft };
-    
-    sAIPath->SetPathSegments(invisiblePathArt, 0, 4, segments);
-    sAIPath->SetPathClosed(invisiblePathArt, true);
+    AIArtHandle invisiblePathArt = DrawRectangle(settings.Bounds(), tickMarkGroupArt);
     
     AIPathStyle currPathStyle;
     sAIPathStyle->GetPathStyle(invisiblePathArt, &currPathStyle);

@@ -11,17 +11,21 @@
 
 #include "AILayer.h"
 #include "AIGroup.h"
+#include "AIArt.h"
 #include "AIPath.h"
+#include "AIPathStyle.h"
+#include "IDrawer.h"
 #include "AIArtboard.h"
 #include <functional>
 #include <vector>
 
 extern AIArtSetSuite* sAIArtSet;
-extern AIArtSuite* sAIArt;
 extern AILayerSuite* sAILayer;
 extern AIPlacedSuite* sAIPlaced;
 extern AIGroupSuite* sAIGroup;
+extern AIArtSuite* sAIArt;
 extern AIPathSuite* sAIPath;
+extern AIPathStyleSuite* sAIPathStyle;
 extern AIRealMathSuite* sAIRealMath;
 extern AIArtboardSuite* sAIArtboard;
 
@@ -53,5 +57,7 @@ AIRealPoint GetCenterOfArt(AIArtHandle art);
 AIRealRect GetBoundsOfArt(AIArtHandle art);
 AIRealPoint GetCenterOfRect(AIRealRect rect);
 vector<pair<int,AIArtHandle>> GetArtboardOfArts(vector<AIArtHandle> pluginArts);
+
+AIArtHandle DrawRectangle(AIRealRect rect, AIArtHandle prep);
 
 #endif //ARTTREE_H

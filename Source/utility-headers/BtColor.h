@@ -14,12 +14,14 @@
 // included dependencies
 #include <string>
 #include "AIColor.h"
+#include "AIColorConversion.h"
 #include "SafeguardFileConstants.h"
 #include "ColorFuncs.h"
 
 //=================================
 // forward declared dependencies
 extern AICustomColorSuite* sAICustomColor;
+extern AIColorConversionSuite* sAIColorConversion;
 
 
 //=================================
@@ -58,13 +60,16 @@ public:
     
     BtColor& Method(SafeguardFile::InkMethod newVal) { method = newVal; return *this; };
     SafeguardFile::InkMethod Method() const { return method; };
-
+    
+    friend bool operator< (const BtColor& lhs, const BtColor& rhs);
 private:
     AIColor aiColor;
     AICustomColor aiCustomColor;
     AICustomColorHandle aiCustomColorHandle = NULL;
     
     SafeguardFile::InkMethod method = SafeguardFile::InkMethod::INVAL;
+    
+    AILabColorStyle GetLabApproximation() const;
 };
 
 

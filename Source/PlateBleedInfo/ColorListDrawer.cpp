@@ -12,6 +12,7 @@
 #include "BtTransformArt.hpp"
 #include "SafeguardFileConstants.h"
 #include "BtLayer.hpp"
+#include "ArtTree.h"
 
 using SafeguardFile::ColorListDrawer;
 using SafeguardFile::LaserColorListDrawer;
@@ -64,6 +65,8 @@ AIArtHandle ContinuousColorListDrawer::DoDraw(AIArtHandle resultGroup) const
     textFeatures.FontSize(9).Font("Helvetica-Bold").Justification(ATE::kLeftJustify);
     textFeatures.ApplyFeaturesToRange(range);
     
+    DrawContinuousColorBlocks(resultGroup);
+    
     return colorListArt;
 }
 
@@ -80,4 +83,40 @@ AIArtHandle BusStatColorListDrawer::DoDraw(AIArtHandle resultGroup) const
     textFeatures.ApplyFeaturesToRange(range);
     
     return colorListArt;
+}
+
+void ContinuousColorListDrawer::DrawContinuousColorBlocks(AIArtHandle resultGroup) const
+{
+    AIRealRect rect = { .top = bounds.top - 66, .right = bounds.right - 12, .bottom = bounds.top - 66 - 12, .left = bounds.right - 12 - 12 };
+    
+    AIArtHandle colorBlock = DrawRectangle(rect, resultGroup);
+    
+    AIPathStyle currPathStyle;
+    sAIPathStyle->GetPathStyle(colorBlock, &currPathStyle);
+    currPathStyle.strokePaint = false;
+    currPathStyle.fillPaint = true;
+    currPathStyle.fill = { .color = GetRegistrationColor(), .overprint = true };
+    sAIPathStyle->SetPathStyle(colorBlock, &currPathStyle);
+    
+    vector<BtColor> sortedColorList = colorList.GetSortedColorList();
+    
+    std::for_each(std::begin(sortedColorList)+1, std::end(sortedColorList),
+                 [&rect, resultGroup, this](BtColor c)
+    {
+        rect.top -= 36;
+        rect.bottom -= 36;
+        
+        //Make sure the blocks only go about 60% down the page
+        if (! (rect.bottom < bounds.bottom * .6) )
+        {
+            AIArtHandle colorBlock = DrawRectangle(rect, resultGroup);
+            
+            AIPathStyle currPathStyle;
+            sAIPathStyle->GetPathStyle(colorBlock, &currPathStyle);
+            currPathStyle.strokePaint = false;
+            currPathStyle.fillPaint = true;
+            currPathStyle.fill = { .color = c.AiColor(), .overprint = true };
+            sAIPathStyle->SetPathStyle(colorBlock, &currPathStyle);
+        }
+    });
 }

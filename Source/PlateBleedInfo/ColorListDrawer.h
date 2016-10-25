@@ -40,6 +40,7 @@ namespace SafeguardFile
         ContinuousColorListDrawer(AIRealRect bounds, ColorList colorList);
     private:
         AIArtHandle DoDraw(AIArtHandle resultGroup) const override;
+        void DrawContinuousColorBlocks(AIArtHandle resultGroup) const;
     };
     
     class BusStatColorListDrawer : public ColorListDrawer
