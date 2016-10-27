@@ -30,9 +30,8 @@ void TransformArt(AIArtHandle art, AIReal h, AIReal v)
     sAITransformArt->TransformArt(art, &transformMatrix, 1, kTransformObjects);
 }
 
-void MoveArtOffArtboard(AIArtHandle art, Direction dir, AIReal offset)
+void MoveArtOutsideBounds(AIArtHandle art, AIRealRect bounds, Direction dir, AIReal offset)
 {
-    AIRealRect abRect = GetArtboardBounds(GetArtboardOfArt(art));
     AIRealRect artRect = GetBoundsOfArt(art);
     
     AIReal hMove = 0, vMove = 0;
@@ -40,16 +39,16 @@ void MoveArtOffArtboard(AIArtHandle art, Direction dir, AIReal offset)
     switch (dir)
     {
         case Direction::Top:
-            vMove = abRect.top - artRect.bottom - offset;
+            vMove = bounds.top - artRect.bottom - offset;
             break;
         case Direction::Bottom:
-            hMove = abRect.bottom - artRect.top + offset;
+            hMove = bounds.bottom - artRect.top + offset;
             break;
         case Direction::Left:
-            hMove = abRect.left - artRect.right - offset;
+            hMove = bounds.left - artRect.right - offset;
             break;
         case Direction::Right:
-            hMove = abRect.right - artRect.left + offset;
+            hMove = bounds.right - artRect.left + offset;
             break;
     }
     

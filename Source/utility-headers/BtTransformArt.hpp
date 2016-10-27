@@ -25,6 +25,6 @@ enum Direction
 
 void RotateArt(AIArtHandle art, AIRealPoint anchor, const AIReal angle);
 void TransformArt(AIArtHandle art, AIReal h, AIReal v);
-void MoveArtOffArtboard(AIArtHandle art, Direction dir, AIReal offset);
+void MoveArtOutsideBounds(AIArtHandle art, AIRealRect bounds, Direction dir, AIReal offset);
 
 #endif /* BtTransformArt_hpp */
