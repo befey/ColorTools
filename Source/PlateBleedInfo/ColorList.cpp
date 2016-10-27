@@ -157,33 +157,36 @@ void ColorList::AddColorToTextRange(const BtColor color, ATE::ITextRange& target
     else
     {
         string name;
+        string method = "";
+        
+        if (color.Method() != SafeguardFile::InkMethod::NONE)
+        {
+            method = " " + InkMethodStrings.at(color.Method());
+        }
+        
         if (ColorIsPantone(color.AiColor()))
         {
-            name = GetInnerPantoneColorNumber(color.AiColor());
+            name = GetInnerPantoneColorNumber(color.AiColor()) + method;
             textFeatures.FillColor(color.AiColor());
         }
         else if (color.Kind() == kFourColor)
         {
             AIColor c = {.kind = kFourColor, .c.f.cyan = 1, .c.f.magenta = 0, .c.f.yellow = 0, .c.f.black = 0};
             textFeatures.FillColor(c);
-            textFeatures.AddTextToRangeWithFeatures("CYAN  ", targetRange);
+            textFeatures.AddTextToRangeWithFeatures("CYAN" + method + "  ", targetRange);
             c = {.kind = kFourColor, .c.f.cyan = 0, .c.f.magenta = 1, .c.f.yellow = 0, .c.f.black = 0};
             textFeatures.FillColor(c);
-            textFeatures.AddTextToRangeWithFeatures("MAG  ", targetRange);
+            textFeatures.AddTextToRangeWithFeatures("MAG" + method + "  ", targetRange);
             c = {.kind = kFourColor, .c.f.cyan = 0, .c.f.magenta = 0, .c.f.yellow = 1, .c.f.black = 0};
             textFeatures.FillColor(c);
-            textFeatures.AddTextToRangeWithFeatures("YEL  ", targetRange);
+            textFeatures.AddTextToRangeWithFeatures("YEL" + method + "  ", targetRange);
             textFeatures.FillColor(GetBlackColor());
-            name = GetColorName(GetBlackColor());
+            name = GetColorName(GetBlackColor()) + method;
         }
         else
         {
-            name = color.Name();
+            name = color.Name() + method;
             textFeatures.FillColor(color.AiColor());
-        }
-        if (color.Method() != SafeguardFile::InkMethod::NONE)
-        {
-            name += " " + InkMethodStrings.at(color.Method());
         }
         
         ATETextDOM::Int32 beforeEnd = targetRange.GetEnd();
