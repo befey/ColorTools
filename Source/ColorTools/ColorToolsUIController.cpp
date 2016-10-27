@@ -186,7 +186,7 @@ ASErr ColorToolsUIController::SendChangeCountToHtml(int count)
     return error;
 }
 
-void ColorToolsUIController::DetermineChangeInStatus()
+void ColorToolsUIController::UpdateChangeInStatus()
 {
     AIArtHandle** matches;
     int count = 0;
