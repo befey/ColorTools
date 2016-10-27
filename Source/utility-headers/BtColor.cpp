@@ -207,7 +207,14 @@ std::string BtColor::Name() const
 
 bool BtColor::CompareName(std::string name) const
 {
-    if (this->Name() == name || GetInnerPantoneColorNumber(this->Name()) == name)
+    if (name == SafeguardFile::CMYK_COLOR_NAME)
+    {
+        if (this->AiColor().kind == kFourColor)
+        {
+            return true;
+        }
+    }
+    else if (this->Name() == name || GetInnerPantoneColorNumber(this->Name()) == name)
     {
         return true;
     }

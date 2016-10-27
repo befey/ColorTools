@@ -21,6 +21,7 @@ namespace SafeguardFile
     constexpr auto NONE_COLOR_NAME =            "[None]";
     constexpr auto BLACK_COLOR_NAME =           "Black";
     constexpr auto WHITE_COLOR_NAME =           "White";
+    constexpr auto CMYK_COLOR_NAME =            "CMYK";
     constexpr auto MICR_BLACK_MAG_COLOR_NAME =  "MICR - BLACK MAG";
     constexpr auto GRIPPER_COLOR_NAME =         "GRIPPER";
     constexpr auto KEYLINE_COLOR_NAME =         "KEYLINE - does not print";
