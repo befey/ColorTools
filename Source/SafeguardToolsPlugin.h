@@ -136,9 +136,8 @@ private:
     AINotifierHandle fRegisterEventNotifierHandle;
     AINotifierHandle fAppStartedNotifierHandle;
     AINotifierHandle fDocOpenedNotifierHandle;
-    AINotifierHandle fArtSelectionChangeNotifierHandle;
     AINotifierHandle fDocumentCropAreaModifiedNotifierHandle;
-    AINotifierHandle fArtPropertiesChangedNotifierHandle;
+    AINotifierHandle fArtSelectionChangedNotifierHandle;
     
 	/**	Menu item handles**/
     BtAiMenuItemHandles menuItemHandles;

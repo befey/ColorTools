@@ -86,6 +86,8 @@ void SafeguardJobFile::UpdateBleedInfo()
     {
         plate.second.DrawBleedInfo();
     }
+    DictionaryWriter dw;
+    dw.AddAIRealToDictionary(sAIArt->GetGlobalTimeStamp(), SafeguardFile::PLATE_BLEEDINFO_TIMESTAMP);
 }
 
 void SafeguardJobFile::EditBleedInfo()

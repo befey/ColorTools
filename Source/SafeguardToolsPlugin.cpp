@@ -39,8 +39,8 @@ SafeguardToolsPlugin::SafeguardToolsPlugin(SPPluginRef pluginRef) :
     fRegisterEventNotifierHandle(NULL),
     fAppStartedNotifierHandle(NULL),
     fDocOpenedNotifierHandle(NULL),
-    fArtSelectionChangeNotifierHandle(NULL),
-    fDocumentCropAreaModifiedNotifierHandle(NULL)
+    fDocumentCropAreaModifiedNotifierHandle(NULL),
+    fArtSelectionChangedNotifierHandle(NULL)
 {
 	strncpy(fPluginName, kSafeguardToolsPluginName, kMaxStringLength);
 }
@@ -134,13 +134,10 @@ ASErr SafeguardToolsPlugin::StartupPlugin( SPInterfaceMessage *message )
                                      kAIDocumentOpenedNotifier, &fDocOpenedNotifierHandle);
     if (error) { return error; }
     error = sAINotifier->AddNotifier( fPluginRef, kSafeguardToolsPluginName,
-                                     kAIArtSelectionChangedNotifier, &fArtSelectionChangeNotifierHandle);
-    if (error) { return error; }
-    error = sAINotifier->AddNotifier( fPluginRef, kSafeguardToolsPluginName,
                                      kAIDocumentCropAreaModifiedNotifier, &fDocumentCropAreaModifiedNotifierHandle);
     if (error) { return error; }
     error = sAINotifier->AddNotifier( fPluginRef, kSafeguardToolsPluginName,
-                                     kAIArtPropertiesChangedNotifier, &fArtPropertiesChangedNotifierHandle);
+                                     kAIArtSelectionChangedNotifier, &fArtSelectionChangedNotifierHandle);
     if (error) { return error; }
     
     return error;
@@ -542,35 +539,36 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
         colorToolsUIController->SendColorListXmlToHtml(swatchesXml);
     }
     
-    if (message->notifier == fArtSelectionChangeNotifierHandle )
+    if (message->notifier == fArtSelectionChangedNotifierHandle )
     {
-        colorToolsUIController->DetermineChangeInStatus();
+        colorToolsUIController->UpdateChangeInStatus();
     }
-    
-    size_t count;
-    if (message->notifier == fArtPropertiesChangedNotifierHandle)
-    {
-        count = (size_t)message->notifyData;
-    }
-    
-    if (message->notifier == fDocumentCropAreaModifiedNotifierHandle)
+    if (message->notifier == fDocumentCropAreaModifiedNotifierHandle || message->notifier == fArtSelectionChangedNotifierHandle)
     {
         AIArtboardMessage* m = (AIArtboardMessage*)message->notifyData;
         if ( IsBleedInfoPluginArtCreated() )
         {
-            //if (m->msgSrc == kUpdate)
+            size_t gTimeStamp = sAIArt->GetGlobalTimeStamp();
+            DictionaryWriter dw;
+            AIReal aTSDict = dw.GetAIRealFromIdentifier(SafeguardFile::PLATE_BLEEDINFO_TIMESTAMP);
+            
+            if ( gTimeStamp != aTSDict )
             {
-                sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, false);
-                try
+                
+                //if (m->msgSrc == kUpdate)
                 {
-                    SafeguardJobFile sgJobFile;
-                    sgJobFile.UpdateBleedInfo();
+                    sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, false);
+                    try
+                    {
+                        SafeguardJobFile sgJobFile;
+                        sgJobFile.UpdateBleedInfo();
+                    }
+                    catch (std::runtime_error e)
+                    {
+                        e.what(); //BALLS!
+                    }
+                    sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, true);
                 }
-                catch (std::runtime_error e)
-                {
-                    e.what(); //BALLS!
-                }
-                sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, true);
             }
         }
     }
