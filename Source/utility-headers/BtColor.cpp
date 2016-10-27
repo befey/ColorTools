@@ -41,6 +41,21 @@ BtColor::BtColor(string name, AICustomColorTag kind, AICustomColorUnion c, AICus
 
 bool operator< (const BtColor& lhs, const BtColor& rhs)
 {
+    //Always sort CMYK to the front
+    if (lhs.Kind() == kFourColor && rhs.Kind() != kFourColor)
+    {
+        return true;
+    }
+    else if (lhs.Kind() != kFourColor && rhs.Kind() == kFourColor)
+    {
+        return false;
+    }
+    else if (lhs.Kind() == kFourColor && rhs.Kind() == kFourColor)
+    {
+        return lhs.AiColor().c.f.black < rhs.AiColor().c.f.black;
+    }
+    
+    //Otherwise sort everything by luminance
     AILabColorStyle labLhs = lhs.GetLabApproximation();
     AILabColorStyle labRhs = rhs.GetLabApproximation();
     
