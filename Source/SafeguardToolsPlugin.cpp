@@ -545,7 +545,6 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
     }
     if (message->notifier == fDocumentCropAreaModifiedNotifierHandle || message->notifier == fArtSelectionChangedNotifierHandle)
     {
-        AIArtboardMessage* m = (AIArtboardMessage*)message->notifyData;
         if ( IsBleedInfoPluginArtCreated() )
         {
             size_t gTimeStamp = sAIArt->GetGlobalTimeStamp();
@@ -554,21 +553,17 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
             
             if ( gTimeStamp != aTSDict )
             {
-                
-                //if (m->msgSrc == kUpdate)
+                sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, false);
+                try
                 {
-                    sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, false);
-                    try
-                    {
-                        SafeguardJobFile sgJobFile;
-                        sgJobFile.UpdateBleedInfo();
-                    }
-                    catch (std::runtime_error e)
-                    {
-                        e.what(); //BALLS!
-                    }
-                    sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, true);
+                    SafeguardJobFile sgJobFile;
+                    sgJobFile.UpdateBleedInfo();
                 }
+                catch (std::runtime_error e)
+                {
+                    e.what(); //BALLS!
+                }
+                sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, true);
             }
         }
     }
