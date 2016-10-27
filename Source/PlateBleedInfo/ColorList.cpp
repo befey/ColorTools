@@ -122,11 +122,13 @@ void ColorList::RemoveNonPrintingColors()
 void ColorList::AddColorsToList(vector<AIColor> colors)
 {
     p_ColorList.insert(std::end(p_ColorList), std::begin(colors), std::end(colors));
+    std::sort(p_ColorList.begin(), p_ColorList.end());
 }
 
 void ColorList::AddColorsToList(ColorList colors)
 {
     p_ColorList.insert(p_ColorList.end(), colors.p_ColorList.begin(), colors.p_ColorList.end());
+    std::sort(p_ColorList.begin(), p_ColorList.end());
 }
 
 void ColorList::GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) const
@@ -137,7 +139,7 @@ void ColorList::GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) co
         AddColorToTextRange(c, targetRange, maxWidth);
     }
     
-    for (auto c : GetSortedColorList())
+    for (auto c : GetColorList())
     {
         AddColorToTextRange(c, targetRange, maxWidth);
     }
@@ -213,11 +215,4 @@ void ColorList::SetColorMethod(string colorName, SafeguardFile::InkMethod method
             break;
         }
     }
-}
-
-const vector<BtColor> ColorList::GetSortedColorList() const
-{
-    vector<BtColor> sortedVector = p_ColorList;
-    std::sort(sortedVector.begin(), sortedVector.end());
-    return sortedVector;
 }

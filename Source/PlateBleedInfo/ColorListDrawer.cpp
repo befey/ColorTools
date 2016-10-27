@@ -98,7 +98,7 @@ void ContinuousColorListDrawer::DrawContinuousColorBlocks(AIArtHandle resultGrou
     currPathStyle.fill = { .color = GetRegistrationColor(), .overprint = true };
     sAIPathStyle->SetPathStyle(colorBlock, &currPathStyle);
     
-    vector<BtColor> sortedColorList = colorList.GetSortedColorList();
+    vector<BtColor> sortedColorList = colorList.GetColorList();
     
     std::for_each(std::begin(sortedColorList)+1, std::end(sortedColorList),
                  [&rect, resultGroup, this](BtColor c)
