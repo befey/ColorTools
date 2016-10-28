@@ -118,7 +118,17 @@ function PutColorList(data)
                                     for (var i = 0; i < data.dto.plates[j].c.length; i++)
                                     {
                                         color = data.dto.plates[j].c[i];
-                                        newHtml += "<div class='colorName'>" + color.colorName + "</div>";
+                                        newHtml += "<div class='colorName'>";
+                                        if (color.colorName == "CMYK")
+                                        {
+                                            newHtml += "<div class='cmyk'>";
+                                        }
+                                        newHtml += color.colorName;
+                                        if (color.colorName == "CMYK")
+                                        {
+                                            newHtml += "</div>";
+                                        }
+                                        newHtml += "</div>";
                                     }
                                     newHtml += "<div class='artboard-id'>" + data.dto.plates[j].artboardName + "</div></div>";
                                   }
