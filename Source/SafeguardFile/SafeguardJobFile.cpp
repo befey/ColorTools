@@ -162,6 +162,9 @@ SafeguardFile::ColorList SafeguardJobFile::GetAllColorsOnJob() const
     {
         colorList.AddColorsToList(plate.second.GetColors());
     }
+    colorList.RemoveDuplicates();
+    colorList.RemoveNonPrintingColors();
+    colorList.Sort();
     return colorList;
 }
 
