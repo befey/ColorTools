@@ -21,6 +21,7 @@ BleedInfo::BleedInfo(ai::ArtboardID artboardIndex)
     FillColorList();
     colorList.RemoveDuplicates();
     colorList.RemoveNonPrintingColors();
+    colorList.Sort();
 
     SetPlateNumber();
     

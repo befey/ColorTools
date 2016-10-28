@@ -26,6 +26,7 @@ namespace SafeguardFile
         void AddColorsToList(ColorList colors);
         void RemoveDuplicates();
         void RemoveNonPrintingColors();
+        void Sort();
         
         void SetColorMethod(string colorName, SafeguardFile::InkMethod method);
         
