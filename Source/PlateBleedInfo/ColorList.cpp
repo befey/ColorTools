@@ -97,6 +97,26 @@ void ColorList::RemoveDuplicates()
                           p_ColorList.end()
                           );
     }
+    //Now go through the whole list after duplicates have been removed and get rid of any remaining black if we have a CMYK color
+    for ( auto c : p_ColorList )
+    {
+        if (c.AiColor().kind == kFourColor)
+        {
+            p_ColorList.erase(
+                              std::remove_if(p_ColorList.begin(), p_ColorList.end(), [](BtColor c)
+                                             {
+                                                 if (ColorIsBlack(c.AiColor()))
+                                                 {
+                                                     return true;
+                                                 }
+                                                 return false;
+                                             }
+                                             ),
+                              p_ColorList.end()
+                              );
+            break;
+        }
+    }
 }
 
 void ColorList::RemoveNonPrintingColors()
