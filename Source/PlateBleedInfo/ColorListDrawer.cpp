@@ -100,6 +100,35 @@ void ContinuousColorListDrawer::DrawContinuousColorBlocks(AIArtHandle resultGrou
     
     vector<BtColor> sortedColorList = colorList.GetColorList();
     
+    if (sortedColorList.size() > 0 && sortedColorList[0].AiColor().kind == kFourColor)
+    {
+        vector<AIColor> cmykColors =
+        {
+            {.kind = kFourColor, .c.f.cyan = 1, .c.f.magenta = 0, .c.f.yellow = 0, .c.f.black = 0},
+            {.kind = kFourColor, .c.f.cyan = 0, .c.f.magenta = 1, .c.f.yellow = 0, .c.f.black = 0},
+            {.kind = kFourColor, .c.f.cyan = 0, .c.f.magenta = 0, .c.f.yellow = 1, .c.f.black = 0},
+            {.kind = kFourColor, .c.f.cyan = 0, .c.f.magenta = 0, .c.f.yellow = 0, .c.f.black = 1}
+        };
+        for (auto c : cmykColors)
+        {
+            rect.top -= 36;
+            rect.bottom -= 36;
+            
+            //Make sure the blocks only go about 60% down the page
+            if (! (rect.bottom < bounds.bottom * .6) )
+            {
+                AIArtHandle colorBlock = DrawRectangle(rect, resultGroup);
+                
+                AIPathStyle currPathStyle;
+                sAIPathStyle->GetPathStyle(colorBlock, &currPathStyle);
+                currPathStyle.strokePaint = false;
+                currPathStyle.fillPaint = true;
+                currPathStyle.fill = { .color = c, .overprint = true };
+                sAIPathStyle->SetPathStyle(colorBlock, &currPathStyle);
+            }
+        }
+    }
+    
     if (sortedColorList.size() > 0)
     {
         std::for_each(std::begin(sortedColorList)+1, std::end(sortedColorList),
