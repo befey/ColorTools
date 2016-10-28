@@ -24,8 +24,8 @@ ColorListDrawer::ColorListDrawer(AIRealRect bounds, AIRealPoint anchor, ColorLis
     BleedTextInfoDrawer(bounds, anchor),
     colorList(colorList)
 {
-    maxWidth = (bounds.right - bounds.left) * .6;
-    maxHeight = (bounds.top - bounds.bottom) * .6;
+    maxWidth = (bounds.right - bounds.left) * .7;
+    maxHeight = (bounds.top - bounds.bottom) * .7;
 }
 
 LaserColorListDrawer::LaserColorListDrawer(AIRealRect bounds, ColorList colorList) :
