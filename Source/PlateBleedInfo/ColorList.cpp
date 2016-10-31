@@ -171,6 +171,7 @@ void ColorList::GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) co
 void ColorList::AddColorToTextRange(const BtColor color, ATE::ITextRange& targetRange, AIReal maxWidth) const
 {
     BtAteTextFeatures textFeatures;
+    AIColor textFillColor;
     
     if (color.Kind() == kNoneColor)
     {
@@ -190,7 +191,9 @@ void ColorList::AddColorToTextRange(const BtColor color, ATE::ITextRange& target
         if (ColorIsPantone(color.AiColor()))
         {
             name = GetInnerPantoneColorNumber(color.AiColor()) + method;
-            textFeatures.FillColor(color.AiColor());
+            textFillColor = color.AiColor();
+            textFillColor.c.c.tint = 0;
+            textFeatures.FillColor(textFillColor);
         }
         else if (color.Kind() == kFourColor)
         {
@@ -209,7 +212,9 @@ void ColorList::AddColorToTextRange(const BtColor color, ATE::ITextRange& target
         else
         {
             name = color.Name() + method;
-            textFeatures.FillColor(color.AiColor());
+            textFillColor = color.AiColor();
+            textFillColor.c.c.tint = 0;
+            textFeatures.FillColor(textFillColor);
         }
         
         ATETextDOM::Int32 beforeEnd = targetRange.GetEnd();
