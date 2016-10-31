@@ -378,7 +378,7 @@ string GetColorName(const AIColor color)
     {
         sAICustomColor->GetCustomColorName(color.c.c.color, nameUS);
     }
-    if (color.kind == kFourColor)
+    else if (color.kind == kFourColor)
     {
         nameUS = ai::UnicodeString(SafeguardFile::CMYK_COLOR_NAME);
     }
