@@ -204,7 +204,7 @@
 		F965B58D1D1072F200B0C04C /* ListFonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ListFonts.h; path = Source/ListFonts/ListFonts.h; sourceTree = "<group>"; };
 		F96D30711CB6D73500274BDE /* PlateNumber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlateNumber.cpp; path = Source/SafeguardFile/PlateNumber.cpp; sourceTree = "<group>"; };
 		F96D30721CB6D73500274BDE /* PlateNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlateNumber.h; path = Source/SafeguardFile/PlateNumber.h; sourceTree = "<group>"; };
-		F96DDFAF1D2D7BED0066931D /* fontlist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fontlist.txt; path = Resources/Mac/fontlist.txt; sourceTree = "<group>"; };
+		F96DDFAF1D2D7BED0066931D /* fontlist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fontlist.txt; path = Resources/Mac/ListFonts/fontlist.txt; sourceTree = "<group>"; };
 		F979B5FA1CA31DE5004BA4AD /* IAIUnicodeString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IAIUnicodeString.cpp; path = "../Adobe Illustrator 2015.3 SDK/illustratorapi/illustrator/IAIUnicodeString.cpp"; sourceTree = "<group>"; };
 		F979B5FC1CA31DF5004BA4AD /* IAIFilePath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IAIFilePath.cpp; path = "../Adobe Illustrator 2015.3 SDK/illustratorapi/illustrator/IAIFilePath.cpp"; sourceTree = "<group>"; };
 		F979B5FE1CA31E72004BA4AD /* AppContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AppContext.cpp; path = "../Adobe Illustrator 2015.3 SDK/samplecode/common/source/AppContext.cpp"; sourceTree = "<group>"; };
@@ -349,7 +349,7 @@
 		6EE2BA590A40BDD300CC7CE2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				F96DDFAF1D2D7BED0066931D /* fontlist.txt */,
+				F93264C81DC7B4110020B57A /* ListFonts */,
 				F93027D81CA46E7D00D3B41E /* SafeguardTools.r */,
 			);
 			name = Resources;
@@ -450,6 +450,14 @@
 				F9F079651D47EEC1004AC522 /* TickMarkSettings.hpp */,
 			);
 			name = PlateBleedInfo;
+			sourceTree = "<group>";
+		};
+		F93264C81DC7B4110020B57A /* ListFonts */ = {
+			isa = PBXGroup;
+			children = (
+				F96DDFAF1D2D7BED0066931D /* fontlist.txt */,
+			);
+			name = ListFonts;
 			sourceTree = "<group>";
 		};
 		F963C91C1CC7D3AA00A0D519 /* ColorTools */ = {
