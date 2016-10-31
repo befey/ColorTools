@@ -74,5 +74,8 @@ namespace SafeguardFile
     };
 }
 
+constexpr auto PATH_TO_AI_RESOURCES = "../../../Plug-ins.localized/Safeguard/SafeguardTools.aip/Contents/Resources/AiFile/";
+constexpr auto AI_CMYK_BLOCKS = "CMYK_Blocks.ai";
+constexpr auto AI_CONTINUOUS_REG_TARGET = "Continuous_Reg_Target.ai";
 
 #endif /* SafeguardFileConstants_h */
