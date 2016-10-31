@@ -143,7 +143,12 @@ private:
     BtAiMenuItemHandles menuItemHandles;
     
     /** Plugin Group handle **/
-    AIAddPluginGroupData pluginGroupData;
+    AIAddPluginGroupData pluginGroupData =
+    {
+        .major = 1,
+        .minor = 0,
+        .desc = BLEED_INFO_PLUGIN_GROUP_DESC
+    };
     AIPluginGroupHandle bleedInfoPluginGroupHandle;
      
 	/**	Adds the menu items for this plugin to the application UI.

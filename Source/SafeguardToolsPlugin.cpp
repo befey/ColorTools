@@ -113,9 +113,6 @@ ASErr SafeguardToolsPlugin::StartupPlugin( SPInterfaceMessage *message )
     if (error) { return error; }
     
     //Register PlateBleedInfo plugin group
-    pluginGroupData.major = 1;
-    pluginGroupData.minor = 0;
-    pluginGroupData.desc = BLEED_INFO_PLUGIN_GROUP_DESC;
     error = sAIPluginGroup->AddAIPluginGroup (message->d.self,
                                       CREATE_PLATE_BLEED_INFO_PLUGIN_GROUP,
                                       &pluginGroupData,
