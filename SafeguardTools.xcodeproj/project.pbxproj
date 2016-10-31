@@ -46,6 +46,8 @@
 		F9158D551D05FBE900343D57 /* ExistingFileDeleter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9158D531D05FBE900343D57 /* ExistingFileDeleter.cpp */; };
 		F9158D561D05FBE900343D57 /* ExistingFileDeleter.h in Headers */ = {isa = PBXBuildFile; fileRef = F9158D541D05FBE900343D57 /* ExistingFileDeleter.h */; };
 		F93027D91CA46E7D00D3B41E /* SafeguardTools.r in Rez */ = {isa = PBXBuildFile; fileRef = F93027D81CA46E7D00D3B41E /* SafeguardTools.r */; };
+		F93264CE1DC7B6D00020B57A /* CMYK_Blocks.ai in Resources */ = {isa = PBXBuildFile; fileRef = F93264CC1DC7B6D00020B57A /* CMYK_Blocks.ai */; };
+		F93264CF1DC7B6D00020B57A /* Continuous_Reg_Target.ai in Resources */ = {isa = PBXBuildFile; fileRef = F93264CD1DC7B6D00020B57A /* Continuous_Reg_Target.ai */; };
 		F934B1581CC9645A002EAB43 /* ReplaceDataBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F934B1561CC9645A002EAB43 /* ReplaceDataBuilder.cpp */; };
 		F934B1591CC9645A002EAB43 /* ReplaceDataBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F934B1571CC9645A002EAB43 /* ReplaceDataBuilder.h */; };
 		F937ABE41D51149C006DD5C4 /* BtTransformArt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F937ABE21D51149C006DD5C4 /* BtTransformArt.cpp */; };
@@ -57,7 +59,6 @@
 		F937AC101D552051006DD5C4 /* com.gosafeguard.SafeguardTools in CopyFiles */ = {isa = PBXBuildFile; fileRef = F937AC0F1D552051006DD5C4 /* com.gosafeguard.SafeguardTools */; };
 		F947263F1CB2E1F400649020 /* VPB.h in Headers */ = {isa = PBXBuildFile; fileRef = F947263D1CB2E1F400649020 /* VPB.h */; };
 		F94726401CB2E1F400649020 /* VPB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F947263E1CB2E1F400649020 /* VPB.cpp */; };
-		F955E6D01D9300D100AEE6BD /* common.css in Resources */ = {isa = PBXBuildFile; fileRef = F955E6CF1D9300D100AEE6BD /* common.css */; };
 		F965B58E1D1072F200B0C04C /* ListFonts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F965B58C1D1072F200B0C04C /* ListFonts.cpp */; };
 		F965B58F1D1072F200B0C04C /* ListFonts.h in Headers */ = {isa = PBXBuildFile; fileRef = F965B58D1D1072F200B0C04C /* ListFonts.h */; };
 		F96D30731CB6D73500274BDE /* PlateNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F96D30711CB6D73500274BDE /* PlateNumber.cpp */; };
@@ -179,6 +180,8 @@
 		F9158D531D05FBE900343D57 /* ExistingFileDeleter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ExistingFileDeleter.cpp; path = Source/PrintToPdf/ExistingFileDeleter.cpp; sourceTree = "<group>"; };
 		F9158D541D05FBE900343D57 /* ExistingFileDeleter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExistingFileDeleter.h; path = Source/PrintToPdf/ExistingFileDeleter.h; sourceTree = "<group>"; };
 		F93027D81CA46E7D00D3B41E /* SafeguardTools.r */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; name = SafeguardTools.r; path = Resources/Mac/SafeguardTools.r; sourceTree = "<group>"; };
+		F93264CC1DC7B6D00020B57A /* CMYK_Blocks.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMYK_Blocks.ai; sourceTree = "<group>"; };
+		F93264CD1DC7B6D00020B57A /* Continuous_Reg_Target.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Continuous_Reg_Target.ai; sourceTree = "<group>"; };
 		F934B1561CC9645A002EAB43 /* ReplaceDataBuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ReplaceDataBuilder.cpp; sourceTree = "<group>"; };
 		F934B1571CC9645A002EAB43 /* ReplaceDataBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceDataBuilder.h; sourceTree = "<group>"; };
 		F937ABE21D51149C006DD5C4 /* BtTransformArt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BtTransformArt.cpp; path = "Source/utility-headers/BtTransformArt.cpp"; sourceTree = "<group>"; };
@@ -349,6 +352,7 @@
 		6EE2BA590A40BDD300CC7CE2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F93264CB1DC7B6D00020B57A /* AiFile */,
 				F93264C81DC7B4110020B57A /* ListFonts */,
 				F93027D81CA46E7D00D3B41E /* SafeguardTools.r */,
 			);
@@ -458,6 +462,16 @@
 				F96DDFAF1D2D7BED0066931D /* fontlist.txt */,
 			);
 			name = ListFonts;
+			sourceTree = "<group>";
+		};
+		F93264CB1DC7B6D00020B57A /* AiFile */ = {
+			isa = PBXGroup;
+			children = (
+				F93264CC1DC7B6D00020B57A /* CMYK_Blocks.ai */,
+				F93264CD1DC7B6D00020B57A /* Continuous_Reg_Target.ai */,
+			);
+			name = AiFile;
+			path = Resources/Mac/AiFile;
 			sourceTree = "<group>";
 		};
 		F963C91C1CC7D3AA00A0D519 /* ColorTools */ = {
@@ -658,8 +672,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F955E6D01D9300D100AEE6BD /* common.css in Resources */,
+				F93264CF1DC7B6D00020B57A /* Continuous_Reg_Target.ai in Resources */,
 				F96DDFB01D2D7BED0066931D /* fontlist.txt in Resources */,
+				F93264CE1DC7B6D00020B57A /* CMYK_Blocks.ai in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
