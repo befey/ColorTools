@@ -58,10 +58,16 @@ SafeguardJobFile::~SafeguardJobFile()
     vector<AIArtHandle> pluginArts;
     for ( auto p : plates )
     {
-        pluginArts.push_back(p.second.GetBleedInfoPluginArtHandle());
+        if (p.second.GetBleedInfoPluginArtHandle())
+        {
+            pluginArts.push_back(p.second.GetBleedInfoPluginArtHandle());
+        }
     }
-    DictionaryWriter dw;
-    dw.AddVectorOfAIArtHandleToDictionary(pluginArts, SG_BLEEDINFO_ARTHANDLES);
+    if (pluginArts.size() > 0)
+    {
+        DictionaryWriter dw;
+        dw.AddVectorOfAIArtHandleToDictionary(pluginArts, SG_BLEEDINFO_ARTHANDLES);
+    }
 }
 
 void SafeguardJobFile::PutDataInDTO(PlateBleedInfoDTO::SafeguardJobFileDTO& dto, bool fullColorName)
