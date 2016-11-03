@@ -65,6 +65,11 @@ shared_ptr<IDrawer> BleedInfoDrawer::MakeTickMarkDrawer(TickMarkSettings tmSetti
     return make_shared<TickMarkDrawer>(tmSettings);
 }
 
+shared_ptr<IDrawer> BleedInfoDrawer::MakePlacedArtFileDrawer(AIRealRect artboardBounds, ai::FilePath path)
+{
+    return make_shared<PlacedArtFileDrawer>(artboardBounds, path);
+}
+
 AIArtHandle BleedInfoDrawer::DoDraw(AIArtHandle pluginGroupArt) const
 {
     if (pluginGroupArt)

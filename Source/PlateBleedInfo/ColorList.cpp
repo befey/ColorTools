@@ -154,6 +154,18 @@ void ColorList::Sort()
     std::sort(p_ColorList.begin(), p_ColorList.end());
 }
 
+bool ColorList::HasCMYK()
+{
+    for ( auto c : p_ColorList )
+    {
+        if (c.AiColor().kind == kFourColor)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 void ColorList::GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) const
 {
     if (p_ColorList.size() == 0)

@@ -28,6 +28,8 @@ namespace SafeguardFile
         void RemoveNonPrintingColors();
         void Sort();
         
+        bool HasCMYK();
+        
         void SetColorMethod(string colorName, SafeguardFile::InkMethod method);
         
         void GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) const;

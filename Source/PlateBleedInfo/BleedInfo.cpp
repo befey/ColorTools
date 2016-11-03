@@ -25,6 +25,11 @@ BleedInfo::BleedInfo(ai::ArtboardID artboardIndex)
 
     SetPlateNumber();
     
+    if (plateNumber.GetProductType() == CutSheet && colorList.HasCMYK())
+    {
+        shouldAddCMYKBlocks = true;
+    }
+    
     tmSettings = SafeguardFile::TickMarkSettings(ArtboardBounds(), plateNumber.GetProductType(), SafeguardFile::TickMarkStyle::NONE);
 }
 

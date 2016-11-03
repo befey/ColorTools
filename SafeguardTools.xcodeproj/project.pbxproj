@@ -48,6 +48,11 @@
 		F93027D91CA46E7D00D3B41E /* SafeguardTools.r in Rez */ = {isa = PBXBuildFile; fileRef = F93027D81CA46E7D00D3B41E /* SafeguardTools.r */; };
 		F93264CE1DC7B6D00020B57A /* CMYK_Blocks.ai in Resources */ = {isa = PBXBuildFile; fileRef = F93264CC1DC7B6D00020B57A /* CMYK_Blocks.ai */; };
 		F93264CF1DC7B6D00020B57A /* Continuous_Reg_Target.ai in Resources */ = {isa = PBXBuildFile; fileRef = F93264CD1DC7B6D00020B57A /* Continuous_Reg_Target.ai */; };
+		F93264D21DC8E2D40020B57A /* PlacedArtFileDrawer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F93264D01DC8E2D40020B57A /* PlacedArtFileDrawer.cpp */; };
+		F93264D31DC8E2D40020B57A /* PlacedArtFileDrawer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F93264D11DC8E2D40020B57A /* PlacedArtFileDrawer.hpp */; };
+		F93264D71DCA64760020B57A /* CMYK_Blocks.ai in CopyFiles */ = {isa = PBXBuildFile; fileRef = F93264CC1DC7B6D00020B57A /* CMYK_Blocks.ai */; };
+		F93264D81DCA64760020B57A /* Continuous_Reg_Target.ai in CopyFiles */ = {isa = PBXBuildFile; fileRef = F93264CD1DC7B6D00020B57A /* Continuous_Reg_Target.ai */; };
+		F93264DA1DCA64C80020B57A /* fontlist.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = F96DDFAF1D2D7BED0066931D /* fontlist.txt */; };
 		F934B1581CC9645A002EAB43 /* ReplaceDataBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F934B1561CC9645A002EAB43 /* ReplaceDataBuilder.cpp */; };
 		F934B1591CC9645A002EAB43 /* ReplaceDataBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F934B1571CC9645A002EAB43 /* ReplaceDataBuilder.h */; };
 		F937ABE41D51149C006DD5C4 /* BtTransformArt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F937ABE21D51149C006DD5C4 /* BtTransformArt.cpp */; };
@@ -127,6 +132,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		F93264D61DCA646A0020B57A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "/Applications/Adobe Illustrator CC 2015.3/Plug-ins.localized/Safeguard/SafeguardTools.aip/Contents/Resources/AiFile";
+			dstSubfolderSpec = 0;
+			files = (
+				F93264D71DCA64760020B57A /* CMYK_Blocks.ai in CopyFiles */,
+				F93264D81DCA64760020B57A /* Continuous_Reg_Target.ai in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F93264D91DCA64AB0020B57A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "/Applications/Adobe Illustrator CC 2015.3/Plug-ins.localized/Safeguard/SafeguardTools.aip/Contents/Resources/ListFonts";
+			dstSubfolderSpec = 0;
+			files = (
+				F93264DA1DCA64C80020B57A /* fontlist.txt in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F937AC051D551F86006DD5C4 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -182,6 +208,8 @@
 		F93027D81CA46E7D00D3B41E /* SafeguardTools.r */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; name = SafeguardTools.r; path = Resources/Mac/SafeguardTools.r; sourceTree = "<group>"; };
 		F93264CC1DC7B6D00020B57A /* CMYK_Blocks.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMYK_Blocks.ai; sourceTree = "<group>"; };
 		F93264CD1DC7B6D00020B57A /* Continuous_Reg_Target.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Continuous_Reg_Target.ai; sourceTree = "<group>"; };
+		F93264D01DC8E2D40020B57A /* PlacedArtFileDrawer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlacedArtFileDrawer.cpp; path = Source/PlateBleedInfo/PlacedArtFileDrawer.cpp; sourceTree = "<group>"; };
+		F93264D11DC8E2D40020B57A /* PlacedArtFileDrawer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PlacedArtFileDrawer.hpp; path = Source/PlateBleedInfo/PlacedArtFileDrawer.hpp; sourceTree = "<group>"; };
 		F934B1561CC9645A002EAB43 /* ReplaceDataBuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ReplaceDataBuilder.cpp; sourceTree = "<group>"; };
 		F934B1571CC9645A002EAB43 /* ReplaceDataBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceDataBuilder.h; sourceTree = "<group>"; };
 		F937ABE21D51149C006DD5C4 /* BtTransformArt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BtTransformArt.cpp; path = "Source/utility-headers/BtTransformArt.cpp"; sourceTree = "<group>"; };
@@ -515,6 +543,8 @@
 				F9DA3B941D1C6C7D00AB6156 /* ColorListDrawer.h */,
 				F9DA3B971D1C6C9300AB6156 /* FileNameDateDrawer.cpp */,
 				F9DA3B981D1C6C9300AB6156 /* FileNameDateDrawer.h */,
+				F93264D01DC8E2D40020B57A /* PlacedArtFileDrawer.cpp */,
+				F93264D11DC8E2D40020B57A /* PlacedArtFileDrawer.hpp */,
 				F9C44EF21D0AF51100205ADF /* TickMarkDrawer.cpp */,
 				F9C44EF31D0AF51100205ADF /* TickMarkDrawer.h */,
 			);
@@ -594,6 +624,7 @@
 				F9C44EF51D0AF51100205ADF /* TickMarkDrawer.h in Headers */,
 				F9E284291D254E2D001B0F98 /* PathCreator.h in Headers */,
 				F97B56571D36B92600C10A9F /* TypeToPathsConverter.hpp in Headers */,
+				F93264D31DC8E2D40020B57A /* PlacedArtFileDrawer.hpp in Headers */,
 				F9CE24FB1D11A56E0075DDDF /* TextTools.h in Headers */,
 				F97B564F1D36759500C10A9F /* LayerVisibility.hpp in Headers */,
 				F9138EA01D01EE4D00D23C1F /* PrintToPdfConstants.h in Headers */,
@@ -627,6 +658,8 @@
 				508817D109F0C9AD0071BF1A /* Sources */,
 				508817D009F0C9AD0071BF1A /* Resources */,
 				F937AC051D551F86006DD5C4 /* CopyFiles */,
+				F93264D61DCA646A0020B57A /* CopyFiles */,
+				F93264D91DCA64AB0020B57A /* CopyFiles */,
 				508817D209F0C9AD0071BF1A /* Frameworks */,
 				6EE2BA0C0A40B77400CC7CE2 /* Rez */,
 			);
@@ -737,6 +770,7 @@
 				F9138EA11D01EE4D00D23C1F /* PrintToPdfUIController.cpp in Sources */,
 				F9DA3B991D1C6C9300AB6156 /* FileNameDateDrawer.cpp in Sources */,
 				F934B1581CC9645A002EAB43 /* ReplaceDataBuilder.cpp in Sources */,
+				F93264D21DC8E2D40020B57A /* PlacedArtFileDrawer.cpp in Sources */,
 				F90DB92E1D08A25B0039CE5F /* BtAteTextFeatures.cpp in Sources */,
 				F9F1EB6B1D1B19AF0051B716 /* ColorList.cpp in Sources */,
 				F9DA3B911D1C5EFA00AB6156 /* BleedInfoDrawer.cpp in Sources */,

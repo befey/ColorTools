@@ -52,7 +52,7 @@ namespace SafeguardFile
 
     private:
         bool shouldDrawBleedInfo = true;
-        bool shouldAddCMYKBlocks = true;
+        bool shouldAddCMYKBlocks = false;
         
         ai::ArtboardID artboardIndex;
         SafeguardFile::ColorList colorList;

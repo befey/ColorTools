@@ -68,7 +68,8 @@ void PutArtInGroup(AIArtHandle currArtHandle, AIArtHandle theGroup) {
 	ASBoolean editable = FALSE;
 	ASBoolean visible = FALSE;
 	
-	int attr = 0;
+	int aattr = 0;
+    int gattr = 0;
 	
 	//Check if the layer is editable
 	sAILayer->GetLayerEditable(layer, &editable);
@@ -79,10 +80,16 @@ void PutArtInGroup(AIArtHandle currArtHandle, AIArtHandle theGroup) {
 	if (!visible) { sAILayer->SetLayerVisible(layer, TRUE); vflag = 1; }
 	
 	//Check if the art itself is editable
-	sAIArt->GetArtUserAttr(currArtHandle, kArtLocked | kArtHidden, &attr);
-	if ((attr & kArtLocked) || (attr & kArtHidden)) {
+	sAIArt->GetArtUserAttr(currArtHandle, kArtLocked | kArtHidden, &aattr);
+	if ((aattr & kArtLocked) || (aattr & kArtHidden)) {
 		sAIArt->SetArtUserAttr(currArtHandle, kArtLocked | kArtHidden, 0);
 	}
+    
+    //Check if the group is editable
+    sAIArt->GetArtUserAttr(theGroup, kArtLocked | kArtHidden, &gattr);
+    if ((gattr & kArtLocked) || (gattr & kArtHidden)) {
+        sAIArt->SetArtUserAttr(theGroup, kArtLocked | kArtHidden, 0);
+    }
 	
 	//Put it in the group
     short type;
@@ -93,7 +100,8 @@ void PutArtInGroup(AIArtHandle currArtHandle, AIArtHandle theGroup) {
 	//Set the layer and art attributes back the way they were
 	if(eflag) { sAILayer->SetLayerEditable(layer, FALSE); }
 	if(vflag) { sAILayer->SetLayerVisible(layer, FALSE); }
-	sAIArt->SetArtUserAttr(currArtHandle, kArtLocked | kArtHidden, attr);
+	sAIArt->SetArtUserAttr(currArtHandle, kArtLocked | kArtHidden, aattr);
+    sAIArt->SetArtUserAttr(theGroup, kArtLocked | kArtHidden, gattr);
 	
 	return;
 }
@@ -401,6 +409,11 @@ bool ProcessArtSet(const AIArtSet artSet, std::function<void(AIArtHandle)> callb
         callback(art);
     }
     return true;
+}
+
+void SelectArt(AIArtHandle artHandle)
+{
+    sAIArt->SetArtUserAttr(artHandle, kArtSelected | kArtLocked | kArtHidden, kArtSelected);
 }
 
 AIArtHandle GetGroupArtOfFirstEditableLayer()

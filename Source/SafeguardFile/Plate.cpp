@@ -64,6 +64,21 @@ void Plate::DrawBleedInfo()
     
     bleedInfoDrawer->AddDrawer( bleedInfoDrawer->MakeColorListDrawer(pt, bleedInfo.ArtboardBounds(), bleedInfo.ColorList()) );
     bleedInfoDrawer->AddDrawer( bleedInfoDrawer->MakeFileNameDateDrawer(pt, bleedInfo.ArtboardBounds(), bleedInfo.PlateNumber(), bleedInfo.Token(), bleedInfo.LastModified()) );
+    
+    if (bleedInfo.ShouldAddCmykBlocks())
+    {
+        AIRealRect abBounds = bleedInfo.ArtboardBounds();
+        AIRealRect bounds = {
+            .left = abBounds.left + ((abBounds.right - abBounds.left)*.25),
+            .top = abBounds.top + 30,
+            .right = abBounds.right - ((abBounds.right - abBounds.left)*.25),
+            .bottom = abBounds.top + 1.5
+        };
+        ai::FilePath pathToFile;
+        sAIFolders->FindFolder(kAIPluginsFolderType, false, pathToFile);
+        pathToFile.AddComponent(ai::FilePath(ai::UnicodeString(AI_CMYK_BLOCKS)));
+        bleedInfoDrawer->AddDrawer( bleedInfoDrawer->MakePlacedArtFileDrawer(bounds, pathToFile) );
+    }
 
     if (ShouldDrawBleedInfo())
     {
@@ -131,7 +146,7 @@ void Plate::FillBleedInfoFromPlateDTO(PlateBleedInfoDTO::PlateDTO* dto)
     BleedInfo()
     .ShouldDrawBleedInfo(dto->shouldDrawBleedInfo)
     //.ArtboardName(dto->artboardName) //Do not set artboard name here or we'll overwrite what's been set in artboards panel.
-    .ShouldAddCmykBlocks(dto->shouldAddCmykBlocks)
+    //.ShouldAddCmykBlocks(dto->shouldAddCmykBlocks) //Do not set cmyk blocks here or we'll overwrite what's been set by the file type and color list
     .TickMarkStyle(TickMarkStyle(dto->tmStyle));
     for ( auto color : dto->c )
     {

@@ -14,6 +14,9 @@
 #include "PrintToPdfConstants.h"
 #include "ColorList.h"
 #include "BleedInfoDrawer.h"
+#include "AIFolders.h"
+
+extern AIFoldersSuite* sAIFolders;
 
 namespace PlateBleedInfoDTO
 {

@@ -17,12 +17,14 @@
 #include "AIDocumentView.h"
 #include "AIArtboard.h"
 #include "AIArtboardRange.h"
+#include "AIHardSoft.h"
 
 #include "AIGroup.h"
 #include "AILayer.h"
 #include "AIArtSet.h"
 #include "AIArtStyle.h"
 #include "AIPluginGroup.h"
+#include "AIPlaced.h"
 
 #include "AIPath.h"
 #include "AIPathStyle.h"
@@ -56,6 +58,7 @@ extern AIArtSuite *sAIArt;
 extern AIGroupSuite *sAIGroup;
 extern AILayerSuite *sAILayer;
 extern AIPluginGroupSuite *sAIPluginGroup;
+extern AIPlacedSuite *sAIPlaced;
 
 extern AIUndoSuite *sAIUndo;
 extern AISwatchLibrariesSuite *sAISwatchLibrary;
@@ -69,6 +72,7 @@ extern AIDocumentListSuite *sAIDocumentList;
 extern AIDocumentViewSuite* sAIDocumentView;
 extern AIArtboardSuite* sAIArtboard;
 extern AIArtboardRangeSuite* sAIArtboardRange;
+extern AIHardSoftSuite* sAIHardSoft;
 
 extern AIArtSetSuite *sAIArtSet;
 extern AIArtStyleSuite *sAIArtStyle;

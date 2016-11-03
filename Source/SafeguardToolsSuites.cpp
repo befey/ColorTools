@@ -10,7 +10,8 @@
     AIGroupSuite*           sAIGroup = NULL;
     AILayerSuite*           sAILayer = NULL;
     AIPluginGroupSuite*     sAIPluginGroup = NULL;
-    
+    AIPlacedSuite*          sAIPlaced = NULL;
+
     AIUndoSuite*            sAIUndo = NULL;
     AISwatchLibrariesSuite* sAISwatchLibrary = NULL;
 	AISwatchListSuite*      sAISwatchList = NULL;
@@ -23,6 +24,7 @@
     AIDocumentViewSuite*    sAIDocumentView = NULL;
     AIArtboardSuite*        sAIArtboard = NULL;
     AIArtboardRangeSuite*   sAIArtboardRange = NULL;
+    AIHardSoftSuite*        sAIHardSoft = NULL;
 
 	AIArtSetSuite*          sAIArtSet = NULL;
 	AIArtStyleSuite*        sAIArtStyle = NULL;
@@ -68,6 +70,7 @@ ImportSuite gImportSuites[] =
     kAIGroupSuite, kAIGroupSuiteVersion, &sAIGroup,
     kAILayerSuite, kAILayerSuiteVersion, &sAILayer,
     kAIPluginGroupSuite, kAIPluginGroupSuiteVersion, &sAIPluginGroup,
+    kAIPlacedSuite, kAIPlacedSuiteVersion, &sAIPlaced,
     
     kAIUndoSuite, kAIUndoSuiteVersion, &sAIUndo,
 	kAISwatchLibrariesSuite, kAISwatchLibrariesSuiteVersion, &sAISwatchLibrary,
@@ -81,6 +84,7 @@ ImportSuite gImportSuites[] =
     kAIDocumentViewSuite, kAIDocumentViewSuiteVersion, &sAIDocumentView,
     kAIArtboardSuite, kAIArtboardSuiteVersion, &sAIArtboard,
     kAIArtboardRangeSuite, kAIArtboardRangeSuiteVersion, &sAIArtboardRange,
+    kAIHardSoftSuite, kAIHardSoftSuiteVersion, &sAIHardSoft,
 
     kAIArtSetSuite, kAIArtSetSuiteVersion, &sAIArtSet,
 	kAIArtStyleSuite, kAIArtStyleSuiteVersion, &sAIArtStyle,
