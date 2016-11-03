@@ -17,7 +17,7 @@ using SafeguardFile::PlacedArtFileDrawer;
 AIArtHandle PlacedArtFileDrawer::DoDraw(AIArtHandle resultGroup) const
 {
     AIArtHandle placedArtHandle = NULL;
-    sAIArt->NewArt(kPlacedArt, kPlaceInsideOnTop, resultGroup, &placedArtHandle);
+    sAIArt->NewArt(kPlacedArt, kPlaceInsideOnBottom, resultGroup, &placedArtHandle);
     
     AIRealRect bbox = bounds;
     sAIPlaced->SetPlacedBoundingBox(placedArtHandle, &bbox);
