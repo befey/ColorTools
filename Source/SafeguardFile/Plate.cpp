@@ -68,11 +68,11 @@ void Plate::DrawBleedInfo()
     if (bleedInfo.ShouldAddCmykBlocks())
     {
         AIRealRect abBounds = bleedInfo.ArtboardBounds();
-        AIRealRect bounds = {
-            .left = abBounds.left + ((abBounds.right - abBounds.left)*.25),
-            .top = abBounds.top + 30,
-            .right = abBounds.right - ((abBounds.right - abBounds.left)*.25),
-            .bottom = abBounds.top + 1.5
+        AIRealRect bounds = { //CMYK Blocks are 325x25px
+            .left = abBounds.left + ((abBounds.right - abBounds.left)/2) - (325/2),
+            .top = abBounds.top + 5 + 25,
+            .right = abBounds.right - ((abBounds.right - abBounds.left)/2) + (325/2),
+            .bottom = abBounds.top + 5
         };
         ai::FilePath pathToFile;
         sAIFolders->FindFolder(kAIPluginsFolderType, false, pathToFile);
