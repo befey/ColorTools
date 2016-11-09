@@ -244,6 +244,16 @@ void BtSwatchList::AdjustAllColorsCallback(AIColor *color, void *userData, AIErr
             *color = foundColor;
             return;
         }
+        else
+        {
+            AICustomColor cc;
+            sAICustomColor->GetCustomColor(color->c.c.color, &cc);
+            if (cc.flag == 0)
+            {
+                cc.flag = kCustomSpotColor;
+                sAICustomColor->SetCustomColor(color->c.c.color, &cc);
+            }
+        }
     }
     if (ColorIsBlack(*color) && tintPercent < 1)
     {
