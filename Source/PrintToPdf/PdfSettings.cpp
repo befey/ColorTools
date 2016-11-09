@@ -74,12 +74,12 @@ PdfSettings::PdfSettings(PdfPreset p, string r, bool s) : preset(p), range(r), s
     //Turn off Compress art
     sAIActionManager->AIActionSetBoolean(vpb, kAIPDFCompressArtKey, FALSE);
     
-    //Turn off all downsampling
-    sAIActionManager->AIActionSetEnumerated(vpb, kAIPDFColorImageCompressionKindKey, "Color Compression Kind", kAIPDFImageNoCompression);
+    //Turn off all downsampling and set image compression
+    sAIActionManager->AIActionSetEnumerated(vpb, kAIPDFColorImageCompressionKindKey, "Color Compression Kind", kAIPDFImageCompressionZIP8bit);
     sAIActionManager->AIActionSetEnumerated(vpb, kAIPDFColorImageResampleKindKey, "Color Resample Kind", kAIPDFNoDownsampling);
-    sAIActionManager->AIActionSetEnumerated(vpb, kAIPDFGrayscaleImageCompressionKindKey, "Gray Compression Kind", kAIPDFImageNoCompression);
+    sAIActionManager->AIActionSetEnumerated(vpb, kAIPDFGrayscaleImageCompressionKindKey, "Gray Compression Kind", kAIPDFImageCompressionZIP8bit);
     sAIActionManager->AIActionSetEnumerated(vpb, kAIPDFGrayscaleImageResampleKindKey, "Gray Resample Kind", kAIPDFNoDownsampling);
-    sAIActionManager->AIActionSetEnumerated(vpb, kAIPDFMonochromeImageCompressionKindKey, "Mono Compression Kind", kAIPDFMonochromeImageNoCompression);
+    sAIActionManager->AIActionSetEnumerated(vpb, kAIPDFMonochromeImageCompressionKindKey, "Mono Compression Kind", kAIPDFMonochromeImageCompressionZIP);
     sAIActionManager->AIActionSetEnumerated(vpb, kAIPDFMonochromeImageResampleKindKey, "Mono Resample Kind", kAIPDFNoDownsampling);
   ////*******
 }
