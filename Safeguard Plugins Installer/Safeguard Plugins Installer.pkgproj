@@ -118,6 +118,73 @@
 										<key>UID</key>
 										<integer>0</integer>
 									</dict>
+									<dict>
+										<key>CHILDREN</key>
+										<array>
+											<dict>
+												<key>CHILDREN</key>
+												<array>
+													<dict>
+														<key>CHILDREN</key>
+														<array>
+															<dict>
+																<key>CHILDREN</key>
+																<array/>
+																<key>GID</key>
+																<integer>80</integer>
+																<key>PATH</key>
+																<string>/Users/t431962/Desktop/SafeguardTools/Resources/Mac/AiFile/sg_Symbols.ai</string>
+																<key>PATH_TYPE</key>
+																<integer>0</integer>
+																<key>PERMISSIONS</key>
+																<integer>420</integer>
+																<key>TYPE</key>
+																<integer>3</integer>
+																<key>UID</key>
+																<integer>0</integer>
+															</dict>
+														</array>
+														<key>GID</key>
+														<integer>80</integer>
+														<key>PATH</key>
+														<string>Symbols</string>
+														<key>PATH_TYPE</key>
+														<integer>0</integer>
+														<key>PERMISSIONS</key>
+														<integer>509</integer>
+														<key>TYPE</key>
+														<integer>2</integer>
+														<key>UID</key>
+														<integer>0</integer>
+													</dict>
+												</array>
+												<key>GID</key>
+												<integer>80</integer>
+												<key>PATH</key>
+												<string>en_US</string>
+												<key>PATH_TYPE</key>
+												<integer>0</integer>
+												<key>PERMISSIONS</key>
+												<integer>16893</integer>
+												<key>TYPE</key>
+												<integer>2</integer>
+												<key>UID</key>
+												<integer>0</integer>
+											</dict>
+										</array>
+										<key>GID</key>
+										<integer>80</integer>
+										<key>PATH</key>
+										<string>Presets.localized</string>
+										<key>PATH_TYPE</key>
+										<integer>0</integer>
+										<key>PERMISSIONS</key>
+										<integer>16893</integer>
+										<key>TYPE</key>
+										<integer>2</integer>
+										<key>UID</key>
+										<integer>0</integer>
+									</dict>
 								</array>
 								<key>GID</key>
 								<integer>80</integer>
@@ -558,7 +625,7 @@
 			<key>OVERWRITE_PERMISSIONS</key>
 			<false/>
 			<key>VERSION</key>
-			<string>1.6.1.1</string>
+			<string>1.7</string>
 		</dict>
 		<key>PROJECT_COMMENTS</key>
 		<dict>
@@ -755,7 +822,7 @@
 				</dict>
 			</array>
 			<key>NAME</key>
-			<string>Safeguard Plugins Installer 1.6.1.1</string>
+			<string>Safeguard Plugins Installer 1.7</string>
 		</dict>
 	</dict>
 	<key>TYPE</key>
