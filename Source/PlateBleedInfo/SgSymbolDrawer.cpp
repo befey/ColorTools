@@ -21,9 +21,7 @@ AIArtHandle SgSymbolDrawer::DoDraw(AIArtHandle resultGroup) const
     
     if (symbol != NULL)
     {
-        AIErr err = sAISymbol->NewInstanceAtLocation(symbol, GetCenterOfRect(bounds), kPlaceInsideOnBottom, resultGroup, &placedSymbol);
-        string error = GetIllustratorErrorCode(err);
-        int foo = 0;
+        sAISymbol->NewInstanceAtLocation(symbol, GetCenterOfRect(bounds), kPlaceInsideOnBottom, resultGroup, &placedSymbol);
     }
     
     return placedSymbol;
@@ -42,9 +40,6 @@ AIPatternHandle SgSymbolDrawer::LoadSymbolFromFile() const
         
         AIDocumentHandle symbolDoc = NULL;
         sAIPathStyle->ImportStyles(pathToFile, &symbolDoc);
-        
-        ai::int32 count = 0;
-        sAISymbol->CountSymbolPatternsFromDocument(&count, symbolDoc);
         
         AIPatternHandle curr = NULL;
         AIErr err = sAISymbol->GetSymbolByNameFromDocument(ai::UnicodeString(symbolName), &curr, symbolDoc);
