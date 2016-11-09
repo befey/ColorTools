@@ -72,7 +72,15 @@ PdfSettings::PdfSettings(PdfPreset p, string r, bool s) : preset(p), range(r), s
     sAIActionManager->AIActionSetBoolean(vpb, kAIPDFGenerateAcrobatLayersKey, FALSE);
     
     //Turn off Compress art
-    sAIActionManager->AIActionSetBoolean(vpb, kAIPDFCompressArtKey, FALSE);    
+    sAIActionManager->AIActionSetBoolean(vpb, kAIPDFCompressArtKey, FALSE);
+    
+    //Turn off all downsampling
+    sAIActionManager->AIActionSetEnumerated(vpb, kAIPDFColorImageCompressionKindKey, "Color Compression Kind", kAIPDFImageNoCompression);
+    sAIActionManager->AIActionSetEnumerated(vpb, kAIPDFColorImageResampleKindKey, "Color Resample Kind", kAIPDFNoDownsampling);
+    sAIActionManager->AIActionSetEnumerated(vpb, kAIPDFGrayscaleImageCompressionKindKey, "Gray Compression Kind", kAIPDFImageNoCompression);
+    sAIActionManager->AIActionSetEnumerated(vpb, kAIPDFGrayscaleImageResampleKindKey, "Gray Resample Kind", kAIPDFNoDownsampling);
+    sAIActionManager->AIActionSetEnumerated(vpb, kAIPDFMonochromeImageCompressionKindKey, "Mono Compression Kind", kAIPDFMonochromeImageNoCompression);
+    sAIActionManager->AIActionSetEnumerated(vpb, kAIPDFMonochromeImageResampleKindKey, "Mono Resample Kind", kAIPDFNoDownsampling);
   ////*******
 }
 
