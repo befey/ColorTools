@@ -74,12 +74,10 @@ void Plate::DrawBleedInfo()
             .right = abBounds.right - ((abBounds.right - abBounds.left)/2) + (325/2),
             .bottom = abBounds.top + 5
         };
-        ai::FilePath pathToFile;
-        sAIFolders->FindFolder(kAIPluginsFolderType, false, pathToFile);
-        pathToFile.AddComponent(ai::FilePath(ai::UnicodeString(AI_CMYK_BLOCKS)));
-        bleedInfoDrawer->AddDrawer( bleedInfoDrawer->MakePlacedArtFileDrawer(bounds, pathToFile) );
+        
+        bleedInfoDrawer->AddDrawer( bleedInfoDrawer->MakeSgSymbolDrawer(bounds, AI_CMYK_BLOCKS) );
     }
-    
+
     if (bleedInfo.PlateNumber().GetProductType() == Continuous)
     {
         AIRealRect abBounds = bleedInfo.ArtboardBounds();
@@ -89,10 +87,8 @@ void Plate::DrawBleedInfo()
             .right = abBounds.left + 24.3,
             .bottom = abBounds.top - 42 - 36
         };
-        ai::FilePath pathToFile;
-        sAIFolders->FindFolder(kAIPluginsFolderType, false, pathToFile);
-        pathToFile.AddComponent(ai::FilePath(ai::UnicodeString(AI_CONTINUOUS_REG_TARGET)));
-        bleedInfoDrawer->AddDrawer( bleedInfoDrawer->MakePlacedArtFileDrawer(bounds, pathToFile) );
+        
+        bleedInfoDrawer->AddDrawer( bleedInfoDrawer->MakeSgSymbolDrawer(bounds, AI_CONTINUOUS_REG_TARGET) );
     }
 
     if (ShouldDrawBleedInfo())

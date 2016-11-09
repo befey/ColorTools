@@ -46,12 +46,8 @@
 		F9158D551D05FBE900343D57 /* ExistingFileDeleter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9158D531D05FBE900343D57 /* ExistingFileDeleter.cpp */; };
 		F9158D561D05FBE900343D57 /* ExistingFileDeleter.h in Headers */ = {isa = PBXBuildFile; fileRef = F9158D541D05FBE900343D57 /* ExistingFileDeleter.h */; };
 		F93027D91CA46E7D00D3B41E /* SafeguardTools.r in Rez */ = {isa = PBXBuildFile; fileRef = F93027D81CA46E7D00D3B41E /* SafeguardTools.r */; };
-		F93264CE1DC7B6D00020B57A /* CMYK_Blocks.ai in Resources */ = {isa = PBXBuildFile; fileRef = F93264CC1DC7B6D00020B57A /* CMYK_Blocks.ai */; };
-		F93264CF1DC7B6D00020B57A /* Continuous_Reg_Target.ai in Resources */ = {isa = PBXBuildFile; fileRef = F93264CD1DC7B6D00020B57A /* Continuous_Reg_Target.ai */; };
-		F93264D21DC8E2D40020B57A /* PlacedArtFileDrawer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F93264D01DC8E2D40020B57A /* PlacedArtFileDrawer.cpp */; };
-		F93264D31DC8E2D40020B57A /* PlacedArtFileDrawer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F93264D11DC8E2D40020B57A /* PlacedArtFileDrawer.hpp */; };
-		F93264D71DCA64760020B57A /* CMYK_Blocks.ai in CopyFiles */ = {isa = PBXBuildFile; fileRef = F93264CC1DC7B6D00020B57A /* CMYK_Blocks.ai */; };
-		F93264D81DCA64760020B57A /* Continuous_Reg_Target.ai in CopyFiles */ = {isa = PBXBuildFile; fileRef = F93264CD1DC7B6D00020B57A /* Continuous_Reg_Target.ai */; };
+		F93264D21DC8E2D40020B57A /* SgSymbolDrawer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F93264D01DC8E2D40020B57A /* SgSymbolDrawer.cpp */; };
+		F93264D31DC8E2D40020B57A /* SgSymbolDrawer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F93264D11DC8E2D40020B57A /* SgSymbolDrawer.hpp */; };
 		F93264DA1DCA64C80020B57A /* fontlist.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = F96DDFAF1D2D7BED0066931D /* fontlist.txt */; };
 		F934B1581CC9645A002EAB43 /* ReplaceDataBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F934B1561CC9645A002EAB43 /* ReplaceDataBuilder.cpp */; };
 		F934B1591CC9645A002EAB43 /* ReplaceDataBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F934B1571CC9645A002EAB43 /* ReplaceDataBuilder.h */; };
@@ -100,6 +96,7 @@
 		F98BAEE21CA9A0D100965D86 /* BtAiMenuItem.h in Headers */ = {isa = PBXBuildFile; fileRef = F98BAEE01CA9A0D100965D86 /* BtAiMenuItem.h */; };
 		F992803B1D6B723F00E7EBF2 /* SafeguardJobFileDTO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F99280391D6B723F00E7EBF2 /* SafeguardJobFileDTO.cpp */; };
 		F992803C1D6B723F00E7EBF2 /* SafeguardJobFileDTO.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F992803A1D6B723F00E7EBF2 /* SafeguardJobFileDTO.hpp */; };
+		F9AE0DDA1DCCDA20001F460D /* sg_Symbols.ai in CopyFiles */ = {isa = PBXBuildFile; fileRef = F9AE0DD81DCCDA1D001F460D /* sg_Symbols.ai */; };
 		F9C44EF01D0AF26100205ADF /* Plate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9C44EEE1D0AF26100205ADF /* Plate.cpp */; };
 		F9C44EF11D0AF26100205ADF /* Plate.h in Headers */ = {isa = PBXBuildFile; fileRef = F9C44EEF1D0AF26100205ADF /* Plate.h */; };
 		F9C44EF41D0AF51100205ADF /* TickMarkDrawer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9C44EF21D0AF51100205ADF /* TickMarkDrawer.cpp */; };
@@ -132,17 +129,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		F93264D61DCA646A0020B57A /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "/Applications/Adobe Illustrator CC 2015.3/Plug-ins.localized/Safeguard/SafeguardTools.aip/Contents/Resources/AiFile";
-			dstSubfolderSpec = 0;
-			files = (
-				F93264D71DCA64760020B57A /* CMYK_Blocks.ai in CopyFiles */,
-				F93264D81DCA64760020B57A /* Continuous_Reg_Target.ai in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		F93264D91DCA64AB0020B57A /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -160,6 +146,16 @@
 			dstSubfolderSpec = 0;
 			files = (
 				F937AC101D552051006DD5C4 /* com.gosafeguard.SafeguardTools in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F9AE0DD71DCCD9EA001F460D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "/Applications/Adobe Illustrator CC 2015.3/Presets.localized/en_US/Symbols";
+			dstSubfolderSpec = 0;
+			files = (
+				F9AE0DDA1DCCDA20001F460D /* sg_Symbols.ai in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,10 +202,8 @@
 		F9158D531D05FBE900343D57 /* ExistingFileDeleter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ExistingFileDeleter.cpp; path = Source/PrintToPdf/ExistingFileDeleter.cpp; sourceTree = "<group>"; };
 		F9158D541D05FBE900343D57 /* ExistingFileDeleter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExistingFileDeleter.h; path = Source/PrintToPdf/ExistingFileDeleter.h; sourceTree = "<group>"; };
 		F93027D81CA46E7D00D3B41E /* SafeguardTools.r */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; name = SafeguardTools.r; path = Resources/Mac/SafeguardTools.r; sourceTree = "<group>"; };
-		F93264CC1DC7B6D00020B57A /* CMYK_Blocks.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMYK_Blocks.ai; sourceTree = "<group>"; };
-		F93264CD1DC7B6D00020B57A /* Continuous_Reg_Target.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Continuous_Reg_Target.ai; sourceTree = "<group>"; };
-		F93264D01DC8E2D40020B57A /* PlacedArtFileDrawer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlacedArtFileDrawer.cpp; path = Source/PlateBleedInfo/PlacedArtFileDrawer.cpp; sourceTree = "<group>"; };
-		F93264D11DC8E2D40020B57A /* PlacedArtFileDrawer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PlacedArtFileDrawer.hpp; path = Source/PlateBleedInfo/PlacedArtFileDrawer.hpp; sourceTree = "<group>"; };
+		F93264D01DC8E2D40020B57A /* SgSymbolDrawer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SgSymbolDrawer.cpp; path = Source/PlateBleedInfo/SgSymbolDrawer.cpp; sourceTree = "<group>"; };
+		F93264D11DC8E2D40020B57A /* SgSymbolDrawer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SgSymbolDrawer.hpp; path = Source/PlateBleedInfo/SgSymbolDrawer.hpp; sourceTree = "<group>"; };
 		F934B1561CC9645A002EAB43 /* ReplaceDataBuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ReplaceDataBuilder.cpp; sourceTree = "<group>"; };
 		F934B1571CC9645A002EAB43 /* ReplaceDataBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceDataBuilder.h; sourceTree = "<group>"; };
 		F937ABE21D51149C006DD5C4 /* BtTransformArt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BtTransformArt.cpp; path = "Source/utility-headers/BtTransformArt.cpp"; sourceTree = "<group>"; };
@@ -268,6 +262,7 @@
 		F98BAEE01CA9A0D100965D86 /* BtAiMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BtAiMenuItem.h; path = "Source/utility-headers/BtAiMenuItem.h"; sourceTree = "<group>"; };
 		F99280391D6B723F00E7EBF2 /* SafeguardJobFileDTO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SafeguardJobFileDTO.cpp; path = Source/PlateBleedInfo/SafeguardJobFileDTO.cpp; sourceTree = "<group>"; };
 		F992803A1D6B723F00E7EBF2 /* SafeguardJobFileDTO.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SafeguardJobFileDTO.hpp; path = Source/PlateBleedInfo/SafeguardJobFileDTO.hpp; sourceTree = "<group>"; };
+		F9AE0DD81DCCDA1D001F460D /* sg_Symbols.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sg_Symbols.ai; sourceTree = "<group>"; };
 		F9B3FE381D9EBC6F002E10EB /* AIArtboardMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AIArtboardMessage.h; path = "Source/utility-headers/AIArtboardMessage.h"; sourceTree = "<group>"; };
 		F9C44EEE1D0AF26100205ADF /* Plate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Plate.cpp; path = Source/SafeguardFile/Plate.cpp; sourceTree = "<group>"; };
 		F9C44EEF1D0AF26100205ADF /* Plate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Plate.h; path = Source/SafeguardFile/Plate.h; sourceTree = "<group>"; };
@@ -495,8 +490,7 @@
 		F93264CB1DC7B6D00020B57A /* AiFile */ = {
 			isa = PBXGroup;
 			children = (
-				F93264CC1DC7B6D00020B57A /* CMYK_Blocks.ai */,
-				F93264CD1DC7B6D00020B57A /* Continuous_Reg_Target.ai */,
+				F9AE0DD81DCCDA1D001F460D /* sg_Symbols.ai */,
 			);
 			name = AiFile;
 			path = Resources/Mac/AiFile;
@@ -543,8 +537,8 @@
 				F9DA3B941D1C6C7D00AB6156 /* ColorListDrawer.h */,
 				F9DA3B971D1C6C9300AB6156 /* FileNameDateDrawer.cpp */,
 				F9DA3B981D1C6C9300AB6156 /* FileNameDateDrawer.h */,
-				F93264D01DC8E2D40020B57A /* PlacedArtFileDrawer.cpp */,
-				F93264D11DC8E2D40020B57A /* PlacedArtFileDrawer.hpp */,
+				F93264D01DC8E2D40020B57A /* SgSymbolDrawer.cpp */,
+				F93264D11DC8E2D40020B57A /* SgSymbolDrawer.hpp */,
 				F9C44EF21D0AF51100205ADF /* TickMarkDrawer.cpp */,
 				F9C44EF31D0AF51100205ADF /* TickMarkDrawer.h */,
 			);
@@ -624,7 +618,7 @@
 				F9C44EF51D0AF51100205ADF /* TickMarkDrawer.h in Headers */,
 				F9E284291D254E2D001B0F98 /* PathCreator.h in Headers */,
 				F97B56571D36B92600C10A9F /* TypeToPathsConverter.hpp in Headers */,
-				F93264D31DC8E2D40020B57A /* PlacedArtFileDrawer.hpp in Headers */,
+				F93264D31DC8E2D40020B57A /* SgSymbolDrawer.hpp in Headers */,
 				F9CE24FB1D11A56E0075DDDF /* TextTools.h in Headers */,
 				F97B564F1D36759500C10A9F /* LayerVisibility.hpp in Headers */,
 				F9138EA01D01EE4D00D23C1F /* PrintToPdfConstants.h in Headers */,
@@ -658,7 +652,7 @@
 				508817D109F0C9AD0071BF1A /* Sources */,
 				508817D009F0C9AD0071BF1A /* Resources */,
 				F937AC051D551F86006DD5C4 /* CopyFiles */,
-				F93264D61DCA646A0020B57A /* CopyFiles */,
+				F9AE0DD71DCCD9EA001F460D /* CopyFiles */,
 				F93264D91DCA64AB0020B57A /* CopyFiles */,
 				508817D209F0C9AD0071BF1A /* Frameworks */,
 				6EE2BA0C0A40B77400CC7CE2 /* Rez */,
@@ -705,9 +699,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F93264CF1DC7B6D00020B57A /* Continuous_Reg_Target.ai in Resources */,
 				F96DDFB01D2D7BED0066931D /* fontlist.txt in Resources */,
-				F93264CE1DC7B6D00020B57A /* CMYK_Blocks.ai in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -770,7 +762,7 @@
 				F9138EA11D01EE4D00D23C1F /* PrintToPdfUIController.cpp in Sources */,
 				F9DA3B991D1C6C9300AB6156 /* FileNameDateDrawer.cpp in Sources */,
 				F934B1581CC9645A002EAB43 /* ReplaceDataBuilder.cpp in Sources */,
-				F93264D21DC8E2D40020B57A /* PlacedArtFileDrawer.cpp in Sources */,
+				F93264D21DC8E2D40020B57A /* SgSymbolDrawer.cpp in Sources */,
 				F90DB92E1D08A25B0039CE5F /* BtAteTextFeatures.cpp in Sources */,
 				F9F1EB6B1D1B19AF0051B716 /* ColorList.cpp in Sources */,
 				F9DA3B911D1C5EFA00AB6156 /* BleedInfoDrawer.cpp in Sources */,
