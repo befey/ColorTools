@@ -25,6 +25,7 @@
 #include "AIArtStyle.h"
 #include "AIPluginGroup.h"
 #include "AIPlaced.h"
+#include "AISymbol.h"
 
 #include "AIPath.h"
 #include "AIPathStyle.h"
@@ -59,6 +60,7 @@ extern AIGroupSuite *sAIGroup;
 extern AILayerSuite *sAILayer;
 extern AIPluginGroupSuite *sAIPluginGroup;
 extern AIPlacedSuite *sAIPlaced;
+extern AISymbolSuite *sAISymbol;
 
 extern AIUndoSuite *sAIUndo;
 extern AISwatchLibrariesSuite *sAISwatchLibrary;

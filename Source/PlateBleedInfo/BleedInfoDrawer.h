@@ -13,7 +13,7 @@
 #include "TickMarkDrawer.h"
 #include "ColorListDrawer.h"
 #include "FileNameDateDrawer.h"
-#include "PlacedArtFileDrawer.hpp"
+#include "SgSymbolDrawer.hpp"
 #include "AIArt.h"
 #include "AIPluginGroup.h"
 #include "IDrawer.h"
@@ -35,7 +35,7 @@ namespace SafeguardFile
         shared_ptr<IDrawer> MakeColorListDrawer(ProductType pt, AIRealRect artboardBounds, ColorList colorList);
         shared_ptr<IDrawer> MakeFileNameDateDrawer(ProductType pt, AIRealRect artboardBounds, PlateNumber plateNumber, string token, tm lastModified);
         shared_ptr<IDrawer> MakeTickMarkDrawer(TickMarkSettings tmSettings);
-        shared_ptr<IDrawer> MakePlacedArtFileDrawer(AIRealRect artboardBounds, ai::FilePath path);
+        shared_ptr<IDrawer> MakeSgSymbolDrawer(AIRealRect artboardBounds, string symbolName);
         
         void Remove(AIArtHandle& pluginGroupArt) const;
     private:

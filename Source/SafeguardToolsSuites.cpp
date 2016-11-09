@@ -11,6 +11,7 @@
     AILayerSuite*           sAILayer = NULL;
     AIPluginGroupSuite*     sAIPluginGroup = NULL;
     AIPlacedSuite*          sAIPlaced = NULL;
+    AISymbolSuite*          sAISymbol = NULL;
 
     AIUndoSuite*            sAIUndo = NULL;
     AISwatchLibrariesSuite* sAISwatchLibrary = NULL;
@@ -71,6 +72,7 @@ ImportSuite gImportSuites[] =
     kAILayerSuite, kAILayerSuiteVersion, &sAILayer,
     kAIPluginGroupSuite, kAIPluginGroupSuiteVersion, &sAIPluginGroup,
     kAIPlacedSuite, kAIPlacedSuiteVersion, &sAIPlaced,
+    kAISymbolSuite, kAISymbolSuiteVersion, &sAISymbol,
     
     kAIUndoSuite, kAIUndoSuiteVersion, &sAIUndo,
 	kAISwatchLibrariesSuite, kAISwatchLibrariesSuiteVersion, &sAISwatchLibrary,

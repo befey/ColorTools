@@ -76,8 +76,8 @@ namespace SafeguardFile
         Both
     };
     
-    constexpr auto AI_CMYK_BLOCKS =             "Safeguard/SafeguardTools.aip/Contents/Resources/AiFile/CMYK_Blocks.ai";
-    constexpr auto AI_CONTINUOUS_REG_TARGET =   "Safeguard/SafeguardTools.aip/Contents/Resources/AiFile/Continuous_Reg_Target.ai";
+    constexpr auto AI_CMYK_BLOCKS =             "sg_CMYK_Blocks";
+    constexpr auto AI_CONTINUOUS_REG_TARGET =   "sg_Continuous_Reg";
 }
 
 #endif /* SafeguardFileConstants_h */
