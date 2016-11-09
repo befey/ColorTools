@@ -36,7 +36,7 @@ AIPatternHandle SgSymbolDrawer::LoadSymbolFromFile() const
     {
         ai::FilePath pathToFile;
         sAIFolders->FindFolder(kAIPresetSymbolsFolderType, false, pathToFile);
-        pathToFile.AddComponent(ai::FilePath(ai::UnicodeString("sg_Symbols.ai")));
+        pathToFile.AddComponent(ai::FilePath(ai::UnicodeString(SG_SYMBOL_FILENAME)));
         
         AIDocumentHandle symbolDoc = NULL;
         sAIPathStyle->ImportStyles(pathToFile, &symbolDoc);
