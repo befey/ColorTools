@@ -31,7 +31,7 @@ extern AIPathStyleSuite* sAIPathStyle;
 
 namespace SafeguardFile
 {
-    constexpr auto SG_SYMBOL_FILENAME =             "sg_Symbols.ai";
+    constexpr auto SG_SYMBOL_FILENAME = "sg_Symbols.ai";
     
     class SgSymbolDrawer : public IDrawer
     {
