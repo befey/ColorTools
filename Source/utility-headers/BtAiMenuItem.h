@@ -27,14 +27,14 @@ extern SafeguardToolsPlugin *gPlugin;
 // BtAiMenuItem - wrapper for a Menu creation functions
 class BtAiMenuItem {
 public:
-    BtAiMenuItem(AIPlatformAddMenuItemDataUS, ai::int32 opts);
+    BtAiMenuItem(string menuItemTitle, ai::int32 opts);
+    BtAiMenuItem(string groupName, string menuItemTitle, ai::int32 opts);
     
     static void AddMenu(BtAiMenuItem, BtAiMenuItemHandles*);
     
-    void SetMenuItemData(AIPlatformAddMenuItemDataUS);
     void AddSubMenuItem(BtAiMenuItem);
-    void SetOptions(ai::int32);
-    void SetAutoUpdateOptions(ai::int32 action,
+    BtAiMenuItem& SetOptions(ai::int32);
+    BtAiMenuItem& SetAutoUpdateOptions(ai::int32 action,
                               ai::int32 ifObjectIsInArtwork,
                               ai::int32 ifObjectIsNotInArtwork,
                               ai::int32 ifObjectIsSelected,
@@ -43,7 +43,8 @@ public:
                               ai::int32 ifIsNotTrue);
 
 private:
-    AIPlatformAddMenuItemDataUS menuItemData;
+    string groupName;
+    string menuItemTitle;
     vector<BtAiMenuItem> subMenuItems;
     ai::int32 options;
     
@@ -61,8 +62,9 @@ private:
     
     bool IsMenuGroup();
     
-    static bool SDKGroupAlreadyMade(ai::UnicodeString menuGroup);
-
+    static bool SDKGroupAlreadyMade(string menuGroup);
+    
+    AIPlatformAddMenuItemDataUS GetMenuItemData();
 };
 
 #endif /* defined(__SafeguardTools__BtAiMenuItem__) */
