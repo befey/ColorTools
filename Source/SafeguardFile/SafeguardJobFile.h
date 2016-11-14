@@ -38,7 +38,7 @@ namespace SafeguardFile
         
         SafeguardFile::ColorList GetAllColorsOnJob() const;
         
-        void UpdateBleedInfo();
+        void UpdateBleedInfo(bool skipCheck = false);
         void EditBleedInfo();
         void RemoveBleedInfo();
         
@@ -48,6 +48,7 @@ namespace SafeguardFile
         map<int, Plate> plates;
         
         void CleanupPluginArtHandles(vector<AIArtHandle> pluginArts, vector<pair<int, AIArtHandle>> sortedPluginArts) const;
+        bool IsBleedInfoPluginArtCreated();
     };
 }
 #endif /* defined(__SafeguardTools__SafeguardJobFile__) */

@@ -86,24 +86,39 @@ void SafeguardJobFile::LoadDataFromDTO(PlateBleedInfoDTO::SafeguardJobFileDTO dt
     }
 }
 
-void SafeguardJobFile::UpdateBleedInfo()
+void SafeguardJobFile::UpdateBleedInfo(bool skipCheck)
 {
-    for ( auto& plate : plates )
+    if ( skipCheck || IsBleedInfoPluginArtCreated() )
     {
-        plate.second.DrawBleedInfo();
+        size_t gTimeStamp = sAIArt->GetGlobalTimeStamp();
+        DictionaryWriter dw;
+        AIReal aTSDict = dw.GetAIRealFromIdentifier(SafeguardFile::PLATE_BLEEDINFO_TIMESTAMP);
+        
+        if ( gTimeStamp != aTSDict )
+        {
+            for ( auto& plate : plates )
+            {
+                plate.second.DrawBleedInfo();
+            }
+            DictionaryWriter dw;
+            dw.AddAIRealToDictionary(sAIArt->GetGlobalTimeStamp(), SafeguardFile::PLATE_BLEEDINFO_TIMESTAMP);
+        }
     }
-    DictionaryWriter dw;
-    dw.AddAIRealToDictionary(sAIArt->GetGlobalTimeStamp(), SafeguardFile::PLATE_BLEEDINFO_TIMESTAMP);
 }
 
 void SafeguardJobFile::EditBleedInfo()
 {
+    if ( !IsBleedInfoPluginArtCreated() )
+    {
+        UpdateBleedInfo(true);
+    }
+    
     BtDocumentView docView;
     docView.StoreCurrentDocumentView();
     
-    PlateBleedInfoUIController plateBleedInfoUIController;
-    plateBleedInfoUIController.LoadExtension();
+    PlateBleedInfoUIController().LoadExtension();
     sAICSXSExtension->LaunchExtension(PlateBleedInfoUIController::PLATEBLEEDINFO_UI_EXTENSION);
+//    sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Edit Safeguard Plate Info"), ai::UnicodeString("Redo Edit Safeguard Plate Info"));
 }
 
 
@@ -199,4 +214,14 @@ void SafeguardJobFile::CleanupPluginArtHandles(vector<AIArtHandle> pluginArts, v
     {
         sAIArt->DisposeArt(item);
     }
+}
+
+bool SafeguardJobFile::IsBleedInfoPluginArtCreated()
+{
+    DictionaryWriter dw;
+    if ( dw.CheckDictionaryForIdentifier(SafeguardFile::SG_BLEEDINFO_ARTHANDLES) )
+    {
+        return true;
+    }
+    return false;
 }

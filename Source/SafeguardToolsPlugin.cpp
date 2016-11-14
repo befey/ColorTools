@@ -351,18 +351,7 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
     }
     else if ( message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
     {
-        if ( IsBleedInfoPluginArtCreated() )
-        {
-            SafeguardJobFile sgJobFile;
-            sgJobFile.EditBleedInfo();
-            sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Edit Safeguard Plate Info"), ai::UnicodeString("Redo Edit Safeguard Plate Info"));
-        }
-        else
-        {
-            SafeguardJobFile sgJobFile;
-            sgJobFile.UpdateBleedInfo();
-            sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Add Safeguard Plate Info"), ai::UnicodeString("Redo Add Safeguard Plate Info"));
-        }
+        SafeguardJobFile().EditBleedInfo();
     }
 	
 	if (error)
@@ -415,14 +404,7 @@ ASErr SafeguardToolsPlugin::UpdateMenuItem(AIMenuMessage* message)
     
     if (message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
     {
-        if ( IsBleedInfoPluginArtCreated() )
-        {
-            sAIMenu->SetItemText( message->menuItem, ai::UnicodeString("Edit Safeguard Plate Info") );
-        }
-        else
-        {
-            sAIMenu->SetItemText( message->menuItem, ai::UnicodeString("Add Safeguard Plate Info") );
-        }
+        sAIMenu->SetItemText( message->menuItem, ai::UnicodeString("Edit Safeguard Plate Info") );
     }
 
 	if (error)
@@ -434,8 +416,7 @@ error:
 
 ASErr SafeguardToolsPlugin::PluginGroupUpdate(AIPluginGroupMessage* message)
 {
-    SafeguardJobFile sgJobFile;
-    sgJobFile.UpdateBleedInfo();
+    SafeguardJobFile().UpdateBleedInfo();
     
     return kNoErr;
 }
@@ -484,37 +465,7 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
     }
     if (message->notifier == fDocumentCropAreaModifiedNotifierHandle || message->notifier == fArtSelectionChangedNotifierHandle)
     {
-        if ( IsBleedInfoPluginArtCreated() )
-        {
-            size_t gTimeStamp = sAIArt->GetGlobalTimeStamp();
-            DictionaryWriter dw;
-            AIReal aTSDict = dw.GetAIRealFromIdentifier(SafeguardFile::PLATE_BLEEDINFO_TIMESTAMP);
-            
-            if ( gTimeStamp != aTSDict )
-            {
-                sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, false);
-                try
-                {
-                    SafeguardJobFile sgJobFile;
-                    sgJobFile.UpdateBleedInfo();
-                }
-                catch (std::runtime_error e)
-                {
-                    e.what(); //BALLS!
-                }
-                sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, true);
-            }
-        }
+        SafeguardJobFile().UpdateBleedInfo();
     }
     return kNoErr;
-}
-
-bool SafeguardToolsPlugin::IsBleedInfoPluginArtCreated()
-{
-    DictionaryWriter dw;
-    if ( dw.CheckDictionaryForIdentifier(SafeguardFile::SG_BLEEDINFO_ARTHANDLES) )
-    {
-        return true;
-    }
-    return false;
 }
