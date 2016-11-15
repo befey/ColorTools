@@ -197,81 +197,12 @@ void ColorList::GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) co
 {
     if (p_ColorList.size() == 0)
     {
-        AIColor c = {.kind = kNoneColor};
-        AddColorToTextRange(c, targetRange, maxWidth);
+        BtColor(AIColor{.kind = kNoneColor}).AsTextRange(targetRange, maxWidth);
     }
     
-    for (auto c : GetColorList())
+    for ( auto c : p_ColorList )
     {
-        AddColorToTextRange(c, targetRange, maxWidth);
-    }
-}
-
-void ColorList::AddColorToTextRange(const BtColor color, ATE::ITextRange& targetRange, AIReal maxWidth) const
-{
-    BtAteTextFeatures textFeatures;
-    AIColor textFillColor;
-    
-    if (color.Kind() == kNoneColor)
-    {
-        textFeatures.FillColor(GetRegistrationColor());
-        textFeatures.AddTextToRangeWithFeatures("NO IMPRINT", targetRange);
-    }
-    else
-    {
-        string name;
-        string method = "";
-        
-        if (color.Method() != SafeguardFile::InkMethod::NONE)
-        {
-            method = " " + InkMethodStrings.at(color.Method());
-        }
-        
-        if (ColorIsPantone(color.AiColor()))
-        {
-            name = GetInnerPantoneColorNumber(color.AiColor()) + method;
-            textFillColor = color.AiColor();
-            textFillColor.c.c.tint = 0;
-            textFeatures.FillColor(textFillColor);
-        }
-        else if (color.Kind() == kFourColor)
-        {
-            AIColor c = {.kind = kFourColor, .c.f.cyan = 1, .c.f.magenta = 0, .c.f.yellow = 0, .c.f.black = 0};
-            textFeatures.FillColor(c);
-            textFeatures.AddTextToRangeWithFeatures("CYAN" + method + "  ", targetRange);
-            c = {.kind = kFourColor, .c.f.cyan = 0, .c.f.magenta = 1, .c.f.yellow = 0, .c.f.black = 0};
-            textFeatures.FillColor(c);
-            textFeatures.AddTextToRangeWithFeatures("MAG" + method + "  ", targetRange);
-            c = {.kind = kFourColor, .c.f.cyan = 0, .c.f.magenta = 0, .c.f.yellow = 1, .c.f.black = 0};
-            textFeatures.FillColor(c);
-            textFeatures.AddTextToRangeWithFeatures("YEL" + method + "  ", targetRange);
-            textFeatures.FillColor(GetBlackColor());
-            name = GetColorName(GetBlackColor()) + method;
-        }
-        else
-        {
-            name = color.Name() + method;
-            textFillColor = color.AiColor();
-            textFillColor.c.c.tint = 0;
-            textFeatures.FillColor(textFillColor);
-        }
-        
-        ATETextDOM::Int32 beforeEnd = targetRange.GetEnd();
-        textFeatures.NoBreak(true);
-        textFeatures.AddTextToRangeWithFeatures((ai::UnicodeString(name).toUpper()).as_Platform(), targetRange);
-        textFeatures.NoBreak(false);
-        textFeatures.AddTextToRangeWithFeatures("  ", targetRange);
-        ATETextDOM::Int32 afterEnd = targetRange.GetEnd();
-        
-        AIRealRect bounds;
-        sAIATETextUtil->GetBoundsFromTextRange(targetRange.GetRef(), &bounds);
-        if ( (bounds.right - bounds.left) > maxWidth )
-        {
-            targetRange.SetEnd(beforeEnd);
-            targetRange.InsertAfter(ai::UnicodeString("\n").as_ASUnicode().c_str());
-            ATETextDOM::Int32 newEnd = targetRange.GetEnd();
-            targetRange.SetEnd(newEnd - beforeEnd + afterEnd);
-        }
+        c.AsTextRange(targetRange, maxWidth);
     }
 }
 

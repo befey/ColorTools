@@ -105,7 +105,7 @@ ProductType PlateNumber::GetProductType() const
     return ProductType::INVAL;
 }
 
-void PlateNumber::GetAsTextRange(ATE::ITextRange& targetRange) const
+void PlateNumber::GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) const
 {
     AddTextToRange(plateNumber, targetRange);
 }

@@ -41,7 +41,7 @@ AIArtHandle LaserColorListDrawer::DoDraw(AIArtHandle resultGroup) const
     
     ATE::ITextRange range = SetupTextRange(resultGroup, kHorizontalTextOrientation, &colorListArt);
     
-    colorList.GetAsTextRange(range, maxWidth);
+    colorList.AsTextRange(range, maxWidth);
     
     BtAteTextFeatures textFeatures;
     textFeatures.FontSize(12).Font("Helvetica-Bold").Justification(ATE::kLeftJustify);
@@ -56,7 +56,7 @@ AIArtHandle ContinuousColorListDrawer::DoDraw(AIArtHandle resultGroup) const
     
     ATE::ITextRange range = SetupTextRange(resultGroup, kHorizontalTextOrientation, &colorListArt);
     
-    colorList.GetAsTextRange(range, maxHeight);
+    colorList.AsTextRange(range, maxHeight);
     
     RotateArt(colorListArt, anchor, -90);
     MoveArtOutsideBounds(colorListArt, bounds, Direction::Right, 2);
@@ -76,7 +76,7 @@ AIArtHandle BusStatColorListDrawer::DoDraw(AIArtHandle resultGroup) const
     
     ATE::ITextRange range = SetupTextRange(resultGroup, kHorizontalTextOrientation, &colorListArt);
     
-    colorList.GetAsTextRange(range, maxWidth);
+    colorList.AsTextRange(range, maxWidth);
     
     BtAteTextFeatures textFeatures;
     textFeatures.FontSize(7).Font("Helvetica-Condensed-Bold").Justification(ATE::kLeftJustify);

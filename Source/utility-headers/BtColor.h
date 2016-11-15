@@ -17,6 +17,11 @@
 #include "AIColorConversion.h"
 #include "SafeguardFileConstants.h"
 #include "ColorFuncs.h"
+#include "ICanBeTextRange.h"
+#include "AIATETextUtil.h"
+
+extern AIATETextUtilSuite* sAIATETextUtil;
+
 
 //=================================
 // forward declared dependencies
@@ -26,7 +31,7 @@ extern AIColorConversionSuite* sAIColorConversion;
 
 //=================================
 // BtColor - wrapper for a AICustomColor definition
-class BtColor
+class BtColor : public ICanBeTextRange
 {
 public:
     //Constuctor
@@ -70,6 +75,8 @@ private:
     SafeguardFile::InkMethod method = SafeguardFile::InkMethod::INVAL;
     
     AILabColorStyle GetLabApproximation() const;
+    
+    void GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) const override;
 };
 
 

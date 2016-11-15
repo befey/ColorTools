@@ -31,6 +31,7 @@
  */
 #include "AIArtboard.h"
 #include "SafeguardFileConstants.h"
+#include "ICanBeTextRange.h"
 
 extern AIArtSuite* sAIArt;
 extern AIPathSuite* sAIPath;
@@ -40,7 +41,7 @@ extern AIRealMathSuite* sAIRealMath;
 
 namespace SafeguardFile
 {
-    class PlateNumber
+    class PlateNumber : public ICanBeTextRange
     {
     public:
         PlateNumber(){};
@@ -51,8 +52,6 @@ namespace SafeguardFile
         inline string GetPlantIndicator() const {return plantIndicator;};
         inline string GetProductIndicator() const {return productIndicator;};
         ProductType GetProductType() const;
-        
-        void GetAsTextRange(ATE::ITextRange& targetRange) const;
         
         inline operator string(void) const { return plateNumber; }
         
@@ -66,6 +65,8 @@ namespace SafeguardFile
         
         Boolean TokenizePlateNumber();
         Boolean HasInnerTicks() const;
+        
+        void GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) const override;
     };
     
 }

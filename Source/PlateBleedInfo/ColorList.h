@@ -14,12 +14,13 @@
 #include "BtColor.h"
 #include "ColorFuncs.h"
 #include "SafeguardFileConstants.h"
+#include "ICanBeTextRange.h"
 
 extern AIATETextUtilSuite* sAIATETextUtil;
 
 namespace SafeguardFile
 {
-    class ColorList
+    class ColorList : public ICanBeTextRange
     {
     public:
         ColorList(AIRealRect area);
@@ -34,7 +35,6 @@ namespace SafeguardFile
         
         void SetColorMethod(string colorName, SafeguardFile::InkMethod method);
         
-        void GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) const;
         const vector<BtColor> GetColorList() const { return p_ColorList; };
     private:
         vector<BtColor> p_ColorList;
@@ -42,8 +42,8 @@ namespace SafeguardFile
         
         void FillColorList();
         void AddColorsOfArtToColorList(AIArtHandle art);
-        
-        void AddColorToTextRange(const BtColor color, ATE::ITextRange& targetRange, AIReal maxWidth) const;
+                
+        void GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) const override;
     };
 }
 #endif /* defined(__SafeguardTools__ColorList__) */
