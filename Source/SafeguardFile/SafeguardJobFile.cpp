@@ -20,36 +20,10 @@ using SafeguardFile::PlateBleedInfoUIController;
 using SafeguardFile::BleedInfo;
 
 SafeguardJobFile::SafeguardJobFile()
-{    
-    vector<AIArtHandle> pluginArts;
-    DictionaryWriter dw;
-    dw.GetVectorOfAIArtHandleFromIdentifier(pluginArts, SG_BLEEDINFO_ARTHANDLES);
-    
-    if (pluginArts.size() > 0)
+{
+    for ( int i = 0; i < GetArtboardCount(); i++ )
     {
-        vector<pair<int, AIArtHandle>> sortedPluginArts = GetArtboardOfArts(pluginArts);
-        CleanupPluginArtHandles(pluginArts, sortedPluginArts);
-        
-        for ( auto item : sortedPluginArts )
-        {
-            auto success = plates.emplace(item.first, Plate(item.first, item.second));
-            if (success.second == false)
-            {
-                throw std::runtime_error("The artboard already has a Plate constructed!");
-            }
-        }
-    }
-    
-    if (plates.size() < GetArtboardCount())
-    {
-        for ( int i = 0; i < GetArtboardCount(); i++ )
-        {
-            auto iter = plates.find(i);
-            if (iter == plates.end())
-            {
-                plates.emplace(i, Plate(i));
-            }
-        }
+        plates.emplace(i, Plate(i));
     }
 }
 
@@ -192,41 +166,4 @@ SafeguardFile::ColorList SafeguardJobFile::GetAllColorsOnJob() const
     colorList.RemoveNonPrintingColors();
     colorList.Sort();
     return colorList;
-}
-
-void SafeguardJobFile::CleanupPluginArtHandles(vector<AIArtHandle> pluginArts, vector<pair<int, AIArtHandle>> sortedPluginArts) const
-{
-    std::vector<AIArtHandle> sortedPa(pluginArts);
-    std::vector<AIArtHandle> sortedSpa;
-    for ( auto item : sortedPluginArts )
-    {
-        sortedSpa.push_back(item.second);
-    }
-    
-    std::sort(sortedPa.begin(),sortedPa.end());
-    std::sort(sortedSpa.begin(),sortedSpa.end());
-    
-    // Now that we have sorted ranges (i.e., containers), find the differences
-    std::vector<AIArtHandle> vDifferences;
-    
-    std::set_difference(sortedPa.begin(),
-                        sortedPa.end(),
-                        sortedSpa.begin(),
-                        sortedSpa.end(),
-                        std::back_inserter(vDifferences));
-    
-    for ( auto item : vDifferences )
-    {
-        sAIArt->DisposeArt(item);
-    }
-}
-
-bool SafeguardJobFile::IsBleedInfoPluginArtCreated()
-{
-    DictionaryWriter dw;
-    if ( dw.CheckDictionaryForIdentifier(SafeguardFile::SG_BLEEDINFO_ARTHANDLES) )
-    {
-        return true;
-    }
-    return false;
 }

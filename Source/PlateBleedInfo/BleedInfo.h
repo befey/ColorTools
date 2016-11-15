@@ -53,6 +53,8 @@ namespace SafeguardFile
         bool shouldDrawBleedInfo = true;
         bool shouldAddCMYKBlocks = false;
         
+        AIArtHandle bleedInfoPluginArt = NULL;
+        
         ai::ArtboardID artboardIndex;
         SafeguardFile::ColorList colorList;
         SafeguardFile::PlateNumber plateNumber;

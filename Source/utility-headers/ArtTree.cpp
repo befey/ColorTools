@@ -447,7 +447,7 @@ int GetArtboardCount()
 int GetArtboardOfArt(AIArtHandle artHandle)
 {
     vector<AIArtHandle> v {artHandle};
-    return GetArtboardOfArts(v)[0].first;
+    return GetArtboardOfArts(v).begin()->first;
 }
 
 AIRealRect GetArtboardBounds(int index)
@@ -483,7 +483,7 @@ AIRealPoint GetCenterOfRect(AIRealRect rect)
     return center;
 }
 
-vector<pair<int,AIArtHandle>> GetArtboardOfArts(vector<AIArtHandle> arts)
+map<int,AIArtHandle> GetArtboardOfArts(vector<AIArtHandle> arts)
 {
     vector<tuple<int,AIArtHandle,AIReal>> d;
     
@@ -548,10 +548,10 @@ vector<pair<int,AIArtHandle>> GetArtboardOfArts(vector<AIArtHandle> arts)
               });
     
     //Create the vector of just ArtHandles
-    vector<pair<int,AIArtHandle>> result;
+    map<int,AIArtHandle> result;
     for ( auto m : d )
     {
-        result.push_back( std::pair<int,AIArtHandle>(std::get<0>(m), std::get<1>(m)) );
+        result.insert( std::pair<int,AIArtHandle>{std::get<0>(m), std::get<1>(m)} );
     }
     return result;
 }

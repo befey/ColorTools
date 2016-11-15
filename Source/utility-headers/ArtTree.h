@@ -17,7 +17,7 @@
 #include "IDrawer.h"
 #include "AIArtboard.h"
 #include <functional>
-#include <vector>
+#include <map>
 
 extern AIArtSetSuite* sAIArtSet;
 extern AILayerSuite* sAILayer;
@@ -58,7 +58,7 @@ AIRealRect GetArtboardBounds(int index);
 AIRealPoint GetCenterOfArt(AIArtHandle art);
 AIRealRect GetBoundsOfArt(AIArtHandle art);
 AIRealPoint GetCenterOfRect(AIRealRect rect);
-vector<pair<int,AIArtHandle>> GetArtboardOfArts(vector<AIArtHandle> pluginArts);
+map<int,AIArtHandle> GetArtboardOfArts(vector<AIArtHandle> pluginArts);
 
 AIArtHandle DrawRectangle(AIRealRect rect, AIArtHandle prep);
 

@@ -46,6 +46,8 @@
 		F9158D551D05FBE900343D57 /* ExistingFileDeleter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9158D531D05FBE900343D57 /* ExistingFileDeleter.cpp */; };
 		F9158D561D05FBE900343D57 /* ExistingFileDeleter.h in Headers */ = {isa = PBXBuildFile; fileRef = F9158D541D05FBE900343D57 /* ExistingFileDeleter.h */; };
 		F93027D91CA46E7D00D3B41E /* SafeguardTools.r in Rez */ = {isa = PBXBuildFile; fileRef = F93027D81CA46E7D00D3B41E /* SafeguardTools.r */; };
+		F930DE081DDBA1EC0030B5C1 /* BleedInfoPluginArtToArtboardMatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F930DE061DDBA1EC0030B5C1 /* BleedInfoPluginArtToArtboardMatcher.cpp */; };
+		F930DE091DDBA1EC0030B5C1 /* BleedInfoPluginArtToArtboardMatcher.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F930DE071DDBA1EC0030B5C1 /* BleedInfoPluginArtToArtboardMatcher.hpp */; };
 		F93264D21DC8E2D40020B57A /* SgSymbolDrawer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F93264D01DC8E2D40020B57A /* SgSymbolDrawer.cpp */; };
 		F93264D31DC8E2D40020B57A /* SgSymbolDrawer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F93264D11DC8E2D40020B57A /* SgSymbolDrawer.hpp */; };
 		F93264DA1DCA64C80020B57A /* fontlist.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = F96DDFAF1D2D7BED0066931D /* fontlist.txt */; };
@@ -203,6 +205,8 @@
 		F9158D541D05FBE900343D57 /* ExistingFileDeleter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExistingFileDeleter.h; path = Source/PrintToPdf/ExistingFileDeleter.h; sourceTree = "<group>"; };
 		F93027D81CA46E7D00D3B41E /* SafeguardTools.r */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; name = SafeguardTools.r; path = Resources/Mac/SafeguardTools.r; sourceTree = "<group>"; };
 		F930DE051DDB75A70030B5C1 /* ICanBeTextRange.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ICanBeTextRange.h; path = "Source/utility-headers/ICanBeTextRange.h"; sourceTree = "<group>"; };
+		F930DE061DDBA1EC0030B5C1 /* BleedInfoPluginArtToArtboardMatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BleedInfoPluginArtToArtboardMatcher.cpp; path = Source/PlateBleedInfo/BleedInfoPluginArtToArtboardMatcher.cpp; sourceTree = "<group>"; };
+		F930DE071DDBA1EC0030B5C1 /* BleedInfoPluginArtToArtboardMatcher.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = BleedInfoPluginArtToArtboardMatcher.hpp; path = Source/PlateBleedInfo/BleedInfoPluginArtToArtboardMatcher.hpp; sourceTree = "<group>"; };
 		F93264D01DC8E2D40020B57A /* SgSymbolDrawer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SgSymbolDrawer.cpp; path = Source/PlateBleedInfo/SgSymbolDrawer.cpp; sourceTree = "<group>"; };
 		F93264D11DC8E2D40020B57A /* SgSymbolDrawer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SgSymbolDrawer.hpp; path = Source/PlateBleedInfo/SgSymbolDrawer.hpp; sourceTree = "<group>"; };
 		F934B1561CC9645A002EAB43 /* ReplaceDataBuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ReplaceDataBuilder.cpp; sourceTree = "<group>"; };
@@ -472,6 +476,8 @@
 				F992803A1D6B723F00E7EBF2 /* SafeguardJobFileDTO.hpp */,
 				F9F079621D47ED21004AC522 /* BleedInfo.cpp */,
 				F910BD691D09FA910029DF62 /* BleedInfo.h */,
+				F930DE061DDBA1EC0030B5C1 /* BleedInfoPluginArtToArtboardMatcher.cpp */,
+				F930DE071DDBA1EC0030B5C1 /* BleedInfoPluginArtToArtboardMatcher.hpp */,
 				F9F1EB691D1B19AF0051B716 /* ColorList.cpp */,
 				F9F1EB6A1D1B19AF0051B716 /* ColorList.h */,
 				F9F079641D47EEC1004AC522 /* TickMarkSettings.cpp */,
@@ -608,6 +614,7 @@
 				F989A8EB1CA460CE0050C071 /* FindReplaceGraphics.h in Headers */,
 				F9DA3B921D1C5EFA00AB6156 /* BleedInfoDrawer.h in Headers */,
 				F989A8EF1CA460CE0050C071 /* ReplaceData.h in Headers */,
+				F930DE091DDBA1EC0030B5C1 /* BleedInfoPluginArtToArtboardMatcher.hpp in Headers */,
 				6868C925150BA192003DAAF2 /* SafeguardToolsID.h in Headers */,
 				F934B1591CC9645A002EAB43 /* ReplaceDataBuilder.h in Headers */,
 				F90E3FA41CA475880081C333 /* ColorFuncs.h in Headers */,
@@ -761,6 +768,7 @@
 				F989A8EE1CA460CE0050C071 /* ReplaceData.cpp in Sources */,
 				F965B58E1D1072F200B0C04C /* ListFonts.cpp in Sources */,
 				F979B5FB1CA31DE5004BA4AD /* IAIUnicodeString.cpp in Sources */,
+				F930DE081DDBA1EC0030B5C1 /* BleedInfoPluginArtToArtboardMatcher.cpp in Sources */,
 				F9138EA11D01EE4D00D23C1F /* PrintToPdfUIController.cpp in Sources */,
 				F9DA3B991D1C6C9300AB6156 /* FileNameDateDrawer.cpp in Sources */,
 				F934B1581CC9645A002EAB43 /* ReplaceDataBuilder.cpp in Sources */,
