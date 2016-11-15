@@ -22,6 +22,8 @@ namespace SafeguardFile
     class ColorList
     {
     public:
+        ColorList(AIRealRect area);
+        
         void AddColorsToList(vector<AIColor> colors);
         void AddColorsToList(ColorList colors);
         void RemoveDuplicates();
@@ -36,6 +38,10 @@ namespace SafeguardFile
         const vector<BtColor> GetColorList() const { return p_ColorList; };
     private:
         vector<BtColor> p_ColorList;
+        AIRealRect area;
+        
+        void FillColorList();
+        void AddColorsOfArtToColorList(AIArtHandle art);
         
         void AddColorToTextRange(const BtColor color, ATE::ITextRange& targetRange, AIReal maxWidth) const;
     };

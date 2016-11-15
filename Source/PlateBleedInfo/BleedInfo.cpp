@@ -16,13 +16,10 @@ namespace fs = boost::filesystem;
 using SafeguardFile::BleedInfo;
 
 BleedInfo::BleedInfo(ai::ArtboardID artboardIndex)
-: artboardIndex(artboardIndex)
+:
+artboardIndex(artboardIndex),
+colorList(ArtboardBounds())
 {
-    FillColorList();
-    colorList.RemoveDuplicates();
-    colorList.RemoveNonPrintingColors();
-    colorList.Sort();
-
     SetPlateNumber();
     
     if (plateNumber.GetProductType() == CutSheet && colorList.HasCMYK())
@@ -123,22 +120,6 @@ BleedInfo& BleedInfo::ArtboardName(string newVal)
     }
     
     return *this;
-}
-
-void BleedInfo::FillColorList()
-{
-    AIArtSet artSet;
-    sAIArtSet->NewArtSet(&artSet);
-    CreateArtSetOfPrintingObjectsWithinRect(artSet, ArtboardBounds());
-    
-    std::function<void(AIArtHandle)> func = std::bind(&BleedInfo::AddColorsOfArtToColorList, this, std::placeholders::_1);
-    ProcessArtSet(artSet, func);
-    sAIArtSet->DisposeArtSet(&artSet);
-}
-
-void BleedInfo::AddColorsOfArtToColorList(AIArtHandle art)
-{
-    colorList.AddColorsToList(GetColorsFromArt(art));
 }
 
 void BleedInfo::SetPlateNumber()

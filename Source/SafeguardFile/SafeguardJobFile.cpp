@@ -178,11 +178,16 @@ AIRealRect SafeguardJobFile::GetBleeds(int plateIndex) const
 
 SafeguardFile::ColorList SafeguardJobFile::GetAllColorsOnJob() const
 {
-    SafeguardFile::ColorList colorList;
+    vector<SafeguardFile::ColorList> colorLists;
     for (auto plate : plates)
     {
-        colorList.AddColorsToList(plate.second.GetColors());
+        colorLists.push_back(plate.second.GetColors());
     }
+    for ( int i = 1; i < colorLists.size(); i++ )
+    {
+        colorLists[0].AddColorsToList(colorLists.at(i));
+    }
+    ColorList colorList = colorLists[0];
     colorList.RemoveDuplicates();
     colorList.RemoveNonPrintingColors();
     colorList.Sort();

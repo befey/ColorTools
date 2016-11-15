@@ -10,8 +10,35 @@
 #include "ColorFuncs.h"
 #include "BtAteTextFeatures.h"
 #include "SafeguardFileConstants.h"
+#include "ArtTree.h"
 
 using SafeguardFile::ColorList;
+
+ColorList::ColorList(AIRealRect area)
+:
+area(area)
+{
+    FillColorList();
+    RemoveDuplicates();
+    RemoveNonPrintingColors();
+    Sort();
+}
+
+void ColorList::FillColorList()
+{
+    AIArtSet artSet;
+    sAIArtSet->NewArtSet(&artSet);
+    CreateArtSetOfPrintingObjectsWithinRect(artSet, area);
+    
+    std::function<void(AIArtHandle)> func = std::bind(&ColorList::AddColorsOfArtToColorList, this, std::placeholders::_1);
+    ProcessArtSet(artSet, func);
+    sAIArtSet->DisposeArtSet(&artSet);
+}
+
+void ColorList::AddColorsOfArtToColorList(AIArtHandle art)
+{
+    AddColorsToList(GetColorsFromArt(art));
+}
 
 void ColorList::RemoveDuplicates()
 {

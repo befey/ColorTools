@@ -25,7 +25,6 @@ namespace SafeguardFile
     class BleedInfo
     {
     public:
-        BleedInfo() {};
         BleedInfo(ai::ArtboardID artboardIndex);
         
         ai::ArtboardID ArtboardIndex() const { return artboardIndex; };
@@ -58,9 +57,6 @@ namespace SafeguardFile
         SafeguardFile::ColorList colorList;
         SafeguardFile::PlateNumber plateNumber;
         SafeguardFile::TickMarkSettings tmSettings;
-        
-        void AddColorsOfArtToColorList(AIArtHandle art);
-        void FillColorList();
         
         void SetPlateNumber();
         void SetPlateNumber(string pn);
