@@ -28,9 +28,9 @@ namespace fs = boost::filesystem;
 Plate::Plate(ai::ArtboardID id)
 : bleedInfo(id)
 {
-    bleedInfoPluginArt = PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().GetArt(id);
-    
     bleedInfoDrawer = make_shared<BleedInfoDrawer>(bleedInfo.ArtboardIndex());
+    
+    bleedInfoPluginArt = PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().GetArt(id);
     
     if (bleedInfoPluginArt)
     {
