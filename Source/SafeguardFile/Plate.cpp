@@ -28,8 +28,6 @@ namespace fs = boost::filesystem;
 Plate::Plate(ai::ArtboardID id)
 : bleedInfo(id)
 {
-    bleedInfoDrawer = make_shared<BleedInfoDrawer>(bleedInfo.ArtboardIndex());
-    
     bleedInfoPluginArt = PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().GetArt(id);
     
     if (bleedInfoPluginArt)
@@ -61,39 +59,8 @@ BleedInfo& Plate::BleedInfo()
 
 void Plate::DrawBleedInfo()
 {
-    bleedInfoDrawer->AddDrawer( bleedInfoDrawer->MakeTickMarkDrawer(bleedInfo.TickMarkSettings()) );
+    bleedInfoDrawer = make_shared<BleedInfoDrawer>(bleedInfo);
     
-    ProductType pt = bleedInfo.PlateNumber().GetProductType();
-    
-    bleedInfoDrawer->AddDrawer( bleedInfoDrawer->MakeColorListDrawer(pt, bleedInfo.ArtboardBounds(), bleedInfo.ColorList()) );
-    bleedInfoDrawer->AddDrawer( bleedInfoDrawer->MakeFileNameDateDrawer(pt, bleedInfo.ArtboardBounds(), bleedInfo.PlateNumber(), bleedInfo.Token(), bleedInfo.LastModified()) );
-    
-    if (bleedInfo.ShouldAddCmykBlocks())
-    {
-        AIRealRect abBounds = bleedInfo.ArtboardBounds();
-        AIRealRect bounds = { //CMYK Blocks are 325x25px
-            .left = abBounds.left + ((abBounds.right - abBounds.left)/2) - (325/2),
-            .top = abBounds.top + 5 + 25,
-            .right = abBounds.right - ((abBounds.right - abBounds.left)/2) + (325/2),
-            .bottom = abBounds.top + 5
-        };
-        
-        bleedInfoDrawer->AddDrawer( bleedInfoDrawer->MakeSgSymbolDrawer(bounds, AI_CMYK_BLOCKS) );
-    }
-
-    if (bleedInfo.PlateNumber().GetProductType() == Continuous)
-    {
-        AIRealRect abBounds = bleedInfo.ArtboardBounds();
-        AIRealRect bounds = { //Reg block is 24.3x36px
-            .left = abBounds.left,
-            .top = abBounds.top - 42,
-            .right = abBounds.left + 24.3,
-            .bottom = abBounds.top - 42 - 36
-        };
-        
-        bleedInfoDrawer->AddDrawer( bleedInfoDrawer->MakeSgSymbolDrawer(bounds, AI_CONTINUOUS_REG_TARGET) );
-    }
-
     if (ShouldDrawBleedInfo())
     {
         bleedInfoPluginArt = bleedInfoDrawer->Draw(bleedInfoPluginArt);

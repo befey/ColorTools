@@ -29,19 +29,19 @@ namespace SafeguardFile
     class BleedInfoDrawer : public IDrawer
     {
     public:
-        BleedInfoDrawer(ai::ArtboardID artboardIndex) : artboardIndex(artboardIndex) {};
+        BleedInfoDrawer(BleedInfo bleedInfo);
+        
+        void Remove(AIArtHandle& pluginGroupArt) const;
+    private:
+        BleedInfo bleedInfo;
+        
+        vector<shared_ptr<IDrawer>> drawers;
         
         BleedInfoDrawer& AddDrawer(shared_ptr<IDrawer> val);
         shared_ptr<IDrawer> MakeColorListDrawer(ProductType pt, AIRealRect artboardBounds, ColorList colorList);
         shared_ptr<IDrawer> MakeFileNameDateDrawer(ProductType pt, AIRealRect artboardBounds, PlateNumber plateNumber, string token, tm lastModified);
         shared_ptr<IDrawer> MakeTickMarkDrawer(TickMarkSettings tmSettings);
         shared_ptr<IDrawer> MakeSgSymbolDrawer(AIRealRect artboardBounds, string symbolName);
-        
-        void Remove(AIArtHandle& pluginGroupArt) const;
-    private:
-        ai::ArtboardID artboardIndex;
-        
-        vector<shared_ptr<IDrawer>> drawers;
         
         AIArtHandle DoDraw(AIArtHandle pluginGroupArt = NULL) const override;
         

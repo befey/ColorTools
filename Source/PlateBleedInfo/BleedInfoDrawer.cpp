@@ -15,6 +15,44 @@
 
 using SafeguardFile::BleedInfoDrawer;
 
+BleedInfoDrawer::BleedInfoDrawer(BleedInfo bleedInfo)
+:
+bleedInfo(bleedInfo)
+{
+    AddDrawer( MakeTickMarkDrawer(bleedInfo.TickMarkSettings()) );
+    
+    ProductType pt = bleedInfo.PlateNumber().GetProductType();
+    
+    AddDrawer( MakeColorListDrawer(pt, bleedInfo.ArtboardBounds(), bleedInfo.ColorList()) );
+    AddDrawer( MakeFileNameDateDrawer(pt, bleedInfo.ArtboardBounds(), bleedInfo.PlateNumber(), bleedInfo.Token(), bleedInfo.LastModified()) );
+    
+    if (bleedInfo.ShouldAddCmykBlocks())
+    {
+        AIRealRect abBounds = bleedInfo.ArtboardBounds();
+        AIRealRect bounds = { //CMYK Blocks are 325x25px
+            .left = abBounds.left + ((abBounds.right - abBounds.left)/2) - (325/2),
+            .top = abBounds.top + 5 + 25,
+            .right = abBounds.right - ((abBounds.right - abBounds.left)/2) + (325/2),
+            .bottom = abBounds.top + 5
+        };
+        
+        AddDrawer( MakeSgSymbolDrawer(bounds, AI_CMYK_BLOCKS) );
+    }
+    
+    if (bleedInfo.PlateNumber().GetProductType() == Continuous)
+    {
+        AIRealRect abBounds = bleedInfo.ArtboardBounds();
+        AIRealRect bounds = { //Reg block is 24.3x36px
+            .left = abBounds.left,
+            .top = abBounds.top - 42,
+            .right = abBounds.left + 24.3,
+            .bottom = abBounds.top - 42 - 36
+        };
+        
+        AddDrawer( MakeSgSymbolDrawer(bounds, AI_CONTINUOUS_REG_TARGET) );
+    }
+}
+
 BleedInfoDrawer& BleedInfoDrawer::AddDrawer(shared_ptr<IDrawer> val)
 {
     if (val != nullptr)
