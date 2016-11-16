@@ -59,3 +59,13 @@ bool BleedInfoPluginArtToArtboardMatcher::IsBleedInfoPluginArtCreated(int artboa
 {
     return sortedPluginArts.count(artboardIndex);
 }
+
+AIArtHandle BleedInfoPluginArtToArtboardMatcher::GetArt(int artboardIndex)
+{
+    auto iter = sortedPluginArts.find(artboardIndex);
+    if (iter != sortedPluginArts.end())
+    {
+        return iter->second;
+    }
+    return NULL;
+}

@@ -11,6 +11,7 @@
 #include "TickMarkSettings.hpp"
 #include "DictionaryWriter.h"
 #include "SafeguardJobFileDTO.hpp"
+#include "BleedInfoPluginArtToArtboardMatcher.hpp"
 #include <boost/filesystem/operations.hpp>
 #include <ctime>
 
@@ -24,9 +25,11 @@ using SafeguardFile::BleedInfo;
 
 namespace fs = boost::filesystem;
 
-Plate::Plate(ai::ArtboardID id, AIArtHandle pluginArtHandle)
-: bleedInfo(id), bleedInfoPluginArt(pluginArtHandle)
+Plate::Plate(ai::ArtboardID id)
+: bleedInfo(id)
 {
+    bleedInfoPluginArt = PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().GetArt(id);
+    
     bleedInfoDrawer = make_shared<BleedInfoDrawer>(bleedInfo.ArtboardIndex());
     
     if (bleedInfoPluginArt)

@@ -19,6 +19,7 @@ namespace PlateBleedInfo
         BleedInfoPluginArtToArtboardMatcher();
         
         bool IsBleedInfoPluginArtCreated(int artboardIndex = 0);
+        AIArtHandle GetArt(int artboardIndex = 0);
     private:
         std::map<int, AIArtHandle> sortedPluginArts;
         

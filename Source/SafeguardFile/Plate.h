@@ -28,8 +28,7 @@ namespace SafeguardFile
     class Plate
     {
     public:
-        Plate(ai::ArtboardID id) : Plate(id, NULL) {};
-        Plate(ai::ArtboardID id, AIArtHandle pluginArtHandle);
+        Plate(ai::ArtboardID id);
         
         AIRealRect GetArtboardBounds() const;
         tm GetLastModified() const;
