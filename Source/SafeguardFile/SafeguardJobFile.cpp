@@ -13,6 +13,7 @@
 #include "SafeguardFileConstants.h"
 #include "ArtTree.h"
 #include <vector>
+#include "BleedInfoPluginArtToArtboardMatcher.hpp"
 
 using SafeguardFile::SafeguardJobFile;
 using SafeguardFile::PlateNumber;
@@ -62,7 +63,7 @@ void SafeguardJobFile::LoadDataFromDTO(PlateBleedInfoDTO::SafeguardJobFileDTO dt
 
 void SafeguardJobFile::UpdateBleedInfo(bool skipCheck)
 {
-    if ( skipCheck || IsBleedInfoPluginArtCreated() )
+    if ( skipCheck || PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().IsBleedInfoPluginArtCreated() )
     {
         size_t gTimeStamp = sAIArt->GetGlobalTimeStamp();
         DictionaryWriter dw;
@@ -82,7 +83,7 @@ void SafeguardJobFile::UpdateBleedInfo(bool skipCheck)
 
 void SafeguardJobFile::EditBleedInfo()
 {
-    if ( !IsBleedInfoPluginArtCreated() )
+    if ( !PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().IsBleedInfoPluginArtCreated() )
     {
         UpdateBleedInfo(true);
     }
