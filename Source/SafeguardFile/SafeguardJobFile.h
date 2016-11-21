@@ -44,9 +44,9 @@ namespace SafeguardFile
         void EditBleedInfo();
         void RemoveBleedInfo();
         
-        const map<int, Plate>& GetPlates() const { return plates; };
+        const map<int, shared_ptr<Plate>>& GetPlates() const { return plates; };
     private:
-        map<int, Plate> plates;        
+        map<int, shared_ptr<Plate>> plates;
     };
 }
 #endif /* defined(__SafeguardTools__SafeguardJobFile__) */

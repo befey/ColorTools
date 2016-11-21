@@ -25,7 +25,7 @@ SafeguardJobFile::SafeguardJobFile()
 {
     for ( int i = 0; i < GetArtboardCount(); i++ )
     {
-        plates.emplace(i, Plate(i));
+        plates.emplace(i, make_shared<Plate>(i));
     }
 }
 
@@ -33,7 +33,7 @@ SafeguardJobFile::SafeguardJobFile(const PlateBleedInfo::SafeguardJobFileDTO* dt
 {
     for ( int i = 0; i < GetArtboardCount(); i++ )
     {
-        plates.emplace(i, Plate(i, &dto->GetPlateDTOs()[i]));
+        plates.emplace(i, make_shared<Plate>(i, &dto->GetPlateDTOs()[i]));
     }
 }
 
@@ -65,7 +65,7 @@ void SafeguardJobFile::RemoveBleedInfo()
 {
     for ( auto plate : plates )
     {
-        plate.second.RemoveBleedInfo();
+        plate.second->RemoveBleedInfo();
     }
 }
 
@@ -74,7 +74,7 @@ const PlateNumber SafeguardJobFile::GetPlateNumber(int plateIndex) const
     auto iter = plates.find(plateIndex);
     if (iter != plates.end() )
     {
-        return iter->second.GetPlateNumber();
+        return iter->second->GetPlateNumber();
     }
     else
     {
@@ -87,7 +87,7 @@ const string SafeguardJobFile::GetToken(int plateIndex) const
     auto iter = plates.find(plateIndex);
     if (iter != plates.end() )
     {
-        return iter->second.GetToken();
+        return iter->second->GetToken();
     }
     else
     {
@@ -100,7 +100,7 @@ AIRealRect SafeguardJobFile::GetBleeds(int plateIndex) const
     auto iter = plates.find(plateIndex);
     if (iter != plates.end() )
     {
-        return iter->second.GetBleeds();
+        return iter->second->GetBleeds();
     }
     else
     {
@@ -113,7 +113,7 @@ SafeguardFile::ColorList SafeguardJobFile::GetAllColorsOnJob() const
     vector<SafeguardFile::ColorList> colorLists;
     for (auto plate : plates)
     {
-        colorLists.push_back(plate.second.GetColors());
+        colorLists.push_back(plate.second->GetColors());
     }
     for ( int i = 1; i < colorLists.size(); i++ )
     {

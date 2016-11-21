@@ -63,7 +63,7 @@ SafeguardJobFileDTO::SafeguardJobFileDTO(SafeguardFile::SafeguardJobFile* sgJobF
 {
     for ( auto plate : sgJobFile->GetPlates() )
     {
-        AddPlate( PlateBleedInfo::PlateDTO(&(plate.second.GetBleedInfo()), fullColorName) );
+        AddPlate( PlateBleedInfo::PlateDTO(&(plate.second->GetBleedInfo()), fullColorName) );
     }
 }
 
