@@ -71,11 +71,12 @@ void SafeguardJobFile::RemoveBleedInfo()
 
 const PlateNumber SafeguardJobFile::GetPlateNumber(int plateIndex) const
 {
-    try
+    auto iter = plates.find(plateIndex);
+    if (iter != plates.end() )
     {
-        return plates.at(plateIndex).GetPlateNumber();
+        return iter->second.GetPlateNumber();
     }
-    catch (std::out_of_range e)
+    else
     {
         return PlateNumber();
     }
@@ -83,11 +84,12 @@ const PlateNumber SafeguardJobFile::GetPlateNumber(int plateIndex) const
 
 const string SafeguardJobFile::GetToken(int plateIndex) const
 {
-    try
+    auto iter = plates.find(plateIndex);
+    if (iter != plates.end() )
     {
-        return plates.at(plateIndex).GetToken();
+        return iter->second.GetToken();
     }
-    catch (std::out_of_range e)
+    else
     {
         return "";
     }
@@ -95,11 +97,12 @@ const string SafeguardJobFile::GetToken(int plateIndex) const
 
 AIRealRect SafeguardJobFile::GetBleeds(int plateIndex) const
 {
-    try
+    auto iter = plates.find(plateIndex);
+    if (iter != plates.end() )
     {
-        return plates.at(plateIndex).GetBleeds();
+        return iter->second.GetBleeds();
     }
-    catch (std::out_of_range e)
+    else
     {
         return AIRealRect{0,0,0,0};
     }
