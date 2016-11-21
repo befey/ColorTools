@@ -44,7 +44,7 @@ BleedInfo::~BleedInfo()
     StoreInPluginArt();
     
     DictionaryWriter dw;
-    dw.AddVectorOfAIArtHandleToDictionary(vector<AIArtHandle>{bleedInfoPluginArt}, SafeguardFile::SG_BLEEDINFO_ARTHANDLES);
+    dw.AddAIArtHandleToArrayInDictionary(bleedInfoPluginArt, SafeguardFile::SG_BLEEDINFO_ARTHANDLES);
 }
 
 AIRealRect BleedInfo::ArtboardBounds() const

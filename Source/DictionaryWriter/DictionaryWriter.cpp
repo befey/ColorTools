@@ -8,6 +8,7 @@
 
 #include "DictionaryWriter.h"
 #include "GetIllustratorErrorCode.h"
+#include <unordered_set>
 
 DictionaryWriter::DictionaryWriter()
 {
@@ -339,4 +340,25 @@ AIBoolean DictionaryWriter::AddVectorOfAIArtHandleToDictionary(vector<AIArtHandl
     sAIArray->Release(array);
     
     return result;
+}
+
+AIBoolean DictionaryWriter::AddAIArtHandleToArrayInDictionary(AIArtHandle art, string identifier, int CAIndex)
+{
+    vector<AIArtHandle> handles;
+    GetVectorOfAIArtHandleFromIdentifier(handles, identifier, CAIndex);
+    
+    unordered_set<AIArtHandle> artSet;
+    for ( auto handle : handles )
+    {
+        artSet.insert(handle);
+    }
+    artSet.insert(art);
+    
+    handles.clear();
+    for ( auto handle : artSet )
+    {
+        handles.push_back(handle);
+    }
+    
+    return AddVectorOfAIArtHandleToDictionary(handles, identifier, CAIndex);
 }

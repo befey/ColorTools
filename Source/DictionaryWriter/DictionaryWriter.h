@@ -56,6 +56,7 @@ public:
     
     AIBoolean GetVectorOfAIArtHandleFromIdentifier(vector<AIArtHandle>& handles, string identifier, int CAIndex = -1);
     AIBoolean AddVectorOfAIArtHandleToDictionary(vector<AIArtHandle> handles, string identifier, int CAIndex = -1);
+    AIBoolean AddAIArtHandleToArrayInDictionary(AIArtHandle art, string identifier, int CAIndex = -1);
 private:
     AIDictionaryRef dictionary;
     
