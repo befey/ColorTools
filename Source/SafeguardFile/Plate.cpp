@@ -28,7 +28,7 @@ Plate::Plate(ai::ArtboardID id)
 }
 
 Plate::Plate(ai::ArtboardID id, const PlateBleedInfo::PlateDTO* dto)
-: Plate(id)
+: bleedInfo(id)
 {
     bleedInfo.FillBleedInfoFromPlateDTO(dto);
 }

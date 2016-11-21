@@ -29,11 +29,11 @@ namespace PlateBleedInfo
     class BleedInfoDrawer : public IDrawer
     {
     public:
-        BleedInfoDrawer(BleedInfo bleedInfo);
+        BleedInfoDrawer(shared_ptr<BleedInfo> bleedInfo);
         
         AIArtHandle Remove() const;
     private:
-        BleedInfo bleedInfo;
+        shared_ptr<BleedInfo> bleedInfo;
         
         vector<shared_ptr<IDrawer>> drawers;
         

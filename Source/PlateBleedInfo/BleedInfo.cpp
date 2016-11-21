@@ -219,9 +219,7 @@ void BleedInfo::Draw(bool skipCheck)
         
         if ( gTimeStamp != aTSDict )
         {
-            bleedInfoPluginArt = ( PlateBleedInfo::BleedInfoDrawer(*this).Draw() );
-            auto ptrStrat = make_shared<PlateBleedInfo::BleedInfoToArtStrategy>(bleedInfoPluginArt);
-            PlateBleedInfo::BleedInfoWriter(this, ptrStrat);
+            bleedInfoPluginArt = ( PlateBleedInfo::BleedInfoDrawer(make_shared<BleedInfo>(*this)).Draw() );
             
             DictionaryWriter dw;
             dw.AddAIRealToDictionary(sAIArt->GetGlobalTimeStamp(), SafeguardFile::PLATE_BLEEDINFO_TIMESTAMP, artboardIndex);
@@ -231,6 +229,6 @@ void BleedInfo::Draw(bool skipCheck)
 
 void BleedInfo::Remove()
 {
-    bleedInfoPluginArt = ( PlateBleedInfo::BleedInfoDrawer(*this).Remove() );
+    bleedInfoPluginArt = ( PlateBleedInfo::BleedInfoDrawer(make_shared<BleedInfo>(*this)).Remove() );
     bleedInfoPluginArt = NULL;
 }

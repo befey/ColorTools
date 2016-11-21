@@ -15,20 +15,20 @@
 
 using PlateBleedInfo::BleedInfoDrawer;
 
-BleedInfoDrawer::BleedInfoDrawer(BleedInfo bleedInfo)
+BleedInfoDrawer::BleedInfoDrawer(shared_ptr<BleedInfo> bleedInfo)
 :
 bleedInfo(bleedInfo)
 {
-    AddDrawer( MakeTickMarkDrawer(bleedInfo.TickMarkSettings()) );
+    AddDrawer( MakeTickMarkDrawer(bleedInfo->TickMarkSettings()) );
     
-    SafeguardFile::ProductType pt = bleedInfo.PlateNumber().GetProductType();
+    SafeguardFile::ProductType pt = bleedInfo->PlateNumber().GetProductType();
     
-    AddDrawer( MakeColorListDrawer(pt, bleedInfo.ArtboardBounds(), bleedInfo.ColorList()) );
-    AddDrawer( MakeFileNameDateDrawer(pt, bleedInfo.ArtboardBounds(), bleedInfo.PlateNumber(), bleedInfo.Token(), bleedInfo.LastModified()) );
+    AddDrawer( MakeColorListDrawer(pt, bleedInfo->ArtboardBounds(), bleedInfo->ColorList()) );
+    AddDrawer( MakeFileNameDateDrawer(pt, bleedInfo->ArtboardBounds(), bleedInfo->PlateNumber(), bleedInfo->Token(), bleedInfo->LastModified()) );
     
-    if (bleedInfo.ShouldAddCmykBlocks())
+    if (bleedInfo->ShouldAddCmykBlocks())
     {
-        AIRealRect abBounds = bleedInfo.ArtboardBounds();
+        AIRealRect abBounds = bleedInfo->ArtboardBounds();
         AIRealRect bounds = { //CMYK Blocks are 325x25px
             .left = abBounds.left + ((abBounds.right - abBounds.left)/2) - (325/2),
             .top = abBounds.top + 5 + 25,
@@ -39,9 +39,9 @@ bleedInfo(bleedInfo)
         AddDrawer( MakeSgSymbolDrawer(bounds, SafeguardFile::AI_CMYK_BLOCKS) );
     }
     
-    if (bleedInfo.PlateNumber().GetProductType() == SafeguardFile::Continuous)
+    if (bleedInfo->PlateNumber().GetProductType() == SafeguardFile::Continuous)
     {
-        AIRealRect abBounds = bleedInfo.ArtboardBounds();
+        AIRealRect abBounds = bleedInfo->ArtboardBounds();
         AIRealRect bounds = { //Reg block is 24.3x36px
             .left = abBounds.left,
             .top = abBounds.top - 42,
@@ -110,11 +110,11 @@ shared_ptr<IDrawer> BleedInfoDrawer::MakeSgSymbolDrawer(AIRealRect artboardBound
 
 AIArtHandle BleedInfoDrawer::DoDraw(AIArtHandle pluginGroupArt) const
 {
-    if (bleedInfo.ShouldDrawBleedInfo())
+    if (bleedInfo->ShouldDrawBleedInfo())
     {
-        if (bleedInfo.BleedInfoPluginArtHandle())
+        if (bleedInfo->BleedInfoPluginArtHandle())
         {
-            return Update(bleedInfo.BleedInfoPluginArtHandle());
+            return Update(bleedInfo->BleedInfoPluginArtHandle());
         }
         else
         {
@@ -181,6 +181,6 @@ void BleedInfoDrawer::ClearResultArt(AIArtHandle resultGroupArt) const
 
 AIArtHandle BleedInfoDrawer::Remove() const
 {
-    sAIArt->DisposeArt(bleedInfo.BleedInfoPluginArtHandle());
+    sAIArt->DisposeArt(bleedInfo->BleedInfoPluginArtHandle());
     return NULL;
 }
