@@ -209,9 +209,9 @@ void BleedInfo::ReadFromPluginArt()
     }
 }
 
-void BleedInfo::Draw()
+void BleedInfo::Draw(bool skipCheck)
 {
-    if ( PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().IsBleedInfoPluginArtCreated() )
+    if (skipCheck || PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().IsBleedInfoPluginArtCreated() )
     {
         size_t gTimeStamp = sAIArt->GetGlobalTimeStamp();
         DictionaryWriter dw;

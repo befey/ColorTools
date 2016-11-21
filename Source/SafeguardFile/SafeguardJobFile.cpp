@@ -41,7 +41,7 @@ void SafeguardJobFile::UpdateBleedInfo(bool skipCheck)
 {
     for ( auto& plate : plates )
     {
-        plate.second.DrawBleedInfo();
+        plate.second.DrawBleedInfo(skipCheck);
     }
 }
 

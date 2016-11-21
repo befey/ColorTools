@@ -75,6 +75,7 @@ public:
     static constexpr auto CREATE_PLATE_BLEED_INFO_PLUGIN_GROUP =  "bt.SafeguardTools.PlateBleedInfo";
     static constexpr auto BLEED_INFO_PLUGIN_GROUP_DESC =          "__SafeguardPlateInfo__";
     static constexpr auto CREATE_PLATE_BLEED_INFO_MENU_ITEM =     "Add Safeguard Plate Info";
+    static constexpr auto EDIT_PLATE_BLEED_INFO_MENU_ITEM =     "Edit Safeguard Plate Info";
 
 protected:
 	/** Calls Plugin::Message and handles any errors returned.

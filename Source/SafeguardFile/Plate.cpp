@@ -27,7 +27,8 @@ Plate::Plate(ai::ArtboardID id)
 {
 }
 
-Plate::Plate(ai::ArtboardID id, const PlateBleedInfo::PlateDTO* dto) : Plate(id)
+Plate::Plate(ai::ArtboardID id, const PlateBleedInfo::PlateDTO* dto)
+: Plate(id)
 {
     bleedInfo.FillBleedInfoFromPlateDTO(dto);
 }
@@ -42,9 +43,9 @@ const string Plate::GetToken() const
     return bleedInfo.Token();
 }
 
-void Plate::DrawBleedInfo()
+void Plate::DrawBleedInfo(bool skipCheck)
 {
-    bleedInfo.Draw();
+    bleedInfo.Draw(skipCheck);
 }
 
 void Plate::RemoveBleedInfo()

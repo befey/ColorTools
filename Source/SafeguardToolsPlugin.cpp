@@ -264,6 +264,10 @@ ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
     BtAiMenuItem CreatePlateBleedInfoMenuItem = BtAiMenuItem(kDocumentUtilsMenuGroup, CREATE_PLATE_BLEED_INFO_MENU_ITEM, kMenuItemWantsUpdateOption);
     CreatePlateBleedInfoMenuItem.SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, 0, 0, kIfOpenDocument, 0);
     BtAiMenuItem::AddMenu(CreatePlateBleedInfoMenuItem, &menuItemHandles);
+    
+    BtAiMenuItem EditPlateBleedInfoMenuItem = BtAiMenuItem(kDocumentUtilsMenuGroup, EDIT_PLATE_BLEED_INFO_MENU_ITEM, kMenuItemWantsUpdateOption);
+    CreatePlateBleedInfoMenuItem.SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, 0, 0, kIfOpenDocument, 0);
+    BtAiMenuItem::AddMenu(EditPlateBleedInfoMenuItem, &menuItemHandles);
 
     return kNoErr;
 }
@@ -351,6 +355,10 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
     }
     else if ( message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
     {
+        SafeguardJobFile().UpdateBleedInfo(true);
+    }
+    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(EDIT_PLATE_BLEED_INFO_MENU_ITEM) )
+    {
         SafeguardJobFile().EditBleedInfo();
     }
 	
@@ -400,11 +408,6 @@ ASErr SafeguardToolsPlugin::UpdateMenuItem(AIMenuMessage* message)
                 sAIMenu->DisableItem(message->menuItem);
             }
         }
-    }
-    
-    if (message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
-    {
-        sAIMenu->SetItemText( message->menuItem, ai::UnicodeString("Edit Safeguard Plate Info") );
     }
 
 	if (error)
