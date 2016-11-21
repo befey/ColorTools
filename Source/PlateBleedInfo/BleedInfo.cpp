@@ -1,4 +1,4 @@
-//
+     //
 //  BleedInfo.cpp
 //  SafeguardTools
 //
@@ -209,22 +209,9 @@ void BleedInfo::ReadFromPluginArt()
     }
 }
 
-void BleedInfo::Draw(bool skipCheck)
+void BleedInfo::Draw()
 {
-    if (skipCheck || PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().IsBleedInfoPluginArtCreated() )
-    {
-        size_t gTimeStamp = sAIArt->GetGlobalTimeStamp();
-        DictionaryWriter dw;
-        AIReal aTSDict = dw.GetAIRealFromIdentifier(SafeguardFile::PLATE_BLEEDINFO_TIMESTAMP, artboardIndex);
-        
-        if ( gTimeStamp != aTSDict )
-        {
-            bleedInfoPluginArt = ( PlateBleedInfo::BleedInfoDrawer(make_shared<BleedInfo>(*this)).Draw() );
-            
-            DictionaryWriter dw;
-            dw.AddAIRealToDictionary(sAIArt->GetGlobalTimeStamp(), SafeguardFile::PLATE_BLEEDINFO_TIMESTAMP, artboardIndex);
-        }
-    }
+    bleedInfoPluginArt = ( PlateBleedInfo::BleedInfoDrawer(make_shared<BleedInfo>(*this)).Draw() );
 }
 
 void BleedInfo::Remove()

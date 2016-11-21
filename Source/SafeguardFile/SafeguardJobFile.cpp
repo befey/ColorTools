@@ -39,9 +39,22 @@ SafeguardJobFile::SafeguardJobFile(const PlateBleedInfo::SafeguardJobFileDTO* dt
 
 void SafeguardJobFile::UpdateBleedInfo(bool skipCheck)
 {
-    for ( auto& plate : plates )
+    if (skipCheck || PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().IsBleedInfoPluginArtCreated() )
     {
-        plate.second.DrawBleedInfo(skipCheck);
+        size_t gTimeStamp = sAIArt->GetGlobalTimeStamp();
+        DictionaryWriter dw;
+        AIReal aTSDict = dw.GetAIRealFromIdentifier(SafeguardFile::PLATE_BLEEDINFO_TIMESTAMP);
+        
+        if ( gTimeStamp != aTSDict )
+        {
+            for ( auto& plate : plates )
+            {
+                plate.second->DrawBleedInfo();
+            }
+            
+            DictionaryWriter dw;
+            dw.AddAIRealToDictionary(sAIArt->GetGlobalTimeStamp(), SafeguardFile::PLATE_BLEEDINFO_TIMESTAMP);
+        }
     }
 }
 

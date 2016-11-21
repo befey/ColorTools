@@ -59,7 +59,7 @@ namespace PlateBleedInfo
         void StoreInPluginArt() const;
         void ReadFromPluginArt();
         
-        void Draw(bool skipCheck = false);
+        void Draw();
         void Remove();
     private:
         bool shouldDrawBleedInfo = true;

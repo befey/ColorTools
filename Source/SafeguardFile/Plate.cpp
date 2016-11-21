@@ -43,9 +43,9 @@ const string Plate::GetToken() const
     return bleedInfo.Token();
 }
 
-void Plate::DrawBleedInfo(bool skipCheck)
+void Plate::DrawBleedInfo()
 {
-    bleedInfo.Draw(skipCheck);
+    bleedInfo.Draw();
 }
 
 void Plate::RemoveBleedInfo()

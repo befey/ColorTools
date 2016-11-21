@@ -37,7 +37,7 @@ namespace SafeguardFile
         AIRealRect GetBleeds() const;
         SafeguardFile::ColorList GetColors();
                 
-        void DrawBleedInfo(bool skipCheck = false);
+        void DrawBleedInfo();
         void RemoveBleedInfo();
         
         const PlateBleedInfo::BleedInfo& GetBleedInfo() const { return bleedInfo; };
