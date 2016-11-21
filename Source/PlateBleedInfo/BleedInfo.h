@@ -20,19 +20,25 @@
 extern AIDocumentSuite* sAIDocument;
 extern AIArtboardSuite* sAIArtboard;
 
-namespace SafeguardFile
+namespace PlateBleedInfo
 {
+    class SafeguardJobFileDTO;
+    class PlateDTO;
+    
     class BleedInfo
     {
     public:
         BleedInfo(ai::ArtboardID artboardIndex);
+        ~BleedInfo();
         
         ai::ArtboardID ArtboardIndex() const { return artboardIndex; };
         AIRealRect ArtboardBounds() const;
+        AIArtHandle BleedInfoPluginArtHandle() const { return bleedInfoPluginArt; };
+        BleedInfo& BleedInfoPluginArtHandle(AIArtHandle newVal) { bleedInfoPluginArt = newVal; return *this; };
         tm LastModified() const;
         
-        const TickMarkSettings TickMarkSettings() const { return tmSettings; };
-        BleedInfo& TickMarkStyle(TickMarkStyle newVal) { tmSettings.TickMarkStyle(newVal); return *this; };
+        const SafeguardFile::TickMarkSettings TickMarkSettings() const { return tmSettings; };
+        BleedInfo& TickMarkStyle(SafeguardFile::TickMarkStyle newVal) { tmSettings.TickMarkStyle(newVal); return *this; };
         
         string Token() const;
         BleedInfo& Token(string newVal);
@@ -48,7 +54,13 @@ namespace SafeguardFile
         SafeguardFile::ColorList& ColorList() { return colorList; };
     
         AIRealRect Bleeds() const;
-
+        void FillBleedInfoFromPlateDTO(const PlateBleedInfo::PlateDTO* dto);
+        
+        void StoreInPluginArt() const;
+        void ReadFromPluginArt();
+        
+        void Draw();
+        void Remove();
     private:
         bool shouldDrawBleedInfo = true;
         bool shouldAddCMYKBlocks = false;

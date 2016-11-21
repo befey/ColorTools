@@ -8,13 +8,16 @@
 
 #include "SafeguardJobFileDTO.hpp"
 #include "DictionaryWriter.h"
+#include "BleedInfo.h"
 #include "SafeguardJobFile.h"
+#include "ColorList.h"
+#include "ArtTree.h"
 #include "cereal/cereal.hpp"
 #include "cereal/archives/json.hpp"
 
-using PlateBleedInfoDTO::SafeguardJobFileDTO;
-using PlateBleedInfoDTO::PlateDTO;
-using PlateBleedInfoDTO::ColorDTO;
+using PlateBleedInfo::SafeguardJobFileDTO;
+using PlateBleedInfo::PlateDTO;
+using PlateBleedInfo::ColorDTO;
 
 ColorDTO::ColorDTO(BtColor color, bool fullColorName)
 :
@@ -23,24 +26,24 @@ method(int(color.Method()))
     colorName = fullColorName ? color.Name() : GetInnerPantoneColorNumber(color.Name());
 }
 
-PlateDTO::PlateDTO(SafeguardFile::BleedInfo bleedInfo, bool fullColorName)
+PlateDTO::PlateDTO(const PlateBleedInfo::BleedInfo* bleedInfo, const bool fullColorName)
 :
-shouldDrawBleedInfo(bleedInfo.ShouldDrawBleedInfo()),
-artboardIndex(bleedInfo.ArtboardIndex()),
-plateNumber(bleedInfo.PlateNumber()),
-token(bleedInfo.Token()),
-shouldAddCmykBlocks(bleedInfo.ShouldAddCmykBlocks()),
-tmStyle(int(bleedInfo.TickMarkSettings().TickMarkStyle()))
+shouldDrawBleedInfo(bleedInfo->ShouldDrawBleedInfo()),
+artboardIndex(bleedInfo->ArtboardIndex()),
+plateNumber(bleedInfo->PlateNumber()),
+token(bleedInfo->Token()),
+shouldAddCmykBlocks(bleedInfo->ShouldAddCmykBlocks()),
+tmStyle(int(bleedInfo->TickMarkSettings().TickMarkStyle()))
 {
-    artboardName = bleedInfo.ArtboardName(isDefaultArtboardName);
+    artboardName = bleedInfo->ArtboardName(isDefaultArtboardName);
     
-    for (auto color : bleedInfo.ColorList().GetColorList())
+    for (auto color : SafeguardFile::ColorList(GetArtboardBounds(artboardIndex)).GetColorList() )
     {
         c.push_back(ColorDTO(color, fullColorName));
     }
 }
 
-PlateDTO::PlateDTO(string jsonBleedInfo)
+PlateDTO::PlateDTO(const string jsonBleedInfo)
 {
     std::istringstream is(jsonBleedInfo);
     {
@@ -55,6 +58,15 @@ PlateDTO::PlateDTO(string jsonBleedInfo)
         }
     }
 }
+
+SafeguardJobFileDTO::SafeguardJobFileDTO(SafeguardFile::SafeguardJobFile* sgJobFile, bool fullColorName)
+{
+    for ( auto plate : sgJobFile->GetPlates() )
+    {
+        AddPlate( PlateBleedInfo::PlateDTO(&(plate.second.GetBleedInfo()), fullColorName) );
+    }
+}
+
 
 void SafeguardJobFileDTO::WriteToDocumentDictionary()
 {

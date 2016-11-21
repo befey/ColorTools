@@ -196,7 +196,7 @@ ASErr SafeguardToolsPlugin::PostStartupPlugin()
     
     if (NULL == plateBleedInfoUIController)
     {
-        plateBleedInfoUIController = std::make_shared<SafeguardFile::PlateBleedInfoUIController>();
+        plateBleedInfoUIController = std::make_shared<PlateBleedInfo::PlateBleedInfoUIController>();
         
         error = Plugin::LockPlugin(true);
         if (error) { return error; }

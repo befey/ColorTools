@@ -206,8 +206,7 @@ string PrintToPdfUIController::GetJsonBleedInfoDto() const
     std::stringstream ss;
     {
         SafeguardJobFile sgJobFile;
-        PlateBleedInfoDTO::SafeguardJobFileDTO dto;
-        sgJobFile.PutDataInDTO(dto, true);
+        PlateBleedInfo::SafeguardJobFileDTO dto(&sgJobFile, true);
         cereal::JSONOutputArchive oarchive(ss); // Create an output archive
         oarchive(CEREAL_NVP(dto));
     }

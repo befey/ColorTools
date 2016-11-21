@@ -19,7 +19,7 @@
 #include "cereal/types/vector.hpp"
 #include "cereal/archives/json.hpp"
 
-using SafeguardFile::PlateBleedInfoUIController;
+using PlateBleedInfo::PlateBleedInfoUIController;
 using SafeguardFile::SafeguardJobFile;
 
 void PlateBleedInfoUIController::PanelLoaded (const csxs::event::Event* const event, void* const context)
@@ -53,7 +53,7 @@ void PlateBleedInfoUIController::OkButtonClickedFunc (const csxs::event::Event* 
         // Set up the application context, so that suite calls can work.
         AppContext appContext(gPlugin->GetPluginRef());
         
-        PlateBleedInfoDTO::SafeguardJobFileDTO plateBleedInfoDTO;
+        PlateBleedInfo::SafeguardJobFileDTO plateBleedInfoDTO;
         std::istringstream is(event->data);
         {
             try
@@ -67,8 +67,7 @@ void PlateBleedInfoUIController::OkButtonClickedFunc (const csxs::event::Event* 
             }
         }
         
-        SafeguardJobFile sgJobFile;
-        sgJobFile.LoadDataFromDTO(plateBleedInfoDTO);
+        SafeguardJobFile sgJobFile(&plateBleedInfoDTO);
         sgJobFile.UpdateBleedInfo();  //Refresh the file with the new data
         
         BtDocumentView docView;
@@ -250,8 +249,7 @@ string PlateBleedInfoUIController::GetBleedInfoAsJson(bool fullColorName) const
     std::ostringstream os;
     {
         SafeguardJobFile sgJobFile;
-        PlateBleedInfoDTO::SafeguardJobFileDTO dto;
-        sgJobFile.PutDataInDTO(dto, fullColorName);
+        PlateBleedInfo::SafeguardJobFileDTO dto(&sgJobFile, fullColorName);
         cereal::JSONOutputArchive oarchive(os); // Create an output archive
         oarchive(CEREAL_NVP(dto));
     }

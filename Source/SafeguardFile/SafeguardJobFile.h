@@ -16,9 +16,13 @@
 #include "ColorList.h"
 #include "PrintToPdfConstants.h"
 #include "AICSXS.h"
-#include "SafeguardJobFileDTO.hpp"
 
 extern AICSXSExtensionSuite* sAICSXSExtension;
+
+namespace PlateBleedInfo
+{
+    class SafeguardJobFileDTO;
+}
 
 namespace SafeguardFile
 {
@@ -26,10 +30,8 @@ namespace SafeguardFile
     {
     public:
         SafeguardJobFile();
-        ~SafeguardJobFile();
-        
-        vector<BleedInfo> GetBleedInfo() const;
-        
+        SafeguardJobFile(const PlateBleedInfo::SafeguardJobFileDTO* dto);
+                
         const PlateNumber GetPlateNumber(int plateIndex = 0) const;
         const string GetToken(int plateIndex = 0) const;
         AIRealRect GetBleeds(int plateIndex = 0) const;
@@ -42,8 +44,7 @@ namespace SafeguardFile
         void EditBleedInfo();
         void RemoveBleedInfo();
         
-        void PutDataInDTO(PlateBleedInfoDTO::SafeguardJobFileDTO& dto, bool fullColorName = false);
-        void LoadDataFromDTO(PlateBleedInfoDTO::SafeguardJobFileDTO dto);
+        const map<int, Plate>& GetPlates() const { return plates; };
     private:
         map<int, Plate> plates;        
     };

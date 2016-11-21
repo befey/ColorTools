@@ -14,11 +14,12 @@
 #include "ArtTree.h"
 #include <vector>
 #include "BleedInfoPluginArtToArtboardMatcher.hpp"
+#include "SafeguardJobFileDTO.hpp"
 
 using SafeguardFile::SafeguardJobFile;
 using SafeguardFile::PlateNumber;
-using SafeguardFile::PlateBleedInfoUIController;
-using SafeguardFile::BleedInfo;
+using PlateBleedInfo::PlateBleedInfoUIController;
+using PlateBleedInfo::BleedInfo;
 
 SafeguardJobFile::SafeguardJobFile()
 {
@@ -28,56 +29,19 @@ SafeguardJobFile::SafeguardJobFile()
     }
 }
 
-SafeguardJobFile::~SafeguardJobFile()
+SafeguardJobFile::SafeguardJobFile(const PlateBleedInfo::SafeguardJobFileDTO* dto)
 {
-    vector<AIArtHandle> pluginArts;
-    for ( auto p : plates )
+    for ( int i = 0; i < GetArtboardCount(); i++ )
     {
-        if (p.second.GetBleedInfoPluginArtHandle())
-        {
-            pluginArts.push_back(p.second.GetBleedInfoPluginArtHandle());
-        }
-    }
-    if (pluginArts.size() > 0)
-    {
-        DictionaryWriter dw;
-        dw.AddVectorOfAIArtHandleToDictionary(pluginArts, SG_BLEEDINFO_ARTHANDLES);
-    }
-}
-
-void SafeguardJobFile::PutDataInDTO(PlateBleedInfoDTO::SafeguardJobFileDTO& dto, bool fullColorName)
-{
-    for ( auto plate : plates )
-    {
-        dto.AddPlate( PlateBleedInfoDTO::PlateDTO(plate.second.BleedInfo(), fullColorName) );
-    }
-}
-
-void SafeguardJobFile::LoadDataFromDTO(PlateBleedInfoDTO::SafeguardJobFileDTO dto)
-{
-    for ( auto platedto : dto.GetPlateDTOs() )
-    {
-        plates.at(platedto.artboardIndex).FillBleedInfoFromPlateDTO(&platedto);
+        plates.emplace(i, Plate(i, &dto->GetPlateDTOs()[i]));
     }
 }
 
 void SafeguardJobFile::UpdateBleedInfo(bool skipCheck)
 {
-    if ( skipCheck || PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().IsBleedInfoPluginArtCreated() )
+    for ( auto& plate : plates )
     {
-        size_t gTimeStamp = sAIArt->GetGlobalTimeStamp();
-        DictionaryWriter dw;
-        AIReal aTSDict = dw.GetAIRealFromIdentifier(SafeguardFile::PLATE_BLEEDINFO_TIMESTAMP);
-        
-        if ( gTimeStamp != aTSDict )
-        {
-            for ( auto& plate : plates )
-            {
-                plate.second.DrawBleedInfo();
-            }
-            DictionaryWriter dw;
-            dw.AddAIRealToDictionary(sAIArt->GetGlobalTimeStamp(), SafeguardFile::PLATE_BLEEDINFO_TIMESTAMP);
-        }
+        plate.second.DrawBleedInfo();
     }
 }
 
@@ -103,16 +67,6 @@ void SafeguardJobFile::RemoveBleedInfo()
     {
         plate.second.RemoveBleedInfo();
     }
-}
-
-vector<BleedInfo> SafeguardJobFile::GetBleedInfo() const
-{
-    vector<BleedInfo> bi;
-    for ( auto plate : plates )
-    {
-        bi.push_back(plate.second.BleedInfo());
-    }
-    return bi;
 }
 
 const PlateNumber SafeguardJobFile::GetPlateNumber(int plateIndex) const

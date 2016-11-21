@@ -13,7 +13,7 @@
 #include "GetIllustratorErrorCode.h"
 
 
-using SafeguardFile::BleedInfoDrawer;
+using PlateBleedInfo::BleedInfoDrawer;
 
 BleedInfoDrawer::BleedInfoDrawer(BleedInfo bleedInfo)
 :
@@ -21,7 +21,7 @@ bleedInfo(bleedInfo)
 {
     AddDrawer( MakeTickMarkDrawer(bleedInfo.TickMarkSettings()) );
     
-    ProductType pt = bleedInfo.PlateNumber().GetProductType();
+    SafeguardFile::ProductType pt = bleedInfo.PlateNumber().GetProductType();
     
     AddDrawer( MakeColorListDrawer(pt, bleedInfo.ArtboardBounds(), bleedInfo.ColorList()) );
     AddDrawer( MakeFileNameDateDrawer(pt, bleedInfo.ArtboardBounds(), bleedInfo.PlateNumber(), bleedInfo.Token(), bleedInfo.LastModified()) );
@@ -36,10 +36,10 @@ bleedInfo(bleedInfo)
             .bottom = abBounds.top + 5
         };
         
-        AddDrawer( MakeSgSymbolDrawer(bounds, AI_CMYK_BLOCKS) );
+        AddDrawer( MakeSgSymbolDrawer(bounds, SafeguardFile::AI_CMYK_BLOCKS) );
     }
     
-    if (bleedInfo.PlateNumber().GetProductType() == Continuous)
+    if (bleedInfo.PlateNumber().GetProductType() == SafeguardFile::Continuous)
     {
         AIRealRect abBounds = bleedInfo.ArtboardBounds();
         AIRealRect bounds = { //Reg block is 24.3x36px
@@ -49,7 +49,7 @@ bleedInfo(bleedInfo)
             .bottom = abBounds.top - 42 - 36
         };
         
-        AddDrawer( MakeSgSymbolDrawer(bounds, AI_CONTINUOUS_REG_TARGET) );
+        AddDrawer( MakeSgSymbolDrawer(bounds, SafeguardFile::AI_CONTINUOUS_REG_TARGET) );
     }
 }
 
@@ -62,62 +62,70 @@ BleedInfoDrawer& BleedInfoDrawer::AddDrawer(shared_ptr<IDrawer> val)
     return *this;
 }
 
-shared_ptr<IDrawer> BleedInfoDrawer::MakeColorListDrawer(ProductType pt, AIRealRect artboardBounds, ColorList colorList)
+shared_ptr<IDrawer> BleedInfoDrawer::MakeColorListDrawer(SafeguardFile::ProductType pt, AIRealRect artboardBounds, SafeguardFile::ColorList colorList)
 {
-    if (pt == ProductType::BusinessStat)
+    if (pt == SafeguardFile::ProductType::BusinessStat)
     {
-        return make_shared<BusStatColorListDrawer>(artboardBounds, colorList);
+        return make_shared<SafeguardFile::BusStatColorListDrawer>(artboardBounds, colorList);
     }
-    else if (pt == ProductType::Continuous)
+    else if (pt == SafeguardFile::ProductType::Continuous)
     {
-        return make_shared<ContinuousColorListDrawer>(artboardBounds, colorList);
+        return make_shared<SafeguardFile::ContinuousColorListDrawer>(artboardBounds, colorList);
     }
-    else if (pt == ProductType::CutSheet || pt == ProductType::Envelope)
+    else if (pt == SafeguardFile::ProductType::CutSheet || pt == SafeguardFile::ProductType::Envelope)
     {
-        return make_shared<LaserColorListDrawer>(artboardBounds, colorList);
+        return make_shared<SafeguardFile::LaserColorListDrawer>(artboardBounds, colorList);
     }
     
     return nullptr;
 }
 
-shared_ptr<IDrawer> BleedInfoDrawer::MakeFileNameDateDrawer(ProductType pt, AIRealRect artboardBounds, PlateNumber plateNumber, string token, tm lastModified)
+shared_ptr<IDrawer> BleedInfoDrawer::MakeFileNameDateDrawer(SafeguardFile::ProductType pt, AIRealRect artboardBounds, SafeguardFile::PlateNumber plateNumber, string token, tm lastModified)
 {
-    if (pt == ProductType::BusinessStat)
+    if (pt == SafeguardFile::ProductType::BusinessStat)
     {
-        return make_shared<BusStatFileNameDateDrawer>(artboardBounds, plateNumber, token, lastModified);
+        return make_shared<SafeguardFile::BusStatFileNameDateDrawer>(artboardBounds, plateNumber, token, lastModified);
     }
-    else if (pt == ProductType::Continuous)
+    else if (pt == SafeguardFile::ProductType::Continuous)
     {
-        return make_shared<ContinuousFileNameDateDrawer>(artboardBounds, plateNumber, token, lastModified);
+        return make_shared<SafeguardFile::ContinuousFileNameDateDrawer>(artboardBounds, plateNumber, token, lastModified);
     }
-    else if (pt == ProductType::CutSheet || pt == ProductType::Envelope)
+    else if (pt == SafeguardFile::ProductType::CutSheet || pt == SafeguardFile::ProductType::Envelope)
     {
-        return make_shared<LaserFileNameDateDrawer>(artboardBounds, plateNumber, token, lastModified);
+        return make_shared<SafeguardFile::LaserFileNameDateDrawer>(artboardBounds, plateNumber, token, lastModified);
     }
     
     return nullptr;
 }
 
-shared_ptr<IDrawer> BleedInfoDrawer::MakeTickMarkDrawer(TickMarkSettings tmSettings)
+shared_ptr<IDrawer> BleedInfoDrawer::MakeTickMarkDrawer(SafeguardFile::TickMarkSettings tmSettings)
 {
-    return make_shared<TickMarkDrawer>(tmSettings);
+    return make_shared<SafeguardFile::TickMarkDrawer>(tmSettings);
 }
 
 shared_ptr<IDrawer> BleedInfoDrawer::MakeSgSymbolDrawer(AIRealRect artboardBounds, string symbolName)
 {
-    return make_shared<SgSymbolDrawer>(artboardBounds, symbolName);
+    return make_shared<SafeguardFile::SgSymbolDrawer>(artboardBounds, symbolName);
 }
 
 AIArtHandle BleedInfoDrawer::DoDraw(AIArtHandle pluginGroupArt) const
 {
-    if (pluginGroupArt)
+    if (bleedInfo.ShouldDrawBleedInfo())
     {
-        return Update(pluginGroupArt);
+        if (bleedInfo.BleedInfoPluginArtHandle())
+        {
+            return Update(bleedInfo.BleedInfoPluginArtHandle());
+        }
+        else
+        {
+            return Add();
+        }
     }
     else
     {
-        return Add();
+        Remove(); // bleedInfoPluginArt = NULL;
     }
+
     return NULL;
 }
 
@@ -125,7 +133,7 @@ AIArtHandle BleedInfoDrawer::Add() const
 {
     AIArtHandle pluginGroupArt;
     
-    BtLayer foregroundLayer(FOREGROUND_LAYER);
+    BtLayer foregroundLayer(SafeguardFile::FOREGROUND_LAYER);
     AIArtHandle prep = foregroundLayer.GetLayerGroupArt();
     
     AIErr err = sAIArt->NewArt(kPluginArt, kPlaceInsideOnBottom, prep, &pluginGroupArt);
@@ -171,8 +179,8 @@ void BleedInfoDrawer::ClearResultArt(AIArtHandle resultGroupArt) const
     }
 }
 
-void BleedInfoDrawer::Remove(AIArtHandle& pluginGroupArt) const
+AIArtHandle BleedInfoDrawer::Remove() const
 {
-    sAIArt->DisposeArt(pluginGroupArt);
-    pluginGroupArt = NULL;
+    sAIArt->DisposeArt(bleedInfo.BleedInfoPluginArtHandle());
+    return NULL;
 }

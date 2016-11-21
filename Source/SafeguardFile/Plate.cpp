@@ -10,38 +10,28 @@
 #include "SafeguardFileConstants.h"
 #include "TickMarkSettings.hpp"
 #include "DictionaryWriter.h"
-#include "SafeguardJobFileDTO.hpp"
-#include "BleedInfoPluginArtToArtboardMatcher.hpp"
 #include <boost/filesystem/operations.hpp>
 #include <ctime>
-
-#include "cereal/cereal.hpp"
-#include "cereal/archives/json.hpp"
+#include "BleedInfoWriter.hpp"
+#include "BleedInfoPluginArtToArtboardMatcher.hpp"
 
 using SafeguardFile::Plate;
 using SafeguardFile::PlateNumber;
 using PrintToPdf::PdfPreset;
-using SafeguardFile::BleedInfo;
+using PlateBleedInfo::BleedInfo;
 
 namespace fs = boost::filesystem;
 
 Plate::Plate(ai::ArtboardID id)
 : bleedInfo(id)
 {
-    bleedInfoPluginArt = PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().GetArt(id);
-    
-    if (bleedInfoPluginArt)
-    {
-        DictionaryWriter dw(bleedInfoPluginArt);
-        string json;
-        dw.GetStringDataFromIdentifier(json, PLATE_BLEEDINFO);
-        
-        PlateBleedInfoDTO::PlateDTO dto(json);
-
-        FillBleedInfoFromPlateDTO(&dto);
-    }
 }
 
+Plate::Plate(ai::ArtboardID id, const PlateBleedInfo::PlateDTO* dto) : Plate(id)
+{
+    bleedInfo.FillBleedInfoFromPlateDTO(dto);
+}
+    
 const PlateNumber Plate::GetPlateNumber() const
 {
     return bleedInfo.PlateNumber();
@@ -52,38 +42,14 @@ const string Plate::GetToken() const
     return bleedInfo.Token();
 }
 
-BleedInfo& Plate::BleedInfo()
-{
-    return bleedInfo;
-}
-
 void Plate::DrawBleedInfo()
 {
-    bleedInfoDrawer = make_shared<BleedInfoDrawer>(bleedInfo);
-    
-    if (ShouldDrawBleedInfo())
-    {
-        bleedInfoPluginArt = bleedInfoDrawer->Draw(bleedInfoPluginArt);
-        WriteBleedInfoToPluginArt();
-    }
-    else
-    {
-        RemoveBleedInfo(); // bleedInfoPluginArt = NULL;
-    }
+    bleedInfo.Draw();
 }
-
-bool Plate::ShouldDrawBleedInfo()
-{
-    return bleedInfo.ShouldDrawBleedInfo();
-}
-
 
 void Plate::RemoveBleedInfo()
 {
-    if (bleedInfoPluginArt)
-    {
-        bleedInfoDrawer->Remove(bleedInfoPluginArt); // bleedInfoPluginArt = NULL;
-    }
+    bleedInfo.Remove();
 }
                     
 AIRealRect Plate::GetArtboardBounds() const
@@ -109,38 +75,4 @@ AIRealRect Plate::GetBleeds() const
 SafeguardFile::ColorList Plate::GetColors()
 {
     return bleedInfo.ColorList();
-}
-
-string Plate::GetBleedInfoAsJson(bool fullColorName) const
-{
-    std::ostringstream os;
-    {
-        PlateBleedInfoDTO::PlateDTO pdto(bleedInfo, fullColorName);
-        cereal::JSONOutputArchive oarchive(os); // Create an output archive
-        oarchive(pdto);
-    }
-    return os.str();
-}
-
-void Plate::FillBleedInfoFromPlateDTO(PlateBleedInfoDTO::PlateDTO* dto)
-{
-    BleedInfo()
-    .ShouldDrawBleedInfo(dto->shouldDrawBleedInfo)
-    //.ArtboardName(dto->artboardName) //Do not set artboard name here or we'll overwrite what's been set in artboards panel.
-    //.ShouldAddCmykBlocks(dto->shouldAddCmykBlocks) //Do not set cmyk blocks here or we'll overwrite what's been set by the file type and color list
-    .TickMarkStyle(TickMarkStyle(dto->tmStyle));
-    for ( auto color : dto->c )
-    {
-        BleedInfo().ColorList().SetColorMethod(color.colorName, InkMethod(color.method) );
-    }
-    WriteBleedInfoToPluginArt();
-}
-
-void Plate::WriteBleedInfoToPluginArt()
-{
-    if (bleedInfoPluginArt)
-    {
-        DictionaryWriter dw(bleedInfoPluginArt);
-        dw.AddStringDataToDictionary(GetBleedInfoAsJson(false), PLATE_BLEEDINFO);
-    }
 }

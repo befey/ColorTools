@@ -8,12 +8,17 @@
 
 #include "BleedInfo.h"
 #include "ArtTree.h"
+#include "BleedInfoPluginArtToArtboardMatcher.hpp"
+#include "DictionaryWriter.h"
+#include "BleedInfoWriter.hpp"
+#include "BleedInfoDrawer.h"
+#include "SafeguardJobFileDTO.hpp"
 #include <boost/system/system_error.hpp>
 #include <boost/filesystem/operations.hpp>
 
 namespace fs = boost::filesystem;
 
-using SafeguardFile::BleedInfo;
+using PlateBleedInfo::BleedInfo;
 
 BleedInfo::BleedInfo(ai::ArtboardID artboardIndex)
 :
@@ -22,12 +27,24 @@ colorList(ArtboardBounds())
 {
     SetPlateNumber();
     
-    if (plateNumber.GetProductType() == CutSheet && colorList.HasCMYK())
+    if (plateNumber.GetProductType() == SafeguardFile::CutSheet && colorList.HasCMYK())
     {
         shouldAddCMYKBlocks = true;
     }
     
     tmSettings = SafeguardFile::TickMarkSettings(ArtboardBounds(), plateNumber.GetProductType(), SafeguardFile::TickMarkStyle::NONE);
+    
+    bleedInfoPluginArt = PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().GetArt(artboardIndex);
+    
+    ReadFromPluginArt();
+}
+
+BleedInfo::~BleedInfo()
+{
+    StoreInPluginArt();
+    
+    DictionaryWriter dw;
+    dw.AddVectorOfAIArtHandleToDictionary(vector<AIArtHandle>{bleedInfoPluginArt}, SafeguardFile::SG_BLEEDINFO_ARTHANDLES);
 }
 
 AIRealRect BleedInfo::ArtboardBounds() const
@@ -62,7 +79,7 @@ string BleedInfo::Token() const
     bool isDefaultName;
     string abNameS = ArtboardName(isDefaultName);
     
-    if (isDefaultName || abNameS == NO_TOKEN_DESIG)
+    if (isDefaultName || abNameS == SafeguardFile::NO_TOKEN_DESIG)
     {
         return "";
     }
@@ -76,7 +93,7 @@ BleedInfo& BleedInfo::Token(string newVal)
 {
     if (newVal == "")
     {
-        newVal = NO_TOKEN_DESIG;
+        newVal = SafeguardFile::NO_TOKEN_DESIG;
     }
     return ArtboardName(newVal);
 }
@@ -139,17 +156,17 @@ AIRealRect BleedInfo::Bleeds() const
 {
     AIRealRect bleedRect;
     
-    ProductType pt = PlateNumber().GetProductType();
+    SafeguardFile::ProductType pt = PlateNumber().GetProductType();
     
-    if (pt == ProductType::CutSheet)
+    if (pt == SafeguardFile::ProductType::CutSheet)
     {
         sAIRealMath->AIRealRectSet(&bleedRect, 36, 36, 36, 36);
     }
-    else if (pt == ProductType::BusinessStat)
+    else if (pt == SafeguardFile::ProductType::BusinessStat)
     {
         sAIRealMath->AIRealRectSet(&bleedRect, 12, 12, 12, 12);
     }
-    else if (pt == ProductType::Continuous)
+    else if (pt == SafeguardFile::ProductType::Continuous)
     {
         sAIRealMath->AIRealRectSet(&bleedRect, 9, 9, 9, 9);
     }
@@ -159,4 +176,61 @@ AIRealRect BleedInfo::Bleeds() const
     }
     
     return bleedRect;
+}
+
+void BleedInfo::FillBleedInfoFromPlateDTO(const PlateBleedInfo::PlateDTO* dto)
+{
+    ShouldDrawBleedInfo(dto->shouldDrawBleedInfo);
+    //.ArtboardName(dto->artboardName) //Do not set artboard name here or we'll overwrite what's been set in artboards panel.
+    //.ShouldAddCmykBlocks(dto->shouldAddCmykBlocks) //Do not set cmyk blocks here or we'll overwrite what's been set by the file type and color list
+    TickMarkStyle(SafeguardFile::TickMarkStyle(dto->tmStyle));
+    for ( auto color : dto->c )
+    {
+        ColorList().SetColorMethod(color.colorName, SafeguardFile::InkMethod(color.method) );
+    }
+}
+
+void BleedInfo::StoreInPluginArt() const
+{
+    BleedInfoWriter(this, make_shared<BleedInfoToArtStrategy>(bleedInfoPluginArt));
+}
+
+void BleedInfo::ReadFromPluginArt()
+{
+    if (bleedInfoPluginArt)
+    {
+        DictionaryWriter dw(bleedInfoPluginArt);
+        string json;
+        dw.GetStringDataFromIdentifier(json, SafeguardFile::PLATE_BLEEDINFO);
+        
+        PlateBleedInfo::PlateDTO dto(json);
+        
+        FillBleedInfoFromPlateDTO(&dto);
+    }
+}
+
+void BleedInfo::Draw()
+{
+    if ( PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().IsBleedInfoPluginArtCreated() )
+    {
+        size_t gTimeStamp = sAIArt->GetGlobalTimeStamp();
+        DictionaryWriter dw;
+        AIReal aTSDict = dw.GetAIRealFromIdentifier(SafeguardFile::PLATE_BLEEDINFO_TIMESTAMP, artboardIndex);
+        
+        if ( gTimeStamp != aTSDict )
+        {
+            bleedInfoPluginArt = ( PlateBleedInfo::BleedInfoDrawer(*this).Draw() );
+            auto ptrStrat = make_shared<PlateBleedInfo::BleedInfoToArtStrategy>(bleedInfoPluginArt);
+            PlateBleedInfo::BleedInfoWriter(this, ptrStrat);
+            
+            DictionaryWriter dw;
+            dw.AddAIRealToDictionary(sAIArt->GetGlobalTimeStamp(), SafeguardFile::PLATE_BLEEDINFO_TIMESTAMP, artboardIndex);
+        }
+    }
+}
+
+void BleedInfo::Remove()
+{
+    bleedInfoPluginArt = ( PlateBleedInfo::BleedInfoDrawer(*this).Remove() );
+    bleedInfoPluginArt = NULL;
 }

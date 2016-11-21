@@ -13,22 +13,18 @@
 #include "BleedInfo.h"
 #include "PrintToPdfConstants.h"
 #include "ColorList.h"
-#include "BleedInfoDrawer.h"
 #include "AIFolders.h"
+#include "SafeguardJobFileDTO.hpp"
 
 extern AIFoldersSuite* sAIFolders;
 
-namespace PlateBleedInfoDTO
-{
-    class PlateDTO;
-}
-    
 namespace SafeguardFile
 {    
     class Plate
     {
     public:
         Plate(ai::ArtboardID id);
+        Plate(ai::ArtboardID id, const PlateBleedInfo::PlateDTO* dto);
         
         AIRealRect GetArtboardBounds() const;
         tm GetLastModified() const;
@@ -37,25 +33,16 @@ namespace SafeguardFile
         const ai::ArtboardID GetArtboardIndex() const { return bleedInfo.ArtboardIndex(); };
         const PlateNumber GetPlateNumber() const;
         const string GetToken() const;
-        AIArtHandle GetBleedInfoPluginArtHandle() const { return bleedInfoPluginArt; };
         
         AIRealRect GetBleeds() const;
         SafeguardFile::ColorList GetColors();
-        
-        BleedInfo& BleedInfo();
-        void FillBleedInfoFromPlateDTO(PlateBleedInfoDTO::PlateDTO* dto);
-        
+                
         void DrawBleedInfo();
         void RemoveBleedInfo();
-        bool ShouldDrawBleedInfo();
+        
+        const PlateBleedInfo::BleedInfo& GetBleedInfo() const { return bleedInfo; };
     private:
-        class BleedInfo bleedInfo;
-        AIArtHandle bleedInfoPluginArt = NULL;
-        
-        shared_ptr<SafeguardFile::BleedInfoDrawer> bleedInfoDrawer;
-        
-        string GetBleedInfoAsJson(bool fullColorName = false) const;
-        void WriteBleedInfoToPluginArt();
+        PlateBleedInfo::BleedInfo bleedInfo;
     };
 }
 #endif /* defined(__SafeguardTools__Plate__) */

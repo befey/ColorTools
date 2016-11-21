@@ -129,7 +129,7 @@ protected:
 private:
     shared_ptr<ColorToolsUIController> colorToolsUIController;
     shared_ptr<PrintToPdf::PrintToPdfUIController> printToPdfUIController;
-    shared_ptr<SafeguardFile::PlateBleedInfoUIController> plateBleedInfoUIController;
+    shared_ptr<PlateBleedInfo::PlateBleedInfoUIController> plateBleedInfoUIController;
     
     /**	Notifier handles**/
     AINotifierHandle fRegisterEventNotifierHandle;

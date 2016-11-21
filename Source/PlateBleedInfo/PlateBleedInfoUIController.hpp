@@ -21,7 +21,7 @@
 class SafeguardToolsPlugin;
 extern SafeguardToolsPlugin *gPlugin;
 
-namespace SafeguardFile
+namespace PlateBleedInfo
 {
     //=================================
     // PlateBleedInfoUIController - handles communication between extension and plugin

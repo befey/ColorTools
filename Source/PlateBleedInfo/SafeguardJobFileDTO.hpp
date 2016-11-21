@@ -9,15 +9,21 @@
 #ifndef PlateBleedInfoDTO_hpp
 #define PlateBleedInfoDTO_hpp
 
-#include "BleedInfo.h"
 #include "BtColor.h"
 #include "cereal/cereal.hpp"
 #include "cereal/access.hpp"
 #include "cereal/types/vector.hpp"
 #include "cereal/types/string.hpp"
 
-namespace PlateBleedInfoDTO
+namespace SafeguardFile
 {
+    class SafeguardJobFile;
+}
+
+namespace PlateBleedInfo
+{
+    class BleedInfo;
+    
     class ColorDTO
     {
     public:
@@ -42,8 +48,8 @@ namespace PlateBleedInfoDTO
     {
     public:
         PlateDTO() {};
-        PlateDTO(SafeguardFile::BleedInfo bleedInfo, bool fullColorName = false);
-        PlateDTO(string jsonBleedInfo);
+        PlateDTO(const PlateBleedInfo::BleedInfo* bleedInfo, const bool fullColorName = false);
+        PlateDTO(const string jsonBleedInfo);
         
         bool shouldDrawBleedInfo;
         int artboardIndex;
@@ -77,6 +83,7 @@ namespace PlateBleedInfoDTO
     {
     public:
         SafeguardJobFileDTO() {};
+        SafeguardJobFileDTO(SafeguardFile::SafeguardJobFile* sgJobFile, bool fullColorName);
         
         int NumPlates() const { return int(plates.size()); };
         void AddPlate(PlateDTO p) { plates.push_back(p); };
