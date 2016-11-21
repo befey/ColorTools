@@ -468,7 +468,11 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
     }
     if (message->notifier == fDocumentCropAreaModifiedNotifierHandle || message->notifier == fArtSelectionChangedNotifierHandle)
     {
+//        sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, FALSE);
+//        sAINotifier->SetNotifierActive(fArtSelectionChangedNotifierHandle, FALSE);
         SafeguardJobFile().UpdateBleedInfo();
+//        sAINotifier->SetNotifierActive(fArtSelectionChangedNotifierHandle, TRUE);
+//        sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, TRUE);
     }
     return kNoErr;
 }
