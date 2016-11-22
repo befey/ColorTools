@@ -37,24 +37,11 @@ SafeguardJobFile::SafeguardJobFile(const PlateBleedInfo::SafeguardJobFileDTO* dt
     }
 }
 
-void SafeguardJobFile::UpdateBleedInfo(bool skipCheck)
+void SafeguardJobFile::UpdateBleedInfo()
 {
-    if (skipCheck || PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().IsBleedInfoPluginArtCreated() )
+    for ( auto& plate : plates )
     {
-        size_t gTimeStamp = sAIArt->GetGlobalTimeStamp();
-        DictionaryWriter dw;
-        AIReal aTSDict = dw.GetAIRealFromIdentifier(SafeguardFile::PLATE_BLEEDINFO_TIMESTAMP);
-        
-        if ( gTimeStamp != aTSDict )
-        {
-            for ( auto& plate : plates )
-            {
-                plate.second->DrawBleedInfo();
-            }
-            
-            DictionaryWriter dw;
-            dw.AddAIRealToDictionary(sAIArt->GetGlobalTimeStamp(), SafeguardFile::PLATE_BLEEDINFO_TIMESTAMP);
-        }
+        plate.second->DrawBleedInfo();
     }
 }
 
@@ -62,7 +49,7 @@ void SafeguardJobFile::EditBleedInfo()
 {
     if ( !PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().IsBleedInfoPluginArtCreated() )
     {
-        UpdateBleedInfo(true);
+        UpdateBleedInfo();
     }
     
     BtDocumentView docView;

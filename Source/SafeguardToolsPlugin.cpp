@@ -19,6 +19,7 @@
 #include "DictionaryWriter.h"
 #include "PdfPrinter.h"
 #include "BleedInfo.h"
+#include "BleedInfoPluginArtToArtboardMatcher.hpp"
 #include "ListFonts.h"
 #include "BtDocumentView.hpp"
 
@@ -355,7 +356,7 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
     }
     else if ( message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
     {
-        SafeguardJobFile().UpdateBleedInfo(true);
+        SafeguardJobFile().UpdateBleedInfo();
     }
     else if ( message->menuItem == menuItemHandles.GetHandleWithKey(EDIT_PLATE_BLEED_INFO_MENU_ITEM) )
     {
@@ -470,7 +471,21 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
     {
 //        sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, FALSE);
 //        sAINotifier->SetNotifierActive(fArtSelectionChangedNotifierHandle, FALSE);
-        SafeguardJobFile().UpdateBleedInfo();
+        if (PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().IsBleedInfoPluginArtCreated() )
+        {
+            size_t gTimeStamp = sAIArt->GetGlobalTimeStamp();
+            DictionaryWriter dw;
+            AIReal aTSDict = dw.GetAIRealFromIdentifier(SafeguardFile::PLATE_BLEEDINFO_TIMESTAMP);
+            
+            if ( gTimeStamp != aTSDict )
+            {
+                SafeguardJobFile().UpdateBleedInfo();
+                
+                DictionaryWriter dw;
+                dw.AddAIRealToDictionary(sAIArt->GetGlobalTimeStamp(), SafeguardFile::PLATE_BLEEDINFO_TIMESTAMP);
+            }
+        }
+        
 //        sAINotifier->SetNotifierActive(fArtSelectionChangedNotifierHandle, TRUE);
 //        sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, TRUE);
     }
