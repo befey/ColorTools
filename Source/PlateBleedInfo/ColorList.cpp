@@ -132,9 +132,12 @@ void ColorList::RemoveDuplicates()
             p_ColorList.erase(
                               std::remove_if(p_ColorList.begin(), p_ColorList.end(), [](BtColor c)
                                              {
-                                                 if (ColorIsBlack(c.AiColor()))
+                                                 if (c.Kind() != kFourColor)
                                                  {
-                                                     return true;
+                                                     if (ColorIsBlack(c.AiColor()))
+                                                     {
+                                                         return true;
+                                                     }
                                                  }
                                                  return false;
                                              }
