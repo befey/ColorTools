@@ -344,21 +344,25 @@ AIBoolean DictionaryWriter::AddVectorOfAIArtHandleToDictionary(vector<AIArtHandl
 
 AIBoolean DictionaryWriter::AddAIArtHandleToArrayInDictionary(AIArtHandle art, string identifier, int CAIndex)
 {
-    vector<AIArtHandle> handles;
-    GetVectorOfAIArtHandleFromIdentifier(handles, identifier, CAIndex);
-    
-    unordered_set<AIArtHandle> artSet;
-    for ( auto handle : handles )
+    if (art != NULL)
     {
-        artSet.insert(handle);
+        vector<AIArtHandle> handles;
+        GetVectorOfAIArtHandleFromIdentifier(handles, identifier, CAIndex);
+        
+        unordered_set<AIArtHandle> artSet;
+        for ( auto handle : handles )
+        {
+            artSet.insert(handle);
+        }
+        artSet.insert(art);
+        
+        handles.clear();
+        for ( auto handle : artSet )
+        {
+            handles.push_back(handle);
+        }
+        
+        return AddVectorOfAIArtHandleToDictionary(handles, identifier, CAIndex);
     }
-    artSet.insert(art);
-    
-    handles.clear();
-    for ( auto handle : artSet )
-    {
-        handles.push_back(handle);
-    }
-    
-    return AddVectorOfAIArtHandleToDictionary(handles, identifier, CAIndex);
+    return FALSE;
 }
