@@ -39,14 +39,6 @@ colorList(ArtboardBounds())
     ReadFromPluginArt();
 }
 
-BleedInfo::~BleedInfo()
-{
-    StoreInPluginArt();
-    
-    DictionaryWriter dw;
-    dw.AddAIArtHandleToArrayInDictionary(bleedInfoPluginArt, SafeguardFile::SG_BLEEDINFO_ARTHANDLES);
-}
-
 AIRealRect BleedInfo::ArtboardBounds() const
 {
     ai::ArtboardList abList;
@@ -212,6 +204,10 @@ void BleedInfo::ReadFromPluginArt()
 void BleedInfo::Draw()
 {
     bleedInfoPluginArt = ( PlateBleedInfo::BleedInfoDrawer(make_shared<BleedInfo>(*this)).Draw() );
+    StoreInPluginArt();
+    
+    DictionaryWriter dw;
+    dw.AddAIArtHandleToArrayInDictionary(bleedInfoPluginArt, SafeguardFile::SG_BLEEDINFO_ARTHANDLES);
 }
 
 void BleedInfo::Remove()

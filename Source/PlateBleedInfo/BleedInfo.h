@@ -29,7 +29,6 @@ namespace PlateBleedInfo
     {
     public:
         BleedInfo(ai::ArtboardID artboardIndex);
-        ~BleedInfo();
         
         ai::ArtboardID ArtboardIndex() const { return artboardIndex; };
         AIRealRect ArtboardBounds() const;
