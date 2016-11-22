@@ -37,7 +37,7 @@ tmStyle(int(bleedInfo->TickMarkSettings().TickMarkStyle()))
 {
     artboardName = bleedInfo->ArtboardName(isDefaultArtboardName);
     
-    for (auto color : SafeguardFile::ColorList(GetArtboardBounds(artboardIndex)).GetColorList() )
+    for (auto color : bleedInfo->ConstColorList().GetColorList() )
     {
         c.push_back(ColorDTO(color, fullColorName));
     }

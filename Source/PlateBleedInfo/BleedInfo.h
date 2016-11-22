@@ -51,6 +51,7 @@ namespace PlateBleedInfo
         BleedInfo& ShouldAddCmykBlocks(bool newVal) { shouldAddCMYKBlocks = newVal; return *this; };
         const SafeguardFile::PlateNumber PlateNumber() const { return plateNumber; };
         SafeguardFile::ColorList& ColorList() { return colorList; };
+        SafeguardFile::ColorList ConstColorList() const { return colorList; };
     
         AIRealRect Bleeds() const;
         void FillBleedInfoFromPlateDTO(const PlateBleedInfo::PlateDTO* dto);
