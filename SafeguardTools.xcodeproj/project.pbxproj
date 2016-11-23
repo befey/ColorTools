@@ -153,6 +153,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F95E84341DE61BF2006410AE /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /Library/Fonts;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F9AE0DD71DCCD9EA001F460D /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -234,6 +243,7 @@
 		F947263D1CB2E1F400649020 /* VPB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPB.h; path = "Source/utility-headers/VPB.h"; sourceTree = "<group>"; };
 		F947263E1CB2E1F400649020 /* VPB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VPB.cpp; path = "Source/utility-headers/VPB.cpp"; sourceTree = "<group>"; };
 		F955E6CF1D9300D100AEE6BD /* common.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = common.css; path = com.gosafeguard.SafeguardTools/css/common.css; sourceTree = "<group>"; };
+		F95E84321DE61B60006410AE /* IDAutomationC39XS.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = IDAutomationC39XS.otf; sourceTree = "<group>"; };
 		F965B58C1D1072F200B0C04C /* ListFonts.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ListFonts.cpp; path = Source/ListFonts/ListFonts.cpp; sourceTree = "<group>"; };
 		F965B58D1D1072F200B0C04C /* ListFonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ListFonts.h; path = Source/ListFonts/ListFonts.h; sourceTree = "<group>"; };
 		F96D30711CB6D73500274BDE /* PlateNumber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlateNumber.cpp; path = Source/SafeguardFile/PlateNumber.cpp; sourceTree = "<group>"; };
@@ -385,6 +395,7 @@
 			isa = PBXGroup;
 			children = (
 				F93264CB1DC7B6D00020B57A /* AiFile */,
+				F95E84311DE61B60006410AE /* Fonts */,
 				F93264C81DC7B4110020B57A /* ListFonts */,
 				F93027D81CA46E7D00D3B41E /* SafeguardTools.r */,
 			);
@@ -508,6 +519,15 @@
 			name = AiFile;
 			path = Resources/Mac/AiFile;
 			sourceTree = "<group>";
+		};
+		F95E84311DE61B60006410AE /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				F95E84321DE61B60006410AE /* IDAutomationC39XS.otf */,
+			);
+			name = Fonts;
+			path = Resources/Mac/Fonts;
+			sourceTree = SOURCE_ROOT;
 		};
 		F963C91C1CC7D3AA00A0D519 /* ColorTools */ = {
 			isa = PBXGroup;
@@ -670,6 +690,7 @@
 				F937AC051D551F86006DD5C4 /* CopyFiles */,
 				F9AE0DD71DCCD9EA001F460D /* CopyFiles */,
 				F93264D91DCA64AB0020B57A /* CopyFiles */,
+				F95E84341DE61BF2006410AE /* CopyFiles */,
 				508817D209F0C9AD0071BF1A /* Frameworks */,
 				6EE2BA0C0A40B77400CC7CE2 /* Rez */,
 			);
