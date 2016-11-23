@@ -41,13 +41,7 @@ colorList(ArtboardBounds())
 
 AIRealRect BleedInfo::ArtboardBounds() const
 {
-    ai::ArtboardList abList;
-    sAIArtboard->GetArtboardList(abList);
-    ai::ArtboardProperties props;
-    sAIArtboard->GetArtboardProperties(abList, artboardIndex, props);
-    AIRealRect rect;
-    props.GetPosition(rect);
-    return rect;
+    return GetArtboardBounds(artboardIndex);
 }
 
 tm BleedInfo::LastModified() const
