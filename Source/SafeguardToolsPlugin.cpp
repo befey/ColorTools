@@ -356,11 +356,19 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
     }
     else if ( message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
     {
+        sAINotifier->SetNotifierActive(gPlugin->fDocumentCropAreaModifiedNotifierHandle, FALSE);
+        sAINotifier->SetNotifierActive(gPlugin->fArtSelectionChangedNotifierHandle, FALSE);
         SafeguardJobFile().UpdateBleedInfo();
+        sAINotifier->SetNotifierActive(gPlugin->fArtSelectionChangedNotifierHandle, TRUE);
+        sAINotifier->SetNotifierActive(gPlugin->fDocumentCropAreaModifiedNotifierHandle, TRUE);
     }
     else if ( message->menuItem == menuItemHandles.GetHandleWithKey(EDIT_PLATE_BLEED_INFO_MENU_ITEM) )
     {
+        sAINotifier->SetNotifierActive(gPlugin->fDocumentCropAreaModifiedNotifierHandle, FALSE);
+        sAINotifier->SetNotifierActive(gPlugin->fArtSelectionChangedNotifierHandle, FALSE);
         SafeguardJobFile().EditBleedInfo();
+        sAINotifier->SetNotifierActive(gPlugin->fArtSelectionChangedNotifierHandle, TRUE);
+        sAINotifier->SetNotifierActive(gPlugin->fDocumentCropAreaModifiedNotifierHandle, TRUE);
     }
 	
 	if (error)
@@ -469,8 +477,8 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
     }
     if (message->notifier == fDocumentCropAreaModifiedNotifierHandle || message->notifier == fArtSelectionChangedNotifierHandle)
     {
-//        sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, FALSE);
-//        sAINotifier->SetNotifierActive(fArtSelectionChangedNotifierHandle, FALSE);
+        sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, FALSE);
+        sAINotifier->SetNotifierActive(fArtSelectionChangedNotifierHandle, FALSE);
         if (PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().IsBleedInfoPluginArtCreated() )
         {
             size_t gTimeStamp = sAIArt->GetGlobalTimeStamp();
@@ -486,8 +494,8 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
             }
         }
         
-//        sAINotifier->SetNotifierActive(fArtSelectionChangedNotifierHandle, TRUE);
-//        sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, TRUE);
+        sAINotifier->SetNotifierActive(fArtSelectionChangedNotifierHandle, TRUE);
+        sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, TRUE);
     }
     return kNoErr;
 }

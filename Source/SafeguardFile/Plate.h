@@ -23,7 +23,7 @@ namespace SafeguardFile
     class Plate
     {
     public:
-        Plate(ai::ArtboardID id);
+        Plate(ai::ArtboardID id) : Plate(id, NULL) {};
         Plate(ai::ArtboardID id, const PlateBleedInfo::PlateDTO* dto);
         
         AIRealRect GetArtboardBounds() const;

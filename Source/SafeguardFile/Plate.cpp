@@ -22,15 +22,9 @@ using PlateBleedInfo::BleedInfo;
 
 namespace fs = boost::filesystem;
 
-Plate::Plate(ai::ArtboardID id)
-: bleedInfo(id)
-{
-}
-
 Plate::Plate(ai::ArtboardID id, const PlateBleedInfo::PlateDTO* dto)
-: bleedInfo(id)
+: bleedInfo(id, dto)
 {
-    bleedInfo.FillBleedInfoFromPlateDTO(dto);
 }
     
 const PlateNumber Plate::GetPlateNumber() const

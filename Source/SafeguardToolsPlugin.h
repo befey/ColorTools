@@ -37,8 +37,9 @@ void FixupReload(Plugin* plugin);
 class SafeguardToolsPlugin : public Plugin
 {
 public:
-	/** Constructor.
-		@param pluginRef IN reference to this plugin.
+    
+    /** Constructor.
+	@param pluginRef IN reference to this plugin.
 	*/
 	SafeguardToolsPlugin(SPPluginRef pluginRef);
 

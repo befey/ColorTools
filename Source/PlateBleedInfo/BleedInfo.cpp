@@ -20,7 +20,7 @@ namespace fs = boost::filesystem;
 
 using PlateBleedInfo::BleedInfo;
 
-BleedInfo::BleedInfo(ai::ArtboardID artboardIndex)
+BleedInfo::BleedInfo(ai::ArtboardID artboardIndex, const PlateBleedInfo::PlateDTO* dto)
 :
 artboardIndex(artboardIndex),
 colorList(ArtboardBounds())
@@ -36,7 +36,14 @@ colorList(ArtboardBounds())
     
     bleedInfoPluginArt = PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().GetArt(artboardIndex);
     
-    ReadFromPluginArt();
+    if (dto != NULL)
+    {
+        FillBleedInfoFromPlateDTO(dto, true);
+    }
+    else
+    {
+        ReadFromPluginArt();
+    }   
 }
 
 AIRealRect BleedInfo::ArtboardBounds() const
@@ -121,7 +128,7 @@ BleedInfo& BleedInfo::ArtboardName(string newVal)
         props.SetName(ai::UnicodeString(newVal));
         sAIArtboard->Update(abList, ArtboardIndex(), props);
     }
-    
+    StoreInPluginArt();
     return *this;
 }
 
@@ -131,11 +138,13 @@ void BleedInfo::SetPlateNumber()
     ai::FilePath openedFilePath;
     sAIDocument->GetDocumentFileSpecification(openedFilePath);
     SetPlateNumber(openedFilePath.GetFileNameNoExt().getInStdString(kAIPlatformCharacterEncoding));
+    StoreInPluginArt();
 }
 
 void BleedInfo::SetPlateNumber(string pn)
 {
     plateNumber = SafeguardFile::PlateNumber(pn);
+    StoreInPluginArt();
 }
 
 AIRealRect BleedInfo::Bleeds() const
@@ -164,16 +173,20 @@ AIRealRect BleedInfo::Bleeds() const
     return bleedRect;
 }
 
-void BleedInfo::FillBleedInfoFromPlateDTO(const PlateBleedInfo::PlateDTO* dto)
+void BleedInfo::FillBleedInfoFromPlateDTO(const PlateBleedInfo::PlateDTO* dto, bool changeArtboardName)
 {
     ShouldDrawBleedInfo(dto->shouldDrawBleedInfo);
-    //.ArtboardName(dto->artboardName) //Do not set artboard name here or we'll overwrite what's been set in artboards panel.
+    if (changeArtboardName)
+    {
+        ArtboardName(dto->artboardName); //Do not set artboard name here or we'll overwrite what's been set in artboards panel.
+    }
     //.ShouldAddCmykBlocks(dto->shouldAddCmykBlocks) //Do not set cmyk blocks here or we'll overwrite what's been set by the file type and color list
     TickMarkStyle(SafeguardFile::TickMarkStyle(dto->tmStyle));
     for ( auto color : dto->c )
     {
         ColorList().SetColorMethod(color.colorName, SafeguardFile::InkMethod(color.method) );
     }
+    StoreInPluginArt();
 }
 
 void BleedInfo::StoreInPluginArt() const
@@ -191,8 +204,9 @@ void BleedInfo::ReadFromPluginArt()
         
         PlateBleedInfo::PlateDTO dto(json);
         
-        FillBleedInfoFromPlateDTO(&dto);
+        FillBleedInfoFromPlateDTO(&dto, false);
     }
+    StoreInPluginArt();
 }
 
 void BleedInfo::Draw()
@@ -202,6 +216,8 @@ void BleedInfo::Draw()
     
     DictionaryWriter dw;
     dw.AddAIArtHandleToArrayInDictionary(bleedInfoPluginArt, SafeguardFile::SG_BLEEDINFO_ARTHANDLES);
+    
+    StoreInPluginArt();
 }
 
 void BleedInfo::Remove()

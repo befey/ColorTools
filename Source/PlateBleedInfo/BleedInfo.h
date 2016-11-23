@@ -28,7 +28,8 @@ namespace PlateBleedInfo
     class BleedInfo
     {
     public:
-        BleedInfo(ai::ArtboardID artboardIndex);
+        BleedInfo(ai::ArtboardID artboardIndex) : BleedInfo(artboardIndex, NULL) {};
+        BleedInfo(ai::ArtboardID artboardIndex, const PlateBleedInfo::PlateDTO* dto);
         
         ai::ArtboardID ArtboardIndex() const { return artboardIndex; };
         AIRealRect ArtboardBounds() const;
@@ -54,7 +55,6 @@ namespace PlateBleedInfo
         SafeguardFile::ColorList ConstColorList() const { return colorList; };
     
         AIRealRect Bleeds() const;
-        void FillBleedInfoFromPlateDTO(const PlateBleedInfo::PlateDTO* dto);
         
         void StoreInPluginArt() const;
         void ReadFromPluginArt();
@@ -74,6 +74,8 @@ namespace PlateBleedInfo
         
         void SetPlateNumber();
         void SetPlateNumber(string pn);
+        
+        void FillBleedInfoFromPlateDTO(const PlateBleedInfo::PlateDTO* dto, bool changeArtboardName);
     };
 }
 
