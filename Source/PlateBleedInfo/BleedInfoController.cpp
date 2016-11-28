@@ -20,8 +20,6 @@ void BleedInfoController::HandleCropAreaNotification()
     if ( ShouldDoUpdate() )
     {
         DrawBleedInfo();
-        DictionaryWriter dw;
-        dw.AddAIRealToDictionary(sAIArt->GetGlobalTimeStamp(), PLATE_BLEEDINFO_TIMESTAMP);
     }
 }
 
@@ -64,4 +62,6 @@ bool BleedInfoController::ShouldDoUpdate()
 void BleedInfoController::DrawBleedInfo()
 {
     SafeguardFile::SafeguardJobFile().UpdateBleedInfo();
+    DictionaryWriter dw;
+    dw.AddAIRealToDictionary(sAIArt->GetGlobalTimeStamp(), PLATE_BLEEDINFO_TIMESTAMP);
 }
