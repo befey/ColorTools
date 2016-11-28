@@ -7,18 +7,12 @@
 //
 
 #include "SafeguardJobFile.h"
-#include "PlateBleedInfoUIController.hpp"
-#include "BtDocumentView.hpp"
-#include "DictionaryWriter.h"
-#include "SafeguardFileConstants.h"
 #include "ArtTree.h"
 #include <vector>
-#include "BleedInfoPluginArtToArtboardMatcher.hpp"
 #include "SafeguardJobFileDTO.hpp"
 
 using SafeguardFile::SafeguardJobFile;
 using SafeguardFile::PlateNumber;
-using PlateBleedInfo::PlateBleedInfoUIController;
 using PlateBleedInfo::BleedInfo;
 
 SafeguardJobFile::SafeguardJobFile()
@@ -44,22 +38,6 @@ void SafeguardJobFile::UpdateBleedInfo()
         plate.second->DrawBleedInfo();
     }
 }
-
-void SafeguardJobFile::EditBleedInfo()
-{
-    if ( !PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().IsBleedInfoPluginArtCreated() )
-    {
-        UpdateBleedInfo();
-    }
-    
-    BtDocumentView docView;
-    docView.StoreCurrentDocumentView();
-    
-    PlateBleedInfoUIController().LoadExtension();
-    sAICSXSExtension->LaunchExtension(PlateBleedInfoUIController::PLATEBLEEDINFO_UI_EXTENSION);
-//    sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Edit Safeguard Plate Info"), ai::UnicodeString("Redo Edit Safeguard Plate Info"));
-}
-
 
 void SafeguardJobFile::RemoveBleedInfo()
 {

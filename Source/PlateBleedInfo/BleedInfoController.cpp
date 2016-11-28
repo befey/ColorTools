@@ -10,6 +10,9 @@
 #include "DictionaryWriter.h"
 #include "BleedInfoPluginArtToArtboardMatcher.hpp"
 #include "SafeguardJobFile.h"
+#include "PlateBleedInfoUIController.hpp"
+#include "BtDocumentView.hpp"
+#include "SafeguardFileConstants.h"
 
 using PlateBleedInfo::BleedInfoController;
 
@@ -30,7 +33,17 @@ void BleedInfoController::HandleCreateMenu()
 
 void BleedInfoController::HandleEditMenu()
 {
-    SafeguardFile::SafeguardJobFile().EditBleedInfo();
+    if ( !PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().IsBleedInfoPluginArtCreated() )
+    {
+        SafeguardFile::SafeguardJobFile().UpdateBleedInfo();
+    }
+    
+    BtDocumentView docView;
+    docView.StoreCurrentDocumentView();
+    
+    PlateBleedInfoUIController().LoadExtension();
+    sAICSXSExtension->LaunchExtension(PlateBleedInfoUIController::PLATEBLEEDINFO_UI_EXTENSION);
+    //    sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Edit Safeguard Plate Info"), ai::UnicodeString("Redo Edit Safeguard Plate Info"));
 }
 
 bool BleedInfoController::ShouldDoUpdate()

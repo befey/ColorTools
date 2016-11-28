@@ -9,6 +9,10 @@
 #ifndef BleedInfoController_hpp
 #define BleedInfoController_hpp
 
+#include "AICSXSExtension.h"
+
+extern AICSXSExtensionSuite* sAICSXSExtension;
+
 namespace PlateBleedInfo
 {
     class BleedInfoController

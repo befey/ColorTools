@@ -12,12 +12,7 @@
 #include <map>
 #include "Plate.h"
 #include "PlateNumber.h"
-#include "BleedInfo.h"
 #include "ColorList.h"
-#include "PrintToPdfConstants.h"
-#include "AICSXS.h"
-
-extern AICSXSExtensionSuite* sAICSXSExtension;
 
 namespace PlateBleedInfo
 {
@@ -41,7 +36,6 @@ namespace SafeguardFile
         SafeguardFile::ColorList GetAllColorsOnJob() const;
         
         void UpdateBleedInfo();
-        void EditBleedInfo();
         void RemoveBleedInfo();
         
         const map<int, shared_ptr<Plate>>& GetPlates() const { return plates; };
