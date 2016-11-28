@@ -11,12 +11,8 @@
 
 #include "PlateNumber.h"
 #include "BleedInfo.h"
-#include "PrintToPdfConstants.h"
 #include "ColorList.h"
-#include "AIFolders.h"
 #include "SafeguardJobFileDTO.hpp"
-
-extern AIFoldersSuite* sAIFolders;
 
 namespace SafeguardFile
 {    

@@ -7,20 +7,9 @@
 //
 
 #include "Plate.h"
-#include "SafeguardFileConstants.h"
-#include "TickMarkSettings.hpp"
-#include "DictionaryWriter.h"
-#include <boost/filesystem/operations.hpp>
-#include <ctime>
-#include "BleedInfoWriter.hpp"
-#include "BleedInfoPluginArtToArtboardMatcher.hpp"
 
 using SafeguardFile::Plate;
 using SafeguardFile::PlateNumber;
-using PrintToPdf::PdfPreset;
-using PlateBleedInfo::BleedInfo;
-
-namespace fs = boost::filesystem;
 
 Plate::Plate(ai::ArtboardID id, const PlateBleedInfo::PlateDTO* dto)
 : bleedInfo(id, dto)
