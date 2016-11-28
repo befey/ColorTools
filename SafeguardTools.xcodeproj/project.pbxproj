@@ -119,6 +119,8 @@
 		F9DA3B9A1D1C6C9300AB6156 /* FileNameDateDrawer.h in Headers */ = {isa = PBXBuildFile; fileRef = F9DA3B981D1C6C9300AB6156 /* FileNameDateDrawer.h */; };
 		F9DA3B9D1D1D7E6200AB6156 /* BleedTextInfoDrawer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9DA3B9B1D1D7E6200AB6156 /* BleedTextInfoDrawer.cpp */; };
 		F9DA3B9E1D1D7E6200AB6156 /* BleedTextInfoDrawer.h in Headers */ = {isa = PBXBuildFile; fileRef = F9DA3B9C1D1D7E6200AB6156 /* BleedTextInfoDrawer.h */; };
+		F9DD295E1DEC90E40004EFF0 /* BleedInfoController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9DD295C1DEC90E40004EFF0 /* BleedInfoController.cpp */; };
+		F9DD295F1DEC90E40004EFF0 /* BleedInfoController.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9DD295D1DEC90E40004EFF0 /* BleedInfoController.hpp */; };
 		F9E284281D254E2D001B0F98 /* PathCreator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9E284261D254E2D001B0F98 /* PathCreator.cpp */; };
 		F9E284291D254E2D001B0F98 /* PathCreator.h in Headers */ = {isa = PBXBuildFile; fileRef = F9E284271D254E2D001B0F98 /* PathCreator.h */; };
 		F9F079631D47ED21004AC522 /* BleedInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9F079621D47ED21004AC522 /* BleedInfo.cpp */; };
@@ -302,6 +304,8 @@
 		F9DA3B981D1C6C9300AB6156 /* FileNameDateDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileNameDateDrawer.h; path = Source/PlateBleedInfo/FileNameDateDrawer.h; sourceTree = "<group>"; };
 		F9DA3B9B1D1D7E6200AB6156 /* BleedTextInfoDrawer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BleedTextInfoDrawer.cpp; path = Source/PlateBleedInfo/BleedTextInfoDrawer.cpp; sourceTree = "<group>"; };
 		F9DA3B9C1D1D7E6200AB6156 /* BleedTextInfoDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BleedTextInfoDrawer.h; path = Source/PlateBleedInfo/BleedTextInfoDrawer.h; sourceTree = "<group>"; };
+		F9DD295C1DEC90E40004EFF0 /* BleedInfoController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BleedInfoController.cpp; path = Source/PlateBleedInfo/BleedInfoController.cpp; sourceTree = "<group>"; };
+		F9DD295D1DEC90E40004EFF0 /* BleedInfoController.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = BleedInfoController.hpp; path = Source/PlateBleedInfo/BleedInfoController.hpp; sourceTree = "<group>"; };
 		F9E284261D254E2D001B0F98 /* PathCreator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PathCreator.cpp; path = Source/PrintToPdf/PathCreator.cpp; sourceTree = "<group>"; };
 		F9E284271D254E2D001B0F98 /* PathCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PathCreator.h; path = Source/PrintToPdf/PathCreator.h; sourceTree = "<group>"; };
 		F9F079621D47ED21004AC522 /* BleedInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BleedInfo.cpp; path = Source/PlateBleedInfo/BleedInfo.cpp; sourceTree = "<group>"; };
@@ -485,6 +489,8 @@
 				F937ABF71D551E1F006DD5C4 /* PlateBleedInfo.js */,
 				F937AC001D551ED7006DD5C4 /* PlateBleedInfo.css */,
 				F96A0ABF1D832EA800509B39 /* Drawers */,
+				F9DD295C1DEC90E40004EFF0 /* BleedInfoController.cpp */,
+				F9DD295D1DEC90E40004EFF0 /* BleedInfoController.hpp */,
 				F937ABE61D5241EB006DD5C4 /* PlateBleedInfoUIController.cpp */,
 				F937ABE71D5241EB006DD5C4 /* PlateBleedInfoUIController.hpp */,
 				F99280391D6B723F00E7EBF2 /* SafeguardJobFileDTO.cpp */,
@@ -640,6 +646,7 @@
 				F989A8EB1CA460CE0050C071 /* FindReplaceGraphics.h in Headers */,
 				F9DA3B921D1C5EFA00AB6156 /* BleedInfoDrawer.h in Headers */,
 				F989A8EF1CA460CE0050C071 /* ReplaceData.h in Headers */,
+				F9DD295F1DEC90E40004EFF0 /* BleedInfoController.hpp in Headers */,
 				F930DE091DDBA1EC0030B5C1 /* BleedInfoPluginArtToArtboardMatcher.hpp in Headers */,
 				6868C925150BA192003DAAF2 /* SafeguardToolsID.h in Headers */,
 				F934B1591CC9645A002EAB43 /* ReplaceDataBuilder.h in Headers */,
@@ -778,6 +785,7 @@
 				F992803B1D6B723F00E7EBF2 /* SafeguardJobFileDTO.cpp in Sources */,
 				F90AE3F21CAAF8AF0076A9BC /* BtAiMenuItemHandles.cpp in Sources */,
 				F9FAE8FE1CBD87E700938893 /* BtArtboardRange.cpp in Sources */,
+				F9DD295E1DEC90E40004EFF0 /* BleedInfoController.cpp in Sources */,
 				F989A8F31CA465F30050C071 /* IThrowException.cpp in Sources */,
 				F989A8EC1CA460CE0050C071 /* FixBlack.cpp in Sources */,
 				F90E3FA31CA475880081C333 /* ColorFuncs.cpp in Sources */,

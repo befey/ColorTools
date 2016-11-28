@@ -18,10 +18,9 @@
 #include "FixFreehandType.h"
 #include "DictionaryWriter.h"
 #include "PdfPrinter.h"
-#include "BleedInfo.h"
-#include "BleedInfoPluginArtToArtboardMatcher.hpp"
 #include "ListFonts.h"
 #include "BtDocumentView.hpp"
+#include "BleedInfoController.hpp"
 
 SafeguardToolsPlugin *gPlugin = NULL;
 
@@ -358,7 +357,9 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
     {
         sAINotifier->SetNotifierActive(gPlugin->fDocumentCropAreaModifiedNotifierHandle, FALSE);
         sAINotifier->SetNotifierActive(gPlugin->fArtSelectionChangedNotifierHandle, FALSE);
-        SafeguardJobFile().UpdateBleedInfo();
+        
+        PlateBleedInfo::BleedInfoController().HandleCreateMenu();
+        
         sAINotifier->SetNotifierActive(gPlugin->fArtSelectionChangedNotifierHandle, TRUE);
         sAINotifier->SetNotifierActive(gPlugin->fDocumentCropAreaModifiedNotifierHandle, TRUE);
     }
@@ -366,7 +367,9 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
     {
         sAINotifier->SetNotifierActive(gPlugin->fDocumentCropAreaModifiedNotifierHandle, FALSE);
         sAINotifier->SetNotifierActive(gPlugin->fArtSelectionChangedNotifierHandle, FALSE);
-        SafeguardJobFile().EditBleedInfo();
+        
+        PlateBleedInfo::BleedInfoController().HandleEditMenu();
+        
         sAINotifier->SetNotifierActive(gPlugin->fArtSelectionChangedNotifierHandle, TRUE);
         sAINotifier->SetNotifierActive(gPlugin->fDocumentCropAreaModifiedNotifierHandle, TRUE);
     }
@@ -479,20 +482,8 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
     {
         sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, FALSE);
         sAINotifier->SetNotifierActive(fArtSelectionChangedNotifierHandle, FALSE);
-        if (PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().IsBleedInfoPluginArtCreated() )
-        {
-            size_t gTimeStamp = sAIArt->GetGlobalTimeStamp();
-            DictionaryWriter dw;
-            AIReal aTSDict = dw.GetAIRealFromIdentifier(SafeguardFile::PLATE_BLEEDINFO_TIMESTAMP);
-            
-            if ( gTimeStamp != aTSDict )
-            {
-                SafeguardJobFile().UpdateBleedInfo();
-                
-                DictionaryWriter dw;
-                dw.AddAIRealToDictionary(sAIArt->GetGlobalTimeStamp(), SafeguardFile::PLATE_BLEEDINFO_TIMESTAMP);
-            }
-        }
+        
+        PlateBleedInfo::BleedInfoController().HandleCropAreaNotification();
         
         sAINotifier->SetNotifierActive(fArtSelectionChangedNotifierHandle, TRUE);
         sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, TRUE);
