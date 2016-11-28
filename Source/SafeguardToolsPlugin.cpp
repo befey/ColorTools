@@ -438,17 +438,9 @@ ASErr SafeguardToolsPlugin::PluginGroupUpdate(AIPluginGroupMessage* message)
 
 ASErr SafeguardToolsPlugin::PluginGroupNotify(AIPluginGroupMessage* message)
 {
-    if (strcmp( message->code, kAttachOperationCode ) == 0 && strcmp( message->time, kCheckOperationTime ) == 0)
+    if (message->entry == bleedInfoPluginGroupHandle)
     {
-        return kNoErr;
-    }
-    if (strcmp( message->code, kAttachOperationCode ) == 0 && strcmp( message->time, kBeforeOperationTime ) == 0)
-    {
-        return kNoErr;
-    }
-    if (strcmp( message->code, kAttachOperationCode ) == 0 && strcmp( message->time, kAfterOperationTime ) == 0)
-    {
-        return kMarkValidPluginGroupReply;
+        return PlateBleedInfo::BleedInfoController().HandlePluginGroupNotify(message);
     }
     return kUnhandledMsgErr;
 }

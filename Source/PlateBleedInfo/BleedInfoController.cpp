@@ -43,6 +43,23 @@ void BleedInfoController::HandleEditMenu()
     //    sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Edit Safeguard Plate Info"), ai::UnicodeString("Redo Edit Safeguard Plate Info"));
 }
 
+ASErr BleedInfoController::HandlePluginGroupNotify(AIPluginGroupMessage* message)
+{
+    if (strcmp( message->code, kAttachOperationCode ) == 0 && strcmp( message->time, kCheckOperationTime ) == 0)
+    {
+        return kNoErr;
+    }
+    if (strcmp( message->code, kAttachOperationCode ) == 0 && strcmp( message->time, kBeforeOperationTime ) == 0)
+    {
+        return kNoErr;
+    }
+    if (strcmp( message->code, kAttachOperationCode ) == 0 && strcmp( message->time, kAfterOperationTime ) == 0)
+    {
+        return kMarkValidPluginGroupReply;
+    }
+    return kUnhandledMsgErr;
+}
+
 bool BleedInfoController::ShouldDoUpdate()
 {
     if (PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().IsBleedInfoPluginArtCreated() )

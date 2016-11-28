@@ -11,6 +11,7 @@
 
 #include "AICSXSExtension.h"
 #include "AIArt.h"
+#include "AIPluginGroup.h"
 
 extern AICSXSExtensionSuite* sAICSXSExtension;
 extern AIArtSuite* sAIArt;
@@ -25,6 +26,7 @@ namespace PlateBleedInfo
         void HandleCropAreaNotification();
         void HandleCreateMenu();
         void HandleEditMenu();
+        ASErr HandlePluginGroupNotify(AIPluginGroupMessage* message);
     private:
         bool ShouldDoUpdate();
         void DrawBleedInfo();
