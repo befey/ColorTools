@@ -27,6 +27,7 @@ namespace PlateBleedInfo
         void HandleEditMenu();
     private:
         bool ShouldDoUpdate();
+        void DrawBleedInfo();
     };
 }
 

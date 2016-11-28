@@ -19,7 +19,7 @@ void BleedInfoController::HandleCropAreaNotification()
 {
     if ( ShouldDoUpdate() )
     {
-        SafeguardFile::SafeguardJobFile().UpdateBleedInfo();
+        DrawBleedInfo();
         DictionaryWriter dw;
         dw.AddAIRealToDictionary(sAIArt->GetGlobalTimeStamp(), PLATE_BLEEDINFO_TIMESTAMP);
     }
@@ -27,14 +27,14 @@ void BleedInfoController::HandleCropAreaNotification()
 
 void BleedInfoController::HandleCreateMenu()
 {
-    SafeguardFile::SafeguardJobFile().UpdateBleedInfo();
+    DrawBleedInfo();
 }
 
 void BleedInfoController::HandleEditMenu()
 {
     if ( !PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().IsBleedInfoPluginArtCreated() )
     {
-        SafeguardFile::SafeguardJobFile().UpdateBleedInfo();
+        DrawBleedInfo();
     }
     
     BtDocumentView docView;
@@ -59,4 +59,9 @@ bool BleedInfoController::ShouldDoUpdate()
         }
     }
     return false;
+}
+
+void BleedInfoController::DrawBleedInfo()
+{
+    SafeguardFile::SafeguardJobFile().UpdateBleedInfo();
 }
