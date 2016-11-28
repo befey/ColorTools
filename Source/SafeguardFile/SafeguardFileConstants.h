@@ -12,11 +12,7 @@
 #include <map>
 
 namespace SafeguardFile
-{
-    constexpr auto PLATE_BLEEDINFO =            "__plate_bleedinfo__";
-    constexpr auto PLATE_BLEEDINFO_TIMESTAMP =  "__plate_bleedinfo_timestamp__";
-    constexpr auto SG_BLEEDINFO_ARTHANDLES =    "__sg_bleedinfo_arthandles__";
-    
+{  
     constexpr auto REGISTRATION_COLOR_NAME =    "[Registration]";
     constexpr auto NONE_COLOR_NAME =            "[None]";
     constexpr auto BLACK_COLOR_NAME =           "Black";

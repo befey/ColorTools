@@ -10,11 +10,15 @@
 #define BleedInfoController_hpp
 
 #include "AICSXSExtension.h"
+#include "AIArt.h"
 
 extern AICSXSExtensionSuite* sAICSXSExtension;
+extern AIArtSuite* sAIArt;
 
 namespace PlateBleedInfo
 {
+    constexpr auto PLATE_BLEEDINFO_TIMESTAMP =  "__plate_bleedinfo_timestamp__";
+    
     class BleedInfoController
     {
     public:        

@@ -200,7 +200,7 @@ void BleedInfo::ReadFromPluginArt()
     {
         DictionaryWriter dw(bleedInfoPluginArt);
         string json;
-        dw.GetStringDataFromIdentifier(json, SafeguardFile::PLATE_BLEEDINFO);
+        dw.GetStringDataFromIdentifier(json, PLATE_BLEEDINFO);
         
         PlateBleedInfo::PlateDTO dto(json);
         
@@ -215,7 +215,7 @@ void BleedInfo::Draw()
     StoreInPluginArt();
     
     DictionaryWriter dw;
-    dw.AddAIArtHandleToArrayInDictionary(bleedInfoPluginArt, SafeguardFile::SG_BLEEDINFO_ARTHANDLES);
+    dw.AddAIArtHandleToArrayInDictionary(bleedInfoPluginArt, SG_BLEEDINFO_ARTHANDLES);
     
     StoreInPluginArt();
 }

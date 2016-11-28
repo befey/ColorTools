@@ -25,6 +25,9 @@ namespace PlateBleedInfo
     class SafeguardJobFileDTO;
     class PlateDTO;
     
+    constexpr auto PLATE_BLEEDINFO =            "__plate_bleedinfo__";
+    constexpr auto SG_BLEEDINFO_ARTHANDLES =    "__sg_bleedinfo_arthandles__";
+    
     class BleedInfo
     {
     public:

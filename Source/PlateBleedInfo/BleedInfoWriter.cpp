@@ -23,7 +23,7 @@ void BleedInfoToArtStrategy::Write(const PlateBleedInfo::BleedInfo* bleedInfo) c
         DictionaryWriter dw(art);
         string json;
         BleedInfoWriter(bleedInfo, make_shared<BleedInfoToJsonStrategy>(json, true));
-        dw.AddStringDataToDictionary(json, SafeguardFile::PLATE_BLEEDINFO);
+        dw.AddStringDataToDictionary(json, PLATE_BLEEDINFO);
     }
 }
 
