@@ -11,6 +11,7 @@
 #include "SafeguardFileConstants.h"
 #include <vector>
 #include "ArtTree.h"
+#include "BleedInfo.h"
 
 using PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher;
 
@@ -18,7 +19,7 @@ BleedInfoPluginArtToArtboardMatcher::BleedInfoPluginArtToArtboardMatcher()
 {
     vector<AIArtHandle> savedInDictPluginArts;
     DictionaryWriter dw;
-    dw.GetVectorOfAIArtHandleFromIdentifier(savedInDictPluginArts, SafeguardFile::SG_BLEEDINFO_ARTHANDLES);
+    dw.GetVectorOfAIArtHandleFromIdentifier(savedInDictPluginArts, SG_BLEEDINFO_ARTHANDLES);
     
     if (savedInDictPluginArts.size() > 0)
     {
