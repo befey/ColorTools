@@ -11,6 +11,8 @@
     AILayerSuite*           sAILayer = NULL;
     AIPluginGroupSuite*     sAIPluginGroup = NULL;
     AIPlacedSuite*          sAIPlaced = NULL;
+    AIRasterSuite*          sAIRaster = NULL;
+    AIFOConversionSuite*    sAIFOConversion = NULL;
     AISymbolSuite*          sAISymbol = NULL;
 
     AIUndoSuite*            sAIUndo = NULL;
@@ -72,6 +74,8 @@ ImportSuite gImportSuites[] =
     kAILayerSuite, kAILayerSuiteVersion, &sAILayer,
     kAIPluginGroupSuite, kAIPluginGroupSuiteVersion, &sAIPluginGroup,
     kAIPlacedSuite, kAIPlacedSuiteVersion, &sAIPlaced,
+    kAIRasterSuite, kAIRasterSuiteVersion, &sAIRaster,
+    kAIFOConversionSuite, kAIFOConversionSuiteVersion, &sAIFOConversion,
     kAISymbolSuite, kAISymbolSuiteVersion, &sAISymbol,
     
     kAIUndoSuite, kAIUndoSuiteVersion, &sAIUndo,

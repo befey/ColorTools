@@ -25,6 +25,8 @@
 #include "AIArtStyle.h"
 #include "AIPluginGroup.h"
 #include "AIPlaced.h"
+#include "AIRaster.h"
+#include "AIFOConversion.h"
 #include "AISymbol.h"
 
 #include "AIPath.h"
@@ -60,6 +62,8 @@ extern AIGroupSuite *sAIGroup;
 extern AILayerSuite *sAILayer;
 extern AIPluginGroupSuite *sAIPluginGroup;
 extern AIPlacedSuite *sAIPlaced;
+extern AIRasterSuite *sAIRaster;
+extern AIFOConversionSuite *sAIFOConversion;
 extern AISymbolSuite *sAISymbol;
 
 extern AIUndoSuite *sAIUndo;

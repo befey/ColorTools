@@ -41,6 +41,11 @@ BtColor::BtColor(string name, AICustomColorTag kind, AICustomColorUnion c, AICus
     AiCustomColor(aiCustomColor, name, tint, method);
 }
 
+BtColor::BtColor(std::string name)
+{
+    AiCustomColor(AICustomColor(), name, 0, SafeguardFile::InkMethod::NONE);
+}
+
 bool operator< (const BtColor& lhs, const BtColor& rhs)
 {
     //Always sort CMYK to the front

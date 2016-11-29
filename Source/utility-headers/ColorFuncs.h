@@ -16,6 +16,9 @@
 #include "AISwatchList.h"
 #include "AIATEPaint.h"
 #include "AISwatchLibraries.h"
+#include "AIPlaced.h"
+#include "AIRaster.h"
+#include "AIFOConversion.h"
 #include "ReplaceData.h"
 #include "SafeguardFileConstants.h"
 #include <string>
@@ -33,6 +36,9 @@ extern AISwatchLibrariesSuite *sAISwatchLibrary;
 extern AIRealMathSuite *sAIRealMath;
 extern AITextFrameSuite *sAITextFrame;
 extern AIATEPaintSuite *sAIATEPaint;
+extern AIPlacedSuite* sAIPlaced;
+extern AIRasterSuite* sAIRaster;
+extern AIFOConversionSuite* sAIFOConversion;
 
 
 //=================================
@@ -78,7 +84,10 @@ bool ColorIsRegistration(AIColor color);
 AIColor GetBlackColor();
 
 vector<AIColor> GetColorsFromArt(AIArtHandle art);
+vector<AIColor> GetColorsOfPlacedArt(AIArtHandle art);
+vector<AIColor> GetColorsOfRasterArt(AIArtHandle art);
 void GetColorsCallback(AIColor *color, void *userData, AIErr *result, AIBoolean *altered);
+void AIFOColorsCallback(AIFOContentInfoSelector selector, void *info, void *userData);
 
 bool operator==(const AIGrayColorStyle& lhs, const AIGrayColorStyle& rhs);
 bool operator==(const AIFourColorStyle& lhs, const AIFourColorStyle& rhs);
