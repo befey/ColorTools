@@ -12,14 +12,14 @@
 #include "SafeguardToolsSuites.h"
 #include "BtDocumentView.hpp"
 #include "GetIllustratorErrorCode.h"
-#include "PlateBleedInfoDTO.hpp"
+#include "SafeguardJobFileDTO.hpp"
 #include "rapidjson/document.h"
 
 #include "cereal/cereal.hpp"
 #include "cereal/types/vector.hpp"
 #include "cereal/archives/json.hpp"
 
-using SafeguardFile::PlateBleedInfoUIController;
+using PlateBleedInfo::PlateBleedInfoUIController;
 using SafeguardFile::SafeguardJobFile;
 
 void PlateBleedInfoUIController::PanelLoaded (const csxs::event::Event* const event, void* const context)
@@ -53,15 +53,21 @@ void PlateBleedInfoUIController::OkButtonClickedFunc (const csxs::event::Event* 
         // Set up the application context, so that suite calls can work.
         AppContext appContext(gPlugin->GetPluginRef());
         
-        SafeguardFile::PlateBleedInfoDTO plateBleedInfoDTO;
-        std::stringstream ss(event->data);
+        PlateBleedInfo::SafeguardJobFileDTO plateBleedInfoDTO;
+        std::istringstream is(event->data);
         {
-            cereal::JSONInputArchive iarchive(ss); // Create an input archive
-            iarchive(plateBleedInfoDTO);
+            try
+            {
+                cereal::JSONInputArchive iarchive(is); // Create an input archive
+                iarchive(plateBleedInfoDTO);
+            }
+            catch (std::runtime_error e)
+            {
+                string s(e.what());
+            }
         }
         
-        plateBleedInfoDTO.WriteToDocumentDictionary();
-        SafeguardJobFile sgJobFile;
+        SafeguardJobFile sgJobFile(&plateBleedInfoDTO);
         sgJobFile.UpdateBleedInfo();  //Refresh the file with the new data
         
         BtDocumentView docView;
@@ -86,6 +92,7 @@ void PlateBleedInfoUIController::CancelButtonClickedFunc (const csxs::event::Eve
         // Set up the application context, so that suite calls can work.
         AppContext appContext(gPlugin->GetPluginRef());
         
+        sAIUndo->SetSilent(TRUE);
         BtDocumentView docView;
         docView.RecallDocumentView();
         
@@ -237,15 +244,14 @@ ai::ArtboardID PlateBleedInfoUIController::GetArtboardIdFromJson(const char* jso
     return ai::ArtboardID(v.GetInt());
 }
 
-string PlateBleedInfoUIController::GetBleedInfoAsJson() const
+string PlateBleedInfoUIController::GetBleedInfoAsJson(bool fullColorName) const
 {
-    std::stringstream ss;
+    std::ostringstream os;
     {
         SafeguardJobFile sgJobFile;
-        PlateBleedInfoDTO dto;
-        sgJobFile.PutDataInDTO(dto);
-        cereal::JSONOutputArchive oarchive(ss); // Create an output archive
+        PlateBleedInfo::SafeguardJobFileDTO dto(&sgJobFile, fullColorName);
+        cereal::JSONOutputArchive oarchive(os); // Create an output archive
         oarchive(CEREAL_NVP(dto));
     }
-    return ss.str();
+    return os.str();
 }

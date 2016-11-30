@@ -10,7 +10,7 @@
 #include "ArtTree.h"
 #include "BtLayer.hpp"
 #include "GetIllustratorErrorCode.h"
-
+#include <map>
 
 long CreateArtSetOfPrintingObjectsWithinRect(AIArtSet const targetSet, AIRealRect rect)
 {
@@ -68,7 +68,8 @@ void PutArtInGroup(AIArtHandle currArtHandle, AIArtHandle theGroup) {
 	ASBoolean editable = FALSE;
 	ASBoolean visible = FALSE;
 	
-	int attr = 0;
+	int aattr = 0;
+    int gattr = 0;
 	
 	//Check if the layer is editable
 	sAILayer->GetLayerEditable(layer, &editable);
@@ -79,10 +80,16 @@ void PutArtInGroup(AIArtHandle currArtHandle, AIArtHandle theGroup) {
 	if (!visible) { sAILayer->SetLayerVisible(layer, TRUE); vflag = 1; }
 	
 	//Check if the art itself is editable
-	sAIArt->GetArtUserAttr(currArtHandle, kArtLocked | kArtHidden, &attr);
-	if ((attr & kArtLocked) || (attr & kArtHidden)) {
+	sAIArt->GetArtUserAttr(currArtHandle, kArtLocked | kArtHidden, &aattr);
+	if ((aattr & kArtLocked) || (aattr & kArtHidden)) {
 		sAIArt->SetArtUserAttr(currArtHandle, kArtLocked | kArtHidden, 0);
 	}
+    
+    //Check if the group is editable
+    sAIArt->GetArtUserAttr(theGroup, kArtLocked | kArtHidden, &gattr);
+    if ((gattr & kArtLocked) || (gattr & kArtHidden)) {
+        sAIArt->SetArtUserAttr(theGroup, kArtLocked | kArtHidden, 0);
+    }
 	
 	//Put it in the group
     short type;
@@ -93,7 +100,8 @@ void PutArtInGroup(AIArtHandle currArtHandle, AIArtHandle theGroup) {
 	//Set the layer and art attributes back the way they were
 	if(eflag) { sAILayer->SetLayerEditable(layer, FALSE); }
 	if(vflag) { sAILayer->SetLayerVisible(layer, FALSE); }
-	sAIArt->SetArtUserAttr(currArtHandle, kArtLocked | kArtHidden, attr);
+	sAIArt->SetArtUserAttr(currArtHandle, kArtLocked | kArtHidden, aattr);
+    sAIArt->SetArtUserAttr(theGroup, kArtLocked | kArtHidden, gattr);
 	
 	return;
 }
@@ -403,6 +411,11 @@ bool ProcessArtSet(const AIArtSet artSet, std::function<void(AIArtHandle)> callb
     return true;
 }
 
+void SelectArt(AIArtHandle artHandle)
+{
+    sAIArt->SetArtUserAttr(artHandle, kArtSelected | kArtLocked | kArtHidden, kArtSelected);
+}
+
 AIArtHandle GetGroupArtOfFirstEditableLayer()
 {
     ai::int32 count;
@@ -420,4 +433,146 @@ AIArtHandle GetGroupArtOfFirstEditableLayer()
     }
     
     return NULL;
+}
+
+int GetArtboardCount()
+{
+    ai::ArtboardList abList;
+    sAIArtboard->GetArtboardList(abList);
+    ai::ArtboardID count;
+    sAIArtboard->GetCount(abList, count);
+    return count;
+}
+
+int GetArtboardOfArt(AIArtHandle artHandle)
+{
+    vector<AIArtHandle> v {artHandle};
+    return GetArtboardOfArts(v).begin()->first;
+}
+
+AIRealRect GetArtboardBounds(int index)
+{
+    ai::ArtboardList abList;
+    sAIArtboard->GetArtboardList(abList);
+    ai::ArtboardProperties props;
+    sAIArtboard->GetArtboardProperties(abList, index, props);
+    AIRealRect rect;
+    props.GetPosition(rect);
+    return rect;
+}
+
+AIRealRect GetBoundsOfArt(AIArtHandle art)
+{
+    AIRealRect rect;
+    sAIArt->GetArtBounds(art, &rect);
+    return rect;
+}
+
+AIRealPoint GetCenterOfArt(AIArtHandle art)
+{
+    AIRealRect rect = GetBoundsOfArt(art);
+    return GetCenterOfRect(rect);
+}
+
+AIRealPoint GetCenterOfRect(AIRealRect rect)
+{
+    AIRealPoint center;
+    AIRealPoint a = {.h = rect.left, .v = rect.top};
+    AIRealPoint b = {.h = rect.right, .v = rect.bottom};
+    sAIRealMath->AIRealPointInterpolate(&a, &b, .5, &center);
+    return center;
+}
+
+map<int,AIArtHandle> GetArtboardOfArts(vector<AIArtHandle> arts)
+{
+    vector<tuple<int,AIArtHandle,AIReal>> d;
+    
+    ai::ArtboardList abList;
+    sAIArtboard->GetArtboardList(abList);
+    ai::ArtboardID count;
+    sAIArtboard->GetCount(abList, count);
+    
+    //Calculate the distance of each art from each artboard
+    for ( int i = 0; i < count; i++ )
+    {
+        AIRealPoint abCenter = GetCenterOfRect(GetArtboardBounds(i));
+        
+        for ( auto ah : arts )
+        {
+            AIRealPoint artCenter = GetCenterOfArt(ah);
+            AIReal distance = sAIRealMath->AIRealPointLength(&abCenter, &artCenter);
+            
+            d.push_back( {i, ah, distance} );
+        }
+    }
+    
+    //Sort by distance
+    std::sort(d.begin(), d.end(),
+              [](auto &left, auto &right)
+              {
+                  return std::get<2>(left) < std::get<2>(right);
+              });
+    
+    //Starting with the art that is closest to an artboard, remove all arts which are not closest to that artboard
+    for(auto item = d.begin(); item != d.end(); item++)
+    {
+        bool found1 = false;
+        d.erase(
+                std::remove_if(item, d.end(),
+                               [item, &found1](tuple<int,AIArtHandle,AIReal> curr)
+                               {
+                                   if (std::get<1>(*item) == std::get<1>(curr) || std::get<0>(*item) == std::get<0>(curr))
+                                   {
+                                       if (!found1)
+                                       {
+                                           found1 = true;
+                                           return false;
+                                       }
+                                       else
+                                       {
+                                           return true;
+                                       }
+                                   }
+                                   return false;
+                               }
+                               ),
+                d.end()
+                );
+    }
+    
+    //Sort by artboard index
+    std::sort(d.begin(), d.end(),
+              [](auto &left, auto &right)
+              {
+                  return std::get<0>(left) < std::get<0>(right);
+              });
+    
+    //Create the vector of just ArtHandles
+    map<int,AIArtHandle> result;
+    for ( auto m : d )
+    {
+        result.insert( std::pair<int,AIArtHandle>{std::get<0>(m), std::get<1>(m)} );
+    }
+    return result;
+}
+
+AIArtHandle DrawRectangle(AIRealRect rect, AIArtHandle prep)
+{
+    AIArtHandle pathArt;
+    sAIArt->NewArt(kPathArt, kPlaceInsideOnTop, prep, &pathArt);
+    
+    AIRealPoint topLeft = {.h = rect.left, .v = rect.top};
+    AIRealPoint topRight = {.h = rect.right, .v = rect.top};
+    AIRealPoint bottomLeft = {.h = rect.left, .v = rect.bottom};
+    AIRealPoint bottomRight = {.h = rect.right, .v = rect.bottom};
+    AIPathSegment segments[4];
+    segments[0] = { .corner = true, .p = topLeft, .in = topLeft, .out = topLeft };
+    segments[1] = { .corner = true, .p = topRight, .in = topRight, .out = topRight };
+    segments[2] = { .corner = true, .p = bottomRight, .in = bottomRight, .out = bottomRight };
+    segments[3] = { .corner = true, .p = bottomLeft, .in = bottomLeft, .out = bottomLeft };
+    
+    sAIPath->SetPathSegments(pathArt, 0, 4, segments);
+    sAIPath->SetPathClosed(pathArt, true);
+    
+    return pathArt;
 }

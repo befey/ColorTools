@@ -69,6 +69,7 @@ void ColorToolsUIController::UpdateListFunc (const csxs::event::Event* const eve
         // Set up the application context, so that suite calls can work.
         AppContext appContext(gPlugin->GetPluginRef());
         
+        sAIUndo->SetSilent(TRUE);
         BtSwatchList swatchList;
         string swatchesXml = swatchList.GetColorListAsXMLString();
         
@@ -185,7 +186,7 @@ ASErr ColorToolsUIController::SendChangeCountToHtml(int count)
     return error;
 }
 
-void ColorToolsUIController::DetermineChangeInStatus()
+void ColorToolsUIController::UpdateChangeInStatus()
 {
     AIArtHandle** matches;
     int count = 0;

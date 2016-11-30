@@ -36,6 +36,7 @@ namespace SafeguardFile
         
         AIArtHandle DoDraw(AIArtHandle resultGroup) const override;
         AIArtHandle DrawTickMarks(vector<TickMark> ticks, AIArtHandle tickMarkGroupArt = NULL) const;
+        AIArtHandle DrawInvisiblePath(AIArtHandle resultGroup, AIArtHandle tickMarkGroupArt = NULL) const;
         AIArtHandle DrawInner(AIArtHandle resultGroup, AIArtHandle tickMarkGroupArt = NULL) const;
         AIArtHandle DrawOuter(AIArtHandle resultGroup, AIArtHandle tickMarkGroupArt = NULL) const;
     };

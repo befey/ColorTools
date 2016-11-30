@@ -8,6 +8,7 @@
 
 #include "TickMarkDrawer.h"
 #include "BtLayer.hpp"
+#include "ArtTree.h"
 
 using SafeguardFile::TickMarkDrawer;
 
@@ -16,6 +17,8 @@ TickMarkDrawer::TickMarkDrawer(TickMarkSettings settings) : settings(settings) {
 AIArtHandle TickMarkDrawer::DoDraw(AIArtHandle resultGroup) const
 {
     AIArtHandle tickMarkGroupArt = NULL;
+    tickMarkGroupArt = DrawInvisiblePath(resultGroup, tickMarkGroupArt);
+    
     if (settings.DrawInner())
     {
         tickMarkGroupArt = DrawInner(resultGroup, tickMarkGroupArt);
@@ -27,6 +30,25 @@ AIArtHandle TickMarkDrawer::DoDraw(AIArtHandle resultGroup) const
     
     return tickMarkGroupArt;
 }
+
+AIArtHandle TickMarkDrawer::DrawInvisiblePath(AIArtHandle resultGroup, AIArtHandle tickMarkGroupArt) const
+{
+    if (tickMarkGroupArt == NULL)
+    {
+        sAIArt->NewArt(kGroupArt, kPlaceInsideOnTop, resultGroup, &tickMarkGroupArt);
+    }
+    
+    AIArtHandle invisiblePathArt = DrawRectangle(settings.Bounds(), tickMarkGroupArt);
+    
+    AIPathStyle currPathStyle;
+    sAIPathStyle->GetPathStyle(invisiblePathArt, &currPathStyle);
+    currPathStyle.strokePaint = false;
+    currPathStyle.fillPaint = false;
+    sAIPathStyle->SetPathStyle(invisiblePathArt, &currPathStyle);
+    
+    return tickMarkGroupArt;
+}
+
 
 AIArtHandle TickMarkDrawer::DrawOuter(AIArtHandle resultGroup, AIArtHandle tickMarkGroupArt) const
 {

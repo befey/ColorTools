@@ -9,29 +9,18 @@
 #ifndef __SafeguardTools__Plate__
 #define __SafeguardTools__Plate__
 
-#include "AIPathStyle.h"
-#include "AIFont.h"
-#include "AIArtboard.h"
-#include "AIDocument.h"
 #include "PlateNumber.h"
 #include "BleedInfo.h"
-#include "PrintToPdfConstants.h"
 #include "ColorList.h"
-#include "BleedInfoDrawer.h"
-#include <vector>
-#include <ctime>
-
-extern AIPathStyleSuite* sAIPathStyle;
-extern AIFontSuite* sAIFont;
-extern AIArtboardSuite* sAIArtboard;
-extern AIDocumentSuite* sAIDocument;
+#include "SafeguardJobFileDTO.hpp"
 
 namespace SafeguardFile
 {    
     class Plate
     {
     public:
-        Plate(ai::ArtboardID id);
+        Plate(ai::ArtboardID id) : Plate(id, NULL) {};
+        Plate(ai::ArtboardID id, const PlateBleedInfo::PlateDTO* dto);
         
         AIRealRect GetArtboardBounds() const;
         tm GetLastModified() const;
@@ -42,16 +31,14 @@ namespace SafeguardFile
         const string GetToken() const;
         
         AIRealRect GetBleeds() const;
-        SafeguardFile::ColorList GetColors();
-        
-        BleedInfo& BleedInfo();
-        
+        ColorList GetColors();
+                
         void DrawBleedInfo();
         void RemoveBleedInfo();
-        bool ShouldDrawBleedInfo();
+        
+        const PlateBleedInfo::BleedInfo& GetBleedInfo() const { return bleedInfo; };
     private:
-        class BleedInfo bleedInfo;
-        shared_ptr<SafeguardFile::BleedInfoDrawer> bleedInfoDrawer;
+        PlateBleedInfo::BleedInfo bleedInfo;
     };
 }
 #endif /* defined(__SafeguardTools__Plate__) */

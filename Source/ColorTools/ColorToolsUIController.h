@@ -84,7 +84,7 @@ public:
     ASErr SendColorListXmlToHtml(string swatchesXml);
     ASErr SendChangeCountToHtml(int count);
     
-    void DetermineChangeInStatus();
+    void UpdateChangeInStatus();
     ASErr SendChangeInToHtml(ChangeIn changeIn);
     void SendCloseMessageToHtml();
     

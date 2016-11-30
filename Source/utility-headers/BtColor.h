@@ -14,17 +14,24 @@
 // included dependencies
 #include <string>
 #include "AIColor.h"
+#include "AIColorConversion.h"
 #include "SafeguardFileConstants.h"
 #include "ColorFuncs.h"
+#include "ICanBeTextRange.h"
+#include "AIATETextUtil.h"
+
+extern AIATETextUtilSuite* sAIATETextUtil;
+
 
 //=================================
 // forward declared dependencies
 extern AICustomColorSuite* sAICustomColor;
+extern AIColorConversionSuite* sAIColorConversion;
 
 
 //=================================
 // BtColor - wrapper for a AICustomColor definition
-class BtColor
+class BtColor : public ICanBeTextRange
 {
 public:
     //Constuctor
@@ -39,6 +46,7 @@ public:
     BtColor(AIColorTag kind, AIColorUnion c) : BtColor(kind, c, SafeguardFile::InkMethod::INVAL) {};
     BtColor(AIColorTag kind, AIColorUnion c, SafeguardFile::InkMethod method);
     
+    BtColor(std::string name); //Not guaranteed to create a complete color definition if color is not in book!!
     BtColor(std::string name, AICustomColorTag kind, AICustomColorUnion c, AICustomColorFlags flag) : BtColor(name, kind, c, flag, 0) {};
     BtColor(std::string name, AICustomColorTag kind, AICustomColorUnion c, AICustomColorFlags flag, AIReal tint) : BtColor(name, kind, c, flag, tint, SafeguardFile::InkMethod::INVAL) {};
     BtColor(std::string name, AICustomColorTag kind, AICustomColorUnion c, AICustomColorFlags flag, AIReal tint, SafeguardFile::InkMethod method);
@@ -58,13 +66,18 @@ public:
     
     BtColor& Method(SafeguardFile::InkMethod newVal) { method = newVal; return *this; };
     SafeguardFile::InkMethod Method() const { return method; };
-
+    
+    friend bool operator< (const BtColor& lhs, const BtColor& rhs);
 private:
     AIColor aiColor;
     AICustomColor aiCustomColor;
     AICustomColorHandle aiCustomColorHandle = NULL;
     
     SafeguardFile::InkMethod method = SafeguardFile::InkMethod::INVAL;
+    
+    AILabColorStyle GetLabApproximation() const;
+    
+    void GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) const override;
 };
 
 

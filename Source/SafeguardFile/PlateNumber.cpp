@@ -9,7 +9,7 @@
 #include "PlateNumber.h"
 #include "ATEFuncs.h"
 #include <regex>
-#include "ColorFuncs.h"
+#include "ColorEnumerator.hpp"
 
 using SafeguardFile::PlateNumber;
 using SafeguardFile::ProductType;
@@ -105,7 +105,7 @@ ProductType PlateNumber::GetProductType() const
     return ProductType::INVAL;
 }
 
-void PlateNumber::GetAsTextRange(ATE::ITextRange& targetRange) const
+void PlateNumber::GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) const
 {
     AddTextToRange(plateNumber, targetRange);
 }
@@ -147,13 +147,9 @@ Boolean PlateNumber::HasInnerTicks() const
             sAIPath->GetPathLength(currArtHandle, &length, NULL);
             if (overlap && sAIRealMath->EqualWithinTol(length, LENGTH_OF_INNER_TICK_PATH, 1))
             {
-                vector<AIColor> colors = GetColorsFromArt(currArtHandle);
-                for (auto color : colors)
+                if ( ColorEnumerator(currArtHandle).HasRegistrationColor() )
                 {
-                    if (ColorIsRegistration(color))
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
         }

@@ -32,10 +32,20 @@ BtAteTextFeatures& BtAteTextFeatures::Leading(ATETextDOM::Real newVal)
     return *this;
 }
 
+ATETextDOM::Real BtAteTextFeatures::Leading(bool* isAssigned) const
+{
+    return charFeatures.GetLeading(isAssigned);
+}
+
 BtAteTextFeatures& BtAteTextFeatures::FontSize(ATETextDOM::Real newVal)
 {
     charFeatures.SetFontSize(newVal);
     return *this;
+}
+
+ATETextDOM::Real BtAteTextFeatures::FontSize(bool* isAssigned) const
+{
+    return charFeatures.GetFontSize(isAssigned);
 }
 
 BtAteTextFeatures& BtAteTextFeatures::Font(string postscriptFontName)
@@ -46,6 +56,22 @@ BtAteTextFeatures& BtAteTextFeatures::Font(string postscriptFontName)
     sAIFont->FontFromFontKey(currFontKey, &fontRef);
     charFeatures.SetFont(ATE::IFont(fontRef));
     return *this;
+}
+
+ATE::IFont BtAteTextFeatures::Font(bool* isAssigned) const
+{
+    return charFeatures.GetFont(isAssigned);
+}
+
+BtAteTextFeatures& BtAteTextFeatures::NoBreak(bool newVal)
+{
+    charFeatures.SetNoBreak(newVal);
+    return *this;
+}
+
+bool BtAteTextFeatures::NoBreak(bool* isAssigned) const
+{
+    return charFeatures.GetNoBreak(isAssigned);
 }
 
 BtAteTextFeatures& BtAteTextFeatures::FillColor(AIColor color)
@@ -62,22 +88,6 @@ BtAteTextFeatures& BtAteTextFeatures::Justification(ATE::ParagraphJustification 
     paraFeatures.SetJustification(newVal);
     return *this;
 }
-
-ATE::IFont BtAteTextFeatures::Font(bool* isAssigned) const
-{
-    return charFeatures.GetFont(isAssigned);
-}
-
-ATETextDOM::Real BtAteTextFeatures::FontSize(bool* isAssigned) const
-{
-    return charFeatures.GetFontSize(isAssigned);
-}
-
-ATETextDOM::Real BtAteTextFeatures::Leading(bool* isAssigned) const
-{
-    return charFeatures.GetLeading(isAssigned);
-}
-
 
 void BtAteTextFeatures::AddTextToRangeWithFeatures(const string text, ATE::ITextRange& targetRange, int beforeAfter)
 {

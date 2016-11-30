@@ -22,6 +22,8 @@ namespace SafeguardFile
         ColorListDrawer(AIRealRect bounds, AIRealPoint anchor, ColorList colorList);
         
         ColorList colorList;
+        AIReal maxWidth;
+        AIReal maxHeight;
     };
     
     class LaserColorListDrawer : public ColorListDrawer
@@ -38,6 +40,7 @@ namespace SafeguardFile
         ContinuousColorListDrawer(AIRealRect bounds, ColorList colorList);
     private:
         AIArtHandle DoDraw(AIArtHandle resultGroup) const override;
+        void DrawContinuousColorBlocks(AIArtHandle resultGroup) const;
     };
     
     class BusStatColorListDrawer : public ColorListDrawer

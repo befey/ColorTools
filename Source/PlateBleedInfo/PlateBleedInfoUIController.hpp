@@ -21,7 +21,7 @@
 class SafeguardToolsPlugin;
 extern SafeguardToolsPlugin *gPlugin;
 
-namespace SafeguardFile
+namespace PlateBleedInfo
 {
     //=================================
     // PlateBleedInfoUIController - handles communication between extension and plugin
@@ -68,7 +68,7 @@ namespace SafeguardFile
         
     private:
         static ai::ArtboardID GetArtboardIdFromJson(const char* json);
-        string GetBleedInfoAsJson() const;
+        string GetBleedInfoAsJson(bool fullColorName = false) const;
 
     };
 }

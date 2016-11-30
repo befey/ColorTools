@@ -10,8 +10,34 @@
 #include "ColorFuncs.h"
 #include "BtAteTextFeatures.h"
 #include "SafeguardFileConstants.h"
+#include "ArtTree.h"
+#include "ColorEnumerator.hpp"
 
-using SafeguardFile::ColorList;
+ColorList::ColorList(AIRealRect area)
+:
+area(area)
+{
+    FillColorList();
+    RemoveDuplicates();
+    RemoveNonPrintingColors();
+    Sort();
+}
+
+void ColorList::FillColorList()
+{
+    AIArtSet artSet;
+    sAIArtSet->NewArtSet(&artSet);
+    CreateArtSetOfPrintingObjectsWithinRect(artSet, area);
+    
+    std::function<void(AIArtHandle)> func = std::bind(&ColorList::AddColorsOfArtToColorList, this, std::placeholders::_1);
+    ProcessArtSet(artSet, func);
+    sAIArtSet->DisposeArtSet(&artSet);
+}
+
+void ColorList::AddColorsOfArtToColorList(AIArtHandle art)
+{
+    AddColorsToList( ColorEnumerator(art).GetColorList() );
+}
 
 void ColorList::RemoveDuplicates()
 {
@@ -97,6 +123,29 @@ void ColorList::RemoveDuplicates()
                           p_ColorList.end()
                           );
     }
+    //Now go through the whole list after duplicates have been removed and get rid of any remaining black if we have a CMYK color
+    for ( auto c : p_ColorList )
+    {
+        if (c.AiColor().kind == kFourColor)
+        {
+            p_ColorList.erase(
+                              std::remove_if(p_ColorList.begin(), p_ColorList.end(), [](BtColor c)
+                                             {
+                                                 if (c.Kind() != kFourColor)
+                                                 {
+                                                     if (ColorIsBlack(c.AiColor()))
+                                                     {
+                                                         return true;
+                                                     }
+                                                 }
+                                                 return false;
+                                             }
+                                             ),
+                              p_ColorList.end()
+                              );
+            break;
+        }
+    }
 }
 
 void ColorList::RemoveNonPrintingColors()
@@ -108,7 +157,7 @@ void ColorList::RemoveNonPrintingColors()
                                        {
                                            return true;
                                        }
-                                       else if ((c.Name() == REGISTRATION_COLOR_NAME) && (p_ColorList.size() > 1))
+                                       else if ((c.Name() == SafeguardFile::REGISTRATION_COLOR_NAME) && (p_ColorList.size() > 1))
                                        {
                                            return true;
                                        }
@@ -124,67 +173,43 @@ void ColorList::AddColorsToList(vector<AIColor> colors)
     p_ColorList.insert(std::end(p_ColorList), std::begin(colors), std::end(colors));
 }
 
+void ColorList::AddColorsToList(vector<BtColor> colors)
+{
+    p_ColorList.insert(std::end(p_ColorList), std::begin(colors), std::end(colors));
+}
+
 void ColorList::AddColorsToList(ColorList colors)
 {
     p_ColorList.insert(p_ColorList.end(), colors.p_ColorList.begin(), colors.p_ColorList.end());
 }
 
-void ColorList::GetAsTextRange(ATE::ITextRange& targetRange) const
+void ColorList::Sort()
+{
+    std::sort(p_ColorList.begin(), p_ColorList.end());
+}
+
+bool ColorList::HasCMYK()
+{
+    for ( auto c : p_ColorList )
+    {
+        if (c.AiColor().kind == kFourColor)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+void ColorList::GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) const
 {
     if (p_ColorList.size() == 0)
     {
-        AIColor c = {.kind = kNoneColor};
-        AddColorToTextRange(c, targetRange);
+        BtColor(AIColor{.kind = kNoneColor}).AsTextRange(targetRange, maxWidth);
     }
     
-    for (auto c : p_ColorList)
+    for ( auto c : p_ColorList )
     {
-        AddColorToTextRange(c, targetRange);
-    }
-}
-
-void ColorList::AddColorToTextRange(const BtColor color, ATE::ITextRange& targetRange) const
-{
-    BtAteTextFeatures textFeatures;
-    
-    if (color.Kind() == kNoneColor)
-    {
-        textFeatures.FillColor(GetRegistrationColor());
-        textFeatures.AddTextToRangeWithFeatures("NO IMPRINT", targetRange);
-    }
-    else
-    {
-        string name;
-        if (ColorIsPantone(color.AiColor()))
-        {
-            name = GetInnerPantoneColorNumber(color.AiColor());
-            textFeatures.FillColor(color.AiColor());
-        }
-        else if (color.Kind() == kFourColor)
-        {
-            AIColor c = {.kind = kFourColor, .c.f.cyan = 1, .c.f.magenta = 0, .c.f.yellow = 0, .c.f.black = 0};
-            textFeatures.FillColor(c);
-            textFeatures.AddTextToRangeWithFeatures("CYAN  ", targetRange);
-            c = {.kind = kFourColor, .c.f.cyan = 0, .c.f.magenta = 1, .c.f.yellow = 0, .c.f.black = 0};
-            textFeatures.FillColor(c);
-            textFeatures.AddTextToRangeWithFeatures("MAG  ", targetRange);
-            c = {.kind = kFourColor, .c.f.cyan = 0, .c.f.magenta = 0, .c.f.yellow = 1, .c.f.black = 0};
-            textFeatures.FillColor(c);
-            textFeatures.AddTextToRangeWithFeatures("YEL  ", targetRange);
-            textFeatures.FillColor(GetBlackColor());
-            name = GetColorName(GetBlackColor());
-        }
-        else
-        {
-            name = color.Name();
-            textFeatures.FillColor(color.AiColor());
-        }
-        if (color.Method() != SafeguardFile::InkMethod::NONE)
-        {
-            name += " " + InkMethodStrings.at(color.Method());
-        }
-        
-        textFeatures.AddTextToRangeWithFeatures((ai::UnicodeString(name).toUpper()).as_Platform() + "  ", targetRange);
+        c.AsTextRange(targetRange, maxWidth);
     }
 }
 

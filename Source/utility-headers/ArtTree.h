@@ -11,17 +11,23 @@
 
 #include "AILayer.h"
 #include "AIGroup.h"
+#include "AIArt.h"
 #include "AIPath.h"
+#include "AIPathStyle.h"
+#include "IDrawer.h"
+#include "AIArtboard.h"
 #include <functional>
-#include <vector>
+#include <map>
 
 extern AIArtSetSuite* sAIArtSet;
-extern AIArtSuite* sAIArt;
 extern AILayerSuite* sAILayer;
 extern AIPlacedSuite* sAIPlaced;
 extern AIGroupSuite* sAIGroup;
+extern AIArtSuite* sAIArt;
 extern AIPathSuite* sAIPath;
+extern AIPathStyleSuite* sAIPathStyle;
 extern AIRealMathSuite* sAIRealMath;
+extern AIArtboardSuite* sAIArtboard;
 
 
 bool ProcessArtSet(const AIArtSet artSet, std::function<void(AIArtHandle)> callback);
@@ -43,5 +49,17 @@ void GetBoundsOfClipGroup(AIArtHandle root, AIArtHandle currArtHandle, AIRealRec
 //Traverses the tree defined by "root" and returns the bounds of the clipping masks contained
 
 AIArtHandle GetGroupArtOfFirstEditableLayer();
+
+void SelectArt(AIArtHandle artHandle);
+
+int GetArtboardCount();
+int GetArtboardOfArt(AIArtHandle artHandle);
+AIRealRect GetArtboardBounds(int index);
+AIRealPoint GetCenterOfArt(AIArtHandle art);
+AIRealRect GetBoundsOfArt(AIArtHandle art);
+AIRealPoint GetCenterOfRect(AIRealRect rect);
+map<int,AIArtHandle> GetArtboardOfArts(vector<AIArtHandle> pluginArts);
+
+AIArtHandle DrawRectangle(AIRealRect rect, AIArtHandle prep);
 
 #endif //ARTTREE_H

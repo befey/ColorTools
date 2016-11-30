@@ -37,8 +37,9 @@ void FixupReload(Plugin* plugin);
 class SafeguardToolsPlugin : public Plugin
 {
 public:
-	/** Constructor.
-		@param pluginRef IN reference to this plugin.
+    
+    /** Constructor.
+	@param pluginRef IN reference to this plugin.
 	*/
 	SafeguardToolsPlugin(SPPluginRef pluginRef);
 
@@ -73,7 +74,9 @@ public:
     static constexpr auto PRINT_TO_PDF_MENU_ITEM =         "Print to PDF...";
     
     static constexpr auto CREATE_PLATE_BLEED_INFO_PLUGIN_GROUP =  "bt.SafeguardTools.PlateBleedInfo";
+    static constexpr auto BLEED_INFO_PLUGIN_GROUP_DESC =          "__SafeguardPlateInfo__";
     static constexpr auto CREATE_PLATE_BLEED_INFO_MENU_ITEM =     "Add Safeguard Plate Info";
+    static constexpr auto EDIT_PLATE_BLEED_INFO_MENU_ITEM =     "Edit Safeguard Plate Info";
 
 protected:
 	/** Calls Plugin::Message and handles any errors returned.
@@ -117,6 +120,7 @@ protected:
      @return kNoErr on success, other ASErr otherwise.
      */
     virtual ASErr PluginGroupUpdate(AIPluginGroupMessage* message);
+    virtual ASErr PluginGroupNotify(AIPluginGroupMessage* message);
     
     virtual ASErr ReloadPlugin(SPInterfaceMessage *message);
     
@@ -127,20 +131,25 @@ protected:
 private:
     shared_ptr<ColorToolsUIController> colorToolsUIController;
     shared_ptr<PrintToPdf::PrintToPdfUIController> printToPdfUIController;
-    shared_ptr<SafeguardFile::PlateBleedInfoUIController> plateBleedInfoUIController;
+    shared_ptr<PlateBleedInfo::PlateBleedInfoUIController> plateBleedInfoUIController;
     
     /**	Notifier handles**/
     AINotifierHandle fRegisterEventNotifierHandle;
     AINotifierHandle fAppStartedNotifierHandle;
     AINotifierHandle fDocOpenedNotifierHandle;
-    AINotifierHandle fArtSelectionChangeNotifierHandle;
     AINotifierHandle fDocumentCropAreaModifiedNotifierHandle;
+    AINotifierHandle fArtSelectionChangedNotifierHandle;
     
 	/**	Menu item handles**/
     BtAiMenuItemHandles menuItemHandles;
     
     /** Plugin Group handle **/
-    AIAddPluginGroupData pluginGroupData;
+    AIAddPluginGroupData pluginGroupData =
+    {
+        .major = 1,
+        .minor = 0,
+        .desc = BLEED_INFO_PLUGIN_GROUP_DESC
+    };
     AIPluginGroupHandle bleedInfoPluginGroupHandle;
      
 	/**	Adds the menu items for this plugin to the application UI.

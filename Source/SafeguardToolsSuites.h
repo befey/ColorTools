@@ -17,12 +17,17 @@
 #include "AIDocumentView.h"
 #include "AIArtboard.h"
 #include "AIArtboardRange.h"
+#include "AIHardSoft.h"
 
 #include "AIGroup.h"
 #include "AILayer.h"
 #include "AIArtSet.h"
 #include "AIArtStyle.h"
 #include "AIPluginGroup.h"
+#include "AIPlaced.h"
+#include "AIRaster.h"
+#include "AIFOConversion.h"
+#include "AISymbol.h"
 
 #include "AIPath.h"
 #include "AIPathStyle.h"
@@ -42,6 +47,7 @@
 
 #include "AIDictionary.h"
 #include "AIUID.h"
+#include "AIArray.h"
 
 #include "AIActionManager.h"
 
@@ -55,6 +61,10 @@ extern AIArtSuite *sAIArt;
 extern AIGroupSuite *sAIGroup;
 extern AILayerSuite *sAILayer;
 extern AIPluginGroupSuite *sAIPluginGroup;
+extern AIPlacedSuite *sAIPlaced;
+extern AIRasterSuite *sAIRaster;
+extern AIFOConversionSuite *sAIFOConversion;
+extern AISymbolSuite *sAISymbol;
 
 extern AIUndoSuite *sAIUndo;
 extern AISwatchLibrariesSuite *sAISwatchLibrary;
@@ -68,6 +78,7 @@ extern AIDocumentListSuite *sAIDocumentList;
 extern AIDocumentViewSuite* sAIDocumentView;
 extern AIArtboardSuite* sAIArtboard;
 extern AIArtboardRangeSuite* sAIArtboardRange;
+extern AIHardSoftSuite* sAIHardSoft;
 
 extern AIArtSetSuite *sAIArtSet;
 extern AIArtStyleSuite *sAIArtStyle;
@@ -93,6 +104,7 @@ extern AIUIDPoolSuite *sAIUIDPool;
 
 extern AIDictionarySuite *sAIDictionary;
 extern AIEntrySuite *sAIEntry;
+extern AIArraySuite *sAIArray;
 
 extern AIActionManagerSuite *sAIActionManager;
 

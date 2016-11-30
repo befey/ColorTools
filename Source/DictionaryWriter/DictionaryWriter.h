@@ -15,7 +15,9 @@
 #include "AIDocument.h"
 #include "AIArt.h"
 #include "AIUID.h"
+#include "AIArray.h"
 #include <string>
+#include <vector>
 
 //=================================
 // forward declared dependencies
@@ -26,15 +28,18 @@ extern AIUIDSuite *sAIUID;
 extern AIUIDREFSuite *sAIUIDREF;
 extern AIUIDUtilsSuite *sAIUIDUtils;
 extern AIEntrySuite *sAIEntry;
+extern AIArraySuite *sAIArray;
 
 class DictionaryWriter
 {
 public:
     DictionaryWriter();
+    DictionaryWriter(AIArtHandle art);
     ~DictionaryWriter();
     
     AIBoolean RemoveIdentifierFromDictionary(string identifier, int CAIndex = -1);
-    
+    AIBoolean CheckDictionaryForIdentifier(string identifier, int CAIndex = -1);
+
     AIReal GetAIRealFromIdentifier(string identifier, int CAIndex = -1);
     AIBoolean AddAIRealToDictionary(AIReal value, string identifier, int CAIndex = -1);
     
@@ -46,10 +51,16 @@ public:
     AIBoolean GetStringDataFromIdentifier(string& data, string identifier, int CAIndex = -1);
     AIBoolean AddStringDataToDictionary(string data, string identifier, int CAIndex = -1);
     
+    AIBoolean GetArrayDataFromIdentifier(AIArrayRef& data, string identifier, int CAIndex = -1);
+    AIBoolean AddArrayDataToDictionary(AIArrayRef data, string identifier, int CAIndex = -1);
+    
+    AIBoolean GetVectorOfAIArtHandleFromIdentifier(vector<AIArtHandle>& handles, string identifier, int CAIndex = -1);
+    AIBoolean AddVectorOfAIArtHandleToDictionary(vector<AIArtHandle> handles, string identifier, int CAIndex = -1);
+    AIBoolean AddAIArtHandleToArrayInDictionary(AIArtHandle art, string identifier, int CAIndex = -1);
 private:
     AIDictionaryRef dictionary;
     
-    AIDictKey GenerateKey(string identifier, int CAIndex = -1);
+    AIDictKey Key(string identifier, int CAIndex = -1);
     //identifier -- the word part of the key... usually the variable name we're storing
     //CAIndex -- the crop area index
     //Returns the existing key, or a new key reference if none was found

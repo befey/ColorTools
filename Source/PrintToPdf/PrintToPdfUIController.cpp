@@ -12,7 +12,7 @@
 #include "SafeguardToolsSuites.h"
 #include "PdfPrinter.h"
 #include "PdfSettings.h"
-#include "PlateBleedInfoDTO.hpp"
+#include "SafeguardJobFileDTO.hpp"
 
 #include "cereal/cereal.hpp"
 #include "cereal/archives/json.hpp"
@@ -206,8 +206,7 @@ string PrintToPdfUIController::GetJsonBleedInfoDto() const
     std::stringstream ss;
     {
         SafeguardJobFile sgJobFile;
-        SafeguardFile::PlateBleedInfoDTO dto;
-        sgJobFile.PutDataInDTO(dto, true);
+        PlateBleedInfo::SafeguardJobFileDTO dto(&sgJobFile, true);
         cereal::JSONOutputArchive oarchive(ss); // Create an output archive
         oarchive(CEREAL_NVP(dto));
     }

@@ -55,7 +55,7 @@ AIReal GetTint(const AIColor color)
         return 0;
     }
     
-    return sAIRealMath->AIRealMultiple(tintPercent - .005, .01, TRUE); //TRUE will round the value up, actual tint % down
+    return sAIRealMath->AIRealMultiple(tintPercent - .005, .01, true); //TRUE will round the value up, actual tint % down
 }
 
 bool ColorIsBlack(const AIColor color)
@@ -64,7 +64,7 @@ bool ColorIsBlack(const AIColor color)
     {
         if (GetColorName(color) == SafeguardFile::MICR_BLACK_MAG_COLOR_NAME)
         {
-            return FALSE;
+            return false;
         }
         
         AICustomColor cColor;
@@ -86,7 +86,7 @@ bool ColorIsBlack(const AIColor color)
               cColor.c.lab.l < 100))
            )
         {
-            return TRUE;
+            return true;
         }
     }
     else if (
@@ -112,10 +112,10 @@ bool ColorIsBlack(const AIColor color)
                sAIRealMath->EqualWithinTol(color.c.rgb.blue, 0, TOLERANCE))
              )
     {
-        return TRUE;
+        return true;
     }
 
-    return FALSE;
+    return false;
 }
 
 bool ColorIsWhite(const AIColor color)
@@ -141,7 +141,7 @@ bool ColorIsWhite(const AIColor color)
               sAIRealMath->EqualWithinTol(cColor.c.lab.l, 100, (TOLERANCE*255))))
            )
         {
-            return TRUE;
+            return true;
         }
     }
     else if (
@@ -158,10 +158,10 @@ bool ColorIsWhite(const AIColor color)
               sAIRealMath->EqualWithinTol(color.c.rgb.blue, 0, TOLERANCE))
              )
     {
-        return TRUE;
+        return true;
     }
 
-    return FALSE;
+    return false;
 }
 
 bool ColorIsGripper(const AIColor color)
@@ -189,9 +189,9 @@ bool ColorIsPantone(const AIColor color)
     ai::UnicodeString colorName(s);
     if (colorName.caseFind(ai::UnicodeString("PANTONE"), 0) != string::npos)
     {
-        return TRUE;
+        return true;
     }
-    return FALSE;
+    return false;
 }
 
 bool ColorIsNonPrinting(const AIColor color)
@@ -218,7 +218,7 @@ bool ColorIsNonPrinting(const AIColor color)
 
 AIColor GetColorDefinitionFromBook(string name, bool& found)
 {
-    found = FALSE;
+    found = false;
     AIColor resultColor;
     AICustomColor tColor;
     ai::UnicodeString colorName(name);
@@ -228,7 +228,7 @@ AIColor GetColorDefinitionFromBook(string name, bool& found)
         //If the name matches one in the book, store the attributes in customColor
         if ( sAISwatchLibrary->FindStandardBookColor(colorName, &tColor) )
         {
-            found = TRUE;
+            found = true;
         }
         else //If the color says "PANTONE" but can't be found, turn it to PANTONE ### U and look it up
         {
@@ -241,7 +241,7 @@ AIColor GetColorDefinitionFromBook(string name, bool& found)
             if ( sAISwatchLibrary->FindStandardBookColor(ai::UnicodeString(formattedResult), &tColor) )
             {
                 colorName = ai::UnicodeString(formattedResult);
-                found = TRUE;
+                found = true;
             }
         }
     }
@@ -250,7 +250,7 @@ AIColor GetColorDefinitionFromBook(string name, bool& found)
     ASErr err = sAICustomColor->NewCustomColor(&tColor, colorName, &tColorHandle);
     string error = GetIllustratorErrorCode(err);
     
-    if (found == TRUE)
+    if (found == true)
     {
         if (err == kNameInUseErr)
         {
@@ -315,7 +315,7 @@ bool SetColorByName( const string& name , AIColor &color)
         color.kind = kCustomColor;
         color.c.c.tint = 0;
         sAICustomColor->NewRegistrationColor(&color.c.c.color, 1, 1, 1, 1, kCustomFourColor);
-        return TRUE;
+        return true;
     }
     
     string colorName;
@@ -357,17 +357,17 @@ bool SetColorByName( const string& name , AIColor &color)
             if (tempColor.kind != kCustomColor)
             {
                 color = tempColor;
-                return TRUE;
+                return true;
             }
             else if ( sAIRealMath->EqualWithinTol(tempColor.c.c.tint, tint, .01) )
             {
                 color = tempColor;
-                return TRUE;
+                return true;
             }
         }
     }
     
-    return FALSE;
+    return false;
 }
 
 string GetColorName(const AIColor color)
@@ -377,6 +377,10 @@ string GetColorName(const AIColor color)
     if (color.kind == kCustomColor)
     {
         sAICustomColor->GetCustomColorName(color.c.c.color, nameUS);
+    }
+    else if (color.kind == kFourColor)
+    {
+        nameUS = ai::UnicodeString(SafeguardFile::CMYK_COLOR_NAME);
     }
     else
     {
@@ -401,7 +405,7 @@ bool ColorIsEqual ( const AIColor& color1 , const AIColor& color2 , const bool i
 	//GRAY COLOR
 	if ((color1.kind == kGrayColor) && (color1.kind == color2.kind))
     {
-		if (color1.c.g.gray == color2.c.g.gray) { return TRUE; }
+		if (color1.c.g.gray == color2.c.g.gray) { return true; }
 	}
 	
 	//FOUR COLOR
@@ -410,7 +414,7 @@ bool ColorIsEqual ( const AIColor& color1 , const AIColor& color2 , const bool i
 		if ( (color1.c.f.cyan == color2.c.f.cyan) &&
 		  (color1.c.f.magenta == color2.c.f.magenta) &&
 		  (color1.c.f.yellow == color2.c.f.yellow) &&
-		  (color1.c.f.black == color2.c.f.black) ) { return TRUE; }
+		  (color1.c.f.black == color2.c.f.black) ) { return true; }
 	}
 
 	//THREE COLOR
@@ -418,11 +422,11 @@ bool ColorIsEqual ( const AIColor& color1 , const AIColor& color2 , const bool i
     {
 		if ( (color1.c.rgb.red == color2.c.rgb.red) &&
 		  (color1.c.rgb.green == color2.c.rgb.green) &&
-		  (color1.c.rgb.blue == color2.c.rgb.blue) ) { return TRUE; }
+		  (color1.c.rgb.blue == color2.c.rgb.blue) ) { return true; }
 	}
 	
 	//NONE COLOR
-	if ((color1.kind == kNoneColor) && (color1.kind == color2.kind)) { return TRUE; }
+	if ((color1.kind == kNoneColor) && (color1.kind == color2.kind)) { return true; }
 	
 	//CUSTOM COLOR
 	if ((color1.kind == kCustomColor) && (color1.kind == color2.kind))
@@ -433,7 +437,7 @@ bool ColorIsEqual ( const AIColor& color1 , const AIColor& color2 , const bool i
 		
         if (!ignoreTints && (color1.c.c.tint != color2.c.c.tint)) //If we care about tints and they don't match
         {
-            return FALSE;
+            return false;
         }
         
         //CUSTOM FOUR COLOR
@@ -442,24 +446,24 @@ bool ColorIsEqual ( const AIColor& color1 , const AIColor& color2 , const bool i
             if ( (ccolor1.c.f.cyan == ccolor2.c.f.cyan) &&
                 (ccolor1.c.f.magenta == ccolor2.c.f.magenta) &&
                 (ccolor1.c.f.yellow == ccolor2.c.f.yellow) &&
-                (ccolor1.c.f.black == ccolor2.c.f.black) ) { return TRUE; }
+                (ccolor1.c.f.black == ccolor2.c.f.black) ) { return true; }
         }
         //CUSTOM THREE COLOR
         if ( (ccolor1.kind == kCustomThreeColor ) && (ccolor1.kind == ccolor2.kind) )
         {
             if ( (ccolor1.c.rgb.red == ccolor2.c.rgb.red) &&
                 (ccolor1.c.rgb.green == ccolor2.c.rgb.green) &&
-                (ccolor1.c.rgb.blue == ccolor2.c.rgb.blue) ) { return TRUE; }
+                (ccolor1.c.rgb.blue == ccolor2.c.rgb.blue) ) { return true; }
         }
         //CUSTOM LAB COLOR
         if ( (ccolor1.kind == kCustomLabColor ) && (ccolor1.kind == ccolor2.kind) )
         {
             if ( (ccolor1.c.lab.l == ccolor2.c.lab.l) &&
                 (ccolor1.c.lab.a == ccolor2.c.lab.a) &&
-                (ccolor1.c.lab.b == ccolor2.c.lab.b) ) { return TRUE; }				
+                (ccolor1.c.lab.b == ccolor2.c.lab.b) ) { return true; }
         }
 	}
-	return FALSE;
+	return false;
 }
 
 
@@ -517,7 +521,7 @@ void AdjustOverprint(AIArtHandle currArtObj, AIColor fromColor, AIBoolean includ
 {
 	AIPathStyle currPathStyle;
 	short type = 0; sAIArt->GetArtType(currArtObj, &type);
-	*altered = FALSE;
+	*altered = false;
 	
 	if (type != kTextFrameArt)
     {
@@ -541,7 +545,7 @@ void AdjustOverprint(AIArtHandle currArtObj, AIColor fromColor, AIBoolean includ
 				if ( ColorIsEqual (currPathStyle.stroke.color, fromColor , includeTints ) )
                 {
 					currPathStyle.stroke.overprint = overprint;
-					*altered = TRUE;
+					*altered = true;
 				}
 			} 
 		}
@@ -553,7 +557,7 @@ void AdjustOverprint(AIArtHandle currArtObj, AIColor fromColor, AIBoolean includ
 				if ( ColorIsEqual (currPathStyle.fill.color, fromColor , includeTints ) )
                 {
 					currPathStyle.fill.overprint = overprint;
-					*altered = TRUE;
+					*altered = true;
 				}
 			} 
 		}
@@ -570,7 +574,7 @@ void AdjustOverprint(AIArtHandle currArtObj, AIColor fromColor, AIBoolean includ
 		ATE::ITextRange currRange(currRangeRef);
 		
 		ATE::ITextRunsIterator iter = currRange.GetTextRunsIterator();
-		bool isAssigned = FALSE;
+		bool isAssigned = false;
 		AIColor textColor;
 		
 		while ( ! iter.IsDone() )
@@ -588,7 +592,7 @@ void AdjustOverprint(AIArtHandle currArtObj, AIColor fromColor, AIBoolean includ
                     {
 						currRunCharFeatures.SetStrokeOverPrint(overprint);
 						iter.Item().SetLocalCharFeatures(currRunCharFeatures);
-						*altered = TRUE;
+						*altered = true;
 					}
 				}
 			}
@@ -603,7 +607,7 @@ void AdjustOverprint(AIArtHandle currArtObj, AIColor fromColor, AIBoolean includ
                     {
 						currRunCharFeatures.SetFillOverPrint(overprint);
 						iter.Item().SetLocalCharFeatures(currRunCharFeatures);
-						*altered = TRUE;
+						*altered = true;
 					}
 				}
 			}
@@ -624,7 +628,7 @@ void RemoveWhiteOverprint()
 {
     AIColor whiteColor;
     AIArtHandle currArtHandle;
-    AIBoolean altered = FALSE;
+    AIBoolean altered = false;
     
     AICustomColorHandle hWhite = NULL;
     sAICustomColor->GetCustomColorByName(ai::UnicodeString("White"), &hWhite);
@@ -650,11 +654,12 @@ void RemoveWhiteOverprint()
     sAIArtSet->MatchingArtSet(artSpecs , 8 , artSet );
     
     //LOOP THE ART SET
-    size_t count;		sAIArtSet->CountArtSet( artSet, &count );
-    for ( int i=0 ; i < count ; i++ )
+    size_t count;
+    sAIArtSet->CountArtSet( artSet, &count );
+    for ( int i = 0; i < count; i++ )
     {
         sAIArtSet->IndexArtSet(artSet, i, &currArtHandle);
-        AdjustOverprint(currArtHandle, whiteColor, TRUE, FALSE, ColorToolsUIController::ApplyTo::FillsAndStrokes, &altered);
+        AdjustOverprint(currArtHandle, whiteColor, true, false, ColorToolsUIController::ApplyTo::FillsAndStrokes, &altered);
     }
     //DISPOSE THE ART SET
     sAIArtSet->DisposeArtSet(&artSet);
@@ -706,11 +711,11 @@ void ConvertObjectsToGlobalCMYK(AIColor *color, void *userData, AIErr *result, A
                 AIColor currColor;
                 sAISwatchList->GetAIColor(tempSwatch, &currColor);
                 *color = currColor;
-                *altered = TRUE; return;
+                *altered = true; return;
             }
             
             *color = tempColor;
-            *altered = TRUE; return;
+            *altered = true; return;
         }
     }
 }
@@ -739,20 +744,6 @@ AIColor GetBlackColor()
     sAICustomColor->GetCustomColorByName(ai::UnicodeString(SafeguardFile::BLACK_COLOR_NAME), &blackCch);
     AIColor black = { .kind = kCustomColor, .c.c = { .color = blackCch, .tint = 0} };
     return black;
-}
-
-vector<AIColor> GetColorsFromArt(AIArtHandle art)
-{
-    AIBoolean madeReplacement;
-    vector<AIColor> colorsInArt;
-    sAIPathStyle->AdjustObjectAIColors(art, GetColorsCallback, (void*)&colorsInArt, kVisitColorsReadOnly | kVisitGlobalObjectsOnceOnly | kVisitColorsSolidOnly | kVisitColorsIncludeRegistration, &madeReplacement);
-    return colorsInArt;
-}
-
-void GetColorsCallback(AIColor *color, void *userData, AIErr *result, AIBoolean *altered)
-{
-    vector<AIColor>* colorsInArt = (vector<AIColor>*)userData;
-    colorsInArt->push_back(*color);
 }
 
 bool operator==(const AIGrayColorStyle& lhs, const AIGrayColorStyle& rhs)

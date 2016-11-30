@@ -79,7 +79,7 @@ AIArtHandle BusStatFileNameDateDrawer::DoDraw(AIArtHandle resultGroup) const
 
 void FileNameDateDrawer::PutPlateNumberDateStringInTextRange(ATE::ITextRange& targetRange) const
 {
-    plateNumber.GetAsTextRange(targetRange);
+    plateNumber.AsTextRange(targetRange);
     
     if (token != "")
     {

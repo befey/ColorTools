@@ -7,163 +7,99 @@
 //
 
 #include "SafeguardJobFile.h"
-#include "PlateBleedInfoUIController.hpp"
-#include "BtDocumentView.hpp"
-#include "DictionaryWriter.h"
+#include "ArtTree.h"
+#include <vector>
+#include "SafeguardJobFileDTO.hpp"
 
 using SafeguardFile::SafeguardJobFile;
 using SafeguardFile::PlateNumber;
-using SafeguardFile::PlateBleedInfoUIController;
-using SafeguardFile::BleedInfo;
+using PlateBleedInfo::BleedInfo;
 
 SafeguardJobFile::SafeguardJobFile()
 {
-    ai::ArtboardList abList;
-    sAIArtboard->GetArtboardList(abList);
-    ai::ArtboardID count;
-    sAIArtboard->GetCount(abList, count);
-    
-    plates.clear();
-    for ( int i = 0; i < count; i++ )
+    for ( int i = 0; i < GetArtboardCount(); i++ )
     {
-        plates.push_back(Plate(i));
-    }
-    
-    PlateBleedInfoDTO dto;
-    if ( dto.RecallFromDocumentDictionary() )
-    {
-        LoadDataFromDTO(dto);
+        plates.emplace(i, make_shared<Plate>(i));
     }
 }
 
-void SafeguardJobFile::LoadDataFromDTO(SafeguardFile::PlateBleedInfoDTO dto)
+SafeguardJobFile::SafeguardJobFile(const PlateBleedInfo::SafeguardJobFileDTO* dto)
 {
-    int size = 0;
-    dto.NumPlates() >= plates.size() ? size = int(plates.size()) : size = dto.NumPlates();
-   
-    for ( int i = 0; i < size; i++ )
+    for ( int i = 0; i < GetArtboardCount(); i++ )
     {
-        plates.at(i).BleedInfo()
-            .ShouldDrawBleedInfo(dto.ShouldDrawBleedInfo(i))
-            .ArtboardName(dto.ArtboardName(i))
-            .ShouldAddCmykBlocks(dto.ShouldAddCmykBlocks(i))
-            .TickMarkStyle(TickMarkStyle(dto.TickMarkStyle(i)));
-        for ( auto color : dto.ColorList(i) )
-        {
-            plates.at(i).BleedInfo().ColorList().SetColorMethod(color.colorName, InkMethod(color.method) );
-        }
-    }
-}
-
-void SafeguardJobFile::PutDataInDTO(SafeguardFile::PlateBleedInfoDTO& dto, bool fullColorName)
-{
-    for ( auto plate : plates )
-    {
-        PlateBleedInfoDTO::Plate p {
-            .shouldDrawBleedInfo  = plate.BleedInfo().ShouldDrawBleedInfo(),
-            .artboardIndex = plate.BleedInfo().ArtboardIndex(),
-            .artboardName = plate.BleedInfo().ArtboardName(p.isDefaultArtboardName),
-            .plateNumber = plate.BleedInfo().PlateNumber(),
-            .token = plate.BleedInfo().Token(),
-            .shouldAddCmykBlocks = plate.BleedInfo().ShouldAddCmykBlocks(),
-            .tmStyle = int(plate.BleedInfo().TickMarkSettings().TickMarkStyle())
-        };
-        
-        for ( auto color : plate.BleedInfo().ColorList().GetColorList() )
-        {
-            p.c.push_back(PlateBleedInfoDTO::Plate::Color
-                          {
-                              .colorName = fullColorName ? color.Name() : GetInnerPantoneColorNumber(color.Name()),
-                              .method = int(color.Method())
-                          });
-        }
-        
-        dto.AddPlate(p);
-    }
-}
-
-void SafeguardJobFile::AddBleedInfo()
-{
-    for ( auto plate : plates )
-    {
-        plate.DrawBleedInfo();
+        plates.emplace(i, make_shared<Plate>(i, &dto->GetPlateDTOs()[i]));
     }
 }
 
 void SafeguardJobFile::UpdateBleedInfo()
 {
-    for ( int i = 0; i < plates.size(); i++ )
+    for ( auto& plate : plates )
     {
-        DictionaryWriter dw;
-        if ( dw.CheckDictionaryForArtObjectWithIdentifier(SafeguardFile::PLATE_BLEED_INFO_GROUP_LABEL, i) )
-        {
-            plates[i].DrawBleedInfo();
-        }
+        plate.second->DrawBleedInfo();
     }
 }
-
-void SafeguardJobFile::EditBleedInfo()
-{
-    BtDocumentView docView;
-    docView.StoreCurrentDocumentView();
-    
-    PlateBleedInfoUIController plateBleedInfoUIController;
-    plateBleedInfoUIController.LoadExtension();
-    sAICSXSExtension->LaunchExtension(PlateBleedInfoUIController::PLATEBLEEDINFO_UI_EXTENSION);
-}
-
 
 void SafeguardJobFile::RemoveBleedInfo()
 {
     for ( auto plate : plates )
     {
-        plate.RemoveBleedInfo();
+        plate.second->RemoveBleedInfo();
     }
-}
-
-vector<BleedInfo> SafeguardJobFile::GetBleedInfo() const
-{
-    vector<BleedInfo> bi;
-    for ( auto plate : plates )
-    {
-        bi.push_back(plate.BleedInfo());
-    }
-    return bi;
 }
 
 const PlateNumber SafeguardJobFile::GetPlateNumber(int plateIndex) const
 {
-    if ( plates.size() > plateIndex )
+    auto iter = plates.find(plateIndex);
+    if (iter != plates.end() )
     {
-        return plates[plateIndex].GetPlateNumber();
+        return iter->second->GetPlateNumber();
     }
-    return PlateNumber();
+    else
+    {
+        return PlateNumber();
+    }
 }
 
 const string SafeguardJobFile::GetToken(int plateIndex) const
 {
-    if ( plates.size() > plateIndex )
+    auto iter = plates.find(plateIndex);
+    if (iter != plates.end() )
     {
-        return plates[plateIndex].GetToken();
+        return iter->second->GetToken();
     }
-    return "";
+    else
+    {
+        return "";
+    }
 }
 
 AIRealRect SafeguardJobFile::GetBleeds(int plateIndex) const
 {
-    if ( plates.size() > plateIndex )
+    auto iter = plates.find(plateIndex);
+    if (iter != plates.end() )
     {
-        return plates[plateIndex].GetBleeds();
+        return iter->second->GetBleeds();
     }
-    return AIRealRect{0,0,0,0};
+    else
+    {
+        return AIRealRect{0,0,0,0};
+    }
 }
 
-SafeguardFile::ColorList SafeguardJobFile::GetAllColorsOnJob() const
+ColorList SafeguardJobFile::GetAllColorsOnJob() const
 {
-    SafeguardFile::ColorList colorList;
+    vector<ColorList> colorLists;
     for (auto plate : plates)
     {
-        colorList.AddColorsToList(plate.GetColors());
+        colorLists.push_back(plate.second->GetColors());
     }
+    for ( int i = 1; i < colorLists.size(); i++ )
+    {
+        colorLists[0].AddColorsToList(colorLists.at(i));
+    }
+    ColorList colorList = colorLists[0];
+    colorList.RemoveDuplicates();
+    colorList.RemoveNonPrintingColors();
+    colorList.Sort();
     return colorList;
 }

@@ -10,7 +10,11 @@
     AIGroupSuite*           sAIGroup = NULL;
     AILayerSuite*           sAILayer = NULL;
     AIPluginGroupSuite*     sAIPluginGroup = NULL;
-    
+    AIPlacedSuite*          sAIPlaced = NULL;
+    AIRasterSuite*          sAIRaster = NULL;
+    AIFOConversionSuite*    sAIFOConversion = NULL;
+    AISymbolSuite*          sAISymbol = NULL;
+
     AIUndoSuite*            sAIUndo = NULL;
     AISwatchLibrariesSuite* sAISwatchLibrary = NULL;
 	AISwatchListSuite*      sAISwatchList = NULL;
@@ -23,6 +27,7 @@
     AIDocumentViewSuite*    sAIDocumentView = NULL;
     AIArtboardSuite*        sAIArtboard = NULL;
     AIArtboardRangeSuite*   sAIArtboardRange = NULL;
+    AIHardSoftSuite*        sAIHardSoft = NULL;
 
 	AIArtSetSuite*          sAIArtSet = NULL;
 	AIArtStyleSuite*        sAIArtStyle = NULL;
@@ -49,7 +54,8 @@
     
     AIDictionarySuite*      sAIDictionary = NULL;
     AIEntrySuite*           sAIEntry = NULL;
-    
+    AIArraySuite*           sAIArray = NULL;
+
     AIActionManagerSuite*   sAIActionManager = NULL;
 
     
@@ -67,6 +73,10 @@ ImportSuite gImportSuites[] =
     kAIGroupSuite, kAIGroupSuiteVersion, &sAIGroup,
     kAILayerSuite, kAILayerSuiteVersion, &sAILayer,
     kAIPluginGroupSuite, kAIPluginGroupSuiteVersion, &sAIPluginGroup,
+    kAIPlacedSuite, kAIPlacedSuiteVersion, &sAIPlaced,
+    kAIRasterSuite, kAIRasterSuiteVersion, &sAIRaster,
+    kAIFOConversionSuite, kAIFOConversionSuiteVersion, &sAIFOConversion,
+    kAISymbolSuite, kAISymbolSuiteVersion, &sAISymbol,
     
     kAIUndoSuite, kAIUndoSuiteVersion, &sAIUndo,
 	kAISwatchLibrariesSuite, kAISwatchLibrariesSuiteVersion, &sAISwatchLibrary,
@@ -80,6 +90,7 @@ ImportSuite gImportSuites[] =
     kAIDocumentViewSuite, kAIDocumentViewSuiteVersion, &sAIDocumentView,
     kAIArtboardSuite, kAIArtboardSuiteVersion, &sAIArtboard,
     kAIArtboardRangeSuite, kAIArtboardRangeSuiteVersion, &sAIArtboardRange,
+    kAIHardSoftSuite, kAIHardSoftSuiteVersion, &sAIHardSoft,
 
     kAIArtSetSuite, kAIArtSetSuiteVersion, &sAIArtSet,
 	kAIArtStyleSuite, kAIArtStyleSuiteVersion, &sAIArtStyle,
@@ -106,6 +117,7 @@ ImportSuite gImportSuites[] =
     
     kAIDictionarySuite, kAIDictionarySuiteVersion, &sAIDictionary,
     kAIEntrySuite, kAIEntrySuiteVersion, &sAIEntry,
+    kAIArraySuite, kAIArraySuiteVersion, &sAIArray,
     
     kAIActionManagerSuite, kAIActionManagerSuiteVersion, &sAIActionManager,
 

@@ -12,16 +12,18 @@
 #include <map>
 
 namespace SafeguardFile
-{
+{  
     constexpr auto REGISTRATION_COLOR_NAME =    "[Registration]";
     constexpr auto NONE_COLOR_NAME =            "[None]";
     constexpr auto BLACK_COLOR_NAME =           "Black";
     constexpr auto WHITE_COLOR_NAME =           "White";
+    constexpr auto CMYK_COLOR_NAME =            "CMYK";
     constexpr auto MICR_BLACK_MAG_COLOR_NAME =  "MICR - BLACK MAG";
     constexpr auto GRIPPER_COLOR_NAME =         "GRIPPER";
     constexpr auto KEYLINE_COLOR_NAME =         "KEYLINE - does not print";
     
-    enum ProductType {
+    enum ProductType
+    {
         INVAL,
         CutSheet,
         Continuous,
@@ -42,7 +44,8 @@ namespace SafeguardFile
     static constexpr auto NO_TOKEN_DESIG =      "F";
     
     //These values map to the "Value" property of our extension panel select options
-    enum class InkMethod {
+    enum class InkMethod
+    {
         INVAL = -1,
         NONE,
         Flat,
@@ -61,13 +64,16 @@ namespace SafeguardFile
     };
     
     //These values map to the "Value" property of our extension panel select options
-    enum class TickMarkStyle {
+    enum class TickMarkStyle
+    {
         NONE,
         Outer,
         Inner,
         Both
     };
+    
+    constexpr auto AI_CMYK_BLOCKS =             "sg_CMYK_Blocks";
+    constexpr auto AI_CONTINUOUS_REG_TARGET =   "sg_Continuous_Reg";
 }
-
 
 #endif /* SafeguardFileConstants_h */

@@ -9,30 +9,37 @@
 #include "BtAiMenuItem.h"
 #include "SafeguardToolsPlugin.h"
 
+BtAiMenuItem::BtAiMenuItem(string menuItemTitle, ai::int32 opts)
+:
+BtAiMenuItem("", menuItemTitle, opts)
+{}
 
-BtAiMenuItem::BtAiMenuItem(AIPlatformAddMenuItemDataUS data, ai::int32 opts)
-{
-    SetMenuItemData(data);
-    SetOptions(opts);
-}
+BtAiMenuItem::BtAiMenuItem(string groupName, string menuItemTitle, ai::int32 opts)
+:
+groupName(groupName), menuItemTitle(menuItemTitle), options(opts)
+{}
 
-void BtAiMenuItem::SetMenuItemData(AIPlatformAddMenuItemDataUS data)
+AIPlatformAddMenuItemDataUS BtAiMenuItem::GetMenuItemData()
 {
-    menuItemData.groupName = data.groupName;
-    menuItemData.itemText = data.itemText;
+    return {groupName.c_str(), ai::UnicodeString(menuItemTitle)};
 }
 
 void BtAiMenuItem::AddSubMenuItem(BtAiMenuItem subMenuItem)
 {
+    if (subMenuItem.groupName == "")
+    {
+        subMenuItem.groupName = this->menuItemTitle;
+    }
     subMenuItems.push_back(subMenuItem);
 }
 
-void BtAiMenuItem::SetOptions(ai::int32 o)
+BtAiMenuItem& BtAiMenuItem::SetOptions(ai::int32 o)
 {
     options = o;
+    return *this;
 }
 
-void BtAiMenuItem::SetAutoUpdateOptions(ai::int32 action, ai::int32 ifObjectIsInArtwork, ai::int32 ifObjectIsNotInArtwork, ai::int32 ifObjectIsSelected, ai::int32 ifObjectIsNotSelected, ai::int32 ifIsTrue, ai::int32 ifIsNotTrue)
+BtAiMenuItem& BtAiMenuItem::SetAutoUpdateOptions(ai::int32 action, ai::int32 ifObjectIsInArtwork, ai::int32 ifObjectIsNotInArtwork, ai::int32 ifObjectIsSelected, ai::int32 ifObjectIsNotSelected, ai::int32 ifIsTrue, ai::int32 ifIsNotTrue)
 {
     autoUpdateOptions.action = action;
     autoUpdateOptions.ifObjectIsInArtwork = ifObjectIsInArtwork;
@@ -42,25 +49,25 @@ void BtAiMenuItem::SetAutoUpdateOptions(ai::int32 action, ai::int32 ifObjectIsIn
     autoUpdateOptions.ifIsTrue = ifIsTrue;
     autoUpdateOptions.ifIsNotTrue = ifIsNotTrue;
     wantsAutoUpdate = true;
+    
+    return *this;
 }
 
 
 
 void BtAiMenuItem::AddMenu(BtAiMenuItem menuItem, BtAiMenuItemHandles* addedMenuItems)
 {
-    string t = menuItem.menuItemData.itemText.getInStdString(kAIPlatformCharacterEncoding);
-    const char* c = t.c_str();
-    
+    AIPlatformAddMenuItemDataUS data = menuItem.GetMenuItemData();
     if (menuItem.IsMenuGroup())
     {
-        if ( !SDKGroupAlreadyMade(menuItem.menuItemData.itemText) )
+        if ( !SDKGroupAlreadyMade(menuItem.menuItemTitle) )
         {
             AIMenuItemHandle dummyItem;
             AIMenuGroup dummyGroup;
 
-            sAIMenu->AddMenuItem( gPlugin->GetPluginRef(), c, &menuItem.menuItemData, kMenuItemNoOptions, &dummyItem );
+            sAIMenu->AddMenuItem( gPlugin->GetPluginRef(), menuItem.menuItemTitle.c_str(), &data, kMenuItemNoOptions, &dummyItem );
             
-            sAIMenu->AddMenuGroupAsSubMenu( c, menuItem.options, dummyItem, &dummyGroup );
+            sAIMenu->AddMenuGroupAsSubMenu( menuItem.menuItemTitle.c_str(), menuItem.options, dummyItem, &dummyGroup );
         }
         for (auto i: menuItem.subMenuItems)
         {
@@ -70,7 +77,7 @@ void BtAiMenuItem::AddMenu(BtAiMenuItem menuItem, BtAiMenuItemHandles* addedMenu
     else
     {
         AIMenuItemHandle dummyHandle;
-        sAIMenu->AddMenuItem( gPlugin->GetPluginRef(), c, &menuItem.menuItemData, menuItem.options, &dummyHandle );
+        sAIMenu->AddMenuItem( gPlugin->GetPluginRef(), menuItem.menuItemTitle.c_str(), &data, menuItem.options, &dummyHandle );
         if (menuItem.wantsAutoUpdate)
         {
             sAIMenu->UpdateMenuItemAutomatically(dummyHandle,
@@ -83,7 +90,7 @@ void BtAiMenuItem::AddMenu(BtAiMenuItem menuItem, BtAiMenuItemHandles* addedMenu
                                                  menuItem.autoUpdateOptions.ifIsNotTrue);
 
         }
-        addedMenuItems->AddHandle(t, dummyHandle);
+        addedMenuItems->AddHandle(menuItem.menuItemTitle, dummyHandle);
     }
 }
 
@@ -97,10 +104,10 @@ bool BtAiMenuItem::IsMenuGroup()
 }
 
 
-bool BtAiMenuItem::SDKGroupAlreadyMade(ai::UnicodeString menuGroup)
+bool BtAiMenuItem::SDKGroupAlreadyMade(string menuGroup)
 {
     AIMenuGroup dummyGroup;
-    const char* cstr = menuGroup.as_Platform().c_str();
+    const char* cstr = menuGroup.c_str();
     
     int count;
     sAIMenu->CountMenuGroups( &count );
