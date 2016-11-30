@@ -33,7 +33,7 @@ namespace SafeguardFile
         
         int GetNumPlates() const { return int(plates.size()); };
         
-        SafeguardFile::ColorList GetAllColorsOnJob() const;
+        ColorList GetAllColorsOnJob() const;
         
         void UpdateBleedInfo();
         void RemoveBleedInfo();

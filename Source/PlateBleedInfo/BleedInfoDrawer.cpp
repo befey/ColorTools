@@ -62,7 +62,7 @@ BleedInfoDrawer& BleedInfoDrawer::AddDrawer(shared_ptr<IDrawer> val)
     return *this;
 }
 
-shared_ptr<IDrawer> BleedInfoDrawer::MakeColorListDrawer(SafeguardFile::ProductType pt, AIRealRect artboardBounds, SafeguardFile::ColorList colorList)
+shared_ptr<IDrawer> BleedInfoDrawer::MakeColorListDrawer(SafeguardFile::ProductType pt, AIRealRect artboardBounds, ColorList colorList)
 {
     if (pt == SafeguardFile::ProductType::BusinessStat)
     {

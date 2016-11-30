@@ -11,8 +11,7 @@
 #include "BtAteTextFeatures.h"
 #include "SafeguardFileConstants.h"
 #include "ArtTree.h"
-
-using SafeguardFile::ColorList;
+#include "ColorEnumerator.hpp"
 
 ColorList::ColorList(AIRealRect area)
 :
@@ -37,7 +36,7 @@ void ColorList::FillColorList()
 
 void ColorList::AddColorsOfArtToColorList(AIArtHandle art)
 {
-    AddColorsToList(GetColorsFromArt(art));
+    AddColorsToList( ColorEnumerator(art).GetColorList() );
 }
 
 void ColorList::RemoveDuplicates()
@@ -158,7 +157,7 @@ void ColorList::RemoveNonPrintingColors()
                                        {
                                            return true;
                                        }
-                                       else if ((c.Name() == REGISTRATION_COLOR_NAME) && (p_ColorList.size() > 1))
+                                       else if ((c.Name() == SafeguardFile::REGISTRATION_COLOR_NAME) && (p_ColorList.size() > 1))
                                        {
                                            return true;
                                        }
@@ -170,6 +169,11 @@ void ColorList::RemoveNonPrintingColors()
 }
 
 void ColorList::AddColorsToList(vector<AIColor> colors)
+{
+    p_ColorList.insert(std::end(p_ColorList), std::begin(colors), std::end(colors));
+}
+
+void ColorList::AddColorsToList(vector<BtColor> colors)
 {
     p_ColorList.insert(std::end(p_ColorList), std::begin(colors), std::end(colors));
 }
