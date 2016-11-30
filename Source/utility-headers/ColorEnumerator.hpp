@@ -24,7 +24,7 @@ class ColorEnumerator
 public:
     ColorEnumerator(AIArtHandle art);
     
-    const vector<BtColor> GetColorList() const {return colorList.GetColorList(); };
+    const ColorList& GetColorList() const { return colorList; };
     
     bool HasRegistrationColor();
 private:

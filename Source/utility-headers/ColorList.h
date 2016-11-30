@@ -34,13 +34,16 @@ public:
     bool HasCMYK();
     
     void SetColorMethod(string colorName, SafeguardFile::InkMethod method);
-    
-    const vector<BtColor> GetColorList() const { return p_ColorList; };
-    
+        
     vector<BtColor>::iterator begin() { return p_ColorList.begin(); };
     vector<BtColor>::iterator end() { return p_ColorList.end(); };
     vector<BtColor>::const_iterator begin() const { return p_ColorList.begin(); };
     vector<BtColor>::const_iterator end() const { return p_ColorList.end(); };
+    
+    size_t size() const { return p_ColorList.size(); };
+    
+    BtColor& operator[](size_t index) { return p_ColorList[index]; }
+    const BtColor& operator[](size_t index) const { return p_ColorList[index]; }
 
 private:
     vector<BtColor> p_ColorList;
