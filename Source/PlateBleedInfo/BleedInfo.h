@@ -54,8 +54,8 @@ namespace PlateBleedInfo
         bool ShouldAddCmykBlocks() const { return shouldAddCMYKBlocks; };
         BleedInfo& ShouldAddCmykBlocks(bool newVal) { shouldAddCMYKBlocks = newVal; return *this; };
         const SafeguardFile::PlateNumber PlateNumber() const { return plateNumber; };
-        SafeguardFile::ColorList& ColorList() { return colorList; };
-        SafeguardFile::ColorList ConstColorList() const { return colorList; };
+        class ColorList& ColorList() { return colorList; };
+        class ColorList ConstColorList() const { return colorList; };
     
         AIRealRect Bleeds() const;
         
@@ -71,7 +71,7 @@ namespace PlateBleedInfo
         AIArtHandle bleedInfoPluginArt = NULL;
         
         ai::ArtboardID artboardIndex;
-        SafeguardFile::ColorList colorList;
+        class ColorList colorList;
         SafeguardFile::PlateNumber plateNumber;
         SafeguardFile::TickMarkSettings tmSettings;
         

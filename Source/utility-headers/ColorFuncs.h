@@ -16,9 +16,6 @@
 #include "AISwatchList.h"
 #include "AIATEPaint.h"
 #include "AISwatchLibraries.h"
-#include "AIPlaced.h"
-#include "AIRaster.h"
-#include "AIFOConversion.h"
 #include "ReplaceData.h"
 #include "SafeguardFileConstants.h"
 #include <string>
@@ -36,13 +33,7 @@ extern AISwatchLibrariesSuite *sAISwatchLibrary;
 extern AIRealMathSuite *sAIRealMath;
 extern AITextFrameSuite *sAITextFrame;
 extern AIATEPaintSuite *sAIATEPaint;
-extern AIPlacedSuite* sAIPlaced;
-extern AIRasterSuite* sAIRaster;
-extern AIFOConversionSuite* sAIFOConversion;
 
-
-//=================================
-// Constant definitions
 
 AIReal GetTint(const AIColor color); //Returns the tint of the color to the closest 1%
 bool ColorIsBlack(const AIColor color);
@@ -50,6 +41,7 @@ bool ColorIsWhite(const AIColor color);
 bool ColorIsGripper(const AIColor color);
 bool ColorIsPantone(const AIColor color); //Returns true if the color name includes PANTONE
 bool ColorIsNonPrinting(const AIColor color);
+bool ColorIsRegistration(AIColor color);
 
 AIColor GetColorDefinitionFromBook(std::string colorName, bool& found); //colorName must be a full, valid pantone color in the form "PANTONE ### U", returns the color definition from the book. found indicates whether it was or not. If the name includes PANTONE, but it can't be found, looks up the U version instead, colorName will be the name that matches the definition found
 
@@ -80,14 +72,7 @@ void ChangeColor(AIColor *targetColor, AIColor colorToCopy);
 void ConvertObjectsToGlobalCMYK(AIColor *color, void *userData, AIErr *result, AIBoolean *altered);
 
 AIColor GetRegistrationColor();
-bool ColorIsRegistration(AIColor color);
 AIColor GetBlackColor();
-
-vector<AIColor> GetColorsFromArt(AIArtHandle art);
-vector<AIColor> GetColorsOfPlacedArt(AIArtHandle art);
-vector<AIColor> GetColorsOfRasterArt(AIArtHandle art);
-void GetColorsCallback(AIColor *color, void *userData, AIErr *result, AIBoolean *altered);
-void AIFOColorsCallback(AIFOContentInfoSelector selector, void *info, void *userData);
 
 bool operator==(const AIGrayColorStyle& lhs, const AIGrayColorStyle& rhs);
 bool operator==(const AIFourColorStyle& lhs, const AIFourColorStyle& rhs);

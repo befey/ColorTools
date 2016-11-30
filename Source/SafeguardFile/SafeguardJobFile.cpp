@@ -86,9 +86,9 @@ AIRealRect SafeguardJobFile::GetBleeds(int plateIndex) const
     }
 }
 
-SafeguardFile::ColorList SafeguardJobFile::GetAllColorsOnJob() const
+ColorList SafeguardJobFile::GetAllColorsOnJob() const
 {
-    vector<SafeguardFile::ColorList> colorLists;
+    vector<ColorList> colorLists;
     for (auto plate : plates)
     {
         colorLists.push_back(plate.second->GetColors());

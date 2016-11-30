@@ -38,7 +38,7 @@ namespace PlateBleedInfo
         vector<shared_ptr<IDrawer>> drawers;
         
         BleedInfoDrawer& AddDrawer(shared_ptr<IDrawer> val);
-        shared_ptr<IDrawer> MakeColorListDrawer(SafeguardFile::ProductType pt, AIRealRect artboardBounds, SafeguardFile::ColorList colorList);
+        shared_ptr<IDrawer> MakeColorListDrawer(SafeguardFile::ProductType pt, AIRealRect artboardBounds, ColorList colorList);
         shared_ptr<IDrawer> MakeFileNameDateDrawer(SafeguardFile::ProductType pt, AIRealRect artboardBounds, SafeguardFile::PlateNumber plateNumber, string token, tm lastModified);
         shared_ptr<IDrawer> MakeTickMarkDrawer(SafeguardFile::TickMarkSettings tmSettings);
         shared_ptr<IDrawer> MakeSgSymbolDrawer(AIRealRect artboardBounds, string symbolName);

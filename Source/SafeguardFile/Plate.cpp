@@ -56,7 +56,7 @@ AIRealRect Plate::GetBleeds() const
     return bleedInfo.Bleeds();
 }
 
-SafeguardFile::ColorList Plate::GetColors()
+ColorList Plate::GetColors()
 {
     return bleedInfo.ColorList();
 }
