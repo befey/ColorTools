@@ -11,11 +11,11 @@
 }
 
 #results-textarea {
-    height: 25em;
+    height: 15em;
 }
 
 #colorlist-textarea {
-    height: 15em;
+    height: 25em;
 }
 
 .artboard-colors {
@@ -50,4 +50,8 @@
 
 .created {
     color: green;
+}
+
+.cmyk {
+    color: red;
 }
