@@ -35,6 +35,9 @@ extern AITextFrameSuite *sAITextFrame;
 extern AIATEPaintSuite *sAIATEPaint;
 
 
+AIColor GetRegistrationColor();
+AIColor GetBlackColor();
+
 AIReal GetTint(const AIColor color); //Returns the tint of the color to the closest 1%
 bool ColorIsBlack(const AIColor color);
 bool ColorIsWhite(const AIColor color);
@@ -70,9 +73,6 @@ void AdjustOverprint(AIArtHandle currArtObj, AIColor fromColor, AIBoolean includ
 	
 void ChangeColor(AIColor *targetColor, AIColor colorToCopy);
 void ConvertObjectsToGlobalCMYK(AIColor *color, void *userData, AIErr *result, AIBoolean *altered);
-
-AIColor GetRegistrationColor();
-AIColor GetBlackColor();
 
 bool operator==(const AIGrayColorStyle& lhs, const AIGrayColorStyle& rhs);
 bool operator==(const AIFourColorStyle& lhs, const AIFourColorStyle& rhs);
