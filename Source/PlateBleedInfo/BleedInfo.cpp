@@ -169,7 +169,8 @@ void BleedInfo::SetShouldPrint()
             shouldPrint = false;
         }
     }
-    else if (uCaseArtboardName.find("COMPOSITE") == string::npos)
+    
+    if (uCaseArtboardName.find("COMPOSITE") != string::npos)
     {
         shouldPrint = false;
     }
