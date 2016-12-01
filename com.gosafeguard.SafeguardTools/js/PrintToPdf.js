@@ -1,4 +1,5 @@
 var csInterface = new CSInterface();
+var jsonArtboardData;
 
 // Create events for the button presses
 var makePdfEvent = new CSEvent("com.gosafeguard.SafeguardTools.PrintToPdf.makepdfbutton", "APPLICATION", "ILST", "PrintToPdf");
@@ -8,6 +9,8 @@ var cancelEvent = new CSEvent("com.gosafeguard.SafeguardTools.PrintToPdf.cancelb
 var resultsBackEvent = new CSEvent("com.gosafeguard.SafeguardTools.PrintToPdf.resultsback", "APPLICATION", "ILST", "PrintToPdf");
 
 var panelLoadedEvent = new CSEvent("com.gosafeguard.SafeguardTools.PrintToPdf.panelloaded", "APPLICATION", "ILST", "PrintToPdf");
+
+var noArtboardsSelectedEvent = new CSEvent("com.gosafeguard.SafeguardTools.PrintToPdf.noartboardsselected", "APPLICATION", "ILST", "PrintToPdf");
 
 $(function()
   {
@@ -37,7 +40,7 @@ $(function()
                               }
                               });
   
-  $("#range-text").on('focus', function()
+  $('#range-text').on('focus', function()
                       {
                       $("#allpages-check").attr('checked', false);
                       $("#range-text").css("color","black");
@@ -54,6 +57,16 @@ $(function()
                       .select();
                       });
   
+  $("#colorlist-textarea").on( "click", ".artboard-colors", function()
+                              {
+                              ToggleArtboardPrint($(this));
+                              });
+  $("#colorlist-textarea").on( "click", ".artboard-deselected", function()
+                              {
+                              ToggleArtboardPrint($(this));
+                              });
+  
+  
   csInterface.addEventListener("com.gosafeguard.SafeguardTools.PrintToPdf.resultsback", onResultsBack);
   csInterface.addEventListener("com.gosafeguard.SafeguardTools.PrintToPdf.clearresultbox", clearResultBox);
   csInterface.addEventListener("com.gosafeguard.SafeguardTools.PrintToPdf.forcepanelclose",
@@ -69,7 +82,26 @@ $(function()
 
 function ReceiveDataFromPlugin(event)
 {
-    PutColorList(event.data);
+    jsonArtboardData = event.data;
+    PutColorList(jsonArtboardData);
+}
+
+function VerifySettings()
+{
+    var flag = false;
+    for (var j = 0; j < jsonArtboardData.dto.plates.length; j++)
+    {
+        if (jsonArtboardData.dto.plates[j].shouldPrint)
+        {
+            flag = true;
+            sendDataToIllustrator();
+            break;
+        }
+    }
+    if (flag == false)
+    {
+        csInterface.dispatchEvent(noArtboardsSelectedEvent);
+    }
 }
 
 function sendDataToIllustrator()
@@ -77,9 +109,8 @@ function sendDataToIllustrator()
     
     var data = {
         "preset-select"			:	parseInt($("#preset-select").val(), 10),
-        "range-text"			:	$("#range-text").val(),
-        "allpages-check"		:	$("#allpages-check").is(':checked'),
-        "separatefiles-check"	:	$("#separatefiles-check").is(':checked')
+        "separatefiles-check"	:	$("#separatefiles-check").is(':checked'),
+        "dto"                   :   JSON.stringify(jsonArtboardData)
     };
     makePdfEvent.data = JSON.stringify(data);
     csInterface.dispatchEvent(makePdfEvent);
@@ -110,29 +141,49 @@ function clearResultBox(event)
 
 function PutColorList(data)
 {
-    $("#colorlist-textarea").html(function() {
-                                  var newHtml = "";
-                                  for (var j = 0; j < data.dto.plates.length; j++)
+    $("#colorlist-textarea").html(function()
                                   {
-                                    newHtml += "<div class='artboard-colors'>";
-                                    for (var i = 0; i < data.dto.plates[j].c.length; i++)
-                                    {
-                                        color = data.dto.plates[j].c[i];
-                                        newHtml += "<div class='colorName'>";
-                                        if (color.colorName == "CMYK")
-                                        {
-                                            newHtml += "<div class='cmyk'>";
-                                        }
-                                        newHtml += color.colorName;
-                                        if (color.colorName == "CMYK")
-                                        {
-                                            newHtml += "</div>";
-                                        }
-                                        newHtml += "</div>";
-                                    }
-                                    newHtml += "<div class='artboard-id'>" + data.dto.plates[j].artboardName + "</div></div>";
-                                  }
-                                  return newHtml;
+                                      var newHtml = "";
+                                      for (var j = 0; j < data.dto.plates.length; j++)
+                                      {
+                                          if (jsonArtboardData.dto.plates[j].shouldPrint == true)
+                                          {
+                                            newHtml += "<div class='artboard-colors'";
+                                          }
+                                          else
+                                          {
+                                            newHtml += "<div class='artboard-deselected'";
+                                          }
+                                  
+                                          newHtml += " id='ab-" + j + "'>";
+                                          for (var i = 0; i < data.dto.plates[j].c.length; i++)
+                                          {
+                                              color = data.dto.plates[j].c[i];
+                                              newHtml += "<div class='colorName'>";
+                                              if (color.colorName == "CMYK")
+                                              {
+                                                newHtml += "<div class='cmyk'>";
+                                                newHtml += color.colorName;
+                                                newHtml += "</div>";
+                                              }
+                                              else
+                                              {
+                                                newHtml += color.colorName;
+                                              }
+                                              newHtml += "</div>";
+                                          }
+                                          newHtml += "<div class='artboard-id'>" + data.dto.plates[j].artboardName + "</div></div>";
+                                      }
+                                      return newHtml;
                                   });
     
+}
+
+function ToggleArtboardPrint(artboardDiv)
+{
+    artboardDiv.toggleClass("artboard-colors");
+    artboardDiv.toggleClass("artboard-deselected");
+    
+    var plateNumber = parseInt(artboardDiv.attr('id').slice(3), 10);
+    jsonArtboardData.dto.plates[plateNumber].shouldPrint = !jsonArtboardData.dto.plates[plateNumber].shouldPrint;
 }

@@ -176,6 +176,7 @@ AIRealRect BleedInfo::Bleeds() const
 void BleedInfo::FillBleedInfoFromPlateDTO(const PlateBleedInfo::PlateDTO* dto, bool changeArtboardName)
 {
     ShouldDrawBleedInfo(dto->shouldDrawBleedInfo);
+    ShouldPrint(dto->shouldPrint);
     if (changeArtboardName)
     {
         ArtboardName(dto->artboardName); //Do not set artboard name here or we'll overwrite what's been set in artboards panel.
