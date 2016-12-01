@@ -80,6 +80,7 @@ namespace PlateBleedInfo
         
         void SetPlateNumber();
         void SetPlateNumber(string pn);
+        void SetShouldPrint();
         
         void FillBleedInfoFromPlateDTO(const PlateBleedInfo::PlateDTO* dto, bool changeArtboardName);
     };

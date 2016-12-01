@@ -32,6 +32,8 @@ colorList(ArtboardBounds())
         shouldAddCMYKBlocks = true;
     }
     
+    SetShouldPrint();
+    
     tmSettings = SafeguardFile::TickMarkSettings(ArtboardBounds(), plateNumber.GetProductType(), SafeguardFile::TickMarkStyle::NONE);
     
     bleedInfoPluginArt = PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().GetArt(artboardIndex);
@@ -145,6 +147,32 @@ void BleedInfo::SetPlateNumber(string pn)
 {
     plateNumber = SafeguardFile::PlateNumber(pn);
     StoreInPluginArt();
+}
+
+void BleedInfo::SetShouldPrint()
+{
+    string uCaseArtboardName = ArtboardName();
+    for (auto & c: uCaseArtboardName) c = toupper(c);
+    SafeguardFile::PlateNumber artboardNameAsPlateNumber(uCaseArtboardName);
+    
+    if ( plateNumber.GetProductIndicator() == "MP" )
+    {
+        if ( uCaseArtboardName.find((string)plateNumber) == string::npos )
+        {
+            shouldPrint = false;
+        }
+    }
+    else if ( plateNumber.GetProductIndicator() != "MP" )
+    {
+        if ( artboardNameAsPlateNumber.IsValid() && artboardNameAsPlateNumber.GetProductIndicator() == "MP" )
+        {
+            shouldPrint = false;
+        }
+    }
+    else if (uCaseArtboardName.find("COMPOSITE") == string::npos)
+    {
+        shouldPrint = false;
+    }
 }
 
 AIRealRect BleedInfo::Bleeds() const
