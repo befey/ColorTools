@@ -24,6 +24,7 @@ $(function()
                              else
                              {
                              $('#separatefiles-check').prop('checked', false);
+                             ToggleArtboardPrint($('.artboard-deselected'));
                              }
                              });
   
