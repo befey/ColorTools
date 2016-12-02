@@ -63,7 +63,14 @@ bool BStatLayerVisibility::CustomLayerVisibility()
         }
         else
         {
-            kv.second.Visible(false).Editable(true);
+            if (kv.second.Printed())
+            {
+                kv.second.Visible(true).Editable(true);
+            }
+            else
+            {
+                kv.second.Visible(false).Editable(true);
+            }
         }
     }
     
@@ -88,7 +95,14 @@ bool LaserLayerVisibility::CustomLayerVisibility()
         }
         else
         {
-            kv.second.Visible(false).Editable(true);
+            if (kv.second.Printed())
+            {
+                kv.second.Visible(true).Editable(true);
+            }
+            else
+            {
+                kv.second.Visible(false).Editable(true);
+            }
         }
     }
 
@@ -125,7 +139,14 @@ bool BStatProofLayerVisibility::CustomLayerVisibility()
         }
         else
         {
-            kv.second.Visible(false).Editable(true);
+            if (kv.second.Printed())
+            {
+                kv.second.Visible(true).Editable(true);
+            }
+            else
+            {
+                kv.second.Visible(false).Editable(true);
+            }
         }
     }
     
