@@ -29,6 +29,7 @@ method(int(color.Method()))
 PlateDTO::PlateDTO(const PlateBleedInfo::BleedInfo* bleedInfo, const bool fullColorName)
 :
 shouldDrawBleedInfo(bleedInfo->ShouldDrawBleedInfo()),
+shouldPrint(bleedInfo->ShouldPrint()),
 artboardIndex(bleedInfo->ArtboardIndex()),
 plateNumber(bleedInfo->PlateNumber()),
 token(bleedInfo->Token()),

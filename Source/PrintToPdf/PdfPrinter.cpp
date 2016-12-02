@@ -10,13 +10,14 @@
 #include "PdfPrinter.h"
 #include "PdfSettings.h"
 #include "PdfResults.h"
+#include "CurrentFilenameRetriever.hpp"
+#include "TokenCreator.hpp"
 
 using PrintToPdf::PdfPrinter;
 using PrintToPdf::SingleFilePdfPrinter;
 using PrintToPdf::SeparateFilePdfPrinter;
 using PrintToPdf::PdfSettings;
 using PrintToPdf::PdfResults;
-using SafeguardFile::PlateNumber;
 using SafeguardFile::ProductType;
 
 SingleFilePdfPrinter::SingleFilePdfPrinter(const PdfPreset preset) : PdfPrinter(preset) {}
@@ -29,8 +30,10 @@ PdfPrinter::PdfPrinter(const PdfPreset preset)
     efDeleter = make_unique<ExistingFileDeleter>();
     tpConverter = make_unique<TypeToPathsConverter>();
     
+    plateNumber = SafeguardFile::PlateNumber(CurrentFilenameRetriever::GetFilenameNoExt());
+    
     //SETUP LAYER VISIBILITY
-    if (GetPlateNumber().GetProductType() == ProductType::BusinessStat)
+    if (plateNumber.GetProductType() == ProductType::BusinessStat)
     {
         if (preset == PdfPreset::MicrProof || preset == PdfPreset::Proof)
         {
@@ -41,7 +44,7 @@ PdfPrinter::PdfPrinter(const PdfPreset preset)
             layerVisibility = unique_ptr<LayerVisibility> { make_unique<BStatLayerVisibility>() };
         }
     }
-    else if (GetPlateNumber().GetProductType() == ProductType::INVAL)
+    else if (plateNumber.GetProductType() == ProductType::INVAL)
     {
         layerVisibility = unique_ptr<LayerVisibility> { make_unique<NonStandardLayerVisibility>() };
     }
@@ -64,7 +67,7 @@ PdfPrinter::PdfPrinter(const PdfPreset preset)
         pathBuilder = unique_ptr<PathBuilder> { make_unique<ProofPathBuilder>() };
     }
     
-    outputPath = pathBuilder->GetAiFilePath(GetPlateNumber());
+    outputPath = pathBuilder->GetAiFilePath(plateNumber);
 }
 
 unique_ptr<PdfPrinter> PdfPrinter::GetPrinter(const PdfPreset preset, const bool separateFiles)
@@ -79,25 +82,13 @@ unique_ptr<PdfPrinter> PdfPrinter::GetPrinter(const PdfPreset preset, const bool
     }
 }
 
-const PlateNumber PdfPrinter::GetPlateNumber() const
-{
-    SafeguardJobFile sgJobFile;
-    return sgJobFile.GetPlateNumber();
-}
-
-const string PdfPrinter::GetToken(int plateIndex) const
-{
-    SafeguardJobFile sgJobFile;
-    return sgJobFile.GetToken(plateIndex);
-}
-
 PdfResults PdfPrinter::Print(const PdfSettings& settings) const
 {
     PdfResults transactions;
     
     if ( pathCreator->CreatePath(outputPath) )
     {
-        transactions.AddResult(efDeleter->Delete(GetPlateNumber(), outputPath));
+        transactions.AddResult(efDeleter->Delete(plateNumber, outputPath));
         
         layerVisibility->SetLayerVisibility();
         tpConverter->ConvertTypeToPaths();
@@ -114,16 +105,7 @@ PdfResults SingleFilePdfPrinter::CustomPrintSteps(const PdfSettings& settings) c
     
     ai::FilePath pathToPdfFile = outputPath;
     
-    if (GetPlateNumber().IsValid())
-    {
-        pathToPdfFile.AddComponent(ai::UnicodeString(GetPlateNumber()));
-    }
-    else
-    {
-        ai::FilePath openedFilePath;
-        sAIDocument->GetDocumentFileSpecification(openedFilePath);
-        pathToPdfFile.AddComponent(openedFilePath.GetFileNameNoExt());
-    }
+    pathToPdfFile.AddComponent(ai::UnicodeString(plateNumber));
     
     pathToPdfFile.AddExtension("pdf");
     
@@ -149,18 +131,9 @@ PdfResults SeparateFilePdfPrinter::CustomPrintSteps(const PdfSettings& settings)
     
     while ( kEndOfRangeErr != sAIArtboardRange->Next(iter, &index) )
     {
-        if (GetPlateNumber().IsValid())
-        {
-            pathToPdfFile.AddComponent(ai::UnicodeString(GetPlateNumber()));
-        }
-        else
-        {
-            ai::FilePath openedFilePath;
-            sAIDocument->GetDocumentFileSpecification(openedFilePath);
-            pathToPdfFile.AddComponent(openedFilePath.GetFileNameNoExt());
-        }
+        pathToPdfFile.AddComponent(ai::UnicodeString(plateNumber));
         
-        string token = GetToken(index);
+        string token = SafeguardFile::TokenCreator(plateNumber, index).GetToken();
         if (token != "")
         {
             pathToPdfFile.AddExtension(ai::UnicodeString(token));
