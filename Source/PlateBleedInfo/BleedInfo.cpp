@@ -13,6 +13,9 @@
 #include "BleedInfoWriter.hpp"
 #include "BleedInfoDrawer.h"
 #include "SafeguardJobFileDTO.hpp"
+#include "TokenCreator.hpp"
+#include "ArtboardNameRetriever.hpp"
+#include "CurrentFilenameRetriever.hpp"
 #include <boost/system/system_error.hpp>
 #include <boost/filesystem/operations.hpp>
 
@@ -71,17 +74,7 @@ tm BleedInfo::LastModified() const
 
 string BleedInfo::Token() const
 {
-    bool isDefaultName;
-    string abNameS = ArtboardName(isDefaultName);
-    
-    if (isDefaultName || abNameS == SafeguardFile::NO_TOKEN_DESIG)
-    {
-        return "";
-    }
-    else
-    {
-        return abNameS;
-    }
+    return SafeguardFile::TokenCreator(plateNumber, ArtboardName()).GetToken();
 }
 
 BleedInfo& BleedInfo::Token(string newVal)
@@ -96,19 +89,7 @@ BleedInfo& BleedInfo::Token(string newVal)
 
 string BleedInfo::ArtboardName(bool& isDefault) const
 {
-    ai::ArtboardList abList;
-    sAIArtboard->GetArtboardList(abList);
-    ai::ArtboardProperties props;
-    sAIArtboard->GetArtboardProperties(abList, ArtboardIndex(), props);
-    ai::UnicodeString abName;
-    props.GetName(abName);
-    string abNameS = abName.getInStdString(kAIPlatformCharacterEncoding);
-    
-    AIBoolean aiboolIsDefault;
-    sAIArtboard->IsDefaultName(props, aiboolIsDefault);
-    isDefault = aiboolIsDefault;
-    
-    return abNameS;
+    return ArtboardNameRetriever::GetName(ArtboardIndex(), isDefault);
 }
 
 string BleedInfo::ArtboardName() const
@@ -137,9 +118,7 @@ BleedInfo& BleedInfo::ArtboardName(string newVal)
 void BleedInfo::SetPlateNumber()
 {
     //TODO: Make this handle the other plate number cases when we don't want to use the filename
-    ai::FilePath openedFilePath;
-    sAIDocument->GetDocumentFileSpecification(openedFilePath);
-    SetPlateNumber(openedFilePath.GetFileNameNoExt().getInStdString(kAIPlatformCharacterEncoding));
+    SetPlateNumber(CurrentFilenameRetriever::GetFilenameNoExt());
     StoreInPluginArt();
 }
 

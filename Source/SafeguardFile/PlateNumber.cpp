@@ -29,7 +29,7 @@ PlateNumber::PlateNumber(string pNum)
 
 Boolean PlateNumber::TokenizePlateNumber()
 {
-    std::regex r("(?:^(?:([a-z])(\\d{2}))?([a-z]{2})(\\d{3,6}).?\\S*)", std::regex::icase);
+    std::regex r("(?:^(?:([a-z])(\\d{2}))?([a-z]{2})(\\d{3,6})?[.]?(\\S*))", std::regex::icase);
     
     std::smatch result;
     std::regex_search(plateNumber, result, r);
@@ -40,10 +40,11 @@ Boolean PlateNumber::TokenizePlateNumber()
         2: <the year if the first type>
         3: <the product indicator>
         4: <the number>
-        5: any trailing .BP, etc.
+        5: any trailing .BP, etc. but without the "."
     */
-    
-    if (result.size() == 0) {
+
+    if (result.size() == 0)
+    {
         return false;
     }
     
@@ -54,6 +55,7 @@ Boolean PlateNumber::TokenizePlateNumber()
     }
     productIndicator = result[3];
     number = result[4];
+    suffix = result[5];
     return true;
 }
 
