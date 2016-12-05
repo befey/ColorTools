@@ -1,5 +1,6 @@
 var csInterface = new CSInterface();
 var jsonArtboardData;
+var storedArtboardPrint = [];
 
 // Create events for the button presses
 var makePdfEvent = new CSEvent("com.gosafeguard.SafeguardTools.PrintToPdf.makepdfbutton", "APPLICATION", "ILST", "PrintToPdf");
@@ -17,28 +18,33 @@ $(function()
   csInterface.setWindowTitle("Print To PDF");
   $('#preset-select').change(function()
                              {
-                             if ( $('#preset-select').val() == 0 ) //Manufacturing
-                             {
-                             $('#separatefiles-check').prop('checked', true);
-                             }
-                             else
-                             {
-                             $('#separatefiles-check').prop('checked', false);
-                             ToggleArtboardPrint($('.artboard-deselected'));
-                             }
+                                if ( $('#preset-select').val() == 0 ) //Manufacturing
+                                {
+                                    $('#separatefiles-check').prop('checked', true);
+                                    $('.artboard-colors').each(function(i,e) {
+                                                                ResetArtboardPrintToStored($(e));
+                                                               });
+                                }
+                                else
+                                {
+                                    $('#separatefiles-check').prop('checked', false);
+                                    $('.artboard-colors').each(function(i,e) {
+                                                                TurnOnAllArtboardPrint($(e));
+                                                               });
+                                }
                              });
-  
+
   $('#allpages-check').change(function()
                               {
-                              if ($(this).is(':checked'))
-                              {
-                              $("#range-text").css("color","gray");
-                              }
-                              else
-                              {
-                              $("#range-text").css("color","black");
-                              $("#range-text").focus();
-                              }
+                                if ($(this).is(':checked'))
+                                {
+                                    $("#range-text").css("color","gray");
+                                }
+                                else
+                                {
+                                    $("#range-text").css("color","black");
+                                    $("#range-text").focus();
+                                }
                               });
   
   $('#range-text').on('focus', function()
@@ -62,10 +68,6 @@ $(function()
                               {
                               ToggleArtboardPrint($(this));
                               });
-  $("#colorlist-textarea").on( "click", ".artboard-deselected", function()
-                              {
-                              ToggleArtboardPrint($(this));
-                              });
   
   
   csInterface.addEventListener("com.gosafeguard.SafeguardTools.PrintToPdf.resultsback", onResultsBack);
@@ -84,6 +86,12 @@ $(function()
 function ReceiveDataFromPlugin(event)
 {
     jsonArtboardData = event.data;
+    
+    jsonArtboardData.dto.plates.forEach(function(element, index, array)
+                                     {
+                                        storedArtboardPrint[index] = element.shouldPrint;
+                                     });
+    
     PutColorList(jsonArtboardData);
 }
 
@@ -147,16 +155,13 @@ function PutColorList(data)
                                       var newHtml = "";
                                       for (var j = 0; j < data.dto.plates.length; j++)
                                       {
-                                          if (jsonArtboardData.dto.plates[j].shouldPrint == true)
+                                          newHtml += "<div class='artboard-colors";
+                                          if (jsonArtboardData.dto.plates[j].shouldPrint == false)
                                           {
-                                            newHtml += "<div class='artboard-colors'";
-                                          }
-                                          else
-                                          {
-                                            newHtml += "<div class='artboard-deselected'";
+                                            newHtml += " artboard-deselected";
                                           }
                                   
-                                          newHtml += " id='ab-" + j + "'>";
+                                          newHtml += "' id='ab-" + j + "'>";
                                           for (var i = 0; i < data.dto.plates[j].c.length; i++)
                                           {
                                               color = data.dto.plates[j].c[i];
@@ -177,14 +182,36 @@ function PutColorList(data)
                                       }
                                       return newHtml;
                                   });
-    
 }
 
 function ToggleArtboardPrint(artboardDiv)
 {
-    artboardDiv.toggleClass("artboard-colors");
+    var index = parseInt(artboardDiv.attr('id').slice(3), 10);
+    jsonArtboardData.dto.plates[index].shouldPrint = !jsonArtboardData.dto.plates[index].shouldPrint;
+
     artboardDiv.toggleClass("artboard-deselected");
+}
+
+function TurnOnAllArtboardPrint(artboardDiv)
+{
+    var index = parseInt(artboardDiv.attr('id').slice(3), 10);
+    storedArtboardPrint[index] = jsonArtboardData.dto.plates[index].shouldPrint;
+    jsonArtboardData.dto.plates[index].shouldPrint = true;
+
+    artboardDiv.toggleClass("artboard-deselected", false);
+}
+
+function ResetArtboardPrintToStored(artboardDiv)
+{
+    var index = parseInt(artboardDiv.attr('id').slice(3), 10);
+    jsonArtboardData.dto.plates[index].shouldPrint = storedArtboardPrint[index];
     
-    var plateNumber = parseInt(artboardDiv.attr('id').slice(3), 10);
-    jsonArtboardData.dto.plates[plateNumber].shouldPrint = !jsonArtboardData.dto.plates[plateNumber].shouldPrint;
+    if (storedArtboardPrint[index] && artboardDiv.hasClass("artboard-deselected"))
+    {
+        artboardDiv.toggleClass("artboard-deselected", false);
+    }
+    else if (!storedArtboardPrint[index] && artboardDiv.hasClass("artboard-colors"))
+    {
+        artboardDiv.toggleClass("artboard-deselected", true);
+    }
 }
