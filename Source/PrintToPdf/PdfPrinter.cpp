@@ -32,41 +32,9 @@ PdfPrinter::PdfPrinter(const PdfPreset preset)
     
     plateNumber = SafeguardFile::PlateNumber(CurrentFilenameRetriever::GetFilenameNoExt());
     
-    //SETUP LAYER VISIBILITY
-    if (plateNumber.GetProductType() == ProductType::BusinessStat)
-    {
-        if (preset == PdfPreset::MicrProof || preset == PdfPreset::Proof)
-        {
-            layerVisibility = unique_ptr<LayerVisibility> { make_unique<BStatProofLayerVisibility>() };
-        }
-        else
-        {
-            layerVisibility = unique_ptr<LayerVisibility> { make_unique<BStatLayerVisibility>() };
-        }
-    }
-    else if (plateNumber.GetProductType() == ProductType::INVAL)
-    {
-        layerVisibility = unique_ptr<LayerVisibility> { make_unique<NonStandardLayerVisibility>() };
-    }
-    else
-    {
-        layerVisibility = unique_ptr<LayerVisibility> { make_unique<LaserLayerVisibility>() };
-    }
-    
-    //SETUP PATH BUILDER
-    if (preset == PdfPreset::Manufacturing)
-    {
-        pathBuilder = unique_ptr<PathBuilder> { make_unique<ManufacturingPathBuilder>() };
-    }
-    else if (preset == PdfPreset::MicrProof)
-    {
-        pathBuilder = unique_ptr<PathBuilder> { make_unique<MicrProofPathBuilder>() };
-    }
-    else if (preset == PdfPreset::Proof)
-    {
-        pathBuilder = unique_ptr<PathBuilder> { make_unique<ProofPathBuilder>() };
-    }
-    
+    layerVisibility = LayerVisibility::GetLayerVisibility(plateNumber.GetProductType(), preset);
+        
+    pathBuilder = PathBuilder::GetPathBuilder(preset);
     outputPath = pathBuilder->GetAiFilePath(plateNumber);
 }
 

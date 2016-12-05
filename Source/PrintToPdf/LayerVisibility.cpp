@@ -14,6 +14,31 @@ using PrintToPdf::BStatLayerVisibility;
 using PrintToPdf::LaserLayerVisibility;
 using PrintToPdf::BStatProofLayerVisibility;
 using PrintToPdf::NonStandardLayerVisibility;
+using SafeguardFile::ProductType;
+
+unique_ptr<LayerVisibility> LayerVisibility::GetLayerVisibility(SafeguardFile::ProductType productType, PdfPreset preset)
+{
+    //SETUP LAYER VISIBILITY
+    if (productType == ProductType::BusinessStat)
+    {
+        if (preset == PdfPreset::MicrProof || preset == PdfPreset::Proof)
+        {
+            return unique_ptr<LayerVisibility> { make_unique<BStatProofLayerVisibility>() };
+        }
+        else
+        {
+            return unique_ptr<LayerVisibility> { make_unique<BStatLayerVisibility>() };
+        }
+    }
+    else if (productType == ProductType::INVAL)
+    {
+        return unique_ptr<LayerVisibility> { make_unique<NonStandardLayerVisibility>() };
+    }
+    else
+    {
+        return unique_ptr<LayerVisibility> { make_unique<LaserLayerVisibility>() };
+    }
+}
 
 LayerVisibility::LayerVisibility()
 {
@@ -26,11 +51,6 @@ LayerVisibility::LayerVisibility()
         BtLayer btLayer(layer);
         layerList.insert(pair<string, BtLayer>(btLayer.Title(), btLayer));
     }
-}
-
-bool LayerVisibility::SetLayerVisibility()
-{
-    return CustomLayerVisibility();
 }
 
 bool BStatLayerVisibility::CustomLayerVisibility()
