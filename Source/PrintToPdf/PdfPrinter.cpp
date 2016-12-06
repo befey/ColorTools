@@ -50,7 +50,14 @@ unique_ptr<PdfPrinter> PdfPrinter::GetPrinter(const PdfPreset preset, const bool
     }
 }
 
-PdfResults PdfPrinter::Print(const PdfSettings& settings) const
+PdfResults PdfPrinter::Print(const PdfSettings& settings)
+{
+    unique_ptr<PdfPrinter> printer = GetPrinter(settings.GetPreset(), settings.OutputSeparateFiles());
+    
+    return printer->DoIt(settings);
+}
+
+PdfResults PdfPrinter::DoIt(const PdfSettings& settings) const
 {
     PdfResults transactions;
     
@@ -62,7 +69,7 @@ PdfResults PdfPrinter::Print(const PdfSettings& settings) const
         tpConverter->ConvertTypeToPaths();
         
         transactions.AddResult(CustomPrintSteps(settings));
-    }   
+    }
     
     return transactions;
 }

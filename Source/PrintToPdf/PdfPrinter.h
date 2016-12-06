@@ -23,9 +23,7 @@ namespace PrintToPdf
     class PdfPrinter
     {
     public:
-        static unique_ptr<PdfPrinter> GetPrinter(PdfPreset preset, const bool separateFiles);
-        
-        PdfResults Print(const PdfSettings& settings) const;
+        static PdfResults Print(const PdfSettings& settings);
         
     protected:
         PdfPrinter(const PdfPreset preset);
@@ -40,6 +38,9 @@ namespace PrintToPdf
         
         SafeguardFile::PlateNumber plateNumber;
     private:
+        static unique_ptr<PdfPrinter> GetPrinter(PdfPreset preset, const bool separateFiles);
+        
+        PdfResults DoIt(const PdfSettings& settings) const;
         virtual PdfResults CustomPrintSteps(const PdfSettings& settings) const = 0;
     };
     
