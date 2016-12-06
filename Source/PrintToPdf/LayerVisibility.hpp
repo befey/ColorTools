@@ -12,6 +12,8 @@
 #include "AILayer.h"
 #include <map>
 #include "BtLayer.hpp"
+#include "SafeguardFileConstants.h"
+#include "PrintToPdfConstants.h"
 
 extern AILayerSuite* sAILayer;
 
@@ -20,12 +22,15 @@ namespace PrintToPdf
     class LayerVisibility
     {
     public:
-        LayerVisibility();
-        bool SetLayerVisibility();
+        static unique_ptr<LayerVisibility> GetLayerVisibility(SafeguardFile::ProductType productType, PdfPreset preset);
+        
+        bool SetLayerVisibility() { return CustomLayerVisibility(); };
         
     protected:
         map<string, BtLayer> layerList; // Layername, BtLayer
         
+        LayerVisibility();
+
     private:
         virtual bool CustomLayerVisibility() = 0;
     };

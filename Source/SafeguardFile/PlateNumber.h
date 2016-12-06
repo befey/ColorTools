@@ -29,15 +29,13 @@
  };
  
  */
+#include "AIPath.h"
 #include "AIArtboard.h"
 #include "SafeguardFileConstants.h"
 #include "ICanBeTextRange.h"
 
-extern AIArtSuite* sAIArt;
 extern AIPathSuite* sAIPath;
-extern AIArtSetSuite* sAIArtSet;
 extern AIArtboardSuite* sAIArtboard;
-extern AIRealMathSuite* sAIRealMath;
 
 namespace SafeguardFile
 {
@@ -52,6 +50,7 @@ namespace SafeguardFile
         inline string GetPlantIndicator() const {return plantIndicator;};
         inline string GetProductIndicator() const {return productIndicator;};
         ProductType GetProductType() const;
+        inline string GetSuffix() const { return suffix; };
         
         inline operator string(void) const { return plateNumber; }
         
@@ -61,6 +60,7 @@ namespace SafeguardFile
         string year;
         string productIndicator;
         string number;
+        string suffix;
         Boolean isValidPlateNumber = false;
         
         Boolean TokenizePlateNumber();

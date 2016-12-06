@@ -76,6 +76,24 @@ void PrintToPdfUIController::CancelButtonClickedFunc (const csxs::event::Event* 
     return;
 }
 
+void PrintToPdfUIController::NoArtboardsSelectedHandler (const csxs::event::Event* const event, void* const context)
+{
+    PrintToPdfUIController *printToPdfUIController = (PrintToPdfUIController *)context;
+    if (NULL == printToPdfUIController || event == NULL)
+    {
+        return;
+    }
+    
+    do {
+        // Set up the application context, so that suite calls can work.
+        AppContext appContext(gPlugin->GetPluginRef());
+        
+        sAIUser->WarningAlert(ai::UnicodeString("You haven't selected any artboards to print!"), NULL);
+        
+        // Clean up the application context and return.
+    } while(false);
+    return;
+}
 
 PrintToPdfUIController::PrintToPdfUIController(void)
 : FlashUIController(PRINTTOPDF_UI_EXTENSION)
@@ -104,6 +122,11 @@ csxs::event::EventErrorCode PrintToPdfUIController::RegisterCSXSEventListeners()
         {
             break;
         }
+        result =  fPPLib.AddEventListener(EVENT_TYPE_NO_ARTBOARDS_SEL, NoArtboardsSelectedHandler, this);
+        if (result != csxs::event::kEventErrorCode_Success)
+        {
+            break;
+        }
     }
     while(false);
     return result;
@@ -126,6 +149,11 @@ csxs::event::EventErrorCode PrintToPdfUIController::RemoveEventListeners()
             break;
         }
         result =  fPPLib.RemoveEventListener(EVENT_TYPE_PANEL_LOADED, PanelLoaded, this);
+        if (result != csxs::event::kEventErrorCode_Success)
+        {
+            break;
+        }
+        result =  fPPLib.RemoveEventListener(EVENT_TYPE_NO_ARTBOARDS_SEL, NoArtboardsSelectedHandler, this);
         if (result != csxs::event::kEventErrorCode_Success)
         {
             break;

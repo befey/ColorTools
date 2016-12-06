@@ -103,6 +103,10 @@
 		F9AE0DDA1DCCDA20001F460D /* sg_Symbols.ai in CopyFiles */ = {isa = PBXBuildFile; fileRef = F9AE0DD81DCCDA1D001F460D /* sg_Symbols.ai */; };
 		F9BC95C21DEF14AC00130615 /* ColorEnumerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9BC95C01DEF14AC00130615 /* ColorEnumerator.cpp */; };
 		F9BC95C31DEF14AC00130615 /* ColorEnumerator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9BC95C11DEF14AC00130615 /* ColorEnumerator.hpp */; };
+		F9BC95C61DF1D68500130615 /* TokenCreator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9BC95C41DF1D68500130615 /* TokenCreator.cpp */; };
+		F9BC95C71DF1D68500130615 /* TokenCreator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9BC95C51DF1D68500130615 /* TokenCreator.hpp */; };
+		F9BC95CB1DF1DE9700130615 /* CurrentFilenameRetriever.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9BC95C91DF1DE9700130615 /* CurrentFilenameRetriever.hpp */; };
+		F9BC95CF1DF1EEC000130615 /* ArtboardNameRetriever.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9BC95CD1DF1EEC000130615 /* ArtboardNameRetriever.hpp */; };
 		F9C44EF01D0AF26100205ADF /* Plate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9C44EEE1D0AF26100205ADF /* Plate.cpp */; };
 		F9C44EF11D0AF26100205ADF /* Plate.h in Headers */ = {isa = PBXBuildFile; fileRef = F9C44EEF1D0AF26100205ADF /* Plate.h */; };
 		F9C44EF41D0AF51100205ADF /* TickMarkDrawer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9C44EF21D0AF51100205ADF /* TickMarkDrawer.cpp */; };
@@ -289,6 +293,10 @@
 		F9B3FE381D9EBC6F002E10EB /* AIArtboardMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AIArtboardMessage.h; path = "Source/utility-headers/AIArtboardMessage.h"; sourceTree = "<group>"; };
 		F9BC95C01DEF14AC00130615 /* ColorEnumerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ColorEnumerator.cpp; path = "Source/utility-headers/ColorEnumerator.cpp"; sourceTree = "<group>"; };
 		F9BC95C11DEF14AC00130615 /* ColorEnumerator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ColorEnumerator.hpp; path = "Source/utility-headers/ColorEnumerator.hpp"; sourceTree = "<group>"; };
+		F9BC95C41DF1D68500130615 /* TokenCreator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TokenCreator.cpp; path = Source/SafeguardFile/TokenCreator.cpp; sourceTree = "<group>"; };
+		F9BC95C51DF1D68500130615 /* TokenCreator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenCreator.hpp; path = Source/SafeguardFile/TokenCreator.hpp; sourceTree = "<group>"; };
+		F9BC95C91DF1DE9700130615 /* CurrentFilenameRetriever.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CurrentFilenameRetriever.hpp; path = "Source/utility-headers/CurrentFilenameRetriever.hpp"; sourceTree = "<group>"; };
+		F9BC95CD1DF1EEC000130615 /* ArtboardNameRetriever.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ArtboardNameRetriever.hpp; path = "Source/utility-headers/ArtboardNameRetriever.hpp"; sourceTree = "<group>"; };
 		F9C44EEE1D0AF26100205ADF /* Plate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Plate.cpp; path = Source/SafeguardFile/Plate.cpp; sourceTree = "<group>"; };
 		F9C44EEF1D0AF26100205ADF /* Plate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Plate.h; path = Source/SafeguardFile/Plate.h; sourceTree = "<group>"; };
 		F9C44EF21D0AF51100205ADF /* TickMarkDrawer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TickMarkDrawer.cpp; path = Source/PlateBleedInfo/TickMarkDrawer.cpp; sourceTree = "<group>"; };
@@ -439,6 +447,8 @@
 				F9C44EF61D0B14AE00205ADF /* SafeguardJobFile.cpp */,
 				F9C44EF71D0B14AE00205ADF /* SafeguardJobFile.h */,
 				F97B56581D3937EF00C10A9F /* SafeguardFileConstants.h */,
+				F9BC95C41DF1D68500130615 /* TokenCreator.cpp */,
+				F9BC95C51DF1D68500130615 /* TokenCreator.hpp */,
 			);
 			name = SafeguardFile;
 			sourceTree = "<group>";
@@ -590,6 +600,7 @@
 			isa = PBXGroup;
 			children = (
 				F9B3FE381D9EBC6F002E10EB /* AIArtboardMessage.h */,
+				F9BC95CD1DF1EEC000130615 /* ArtboardNameRetriever.hpp */,
 				F98BAEDB1CA99E1E00965D86 /* ArtTree.cpp */,
 				F98BAEDC1CA99E1E00965D86 /* ArtTree.h */,
 				F90E3F951CA475880081C333 /* ATEFuncs.cpp */,
@@ -618,6 +629,7 @@
 				F90E3F9C1CA475880081C333 /* ColorFuncs.h */,
 				F9F1EB691D1B19AF0051B716 /* ColorList.cpp */,
 				F9F1EB6A1D1B19AF0051B716 /* ColorList.h */,
+				F9BC95C91DF1DE9700130615 /* CurrentFilenameRetriever.hpp */,
 				F9DA3B8E1D1C4A4A00AB6156 /* GetIllustratorErrorCode.h */,
 				F930DE051DDB75A70030B5C1 /* ICanBeTextRange.h */,
 				F9F079681D4BC4D3004AC522 /* IDrawer.h */,
@@ -644,6 +656,7 @@
 				F910BD6B1D09FA910029DF62 /* BleedInfo.h in Headers */,
 				F90AE3F31CAAF8AF0076A9BC /* BtAiMenuItemHandles.h in Headers */,
 				F937ABED1D5267CB006DD5C4 /* BtDocumentView.hpp in Headers */,
+				F9BC95C71DF1D68500130615 /* TokenCreator.hpp in Headers */,
 				F98BAEDE1CA99E1E00965D86 /* ArtTree.h in Headers */,
 				F9FAE8FF1CBD87E700938893 /* BtArtboardRange.h in Headers */,
 				F9DA3B9E1D1D7E6200AB6156 /* BleedTextInfoDrawer.h in Headers */,
@@ -671,12 +684,14 @@
 				F93264D31DC8E2D40020B57A /* SgSymbolDrawer.hpp in Headers */,
 				F9CE24FB1D11A56E0075DDDF /* TextTools.h in Headers */,
 				F97B564F1D36759500C10A9F /* LayerVisibility.hpp in Headers */,
+				F9BC95CB1DF1DE9700130615 /* CurrentFilenameRetriever.hpp in Headers */,
 				F9138EA01D01EE4D00D23C1F /* PrintToPdfConstants.h in Headers */,
 				F937ABE51D51149C006DD5C4 /* BtTransformArt.hpp in Headers */,
 				F96D30741CB6D73500274BDE /* PlateNumber.h in Headers */,
 				F9138E9B1D01EE4D00D23C1F /* PdfResults.h in Headers */,
 				F947263F1CB2E1F400649020 /* VPB.h in Headers */,
 				F9F079671D47EEC1004AC522 /* TickMarkSettings.hpp in Headers */,
+				F9BC95CF1DF1EEC000130615 /* ArtboardNameRetriever.hpp in Headers */,
 				F9DA3B961D1C6C7D00AB6156 /* ColorListDrawer.h in Headers */,
 				F98BAEE21CA9A0D100965D86 /* BtAiMenuItem.h in Headers */,
 				F965B58F1D1072F200B0C04C /* ListFonts.h in Headers */,
@@ -774,6 +789,7 @@
 			files = (
 				F937ABE81D5241EB006DD5C4 /* PlateBleedInfoUIController.cpp in Sources */,
 				F989A8F11CA465890050C071 /* IText.cpp in Sources */,
+				F9BC95C61DF1D68500130615 /* TokenCreator.cpp in Sources */,
 				F979B5FF1CA31E72004BA4AD /* AppContext.cpp in Sources */,
 				F937ABE41D51149C006DD5C4 /* BtTransformArt.cpp in Sources */,
 				F9138E9A1D01EE4D00D23C1F /* PdfResults.cpp in Sources */,

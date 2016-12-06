@@ -11,6 +11,11 @@
 #include "rapidjson/document.h"
 #include "Plate.h"
 #include "SafeguardJobFile.h"
+#include "SafeguardJobFileDTO.hpp"
+
+#include "cereal/cereal.hpp"
+#include "cereal/types/vector.hpp"
+#include "cereal/archives/json.hpp"
 
 using PrintToPdf::PdfSettings;
 using PrintToPdf::PdfPreset;
@@ -93,19 +98,35 @@ PdfSettings PdfSettings::MakePdfSettingsFromJson(const char* json)
     
     Value& v = d[PrintToPdfUIController::PRESET_SELECT];
     PrintToPdf::PdfPreset preset = static_cast<PrintToPdf::PdfPreset>(v.GetInt());
-    
-    v = d[PrintToPdfUIController::ALLPAGES_CHECK];
-    bool allPages = (v.GetBool());
+        
+    v = d[PrintToPdfUIController::DTO];
+    string dtoString = (v.GetString());
+    PlateBleedInfo::SafeguardJobFileDTO printToPdfDTO;
+    std::istringstream is(dtoString);
+    {
+        try
+        {
+            cereal::JSONInputArchive iarchive(is); // Create an input archive
+            iarchive(printToPdfDTO);
+        }
+        catch (std::runtime_error e)
+        {
+            string s(e.what());
+        }
+    }
     
     string r;
-    if (allPages)
+    for (auto artboard : printToPdfDTO.GetPlateDTOs() )
     {
-        r = "";
+        if (artboard.shouldPrint)
+        {
+            r += std::to_string(artboard.artboardIndex+1);
+            r += ",";
+        }
     }
-    else
+    if (r.length() > 0)
     {
-        v = d[PrintToPdfUIController::RANGE_TEXT];
-        r = v.GetString();
+        r.pop_back(); //Remove trailing comma
     }
     
     v = d[PrintToPdfUIController::SEPARATEFILES_CHECK];

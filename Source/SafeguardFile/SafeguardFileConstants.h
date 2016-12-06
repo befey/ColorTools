@@ -40,9 +40,7 @@ namespace SafeguardFile
     constexpr auto FOREGROUND_LAYER =           "Foreground";
     constexpr auto GUIDE_LAYER =                "Guides";
     constexpr auto BACKGROUND_LAYER =           "Background";
-    
-    static constexpr auto NO_TOKEN_DESIG =      "F";
-    
+        
     //These values map to the "Value" property of our extension panel select options
     enum class InkMethod
     {

@@ -16,7 +16,7 @@
 #include "ExistingFileDeleter.h"
 #include "LayerVisibility.hpp"
 #include "TypeToPathsConverter.hpp"
-#include "AIFilePath.h"
+#include "PlateNumber.h"
 
 namespace PrintToPdf
 {
@@ -38,9 +38,7 @@ namespace PrintToPdf
         
         ai::FilePath outputPath;
         
-        const SafeguardFile::PlateNumber GetPlateNumber() const;
-        const string GetToken(int plateIndex) const;
-        
+        SafeguardFile::PlateNumber plateNumber;
     private:
         virtual PdfResults CustomPrintSteps(const PdfSettings& settings) const = 0;
     };

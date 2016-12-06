@@ -52,6 +52,7 @@ namespace PlateBleedInfo
         PlateDTO(const string jsonBleedInfo);
         
         bool shouldDrawBleedInfo;
+        bool shouldPrint;
         int artboardIndex;
         string artboardName;
         bool isDefaultArtboardName;
@@ -67,6 +68,7 @@ namespace PlateBleedInfo
         void serialize(Archive& ar)
         {
             ar(CEREAL_NVP(shouldDrawBleedInfo),
+               CEREAL_NVP(shouldPrint),
                CEREAL_NVP(artboardIndex),
                CEREAL_NVP(artboardName),
                CEREAL_NVP(isDefaultArtboardName),
@@ -90,6 +92,7 @@ namespace PlateBleedInfo
         vector<PlateDTO> GetPlateDTOs() const { return plates; };
         
         bool ShouldDrawBleedInfo(int index) const { return plates.at(index).shouldDrawBleedInfo; };
+        bool ShouldPrint(int index) const { return plates.at(index).shouldPrint; };
         string ArtboardName(int index) const { return plates.at(index).artboardName; };
         bool IsDefaultArtboardName(int index) const { return plates.at(index).isDefaultArtboardName; };
         vector<ColorDTO> ColorList(int index) const { return plates.at(index).c; };

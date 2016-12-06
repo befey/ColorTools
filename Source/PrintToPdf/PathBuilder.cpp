@@ -14,11 +14,32 @@
 namespace fs = boost::filesystem;
 
 using SafeguardFile::PlateNumber;
+using PrintToPdf::PathBuilder;
 using PrintToPdf::ManufacturingPathBuilder;
 using PrintToPdf::ProofPathBuilder;
 using PrintToPdf::MicrProofPathBuilder;
 using PrintToPdf::TestingPathBuilder;
 using PrintToPdf::UserPathBuilder;
+
+unique_ptr<PathBuilder> PathBuilder::GetPathBuilder(PdfPreset preset)
+{
+    if (preset == PdfPreset::Manufacturing)
+    {
+         return unique_ptr<PathBuilder> { make_unique<ManufacturingPathBuilder>() };
+    }
+    else if (preset == PdfPreset::MicrProof)
+    {
+        return unique_ptr<PathBuilder> { make_unique<MicrProofPathBuilder>() };
+    }
+    else if (preset == PdfPreset::Proof)
+    {
+        return unique_ptr<PathBuilder> { make_unique<ProofPathBuilder>() };
+    }
+    else
+    {
+        return unique_ptr<PathBuilder> { make_unique<UserPathBuilder>() };
+    }
+}
 
 ai::FilePath ManufacturingPathBuilder::GetAiFilePath(const PlateNumber pn) const
 {

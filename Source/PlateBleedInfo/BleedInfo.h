@@ -53,6 +53,8 @@ namespace PlateBleedInfo
         BleedInfo& ShouldDrawBleedInfo(bool newVal) { shouldDrawBleedInfo = newVal; return *this; };
         bool ShouldAddCmykBlocks() const { return shouldAddCMYKBlocks; };
         BleedInfo& ShouldAddCmykBlocks(bool newVal) { shouldAddCMYKBlocks = newVal; return *this; };
+        bool ShouldPrint() const { return shouldPrint; };
+        BleedInfo& ShouldPrint(bool newVal) { shouldPrint = newVal; return *this; };
         const SafeguardFile::PlateNumber PlateNumber() const { return plateNumber; };
         class ColorList& ColorList() { return colorList; };
         class ColorList ConstColorList() const { return colorList; };
@@ -67,6 +69,7 @@ namespace PlateBleedInfo
     private:
         bool shouldDrawBleedInfo = true;
         bool shouldAddCMYKBlocks = false;
+        bool shouldPrint = true;
         
         AIArtHandle bleedInfoPluginArt = NULL;
         
@@ -77,6 +80,7 @@ namespace PlateBleedInfo
         
         void SetPlateNumber();
         void SetPlateNumber(string pn);
+        void SetShouldPrint();
         
         void FillBleedInfoFromPlateDTO(const PlateBleedInfo::PlateDTO* dto, bool changeArtboardName);
     };
