@@ -50,16 +50,10 @@ vector<AIColor> ColorEnumerator::GetColorsFromArt(AIArtHandle art)
     return colorsInArt;
 }
 
-vector<AIColor> ColorEnumerator::GetColorsOfPlacedArt(AIArtHandle art)
+void GetColorsCallback(AIColor *color, void *userData, AIErr *result, AIBoolean *altered)
 {
-    vector<AIColor> results;
-    vector<AIColor> groupColors;
-    
-    sAIFOConversion->EnumerateContents(art, AIFOColorsCallback, (void*)&groupColors);
-    
-    results.insert(results.end(), groupColors.begin(), groupColors.end());
-    
-    return results;
+    vector<AIColor>* colorsInArt = (vector<AIColor>*)userData;
+    colorsInArt->push_back(*color);
 }
 
 vector<AIColor> ColorEnumerator::GetColorsOfRasterArt(AIArtHandle art)
@@ -83,10 +77,28 @@ vector<AIColor> ColorEnumerator::GetColorsOfRasterArt(AIArtHandle art)
     return results;
 }
 
-void GetColorsCallback(AIColor *color, void *userData, AIErr *result, AIBoolean *altered)
+vector<AIColor> ColorEnumerator::GetColorsOfPlacedArt(AIArtHandle art)
 {
-    vector<AIColor>* colorsInArt = (vector<AIColor>*)userData;
-    colorsInArt->push_back(*color);
+    vector<AIColor> results;
+    
+    AIRasterRecord info;
+    AIBoolean israster;
+    sAIPlaced->GetRasterInfo(art, &info, &israster);
+    if (israster)
+    {
+        return GetColorsOfRasterArt(art);
+    }
+    else
+    {
+        vector<AIColor> colorsInArt;
+        
+        sAIFOConversion->EnumerateContents(art, AIFOColorsCallback, (void*)&colorsInArt);
+        
+        results.insert(results.end(), colorsInArt.begin(), colorsInArt.end());
+        
+        return results;
+    }
+    
 }
 
 void AIFOColorsCallback(AIFOContentInfoSelector selector, void *info, void *userData)

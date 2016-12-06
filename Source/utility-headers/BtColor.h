@@ -68,6 +68,8 @@ public:
     SafeguardFile::InkMethod Method() const { return method; };
     
     friend bool operator< (const BtColor& lhs, const BtColor& rhs);
+    
+    inline operator AIColor(void) const { return aiColor; }
 private:
     AIColor aiColor;
     AICustomColor aiCustomColor;
