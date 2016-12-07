@@ -29,6 +29,8 @@ public:
     BtArtboardRange(const BtArtboardRange& src);
     BtArtboardRange& operator=(const BtArtboardRange& rhs);
     
+    bool Range(string newVal) { rangeS = newVal; return TurnStringToRangeHandle(rangeS); };
+    
     inline operator string(void) const {return rangeS;}
     inline operator AIArtboardRangeHandle(void) const {return range;}
     
@@ -36,6 +38,8 @@ private:
     string rangeS;
     AIArtboardRangeHandle range;
     bool isValid = false;
+    
+    bool TurnStringToRangeHandle(string rangeString);
 };
 
 #endif /* defined(__SafeguardTools__BtArtboardRange__) */

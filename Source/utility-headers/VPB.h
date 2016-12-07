@@ -31,13 +31,10 @@ constexpr auto kSaveACopyAsAction = "adobe_saveACopyAs";
 class VPB
 {
 public:
-    /**	Constructor
-     */
     VPB();
-    
-    /**	Destructor
-     */
     ~VPB();
+    VPB(const VPB& src);
+    VPB& operator=(const VPB& rhs);
     
     /**	Returns the value parameter block structure.
      */
@@ -50,6 +47,7 @@ private:
      */
     AIActionParamValueRef fActionParamValueRef;
     
+    void Copy(const AIActionParamValueRef& src);
 }; // end class VPB
 
 #endif //VPB_H

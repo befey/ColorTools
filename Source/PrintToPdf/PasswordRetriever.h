@@ -18,6 +18,8 @@ namespace PrintToPdf
     class PasswordRetriever
     {
     public:
+        virtual unique_ptr<PasswordRetriever> Clone() const = 0;
+        
         virtual string GetUserPassword() const = 0;
         virtual string GetMasterPassword() const = 0;
         
@@ -35,8 +37,10 @@ namespace PrintToPdf
     public:
         NonePasswordRetriever() { isValid = true; };
         
-        string GetUserPassword() const { return ""; }
-        string GetMasterPassword() const { return ""; }
+        unique_ptr<PasswordRetriever> Clone() const override { return make_unique<NonePasswordRetriever>(); };
+        
+        string GetUserPassword() const override { return ""; }
+        string GetMasterPassword() const override { return ""; }
     };
     
     class ProofPasswordRetriever : public PasswordRetriever
@@ -44,8 +48,10 @@ namespace PrintToPdf
     public:
         ProofPasswordRetriever() { LoadFromFile(); };
         
-        string GetUserPassword() const { return ""; }
-        string GetMasterPassword() const { return MasterPassword; }
+        unique_ptr<PasswordRetriever> Clone() const override { return make_unique<ProofPasswordRetriever>(); };
+        
+        string GetUserPassword() const override { return ""; }
+        string GetMasterPassword() const override { return MasterPassword; }
     };
     
     class MicrPasswordRetriever : public PasswordRetriever
@@ -53,8 +59,10 @@ namespace PrintToPdf
     public:
         MicrPasswordRetriever() { LoadFromFile(); };
         
-        string GetUserPassword() const { return UserPassword; }
-        string GetMasterPassword() const { return MasterPassword; }
+        unique_ptr<PasswordRetriever> Clone() const override { return make_unique<MicrPasswordRetriever>(); };
+        
+        string GetUserPassword() const override { return UserPassword; }
+        string GetMasterPassword() const override { return MasterPassword; }
     };
 }
 

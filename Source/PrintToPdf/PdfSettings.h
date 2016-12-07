@@ -36,15 +36,19 @@ namespace PrintToPdf
     {
     public:
         PdfSettings(PrintToPdf::PdfPreset p, string range = "", bool separateFiles = false);
+        PdfSettings(const PdfSettings& src);
+        PdfSettings& operator=(const PdfSettings& rhs);
         
         static PdfSettings MakePdfSettingsFromJson(const char* json);
         
-        PrintToPdf::PdfPreset GetPreset() const { return preset; };
-        const BtArtboardRange& GetRange() const { return range; };
-        void SetBleeds(AIRealRect bleeds) const;
-        void SetPath(ai::FilePath path) const;
-        void SetVpbRange(string range) const;
-        bool OutputSeparateFiles() const { return separateFiles; };
+        PrintToPdf::PdfPreset Preset() const { return preset; };
+        const BtArtboardRange& Range() const { return range; };
+        void Range(string newVal);
+        
+        void Bleeds(AIRealRect bleeds) const;
+        void Path(ai::FilePath path) const;
+        
+        bool SeparateFiles() const { return separateFiles; };
         
         inline operator AIActionParamValueRef(void) const { return AIActionParamValueRef(vpb); }
     private:

@@ -44,14 +44,14 @@ PdfSettings::PdfSettings(PdfPreset p, string r, bool s) : preset(p), range(r), s
     ProductType pType = sgJobFile.GetPlateNumber().GetProductType();
     if ( (pType == ProductType::CutSheet || pType == ProductType::Snapset ) && (preset == PdfPreset::MicrProof || preset == PdfPreset::Proof) )
     {
-        SetBleeds(AIRealRect{0,0,0,0});
+        Bleeds(AIRealRect{0,0,0,0});
     }
     else
     {
-        SetBleeds(sgJobFile.GetBleeds());
+        Bleeds(sgJobFile.GetBleeds());
     }
         
-    SetVpbRange(range);
+    Range(range);
     
   ////****** Setup common parameters for all PDFs
     //Set High Quality Print settings
@@ -87,6 +87,30 @@ PdfSettings::PdfSettings(PdfPreset p, string r, bool s) : preset(p), range(r), s
     sAIActionManager->AIActionSetEnumerated(vpb, kAIPDFMonochromeImageCompressionKindKey, "Mono Compression Kind", kAIPDFMonochromeImageCompressionZIP);
     sAIActionManager->AIActionSetEnumerated(vpb, kAIPDFMonochromeImageResampleKindKey, "Mono Resample Kind", kAIPDFNoDownsampling);
   ////*******
+}
+
+PdfSettings::PdfSettings(const PdfSettings& src)
+:
+range(BtArtboardRange(src.range)),
+separateFiles(src.separateFiles),
+preset(src.preset),
+vpb(src.vpb),
+pwRetriever(src.pwRetriever->Clone())
+{
+}
+
+PdfSettings& PdfSettings::operator=(const PdfSettings& rhs)
+{
+    if (&rhs != this)
+    {
+        range = BtArtboardRange(rhs.range);
+        separateFiles = rhs.separateFiles;
+        preset = rhs.preset;
+        vpb = VPB(rhs.vpb);
+        
+        pwRetriever = rhs.pwRetriever->Clone();
+    }
+    return *this;
 }
 
 PdfSettings PdfSettings::MakePdfSettingsFromJson(const char* json)
@@ -167,7 +191,7 @@ void PdfSettings::SetPasswords()
     }
 }
 
-void PdfSettings::SetBleeds(AIRealRect bleeds) const
+void PdfSettings::Bleeds(AIRealRect bleeds) const
 {
     sAIActionManager->AIActionSetInteger(vpb, kAIPDFBleedTopKey, bleeds.top);
     sAIActionManager->AIActionSetInteger(vpb, kAIPDFBleedBottomKey, bleeds.bottom);
@@ -176,14 +200,15 @@ void PdfSettings::SetBleeds(AIRealRect bleeds) const
     sAIActionManager->AIActionSetBoolean(vpb, kAIPDFDocBleedKey, FALSE);
 }
 
-void PdfSettings::SetPath(ai::FilePath path) const
+void PdfSettings::Path(ai::FilePath path) const
 {
     sAIActionManager->AIActionSetStringUS(vpb, kAISaveDocumentAsNameKey, path.GetFullPath());
 }
 
-void PdfSettings::SetVpbRange(string vpbRange) const
+void PdfSettings::Range(string newVal)
 {
-    sAIActionManager->AIActionSetString(vpb, kAIExportDocumentSaveRangeKey, vpbRange.c_str());
+    range.Range(newVal);
+    sAIActionManager->AIActionSetString(vpb, kAIExportDocumentSaveRangeKey, string(range).c_str());
 }
 /**************************************************************************
  **************************************************************************/
@@ -197,12 +222,6 @@ void PdfSettings::SetVpbRange(string vpbRange) const
  // Crop To
  //result = sAIActionManager->AIActionSetInteger(vpb.fActionParamValueRef, kAIPDFCropToKey, kAIPDFBleedBox);
  //aisdk::check_ai_error(result);
- 
- // Password Protection
- result = sAIActionManager->AIActionSetBoolean(vpb, kAIPDFUserPasswordRequiredKey, FALSE);
- aisdk::check_ai_error(result);
- result = sAIActionManager->AIActionSetBoolean(vpb, kAIPDFMasterPasswordRequiredKey, FALSE);
- aisdk::check_ai_error(result);
  
  // Printing Permissions
  result = sAIActionManager->AIActionSetEnumerated(vpb, kAIPDFPrintingPermKey, "Printing Allowed", kAIPDFPrint128HighResIndex);

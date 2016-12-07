@@ -38,3 +38,71 @@ VPB::~VPB()
 	catch (ai::Error) {
 	}
 }
+
+VPB::VPB(const VPB& src)
+{
+    sAIActionManager->AINewActionParamValue(&fActionParamValueRef);
+    
+    Copy(src.fActionParamValueRef);
+}
+
+VPB& VPB::operator=(const VPB& rhs)
+{
+    if (&rhs != this)
+    {
+        Copy(rhs.fActionParamValueRef);
+    }
+    return *this;
+}
+
+void VPB::Copy(const AIActionParamValueRef& src)
+{
+    ai::uint32 count;
+    sAIActionManager->AIActionGetValueCount(src, &count);
+    for (int i = 0; i < count; i++)
+    {
+        ActionParamKeyID key;
+        sAIActionManager->AIActionGetValueKey(src, i, &key);
+        ActionParamTypeID type;
+        sAIActionManager->AIActionGetValueType(src, key, &type);
+        
+        if (type == actionTypeInteger)
+        {
+            ai::int32 value;
+            sAIActionManager->AIActionGetInteger(src, key, &value);
+            sAIActionManager->AIActionSetInteger(fActionParamValueRef, key, value);
+        }
+        else if (type == actionTypeReal)
+        {
+            AIReal value;
+            sAIActionManager->AIActionGetReal(src, key, &value);
+            sAIActionManager->AIActionSetReal(fActionParamValueRef, key, value);
+        }
+        else if (type == actionTypeBoolean)
+        {
+            AIBoolean value;
+            sAIActionManager->AIActionGetBoolean(src, key, &value);
+            sAIActionManager->AIActionSetBoolean(fActionParamValueRef, key, value);
+        }
+        else if (type == actionTypeEnum)
+        {
+            ai::int32 value;
+            ai::UnicodeString name;
+            sAIActionManager->AIActionGetEnumeratedUS(src, key, name, &value);
+            sAIActionManager->AIActionSetEnumeratedUS(fActionParamValueRef, key, name, value);
+        }
+        else if (type == actionTypeString)
+        {
+            ai::UnicodeString value;
+            sAIActionManager->AIActionGetStringUS(src, key, value);
+            sAIActionManager->AIActionSetStringUS(fActionParamValueRef, key, value);
+        }
+        else if (type == actionTypeUnitReal)
+        {
+            ActionParamUnitID unit;
+            AIReal value;
+            sAIActionManager->AIActionGetUnitReal(src, key, &unit, &value);
+            sAIActionManager->AIActionSetUnitReal(fActionParamValueRef, key, unit, value);
+        }
+    }
+}

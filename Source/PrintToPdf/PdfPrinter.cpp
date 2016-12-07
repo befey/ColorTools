@@ -52,7 +52,7 @@ unique_ptr<PdfPrinter> PdfPrinter::GetPrinter(const PdfPreset preset, const bool
 
 PdfResults PdfPrinter::Print(const PdfSettings& settings)
 {
-    unique_ptr<PdfPrinter> printer = GetPrinter(settings.GetPreset(), settings.OutputSeparateFiles());
+    unique_ptr<PdfPrinter> printer = GetPrinter(settings.Preset(), settings.SeparateFiles());
     
     return printer->DoIt(settings);
 }
@@ -85,7 +85,7 @@ PdfResults SingleFilePdfPrinter::CustomPrintSteps(const PdfSettings& settings) c
     pathToPdfFile.AddExtension("pdf");
     
     // Set Path
-    settings.SetPath(pathToPdfFile);
+    settings.Path(pathToPdfFile);
         
     sAIActionManager->PlayActionEvent(kSaveACopyAsAction, kDialogOff, settings);
     
@@ -99,13 +99,15 @@ PdfResults SeparateFilePdfPrinter::CustomPrintSteps(const PdfSettings& settings)
     PdfResults transactions;
     
     AIArtboardRangeIterator iter;
-    sAIArtboardRange->Begin(settings.GetRange(), &iter);
+    sAIArtboardRange->Begin(settings.Range(), &iter);
     ai::int32 index = 0;
     
     ai::FilePath pathToPdfFile = outputPath;
     
     while ( kEndOfRangeErr != sAIArtboardRange->Next(iter, &index) )
     {
+        PdfSettings singlePageSettings(settings);
+        
         pathToPdfFile.AddComponent(ai::UnicodeString(plateNumber));
         
         string token = SafeguardFile::TokenCreator(plateNumber, index).GetToken();
@@ -116,12 +118,13 @@ PdfResults SeparateFilePdfPrinter::CustomPrintSteps(const PdfSettings& settings)
         
         pathToPdfFile.AddExtension("pdf");
         // Set Path
-        settings.SetPath(pathToPdfFile);
+        string path = pathToPdfFile.GetFullPath().as_Platform();
+        singlePageSettings.Path(pathToPdfFile);
         
         // Set Range
-        settings.SetVpbRange(to_string(index+1));
+        singlePageSettings.Range(to_string(index+1));
         
-        sAIActionManager->PlayActionEvent(kSaveACopyAsAction, kDialogOff, settings);
+        sAIActionManager->PlayActionEvent(kSaveACopyAsAction, kDialogOff, singlePageSettings);
         
         transactions.AddResult({PdfResults::Transaction::Created, pathToPdfFile});
         
