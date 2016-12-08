@@ -20,14 +20,24 @@ using Transaction = PrintToPdf::PdfResults::Transaction;
 
 namespace fs = boost::filesystem;
 
+unique_ptr<ExistingFileDeleter> ExistingFileDeleter::GetExistingFileDeleter(bool doNotDelete)
+{
+    return unique_ptr<ExistingFileDeleter> { make_unique<ExistingFileDeleter>(doNotDelete) };
+}
+
 PdfResults ExistingFileDeleter::Delete(PlateNumber pn, ai::FilePath fp)
 {
+    vector<fs::path> filesToDelete;
+    PdfResults deletedFiles;
+    
+    if (doNotDelete)
+    {
+        return deletedFiles;
+    }
+    
     fs::path p = fp.GetFullPath().as_Platform();
     string filename = pn;
     boost::algorithm::to_upper(filename);
-    
-    vector<fs::path> filesToDelete;
-    PdfResults deletedFiles;
 
     typedef function<bool(const fs::directory_entry&)> filterfunc;
     filterfunc pred = [filename](const fs::directory_entry& e)

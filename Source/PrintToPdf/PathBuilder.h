@@ -21,7 +21,7 @@ namespace PrintToPdf
     class PathBuilder
     {
     public:
-        static unique_ptr<PathBuilder> GetPathBuilder(PdfPreset preset);
+        static unique_ptr<PathBuilder> GetPathBuilder(PdfPreset preset, bool userOutputFolder);
         
         virtual ai::FilePath GetAiFilePath(const SafeguardFile::PlateNumber pn) const = 0;
     protected:
