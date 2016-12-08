@@ -34,7 +34,7 @@ vector<AIColor> ColorEnumerator::GetColorsFromArt(AIArtHandle art)
     
     short type;
     sAIArt->GetArtType(art, &type);
-    if ( type == kPlacedArt )
+    if ( type == kPlacedArt || type == kForeignArt)
     {
         vector<AIColor> placedColors = GetColorsOfPlacedArt(art);
         colorsInArt.insert(colorsInArt.end(), placedColors.begin(), placedColors.end());
