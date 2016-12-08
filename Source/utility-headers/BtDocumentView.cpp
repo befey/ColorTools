@@ -59,4 +59,6 @@ void BtDocumentView::SetViewOnArtboard(ai::ArtboardID id)
     AIReal currZoom;
     sAIDocumentView->GetDocumentViewZoom(NULL, &currZoom);
     sAIDocumentView->SetDocumentViewZoom(NULL, currZoom * zoom * .9);
+    sAIDocument->RedrawDocument();
+    sAIUser->AppIdle();
 }

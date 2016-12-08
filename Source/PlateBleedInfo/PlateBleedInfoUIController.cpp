@@ -117,8 +117,6 @@ void PlateBleedInfoUIController::ChangeArtboardFunc (const csxs::event::Event* c
         BtDocumentView docview;
         docview.SetViewOnArtboard( GetArtboardIdFromJson(event->data) );
         
-        sAIDocument->RedrawDocument();
-        sAIDocument->RedrawDocument();
         // Clean up the application context and return.
     } while(false);
     return;
