@@ -8,7 +8,6 @@
 
 #include "PdfSettings.h"
 #include "PdfResults.h"
-#include "rapidjson/document.h"
 #include "Plate.h"
 #include "SafeguardJobFile.h"
 #include "SafeguardJobFileDTO.hpp"
@@ -16,6 +15,7 @@
 #include "cereal/cereal.hpp"
 #include "cereal/types/vector.hpp"
 #include "cereal/archives/json.hpp"
+#include "cereal/external/rapidjson/document.h"
 
 using PrintToPdf::PdfSettings;
 using PrintToPdf::PdfPreset;

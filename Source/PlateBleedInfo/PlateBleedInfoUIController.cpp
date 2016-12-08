@@ -13,11 +13,11 @@
 #include "BtDocumentView.hpp"
 #include "GetIllustratorErrorCode.h"
 #include "SafeguardJobFileDTO.hpp"
-#include "rapidjson/document.h"
 
 #include "cereal/cereal.hpp"
 #include "cereal/types/vector.hpp"
 #include "cereal/archives/json.hpp"
+#include "cereal/external/rapidjson/document.h"
 
 using PlateBleedInfo::PlateBleedInfoUIController;
 using SafeguardFile::SafeguardJobFile;
