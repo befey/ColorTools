@@ -20,39 +20,40 @@ using PrintToPdf::PdfSettings;
 using PrintToPdf::PdfResults;
 using SafeguardFile::ProductType;
 
-SingleFilePdfPrinter::SingleFilePdfPrinter(const PdfPreset preset) : PdfPrinter(preset) {}
-SeparateFilePdfPrinter::SeparateFilePdfPrinter(const PdfPreset preset) : PdfPrinter(preset) {}
+SingleFilePdfPrinter::SingleFilePdfPrinter(const PdfPreset preset, const bool doNotDelete, const bool userOutputFolder) : PdfPrinter(preset, doNotDelete, userOutputFolder) {}
+SeparateFilePdfPrinter::SeparateFilePdfPrinter(const PdfPreset preset, const bool doNotDelete, const bool userOutputFolder) : PdfPrinter(preset, doNotDelete, userOutputFolder) {}
 
-PdfPrinter::PdfPrinter(const PdfPreset preset)
+PdfPrinter::PdfPrinter(const PdfPreset preset, const bool doNotDelete, const bool userOutputFolder)
 {
     pathCreator = make_unique<PathCreator>();
     
-    efDeleter = make_unique<ExistingFileDeleter>();
+    efDeleter = ExistingFileDeleter::GetExistingFileDeleter(doNotDelete);
+    
     tpConverter = make_unique<TypeToPathsConverter>();
     
     plateNumber = SafeguardFile::PlateNumber(CurrentFilenameRetriever::GetFilenameNoExt());
     
     layerVisibility = LayerVisibility::GetLayerVisibility(plateNumber.GetProductType(), preset);
         
-    pathBuilder = PathBuilder::GetPathBuilder(preset);
+    pathBuilder = PathBuilder::GetPathBuilder(preset, userOutputFolder);
     outputPath = pathBuilder->GetAiFilePath(plateNumber);
 }
 
-unique_ptr<PdfPrinter> PdfPrinter::GetPrinter(const PdfPreset preset, const bool separateFiles)
+unique_ptr<PdfPrinter> PdfPrinter::GetPrinter(const PdfPreset preset, const bool separateFiles, const bool doNotDelete, const bool userOutputFolder)
 {
     if (separateFiles)
     {
-        return unique_ptr<PdfPrinter> { make_unique<SeparateFilePdfPrinter>(preset) };
+        return unique_ptr<PdfPrinter> { make_unique<SeparateFilePdfPrinter>(preset, doNotDelete, userOutputFolder) };
     }
     else
     {
-        return unique_ptr<PdfPrinter> { make_unique<SingleFilePdfPrinter>(preset) };
+        return unique_ptr<PdfPrinter> { make_unique<SingleFilePdfPrinter>(preset, doNotDelete, userOutputFolder) };
     }
 }
 
 PdfResults PdfPrinter::Print(const PdfSettings& settings)
 {
-    unique_ptr<PdfPrinter> printer = GetPrinter(settings.GetPreset(), settings.OutputSeparateFiles());
+    unique_ptr<PdfPrinter> printer = GetPrinter(settings.GetPreset(), settings.OutputSeparateFiles(), settings.DoNotDelete(), settings.UserOutputFolder());
     
     return printer->DoIt(settings);
 }
