@@ -119,6 +119,8 @@ function sendDataToIllustrator()
     var data = {
         "preset-select"			:	parseInt($("#preset-select").val(), 10),
         "separatefiles-check"	:	$("#separatefiles-check").is(':checked'),
+        "useroutputfolder-check":	$("#useroutputfolder-check").is(':checked'),
+        "donotdelete-check"     :	$("#donotdelete-check").is(':checked'),
         "dto"                   :   JSON.stringify(jsonArtboardData)
     };
     makePdfEvent.data = JSON.stringify(data);
