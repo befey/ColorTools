@@ -26,7 +26,7 @@ namespace PrintToPdf
         static PdfResults Print(const PdfSettings& settings);
         
     protected:
-        PdfPrinter(const PdfPreset preset);
+        PdfPrinter(const PdfPreset preset, const bool doNotDelete, const bool userOutputFolder);
         
         unique_ptr<PathBuilder> pathBuilder;
         unique_ptr<PathCreator> pathCreator;
@@ -38,7 +38,7 @@ namespace PrintToPdf
         
         SafeguardFile::PlateNumber plateNumber;
     private:
-        static unique_ptr<PdfPrinter> GetPrinter(PdfPreset preset, const bool separateFiles);
+        static unique_ptr<PdfPrinter> GetPrinter(PdfPreset preset, const bool separateFiles, const bool doNotDelete, const bool userOutputFolder);
         
         PdfResults DoIt(const PdfSettings& settings) const;
         virtual PdfResults CustomPrintSteps(const PdfSettings& settings) const = 0;
@@ -47,7 +47,7 @@ namespace PrintToPdf
     class SingleFilePdfPrinter : public PdfPrinter
     {
     public:
-        SingleFilePdfPrinter(const PdfPreset preset);
+        SingleFilePdfPrinter(const PdfPreset preset, const bool doNotDelete, const bool userOutputFolder);
 
         PdfResults CustomPrintSteps(const PdfSettings& settings) const override;
     };
@@ -55,7 +55,7 @@ namespace PrintToPdf
     class SeparateFilePdfPrinter : public PdfPrinter
     {
     public:
-        SeparateFilePdfPrinter(const PdfPreset preset);
+        SeparateFilePdfPrinter(const PdfPreset preset, const bool doNotDelete, const bool userOutputFolder);
 
         PdfResults CustomPrintSteps(const PdfSettings& settings) const override;
     };

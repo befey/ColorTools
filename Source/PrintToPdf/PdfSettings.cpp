@@ -23,7 +23,13 @@ using PrintToPdf::PdfResults;
 using SafeguardFile::SafeguardJobFile;
 using SafeguardFile::ProductType;
 
-PdfSettings::PdfSettings(PdfPreset p, string r, bool s) : preset(p), range(r), separateFiles(s)
+PdfSettings::PdfSettings(PdfPreset p, string r, bool s, bool dnd, bool uof)
+:
+preset(p),
+range(r),
+separateFiles(s),
+doNotDelete(dnd),
+userOutputFolder(uof)
 {
     if (preset == PrintToPdf::PdfPreset::Manufacturing)
     {
@@ -132,7 +138,13 @@ PdfSettings PdfSettings::MakePdfSettingsFromJson(const char* json)
     v = d[PrintToPdfUIController::SEPARATEFILES_CHECK];
     bool separateFiles = (v.GetBool());
     
-    return PdfSettings(preset, r, separateFiles);
+    v = d[PrintToPdfUIController::DONOTDELETE_CHECK];
+    bool doNotDelete = (v.GetBool());
+    
+    v = d[PrintToPdfUIController::USEROUTPUTFOLDER_CHECK];
+    bool userOutputFolder = (v.GetBool());
+    
+    return PdfSettings(preset, r, separateFiles, doNotDelete, userOutputFolder);
 }
 
 void PdfSettings::SetPasswords()

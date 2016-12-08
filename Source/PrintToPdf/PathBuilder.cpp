@@ -21,8 +21,13 @@ using PrintToPdf::MicrProofPathBuilder;
 using PrintToPdf::TestingPathBuilder;
 using PrintToPdf::UserPathBuilder;
 
-unique_ptr<PathBuilder> PathBuilder::GetPathBuilder(PdfPreset preset)
+unique_ptr<PathBuilder> PathBuilder::GetPathBuilder(PdfPreset preset, bool userOutputFolder)
 {
+    if (userOutputFolder)
+    {
+        return unique_ptr<PathBuilder> { make_unique<UserPathBuilder>() };
+    }
+    
     if (preset == PdfPreset::Manufacturing)
     {
          return unique_ptr<PathBuilder> { make_unique<ManufacturingPathBuilder>() };
