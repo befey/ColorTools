@@ -14,11 +14,14 @@
 #include <string>
 #include "SDKPlugPlug.h"
 #include "FlashUIController.h"
+#include "AIDocument.h"
 
 //=================================
 // forward declared dependencies
 class SafeguardToolsPlugin;
 extern SafeguardToolsPlugin *gPlugin;
+
+extern AIDocumentSuite* sAIDocument;
 
 namespace PrintToPdf
 {
