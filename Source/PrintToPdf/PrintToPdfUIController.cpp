@@ -48,6 +48,9 @@ void PrintToPdfUIController::MakePdfButtonClickedFunc (const csxs::event::Event*
         // Set up the application context, so that suite calls can work.
         AppContext appContext(gPlugin->GetPluginRef());
         
+        AIBoolean modified;
+        sAIDocument->GetDocumentModified(&modified);
+        
         printToPdfUIController->ClearResultsBox();
         
         PdfSettings settings = PdfSettings::MakePdfSettingsFromJson(event->data);
@@ -55,6 +58,8 @@ void PrintToPdfUIController::MakePdfButtonClickedFunc (const csxs::event::Event*
         printToPdfUIController->SendResultsXmlToHtml(results);
         
         sAIUndo->UndoChanges();
+        
+        sAIDocument->SetDocumentModified(modified);
     } while(false);
     return;
 }
