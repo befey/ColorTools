@@ -68,10 +68,7 @@ vector<AIColor> ColorEnumerator::GetColorsOfRasterArt(AIArtHandle art)
         AIBoolean madeReplacement;
         vector<AIColor> colorsInArt;
         sAIPathStyle->AdjustObjectAIColors(art, GetColorsCallback, (void*)&colorsInArt, kVisitColorsReadOnly | kVisitGlobalObjectsOnceOnly | kVisitColorsSolidOnly | kVisitColorsIncludeRegistration, &madeReplacement);
-        if ( !(colorsInArt.size() == 1 && ColorIsWhite(colorsInArt[0])) )
-        {
-            results.push_back( GetBlackColor() );
-        }
+        results.insert(results.end(), colorsInArt.begin(), colorsInArt.end());
     }
     else if ( info.colorSpace == kRGBColorSpace || info.colorSpace == kAlphaRGBColorSpace ||
              info.colorSpace == kCMYKColorSpace || info.colorSpace == kAlphaCMYKColorSpace ||
