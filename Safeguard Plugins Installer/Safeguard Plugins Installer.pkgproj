@@ -41,30 +41,34 @@
 														<integer>0</integer>
 													</dict>
 												</array>
+												<key>EXPANDED</key>
+												<true/>
 												<key>GID</key>
 												<integer>80</integer>
 												<key>PATH</key>
-												<string>extensions</string>
+												<string>/Applications/Adobe Illustrator CC 2017/CEP/extensions</string>
 												<key>PATH_TYPE</key>
 												<integer>0</integer>
 												<key>PERMISSIONS</key>
 												<integer>509</integer>
 												<key>TYPE</key>
-												<integer>2</integer>
+												<integer>3</integer>
 												<key>UID</key>
 												<integer>0</integer>
 											</dict>
 										</array>
+										<key>EXPANDED</key>
+										<true/>
 										<key>GID</key>
 										<integer>80</integer>
 										<key>PATH</key>
-										<string>CEP</string>
+										<string>/Applications/Adobe Illustrator CC 2017/CEP</string>
 										<key>PATH_TYPE</key>
 										<integer>0</integer>
 										<key>PERMISSIONS</key>
 										<integer>509</integer>
 										<key>TYPE</key>
-										<integer>2</integer>
+										<integer>3</integer>
 										<key>UID</key>
 										<integer>0</integer>
 									</dict>
@@ -91,30 +95,34 @@
 														<integer>0</integer>
 													</dict>
 												</array>
+												<key>EXPANDED</key>
+												<true/>
 												<key>GID</key>
 												<integer>80</integer>
 												<key>PATH</key>
-												<string>Safeguard</string>
+												<string>/Applications/Adobe Illustrator CC 2017/Plug-ins.localized/Safeguard</string>
 												<key>PATH_TYPE</key>
 												<integer>0</integer>
 												<key>PERMISSIONS</key>
-												<integer>509</integer>
+												<integer>493</integer>
 												<key>TYPE</key>
-												<integer>2</integer>
+												<integer>3</integer>
 												<key>UID</key>
 												<integer>0</integer>
 											</dict>
 										</array>
+										<key>EXPANDED</key>
+										<true/>
 										<key>GID</key>
 										<integer>80</integer>
 										<key>PATH</key>
-										<string>Plug-ins.localized</string>
+										<string>/Applications/Adobe Illustrator CC 2017/Plug-ins.localized</string>
 										<key>PATH_TYPE</key>
 										<integer>0</integer>
 										<key>PERMISSIONS</key>
-										<integer>509</integer>
+										<integer>493</integer>
 										<key>TYPE</key>
-										<integer>2</integer>
+										<integer>3</integer>
 										<key>UID</key>
 										<integer>0</integer>
 									</dict>
@@ -144,58 +152,66 @@
 																<integer>0</integer>
 															</dict>
 														</array>
+														<key>EXPANDED</key>
+														<true/>
 														<key>GID</key>
 														<integer>80</integer>
 														<key>PATH</key>
-														<string>Symbols</string>
+														<string>/Applications/Adobe Illustrator CC 2017/Presets.localized/en_US/Symbols</string>
 														<key>PATH_TYPE</key>
 														<integer>0</integer>
 														<key>PERMISSIONS</key>
 														<integer>509</integer>
 														<key>TYPE</key>
-														<integer>2</integer>
+														<integer>3</integer>
 														<key>UID</key>
 														<integer>0</integer>
 													</dict>
 												</array>
+												<key>EXPANDED</key>
+												<true/>
 												<key>GID</key>
 												<integer>80</integer>
 												<key>PATH</key>
-												<string>en_US</string>
+												<string>/Applications/Adobe Illustrator CC 2017/Presets.localized/en_US</string>
 												<key>PATH_TYPE</key>
 												<integer>0</integer>
 												<key>PERMISSIONS</key>
-												<integer>16893</integer>
+												<integer>509</integer>
 												<key>TYPE</key>
-												<integer>2</integer>
+												<integer>3</integer>
 												<key>UID</key>
 												<integer>0</integer>
 											</dict>
 										</array>
+										<key>EXPANDED</key>
+										<true/>
 										<key>GID</key>
 										<integer>80</integer>
 										<key>PATH</key>
-										<string>Presets.localized</string>
+										<string>/Applications/Adobe Illustrator CC 2017/Presets.localized</string>
 										<key>PATH_TYPE</key>
 										<integer>0</integer>
 										<key>PERMISSIONS</key>
-										<integer>16893</integer>
+										<integer>509</integer>
 										<key>TYPE</key>
-										<integer>2</integer>
+										<integer>3</integer>
 										<key>UID</key>
 										<integer>0</integer>
 									</dict>
 								</array>
+								<key>EXPANDED</key>
+								<true/>
 								<key>GID</key>
 								<integer>80</integer>
 								<key>PATH</key>
-								<string>Adobe Illustrator CC 2015.3</string>
+								<string>/Applications/Adobe Illustrator CC 2017</string>
 								<key>PATH_TYPE</key>
 								<integer>0</integer>
 								<key>PERMISSIONS</key>
 								<integer>509</integer>
 								<key>TYPE</key>
-								<integer>2</integer>
+								<integer>3</integer>
 								<key>UID</key>
 								<integer>0</integer>
 							</dict>
@@ -658,7 +674,7 @@
 			<key>OVERWRITE_PERMISSIONS</key>
 			<false/>
 			<key>VERSION</key>
-			<string>1.7</string>
+			<string>1.7.1</string>
 		</dict>
 		<key>PROJECT_COMMENTS</key>
 		<dict>
@@ -855,7 +871,7 @@
 				</dict>
 			</array>
 			<key>NAME</key>
-			<string>Safeguard Plugins Installer 1.7</string>
+			<string>Safeguard Plugins Installer 1.7.1</string>
 		</dict>
 	</dict>
 	<key>TYPE</key>

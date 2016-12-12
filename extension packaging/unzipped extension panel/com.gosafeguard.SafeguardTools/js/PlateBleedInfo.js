@@ -30,7 +30,7 @@ $(function()
 function ReceiveDataFromPlugin(event)
 {
     jsonArtboardData = event.data;
-    
+
     LoadJsonDataForCurrentArtboard();
     ChangeArtboard(currArtboardId);
 }
@@ -39,7 +39,7 @@ function ChangeArtboard(direction)
 {
     StoreCurrentArtboardData();
     
-    currArtboardId = (currArtboardId + direction) % jsonArtboardData.plateBleedInfoDTO.length;
+    currArtboardId = (currArtboardId + direction) % jsonArtboardData.dto.plates.length;
     LoadJsonDataForCurrentArtboard();
     var data = {
         "artboard-id"     :       currArtboardId
@@ -61,12 +61,13 @@ function LoadJsonDataForCurrentArtboard()
     $("#artboard-name").val(jsonArtboardData.dto.plates[currArtboardId].artboardName);
     $("#artboard-number").text(currArtboardId + 1);
     $("#tickmark-select").val(jsonArtboardData.dto.plates[currArtboardId].tmStyle);
+    $("#displaybleedinfo-check").prop('checked', jsonArtboardData.dto.plates[currArtboardId].shouldDrawBleedInfo);
     
     $("#inks").html(function() {
                     var newHtml = "";
                     for (var i = 0; i < jsonArtboardData.dto.plates[currArtboardId].c.length; i++)
                     {
-                        color = jsonArtboardData.dto.plates[currArtboardId].c[i];
+                        var color = jsonArtboardData.dto.plates[currArtboardId].c[i];
                         newHtml += "<div class='trow'><div id='colorname-text" + i + "' class='tcell1'>" +
                         color.colorName +
                         "</div>" +
@@ -85,7 +86,7 @@ function LoadJsonDataForCurrentArtboard()
     
     for (var i = 0; i < jsonArtboardData.dto.plates[currArtboardId].c.length; i++)
     {
-        color = jsonArtboardData.dto.plates[currArtboardId].c[i];
+        var color = jsonArtboardData.dto.plates[currArtboardId].c[i];
         $("#inktype-select" + i + " option").eq(color.method).attr("selected", "selected");
     }
 }
@@ -93,11 +94,23 @@ function LoadJsonDataForCurrentArtboard()
 function StoreCurrentArtboardData()
 {
     jsonArtboardData.dto.plates[currArtboardId].artboardName = $("#artboard-name").val();
-    jsonArtboardData.dto.plates[currArtboardId].tmStyle = parseInt($("#tickmark-select").val(), 10);
+    jsonArtboardData.dto.plates[currArtboardId].shouldDrawBleedInfo = $("#displaybleedinfo-check").prop("checked");
+    
+    if ($("#allartboardssametick-check").prop("checked"))
+    {
+        for (var i = 0; i < jsonArtboardData.dto.plates.length; i++)
+        {
+            jsonArtboardData.dto.plates[i].tmStyle = parseInt($("#tickmark-select").val(), 10);
+        }
+    }
+    else
+    {
+        jsonArtboardData.dto.plates[currArtboardId].tmStyle = parseInt($("#tickmark-select").val(), 10);
+    }
     
     for (var i = 0; i < jsonArtboardData.dto.plates[currArtboardId].c.length; i++)
     {
-        color = jsonArtboardData.dto.plates[currArtboardId].c[i];
+        var color = jsonArtboardData.dto.plates[currArtboardId].c[i];
         color.method = parseInt($("#inktype-select" + i).val(), 10);
     }
 }
