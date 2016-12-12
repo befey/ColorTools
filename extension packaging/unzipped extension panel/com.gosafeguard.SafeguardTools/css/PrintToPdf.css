@@ -1,21 +1,14 @@
-.preset {
-    display: inline-block;
-    width: 45%;
-    padding: 2%;
-    vertical-align: top;
-}
-
 .or {
     display: inline-block;
     font-style: oblique;
 }
 
 #results-textarea {
-    height: 25em;
+    height: 15em;
 }
 
 #colorlist-textarea {
-    height: 15em;
+    height: 25em;
 }
 
 .artboard-colors {
@@ -25,6 +18,11 @@
     padding: 1%;
     margin: 1px;
     position: relative;
+    background: #f3ffe6;
+}
+
+.artboard-deselected {
+    background: #ffe5e5 !important;
 }
 
 .colorName {
@@ -50,4 +48,8 @@
 
 .created {
     color: green;
+}
+
+.cmyk {
+    color: red;
 }
