@@ -33,6 +33,7 @@ void BleedInfoController::HandleEditMenu()
     if ( !PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().IsBleedInfoPluginArtCreated() )
     {
         DrawBleedInfo();
+        sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Edit Safeguard Plate Info"), ai::UnicodeString("Redo Edit Safeguard Plate Info"));
     }
     
     BtDocumentView docView;
@@ -40,7 +41,6 @@ void BleedInfoController::HandleEditMenu()
     
     PlateBleedInfoUIController().LoadExtension();
     sAICSXSExtension->LaunchExtension(PlateBleedInfoUIController::PLATEBLEEDINFO_UI_EXTENSION);
-    //    sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Edit Safeguard Plate Info"), ai::UnicodeString("Redo Edit Safeguard Plate Info"));
 }
 
 ASErr BleedInfoController::HandlePluginGroupNotify(AIPluginGroupMessage* message)

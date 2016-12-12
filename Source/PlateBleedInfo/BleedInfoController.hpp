@@ -12,9 +12,12 @@
 #include "AICSXSExtension.h"
 #include "AIArt.h"
 #include "AIPluginGroup.h"
+#include "AIUndo.h"
 
 extern AICSXSExtensionSuite* sAICSXSExtension;
 extern AIArtSuite* sAIArt;
+extern AIPluginGroupSuite* sAIPluginGroup;
+extern AIUndoSuite* sAIUndo;
 
 namespace PlateBleedInfo
 {
