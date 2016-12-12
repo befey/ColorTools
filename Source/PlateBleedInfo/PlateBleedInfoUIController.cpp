@@ -92,7 +92,6 @@ void PlateBleedInfoUIController::CancelButtonClickedFunc (const csxs::event::Eve
         // Set up the application context, so that suite calls can work.
         AppContext appContext(gPlugin->GetPluginRef());
         
-        sAIUndo->SetSilent(TRUE);
         BtDocumentView docView;
         docView.RecallDocumentView();
         
@@ -118,8 +117,6 @@ void PlateBleedInfoUIController::ChangeArtboardFunc (const csxs::event::Event* c
         BtDocumentView docview;
         docview.SetViewOnArtboard( GetArtboardIdFromJson(event->data) );
         
-        sAIDocument->RedrawDocument();
-        sAIDocument->RedrawDocument();
         // Clean up the application context and return.
     } while(false);
     return;
