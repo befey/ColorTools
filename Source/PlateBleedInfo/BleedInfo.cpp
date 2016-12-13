@@ -221,7 +221,6 @@ void BleedInfo::ReadFromPluginArt()
 void BleedInfo::Draw()
 {
     bleedInfoPluginArt = ( PlateBleedInfo::BleedInfoDrawer(make_shared<BleedInfo>(*this)).Draw() );
-    StoreInPluginArt();
     
     DictionaryWriter dw;
     dw.AddAIArtHandleToArrayInDictionary(bleedInfoPluginArt, SG_BLEEDINFO_ARTHANDLES);

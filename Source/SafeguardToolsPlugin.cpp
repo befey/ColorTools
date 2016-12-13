@@ -40,7 +40,8 @@ SafeguardToolsPlugin::SafeguardToolsPlugin(SPPluginRef pluginRef) :
     fAppStartedNotifierHandle(NULL),
     fDocOpenedNotifierHandle(NULL),
     fDocumentCropAreaModifiedNotifierHandle(NULL),
-    fArtSelectionChangedNotifierHandle(NULL)
+    fArtSelectionChangedNotifierHandle(NULL),
+    bleedInfoPluginGroupHandle(NULL)
 {
 	strncpy(fPluginName, kSafeguardToolsPluginName, kMaxStringLength);
 }
@@ -431,7 +432,10 @@ error:
 
 ASErr SafeguardToolsPlugin::PluginGroupUpdate(AIPluginGroupMessage* message)
 {
-    SafeguardJobFile().UpdateBleedInfo();
+    if (message->art != NULL)
+    {
+        SafeguardJobFile().UpdateBleedInfo(message->art);
+    }
     
     return kNoErr;
 }

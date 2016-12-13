@@ -36,6 +36,7 @@ namespace SafeguardFile
         ColorList GetAllColorsOnJob() const;
         
         void UpdateBleedInfo();
+        void UpdateBleedInfo(AIArtHandle pluginArt);
         void RemoveBleedInfo();
         
         const map<int, shared_ptr<Plate>>& GetPlates() const { return plates; };

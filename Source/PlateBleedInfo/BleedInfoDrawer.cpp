@@ -131,14 +131,19 @@ AIArtHandle BleedInfoDrawer::DoDraw(AIArtHandle pluginGroupArt) const
 
 AIArtHandle BleedInfoDrawer::Add() const
 {
-    AIArtHandle pluginGroupArt;
+    AIArtHandle pluginGroupArt = NULL;
     
     BtLayer foregroundLayer(SafeguardFile::FOREGROUND_LAYER);
     AIArtHandle prep = foregroundLayer.GetLayerGroupArt();
     
-    AIErr err = sAIArt->NewArt(kPluginArt, kPlaceInsideOnBottom, prep, &pluginGroupArt);
+    if (prep == NULL)
+    {
+        prep = GetGroupArtOfFirstEditableLayer();
+    }
+    
+    sAIArt->NewArt(kPluginArt, kPlaceInsideOnBottom, prep, &pluginGroupArt);
+    AIErr err = sAIPluginGroup->UseAIPluginGroup(pluginGroupArt, gPlugin->GetBleedInfoPluginGroupHandle());
     string error = GetIllustratorErrorCode(err);
-    sAIPluginGroup->UseAIPluginGroup(pluginGroupArt, gPlugin->GetBleedInfoPluginGroupHandle());
     
     CreateResultArt(pluginGroupArt);
     

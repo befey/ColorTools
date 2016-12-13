@@ -10,6 +10,7 @@
 #include "ArtTree.h"
 #include <vector>
 #include "SafeguardJobFileDTO.hpp"
+#include "BleedInfoPluginArtToArtboardMatcher.hpp"
 
 using SafeguardFile::SafeguardJobFile;
 using SafeguardFile::PlateNumber;
@@ -38,6 +39,18 @@ void SafeguardJobFile::UpdateBleedInfo()
         plate.second->DrawBleedInfo();
     }
 }
+
+void SafeguardJobFile::UpdateBleedInfo(AIArtHandle pluginArt)
+{
+    for (int i = 0; i < plates.size(); i++)
+    {
+        if ( pluginArt == PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().GetArt(i) )
+        {
+            plates[i]->DrawBleedInfo();
+        }
+    }
+}
+
 
 void SafeguardJobFile::RemoveBleedInfo()
 {

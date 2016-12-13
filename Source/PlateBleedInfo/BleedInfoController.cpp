@@ -13,6 +13,7 @@
 #include "PlateBleedInfoUIController.hpp"
 #include "BtDocumentView.hpp"
 
+
 using PlateBleedInfo::BleedInfoController;
 
 void BleedInfoController::HandleCropAreaNotification()
@@ -22,7 +23,10 @@ void BleedInfoController::HandleCropAreaNotification()
         DrawBleedInfo();
     }
 }
-
+#include "BtLayer.hpp"
+#include "GetIllustratorErrorCode.h"
+#include "ArtTree.h"
+#include "SafeguardToolsPlugin.h"
 void BleedInfoController::HandleCreateMenu()
 {
     DrawBleedInfo();
@@ -55,7 +59,7 @@ ASErr BleedInfoController::HandlePluginGroupNotify(AIPluginGroupMessage* message
     }
     if (strcmp( message->code, kAttachOperationCode ) == 0 && strcmp( message->time, kAfterOperationTime ) == 0)
     {
-        return kMarkValidPluginGroupReply;
+        return kUnhandledMsgErr; //kNoErr; //kMarkValidPluginGroupReply;
     }
     return kUnhandledMsgErr;
 }

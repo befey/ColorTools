@@ -9,6 +9,7 @@
 #include "BtLayer.hpp"
 #include "ArtTree.h"
 #include "Plate.h"
+#include "GetIllustratorErrorCode.h"
 
 
 BtLayer::BtLayer(AILayerHandle layer) : layerHandle(layer) {}
@@ -190,6 +191,10 @@ void BtLayer::PutArtAtTopOfLayer(AIArtHandle art)
 
 AIArtHandle BtLayer::GetLayerGroupArt() const
 {
+    if (layerHandle == NULL)
+    {
+        return NULL;
+    }
     AIArtHandle layerGroup;
     sAIArt->GetFirstArtOfLayer(layerHandle, &layerGroup);
     return layerGroup;
