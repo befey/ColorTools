@@ -356,23 +356,11 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
     }
     else if ( message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
     {
-        sAINotifier->SetNotifierActive(gPlugin->fDocumentCropAreaModifiedNotifierHandle, FALSE);
-        sAINotifier->SetNotifierActive(gPlugin->fArtSelectionChangedNotifierHandle, FALSE);
-        
-        PlateBleedInfo::BleedInfoController().HandleCreateMenu();
-        
-        sAINotifier->SetNotifierActive(gPlugin->fArtSelectionChangedNotifierHandle, TRUE);
-        sAINotifier->SetNotifierActive(gPlugin->fDocumentCropAreaModifiedNotifierHandle, TRUE);
+        PlateBleedInfo::BleedInfoController({fDocumentCropAreaModifiedNotifierHandle,fArtSelectionChangedNotifierHandle}).HandleCreateMenu();
     }
     else if ( message->menuItem == menuItemHandles.GetHandleWithKey(EDIT_PLATE_BLEED_INFO_MENU_ITEM) )
     {
-        sAINotifier->SetNotifierActive(gPlugin->fDocumentCropAreaModifiedNotifierHandle, FALSE);
-        sAINotifier->SetNotifierActive(gPlugin->fArtSelectionChangedNotifierHandle, FALSE);
-        
-        PlateBleedInfo::BleedInfoController().HandleEditMenu();
-        
-        sAINotifier->SetNotifierActive(gPlugin->fArtSelectionChangedNotifierHandle, TRUE);
-        sAINotifier->SetNotifierActive(gPlugin->fDocumentCropAreaModifiedNotifierHandle, TRUE);
+        PlateBleedInfo::BleedInfoController({fDocumentCropAreaModifiedNotifierHandle,fArtSelectionChangedNotifierHandle}).HandleEditMenu();
     }
 	
 	if (error)
@@ -434,7 +422,7 @@ ASErr SafeguardToolsPlugin::PluginGroupUpdate(AIPluginGroupMessage* message)
 {
     if (message->art != NULL)
     {
-        SafeguardJobFile().UpdateBleedInfo(message->art);
+        PlateBleedInfo::BleedInfoController({fDocumentCropAreaModifiedNotifierHandle,fArtSelectionChangedNotifierHandle}).HandlePluginGroupUpdate(message);
     }
     
     return kNoErr;
@@ -476,13 +464,7 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
     }
     if (message->notifier == fDocumentCropAreaModifiedNotifierHandle || message->notifier == fArtSelectionChangedNotifierHandle)
     {
-        sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, FALSE);
-        sAINotifier->SetNotifierActive(fArtSelectionChangedNotifierHandle, FALSE);
-        
-        PlateBleedInfo::BleedInfoController().HandleCropAreaNotification();
-        
-        sAINotifier->SetNotifierActive(fArtSelectionChangedNotifierHandle, TRUE);
-        sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, TRUE);
+        PlateBleedInfo::BleedInfoController({fDocumentCropAreaModifiedNotifierHandle,fArtSelectionChangedNotifierHandle}).HandleCropAreaNotification();
     }
     return kNoErr;
 }

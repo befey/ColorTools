@@ -25,14 +25,23 @@ namespace PlateBleedInfo
     
     class BleedInfoController
     {
-    public:        
+    public:
+        BleedInfoController() {};
+        BleedInfoController(vector<AINotifierHandle> notifiers);
+        ~BleedInfoController();
+        
         void HandleCropAreaNotification();
         void HandleCreateMenu();
         void HandleEditMenu();
         ASErr HandlePluginGroupNotify(AIPluginGroupMessage* message);
+        ASErr HandlePluginGroupUpdate(AIPluginGroupMessage* message);
+
     private:
         bool ShouldDoUpdate();
         void DrawBleedInfo();
+        void DrawBleedInfo(AIArtHandle pluginArt);
+        
+        vector<AINotifierHandle> notifiers;
     };
 }
 

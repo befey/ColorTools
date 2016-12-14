@@ -16,6 +16,23 @@
 
 using PlateBleedInfo::BleedInfoController;
 
+BleedInfoController::BleedInfoController(vector<AINotifierHandle> notifiers)
+: notifiers(notifiers)
+{
+    for (auto notifier : notifiers)
+    {
+        sAINotifier->SetNotifierActive(notifier, FALSE);
+    }
+}
+
+BleedInfoController::~BleedInfoController()
+{
+    for (auto notifier : notifiers)
+    {
+        sAINotifier->SetNotifierActive(notifier, TRUE);
+    }
+}
+
 void BleedInfoController::HandleCropAreaNotification()
 {
     if ( ShouldDoUpdate() )
@@ -23,10 +40,7 @@ void BleedInfoController::HandleCropAreaNotification()
         DrawBleedInfo();
     }
 }
-#include "BtLayer.hpp"
-#include "GetIllustratorErrorCode.h"
-#include "ArtTree.h"
-#include "SafeguardToolsPlugin.h"
+
 void BleedInfoController::HandleCreateMenu()
 {
     DrawBleedInfo();
@@ -64,6 +78,12 @@ ASErr BleedInfoController::HandlePluginGroupNotify(AIPluginGroupMessage* message
     return kUnhandledMsgErr;
 }
 
+ASErr BleedInfoController::HandlePluginGroupUpdate(AIPluginGroupMessage* message)
+{
+    DrawBleedInfo(message->art);
+    return kNoErr;
+}
+
 bool BleedInfoController::ShouldDoUpdate()
 {
     if (PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().IsBleedInfoPluginArtCreated() )
@@ -84,5 +104,17 @@ void BleedInfoController::DrawBleedInfo()
 {
     SafeguardFile::SafeguardJobFile().UpdateBleedInfo();
     DictionaryWriter dw;
+    dw.AddAIRealToDictionary(sAIArt->GetGlobalTimeStamp(), PLATE_BLEEDINFO_TIMESTAMP);
+}
+
+void BleedInfoController::DrawBleedInfo(AIArtHandle pluginArt)
+{
+    SafeguardFile::SafeguardJobFile().UpdateBleedInfo(pluginArt);
+    DictionaryWriter dw;
+    
+    auto gTimeStamp = sAIArt->GetGlobalTimeStamp();
+    size_t aTimeStamp;
+    sAIArt->GetArtTimeStamp(pluginArt, kAITimeStampMaxFromArtAndChildren, &aTimeStamp);
+    
     dw.AddAIRealToDictionary(sAIArt->GetGlobalTimeStamp(), PLATE_BLEEDINFO_TIMESTAMP);
 }
