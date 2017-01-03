@@ -80,7 +80,7 @@ ASErr BleedInfoController::HandlePluginGroupNotify(AIPluginGroupMessage* message
 
 ASErr BleedInfoController::HandlePluginGroupUpdate(AIPluginGroupMessage* message)
 {
-    DrawBleedInfo(message->art);
+    DrawBleedInfo();  //message->art
     return kNoErr;
 }
 
@@ -104,17 +104,5 @@ void BleedInfoController::DrawBleedInfo()
 {
     SafeguardFile::SafeguardJobFile().UpdateBleedInfo();
     DictionaryWriter dw;
-    dw.AddAIRealToDictionary(sAIArt->GetGlobalTimeStamp(), PLATE_BLEEDINFO_TIMESTAMP);
-}
-
-void BleedInfoController::DrawBleedInfo(AIArtHandle pluginArt)
-{
-    SafeguardFile::SafeguardJobFile().UpdateBleedInfo(pluginArt);
-    DictionaryWriter dw;
-    
-    auto gTimeStamp = sAIArt->GetGlobalTimeStamp();
-    size_t aTimeStamp;
-    sAIArt->GetArtTimeStamp(pluginArt, kAITimeStampMaxFromArtAndChildren, &aTimeStamp);
-    
     dw.AddAIRealToDictionary(sAIArt->GetGlobalTimeStamp(), PLATE_BLEEDINFO_TIMESTAMP);
 }

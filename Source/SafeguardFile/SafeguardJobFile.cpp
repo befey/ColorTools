@@ -40,18 +40,6 @@ void SafeguardJobFile::UpdateBleedInfo()
     }
 }
 
-void SafeguardJobFile::UpdateBleedInfo(AIArtHandle pluginArt)
-{
-    for (int i = 0; i < plates.size(); i++)
-    {
-        if ( pluginArt == PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().GetArt(i) )
-        {
-            plates[i]->Draw();
-        }
-    }
-}
-
-
 void SafeguardJobFile::RemoveBleedInfo()
 {
     for ( auto plate : plates )

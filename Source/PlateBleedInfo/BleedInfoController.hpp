@@ -39,7 +39,6 @@ namespace PlateBleedInfo
     private:
         bool ShouldDoUpdate();
         void DrawBleedInfo();
-        void DrawBleedInfo(AIArtHandle pluginArt);
         
         vector<AINotifierHandle> notifiers;
     };
