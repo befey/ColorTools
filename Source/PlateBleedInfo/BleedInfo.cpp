@@ -11,7 +11,7 @@
 #include "BleedInfoPluginArtToArtboardMatcher.hpp"
 #include "DictionaryWriter.h"
 #include "BleedInfoWriter.hpp"
-#include "BleedInfoDrawer.h"
+#include "BleedInfoDrawableController.h"
 #include "SafeguardJobFileDTO.hpp"
 #include "TokenCreator.hpp"
 #include "ArtboardNameRetriever.hpp"
@@ -48,7 +48,7 @@ colorList(ArtboardBounds())
     else
     {
         ReadFromPluginArt();
-    }   
+    }
 }
 
 AIRealRect BleedInfo::ArtboardBounds() const
@@ -218,18 +218,16 @@ void BleedInfo::ReadFromPluginArt()
     StoreInPluginArt();
 }
 
-void BleedInfo::Draw()
+AIArtHandle BleedInfo::Draw(AIArtHandle existingArt)
 {
-    bleedInfoPluginArt = ( PlateBleedInfo::BleedInfoDrawer(make_shared<BleedInfo>(*this)).Draw() );
-    
+    BleedInfoDrawableController controller(make_shared<BleedInfo>(*this)); //Sets up all drawers
+    bleedInfoPluginArt = controller.Draw();
+        
+    //These null-check bleedInfoPluginArt
     DictionaryWriter dw;
     dw.AddAIArtHandleToArrayInDictionary(bleedInfoPluginArt, SG_BLEEDINFO_ARTHANDLES);
-    
+        
     StoreInPluginArt();
-}
-
-void BleedInfo::Remove()
-{
-    bleedInfoPluginArt = ( PlateBleedInfo::BleedInfoDrawer(make_shared<BleedInfo>(*this)).Remove() );
-    bleedInfoPluginArt = NULL;
+    
+    return bleedInfoPluginArt;
 }

@@ -35,7 +35,7 @@ ContinuousColorListDrawer::ContinuousColorListDrawer(AIRealRect bounds, ColorLis
 BusStatColorListDrawer::BusStatColorListDrawer(AIRealRect bounds, ColorList colorList) :
     ColorListDrawer(bounds, {.h = bounds.left, .v = bounds.bottom - 12}, colorList) {};
 
-AIArtHandle LaserColorListDrawer::DoDraw(AIArtHandle resultGroup) const
+AIArtHandle LaserColorListDrawer::Draw(AIArtHandle resultGroup) const
 {
     AIArtHandle colorListArt;
     
@@ -50,7 +50,7 @@ AIArtHandle LaserColorListDrawer::DoDraw(AIArtHandle resultGroup) const
     return colorListArt;
 }
 
-AIArtHandle ContinuousColorListDrawer::DoDraw(AIArtHandle resultGroup) const
+AIArtHandle ContinuousColorListDrawer::Draw(AIArtHandle resultGroup) const
 {
     AIArtHandle colorListArt;
     
@@ -70,7 +70,7 @@ AIArtHandle ContinuousColorListDrawer::DoDraw(AIArtHandle resultGroup) const
     return colorListArt;
 }
 
-AIArtHandle BusStatColorListDrawer::DoDraw(AIArtHandle resultGroup) const
+AIArtHandle BusStatColorListDrawer::Draw(AIArtHandle resultGroup) const
 {
     AIArtHandle colorListArt;
     

@@ -25,17 +25,7 @@ const string Plate::GetToken() const
 {
     return bleedInfo.Token();
 }
-
-void Plate::DrawBleedInfo()
-{
-    bleedInfo.Draw();
-}
-
-void Plate::RemoveBleedInfo()
-{
-    bleedInfo.Remove();
-}
-                    
+               
 AIRealRect Plate::GetArtboardBounds() const
 {
     return bleedInfo.ArtboardBounds();

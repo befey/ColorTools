@@ -36,7 +36,7 @@ void SafeguardJobFile::UpdateBleedInfo()
 {
     for ( auto& plate : plates )
     {
-        plate.second->DrawBleedInfo();
+        plate.second->Draw();
     }
 }
 
@@ -46,7 +46,7 @@ void SafeguardJobFile::UpdateBleedInfo(AIArtHandle pluginArt)
     {
         if ( pluginArt == PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().GetArt(i) )
         {
-            plates[i]->DrawBleedInfo();
+            plates[i]->Draw();
         }
     }
 }

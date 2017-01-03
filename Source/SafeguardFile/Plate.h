@@ -13,10 +13,11 @@
 #include "BleedInfo.h"
 #include "ColorList.h"
 #include "SafeguardJobFileDTO.hpp"
+#include "IDrawable.hpp"
 
 namespace SafeguardFile
 {    
-    class Plate
+    class Plate : public IDrawable
     {
     public:
         Plate(ai::ArtboardID id) : Plate(id, NULL) {};
@@ -32,11 +33,12 @@ namespace SafeguardFile
         
         AIRealRect GetBleeds() const;
         ColorList GetColors();
-                
-        void DrawBleedInfo();
-        void RemoveBleedInfo();
+        
+        AIArtHandle Draw(AIArtHandle existingArt = NULL) override { return bleedInfo.Draw(existingArt); };
+        void RemoveBleedInfo() { bleedInfo.Remove(); };
         
         const PlateBleedInfo::BleedInfo& GetBleedInfo() const { return bleedInfo; };
+        
     private:
         PlateBleedInfo::BleedInfo bleedInfo;
     };

@@ -14,6 +14,7 @@
 #include "AIPath.h"
 #include "AIPathStyle.h"
 #include "IDrawer.h"
+#include "IDrawable.hpp"
 
 extern AIArtSuite* sAIArt;
 extern AIPathSuite* sAIPath;
@@ -34,12 +35,34 @@ namespace SafeguardFile
         
         TickMarkSettings settings;
         
-        AIArtHandle DoDraw(AIArtHandle resultGroup) const override;
+        AIArtHandle Draw(AIArtHandle resultArt) const override;
+        
         AIArtHandle DrawTickMarks(vector<TickMark> ticks, AIArtHandle tickMarkGroupArt = NULL) const;
         AIArtHandle DrawInvisiblePath(AIArtHandle resultGroup, AIArtHandle tickMarkGroupArt = NULL) const;
         AIArtHandle DrawInner(AIArtHandle resultGroup, AIArtHandle tickMarkGroupArt = NULL) const;
         AIArtHandle DrawOuter(AIArtHandle resultGroup, AIArtHandle tickMarkGroupArt = NULL) const;
     };
+    
+    class TickMarkDrawable : public IDrawable
+    {
+    public:
+        TickMarkDrawable(TickMarkSettings settings)
+        {
+            drawer = DrawerFactory().GetDrawer(settings);
+        }
+    };
 }
+
+using SafeguardFile::TickMarkSettings;
+using SafeguardFile::TickMarkDrawer;
+template <>
+class DrawerFactoryImpl<TickMarkSettings>
+{
+public:
+    static shared_ptr<IDrawer> GetDrawer(TickMarkSettings tmSettings)
+    {
+        return make_shared<TickMarkDrawer>(tmSettings);
+    };
+};
 
 #endif /* defined(__SafeguardTools__TickMarkDrawer__) */

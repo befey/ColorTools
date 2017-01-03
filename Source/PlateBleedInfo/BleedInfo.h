@@ -16,6 +16,7 @@
 #include <ctime>
 #include "AIDocument.h"
 #include "AIArtboard.h"
+#include "IDrawable.hpp"
 
 extern AIDocumentSuite* sAIDocument;
 extern AIArtboardSuite* sAIArtboard;
@@ -28,7 +29,7 @@ namespace PlateBleedInfo
     constexpr auto PLATE_BLEEDINFO =            "__plate_bleedinfo__";
     constexpr auto SG_BLEEDINFO_ARTHANDLES =    "__sg_bleedinfo_arthandles__";
     
-    class BleedInfo
+    class BleedInfo : public IDrawable
     {
     public:
         BleedInfo(ai::ArtboardID artboardIndex) : BleedInfo(artboardIndex, NULL) {};
@@ -64,7 +65,7 @@ namespace PlateBleedInfo
         void StoreInPluginArt() const;
         void ReadFromPluginArt();
         
-        void Draw();
+        AIArtHandle Draw(AIArtHandle existingArt = NULL) override;
         void Remove();
     private:
         bool shouldDrawBleedInfo = true;

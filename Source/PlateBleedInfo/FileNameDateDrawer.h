@@ -12,6 +12,24 @@
 #include "BleedTextInfoDrawer.h"
 #include "PlateNumber.h"
 #include <ctime>
+#include "IDrawer.h"
+#include "IDrawable.hpp"
+
+struct FileNameDateDrawerSettings
+{
+    FileNameDateDrawerSettings(SafeguardFile::ProductType pt, AIRealRect artboardBounds, SafeguardFile::PlateNumber plateNumber, string token, tm lastModified) :
+    pt(pt),
+    artboardBounds(artboardBounds),
+    plateNumber(plateNumber),
+    token(token),
+    lastModified(lastModified) {};
+    
+    SafeguardFile::ProductType pt;
+    AIRealRect artboardBounds;
+    SafeguardFile::PlateNumber plateNumber;
+    string token;
+    tm lastModified;
+};
 
 namespace SafeguardFile
 {
@@ -33,7 +51,7 @@ namespace SafeguardFile
     public:
         LaserFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified);
     private:
-        AIArtHandle DoDraw(AIArtHandle resultGroup) const override;
+        AIArtHandle Draw(AIArtHandle resultGroup) const override;
     };
     
     class ContinuousFileNameDateDrawer : public FileNameDateDrawer
@@ -41,7 +59,7 @@ namespace SafeguardFile
     public:
         ContinuousFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified);
     private:
-        AIArtHandle DoDraw(AIArtHandle resultGroup) const override;
+        AIArtHandle Draw(AIArtHandle resultGroup) const override;
     };
     
     class BusStatFileNameDateDrawer : public FileNameDateDrawer
@@ -49,8 +67,41 @@ namespace SafeguardFile
     public:
         BusStatFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified);
     private:
-        AIArtHandle DoDraw(AIArtHandle resultGroup) const override;
+        AIArtHandle Draw(AIArtHandle resultGroup) const override;
+    };
+    
+    class FileNameDateDrawable : public IDrawable
+    {
+    public:
+        FileNameDateDrawable(FileNameDateDrawerSettings settings)
+        {
+            drawer = DrawerFactory().GetDrawer(settings);
+        }
     };
 }
+
+template <>
+class DrawerFactoryImpl<FileNameDateDrawerSettings>
+{
+public:
+    static shared_ptr<IDrawer> GetDrawer(FileNameDateDrawerSettings settings)
+    {
+        if (settings.pt == SafeguardFile::ProductType::BusinessStat)
+        {
+            return make_shared<SafeguardFile::BusStatFileNameDateDrawer>(settings.artboardBounds, settings.plateNumber, settings.token, settings.lastModified);
+        }
+        else if (settings.pt == SafeguardFile::ProductType::Continuous)
+        {
+            return make_shared<SafeguardFile::ContinuousFileNameDateDrawer>(settings.artboardBounds, settings.plateNumber, settings.token, settings.lastModified);
+        }
+        else if (settings.pt == SafeguardFile::ProductType::CutSheet || settings.pt == SafeguardFile::ProductType::Envelope)
+        {
+            return make_shared<SafeguardFile::LaserFileNameDateDrawer>(settings.artboardBounds, settings.plateNumber, settings.token, settings.lastModified);
+        }
+        
+        return nullptr;
+    };
+};
+
 
 #endif /* defined(__SafeguardTools__FileNameDateDrawer__) */
