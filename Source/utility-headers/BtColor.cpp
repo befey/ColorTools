@@ -213,6 +213,23 @@ AICustomColor BtColor::AiCustomColor() const
     }
 }
 
+BtColor& BtColor::AiCustomColorHandle(AICustomColorHandle newVal)
+{
+    if (newVal)
+    {
+        if (aiColor.kind != kCustomColor)
+        {
+            aiColor.kind = kCustomColor;
+            aiColor.c.c.tint = 0;
+        }
+        
+        aiCustomColorHandle = newVal;
+        sAICustomColor->GetCustomColor(aiCustomColorHandle, &aiCustomColor);
+    }
+    
+    return *this;
+}
+
 BtColor& BtColor::Name(std::string newVal)
 {
     if (Kind() == kCustomColor)

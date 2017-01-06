@@ -18,6 +18,8 @@
 
 extern AIATETextUtilSuite* sAIATETextUtil;
 
+constexpr auto COLORLIST_STORE =            "__bt_colorlist_store__";
+
 class ColorList : public ICanBeTextRange
 {
 public:
@@ -31,10 +33,13 @@ public:
     void RemoveNonPrintingColors();
     void Sort();
     
-    bool HasCMYK();
+    bool HasCMYK() const;
     
     void SetColorMethod(string colorName, SafeguardFile::InkMethod method);
-        
+    
+    void WriteColorListToArtDictionary(AIArtHandle art) const;
+    void ReadColorListFromArtDictionary(AIArtHandle art);
+    
     vector<BtColor>::iterator begin() { return p_ColorList.begin(); };
     vector<BtColor>::iterator end() { return p_ColorList.end(); };
     vector<BtColor>::const_iterator begin() const { return p_ColorList.begin(); };
@@ -47,7 +52,7 @@ public:
 
 private:
     vector<BtColor> p_ColorList;
-    AIRealRect area;
+    AIRealRect area{0,0,0,0};
     
     void FillColorList();
     void AddColorsOfArtToColorList(AIArtHandle art);

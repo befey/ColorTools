@@ -9,6 +9,8 @@
 #include "DictionaryWriter.h"
 #include "GetIllustratorErrorCode.h"
 #include <unordered_set>
+#include "cereal/cereal.hpp"
+#include "cereal/archives/json.hpp"
 
 DictionaryWriter::DictionaryWriter()
 {
@@ -365,4 +367,129 @@ AIBoolean DictionaryWriter::AddAIArtHandleToArrayInDictionary(AIArtHandle art, s
         return AddVectorOfAIArtHandleToDictionary(handles, identifier, CAIndex);
     }
     return FALSE;
+}
+
+AIBoolean DictionaryWriter::GetVectorOfBtColorFromIdentifier(vector<BtColor>& colors, string identifier, int CAIndex)
+{
+    AIArrayRef mainArray = NULL;
+    sAIArray->CreateArray(&mainArray);
+    AIBoolean result = GetArrayDataFromIdentifier(mainArray, identifier, CAIndex);
+    
+    if (mainArray)
+    {
+        int size = sAIArray->Size(mainArray);
+        for ( int i = 0; i < size; i++ )
+        {
+            AIEntryRef colorEntry = NULL;
+            colorEntry = sAIArray->Get(mainArray, i);
+            if (colorEntry)
+            {
+                AIArrayRef colorArray = NULL;
+                
+                sAIEntry->ToArray(colorEntry, &colorArray);
+                
+                if (colorArray)
+                {
+                    BtColor color;
+                    
+                    ai::UnicodeString serializedBtColor;
+                    sAIArray->GetUnicodeStringEntry(colorArray, 0, serializedBtColor);
+                    
+                    std::istringstream is(serializedBtColor.as_Platform());
+                    {
+                        try
+                        {
+                            cereal::JSONInputArchive iarchive(is); // Create an input archive
+                            iarchive(color);
+                        }
+                        catch (std::runtime_error e)
+                        {
+                            string s(e.what());
+                        }
+                    }
+                    
+                    if (color.AiColor().kind == kCustomColor)
+                    {
+                        AICustomColorHandle ccHandle = NULL;
+                        AIEntryRef ccEntry = NULL;
+                        ccEntry = sAIArray->Get(colorArray, 1);
+                        sAIEntry->ToCustomColor(ccEntry, &ccHandle);
+                        
+                        color.AiCustomColorHandle(ccHandle);
+                        
+                        sAIEntry->Release(ccEntry);
+                    }
+                    
+                    colors.push_back(color);
+                    sAIArray->Release(colorArray);
+                }
+                
+                sAIEntry->Release(colorEntry);
+            }
+        }
+        
+        sAIArray->Release(mainArray);
+    }
+    
+    return result;
+}
+
+AIBoolean DictionaryWriter::AddVectorOfBtColorToDictionary(vector<BtColor> colors, string identifier, int CAIndex)
+{
+    AIArrayRef mainArray;
+    sAIArray->CreateArray(&mainArray);
+    
+    for ( auto c : colors )
+    {
+        AIArrayRef colorArray;
+        sAIArray->CreateArray(&colorArray);
+        
+        std::ostringstream os;
+        {
+            cereal::JSONOutputArchive oarchive(os); // Create an output archive
+            oarchive(c);
+        }
+        
+        AIEntryRef newEntry = NULL;
+        newEntry = sAIEntry->FromUnicodeString(ai::UnicodeString(os.str()));
+        if (newEntry)
+        {
+            sAIArray->AppendEntry(colorArray, newEntry);
+            sAIEntry->Release(newEntry);
+        }
+        
+        if (c.AiCustomColorHandle())
+        {
+            newEntry = sAIEntry->FromCustomColor(c.AiCustomColorHandle());
+            if (newEntry)
+            {
+                sAIArray->AppendEntry(colorArray, newEntry);
+                sAIEntry->Release(newEntry);
+            }
+        }
+        
+        newEntry = sAIEntry->FromArray(colorArray);
+        if (newEntry)
+        {
+            sAIArray->AppendEntry(mainArray, newEntry);
+            sAIEntry->Release(newEntry);
+        }
+        
+        sAIArray->Release(colorArray);
+    }
+    
+    AIBoolean result = AddArrayDataToDictionary(mainArray, identifier, CAIndex);
+    sAIArray->Release(mainArray);
+    
+    return result;
+}
+
+AIBoolean DictionaryWriter::AddBtColorToArrayInDictionary(BtColor color, string identifier, int CAIndex)
+{
+    vector<BtColor> colors;
+    GetVectorOfBtColorFromIdentifier(colors, identifier, CAIndex);
+    
+    colors.push_back(color);
+    
+    return AddVectorOfBtColorToDictionary(colors, identifier, CAIndex);
 }

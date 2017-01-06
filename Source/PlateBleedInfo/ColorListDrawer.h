@@ -33,8 +33,11 @@ namespace SafeguardFile
     
     class ColorListDrawer : public BleedTextInfoDrawer
     {
+    public:
+        AIArtHandle Draw(AIArtHandle resultGroup) const override;
     protected:
         ColorListDrawer(AIRealRect bounds, AIRealPoint anchor, ColorList colorList);
+        virtual AIArtHandle DrawerSpecificSteps(AIArtHandle resultGroup) const = 0;
         
         ColorList colorList;
         AIReal maxWidth;
@@ -46,7 +49,7 @@ namespace SafeguardFile
     public:
         LaserColorListDrawer(AIRealRect bounds, ColorList colorList);
     private:
-        AIArtHandle Draw(AIArtHandle resultGroup) const override;
+        AIArtHandle DrawerSpecificSteps(AIArtHandle resultGroup) const override;
     };
     
     class ContinuousColorListDrawer : public ColorListDrawer
@@ -54,7 +57,7 @@ namespace SafeguardFile
     public:
         ContinuousColorListDrawer(AIRealRect bounds, ColorList colorList);
     private:
-        AIArtHandle Draw(AIArtHandle resultGroup) const override;
+        AIArtHandle DrawerSpecificSteps(AIArtHandle resultGroup) const override;
         void DrawContinuousColorBlocks(AIArtHandle resultGroup) const;
     };
     
@@ -63,7 +66,7 @@ namespace SafeguardFile
     public:
         BusStatColorListDrawer(AIRealRect bounds, ColorList colorList);
     private:
-        AIArtHandle Draw(AIArtHandle resultGroup) const override;
+        AIArtHandle DrawerSpecificSteps(AIArtHandle resultGroup) const override;
     };
     
     class ColorListDrawable : public IDrawable

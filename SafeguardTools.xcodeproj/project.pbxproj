@@ -62,6 +62,7 @@
 		F937ABEC1D5267CB006DD5C4 /* BtDocumentView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F937ABEA1D5267CB006DD5C4 /* BtDocumentView.cpp */; };
 		F937ABED1D5267CB006DD5C4 /* BtDocumentView.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F937ABEB1D5267CB006DD5C4 /* BtDocumentView.hpp */; };
 		F937AC101D552051006DD5C4 /* com.gosafeguard.SafeguardTools in CopyFiles */ = {isa = PBXBuildFile; fileRef = F937AC0F1D552051006DD5C4 /* com.gosafeguard.SafeguardTools */; };
+		F942A10A1E1EC7AE00A5B31A /* BtColor.tpp in Resources */ = {isa = PBXBuildFile; fileRef = F942A1091E1EC7AE00A5B31A /* BtColor.tpp */; };
 		F947263F1CB2E1F400649020 /* VPB.h in Headers */ = {isa = PBXBuildFile; fileRef = F947263D1CB2E1F400649020 /* VPB.h */; };
 		F94726401CB2E1F400649020 /* VPB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F947263E1CB2E1F400649020 /* VPB.cpp */; };
 		F965B58E1D1072F200B0C04C /* ListFonts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F965B58C1D1072F200B0C04C /* ListFonts.cpp */; };
@@ -239,6 +240,7 @@
 		F937AC001D551ED7006DD5C4 /* PlateBleedInfo.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = PlateBleedInfo.css; path = com.gosafeguard.SafeguardTools/css/PlateBleedInfo.css; sourceTree = "<group>"; };
 		F937AC011D551ED7006DD5C4 /* PrintToPdf.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = PrintToPdf.css; path = com.gosafeguard.SafeguardTools/css/PrintToPdf.css; sourceTree = "<group>"; };
 		F937AC0F1D552051006DD5C4 /* com.gosafeguard.SafeguardTools */ = {isa = PBXFileReference; lastKnownFileType = folder; path = com.gosafeguard.SafeguardTools; sourceTree = "<group>"; };
+		F942A1091E1EC7AE00A5B31A /* BtColor.tpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = BtColor.tpp; path = "Source/utility-headers/BtColor.tpp"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		F947263D1CB2E1F400649020 /* VPB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPB.h; path = "Source/utility-headers/VPB.h"; sourceTree = "<group>"; };
 		F947263E1CB2E1F400649020 /* VPB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VPB.cpp; path = "Source/utility-headers/VPB.cpp"; sourceTree = "<group>"; };
 		F955E6CF1D9300D100AEE6BD /* common.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = common.css; path = com.gosafeguard.SafeguardTools/css/common.css; sourceTree = "<group>"; };
@@ -606,6 +608,7 @@
 				F90DB92C1D08A25B0039CE5F /* BtAteTextFeatures.cpp */,
 				F90DB92D1D08A25B0039CE5F /* BtAteTextFeatures.h */,
 				F90E3F971CA475880081C333 /* BtColor.cpp */,
+				F942A1091E1EC7AE00A5B31A /* BtColor.tpp */,
 				F90E3F981CA475880081C333 /* BtColor.h */,
 				F937ABEA1D5267CB006DD5C4 /* BtDocumentView.cpp */,
 				F937ABEB1D5267CB006DD5C4 /* BtDocumentView.hpp */,
@@ -757,6 +760,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F942A10A1E1EC7AE00A5B31A /* BtColor.tpp in Resources */,
 				F96DDFB01D2D7BED0066931D /* fontlist.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

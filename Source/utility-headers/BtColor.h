@@ -19,6 +19,8 @@
 #include "ColorFuncs.h"
 #include "ICanBeTextRange.h"
 #include "AIATETextUtil.h"
+#include "cereal/cereal.hpp"
+#include "cereal/access.hpp"
 
 extern AIATETextUtilSuite* sAIATETextUtil;
 
@@ -57,6 +59,8 @@ public:
     
     BtColor& AiCustomColor(AICustomColor newVal, std::string name, AIReal tint, SafeguardFile::InkMethod method);
     AICustomColor AiCustomColor() const;
+    BtColor& AiCustomColorHandle(AICustomColorHandle newVal);
+    AICustomColorHandle AiCustomColorHandle() const { return aiCustomColorHandle; };
     
     BtColor& Name(std::string newVal);
     std::string Name() const;
@@ -80,7 +84,17 @@ private:
     AILabColorStyle GetLabApproximation() const;
     
     void GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) const override;
+    
+    friend class cereal::access;
+    template <class Archive,
+    cereal::traits::EnableIf<cereal::traits::is_text_archive<Archive>::value> = cereal::traits::sfinae>
+    void save( Archive & ar ) const;
+    friend class cereal::access;
+    template <class Archive,
+    cereal::traits::EnableIf<cereal::traits::is_text_archive<Archive>::value> = cereal::traits::sfinae>
+    void load( Archive & ar );
 };
 
+#include "BtColor.tpp"
 
 #endif /* defined(__SafeguardTools__BtColor__) */
