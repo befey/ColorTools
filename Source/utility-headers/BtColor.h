@@ -71,6 +71,8 @@ public:
     BtColor& Method(SafeguardFile::InkMethod newVal) { method = newVal; return *this; };
     SafeguardFile::InkMethod Method() const { return method; };
     
+    friend bool operator==(const BtColor& lhs, const BtColor& rhs);
+    friend bool operator!=(const BtColor& lhs, const BtColor& rhs) { return !operator==(lhs,rhs); };
     friend bool operator< (const BtColor& lhs, const BtColor& rhs);
     
     inline operator AIColor(void) const { return aiColor; }

@@ -20,12 +20,16 @@ extern AIArtSuite* sAIArt;
 extern AIPathSuite* sAIPath;
 extern AIPathStyleSuite* sAIPathStyle;
 
+constexpr auto TICKMARK_ARTHANDLE =            "__bt_tickmark_arthandle__";
+
 namespace SafeguardFile
 {
     class TickMarkDrawer : public IDrawer
     {
     public:
         TickMarkDrawer(TickMarkSettings settings);
+        AIArtHandle Draw(AIArtHandle resultArt) const override;
+        string GetDictionaryLabel() const override { return TICKMARK_ARTHANDLE; };
         
     private:
         struct TickMark
@@ -34,8 +38,6 @@ namespace SafeguardFile
         };
         
         TickMarkSettings settings;
-        
-        AIArtHandle Draw(AIArtHandle resultArt) const override;
         
         AIArtHandle DrawTickMarks(vector<TickMark> ticks, AIArtHandle tickMarkGroupArt = NULL) const;
         AIArtHandle DrawInvisiblePath(AIArtHandle resultGroup, AIArtHandle tickMarkGroupArt = NULL) const;
@@ -52,6 +54,22 @@ namespace SafeguardFile
         }
     };
 }
+
+using SafeguardFile::TickMarkDrawable;
+using SafeguardFile::TickMarkSettings;
+template <>
+class DrawableFactoryImpl<TickMarkSettings>
+{
+public:
+    static std::shared_ptr<IDrawable> GetDrawable(TickMarkSettings settings, AIArtHandle pluginArt)
+    {
+        if (true)
+        {
+            return make_shared<TickMarkDrawable>(settings);
+        }
+        return nullptr;
+    };
+};
 
 using SafeguardFile::TickMarkSettings;
 using SafeguardFile::TickMarkDrawer;

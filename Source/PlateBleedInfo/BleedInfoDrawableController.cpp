@@ -14,21 +14,17 @@
 
 
 using PlateBleedInfo::BleedInfoDrawableController;
-using SafeguardFile::TickMarkDrawable;
-using SafeguardFile::ColorListDrawable;
-using SafeguardFile::FileNameDateDrawable;
-using SafeguardFile::SgSymbolDrawable;
 
 BleedInfoDrawableController::BleedInfoDrawableController(shared_ptr<BleedInfo> bleedInfo)
 :
 bleedInfo(bleedInfo)
 {
-    drawables.push_back(make_shared<TickMarkDrawable>(bleedInfo->TickMarkSettings()));
+    drawables.push_back(DrawableFactory().GetDrawable( bleedInfo->TickMarkSettings(), bleedInfo->BleedInfoPluginArtHandle()) );
     
     SafeguardFile::ProductType pt = bleedInfo->PlateNumber().GetProductType();
     
-    drawables.push_back(make_shared<ColorListDrawable>(ColorListDrawerSettings(pt, bleedInfo->ArtboardBounds(), bleedInfo->ColorList())) );
-    drawables.push_back(make_shared<FileNameDateDrawable>(FileNameDateDrawerSettings(pt, bleedInfo->ArtboardBounds(), bleedInfo->PlateNumber(), bleedInfo->Token(), bleedInfo->LastModified())) );
+    drawables.push_back(DrawableFactory().GetDrawable( ColorListDrawerSettings(pt, bleedInfo->ArtboardBounds(), bleedInfo->ColorList()), bleedInfo->BleedInfoPluginArtHandle()) );
+    drawables.push_back(DrawableFactory().GetDrawable( FileNameDateDrawerSettings(pt, bleedInfo->ArtboardBounds(), bleedInfo->PlateNumber(), bleedInfo->Token(), bleedInfo->LastModified()), bleedInfo->BleedInfoPluginArtHandle()) );
     
     if (bleedInfo->ShouldAddCmykBlocks())
     {
@@ -40,7 +36,7 @@ bleedInfo(bleedInfo)
             .bottom = abBounds.top + 5
         };
         
-        drawables.push_back(make_shared<SgSymbolDrawable>(SgSymbolDrawerSettings(bleedInfo->ArtboardBounds(), bounds, SafeguardFile::AI_CMYK_BLOCKS)) );
+        drawables.push_back(DrawableFactory().GetDrawable( SgSymbolDrawerSettings(bleedInfo->ArtboardBounds(), bounds, SafeguardFile::AI_CMYK_BLOCKS), bleedInfo->BleedInfoPluginArtHandle()) );
     }
     
     if (bleedInfo->PlateNumber().GetProductType() == SafeguardFile::Continuous)
@@ -53,7 +49,7 @@ bleedInfo(bleedInfo)
             .bottom = abBounds.top - 42 - 36
         };
         
-        drawables.push_back(make_shared<SgSymbolDrawable>(SgSymbolDrawerSettings(bleedInfo->ArtboardBounds(), bounds, SafeguardFile::AI_CONTINUOUS_REG_TARGET)) );
+        drawables.push_back(DrawableFactory().GetDrawable( SgSymbolDrawerSettings(bleedInfo->ArtboardBounds(), bounds, SafeguardFile::AI_CONTINUOUS_REG_TARGET), bleedInfo->BleedInfoPluginArtHandle()) );
     }
 }
 
@@ -123,7 +119,10 @@ AIArtHandle BleedInfoDrawableController::CreateResultArt(AIArtHandle pluginGroup
     
     for (auto drawable : drawables)
     {
-        drawable->Draw(resultGroup);
+        if (drawable)
+        {
+            drawable->Draw(resultGroup);
+        }
     }
     
     return pluginGroupArt;

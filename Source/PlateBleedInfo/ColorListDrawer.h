@@ -13,6 +13,9 @@
 #include "ColorList.h"
 #include "IDrawer.h"
 #include "IDrawable.hpp"
+#include "AIPluginGroup.h"
+
+extern AIPluginGroupSuite* sAIPluginGroup;
 
 struct ColorListDrawerSettings
 {
@@ -26,6 +29,7 @@ struct ColorListDrawerSettings
     ColorList colorList;
 };
 
+constexpr auto COLORLIST_ARTHANDLE =            "__bt_colorlist_arthandle__";
 
 namespace SafeguardFile
 {
@@ -35,6 +39,7 @@ namespace SafeguardFile
     {
     public:
         AIArtHandle Draw(AIArtHandle resultGroup) const override;
+        string GetDictionaryLabel() const override { return COLORLIST_ARTHANDLE; };
     protected:
         ColorListDrawer(AIRealRect bounds, AIRealPoint anchor, ColorList colorList);
         virtual AIArtHandle DrawerSpecificSteps(AIArtHandle resultGroup) const = 0;
@@ -78,6 +83,47 @@ namespace SafeguardFile
         }
     };
 }
+
+using SafeguardFile::ColorListDrawable;
+template <>
+class DrawableFactoryImpl<ColorListDrawerSettings>
+{
+public:
+    static std::shared_ptr<IDrawable> GetDrawable(ColorListDrawerSettings settings, AIArtHandle pluginArt)
+    {
+        std::shared_ptr<IDrawable> drawable = make_shared<ColorListDrawable>(settings);
+        if (!pluginArt)
+        {
+            return drawable;
+        }
+        else
+        {
+            AIArtHandle resultGroup = NULL;
+            sAIPluginGroup->GetPluginArtResultArt(pluginArt, &resultGroup);
+            
+            AIArtHandle existingColorListArtHandle = NULL;
+            existingColorListArtHandle = DictionaryWriter(resultGroup).GetArtHandleFromIdentifier(drawable->GetDrawer()->GetDictionaryLabel());
+            if (existingColorListArtHandle)
+            {
+                ColorList existingColorList(vector<AIColor>{});
+                existingColorList.ReadColorListFromArtDictionary(existingColorListArtHandle);
+                if ( existingColorList == settings.colorList )
+                {
+                    return nullptr;
+                }
+                else
+                {
+                    return drawable;
+                }
+            }
+            else
+            {
+                return drawable;
+            }
+        }
+    };
+};
+
 
 template <>
 class DrawerFactoryImpl<ColorListDrawerSettings>

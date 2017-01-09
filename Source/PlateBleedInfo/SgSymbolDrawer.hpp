@@ -42,6 +42,8 @@ struct SgSymbolDrawerSettings
     string symbolName;
 };
 
+constexpr auto SGSYMBOL_ARTHANDLE =            "__bt_sgsymbol_arthandle__";
+
 namespace SafeguardFile
 {
     constexpr auto SG_SYMBOL_FILENAME = "sg_Symbols.ai";
@@ -50,6 +52,7 @@ namespace SafeguardFile
     {
     public:
         SgSymbolDrawer(AIRealRect bounds, AIRealRect symbolBounds, string symbolName) : IDrawer(bounds), symbolBounds(symbolBounds), symbolName(symbolName) {};
+        string GetDictionaryLabel() const override { return SGSYMBOL_ARTHANDLE + symbolName; };
         
     private:
         const AIRealRect symbolBounds;
@@ -69,6 +72,21 @@ namespace SafeguardFile
         }
     };
 }
+
+using SafeguardFile::SgSymbolDrawable;
+template <>
+class DrawableFactoryImpl<SgSymbolDrawerSettings>
+{
+public:
+    static std::shared_ptr<IDrawable> GetDrawable(SgSymbolDrawerSettings settings, AIArtHandle pluginArt)
+    {
+        if (true)
+        {
+            return make_shared<SgSymbolDrawable>(settings);
+        }
+        return nullptr;
+    };
+};
 
 using SafeguardFile::SgSymbolDrawer;
 template <>

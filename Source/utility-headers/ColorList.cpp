@@ -236,3 +236,18 @@ void ColorList::ReadColorListFromArtDictionary(AIArtHandle art)
     p_ColorList.clear();
     DictionaryWriter(art).GetVectorOfBtColorFromIdentifier(p_ColorList, COLORLIST_STORE);
 }
+
+bool operator==(const ColorList& lhs, const ColorList& rhs)
+{
+    if (lhs.size() != rhs.size())
+    {
+        return false;
+    }
+    
+    vector<BtColor> lhsCopy = lhs.p_ColorList;
+    sort(lhsCopy.begin(), lhsCopy.end());
+    vector<BtColor> rhsCopy = rhs.p_ColorList;
+    sort(rhsCopy.begin(), rhsCopy.end());
+
+    return lhsCopy == rhsCopy;
+}

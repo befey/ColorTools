@@ -46,6 +46,16 @@ BtColor::BtColor(std::string name)
     AiCustomColor(AICustomColor(), name, 0, SafeguardFile::InkMethod::NONE);
 }
 
+bool operator==(const BtColor& lhs, const BtColor& rhs)
+{
+    if (lhs.Method() != rhs.Method())
+    {
+        return false;
+    }
+    
+    return ColorIsEqual(lhs.AiColor(), rhs.AiColor(), true);
+}
+
 bool operator< (const BtColor& lhs, const BtColor& rhs)
 {
     //Always sort CMYK to the front

@@ -405,24 +405,19 @@ bool ColorIsEqual ( const AIColor& color1 , const AIColor& color2 , const bool i
 	//GRAY COLOR
 	if ((color1.kind == kGrayColor) && (color1.kind == color2.kind))
     {
-		if (color1.c.g.gray == color2.c.g.gray) { return true; }
+		return color1.c.g == color2.c.g;
 	}
 	
 	//FOUR COLOR
 	if ((color1.kind == kFourColor) && (color1.kind == color2.kind))
     {
-		if ( (color1.c.f.cyan == color2.c.f.cyan) &&
-		  (color1.c.f.magenta == color2.c.f.magenta) &&
-		  (color1.c.f.yellow == color2.c.f.yellow) &&
-		  (color1.c.f.black == color2.c.f.black) ) { return true; }
+		return color1.c.f == color2.c.f;
 	}
 
 	//THREE COLOR
 	if ((color1.kind == kThreeColor) && (color1.kind == color2.kind))
     {
-		if ( (color1.c.rgb.red == color2.c.rgb.red) &&
-		  (color1.c.rgb.green == color2.c.rgb.green) &&
-		  (color1.c.rgb.blue == color2.c.rgb.blue) ) { return true; }
+		return color1.c.rgb == color2.c.rgb;
 	}
 	
 	//NONE COLOR
@@ -431,36 +426,29 @@ bool ColorIsEqual ( const AIColor& color1 , const AIColor& color2 , const bool i
 	//CUSTOM COLOR
 	if ((color1.kind == kCustomColor) && (color1.kind == color2.kind))
     {
-		AICustomColor ccolor1, ccolor2;
-        sAICustomColor->GetCustomColor( color1.c.c.color, &ccolor1 );
-        sAICustomColor->GetCustomColor( color2.c.c.color, &ccolor2 );
-		
         if (!ignoreTints && (color1.c.c.tint != color2.c.c.tint)) //If we care about tints and they don't match
         {
             return false;
         }
         
+        AICustomColor ccolor1, ccolor2;
+        sAICustomColor->GetCustomColor( color1.c.c.color, &ccolor1 );
+        sAICustomColor->GetCustomColor( color2.c.c.color, &ccolor2 );
+        
         //CUSTOM FOUR COLOR
         if ( (ccolor1.kind == kCustomFourColor ) && (ccolor1.kind == ccolor2.kind) )
         {
-            if ( (ccolor1.c.f.cyan == ccolor2.c.f.cyan) &&
-                (ccolor1.c.f.magenta == ccolor2.c.f.magenta) &&
-                (ccolor1.c.f.yellow == ccolor2.c.f.yellow) &&
-                (ccolor1.c.f.black == ccolor2.c.f.black) ) { return true; }
+            return ccolor1.c.f == ccolor2.c.f;
         }
         //CUSTOM THREE COLOR
         if ( (ccolor1.kind == kCustomThreeColor ) && (ccolor1.kind == ccolor2.kind) )
         {
-            if ( (ccolor1.c.rgb.red == ccolor2.c.rgb.red) &&
-                (ccolor1.c.rgb.green == ccolor2.c.rgb.green) &&
-                (ccolor1.c.rgb.blue == ccolor2.c.rgb.blue) ) { return true; }
+            return ccolor1.c.rgb == ccolor2.c.rgb;
         }
         //CUSTOM LAB COLOR
         if ( (ccolor1.kind == kCustomLabColor ) && (ccolor1.kind == ccolor2.kind) )
         {
-            if ( (ccolor1.c.lab.l == ccolor2.c.lab.l) &&
-                (ccolor1.c.lab.a == ccolor2.c.lab.a) &&
-                (ccolor1.c.lab.b == ccolor2.c.lab.b) ) { return true; }
+            return ccolor1.c.lab == ccolor2.c.lab;
         }
 	}
 	return false;
@@ -759,4 +747,9 @@ bool operator==(const AIFourColorStyle& lhs, const AIFourColorStyle& rhs)
 bool operator==(const AIThreeColorStyle& lhs, const AIThreeColorStyle& rhs)
 {
     return (lhs.red == rhs.red) && (lhs.green == rhs.green) && (lhs.blue == rhs.blue);
+}
+
+bool operator==(const AILabColorStyle& lhs, const AILabColorStyle& rhs)
+{
+    return (lhs.l == rhs.l) && (lhs.a == rhs.a) && (lhs.b == rhs.b);
 }

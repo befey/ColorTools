@@ -31,12 +31,16 @@ struct FileNameDateDrawerSettings
     tm lastModified;
 };
 
+constexpr auto FILENAMEDATE_ARTHANDLE =            "__bt_filenamedate_arthandle__";
+
 namespace SafeguardFile
 {
     class BleedInfo;
     
     class FileNameDateDrawer : public BleedTextInfoDrawer
     {
+    public:
+        string GetDictionaryLabel() const override { return FILENAMEDATE_ARTHANDLE; };
     protected:
         FileNameDateDrawer(AIRealRect bounds, AIRealPoint anchor, PlateNumber plateNumber, string token, tm lastModified);
         void PutPlateNumberDateStringInTextRange(ATE::ITextRange& targetRange) const;
@@ -79,6 +83,21 @@ namespace SafeguardFile
         }
     };
 }
+
+using SafeguardFile::FileNameDateDrawable;
+template <>
+class DrawableFactoryImpl<FileNameDateDrawerSettings>
+{
+public:
+    static std::shared_ptr<IDrawable> GetDrawable(FileNameDateDrawerSettings settings, AIArtHandle pluginArt)
+    {
+        if (true)
+        {
+            return make_shared<FileNameDateDrawable>(settings);
+        }
+        return nullptr;
+    };
+};
 
 template <>
 class DrawerFactoryImpl<FileNameDateDrawerSettings>

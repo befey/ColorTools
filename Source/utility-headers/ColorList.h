@@ -49,7 +49,9 @@ public:
     
     BtColor& operator[](size_t index) { return p_ColorList[index]; }
     const BtColor& operator[](size_t index) const { return p_ColorList[index]; }
-
+    
+    friend bool operator==(const ColorList& lhs, const ColorList& rhs);
+    friend bool operator!=(const ColorList& lhs, const ColorList& rhs) { return !operator==(lhs,rhs); };
 private:
     vector<BtColor> p_ColorList;
     AIRealRect area{0,0,0,0};

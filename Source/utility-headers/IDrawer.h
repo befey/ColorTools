@@ -13,6 +13,7 @@ class IDrawer
 {
 public:
     virtual AIArtHandle Draw(AIArtHandle resultArt) const = 0;
+    virtual string GetDictionaryLabel() const = 0;
 protected:
     IDrawer(AIRealRect bounds) : bounds(bounds) { };
     AIRealRect bounds;
@@ -25,8 +26,9 @@ class DrawerFactory
 {
 public:
     template <class T>
-    std::shared_ptr<IDrawer> GetDrawer(T drawable) {
-        return DrawerFactoryImpl<T>::GetDrawer(drawable);
+    std::shared_ptr<IDrawer> GetDrawer(T drawableSettings)
+    {
+        return DrawerFactoryImpl<T>::GetDrawer(drawableSettings);
     }
 };
 
