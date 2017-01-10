@@ -27,20 +27,20 @@ namespace SafeguardFile
         tm GetLastModified() const;
         
         string GetArtboardName(bool& isDefault) const;
-        const ai::ArtboardID GetArtboardIndex() const { return bleedInfo.ArtboardIndex(); };
+        const ai::ArtboardID GetArtboardIndex() const { return bleedInfo->ArtboardIndex(); };
         const PlateNumber GetPlateNumber() const;
         const string GetToken() const;
         
         AIRealRect GetBleeds() const;
         ColorList GetColors();
         
-        AIArtHandle Draw(AIArtHandle existingArt = NULL) override { return bleedInfo.Draw(existingArt); };
-        void RemoveBleedInfo() { bleedInfo.Remove(); };
+        AIArtHandle Draw(AIArtHandle existingArt = NULL) override { return bleedInfo->Draw(existingArt); };
+        void RemoveBleedInfo() { bleedInfo->Remove(); };
         
-        const PlateBleedInfo::BleedInfo& GetBleedInfo() const { return bleedInfo; };
+        const PlateBleedInfo::BleedInfo& GetBleedInfo() const { return *bleedInfo; };
         
     private:
-        PlateBleedInfo::BleedInfo bleedInfo;
+        shared_ptr<PlateBleedInfo::BleedInfo> bleedInfo;
     };
 }
 #endif /* defined(__SafeguardTools__Plate__) */

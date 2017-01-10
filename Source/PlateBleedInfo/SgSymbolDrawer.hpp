@@ -52,7 +52,7 @@ namespace SafeguardFile
     {
     public:
         SgSymbolDrawer(AIRealRect bounds, AIRealRect symbolBounds, string symbolName) : IDrawer(bounds), symbolBounds(symbolBounds), symbolName(symbolName) {};
-        string GetDictionaryLabel() const override { return SGSYMBOL_ARTHANDLE + symbolName; };
+        string GetDictionaryLabel(AIArtHandle resultArt) const override { return SGSYMBOL_ARTHANDLE + symbolName + DictionaryWriter::GetUIDStringForArt(resultArt); };
         
     private:
         const AIRealRect symbolBounds;

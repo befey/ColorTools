@@ -12,41 +12,41 @@ using SafeguardFile::Plate;
 using SafeguardFile::PlateNumber;
 
 Plate::Plate(ai::ArtboardID id, const PlateBleedInfo::PlateDTO* dto)
-: bleedInfo(id, dto)
+: bleedInfo(make_shared<PlateBleedInfo::BleedInfo>(id, dto))
 {
 }
     
 const PlateNumber Plate::GetPlateNumber() const
 {
-    return bleedInfo.PlateNumber();
+    return bleedInfo->PlateNumber();
 }
 
 const string Plate::GetToken() const
 {
-    return bleedInfo.Token();
+    return bleedInfo->Token();
 }
                
 AIRealRect Plate::GetArtboardBounds() const
 {
-    return bleedInfo.ArtboardBounds();
+    return bleedInfo->ArtboardBounds();
 }
 
 tm Plate::GetLastModified() const
 {
-    return bleedInfo.LastModified();
+    return bleedInfo->LastModified();
 }
 
 string Plate::GetArtboardName(bool& isDefault) const
 {
-    return bleedInfo.ArtboardName(isDefault);
+    return bleedInfo->ArtboardName(isDefault);
 }
 
 AIRealRect Plate::GetBleeds() const
 {
-    return bleedInfo.Bleeds();
+    return bleedInfo->Bleeds();
 }
 
 ColorList Plate::GetColors()
 {
-    return bleedInfo.ColorList();
+    return bleedInfo->ColorList();
 }

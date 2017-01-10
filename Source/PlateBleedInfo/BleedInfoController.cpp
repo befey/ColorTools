@@ -35,7 +35,7 @@ BleedInfoController::~BleedInfoController()
 
 void BleedInfoController::HandleCropAreaNotification()
 {
-    if ( ShouldDoUpdate() )
+    if ( !SameTimestamp() )
     {
         DrawBleedInfo();
     }
@@ -80,11 +80,15 @@ ASErr BleedInfoController::HandlePluginGroupNotify(AIPluginGroupMessage* message
 
 ASErr BleedInfoController::HandlePluginGroupUpdate(AIPluginGroupMessage* message)
 {
-    DrawBleedInfo();  //message->art
+    if (!SameTimestamp())
+    {
+        DrawBleedInfo();  //message->art
+    }
+    
     return kNoErr;
 }
 
-bool BleedInfoController::ShouldDoUpdate()
+bool BleedInfoController::SameTimestamp()
 {
     if (PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().IsBleedInfoPluginArtCreated() )
     {
@@ -92,7 +96,7 @@ bool BleedInfoController::ShouldDoUpdate()
         DictionaryWriter dw;
         AIReal aTSDict = dw.GetAIRealFromIdentifier(PLATE_BLEEDINFO_TIMESTAMP);
         
-        if ( gTimeStamp != aTSDict )
+        if ( gTimeStamp == aTSDict )
         {
             return true;
         }

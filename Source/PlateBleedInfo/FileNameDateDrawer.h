@@ -40,7 +40,7 @@ namespace SafeguardFile
     class FileNameDateDrawer : public BleedTextInfoDrawer
     {
     public:
-        string GetDictionaryLabel() const override { return FILENAMEDATE_ARTHANDLE; };
+        string GetDictionaryLabel(AIArtHandle resultArt) const override { return FILENAMEDATE_ARTHANDLE + DictionaryWriter::GetUIDStringForArt(resultArt); };
     protected:
         FileNameDateDrawer(AIRealRect bounds, AIRealPoint anchor, PlateNumber plateNumber, string token, tm lastModified);
         void PutPlateNumberDateStringInTextRange(ATE::ITextRange& targetRange) const;

@@ -77,21 +77,7 @@ AIArtHandle DictionaryWriter::GetArtHandleFromUIDRef(AIUIDRef uidRef)
     sAIUIDUtils->GetReferencedArt(uidREFRef, &currArtObject);
     sAIUIDREF->Release(uidREFRef);
     
-    if (currArtObject)
-    {
-        if (sAIArt->ValidArt(currArtObject, TRUE) )
-        {
-            return currArtObject;
-        }
-        else
-        {
-            return NULL;
-        }
-    }
-    else
-    {
-        return NULL;
-    }	
+    return currArtObject;
 }
 
 ASBoolean DictionaryWriter::CheckArtHandleFromUIDRef(AIUIDRef uidRef)
@@ -492,4 +478,13 @@ AIBoolean DictionaryWriter::AddBtColorToArrayInDictionary(BtColor color, string 
     colors.push_back(color);
     
     return AddVectorOfBtColorToDictionary(colors, identifier, CAIndex);
+}
+
+string DictionaryWriter::GetUIDStringForArt(AIArtHandle art)
+{
+    AIUIDREFRef uidREFRef = NULL;
+    sAIUIDUtils->NewArtUIDREF(art, &uidREFRef);
+    ai::UnicodeString name;
+    sAIUIDREF->GetName(uidREFRef, name);
+    return name.as_Platform();
 }

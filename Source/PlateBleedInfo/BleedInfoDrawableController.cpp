@@ -15,20 +15,20 @@
 
 using PlateBleedInfo::BleedInfoDrawableController;
 
-BleedInfoDrawableController::BleedInfoDrawableController(shared_ptr<BleedInfo> bleedInfo)
+BleedInfoDrawableController::BleedInfoDrawableController(const BleedInfo& bleedInfo)
 :
 bleedInfo(bleedInfo)
 {
-    drawables.push_back(DrawableFactory().GetDrawable( bleedInfo->TickMarkSettings(), bleedInfo->BleedInfoPluginArtHandle()) );
+    drawables.push_back(DrawableFactory().GetDrawable( bleedInfo.TickMarkSettings(), bleedInfo.BleedInfoPluginArtHandle()) );
     
-    SafeguardFile::ProductType pt = bleedInfo->PlateNumber().GetProductType();
+    SafeguardFile::ProductType pt = bleedInfo.PlateNumber().GetProductType();
     
-    drawables.push_back(DrawableFactory().GetDrawable( ColorListDrawerSettings(pt, bleedInfo->ArtboardBounds(), bleedInfo->ColorList()), bleedInfo->BleedInfoPluginArtHandle()) );
-    drawables.push_back(DrawableFactory().GetDrawable( FileNameDateDrawerSettings(pt, bleedInfo->ArtboardBounds(), bleedInfo->PlateNumber(), bleedInfo->Token(), bleedInfo->LastModified()), bleedInfo->BleedInfoPluginArtHandle()) );
+    drawables.push_back(DrawableFactory().GetDrawable( ColorListDrawerSettings(pt, bleedInfo.ArtboardBounds(), bleedInfo.ColorList()), bleedInfo.BleedInfoPluginArtHandle()) );
+    drawables.push_back(DrawableFactory().GetDrawable( FileNameDateDrawerSettings(pt, bleedInfo.ArtboardBounds(), bleedInfo.PlateNumber(), bleedInfo.Token(), bleedInfo.LastModified()), bleedInfo.BleedInfoPluginArtHandle()) );
     
-    if (bleedInfo->ShouldAddCmykBlocks())
+    if (bleedInfo.ShouldAddCmykBlocks())
     {
-        AIRealRect abBounds = bleedInfo->ArtboardBounds();
+        AIRealRect abBounds = bleedInfo.ArtboardBounds();
         AIRealRect bounds = { //CMYK Blocks are 325x25px
             .left = abBounds.left + ((abBounds.right - abBounds.left)/2) - (325/2),
             .top = abBounds.top + 5 + 25,
@@ -36,12 +36,12 @@ bleedInfo(bleedInfo)
             .bottom = abBounds.top + 5
         };
         
-        drawables.push_back(DrawableFactory().GetDrawable( SgSymbolDrawerSettings(bleedInfo->ArtboardBounds(), bounds, SafeguardFile::AI_CMYK_BLOCKS), bleedInfo->BleedInfoPluginArtHandle()) );
+        drawables.push_back(DrawableFactory().GetDrawable( SgSymbolDrawerSettings(bleedInfo.ArtboardBounds(), bounds, SafeguardFile::AI_CMYK_BLOCKS), bleedInfo.BleedInfoPluginArtHandle()) );
     }
     
-    if (bleedInfo->PlateNumber().GetProductType() == SafeguardFile::Continuous)
+    if (bleedInfo.PlateNumber().GetProductType() == SafeguardFile::Continuous)
     {
-        AIRealRect abBounds = bleedInfo->ArtboardBounds();
+        AIRealRect abBounds = bleedInfo.ArtboardBounds();
         AIRealRect bounds = { //Reg block is 24.3x36px
             .left = abBounds.left,
             .top = abBounds.top - 42,
@@ -49,17 +49,17 @@ bleedInfo(bleedInfo)
             .bottom = abBounds.top - 42 - 36
         };
         
-        drawables.push_back(DrawableFactory().GetDrawable( SgSymbolDrawerSettings(bleedInfo->ArtboardBounds(), bounds, SafeguardFile::AI_CONTINUOUS_REG_TARGET), bleedInfo->BleedInfoPluginArtHandle()) );
+        drawables.push_back(DrawableFactory().GetDrawable( SgSymbolDrawerSettings(bleedInfo.ArtboardBounds(), bounds, SafeguardFile::AI_CONTINUOUS_REG_TARGET), bleedInfo.BleedInfoPluginArtHandle()) );
     }
 }
 
 AIArtHandle BleedInfoDrawableController::Draw() const
 {
-    if (bleedInfo->ShouldDrawBleedInfo())
+    if (bleedInfo.ShouldDrawBleedInfo())
     {
-        if (bleedInfo->BleedInfoPluginArtHandle())
+        if (bleedInfo.BleedInfoPluginArtHandle())
         {
-             return Update(bleedInfo->BleedInfoPluginArtHandle());
+             return Update(bleedInfo.BleedInfoPluginArtHandle());
         }
         else
         {
@@ -68,7 +68,7 @@ AIArtHandle BleedInfoDrawableController::Draw() const
     }
     else
     {
-        return Remove(); // bleedInfoPluginArt = NULL;
+        return Remove();
     }
 }
 
@@ -102,40 +102,26 @@ AIArtHandle BleedInfoDrawableController::Update(AIArtHandle pluginGroupArt) cons
 
 AIArtHandle BleedInfoDrawableController::Remove() const
 {
-    if (bleedInfo->BleedInfoPluginArtHandle())
+    if (bleedInfo.BleedInfoPluginArtHandle())
     {
-        sAIArt->DisposeArt(bleedInfo->BleedInfoPluginArtHandle());
-        bleedInfo->BleedInfoPluginArtHandle(NULL);
+        sAIArt->DisposeArt(bleedInfo.BleedInfoPluginArtHandle());
     }
-    return bleedInfo->BleedInfoPluginArtHandle();
+    return NULL;
 }
 
 AIArtHandle BleedInfoDrawableController::CreateResultArt(AIArtHandle pluginGroupArt) const
 {
     AIArtHandle resultGroup;
     sAIPluginGroup->GetPluginArtResultArt(pluginGroupArt, &resultGroup);
-    
-    ClearResultArt(resultGroup);
-    
+        
     for (auto drawable : drawables)
     {
         if (drawable)
         {
+            drawable->Clear(resultGroup);
             drawable->Draw(resultGroup);
         }
     }
     
     return pluginGroupArt;
-}
-
-void BleedInfoDrawableController::ClearResultArt(AIArtHandle resultGroupArt) const
-{
-    // Destroy all art that exists below the result art.
-    AIArtHandle child = NULL;
-    sAIArt->GetArtFirstChild(resultGroupArt, &child);
-    while (child != NULL)
-    {
-        sAIArt->DisposeArt(child);
-        sAIArt->GetArtFirstChild(resultGroupArt, &child);
-    }
 }

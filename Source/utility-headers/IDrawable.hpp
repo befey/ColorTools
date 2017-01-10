@@ -21,8 +21,15 @@ public:
     virtual AIArtHandle Draw(AIArtHandle resultArt)
     {
         AIArtHandle drawableResult = drawer->Draw(resultArt);
-        DictionaryWriter(resultArt).AddArtHandleToDictionary(drawableResult, drawer->GetDictionaryLabel());
+        
+        DictionaryWriter(resultArt).AddArtHandleToDictionary(drawableResult, drawer->GetDictionaryLabel(resultArt));
         return drawableResult;
+    };
+    
+    virtual void Clear(AIArtHandle resultArt)
+    {
+        AIArtHandle previous = DictionaryWriter(resultArt).GetArtHandleFromIdentifier(drawer->GetDictionaryLabel(resultArt));
+        sAIArt->DisposeArt(previous);
     };
     
     const shared_ptr<IDrawer> GetDrawer() const { return drawer; };

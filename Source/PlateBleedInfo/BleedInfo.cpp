@@ -51,6 +51,11 @@ colorList(ArtboardBounds())
     }
 }
 
+BleedInfo::~BleedInfo()
+{
+    StoreInPluginArt();
+}
+
 AIRealRect BleedInfo::ArtboardBounds() const
 {
     return GetArtboardBounds(artboardIndex);
@@ -111,7 +116,6 @@ BleedInfo& BleedInfo::ArtboardName(string newVal)
         props.SetName(ai::UnicodeString(newVal));
         sAIArtboard->Update(abList, ArtboardIndex(), props);
     }
-    StoreInPluginArt();
     return *this;
 }
 
@@ -119,13 +123,11 @@ void BleedInfo::SetPlateNumber()
 {
     //TODO: Make this handle the other plate number cases when we don't want to use the filename
     SetPlateNumber(CurrentFilenameRetriever::GetFilenameNoExt());
-    StoreInPluginArt();
 }
 
 void BleedInfo::SetPlateNumber(string pn)
 {
     plateNumber = SafeguardFile::PlateNumber(pn);
-    StoreInPluginArt();
 }
 
 void BleedInfo::SetShouldPrint()
@@ -195,7 +197,6 @@ void BleedInfo::FillBleedInfoFromPlateDTO(const PlateBleedInfo::PlateDTO* dto, b
     {
         ColorList().SetColorMethod(color.colorName, SafeguardFile::InkMethod(color.method) );
     }
-    StoreInPluginArt();
 }
 
 void BleedInfo::StoreInPluginArt() const
@@ -215,19 +216,16 @@ void BleedInfo::ReadFromPluginArt()
         
         FillBleedInfoFromPlateDTO(&dto, false);
     }
-    StoreInPluginArt();
 }
 
 AIArtHandle BleedInfo::Draw(AIArtHandle existingArt)
 {
-    BleedInfoDrawableController controller(make_shared<BleedInfo>(*this)); //Sets up all drawers
+    BleedInfoDrawableController controller(*this); //Sets up all drawers
     bleedInfoPluginArt = controller.Draw();
         
     //These null-check bleedInfoPluginArt
     DictionaryWriter dw;
     dw.AddAIArtHandleToArrayInDictionary(bleedInfoPluginArt, SG_BLEEDINFO_ARTHANDLES);
-        
-    StoreInPluginArt();
-    
+            
     return bleedInfoPluginArt;
 }

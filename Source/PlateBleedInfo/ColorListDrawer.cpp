@@ -12,7 +12,9 @@
 #include "BtTransformArt.hpp"
 #include "SafeguardFileConstants.h"
 #include "BtLayer.hpp"
+#include "SafeguardJobFileDTO.hpp"
 #include "ArtTree.h"
+#include "BleedInfo.h"
 
 using SafeguardFile::ColorListDrawer;
 using SafeguardFile::LaserColorListDrawer;
@@ -156,5 +158,47 @@ void ContinuousColorListDrawer::DrawContinuousColorBlocks(AIArtHandle resultGrou
                               sAIPathStyle->SetPathStyle(colorBlock, &currPathStyle);
                           }
                       });
+    }
+}
+
+bool ShouldCreateColorListDrawable::Get() const
+{
+    if (!pluginArt)
+    {
+        return true;
+    }
+    else
+    {
+        DictionaryWriter dw(pluginArt);
+        string json;
+        dw.GetStringDataFromIdentifier(json, PlateBleedInfo::PLATE_BLEEDINFO);
+        PlateBleedInfo::PlateDTO dto(json);
+        if (settings.artboardBounds != dto.bounds)
+        {
+            return true;
+        }
+        
+        AIArtHandle resultGroup = NULL;
+        sAIPluginGroup->GetPluginArtResultArt(pluginArt, &resultGroup);
+        
+        AIArtHandle existingColorListArtHandle = NULL;
+        existingColorListArtHandle = DictionaryWriter(resultGroup).GetArtHandleFromIdentifier(drawable->GetDrawer()->GetDictionaryLabel(resultGroup));
+        if (existingColorListArtHandle)
+        {
+            ColorList existingColorList(vector<AIColor>{});
+            existingColorList.ReadColorListFromArtDictionary(existingColorListArtHandle);
+            if ( existingColorList == settings.colorList )
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        else
+        {
+            return true;
+        }
     }
 }

@@ -63,6 +63,8 @@ public:
     AIBoolean GetVectorOfBtColorFromIdentifier(vector<BtColor>& colors, string identifier, int CAIndex = -1);
     AIBoolean AddVectorOfBtColorToDictionary(vector<BtColor> colors, string identifier, int CAIndex = -1);
     AIBoolean AddBtColorToArrayInDictionary(BtColor color, string identifier, int CAIndex = -1);
+    
+    static string GetUIDStringForArt(AIArtHandle art);
 private:
     AIDictionaryRef dictionary;
     

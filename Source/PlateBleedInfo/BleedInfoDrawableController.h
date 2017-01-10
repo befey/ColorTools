@@ -30,19 +30,18 @@ namespace PlateBleedInfo
     class BleedInfoDrawableController
     {
     public:
-        BleedInfoDrawableController(shared_ptr<BleedInfo> bleedInfo);
+        BleedInfoDrawableController(const BleedInfo& bleedInfo);
         
         AIArtHandle Draw() const;
         AIArtHandle Remove() const;
               
     private:
-        shared_ptr<BleedInfo> bleedInfo;
+        const BleedInfo& bleedInfo;
         vector<shared_ptr<IDrawable>> drawables;
                         
         AIArtHandle Add() const;
         AIArtHandle Update(AIArtHandle pluginGroupArt) const;
         AIArtHandle CreateResultArt(AIArtHandle pluginGroupArt) const;
-        void ClearResultArt(AIArtHandle resultGroupArt) const;
     };
 }
 

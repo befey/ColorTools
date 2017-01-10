@@ -39,7 +39,7 @@ namespace SafeguardFile
     {
     public:
         AIArtHandle Draw(AIArtHandle resultGroup) const override;
-        string GetDictionaryLabel() const override { return COLORLIST_ARTHANDLE; };
+        string GetDictionaryLabel(AIArtHandle resultArt) const override { return COLORLIST_ARTHANDLE + DictionaryWriter::GetUIDStringForArt(resultArt); };
     protected:
         ColorListDrawer(AIRealRect bounds, AIRealPoint anchor, ColorList colorList);
         virtual AIArtHandle DrawerSpecificSteps(AIArtHandle resultGroup) const = 0;
@@ -84,6 +84,17 @@ namespace SafeguardFile
     };
 }
 
+class ShouldCreateColorListDrawable
+{
+public:
+    ShouldCreateColorListDrawable(std::shared_ptr<IDrawable>drawable, ColorListDrawerSettings settings, AIArtHandle pluginArt) : drawable(drawable),settings(settings), pluginArt(pluginArt) {};
+    bool Get() const;
+private:
+    std::shared_ptr<IDrawable>drawable;
+    ColorListDrawerSettings settings;
+    AIArtHandle pluginArt;
+};
+
 using SafeguardFile::ColorListDrawable;
 template <>
 class DrawableFactoryImpl<ColorListDrawerSettings>
@@ -92,35 +103,11 @@ public:
     static std::shared_ptr<IDrawable> GetDrawable(ColorListDrawerSettings settings, AIArtHandle pluginArt)
     {
         std::shared_ptr<IDrawable> drawable = make_shared<ColorListDrawable>(settings);
-        if (!pluginArt)
+        if ( ShouldCreateColorListDrawable(drawable, settings, pluginArt).Get() )
         {
             return drawable;
         }
-        else
-        {
-            AIArtHandle resultGroup = NULL;
-            sAIPluginGroup->GetPluginArtResultArt(pluginArt, &resultGroup);
-            
-            AIArtHandle existingColorListArtHandle = NULL;
-            existingColorListArtHandle = DictionaryWriter(resultGroup).GetArtHandleFromIdentifier(drawable->GetDrawer()->GetDictionaryLabel());
-            if (existingColorListArtHandle)
-            {
-                ColorList existingColorList(vector<AIColor>{});
-                existingColorList.ReadColorListFromArtDictionary(existingColorListArtHandle);
-                if ( existingColorList == settings.colorList )
-                {
-                    return nullptr;
-                }
-                else
-                {
-                    return drawable;
-                }
-            }
-            else
-            {
-                return drawable;
-            }
-        }
+        return nullptr;
     };
 };
 

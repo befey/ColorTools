@@ -29,7 +29,7 @@ namespace SafeguardFile
     public:
         TickMarkDrawer(TickMarkSettings settings);
         AIArtHandle Draw(AIArtHandle resultArt) const override;
-        string GetDictionaryLabel() const override { return TICKMARK_ARTHANDLE; };
+        string GetDictionaryLabel(AIArtHandle resultArt) const override { return TICKMARK_ARTHANDLE + DictionaryWriter::GetUIDStringForArt(resultArt); };
         
     private:
         struct TickMark
