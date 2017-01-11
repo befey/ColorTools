@@ -99,7 +99,7 @@ public:
     ShouldCreateColorListDrawable(std::shared_ptr<IDrawable>drawable, ColorListDrawerSettings settings, AIArtHandle pluginArt) : drawable(drawable),settings(settings), pluginArt(pluginArt) {};
     bool Get() const;
 private:
-    std::shared_ptr<IDrawable>drawable;
+    std::shared_ptr<IDrawable> drawable;
     ColorListDrawerSettings settings;
     AIArtHandle pluginArt;
 };
