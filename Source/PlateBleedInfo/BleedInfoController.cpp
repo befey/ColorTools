@@ -35,9 +35,12 @@ BleedInfoController::~BleedInfoController()
 
 void BleedInfoController::HandleCropAreaNotification()
 {
-    if ( !SameTimestamp() )
+    if ( PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().IsBleedInfoPluginArtCreated() )
     {
-        DrawBleedInfo();
+        if ( !SameTimestamp() )
+        {
+            DrawBleedInfo();
+        }
     }
 }
 
