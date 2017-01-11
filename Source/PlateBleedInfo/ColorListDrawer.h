@@ -74,6 +74,15 @@ namespace SafeguardFile
         AIArtHandle DrawerSpecificSteps(AIArtHandle resultGroup) const override;
     };
     
+    class NoneColorListDrawer : public ColorListDrawer
+    {
+    public:
+        NoneColorListDrawer() : ColorListDrawer({}, {}, ColorList(vector<AIColor>{})) {};
+        AIArtHandle Draw(AIArtHandle resultGroup) const override { return NULL; };
+    private:
+        AIArtHandle DrawerSpecificSteps(AIArtHandle resultGroup) const override { return NULL; };
+    };
+    
     class ColorListDrawable : public IDrawable
     {
     public:
@@ -131,7 +140,7 @@ public:
             return make_shared<SafeguardFile::LaserColorListDrawer>(settings.artboardBounds, settings.colorList);
         }
         
-        return nullptr;
+        return make_shared<SafeguardFile::NoneColorListDrawer>();
     };
 };
 

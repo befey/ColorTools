@@ -74,6 +74,14 @@ namespace SafeguardFile
         AIArtHandle Draw(AIArtHandle resultGroup) const override;
     };
     
+    class NoneFileNameDateDrawer : public FileNameDateDrawer
+    {
+    public:
+        NoneFileNameDateDrawer() : FileNameDateDrawer({}, {}, PlateNumber(), "", {}) {};
+    private:
+        AIArtHandle Draw(AIArtHandle resultGroup) const override { return NULL; };
+    };
+    
     class FileNameDateDrawable : public IDrawable
     {
     public:
@@ -118,7 +126,7 @@ public:
             return make_shared<SafeguardFile::LaserFileNameDateDrawer>(settings.artboardBounds, settings.plateNumber, settings.token, settings.lastModified);
         }
         
-        return nullptr;
+        return make_shared<SafeguardFile::NoneFileNameDateDrawer>();
     };
 };
 

@@ -74,7 +74,8 @@ AIArtHandle DictionaryWriter::GetArtHandleFromUIDRef(AIUIDRef uidRef)
     AIUIDREFRef uidREFRef = NULL;
     sAIUID->NewUIDREF(uidRef, &uidREFRef);
     
-    sAIUIDUtils->GetReferencedArt(uidREFRef, &currArtObject);
+    ASErr error = sAIUIDUtils->GetReferencedArt(uidREFRef, &currArtObject);
+    string err = GetIllustratorErrorCode(error);
     sAIUIDREF->Release(uidREFRef);
     
     return currArtObject;
@@ -185,9 +186,11 @@ AIArtHandle DictionaryWriter::GetArtHandleFromIdentifier(string identifier, int 
         foundArtHandle = GetArtHandleFromUIDRef(uidForIdentifier);
         
         sAIUID->Release(uidForIdentifier);
+        
+        return foundArtHandle;
     }
     
-    return foundArtHandle;
+    return NULL;
 }
 
 AIBoolean DictionaryWriter::CheckDictionaryForArtObjectWithIdentifier(string identifier, int CAIndex)
