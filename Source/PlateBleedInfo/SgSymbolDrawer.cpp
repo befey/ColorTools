@@ -21,7 +21,7 @@ AIArtHandle SgSymbolDrawer::Draw(AIArtHandle resultGroup) const
     
     if (symbol != NULL)
     {
-        sAISymbol->NewInstanceAtLocation(symbol, GetCenterOfRect(bounds), kPlaceInsideOnBottom, resultGroup, &placedSymbol);
+        sAISymbol->NewInstanceAtLocation(symbol, GetCenterOfRect(symbolBounds), kPlaceInsideOnBottom, resultGroup, &placedSymbol);
     }
     
     return placedSymbol;
