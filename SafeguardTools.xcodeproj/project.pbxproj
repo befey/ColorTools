@@ -69,6 +69,15 @@
 		F96D30731CB6D73500274BDE /* PlateNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F96D30711CB6D73500274BDE /* PlateNumber.cpp */; };
 		F96D30741CB6D73500274BDE /* PlateNumber.h in Headers */ = {isa = PBXBuildFile; fileRef = F96D30721CB6D73500274BDE /* PlateNumber.h */; };
 		F96DDFB01D2D7BED0066931D /* fontlist.txt in Resources */ = {isa = PBXBuildFile; fileRef = F96DDFAF1D2D7BED0066931D /* fontlist.txt */; };
+		F9779FA71E27E667000FA1FF /* PlaceFileSearcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9779FA51E27E667000FA1FF /* PlaceFileSearcher.cpp */; };
+		F9779FA81E27E667000FA1FF /* PlaceFileSearcher.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9779FA61E27E667000FA1FF /* PlaceFileSearcher.hpp */; };
+		F9779FAB1E27E7B3000FA1FF /* PlaceFileSearchUIController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9779FA91E27E7B3000FA1FF /* PlaceFileSearchUIController.cpp */; };
+		F9779FAC1E27E7B3000FA1FF /* PlaceFileSearchUIController.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9779FAA1E27E7B3000FA1FF /* PlaceFileSearchUIController.hpp */; };
+		F9779FAE1E27EBEF000FA1FF /* PlaceFileSearch.css in Resources */ = {isa = PBXBuildFile; fileRef = F9779FAD1E27EBEF000FA1FF /* PlaceFileSearch.css */; };
+		F9779FB01E27EBF8000FA1FF /* PlaceFileSearch.html in Resources */ = {isa = PBXBuildFile; fileRef = F9779FAF1E27EBF8000FA1FF /* PlaceFileSearch.html */; };
+		F9779FB21E27EC05000FA1FF /* PlaceFileSearch.js in Resources */ = {isa = PBXBuildFile; fileRef = F9779FB11E27EC05000FA1FF /* PlaceFileSearch.js */; };
+		F9779FB51E291CF2000FA1FF /* FilePlacer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9779FB31E291CF2000FA1FF /* FilePlacer.cpp */; };
+		F9779FB61E291CF2000FA1FF /* FilePlacer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9779FB41E291CF2000FA1FF /* FilePlacer.hpp */; };
 		F979B5FB1CA31DE5004BA4AD /* IAIUnicodeString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F979B5FA1CA31DE5004BA4AD /* IAIUnicodeString.cpp */; };
 		F979B5FD1CA31DF5004BA4AD /* IAIFilePath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F979B5FC1CA31DF5004BA4AD /* IAIFilePath.cpp */; };
 		F979B5FF1CA31E72004BA4AD /* AppContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F979B5FE1CA31E72004BA4AD /* AppContext.cpp */; };
@@ -257,6 +266,15 @@
 		F96D30711CB6D73500274BDE /* PlateNumber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlateNumber.cpp; path = Source/SafeguardFile/PlateNumber.cpp; sourceTree = "<group>"; };
 		F96D30721CB6D73500274BDE /* PlateNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlateNumber.h; path = Source/SafeguardFile/PlateNumber.h; sourceTree = "<group>"; };
 		F96DDFAF1D2D7BED0066931D /* fontlist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fontlist.txt; path = Resources/Mac/ListFonts/fontlist.txt; sourceTree = "<group>"; };
+		F9779FA51E27E667000FA1FF /* PlaceFileSearcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlaceFileSearcher.cpp; path = Source/PlaceFileSearch/PlaceFileSearcher.cpp; sourceTree = "<group>"; };
+		F9779FA61E27E667000FA1FF /* PlaceFileSearcher.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PlaceFileSearcher.hpp; path = Source/PlaceFileSearch/PlaceFileSearcher.hpp; sourceTree = "<group>"; };
+		F9779FA91E27E7B3000FA1FF /* PlaceFileSearchUIController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlaceFileSearchUIController.cpp; path = Source/PlaceFileSearch/PlaceFileSearchUIController.cpp; sourceTree = "<group>"; };
+		F9779FAA1E27E7B3000FA1FF /* PlaceFileSearchUIController.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PlaceFileSearchUIController.hpp; path = Source/PlaceFileSearch/PlaceFileSearchUIController.hpp; sourceTree = "<group>"; };
+		F9779FAD1E27EBEF000FA1FF /* PlaceFileSearch.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = PlaceFileSearch.css; path = com.gosafeguard.SafeguardTools/css/PlaceFileSearch.css; sourceTree = "<group>"; };
+		F9779FAF1E27EBF8000FA1FF /* PlaceFileSearch.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = PlaceFileSearch.html; path = com.gosafeguard.SafeguardTools/PlaceFileSearch.html; sourceTree = "<group>"; };
+		F9779FB11E27EC05000FA1FF /* PlaceFileSearch.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = PlaceFileSearch.js; path = com.gosafeguard.SafeguardTools/js/PlaceFileSearch.js; sourceTree = "<group>"; };
+		F9779FB31E291CF2000FA1FF /* FilePlacer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FilePlacer.cpp; path = Source/PlaceFileSearch/FilePlacer.cpp; sourceTree = "<group>"; };
+		F9779FB41E291CF2000FA1FF /* FilePlacer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FilePlacer.hpp; path = Source/PlaceFileSearch/FilePlacer.hpp; sourceTree = "<group>"; };
 		F979B5FA1CA31DE5004BA4AD /* IAIUnicodeString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IAIUnicodeString.cpp; path = "../Adobe Illustrator CC 2017 SDK/illustratorapi/illustrator/IAIUnicodeString.cpp"; sourceTree = "<group>"; };
 		F979B5FC1CA31DF5004BA4AD /* IAIFilePath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IAIFilePath.cpp; path = "../Adobe Illustrator CC 2017 SDK/illustratorapi/illustrator/IAIFilePath.cpp"; sourceTree = "<group>"; };
 		F979B5FE1CA31E72004BA4AD /* AppContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AppContext.cpp; path = "../Adobe Illustrator CC 2017 SDK/samplecode/common/source/AppContext.cpp"; sourceTree = "<group>"; };
@@ -373,6 +391,7 @@
 				F963C91C1CC7D3AA00A0D519 /* ColorTools */,
 				F905605B1D35267A0084AB31 /* DictionaryWriter */,
 				F965B58B1D10714B00B0C04C /* ListFonts */,
+				F9779FA41E27E631000FA1FF /* PlaceFileSearch */,
 				F9158D571D073E4E00343D57 /* PlateBleedInfo */,
 				F91180761CE3B37600AA7AC8 /* PrintToPdf */,
 				F90560601D357B8B0084AB31 /* SafeguardFile */,
@@ -596,6 +615,22 @@
 			name = Drawers;
 			sourceTree = "<group>";
 		};
+		F9779FA41E27E631000FA1FF /* PlaceFileSearch */ = {
+			isa = PBXGroup;
+			children = (
+				F9779FAF1E27EBF8000FA1FF /* PlaceFileSearch.html */,
+				F9779FB11E27EC05000FA1FF /* PlaceFileSearch.js */,
+				F9779FAD1E27EBEF000FA1FF /* PlaceFileSearch.css */,
+				F9779FB31E291CF2000FA1FF /* FilePlacer.cpp */,
+				F9779FB41E291CF2000FA1FF /* FilePlacer.hpp */,
+				F9779FA51E27E667000FA1FF /* PlaceFileSearcher.cpp */,
+				F9779FA61E27E667000FA1FF /* PlaceFileSearcher.hpp */,
+				F9779FA91E27E7B3000FA1FF /* PlaceFileSearchUIController.cpp */,
+				F9779FAA1E27E7B3000FA1FF /* PlaceFileSearchUIController.hpp */,
+			);
+			name = PlaceFileSearch;
+			sourceTree = "<group>";
+		};
 		F989A8CF1CA4606E0050C071 /* My Headers */ = {
 			isa = PBXGroup;
 			children = (
@@ -646,12 +681,14 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9779FAC1E27E7B3000FA1FF /* PlaceFileSearchUIController.hpp in Headers */,
 				F9138E9F1D01EE4D00D23C1F /* PdfPrinter.h in Headers */,
 				F989A8ED1CA460CE0050C071 /* FixBlack.h in Headers */,
 				F9158D521D05EC4700343D57 /* PathBuilder.h in Headers */,
 				F9F1EB6C1D1B19AF0051B716 /* ColorList.h in Headers */,
 				F9C44EF11D0AF26100205ADF /* Plate.h in Headers */,
 				F992803C1D6B723F00E7EBF2 /* SafeguardJobFileDTO.hpp in Headers */,
+				F9779FA81E27E667000FA1FF /* PlaceFileSearcher.hpp in Headers */,
 				F90E3F9E1CA475880081C333 /* ATEFuncs.h in Headers */,
 				F910BD6B1D09FA910029DF62 /* BleedInfo.h in Headers */,
 				F90AE3F31CAAF8AF0076A9BC /* BtAiMenuItemHandles.h in Headers */,
@@ -687,6 +724,7 @@
 				F9BC95CB1DF1DE9700130615 /* CurrentFilenameRetriever.hpp in Headers */,
 				F9138EA01D01EE4D00D23C1F /* PrintToPdfConstants.h in Headers */,
 				F937ABE51D51149C006DD5C4 /* BtTransformArt.hpp in Headers */,
+				F9779FB61E291CF2000FA1FF /* FilePlacer.hpp in Headers */,
 				F96D30741CB6D73500274BDE /* PlateNumber.h in Headers */,
 				F9138E9B1D01EE4D00D23C1F /* PdfResults.h in Headers */,
 				F947263F1CB2E1F400649020 /* VPB.h in Headers */,
@@ -765,7 +803,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9779FB21E27EC05000FA1FF /* PlaceFileSearch.js in Resources */,
+				F9779FB01E27EBF8000FA1FF /* PlaceFileSearch.html in Resources */,
 				F96DDFB01D2D7BED0066931D /* fontlist.txt in Resources */,
+				F9779FAE1E27EBEF000FA1FF /* PlaceFileSearch.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -807,6 +848,7 @@
 				F9158D551D05FBE900343D57 /* ExistingFileDeleter.cpp in Sources */,
 				F992803B1D6B723F00E7EBF2 /* SafeguardJobFileDTO.cpp in Sources */,
 				F90AE3F21CAAF8AF0076A9BC /* BtAiMenuItemHandles.cpp in Sources */,
+				F9779FA71E27E667000FA1FF /* PlaceFileSearcher.cpp in Sources */,
 				F9FAE8FE1CBD87E700938893 /* BtArtboardRange.cpp in Sources */,
 				F9DD295E1DEC90E40004EFF0 /* BleedInfoController.cpp in Sources */,
 				F989A8F31CA465F30050C071 /* IThrowException.cpp in Sources */,
@@ -819,6 +861,7 @@
 				F9E284281D254E2D001B0F98 /* PathCreator.cpp in Sources */,
 				F9CE24FA1D11A56E0075DDDF /* TextTools.cpp in Sources */,
 				F9DA3B951D1C6C7D00AB6156 /* ColorListDrawer.cpp in Sources */,
+				F9779FB51E291CF2000FA1FF /* FilePlacer.cpp in Sources */,
 				F98BAEE11CA9A0D100965D86 /* BtAiMenuItem.cpp in Sources */,
 				F989A8EA1CA460CE0050C071 /* FindReplaceGraphics.cpp in Sources */,
 				F9F079661D47EEC1004AC522 /* TickMarkSettings.cpp in Sources */,
@@ -839,6 +882,7 @@
 				F979B60B1CA31E92004BA4AD /* IllustratorSDK.cpp in Sources */,
 				F9CE24F81D11A56E0075DDDF /* FixFreehandType.cpp in Sources */,
 				F9BC95C21DEF14AC00130615 /* ColorEnumerator.cpp in Sources */,
+				F9779FAB1E27E7B3000FA1FF /* PlaceFileSearchUIController.cpp in Sources */,
 				F96D30731CB6D73500274BDE /* PlateNumber.cpp in Sources */,
 				F94726401CB2E1F400649020 /* VPB.cpp in Sources */,
 				F98BAEDD1CA99E1E00965D86 /* ArtTree.cpp in Sources */,
