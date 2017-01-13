@@ -19,6 +19,8 @@
 #include "ColorFuncs.h"
 #include "ICanBeTextRange.h"
 #include "AIATETextUtil.h"
+#include "cereal/cereal.hpp"
+#include "cereal/access.hpp"
 
 extern AIATETextUtilSuite* sAIATETextUtil;
 
@@ -57,6 +59,8 @@ public:
     
     BtColor& AiCustomColor(AICustomColor newVal, std::string name, AIReal tint, SafeguardFile::InkMethod method);
     AICustomColor AiCustomColor() const;
+    BtColor& AiCustomColorHandle(AICustomColorHandle newVal);
+    AICustomColorHandle AiCustomColorHandle() const { return aiCustomColorHandle; };
     
     BtColor& Name(std::string newVal);
     std::string Name() const;
@@ -67,6 +71,8 @@ public:
     BtColor& Method(SafeguardFile::InkMethod newVal) { method = newVal; return *this; };
     SafeguardFile::InkMethod Method() const { return method; };
     
+    friend bool operator==(const BtColor& lhs, const BtColor& rhs);
+    friend bool operator!=(const BtColor& lhs, const BtColor& rhs) { return !operator==(lhs,rhs); };
     friend bool operator< (const BtColor& lhs, const BtColor& rhs);
     
     inline operator AIColor(void) const { return aiColor; }
@@ -80,7 +86,17 @@ private:
     AILabColorStyle GetLabApproximation() const;
     
     void GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) const override;
+    
+    friend class cereal::access;
+    template <class Archive,
+    cereal::traits::EnableIf<cereal::traits::is_text_archive<Archive>::value> = cereal::traits::sfinae>
+    void save( Archive & ar ) const;
+    friend class cereal::access;
+    template <class Archive,
+    cereal::traits::EnableIf<cereal::traits::is_text_archive<Archive>::value> = cereal::traits::sfinae>
+    void load( Archive & ar );
 };
 
+#include "BtColor.tpp"
 
 #endif /* defined(__SafeguardTools__BtColor__) */

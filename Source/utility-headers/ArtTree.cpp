@@ -576,3 +576,8 @@ AIArtHandle DrawRectangle(AIRealRect rect, AIArtHandle prep)
     
     return pathArt;
 }
+
+bool operator==(const AIRealRect& lhs, const AIRealRect& rhs)
+{
+    return (lhs.bottom == rhs.bottom) && (lhs.left == rhs.left) && (lhs.right == rhs.right) && (lhs.top == rhs.top);
+}

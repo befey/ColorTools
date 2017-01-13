@@ -12,11 +12,24 @@
 class IDrawer
 {
 public:
-    AIArtHandle Draw(AIArtHandle resultGroup = NULL) const { return DoDraw(resultGroup); };
+    virtual AIArtHandle Draw(AIArtHandle resultArt) const = 0;
+    virtual string GetDictionaryLabel(AIArtHandle resultArt) const = 0;
 protected:
-    ~IDrawer() {};
-private:
-    virtual AIArtHandle DoDraw(AIArtHandle resultGroup) const = 0;
+    IDrawer(AIRealRect bounds) : bounds(bounds) { };
+    AIRealRect bounds;
+};
+
+template <class T>
+class DrawerFactoryImpl;
+
+class DrawerFactory
+{
+public:
+    template <class T>
+    std::shared_ptr<IDrawer> GetDrawer(T drawableSettings)
+    {
+        return DrawerFactoryImpl<T>::GetDrawer(drawableSettings);
+    }
 };
 
 #endif /* IDrawer_h */

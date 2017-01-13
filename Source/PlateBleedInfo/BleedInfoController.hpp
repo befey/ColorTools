@@ -37,9 +37,8 @@ namespace PlateBleedInfo
         ASErr HandlePluginGroupUpdate(AIPluginGroupMessage* message);
 
     private:
-        bool ShouldDoUpdate();
+        bool SameTimestamp();
         void DrawBleedInfo();
-        void DrawBleedInfo(AIArtHandle pluginArt);
         
         vector<AINotifierHandle> notifiers;
     };

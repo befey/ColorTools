@@ -77,5 +77,6 @@ void ConvertObjectsToGlobalCMYK(AIColor *color, void *userData, AIErr *result, A
 bool operator==(const AIGrayColorStyle& lhs, const AIGrayColorStyle& rhs);
 bool operator==(const AIFourColorStyle& lhs, const AIFourColorStyle& rhs);
 bool operator==(const AIThreeColorStyle& lhs, const AIThreeColorStyle& rhs);
+bool operator==(const AILabColorStyle& lhs, const AILabColorStyle& rhs);
 	
 #endif //COLORFUNCS_H

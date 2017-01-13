@@ -12,7 +12,9 @@
 #include "BtTransformArt.hpp"
 #include "SafeguardFileConstants.h"
 #include "BtLayer.hpp"
+#include "SafeguardJobFileDTO.hpp"
 #include "ArtTree.h"
+#include "BleedInfo.h"
 
 using SafeguardFile::ColorListDrawer;
 using SafeguardFile::LaserColorListDrawer;
@@ -35,7 +37,15 @@ ContinuousColorListDrawer::ContinuousColorListDrawer(AIRealRect bounds, ColorLis
 BusStatColorListDrawer::BusStatColorListDrawer(AIRealRect bounds, ColorList colorList) :
     ColorListDrawer(bounds, {.h = bounds.left, .v = bounds.bottom - 12}, colorList) {};
 
-AIArtHandle LaserColorListDrawer::DoDraw(AIArtHandle resultGroup) const
+AIArtHandle ColorListDrawer::Draw(AIArtHandle resultGroup) const
+{
+    AIArtHandle colorListArt = DrawerSpecificSteps(resultGroup);
+    colorList.WriteColorListToArtDictionary(colorListArt);
+
+    return colorListArt;
+}
+
+AIArtHandle LaserColorListDrawer::DrawerSpecificSteps(AIArtHandle resultGroup) const
 {
     AIArtHandle colorListArt;
     
@@ -50,7 +60,7 @@ AIArtHandle LaserColorListDrawer::DoDraw(AIArtHandle resultGroup) const
     return colorListArt;
 }
 
-AIArtHandle ContinuousColorListDrawer::DoDraw(AIArtHandle resultGroup) const
+AIArtHandle ContinuousColorListDrawer::DrawerSpecificSteps(AIArtHandle resultGroup) const
 {
     AIArtHandle colorListArt;
     
@@ -70,7 +80,7 @@ AIArtHandle ContinuousColorListDrawer::DoDraw(AIArtHandle resultGroup) const
     return colorListArt;
 }
 
-AIArtHandle BusStatColorListDrawer::DoDraw(AIArtHandle resultGroup) const
+AIArtHandle BusStatColorListDrawer::DrawerSpecificSteps(AIArtHandle resultGroup) const
 {
     AIArtHandle colorListArt;
     
@@ -148,5 +158,47 @@ void ContinuousColorListDrawer::DrawContinuousColorBlocks(AIArtHandle resultGrou
                               sAIPathStyle->SetPathStyle(colorBlock, &currPathStyle);
                           }
                       });
+    }
+}
+
+bool ShouldCreateColorListDrawable::Get() const
+{
+    if (!pluginArt)
+    {
+        return true;
+    }
+    else
+    {
+        DictionaryWriter dw(pluginArt);
+        string json;
+        dw.GetStringDataFromIdentifier(json, PlateBleedInfo::PLATE_BLEEDINFO);
+        PlateBleedInfo::PlateDTO dto(json);
+        if (settings.artboardBounds != dto.bounds)
+        {
+            return true;
+        }
+        
+        AIArtHandle resultGroup = NULL;
+        sAIPluginGroup->GetPluginArtResultArt(pluginArt, &resultGroup);
+        
+        AIArtHandle existingColorListArtHandle = NULL;
+        existingColorListArtHandle = DictionaryWriter(resultGroup).GetArtHandleFromIdentifier(drawable->GetDrawer()->GetDictionaryLabel(resultGroup));
+        if (existingColorListArtHandle)
+        {
+            ColorList existingColorList(vector<AIColor>{});
+            existingColorList.ReadColorListFromArtDictionary(existingColorListArtHandle);
+            if ( existingColorList == settings.colorList )
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        else
+        {
+            return true;
+        }
     }
 }

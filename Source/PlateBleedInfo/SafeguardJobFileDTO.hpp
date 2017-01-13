@@ -20,6 +20,19 @@ namespace SafeguardFile
     class SafeguardJobFile;
 }
 
+namespace cereal
+{
+    template<class Archive>
+    void serialize(Archive & ar, AIRealRect& rect)
+    {
+        ar(CEREAL_NVP(rect.top),
+           CEREAL_NVP(rect.bottom),
+           CEREAL_NVP(rect.left),
+           CEREAL_NVP(rect.right)
+           );
+    }
+}
+
 namespace PlateBleedInfo
 {
     class BleedInfo;
@@ -61,6 +74,7 @@ namespace PlateBleedInfo
         string token;
         bool shouldAddCmykBlocks;
         int tmStyle;
+        AIRealRect bounds;
         
     private:
         friend class cereal::access;
@@ -76,7 +90,8 @@ namespace PlateBleedInfo
                CEREAL_NVP(plateNumber),
                CEREAL_NVP(token),
                CEREAL_NVP(shouldAddCmykBlocks),
-               CEREAL_NVP(tmStyle)
+               CEREAL_NVP(tmStyle),
+               CEREAL_NVP(bounds)
                );
         }
     };

@@ -46,6 +46,16 @@ BtColor::BtColor(std::string name)
     AiCustomColor(AICustomColor(), name, 0, SafeguardFile::InkMethod::NONE);
 }
 
+bool operator==(const BtColor& lhs, const BtColor& rhs)
+{
+    if (lhs.Method() != rhs.Method())
+    {
+        return false;
+    }
+    
+    return ColorIsEqual(lhs.AiColor(), rhs.AiColor(), true);
+}
+
 bool operator< (const BtColor& lhs, const BtColor& rhs)
 {
     //Always sort CMYK to the front
@@ -211,6 +221,23 @@ AICustomColor BtColor::AiCustomColor() const
     {
         return AICustomColor();
     }
+}
+
+BtColor& BtColor::AiCustomColorHandle(AICustomColorHandle newVal)
+{
+    if (newVal)
+    {
+        if (aiColor.kind != kCustomColor)
+        {
+            aiColor.kind = kCustomColor;
+            aiColor.c.c.tint = 0;
+        }
+        
+        aiCustomColorHandle = newVal;
+        sAICustomColor->GetCustomColor(aiCustomColorHandle, &aiCustomColor);
+    }
+    
+    return *this;
 }
 
 BtColor& BtColor::Name(std::string newVal)

@@ -12,9 +12,9 @@
 
 using SafeguardFile::TickMarkDrawer;
 
-TickMarkDrawer::TickMarkDrawer(TickMarkSettings settings) : settings(settings) {};
+TickMarkDrawer::TickMarkDrawer(TickMarkSettings settings) : IDrawer(settings.Bounds()), settings(settings) {};
 
-AIArtHandle TickMarkDrawer::DoDraw(AIArtHandle resultGroup) const
+AIArtHandle TickMarkDrawer::Draw(AIArtHandle resultGroup) const
 {
     AIArtHandle tickMarkGroupArt = NULL;
     tickMarkGroupArt = DrawInvisiblePath(resultGroup, tickMarkGroupArt);

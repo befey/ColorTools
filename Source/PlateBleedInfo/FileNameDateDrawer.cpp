@@ -29,7 +29,7 @@ LaserFileNameDateDrawer::LaserFileNameDateDrawer(AIRealRect bounds, PlateNumber 
 ContinuousFileNameDateDrawer::ContinuousFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, {.h = bounds.right + 2, .v = bounds.top - 14}, plateNumber, token, lastModified) {};
 BusStatFileNameDateDrawer::BusStatFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, {.h = bounds.right, .v = bounds.bottom - 12}, plateNumber, token, lastModified) {};
 
-AIArtHandle LaserFileNameDateDrawer::DoDraw(AIArtHandle resultGroup) const
+AIArtHandle LaserFileNameDateDrawer::Draw(AIArtHandle resultGroup) const
 {
     AIArtHandle plateNumberDateArt;
     
@@ -44,7 +44,7 @@ AIArtHandle LaserFileNameDateDrawer::DoDraw(AIArtHandle resultGroup) const
     return plateNumberDateArt;
 }
 
-AIArtHandle ContinuousFileNameDateDrawer::DoDraw(AIArtHandle resultGroup) const
+AIArtHandle ContinuousFileNameDateDrawer::Draw(AIArtHandle resultGroup) const
 {
     AIArtHandle plateNumberDateArt;
     
@@ -61,7 +61,7 @@ AIArtHandle ContinuousFileNameDateDrawer::DoDraw(AIArtHandle resultGroup) const
     return plateNumberDateArt;
 }
 
-AIArtHandle BusStatFileNameDateDrawer::DoDraw(AIArtHandle resultGroup) const
+AIArtHandle BusStatFileNameDateDrawer::Draw(AIArtHandle resultGroup) const
 {
     AIArtHandle plateNumberDateArt;
     

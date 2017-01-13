@@ -9,7 +9,6 @@
 #ifndef SgSymbolDrawer_hpp
 #define SgSymbolDrawer_hpp
 
-#include "IDrawer.h"
 #include "BtTransformArt.hpp"
 #include "AIArt.h"
 #include "AISymbol.h"
@@ -19,6 +18,8 @@
 #include "AIDocumentList.h"
 #include "AIDocument.h"
 #include "AIPathStyle.h"
+#include "IDrawer.h"
+#include "IDrawable.hpp"
 
 extern AIArtSuite* sAIArt;
 extern AISymbolSuite* sAISymbol;
@@ -29,6 +30,20 @@ extern AIDocumentListSuite* sAIDocumentList;
 extern AIDocumentSuite* sAIDocument;
 extern AIPathStyleSuite* sAIPathStyle;
 
+struct SgSymbolDrawerSettings
+{
+    SgSymbolDrawerSettings(AIRealRect artboardBounds, AIRealRect symbolBounds, string symbolName) :
+    artboardBounds(artboardBounds),
+    symbolBounds(symbolBounds),
+    symbolName(symbolName) {};
+    
+    AIRealRect artboardBounds;
+    AIRealRect symbolBounds;
+    string symbolName;
+};
+
+constexpr auto SGSYMBOL_ARTHANDLE =            "__bt_sgsymbol_arthandle__";
+
 namespace SafeguardFile
 {
     constexpr auto SG_SYMBOL_FILENAME = "sg_Symbols.ai";
@@ -36,17 +51,53 @@ namespace SafeguardFile
     class SgSymbolDrawer : public IDrawer
     {
     public:
-        SgSymbolDrawer(AIRealRect bounds, string symbolName) : bounds(bounds), symbolName(symbolName) {};
+        SgSymbolDrawer(AIRealRect bounds, AIRealRect symbolBounds, string symbolName) : IDrawer(bounds), symbolBounds(symbolBounds), symbolName(symbolName) {};
+        string GetDictionaryLabel(AIArtHandle resultArt) const override { return SGSYMBOL_ARTHANDLE + symbolName + DictionaryWriter::GetUIDStringForArt(resultArt); };
         
     private:
-        const AIRealRect bounds;
+        const AIRealRect symbolBounds;
         const string symbolName;
         
-        AIArtHandle DoDraw(AIArtHandle resultGroup) const override;
+        AIArtHandle Draw(AIArtHandle resultArt) const override;
         
         AIPatternHandle LoadSymbolFromFile() const;
     };
+    
+    class SgSymbolDrawable : public IDrawable
+    {
+    public:
+        SgSymbolDrawable(SgSymbolDrawerSettings settings)
+        {
+            drawer = DrawerFactory().GetDrawer(settings);
+        }
+    };
 }
+
+using SafeguardFile::SgSymbolDrawable;
+template <>
+class DrawableFactoryImpl<SgSymbolDrawerSettings>
+{
+public:
+    static std::shared_ptr<IDrawable> GetDrawable(SgSymbolDrawerSettings settings, AIArtHandle pluginArt)
+    {
+        if (true)
+        {
+            return make_shared<SgSymbolDrawable>(settings);
+        }
+        return nullptr;
+    };
+};
+
+using SafeguardFile::SgSymbolDrawer;
+template <>
+class DrawerFactoryImpl<SgSymbolDrawerSettings>
+{
+public:
+    static shared_ptr<IDrawer> GetDrawer(SgSymbolDrawerSettings settings)
+    {
+        return make_shared<SgSymbolDrawer>(settings.artboardBounds, settings.symbolBounds, settings.symbolName);
+    };
+};
 
 
 #endif /* SgSymbolDrawer_hpp */

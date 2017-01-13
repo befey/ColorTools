@@ -11,7 +11,7 @@
 #include "BleedInfoPluginArtToArtboardMatcher.hpp"
 #include "DictionaryWriter.h"
 #include "BleedInfoWriter.hpp"
-#include "BleedInfoDrawer.h"
+#include "BleedInfoDrawableController.h"
 #include "SafeguardJobFileDTO.hpp"
 #include "TokenCreator.hpp"
 #include "ArtboardNameRetriever.hpp"
@@ -48,7 +48,12 @@ colorList(ArtboardBounds())
     else
     {
         ReadFromPluginArt();
-    }   
+    }
+}
+
+BleedInfo::~BleedInfo()
+{
+    StoreInPluginArt();
 }
 
 AIRealRect BleedInfo::ArtboardBounds() const
@@ -111,7 +116,6 @@ BleedInfo& BleedInfo::ArtboardName(string newVal)
         props.SetName(ai::UnicodeString(newVal));
         sAIArtboard->Update(abList, ArtboardIndex(), props);
     }
-    StoreInPluginArt();
     return *this;
 }
 
@@ -119,13 +123,11 @@ void BleedInfo::SetPlateNumber()
 {
     //TODO: Make this handle the other plate number cases when we don't want to use the filename
     SetPlateNumber(CurrentFilenameRetriever::GetFilenameNoExt());
-    StoreInPluginArt();
 }
 
 void BleedInfo::SetPlateNumber(string pn)
 {
     plateNumber = SafeguardFile::PlateNumber(pn);
-    StoreInPluginArt();
 }
 
 void BleedInfo::SetShouldPrint()
@@ -195,7 +197,6 @@ void BleedInfo::FillBleedInfoFromPlateDTO(const PlateBleedInfo::PlateDTO* dto, b
     {
         ColorList().SetColorMethod(color.colorName, SafeguardFile::InkMethod(color.method) );
     }
-    StoreInPluginArt();
 }
 
 void BleedInfo::StoreInPluginArt() const
@@ -215,21 +216,16 @@ void BleedInfo::ReadFromPluginArt()
         
         FillBleedInfoFromPlateDTO(&dto, false);
     }
-    StoreInPluginArt();
 }
 
-void BleedInfo::Draw()
+AIArtHandle BleedInfo::Draw(AIArtHandle existingArt)
 {
-    bleedInfoPluginArt = ( PlateBleedInfo::BleedInfoDrawer(make_shared<BleedInfo>(*this)).Draw() );
-    
+    BleedInfoDrawableController controller(*this); //Sets up all drawers
+    bleedInfoPluginArt = controller.Draw();
+        
+    //These null-check bleedInfoPluginArt
     DictionaryWriter dw;
     dw.AddAIArtHandleToArrayInDictionary(bleedInfoPluginArt, SG_BLEEDINFO_ARTHANDLES);
-    
-    StoreInPluginArt();
-}
-
-void BleedInfo::Remove()
-{
-    bleedInfoPluginArt = ( PlateBleedInfo::BleedInfoDrawer(make_shared<BleedInfo>(*this)).Remove() );
-    bleedInfoPluginArt = NULL;
+            
+    return bleedInfoPluginArt;
 }

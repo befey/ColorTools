@@ -14,14 +14,14 @@
 
 using SafeguardFile::SgSymbolDrawer;
 
-AIArtHandle SgSymbolDrawer::DoDraw(AIArtHandle resultGroup) const
+AIArtHandle SgSymbolDrawer::Draw(AIArtHandle resultGroup) const
 {
     AIArtHandle placedSymbol = NULL;
     AIPatternHandle symbol = LoadSymbolFromFile();
     
     if (symbol != NULL)
     {
-        sAISymbol->NewInstanceAtLocation(symbol, GetCenterOfRect(bounds), kPlaceInsideOnBottom, resultGroup, &placedSymbol);
+        sAISymbol->NewInstanceAtLocation(symbol, GetCenterOfRect(symbolBounds), kPlaceInsideOnBottom, resultGroup, &placedSymbol);
     }
     
     return placedSymbol;

@@ -12,6 +12,7 @@
 #include "SafeguardFileConstants.h"
 #include "ArtTree.h"
 #include "ColorEnumerator.hpp"
+#include "DictionaryWriter.h"
 
 ColorList::ColorList(AIRealRect area)
 :
@@ -188,7 +189,7 @@ void ColorList::Sort()
     std::sort(p_ColorList.begin(), p_ColorList.end());
 }
 
-bool ColorList::HasCMYK()
+bool ColorList::HasCMYK() const
 {
     for ( auto c : p_ColorList )
     {
@@ -223,4 +224,30 @@ void ColorList::SetColorMethod(string colorName, SafeguardFile::InkMethod method
             break;
         }
     }
+}
+
+void ColorList::WriteColorListToArtDictionary(AIArtHandle art) const
+{
+    DictionaryWriter(art).AddVectorOfBtColorToDictionary(p_ColorList, COLORLIST_STORE);
+}
+
+void ColorList::ReadColorListFromArtDictionary(AIArtHandle art)
+{
+    p_ColorList.clear();
+    DictionaryWriter(art).GetVectorOfBtColorFromIdentifier(p_ColorList, COLORLIST_STORE);
+}
+
+bool operator==(const ColorList& lhs, const ColorList& rhs)
+{
+    if (lhs.size() != rhs.size())
+    {
+        return false;
+    }
+    
+    vector<BtColor> lhsCopy = lhs.p_ColorList;
+    sort(lhsCopy.begin(), lhsCopy.end());
+    vector<BtColor> rhsCopy = rhs.p_ColorList;
+    sort(rhsCopy.begin(), rhsCopy.end());
+
+    return lhsCopy == rhsCopy;
 }
