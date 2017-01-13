@@ -10,6 +10,7 @@
 #include "BtAiMenuItemHandles.h"
 #include "PrintToPdfUIController.h"
 #include "PlateBleedInfoUIController.hpp"
+#include "PlaceFileSearchUIController.hpp"
 #include "SafeguardJobFile.h"
 
 //=================================
@@ -72,6 +73,7 @@ public:
     static constexpr auto CREATE_MICR_BARCODE_MENU_ITEM =  "Create MICR Barcode";
     static constexpr auto LIST_FONTS_MENU_ITEM =           "Generate Font List";
     static constexpr auto PRINT_TO_PDF_MENU_ITEM =         "Print to PDF...";
+    static constexpr auto SG_MFG_PLACE_MENU_ITEM =         "Safeguard Place...";
     
     static constexpr auto CREATE_PLATE_BLEED_INFO_PLUGIN_GROUP =  "bt.SafeguardTools.PlateBleedInfo";
     static constexpr auto BLEED_INFO_PLUGIN_GROUP_DESC =          "__SafeguardPlateInfo__";
@@ -132,6 +134,7 @@ private:
     shared_ptr<ColorToolsUIController> colorToolsUIController;
     shared_ptr<PrintToPdf::PrintToPdfUIController> printToPdfUIController;
     shared_ptr<PlateBleedInfo::PlateBleedInfoUIController> plateBleedInfoUIController;
+    shared_ptr<PlaceFileSearch::PlaceFileSearchUIController> placeFileSearchUIController;
     
     /**	Notifier handles**/
     AINotifierHandle fRegisterEventNotifierHandle;

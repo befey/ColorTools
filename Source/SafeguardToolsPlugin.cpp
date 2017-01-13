@@ -7,8 +7,6 @@
 
 #include "GetIllustratorErrorCode.h"
 
-#include "ColorToolsUIController.h"
-#include "PrintToPdfUIController.h"
 #include "BtSwatchList.h"
 #include "BtAiMenuItem.h"
 #include "BtAiMenuItemHandles.h"
@@ -157,6 +155,11 @@ ASErr SafeguardToolsPlugin::ShutdownPlugin( SPInterfaceMessage *message )
         plateBleedInfoUIController->RemoveEventListeners();
         Plugin::LockPlugin(false);
     }
+    if (plateBleedInfoUIController)
+    {
+        placeFileSearchUIController->RemoveEventListeners();
+        Plugin::LockPlugin(false);
+    }
 
     message->d.globals = NULL;
     return Plugin::ShutdownPlugin(message);
@@ -201,7 +204,14 @@ ASErr SafeguardToolsPlugin::PostStartupPlugin()
         error = Plugin::LockPlugin(true);
         if (error) { return error; }
     }
-
+    
+    if (NULL == placeFileSearchUIController)
+    {
+        placeFileSearchUIController = std::make_shared<PlaceFileSearch::PlaceFileSearchUIController>();
+        
+        error = Plugin::LockPlugin(true);
+        if (error) { return error; }
+    }
     
     return error;
 }
@@ -269,6 +279,12 @@ ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
     CreatePlateBleedInfoMenuItem.SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, 0, 0, kIfOpenDocument, 0);
     BtAiMenuItem::AddMenu(EditPlateBleedInfoMenuItem, &menuItemHandles);
 */
+    
+    //Place File Search
+    BtAiMenuItem SafeguardMfgPlaceMenuItem = BtAiMenuItem(kPlaceMenuGroup, SG_MFG_PLACE_MENU_ITEM, kMenuItemNoOptions);
+    SafeguardMfgPlaceMenuItem.SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, 0, 0, kIfOpenDocument, 0);
+    BtAiMenuItem::AddMenu(SafeguardMfgPlaceMenuItem, &menuItemHandles);
+    
     return kNoErr;
 }
 
@@ -373,6 +389,12 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
         sAINotifier->SetNotifierActive(gPlugin->fArtSelectionChangedNotifierHandle, TRUE);
         sAINotifier->SetNotifierActive(gPlugin->fDocumentCropAreaModifiedNotifierHandle, TRUE);
     }
+    
+    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(SG_MFG_PLACE_MENU_ITEM) )
+    {
+        placeFileSearchUIController->LoadExtension();
+        sAICSXSExtension->LaunchExtension(PlaceFileSearch::PlaceFileSearchUIController::PLACEFILESEARCH_UI_EXTENSION);
+    }
 	
 	if (error)
 		goto error;
@@ -452,6 +474,7 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
         colorToolsUIController->RegisterCSXSEventListeners();
         printToPdfUIController->RegisterCSXSEventListeners();
         plateBleedInfoUIController->RegisterCSXSEventListeners();
+        placeFileSearchUIController->RegisterCSXSEventListeners();
     }
     
     if ( message->notifier == fAppStartedNotifierHandle )

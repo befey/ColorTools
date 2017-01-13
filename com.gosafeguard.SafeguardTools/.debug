@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ExtensionList>
-<Extension Id="com.gosafeguard.SafeguardTools.PlateBleedInfo">
-	<HostList>
-		<Host Name="ILST" Port="8003"/>
-	</HostList>
-</Extension>
-<Extension Id="com.gosafeguard.SafeguardTools.PrintToPdf">
-	<HostList>
-		<Host Name="ILST" Port="8004"/>
-	</HostList>
-</Extension>
+    <Extension Id="com.gosafeguard.SafeguardTools.PlateBleedInfo">
+        <HostList>
+            <Host Name="ILST" Port="8003"/>
+        </HostList>
+    </Extension>
+    <Extension Id="com.gosafeguard.SafeguardTools.PrintToPdf">
+        <HostList>
+            <Host Name="ILST" Port="8004"/>
+        </HostList>
+    </Extension>
+    <Extension Id="com.gosafeguard.SafeguardTools.PlaceFileSearch">
+        <HostList>
+            <Host Name="ILST" Port="8005"/>
+        </HostList>
+    </Extension>
 </ExtensionList>
