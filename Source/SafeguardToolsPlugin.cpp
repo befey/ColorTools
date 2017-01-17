@@ -271,7 +271,7 @@ ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
     BtAiMenuItem::AddMenu(PrintToPdfMenuItem, &menuItemHandles);
 
     
-/*    //CREATE SLUG INFO
+    //CREATE SLUG INFO
     BtAiMenuItem CreatePlateBleedInfoMenuItem = BtAiMenuItem(kDocumentUtilsMenuGroup, CREATE_PLATE_BLEED_INFO_MENU_ITEM, kMenuItemWantsUpdateOption);
     CreatePlateBleedInfoMenuItem.SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, 0, 0, kIfOpenDocument, 0);
     BtAiMenuItem::AddMenu(CreatePlateBleedInfoMenuItem, &menuItemHandles);
@@ -279,7 +279,7 @@ ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
     BtAiMenuItem EditPlateBleedInfoMenuItem = BtAiMenuItem(kDocumentUtilsMenuGroup, EDIT_PLATE_BLEED_INFO_MENU_ITEM, kMenuItemWantsUpdateOption);
     EditPlateBleedInfoMenuItem.SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, 0, 0, kIfOpenDocument, 0);
     BtAiMenuItem::AddMenu(EditPlateBleedInfoMenuItem, &menuItemHandles);
-*/
+
     
     //Place File Search
     BtAiMenuItem SafeguardMfgPlaceMenuItem = BtAiMenuItem(kPlaceMenuGroup, SG_MFG_PLACE_MENU_ITEM, kMenuItemNoOptions);

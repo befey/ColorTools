@@ -24,33 +24,13 @@ bleedInfo(bleedInfo)
     SafeguardFile::ProductType pt = bleedInfo.PlateNumber().GetProductType();
     
     drawables.push_back(DrawableFactory().GetDrawable( ColorListDrawerSettings(pt, bleedInfo.ArtboardBounds(), bleedInfo.ColorList()), bleedInfo.BleedInfoPluginArtHandle()) );
+    
     drawables.push_back(DrawableFactory().GetDrawable( FileNameDateDrawerSettings(pt, bleedInfo.ArtboardBounds(), bleedInfo.PlateNumber(), bleedInfo.Token(), bleedInfo.LastModified()), bleedInfo.BleedInfoPluginArtHandle()) );
     
-    if (bleedInfo.ShouldAddCmykBlocks())
-    {
-        AIRealRect abBounds = bleedInfo.ArtboardBounds();
-        AIRealRect bounds = { //CMYK Blocks are 325x25px
-            .left = abBounds.left + ((abBounds.right - abBounds.left)/2) - (325/2),
-            .top = abBounds.top + 5 + 25,
-            .right = abBounds.right - ((abBounds.right - abBounds.left)/2) + (325/2),
-            .bottom = abBounds.top + 5
-        };
-        
-        drawables.push_back(DrawableFactory().GetDrawable( SgSymbolDrawerSettings(bleedInfo.ArtboardBounds(), bounds, SafeguardFile::AI_CMYK_BLOCKS), bleedInfo.BleedInfoPluginArtHandle()) );
-    }
+    drawables.push_back(DrawableFactory().GetDrawable( SgSymbolDrawerSettings(bleedInfo.ArtboardBounds(), SafeguardFile::AI_CMYK_BLOCKS, bleedInfo.ShouldAddCmykBlocks()), bleedInfo.BleedInfoPluginArtHandle()) );
     
-    if (bleedInfo.PlateNumber().GetProductType() == SafeguardFile::Continuous)
-    {
-        AIRealRect abBounds = bleedInfo.ArtboardBounds();
-        AIRealRect bounds = { //Reg block is 24.3x36px
-            .left = abBounds.left,
-            .top = abBounds.top - 42,
-            .right = abBounds.left + 24.3,
-            .bottom = abBounds.top - 42 - 36
-        };
-        
-        drawables.push_back(DrawableFactory().GetDrawable( SgSymbolDrawerSettings(bleedInfo.ArtboardBounds(), bounds, SafeguardFile::AI_CONTINUOUS_REG_TARGET), bleedInfo.BleedInfoPluginArtHandle()) );
-    }
+    bool shouldDrawContReg = bleedInfo.PlateNumber().GetProductType() == SafeguardFile::Continuous;
+    drawables.push_back(DrawableFactory().GetDrawable( SgSymbolDrawerSettings(bleedInfo.ArtboardBounds(), SafeguardFile::AI_CONTINUOUS_REG_TARGET, shouldDrawContReg), bleedInfo.BleedInfoPluginArtHandle()) );
 }
 
 AIArtHandle BleedInfoDrawableController::Draw() const
