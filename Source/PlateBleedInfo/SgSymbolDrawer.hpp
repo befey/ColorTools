@@ -32,14 +32,14 @@ extern AIPathStyleSuite* sAIPathStyle;
 
 struct SgSymbolDrawerSettings
 {
-    SgSymbolDrawerSettings(AIRealRect artboardBounds, AIRealRect symbolBounds, string symbolName) :
+    SgSymbolDrawerSettings(AIRealRect artboardBounds, string symbolName, bool shouldDraw) :
     artboardBounds(artboardBounds),
-    symbolBounds(symbolBounds),
-    symbolName(symbolName) {};
+    symbolName(symbolName),
+    shouldDraw(shouldDraw) {};
     
     AIRealRect artboardBounds;
-    AIRealRect symbolBounds;
     string symbolName;
+    bool shouldDraw;
 };
 
 constexpr auto SGSYMBOL_ARTHANDLE =            "__bt_sgsymbol_arthandle__";
@@ -63,6 +63,13 @@ namespace SafeguardFile
         AIPatternHandle LoadSymbolFromFile() const;
     };
     
+    class NoneSgSymbolDrawer : public SgSymbolDrawer
+    {
+    public:
+        NoneSgSymbolDrawer(string symbolName) : SgSymbolDrawer({}, {}, symbolName) {};
+        AIArtHandle Draw(AIArtHandle resultGroup) const override { return NULL; };
+    };
+    
     class SgSymbolDrawable : public IDrawable
     {
     public:
@@ -80,22 +87,45 @@ class DrawableFactoryImpl<SgSymbolDrawerSettings>
 public:
     static std::shared_ptr<IDrawable> GetDrawable(SgSymbolDrawerSettings settings, AIArtHandle pluginArt)
     {
-        if (true)
-        {
-            return make_shared<SgSymbolDrawable>(settings);
-        }
-        return nullptr;
+        return make_shared<SgSymbolDrawable>(settings);
     };
 };
 
 using SafeguardFile::SgSymbolDrawer;
+using SafeguardFile::NoneSgSymbolDrawer;
 template <>
 class DrawerFactoryImpl<SgSymbolDrawerSettings>
 {
 public:
     static shared_ptr<IDrawer> GetDrawer(SgSymbolDrawerSettings settings)
     {
-        return make_shared<SgSymbolDrawer>(settings.artboardBounds, settings.symbolBounds, settings.symbolName);
+        if (settings.shouldDraw)
+        {
+            AIRealRect abBounds = settings.artboardBounds;
+            AIRealRect bounds;
+            if (settings.symbolName == SafeguardFile::AI_CMYK_BLOCKS)
+            {
+                bounds = { //CMYK Blocks are 325x25px
+                    .left = abBounds.left + ((abBounds.right - abBounds.left)/2) - (325/2),
+                    .top = abBounds.top + 5 + 25,
+                    .right = abBounds.right - ((abBounds.right - abBounds.left)/2) + (325/2),
+                    .bottom = abBounds.top + 5
+                };
+                return make_shared<SgSymbolDrawer>(settings.artboardBounds, bounds, settings.symbolName);
+            }
+            if (settings.symbolName == SafeguardFile::AI_CONTINUOUS_REG_TARGET)
+            {
+                bounds = { //Reg block is 24.3x36px
+                    .left = abBounds.left,
+                    .top = abBounds.top - 42,
+                    .right = abBounds.left + 24.3,
+                    .bottom = abBounds.top - 42 - 36
+                };
+                return make_shared<SgSymbolDrawer>(settings.artboardBounds, bounds, settings.symbolName);
+            }
+        }
+        
+        return make_shared<NoneSgSymbolDrawer>(settings.symbolName);
     };
 };
 
