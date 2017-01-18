@@ -19,13 +19,14 @@ BleedInfoDrawableController::BleedInfoDrawableController(const BleedInfo& bleedI
 :
 bleedInfo(bleedInfo)
 {
+    //Order here matters! Drawables will be placed in order, and will not be allowed to overlap previous
     drawables.push_back(DrawableFactory().GetDrawable( bleedInfo.TickMarkSettings(), bleedInfo.BleedInfoPluginArtHandle()) );
     
     SafeguardFile::ProductType pt = bleedInfo.PlateNumber().GetProductType();
     
-    drawables.push_back(DrawableFactory().GetDrawable( ColorListDrawerSettings(pt, bleedInfo.ArtboardBounds(), bleedInfo.ColorList()), bleedInfo.BleedInfoPluginArtHandle()) );
-    
     drawables.push_back(DrawableFactory().GetDrawable( FileNameDateDrawerSettings(pt, bleedInfo.ArtboardBounds(), bleedInfo.PlateNumber(), bleedInfo.Token(), bleedInfo.LastModified()), bleedInfo.BleedInfoPluginArtHandle()) );
+    
+    drawables.push_back(DrawableFactory().GetDrawable( ColorListDrawerSettings(pt, bleedInfo.ArtboardBounds(), bleedInfo.ColorList()), bleedInfo.BleedInfoPluginArtHandle()) );
     
     drawables.push_back(DrawableFactory().GetDrawable( SgSymbolDrawerSettings(bleedInfo.ArtboardBounds(), SafeguardFile::AI_CMYK_BLOCKS, bleedInfo.ShouldAddCmykBlocks()), bleedInfo.BleedInfoPluginArtHandle()) );
     
