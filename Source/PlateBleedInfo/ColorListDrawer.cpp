@@ -69,7 +69,7 @@ AIArtHandle ContinuousColorListDrawer::DrawerSpecificSteps(AIArtHandle resultGro
     colorList.AsTextRange(range, maxHeight);
     
     RotateArt(colorListArt, anchor, -90);
-    MoveArtOutsideBounds(colorListArt, bounds, Direction::Right, 2);
+    MoveArtOutsideBounds(colorListArt, artboardBounds, Direction::Right, 2);
     
     BtAteTextFeatures textFeatures;
     textFeatures.FontSize(9).Font("Helvetica-Bold").Justification(ATE::kLeftJustify);
@@ -97,7 +97,7 @@ AIArtHandle BusStatColorListDrawer::DrawerSpecificSteps(AIArtHandle resultGroup)
 
 void ContinuousColorListDrawer::DrawContinuousColorBlocks(AIArtHandle resultGroup) const
 {
-    AIRealRect rect = { .top = bounds.top - 66, .right = bounds.right - 12, .bottom = bounds.top - 66 - 12, .left = bounds.right - 12 - 12 };
+    AIRealRect rect = { .top = artboardBounds.top - 66, .right = artboardBounds.right - 12, .bottom = artboardBounds.top - 66 - 12, .left = artboardBounds.right - 12 - 12 };
     
     AIArtHandle colorBlock = DrawRectangle(rect, resultGroup);
     
@@ -123,7 +123,7 @@ void ContinuousColorListDrawer::DrawContinuousColorBlocks(AIArtHandle resultGrou
             rect.bottom -= 36;
             
             //Make sure the blocks only go about 60% down the page
-            if (! (rect.bottom < bounds.bottom * .6) )
+            if (! (rect.bottom < artboardBounds.bottom * .6) )
             {
                 AIArtHandle colorBlock = DrawRectangle(rect, resultGroup);
                 
@@ -146,7 +146,7 @@ void ContinuousColorListDrawer::DrawContinuousColorBlocks(AIArtHandle resultGrou
                           rect.bottom -= 36;
                           
                           //Make sure the blocks only go about 60% down the page
-                          if (! (rect.bottom < bounds.bottom * .6) )
+                          if (! (rect.bottom < artboardBounds.bottom * .6) )
                           {
                               AIArtHandle colorBlock = DrawRectangle(rect, resultGroup);
                               
