@@ -51,7 +51,7 @@ namespace SafeguardFile
     class SgSymbolDrawer : public IDrawer
     {
     public:
-        SgSymbolDrawer(AIRealRect bounds, AIRealRect symbolBounds, string symbolName) : IDrawer(bounds), symbolBounds(symbolBounds), symbolName(symbolName) {};
+        SgSymbolDrawer(AIRealRect artboardBounds, AIRealRect symbolBounds, string symbolName) : IDrawer(artboardBounds), symbolBounds(symbolBounds), symbolName(symbolName) {};
         string GetDictionaryLabel(AIArtHandle resultArt) const override { return SGSYMBOL_ARTHANDLE + symbolName + DictionaryWriter::GetUIDStringForArt(resultArt); };
         
     private:
@@ -102,26 +102,26 @@ public:
         if (settings.shouldDraw)
         {
             AIRealRect abBounds = settings.artboardBounds;
-            AIRealRect bounds;
+            AIRealRect symbolBounds;
             if (settings.symbolName == SafeguardFile::AI_CMYK_BLOCKS)
             {
-                bounds = { //CMYK Blocks are 325x25px
+                symbolBounds = { //CMYK Blocks are 325x25px
                     .left = abBounds.left + ((abBounds.right - abBounds.left)/2) - (325/2),
                     .top = abBounds.top + 5 + 25,
                     .right = abBounds.right - ((abBounds.right - abBounds.left)/2) + (325/2),
                     .bottom = abBounds.top + 5
                 };
-                return make_shared<SgSymbolDrawer>(settings.artboardBounds, bounds, settings.symbolName);
+                return make_shared<SgSymbolDrawer>(settings.artboardBounds, symbolBounds, settings.symbolName);
             }
             if (settings.symbolName == SafeguardFile::AI_CONTINUOUS_REG_TARGET)
             {
-                bounds = { //Reg block is 24.3x36px
+                symbolBounds = { //Reg block is 24.3x36px
                     .left = abBounds.left,
                     .top = abBounds.top - 42,
                     .right = abBounds.left + 24.3,
                     .bottom = abBounds.top - 42 - 36
                 };
-                return make_shared<SgSymbolDrawer>(settings.artboardBounds, bounds, settings.symbolName);
+                return make_shared<SgSymbolDrawer>(settings.artboardBounds, symbolBounds, settings.symbolName);
             }
         }
         

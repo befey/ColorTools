@@ -42,7 +42,7 @@ namespace SafeguardFile
     public:
         string GetDictionaryLabel(AIArtHandle resultArt) const override { return FILENAMEDATE_ARTHANDLE + DictionaryWriter::GetUIDStringForArt(resultArt); };
     protected:
-        FileNameDateDrawer(AIRealRect bounds, AIRealPoint anchor, PlateNumber plateNumber, string token, tm lastModified);
+        FileNameDateDrawer(AIRealRect artboardBounds, AIRealPoint anchor, PlateNumber plateNumber, string token, tm lastModified);
         void PutPlateNumberDateStringInTextRange(ATE::ITextRange& targetRange) const;
         
         PlateNumber plateNumber;
@@ -53,7 +53,7 @@ namespace SafeguardFile
     class LaserFileNameDateDrawer : public FileNameDateDrawer
     {
     public:
-        LaserFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified);
+        LaserFileNameDateDrawer(AIRealRect artboardBounds, PlateNumber plateNumber, string token, tm lastModified);
     private:
         AIArtHandle Draw(AIArtHandle resultGroup) const override;
     };
@@ -61,7 +61,7 @@ namespace SafeguardFile
     class ContinuousFileNameDateDrawer : public FileNameDateDrawer
     {
     public:
-        ContinuousFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified);
+        ContinuousFileNameDateDrawer(AIRealRect artboardBounds, PlateNumber plateNumber, string token, tm lastModified);
     private:
         AIArtHandle Draw(AIArtHandle resultGroup) const override;
     };
@@ -69,7 +69,7 @@ namespace SafeguardFile
     class BusStatFileNameDateDrawer : public FileNameDateDrawer
     {
     public:
-        BusStatFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified);
+        BusStatFileNameDateDrawer(AIRealRect artboardBounds, PlateNumber plateNumber, string token, tm lastModified);
     private:
         AIArtHandle Draw(AIArtHandle resultGroup) const override;
     };
