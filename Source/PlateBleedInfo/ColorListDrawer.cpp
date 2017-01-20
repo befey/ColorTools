@@ -33,7 +33,7 @@ ColorListDrawer::ColorListDrawer(AIRealRect artboardBounds, AIRealPoint anchor, 
 LaserColorListDrawer::LaserColorListDrawer(AIRealRect bounds, ColorList colorList) :
     ColorListDrawer(bounds, {.h = bounds.left + 4, .v = bounds.bottom - 4.5}, colorList) {};
 ContinuousColorListDrawer::ContinuousColorListDrawer(AIRealRect bounds, ColorList colorList) :
-    ColorListDrawer(bounds, {.h = bounds.right + 2, .v = bounds.top - 120}, colorList) {};
+    ColorListDrawer(bounds, {.h = bounds.right, .v = bounds.top + ((bounds.bottom - bounds.top) * .3)}, colorList) {};
 BusStatColorListDrawer::BusStatColorListDrawer(AIRealRect bounds, ColorList colorList) :
     ColorListDrawer(bounds, {.h = bounds.left, .v = bounds.bottom - 4.5}, colorList) {};
 
@@ -64,10 +64,13 @@ AIArtHandle LaserColorListDrawer::DrawerSpecificSteps(AIArtHandle resultGroup) c
 
 AIArtHandle ContinuousColorListDrawer::DrawerSpecificSteps(AIArtHandle resultGroup) const
 {
-    AIArtHandle colorListArt;
+    AIArtHandle colorListGroup = NULL;
+    sAIArt->NewArt(kGroupArt, kPlaceInsideOnTop, resultGroup, &colorListGroup);
+    
+    AIArtHandle colorListArt = NULL;
     
     //Passing maxHeight here because we're going to rotate
-    ATE::ITextRange range = SetupTextRange(resultGroup, maxHeight, ATE::kLeftJustify, kHorizontalTextOrientation, &colorListArt);
+    ATE::ITextRange range = SetupTextRange(colorListGroup, maxHeight, ATE::kLeftJustify, kHorizontalTextOrientation, &colorListArt);
     
     colorList.AsTextRange(range);
     
@@ -80,9 +83,9 @@ AIArtHandle ContinuousColorListDrawer::DrawerSpecificSteps(AIArtHandle resultGro
     RotateArt(colorListArt, anchor, -90);
     MoveArtOutsideBounds(colorListArt, artboardBounds, Direction::Right, 0);
     
-    DrawContinuousColorBlocks(resultGroup);
+    DrawContinuousColorBlocks(colorListGroup);
     
-    return colorListArt;
+    return colorListGroup;
 }
 
 AIArtHandle BusStatColorListDrawer::DrawerSpecificSteps(AIArtHandle resultGroup) const

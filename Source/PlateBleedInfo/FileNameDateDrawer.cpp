@@ -25,12 +25,12 @@ FileNameDateDrawer::FileNameDateDrawer(AIRealRect bounds, AIRealPoint anchor, Pl
     token(token),
     lastModified(lastModified)
 {
-    maxWidth = (artboardBounds.right - artboardBounds.left);
-    maxHeight = (artboardBounds.top - artboardBounds.bottom);
+    maxWidth = (artboardBounds.right - artboardBounds.left) * .25;
+    maxHeight = (artboardBounds.top - artboardBounds.bottom) * .25;
 }
 
 LaserFileNameDateDrawer::LaserFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, {.h = bounds.right - 4, .v = bounds.bottom - 4.5}, plateNumber, token, lastModified) {};
-ContinuousFileNameDateDrawer::ContinuousFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, {.h = bounds.right + 2, .v = bounds.top - 14}, plateNumber, token, lastModified) {};
+ContinuousFileNameDateDrawer::ContinuousFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, {.h = bounds.right, .v = bounds.top - 14}, plateNumber, token, lastModified) {};
 BusStatFileNameDateDrawer::BusStatFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, {.h = bounds.right, .v = bounds.bottom - 4.5}, plateNumber, token, lastModified) {};
 
 AIArtHandle LaserFileNameDateDrawer::Draw(AIArtHandle resultGroup) const
