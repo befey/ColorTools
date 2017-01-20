@@ -45,8 +45,6 @@ namespace SafeguardFile
         virtual AIArtHandle DrawerSpecificSteps(AIArtHandle resultGroup) const = 0;
         
         ColorList colorList;
-        AIReal maxWidth;
-        AIReal maxHeight;
     };
     
     class LaserColorListDrawer : public ColorListDrawer

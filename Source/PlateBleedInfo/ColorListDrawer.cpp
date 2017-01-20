@@ -22,20 +22,20 @@ using SafeguardFile::ContinuousColorListDrawer;
 using SafeguardFile::BusStatColorListDrawer;
 using SafeguardFile::BleedInfo;
 
-ColorListDrawer::ColorListDrawer(AIRealRect bounds, AIRealPoint anchor, ColorList colorList) :
-    BleedTextInfoDrawer(bounds, anchor),
+ColorListDrawer::ColorListDrawer(AIRealRect artboardBounds, AIRealPoint anchor, ColorList colorList) :
+    BleedTextInfoDrawer(artboardBounds, anchor),
     colorList(colorList)
 {
-    maxWidth = (bounds.right - bounds.left) * .7;
-    maxHeight = (bounds.top - bounds.bottom) * .7;
+    maxWidth = (artboardBounds.right - artboardBounds.left) * .7;
+    maxHeight = (artboardBounds.top - artboardBounds.bottom) * .7;
 }
 
 LaserColorListDrawer::LaserColorListDrawer(AIRealRect bounds, ColorList colorList) :
-    ColorListDrawer(bounds, {.h = bounds.left + 4, .v = bounds.bottom - 14}, colorList) {};
+    ColorListDrawer(bounds, {.h = bounds.left + 4, .v = bounds.bottom - 4.5}, colorList) {};
 ContinuousColorListDrawer::ContinuousColorListDrawer(AIRealRect bounds, ColorList colorList) :
     ColorListDrawer(bounds, {.h = bounds.right + 2, .v = bounds.top - 120}, colorList) {};
 BusStatColorListDrawer::BusStatColorListDrawer(AIRealRect bounds, ColorList colorList) :
-    ColorListDrawer(bounds, {.h = bounds.left, .v = bounds.bottom - 12}, colorList) {};
+    ColorListDrawer(bounds, {.h = bounds.left, .v = bounds.bottom - 4.5}, colorList) {};
 
 AIArtHandle ColorListDrawer::Draw(AIArtHandle resultGroup) const
 {
@@ -49,14 +49,16 @@ AIArtHandle LaserColorListDrawer::DrawerSpecificSteps(AIArtHandle resultGroup) c
 {
     AIArtHandle colorListArt;
     
-    ATE::ITextRange range = SetupTextRange(resultGroup, kHorizontalTextOrientation, &colorListArt);
+    ATE::ITextRange range = SetupTextRange(resultGroup, maxWidth, ATE::kLeftJustify, kHorizontalTextOrientation, &colorListArt);
     
-    colorList.AsTextRange(range, maxWidth);
+    colorList.AsTextRange(range);
     
     BtAteTextFeatures textFeatures;
     textFeatures.FontSize(12).Font("Helvetica-Bold").Justification(ATE::kLeftJustify);
     textFeatures.ApplyFeaturesToRange(range);
 
+    FitTextFrameToContents(colorListArt);
+    
     return colorListArt;
 }
 
@@ -64,16 +66,19 @@ AIArtHandle ContinuousColorListDrawer::DrawerSpecificSteps(AIArtHandle resultGro
 {
     AIArtHandle colorListArt;
     
-    ATE::ITextRange range = SetupTextRange(resultGroup, kHorizontalTextOrientation, &colorListArt);
+    //Passing maxHeight here because we're going to rotate
+    ATE::ITextRange range = SetupTextRange(resultGroup, maxHeight, ATE::kLeftJustify, kHorizontalTextOrientation, &colorListArt);
     
-    colorList.AsTextRange(range, maxHeight);
-    
-    RotateArt(colorListArt, anchor, -90);
-    MoveArtOutsideBounds(colorListArt, artboardBounds, Direction::Right, 2);
+    colorList.AsTextRange(range);
     
     BtAteTextFeatures textFeatures;
     textFeatures.FontSize(9).Font("Helvetica-Bold").Justification(ATE::kLeftJustify);
     textFeatures.ApplyFeaturesToRange(range);
+    
+    FitTextFrameToContents(colorListArt);
+    
+    RotateArt(colorListArt, anchor, -90);
+    MoveArtOutsideBounds(colorListArt, artboardBounds, Direction::Right, 0);
     
     DrawContinuousColorBlocks(resultGroup);
     
@@ -84,13 +89,15 @@ AIArtHandle BusStatColorListDrawer::DrawerSpecificSteps(AIArtHandle resultGroup)
 {
     AIArtHandle colorListArt;
     
-    ATE::ITextRange range = SetupTextRange(resultGroup, kHorizontalTextOrientation, &colorListArt);
+    ATE::ITextRange range = SetupTextRange(resultGroup, maxWidth, ATE::kLeftJustify, kHorizontalTextOrientation, &colorListArt);
     
-    colorList.AsTextRange(range, maxWidth);
+    colorList.AsTextRange(range);
     
     BtAteTextFeatures textFeatures;
     textFeatures.FontSize(7).Font("Helvetica-Condensed-Bold").Justification(ATE::kLeftJustify);
     textFeatures.ApplyFeaturesToRange(range);
+    
+    FitTextFrameToContents(colorListArt);
     
     return colorListArt;
 }
