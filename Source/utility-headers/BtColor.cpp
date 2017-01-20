@@ -319,21 +319,13 @@ void BtColor::GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) cons
             textFeatures.FillColor(textFillColor);
         }
         
-        ATETextDOM::Int32 beforeEnd = targetRange.GetEnd();
         textFeatures.NoBreak(true);
         textFeatures.AddTextToRangeWithFeatures((ai::UnicodeString(name).toUpper()).as_Platform(), targetRange);
         textFeatures.NoBreak(false);
         textFeatures.AddTextToRangeWithFeatures("  ", targetRange);
-        ATETextDOM::Int32 afterEnd = targetRange.GetEnd();
         
         AIRealRect bounds;
         sAIATETextUtil->GetBoundsFromTextRange(targetRange.GetRef(), &bounds);
-//        if ( (bounds.right - bounds.left) >= maxWidth )
-//        {
-//            targetRange.SetEnd(beforeEnd);
-//            targetRange.InsertAfter(ai::UnicodeString("\n").as_ASUnicode().c_str());
-//            ATETextDOM::Int32 newEnd = targetRange.GetEnd();
-//            targetRange.SetEnd(newEnd - beforeEnd + afterEnd);
-//        }
+
     }
 }
