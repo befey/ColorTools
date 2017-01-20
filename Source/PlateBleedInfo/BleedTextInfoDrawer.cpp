@@ -16,15 +16,16 @@ using SafeguardFile::BleedTextInfoDrawer;
 ATE::ITextRange BleedTextInfoDrawer::SetupTextRange(AIArtHandle resultGroup, AIReal width, ATE::ParagraphJustification justification, AITextOrientation orientation, AIArtHandle *newTextFrame) const
 {
     AIRealRect rect = {.top = anchor.v};
-    if (justification == ATE::kLeftJustify)
-    {
-        rect.left = anchor.h;
-        rect.right = anchor.h + width;
-    }
-    else
+    
+    if (justification == ATE::kRightJustify || justification == ATE::kFullJustifyLastLineRight)
     {
         rect.left = anchor.h - width;
         rect.right = anchor.h;
+    }
+    else
+    {
+        rect.left = anchor.h;
+        rect.right = anchor.h + width;
     }
     rect.bottom = anchor.v - 400;
     
