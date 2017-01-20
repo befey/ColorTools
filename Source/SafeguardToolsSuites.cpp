@@ -28,6 +28,7 @@
     AIArtboardSuite*        sAIArtboard = NULL;
     AIArtboardRangeSuite*   sAIArtboardRange = NULL;
     AIHardSoftSuite*        sAIHardSoft = NULL;
+    AIIsolationModeSuite*   sAIIsolationMode = NULL;
 
 	AIArtSetSuite*          sAIArtSet = NULL;
 	AIArtStyleSuite*        sAIArtStyle = NULL;
@@ -91,6 +92,7 @@ ImportSuite gImportSuites[] =
     kAIArtboardSuite, kAIArtboardSuiteVersion, &sAIArtboard,
     kAIArtboardRangeSuite, kAIArtboardRangeSuiteVersion, &sAIArtboardRange,
     kAIHardSoftSuite, kAIHardSoftSuiteVersion, &sAIHardSoft,
+    kAIIsolationModeSuite, kAIIsolationModeSuiteVersion, &sAIIsolationMode,
 
     kAIArtSetSuite, kAIArtSetSuiteVersion, &sAIArtSet,
 	kAIArtStyleSuite, kAIArtStyleSuiteVersion, &sAIArtStyle,

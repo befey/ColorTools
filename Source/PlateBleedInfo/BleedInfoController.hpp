@@ -13,11 +13,13 @@
 #include "AIArt.h"
 #include "AIPluginGroup.h"
 #include "AIUndo.h"
+#include "AIIsolationMode.h"
 
 extern AICSXSExtensionSuite* sAICSXSExtension;
 extern AIArtSuite* sAIArt;
 extern AIPluginGroupSuite* sAIPluginGroup;
 extern AIUndoSuite* sAIUndo;
+extern AIIsolationModeSuite* sAIIsolationMode;
 
 namespace PlateBleedInfo
 {

@@ -18,6 +18,7 @@
 #include "AIArtboard.h"
 #include "AIArtboardRange.h"
 #include "AIHardSoft.h"
+#include "AIIsolationMode.h"
 
 #include "AIGroup.h"
 #include "AILayer.h"
@@ -79,6 +80,7 @@ extern AIDocumentViewSuite* sAIDocumentView;
 extern AIArtboardSuite* sAIArtboard;
 extern AIArtboardRangeSuite* sAIArtboardRange;
 extern AIHardSoftSuite* sAIHardSoft;
+extern AIIsolationModeSuite* sAIIsolationMode;
 
 extern AIArtSetSuite *sAIArtSet;
 extern AIArtStyleSuite *sAIArtStyle;

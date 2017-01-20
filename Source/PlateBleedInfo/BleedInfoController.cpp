@@ -109,7 +109,10 @@ bool BleedInfoController::SameTimestamp()
 
 void BleedInfoController::DrawBleedInfo()
 {
-    SafeguardFile::SafeguardJobFile().UpdateBleedInfo();
-    DictionaryWriter dw;
-    dw.AddAIRealToDictionary(sAIArt->GetGlobalTimeStamp(), PLATE_BLEEDINFO_TIMESTAMP);
+    if (! sAIIsolationMode->IsInIsolationMode() )
+    {
+        SafeguardFile::SafeguardJobFile().UpdateBleedInfo();
+        DictionaryWriter dw;
+        dw.AddAIRealToDictionary(sAIArt->GetGlobalTimeStamp(), PLATE_BLEEDINFO_TIMESTAMP);
+    }
 }
