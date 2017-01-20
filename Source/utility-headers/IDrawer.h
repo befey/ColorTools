@@ -15,8 +15,8 @@ public:
     virtual AIArtHandle Draw(AIArtHandle resultArt) const = 0;
     virtual string GetDictionaryLabel(AIArtHandle resultArt) const = 0;
 protected:
-    IDrawer(AIRealRect bounds) : bounds(bounds) { };
-    AIRealRect bounds;
+    IDrawer(AIRealRect artboardBounds) : artboardBounds(artboardBounds) { };
+    AIRealRect artboardBounds;
 };
 
 template <class T>

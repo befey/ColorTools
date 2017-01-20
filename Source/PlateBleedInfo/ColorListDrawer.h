@@ -41,18 +41,16 @@ namespace SafeguardFile
         AIArtHandle Draw(AIArtHandle resultGroup) const override;
         string GetDictionaryLabel(AIArtHandle resultArt) const override { return COLORLIST_ARTHANDLE + DictionaryWriter::GetUIDStringForArt(resultArt); };
     protected:
-        ColorListDrawer(AIRealRect bounds, AIRealPoint anchor, ColorList colorList);
+        ColorListDrawer(AIRealRect artboardBounds, AIRealPoint anchor, ColorList colorList);
         virtual AIArtHandle DrawerSpecificSteps(AIArtHandle resultGroup) const = 0;
         
         ColorList colorList;
-        AIReal maxWidth;
-        AIReal maxHeight;
     };
     
     class LaserColorListDrawer : public ColorListDrawer
     {
     public:
-        LaserColorListDrawer(AIRealRect bounds, ColorList colorList);
+        LaserColorListDrawer(AIRealRect artboardBounds, ColorList colorList);
     private:
         AIArtHandle DrawerSpecificSteps(AIArtHandle resultGroup) const override;
     };
@@ -60,7 +58,7 @@ namespace SafeguardFile
     class ContinuousColorListDrawer : public ColorListDrawer
     {
     public:
-        ContinuousColorListDrawer(AIRealRect bounds, ColorList colorList);
+        ContinuousColorListDrawer(AIRealRect artboardBounds, ColorList colorList);
     private:
         AIArtHandle DrawerSpecificSteps(AIArtHandle resultGroup) const override;
         void DrawContinuousColorBlocks(AIArtHandle resultGroup) const;
@@ -69,7 +67,7 @@ namespace SafeguardFile
     class BusStatColorListDrawer : public ColorListDrawer
     {
     public:
-        BusStatColorListDrawer(AIRealRect bounds, ColorList colorList);
+        BusStatColorListDrawer(AIRealRect artboardBounds, ColorList colorList);
     private:
         AIArtHandle DrawerSpecificSteps(AIArtHandle resultGroup) const override;
     };
