@@ -25,8 +25,8 @@ FileNameDateDrawer::FileNameDateDrawer(AIRealRect bounds, AIRealPoint anchor, Pl
     token(token),
     lastModified(lastModified)
 {
-    maxWidth = (artboardBounds.right - artboardBounds.left) * .25;
-    maxHeight = (artboardBounds.top - artboardBounds.bottom) * .25;
+    maxWidth = (artboardBounds.right - artboardBounds.left) * .35;
+    maxHeight = (artboardBounds.top - artboardBounds.bottom) * .35;
 }
 
 LaserFileNameDateDrawer::LaserFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, {.h = bounds.right - 4, .v = bounds.bottom - 4.5}, plateNumber, token, lastModified) {};

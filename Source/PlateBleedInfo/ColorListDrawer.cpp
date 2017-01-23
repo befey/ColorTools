@@ -26,14 +26,14 @@ ColorListDrawer::ColorListDrawer(AIRealRect artboardBounds, AIRealPoint anchor, 
     BleedTextInfoDrawer(artboardBounds, anchor),
     colorList(colorList)
 {
-    maxWidth = (artboardBounds.right - artboardBounds.left) * .7;
-    maxHeight = (artboardBounds.top - artboardBounds.bottom) * .7;
+    maxWidth = (artboardBounds.right - artboardBounds.left) * .6;
+    maxHeight = (artboardBounds.top - artboardBounds.bottom) * .6;
 }
 
 LaserColorListDrawer::LaserColorListDrawer(AIRealRect bounds, ColorList colorList) :
     ColorListDrawer(bounds, {.h = bounds.left + 4, .v = bounds.bottom - 4.5}, colorList) {};
 ContinuousColorListDrawer::ContinuousColorListDrawer(AIRealRect bounds, ColorList colorList) :
-    ColorListDrawer(bounds, {.h = bounds.right, .v = bounds.top + ((bounds.bottom - bounds.top) * .3)}, colorList) {};
+    ColorListDrawer(bounds, {.h = bounds.right, .v = bounds.top + ((bounds.bottom - bounds.top) * .4)}, colorList) {};
 BusStatColorListDrawer::BusStatColorListDrawer(AIRealRect bounds, ColorList colorList) :
     ColorListDrawer(bounds, {.h = bounds.left, .v = bounds.bottom - 4.5}, colorList) {};
 

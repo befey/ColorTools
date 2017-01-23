@@ -19,7 +19,7 @@ BleedInfoDrawableController::BleedInfoDrawableController(const BleedInfo& bleedI
 :
 bleedInfo(bleedInfo)
 {
-    //Order here matters! Drawables will be placed in order, and will not be allowed to overlap previous
+    //Order here matters! Drawables will be placed in order, and TODO: will not be allowed to overlap previous
     drawables.push_back(DrawableFactory().GetDrawable( bleedInfo.TickMarkSettings(), bleedInfo.BleedInfoPluginArtHandle()) );
     
     SafeguardFile::ProductType pt = bleedInfo.PlateNumber().GetProductType();
