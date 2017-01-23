@@ -577,6 +577,19 @@ AIArtHandle DrawRectangle(AIRealRect rect, AIArtHandle prep)
     return pathArt;
 }
 
+int GetExpansionAmountToContainRect(AIRealRect rect1, AIRealRect rect2)
+{
+    int diff = 0;
+    
+    while ( !sAIRealMath->AIRealRectInAIRealRect(&rect2, &rect1) )
+    {
+        sAIRealMath->AIRealRectInset(&rect1, -1, -1);
+        diff++;
+    }
+    
+    return diff;
+}
+
 bool operator==(const AIRealRect& lhs, const AIRealRect& rhs)
 {
     return (lhs.bottom == rhs.bottom) && (lhs.left == rhs.left) && (lhs.right == rhs.right) && (lhs.top == rhs.top);

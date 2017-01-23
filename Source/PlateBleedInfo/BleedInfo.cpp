@@ -161,19 +161,32 @@ AIRealRect BleedInfo::Bleeds() const
 {
     AIRealRect bleedRect;
     
+    AIRealRect pluginArtBounds;
+    if (bleedInfoPluginArt)
+    {
+        sAIArt->GetArtBounds(bleedInfoPluginArt, &pluginArtBounds);
+    }
+    
+    AIRealRect artboardBounds = ArtboardBounds();
+    
+    int diff = GetExpansionAmountToContainRect(artboardBounds, pluginArtBounds);
+    
     SafeguardFile::ProductType pt = PlateNumber().GetProductType();
     
     if (pt == SafeguardFile::ProductType::CutSheet)
     {
-        sAIRealMath->AIRealRectSet(&bleedRect, 36, 36, 36, 36);
+        if (diff < 36) diff = 36;
+        sAIRealMath->AIRealRectSet(&bleedRect, diff, diff, diff, diff);
     }
     else if (pt == SafeguardFile::ProductType::BusinessStat)
     {
-        sAIRealMath->AIRealRectSet(&bleedRect, 12, 12, 12, 12);
+        if (diff < 12) diff = 12;
+        sAIRealMath->AIRealRectSet(&bleedRect, diff, diff, diff, diff);
     }
     else if (pt == SafeguardFile::ProductType::Continuous)
     {
-        sAIRealMath->AIRealRectSet(&bleedRect, 9, 9, 9, 9);
+        if (diff < 9) diff = 9;
+        sAIRealMath->AIRealRectSet(&bleedRect, diff, diff, diff, diff);
     }
     else //No bleed
     {
