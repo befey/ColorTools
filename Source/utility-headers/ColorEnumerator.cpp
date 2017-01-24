@@ -19,7 +19,7 @@ bool ColorEnumerator::HasRegistrationColor()
 {
     for (auto color : colorList)
     {
-        if (ColorIsRegistration(color.AiColor()))
+        if (color.IsRegistration())
         {
             return true;
         }

@@ -114,7 +114,7 @@ void ColorList::RemoveDuplicates()
                                                      }
                                                  }
                                              }
-                                             else if (color->Kind() == kFourColor && ColorIsBlack(c.AiColor()))
+                                             else if (color->Kind() == kFourColor && c.IsBlack())
                                              {
                                                  return true;
                                              }
@@ -125,16 +125,16 @@ void ColorList::RemoveDuplicates()
                           );
     }
     //Now go through the whole list after duplicates have been removed and get rid of any remaining black if we have a CMYK color
-    for ( auto c : p_ColorList )
+    for ( auto color : p_ColorList )
     {
-        if (c.AiColor().kind == kFourColor)
+        if (color.PrintsAsProcess())
         {
             p_ColorList.erase(
                               std::remove_if(p_ColorList.begin(), p_ColorList.end(), [](BtColor c)
                                              {
                                                  if (c.Kind() != kFourColor)
                                                  {
-                                                     if (ColorIsBlack(c.AiColor()))
+                                                     if (c.IsBlack())
                                                      {
                                                          return true;
                                                      }
@@ -154,7 +154,7 @@ void ColorList::RemoveNonPrintingColors()
     p_ColorList.erase(
                     std::remove_if(p_ColorList.begin(), p_ColorList.end(), [this](BtColor c)
                                    {
-                                       if (ColorIsNonPrinting(c.AiColor()))
+                                       if (c.IsNonPrinting())
                                        {
                                            return true;
                                        }
@@ -193,7 +193,7 @@ bool ColorList::HasCMYK() const
 {
     for ( auto c : p_ColorList )
     {
-        if (c.AiColor().kind == kFourColor)
+        if (c.PrintsAsProcess())
         {
             return true;
         }

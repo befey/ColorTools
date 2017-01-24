@@ -222,40 +222,31 @@ void BtSwatchList::AdjustAllColorsCallback(AIColor *color, void *userData, AIErr
 {
     AIReal tintPercent = GetTint(*color);
     
-    if (ColorIsPantone(*color) && tintPercent != 1)
+    BtColor btcolor(*color);
+    
+    if (btcolor.IsPantone() && tintPercent != 1)
     {
-        string colorName = GetColorName(*color);
-        
         bool found = FALSE;
-        AIColor foundColor = GetColorDefinitionFromBook(colorName, found);
+        AIColor foundColor = GetColorDefinitionFromBook(btcolor.Name(), found);
         
         if (found)
         {
             //Check if a swatch already exists for this color and tint %
-            colorName = GetColorName(foundColor);
             foundColor.c.c.tint = tintPercent;
-            //AISwatchRef existingSwatch = checkSwatchListForColor(foundColor , .0001 );
-            
-            //if (existingSwatch == NULL)
-            //{
-            //    CreateSwatch(colorName, foundColor);
-            //}
+
             *altered = TRUE;
             *color = foundColor;
             return;
         }
         else
         {
-            AICustomColor cc;
-            sAICustomColor->GetCustomColor(color->c.c.color, &cc);
-            if (cc.flag == 0)
+            if (btcolor.Kind() == kCustomColor && btcolor.CustomFlag() == 0)
             {
-                cc.flag = kCustomSpotColor;
-                sAICustomColor->SetCustomColor(color->c.c.color, &cc);
+                btcolor.CustomFlag(kCustomSpotColor);
             }
         }
     }
-    if (ColorIsBlack(*color) && tintPercent < 1)
+    if (btcolor.IsBlack() && tintPercent < 1)
     {
         AICustomColorHandle hBlack = NULL;
         sAICustomColor->GetCustomColorByName(ai::UnicodeString("Black"), &hBlack);
@@ -272,7 +263,7 @@ void BtSwatchList::AdjustAllColorsCallback(AIColor *color, void *userData, AIErr
         }
         *altered = TRUE; return;
     }
-    if (ColorIsWhite(*color) || tintPercent == 1)
+    if (btcolor.IsWhite() || tintPercent == 1)
     {
         AICustomColorHandle hWhite = NULL;
         sAICustomColor->GetCustomColorByName(ai::UnicodeString("White"), &hWhite);

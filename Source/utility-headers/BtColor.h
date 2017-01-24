@@ -30,13 +30,14 @@ extern AIATETextUtilSuite* sAIATETextUtil;
 extern AICustomColorSuite* sAICustomColor;
 extern AIColorConversionSuite* sAIColorConversion;
 
+static constexpr AIReal TOLERANCE = .002;
 
 //=================================
 // BtColor - wrapper for a AICustomColor definition
 class BtColor : public ICanBeTextRange
 {
 public:
-    //Constuctor
+    //Constuctors
     BtColor() {};
     BtColor(AIColor aiColor) :  BtColor(aiColor, SafeguardFile::InkMethod::INVAL) {};
     BtColor(AIColor aiColor, SafeguardFile::InkMethod method);
@@ -58,9 +59,9 @@ public:
     AIColor AiColor() const { return aiColor; };
     
     BtColor& AiCustomColor(AICustomColor newVal, std::string name, AIReal tint, SafeguardFile::InkMethod method);
-    AICustomColor AiCustomColor() const;
+    const AICustomColor AiCustomColor() const;
     BtColor& AiCustomColorHandle(AICustomColorHandle newVal);
-    AICustomColorHandle AiCustomColorHandle() const { return aiCustomColorHandle; };
+    const AICustomColorHandle AiCustomColorHandle() const { return aiCustomColorHandle; };
     
     BtColor& Name(std::string newVal);
     std::string Name() const;
@@ -68,8 +69,23 @@ public:
     
     AIColorTag Kind() const { return aiColor.kind; };
     
+    AICustomColorFlags CustomFlag() const;
+    BtColor& CustomFlag(AICustomColorFlags newVal);
+    
     BtColor& Method(SafeguardFile::InkMethod newVal) { method = newVal; return *this; };
     SafeguardFile::InkMethod Method() const { return method; };
+    
+    //Color Type checks
+    bool PrintsAsProcess() const;
+    bool PrintsAsSpot() const;
+    
+    bool IsBlack() const;
+    bool IsWhite() const;
+    bool IsGripper() const;
+    bool IsKeyline() const;
+    bool IsPantone() const; //Returns true if the color name includes PANTONE
+    bool IsNonPrinting() const;
+    bool IsRegistration() const;
     
     friend bool operator==(const BtColor& lhs, const BtColor& rhs);
     friend bool operator!=(const BtColor& lhs, const BtColor& rhs) { return !operator==(lhs,rhs); };

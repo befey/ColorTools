@@ -39,17 +39,10 @@ AIColor GetRegistrationColor();
 AIColor GetBlackColor();
 
 AIReal GetTint(const AIColor color); //Returns the tint of the color to the closest 1%
-bool ColorIsBlack(const AIColor color);
-bool ColorIsWhite(const AIColor color);
-bool ColorIsGripper(const AIColor color);
-bool ColorIsPantone(const AIColor color); //Returns true if the color name includes PANTONE
-bool ColorIsNonPrinting(const AIColor color);
-bool ColorIsRegistration(AIColor color);
 
 AIColor GetColorDefinitionFromBook(std::string colorName, bool& found); //colorName must be a full, valid pantone color in the form "PANTONE ### U", returns the color definition from the book. found indicates whether it was or not. If the name includes PANTONE, but it can't be found, looks up the U version instead, colorName will be the name that matches the definition found
 
 bool SetColorByName(const std::string& name , AIColor &color);
-std::string GetColorName(const AIColor color);
 std::string GetInnerPantoneColorNumber(std::string fullName);
 std::string GetInnerPantoneColorNumber(AIColor color);
 SafeguardFile::InkMethod GetInkMethodFromColorName(std::string name);
@@ -71,7 +64,6 @@ void AdjustOverprint(AIArtHandle currArtObj, AIColor fromColor, AIBoolean includ
 	// replaceIn - 1 = strokes  2 = fills  0 = strokes and fills
 	// altered - flag to show if a change was made
 	
-void ChangeColor(AIColor *targetColor, AIColor colorToCopy);
 void ConvertObjectsToGlobalCMYK(AIColor *color, void *userData, AIErr *result, AIBoolean *altered);
 
 bool operator==(const AIGrayColorStyle& lhs, const AIGrayColorStyle& rhs);
