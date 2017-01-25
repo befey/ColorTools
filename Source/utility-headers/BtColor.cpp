@@ -383,24 +383,26 @@ void BtColor::GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) cons
 
 bool BtColor::PrintsAsProcess() const
 {
-    return Kind() == kFourColor || Kind() == kThreeColor || ( Kind() == kCustomColor && AiCustomColor().flag == 0 );
+    return ( Kind() == kFourColor || Kind() == kThreeColor || ( Kind() == kCustomColor && AiCustomColor().flag == 0 ) ) && (!IsBlack(false) && !IsWhite());
 }
 
 bool BtColor::PrintsAsSpot() const
 {
-    return ( Kind() == kCustomColor && AiCustomColor().flag == 1 ) || Kind() == kGrayColor;
+    return ( Kind() == kCustomColor && AiCustomColor().flag == kCustomSpotColor ) || IsBlack(false) || IsWhite();
 }
 
-bool BtColor::IsBlack() const
+bool BtColor::IsBlack(bool includeCMYKBuilds) const
 {
     if (Kind() == kCustomColor)
     {
-        if (Name() == SafeguardFile::MICR_BLACK_MAG_COLOR_NAME)
+        ai::UnicodeString nameUS;
+        sAICustomColor->GetCustomColorName(AiCustomColorHandle(), nameUS);
+        if (nameUS == ai::UnicodeString(SafeguardFile::MICR_BLACK_MAG_COLOR_NAME))
         {
             return false;
         }
         
-        if ((Name() == SafeguardFile::BLACK_COLOR_NAME) ||
+        if ((nameUS == ai::UnicodeString(SafeguardFile::BLACK_COLOR_NAME)) ||
             ((AiCustomColor().kind == kCustomFourColor &&
               sAIRealMath->EqualWithinTol(AiCustomColor().c.f.cyan, 0, TOLERANCE) &&
               sAIRealMath->EqualWithinTol(AiCustomColor().c.f.magenta, 0, TOLERANCE) &&
@@ -426,7 +428,17 @@ bool BtColor::IsBlack() const
               sAIRealMath->EqualWithinTol(AiColor().c.f.magenta, 0, TOLERANCE) &&
               sAIRealMath->EqualWithinTol(AiColor().c.f.yellow, 0, TOLERANCE) &&
               AiColor().c.f.black > 0) ||
-             (Kind() == kFourColor && ////C=70 M=67 Y=64 K=74
+             (Kind() == kThreeColor &&
+              sAIRealMath->EqualWithinTol(AiColor().c.rgb.red, 0, TOLERANCE) &&
+              sAIRealMath->EqualWithinTol(AiColor().c.rgb.green, 0, TOLERANCE) &&
+              sAIRealMath->EqualWithinTol(AiColor().c.rgb.blue, 0, TOLERANCE))
+             )
+    {
+        return true;
+    }
+    else if (includeCMYKBuilds &&
+             (
+              (Kind() == kFourColor && ////C=70 M=67 Y=64 K=74
               sAIRealMath->EqualWithinTol(AiColor().c.f.cyan, .7, TOLERANCE*2.5) &&
               sAIRealMath->EqualWithinTol(AiColor().c.f.magenta, .67, TOLERANCE*2.5) &&
               sAIRealMath->EqualWithinTol(AiColor().c.f.yellow, .64, TOLERANCE*2.5) &&
@@ -435,11 +447,8 @@ bool BtColor::IsBlack() const
               sAIRealMath->EqualWithinTol(AiColor().c.f.cyan, .75, TOLERANCE*2.5) &&
               sAIRealMath->EqualWithinTol(AiColor().c.f.magenta, .68, TOLERANCE*2.5) &&
               sAIRealMath->EqualWithinTol(AiColor().c.f.yellow, .67, TOLERANCE*2.5) &&
-              sAIRealMath->EqualWithinTol(AiColor().c.f.black, .90, TOLERANCE*2.5)) ||
-             (Kind() == kThreeColor &&
-              sAIRealMath->EqualWithinTol(AiColor().c.rgb.red, 0, TOLERANCE) &&
-              sAIRealMath->EqualWithinTol(AiColor().c.rgb.green, 0, TOLERANCE) &&
-              sAIRealMath->EqualWithinTol(AiColor().c.rgb.blue, 0, TOLERANCE))
+              sAIRealMath->EqualWithinTol(AiColor().c.f.black, .90, TOLERANCE*2.5))
+              )
              )
     {
         return true;
@@ -452,7 +461,9 @@ bool BtColor::IsWhite() const
 {
     if (Kind() == kCustomColor)
     {
-        if ((Name() == "White") ||
+        ai::UnicodeString nameUS;
+        sAICustomColor->GetCustomColorName(AiCustomColorHandle(), nameUS);
+        if ((nameUS == ai::UnicodeString(SafeguardFile::WHITE_COLOR_NAME)) ||
             ((AiCustomColor().kind == kCustomFourColor &&
               sAIRealMath->EqualWithinTol(AiCustomColor().c.f.cyan, 0, TOLERANCE) &&
               sAIRealMath->EqualWithinTol(AiCustomColor().c.f.magenta, 0, TOLERANCE) &&

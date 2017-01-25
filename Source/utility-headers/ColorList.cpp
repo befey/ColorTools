@@ -13,6 +13,7 @@
 #include "ArtTree.h"
 #include "ColorEnumerator.hpp"
 #include "DictionaryWriter.h"
+#include "ColorListDuplicateChecker.hpp"
 
 ColorList::ColorList(AIRealRect area)
 :
@@ -48,81 +49,12 @@ void ColorList::RemoveDuplicates()
     }
     for(auto color = p_ColorList.begin(); color != p_ColorList.end(); color++)
     {
-        bool found1 = false;
-        p_ColorList.erase(
-                          std::remove_if(color, p_ColorList.end(), [color, &found1](BtColor c)
-                                         {
-                                             //Remove any Gradients and Patterns from the list
-                                             if (c.Kind() == kPattern || c.Kind() == kGradient || c.Kind() == kNoneColor)
-                                             {
-                                                 return true;
-                                             }
-                                             else if (color->Kind() == c.Kind() && color->Method() == c.Method())
-                                             {
-                                                 if (color->Kind() == kGrayColor)
-                                                 {
-                                                     if (color->AiColor().c.g == c.AiColor().c.g)
-                                                     {
-                                                         if (!found1)
-                                                         {
-                                                             found1 = true;
-                                                             return false;
-                                                         }
-                                                         else
-                                                         {
-                                                             return true;
-                                                         }
-                                                     }
-                                                 }
-                                                 else if (color->Kind() == kFourColor)
-                                                 {
-                                                     if (!found1)
-                                                     {
-                                                         found1 = true;
-                                                         return false;
-                                                     }
-                                                     else
-                                                     {
-                                                         return true;
-                                                     }
-                                                 }
-                                                 else if (color->Kind() == kCustomColor)
-                                                 {
-                                                     if (color->AiColor().c.c.color == c.AiColor().c.c.color)
-                                                     {
-                                                         if (!found1)
-                                                         {
-                                                             found1 = true;
-                                                             return false;
-                                                         }
-                                                         else
-                                                         {
-                                                             return true;
-                                                         }
-                                                     }
-                                                 }
-                                                 else if (color->Kind() == kThreeColor)
-                                                 {
-                                                     if (!found1)
-                                                     {
-                                                         found1 = true;
-                                                         return false;
-                                                     }
-                                                     else
-                                                     {
-                                                         return true;
-                                                     }
-                                                 }
-                                             }
-                                             else if (color->Kind() == kFourColor && c.IsBlack())
-                                             {
-                                                 return true;
-                                             }
-                                             return false;
-                                         }
-                                         ),
-                          p_ColorList.end()
-                          );
+        if (p_ColorList.size() > 0)
+        {
+            ColorListDuplicateChecker checker(*color);
+            p_ColorList.erase( std::remove_if(color, p_ColorList.end(), checker ), p_ColorList.end() );
+        }
+        
     }
     //Now go through the whole list after duplicates have been removed and get rid of any remaining black if we have a CMYK color
     for ( auto color : p_ColorList )
@@ -134,7 +66,7 @@ void ColorList::RemoveDuplicates()
                                              {
                                                  if (c.Kind() != kFourColor)
                                                  {
-                                                     if (c.IsBlack())
+                                                     if (c.IsBlack(false))
                                                      {
                                                          return true;
                                                      }

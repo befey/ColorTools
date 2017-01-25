@@ -79,7 +79,7 @@ public:
     bool PrintsAsProcess() const;
     bool PrintsAsSpot() const;
     
-    bool IsBlack() const;
+    bool IsBlack(bool includeCMYKBuilds = true) const;
     bool IsWhite() const;
     bool IsGripper() const;
     bool IsKeyline() const;

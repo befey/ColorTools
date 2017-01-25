@@ -41,6 +41,8 @@
 		F9138EA21D01EE4D00D23C1F /* PrintToPdfUIController.h in Headers */ = {isa = PBXBuildFile; fileRef = F9138E941D01EE4D00D23C1F /* PrintToPdfUIController.h */; };
 		F9138EA71D02111800D23C1F /* libboost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9138EA51D02111800D23C1F /* libboost_filesystem.a */; };
 		F9138EA81D02111800D23C1F /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9138EA61D02111800D23C1F /* libboost_system.a */; };
+		F914723E1E37AF61003F2ACA /* ColorListDuplicateChecker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F914723C1E37AF61003F2ACA /* ColorListDuplicateChecker.cpp */; };
+		F914723F1E37AF61003F2ACA /* ColorListDuplicateChecker.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F914723D1E37AF61003F2ACA /* ColorListDuplicateChecker.hpp */; };
 		F9158D511D05EC4700343D57 /* PathBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9158D4F1D05EC4700343D57 /* PathBuilder.cpp */; };
 		F9158D521D05EC4700343D57 /* PathBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F9158D501D05EC4700343D57 /* PathBuilder.h */; };
 		F9158D551D05FBE900343D57 /* ExistingFileDeleter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9158D531D05FBE900343D57 /* ExistingFileDeleter.cpp */; };
@@ -62,7 +64,6 @@
 		F937ABEC1D5267CB006DD5C4 /* BtDocumentView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F937ABEA1D5267CB006DD5C4 /* BtDocumentView.cpp */; };
 		F937ABED1D5267CB006DD5C4 /* BtDocumentView.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F937ABEB1D5267CB006DD5C4 /* BtDocumentView.hpp */; };
 		F937AC101D552051006DD5C4 /* com.gosafeguard.SafeguardTools in CopyFiles */ = {isa = PBXBuildFile; fileRef = F937AC0F1D552051006DD5C4 /* com.gosafeguard.SafeguardTools */; };
-		F942A10A1E1EC7AE00A5B31A /* BtColor.tpp in Resources */ = {isa = PBXBuildFile; fileRef = F942A1091E1EC7AE00A5B31A /* BtColor.tpp */; };
 		F947263F1CB2E1F400649020 /* VPB.h in Headers */ = {isa = PBXBuildFile; fileRef = F947263D1CB2E1F400649020 /* VPB.h */; };
 		F94726401CB2E1F400649020 /* VPB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F947263E1CB2E1F400649020 /* VPB.cpp */; };
 		F965B58E1D1072F200B0C04C /* ListFonts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F965B58C1D1072F200B0C04C /* ListFonts.cpp */; };
@@ -74,9 +75,6 @@
 		F9779FA81E27E667000FA1FF /* PlaceFileSearcher.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9779FA61E27E667000FA1FF /* PlaceFileSearcher.hpp */; };
 		F9779FAB1E27E7B3000FA1FF /* PlaceFileSearchUIController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9779FA91E27E7B3000FA1FF /* PlaceFileSearchUIController.cpp */; };
 		F9779FAC1E27E7B3000FA1FF /* PlaceFileSearchUIController.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9779FAA1E27E7B3000FA1FF /* PlaceFileSearchUIController.hpp */; };
-		F9779FAE1E27EBEF000FA1FF /* PlaceFileSearch.css in Resources */ = {isa = PBXBuildFile; fileRef = F9779FAD1E27EBEF000FA1FF /* PlaceFileSearch.css */; };
-		F9779FB01E27EBF8000FA1FF /* PlaceFileSearch.html in Resources */ = {isa = PBXBuildFile; fileRef = F9779FAF1E27EBF8000FA1FF /* PlaceFileSearch.html */; };
-		F9779FB21E27EC05000FA1FF /* PlaceFileSearch.js in Resources */ = {isa = PBXBuildFile; fileRef = F9779FB11E27EC05000FA1FF /* PlaceFileSearch.js */; };
 		F9779FB51E291CF2000FA1FF /* FilePlacer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9779FB31E291CF2000FA1FF /* FilePlacer.cpp */; };
 		F9779FB61E291CF2000FA1FF /* FilePlacer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9779FB41E291CF2000FA1FF /* FilePlacer.hpp */; };
 		F979B5FB1CA31DE5004BA4AD /* IAIUnicodeString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F979B5FA1CA31DE5004BA4AD /* IAIUnicodeString.cpp */; };
@@ -219,6 +217,8 @@
 		F9138E941D01EE4D00D23C1F /* PrintToPdfUIController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintToPdfUIController.h; path = Source/PrintToPdf/PrintToPdfUIController.h; sourceTree = "<group>"; };
 		F9138EA51D02111800D23C1F /* libboost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_filesystem.a; path = ../boost_1_60_0/stage/lib/libboost_filesystem.a; sourceTree = "<group>"; };
 		F9138EA61D02111800D23C1F /* libboost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_system.a; path = ../boost_1_60_0/stage/lib/libboost_system.a; sourceTree = "<group>"; };
+		F914723C1E37AF61003F2ACA /* ColorListDuplicateChecker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ColorListDuplicateChecker.cpp; path = "Source/utility-headers/ColorListDuplicateChecker.cpp"; sourceTree = "<group>"; };
+		F914723D1E37AF61003F2ACA /* ColorListDuplicateChecker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ColorListDuplicateChecker.hpp; path = "Source/utility-headers/ColorListDuplicateChecker.hpp"; sourceTree = "<group>"; };
 		F9158D4F1D05EC4700343D57 /* PathBuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PathBuilder.cpp; path = Source/PrintToPdf/PathBuilder.cpp; sourceTree = "<group>"; };
 		F9158D501D05EC4700343D57 /* PathBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PathBuilder.h; path = Source/PrintToPdf/PathBuilder.h; sourceTree = "<group>"; };
 		F9158D531D05FBE900343D57 /* ExistingFileDeleter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ExistingFileDeleter.cpp; path = Source/PrintToPdf/ExistingFileDeleter.cpp; sourceTree = "<group>"; };
@@ -659,6 +659,8 @@
 				F90E3F9C1CA475880081C333 /* ColorFuncs.h */,
 				F9F1EB691D1B19AF0051B716 /* ColorList.cpp */,
 				F9F1EB6A1D1B19AF0051B716 /* ColorList.h */,
+				F914723C1E37AF61003F2ACA /* ColorListDuplicateChecker.cpp */,
+				F914723D1E37AF61003F2ACA /* ColorListDuplicateChecker.hpp */,
 				F9BC95C91DF1DE9700130615 /* CurrentFilenameRetriever.hpp */,
 				F9DA3B8E1D1C4A4A00AB6156 /* GetIllustratorErrorCode.h */,
 				F930DE051DDB75A70030B5C1 /* ICanBeTextRange.h */,
@@ -725,6 +727,7 @@
 				F9138E9B1D01EE4D00D23C1F /* PdfResults.h in Headers */,
 				F947263F1CB2E1F400649020 /* VPB.h in Headers */,
 				F9F079671D47EEC1004AC522 /* TickMarkSettings.hpp in Headers */,
+				F914723F1E37AF61003F2ACA /* ColorListDuplicateChecker.hpp in Headers */,
 				F9BC95CF1DF1EEC000130615 /* ArtboardNameRetriever.hpp in Headers */,
 				F9DA3B961D1C6C7D00AB6156 /* ColorListDrawer.h in Headers */,
 				F98BAEE21CA9A0D100965D86 /* BtAiMenuItem.h in Headers */,
@@ -877,6 +880,7 @@
 				F9779FAB1E27E7B3000FA1FF /* PlaceFileSearchUIController.cpp in Sources */,
 				F96D30731CB6D73500274BDE /* PlateNumber.cpp in Sources */,
 				F94726401CB2E1F400649020 /* VPB.cpp in Sources */,
+				F914723E1E37AF61003F2ACA /* ColorListDuplicateChecker.cpp in Sources */,
 				F98BAEDD1CA99E1E00965D86 /* ArtTree.cpp in Sources */,
 				F9C44EF41D0AF51100205ADF /* TickMarkDrawer.cpp in Sources */,
 				F9138E9E1D01EE4D00D23C1F /* PdfPrinter.cpp in Sources */,
