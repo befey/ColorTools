@@ -43,6 +43,8 @@
 		F9138EA81D02111800D23C1F /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9138EA61D02111800D23C1F /* libboost_system.a */; };
 		F914723E1E37AF61003F2ACA /* ColorListDuplicateChecker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F914723C1E37AF61003F2ACA /* ColorListDuplicateChecker.cpp */; };
 		F914723F1E37AF61003F2ACA /* ColorListDuplicateChecker.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F914723D1E37AF61003F2ACA /* ColorListDuplicateChecker.hpp */; };
+		F91472421E3A3F4E003F2ACA /* BtArtHandle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F91472401E3A3F4E003F2ACA /* BtArtHandle.cpp */; };
+		F91472431E3A3F4E003F2ACA /* BtArtHandle.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F91472411E3A3F4E003F2ACA /* BtArtHandle.hpp */; };
 		F9158D511D05EC4700343D57 /* PathBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9158D4F1D05EC4700343D57 /* PathBuilder.cpp */; };
 		F9158D521D05EC4700343D57 /* PathBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F9158D501D05EC4700343D57 /* PathBuilder.h */; };
 		F9158D551D05FBE900343D57 /* ExistingFileDeleter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9158D531D05FBE900343D57 /* ExistingFileDeleter.cpp */; };
@@ -219,6 +221,8 @@
 		F9138EA61D02111800D23C1F /* libboost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_system.a; path = ../boost_1_60_0/stage/lib/libboost_system.a; sourceTree = "<group>"; };
 		F914723C1E37AF61003F2ACA /* ColorListDuplicateChecker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ColorListDuplicateChecker.cpp; path = "Source/utility-headers/ColorListDuplicateChecker.cpp"; sourceTree = "<group>"; };
 		F914723D1E37AF61003F2ACA /* ColorListDuplicateChecker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ColorListDuplicateChecker.hpp; path = "Source/utility-headers/ColorListDuplicateChecker.hpp"; sourceTree = "<group>"; };
+		F91472401E3A3F4E003F2ACA /* BtArtHandle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BtArtHandle.cpp; path = "Source/utility-headers/BtArtHandle.cpp"; sourceTree = "<group>"; };
+		F91472411E3A3F4E003F2ACA /* BtArtHandle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = BtArtHandle.hpp; path = "Source/utility-headers/BtArtHandle.hpp"; sourceTree = "<group>"; };
 		F9158D4F1D05EC4700343D57 /* PathBuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PathBuilder.cpp; path = Source/PrintToPdf/PathBuilder.cpp; sourceTree = "<group>"; };
 		F9158D501D05EC4700343D57 /* PathBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PathBuilder.h; path = Source/PrintToPdf/PathBuilder.h; sourceTree = "<group>"; };
 		F9158D531D05FBE900343D57 /* ExistingFileDeleter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ExistingFileDeleter.cpp; path = Source/PrintToPdf/ExistingFileDeleter.cpp; sourceTree = "<group>"; };
@@ -640,6 +644,8 @@
 				F90AE3F11CAAF8AF0076A9BC /* BtAiMenuItemHandles.h */,
 				F9FAE8FC1CBD87E700938893 /* BtArtboardRange.cpp */,
 				F9FAE8FD1CBD87E700938893 /* BtArtboardRange.h */,
+				F91472401E3A3F4E003F2ACA /* BtArtHandle.cpp */,
+				F91472411E3A3F4E003F2ACA /* BtArtHandle.hpp */,
 				F90DB92C1D08A25B0039CE5F /* BtAteTextFeatures.cpp */,
 				F90DB92D1D08A25B0039CE5F /* BtAteTextFeatures.h */,
 				F90E3F971CA475880081C333 /* BtColor.cpp */,
@@ -719,6 +725,7 @@
 				F93264D31DC8E2D40020B57A /* SgSymbolDrawer.hpp in Headers */,
 				F9CE24FB1D11A56E0075DDDF /* TextTools.h in Headers */,
 				F97B564F1D36759500C10A9F /* LayerVisibility.hpp in Headers */,
+				F91472431E3A3F4E003F2ACA /* BtArtHandle.hpp in Headers */,
 				F9BC95CB1DF1DE9700130615 /* CurrentFilenameRetriever.hpp in Headers */,
 				F9138EA01D01EE4D00D23C1F /* PrintToPdfConstants.h in Headers */,
 				F937ABE51D51149C006DD5C4 /* BtTransformArt.hpp in Headers */,
@@ -888,6 +895,7 @@
 				6868C926150BA192003DAAF2 /* SafeguardToolsPlugin.cpp in Sources */,
 				6868C928150BA192003DAAF2 /* SafeguardToolsSuites.cpp in Sources */,
 				F9158D511D05EC4700343D57 /* PathBuilder.cpp in Sources */,
+				F91472421E3A3F4E003F2ACA /* BtArtHandle.cpp in Sources */,
 				F937ABEC1D5267CB006DD5C4 /* BtDocumentView.cpp in Sources */,
 				F97B56561D36B92600C10A9F /* TypeToPathsConverter.cpp in Sources */,
 				F905605E1D3526E30084AB31 /* DictionaryWriter.cpp in Sources */,
