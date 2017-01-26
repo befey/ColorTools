@@ -53,6 +53,7 @@ public:
     size_t TimeStamp(AIArtTimeStampOptions options = kAITimeStampOfArt) const;
     
     inline operator AIArtHandle(void) const { return artHandle; }
+    inline operator bool(void) const { return Null(); }
 private:
     AIArtHandle artHandle;
     
