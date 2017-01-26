@@ -16,6 +16,7 @@ extern AIArtSuite* sAIArt;
 class BtArtHandle
 {
 public:
+    BtArtHandle() {};
     BtArtHandle(AIArtHandle artHandle);
     
     bool Null() const { return artHandle; };
@@ -55,7 +56,7 @@ public:
     inline operator AIArtHandle(void) const { return artHandle; }
     inline operator bool(void) const { return Null(); }
 private:
-    AIArtHandle artHandle;
+    AIArtHandle artHandle = nullptr;
     
     bool GetAttribute(ai::int32 whichAttr) const;
     bool SetAttribute(ai::int32 whichAttr, bool state);
