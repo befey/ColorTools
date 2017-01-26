@@ -107,7 +107,7 @@ bool BtArtHandle::LayerGroup() const
 
 bool BtArtHandle::IsArtClipping() const
 {
-    sAIArt->IsArtClipping(artHandle);
+    return sAIArt->IsArtClipping(artHandle);
 }
 
 AIRealRect BtArtHandle::Bounds() const
