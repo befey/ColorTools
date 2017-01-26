@@ -16,7 +16,6 @@ extern AIArtSuite* sAIArt;
 class BtArtHandle
 {
 public:
-    BtArtHandle() {};
     BtArtHandle(AIArtHandle artHandle);
     
     bool Null() const { return artHandle; };
