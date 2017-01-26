@@ -51,7 +51,7 @@ public:
     inline operator AILayerHandle*(void) { return &layerHandle; }
     inline operator bool(void) const { return Null(); }
 private:
-    AILayerHandle layerHandle;
+    AILayerHandle layerHandle = nullptr;
     
     bool editableWasFalse = false;
     bool visibleWasFalse = false;
