@@ -111,6 +111,23 @@ BtArtHandle& BtArtHandle::PutInGroup(AIArtHandle theGroup)
     return *this;
 }
 
+bool BtArtHandle::IsInArtSet(AIArtSet theSet) const
+{
+    size_t count;
+    sAIArtSet->CountArtSet( theSet, &count );
+    
+    for ( int i=0 ; i < count ; i++ )
+    {
+        AIArtHandle currArtHandle = NULL;
+        sAIArtSet->IndexArtSet( theSet, i, &currArtHandle );
+        if (currArtHandle == artHandle)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 short BtArtHandle::ArtType() const
 {
     short type;

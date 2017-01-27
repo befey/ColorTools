@@ -105,21 +105,6 @@ AIArtHandle FindTopLevelParent(AIArtHandle currArtHandle)
 	return parent;
 }
 
-
-bool IsArtInArtSet(AIArtSet artSet, AIArtHandle theObject)
-{
-	size_t count;		sAIArtSet->CountArtSet( artSet, &count );
-	for ( int i=0 ; i < count ; i++ ) {
-		AIArtHandle currArtHandle = NULL;
-		sAIArtSet->IndexArtSet( artSet, i, &currArtHandle );
-		if (currArtHandle == theObject) {
-			return TRUE;
-		}
-	}
-	return FALSE;
-}
-
-
 void GetBoundsOfSelectionFromRoot(AIArtHandle root, AIArtHandle currArtHandle, AIRealRect* bounds, bool* boundsValid)
 {
 	AIArtHandle child, sibling;

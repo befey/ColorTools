@@ -28,6 +28,7 @@ public:
     AILayerHandle Layer() const;
     BtArtHandle& Layer(AILayerHandle newVal);
     BtArtHandle& PutInGroup(AIArtHandle theGroup);
+    bool IsInArtSet(AIArtSet theSet) const;
     
     short ArtType() const;
     

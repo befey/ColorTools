@@ -40,8 +40,6 @@ bool AllLinkedFilesValid(); //Checks whether the paths for linked files are vali
 
 AIArtHandle FindTopLevelParent(AIArtHandle currArtHandle); //Finds the top parent object of the passed handle. Returns passed handle if no parents.
 
-bool IsArtInArtSet(AIArtSet theSet, AIArtHandle theObject);
-
 void GetBoundsOfSelectionFromRoot(AIArtHandle root, AIArtHandle currArtHandle, AIRealRect* bounds, bool* boundsValid);
 //Find the bounds of the tree of objects under root
 
