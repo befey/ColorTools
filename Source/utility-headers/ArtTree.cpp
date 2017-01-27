@@ -344,11 +344,6 @@ bool ProcessArtSet(const AIArtSet artSet, std::function<void(AIArtHandle)> callb
     return true;
 }
 
-void SelectArt(AIArtHandle artHandle)
-{
-    sAIArt->SetArtUserAttr(artHandle, kArtSelected | kArtLocked | kArtHidden, kArtSelected);
-}
-
 AIArtHandle GetGroupArtOfFirstEditableLayer()
 {
     ai::int32 count;

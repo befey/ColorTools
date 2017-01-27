@@ -48,8 +48,6 @@ void GetBoundsOfClipGroup(AIArtHandle root, AIArtHandle currArtHandle, AIRealRec
 
 AIArtHandle GetGroupArtOfFirstEditableLayer();
 
-void SelectArt(AIArtHandle artHandle);
-
 int GetArtboardCount();
 int GetArtboardOfArt(AIArtHandle artHandle);
 AIRealRect GetArtboardBounds(int index);
