@@ -23,8 +23,12 @@ bool operator==(const BtArtHandle& lhs, const BtArtHandle& rhs)
 bool BtArtHandle::GetAttribute(ai::int32 whichAttr) const
 {
     ai::int32 attr;
-    sAIArt->GetArtUserAttr(artHandle, whichAttr, &attr);
-    return attr & whichAttr;
+    if (artHandle)
+    {
+        sAIArt->GetArtUserAttr(artHandle, whichAttr, &attr);
+        return attr & whichAttr;
+    }
+    return false;
 }
 
 bool BtArtHandle::SetAttribute(ai::int32 whichAttr, bool state)
@@ -65,8 +69,11 @@ BtArtHandle& BtArtHandle::Layer(AILayerHandle newVal)
 short BtArtHandle::ArtType() const
 {
     short type;
-    sAIArt->GetArtType(artHandle, &type);
-    return type;
+    if ( kNoErr == sAIArt->GetArtType(artHandle, &type) )
+    {
+        return type;
+    }
+    return kUnknownArt;
 }
 
 BtArtHandle BtArtHandle::Parent() const
@@ -260,6 +267,9 @@ bool BtArtHandle::PartOfCompound() const
 size_t BtArtHandle::TimeStamp(AIArtTimeStampOptions options) const
 {
     size_t timeStamp;
-    sAIArt->GetArtTimeStamp(artHandle, options, &timeStamp);
-    return timeStamp;
+    if ( kNoErr == sAIArt->GetArtTimeStamp(artHandle, options, &timeStamp) )
+    {
+        return timeStamp;
+    }
+    return 0;
 }
