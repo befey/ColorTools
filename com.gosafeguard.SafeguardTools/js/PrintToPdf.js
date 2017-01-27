@@ -155,15 +155,25 @@ function PutColorList(data)
     $("#colorlist-textarea").html(function()
                                   {
                                       var newHtml = "";
+
                                       for (var j = 0; j < data.dto.plates.length; j++)
                                       {
                                           newHtml += "<div class='artboard-colors";
-                                          if (jsonArtboardData.dto.plates[j].shouldPrint == false)
+                                          if (jsonArtboardData.dto.plates[j].shouldPrint == false ||
+                                              data.dto.plates[j].c.length == 0)
                                           {
                                             newHtml += " artboard-deselected";
                                           }
                                   
                                           newHtml += "' id='ab-" + j + "'>";
+                                  
+                                          if (data.dto.plates[j].c.length == 0)
+                                          {
+                                            newHtml += "<div class='colorName'>";
+                                            newHtml += "NO IMPRINT";
+                                            newHtml += "</div>";
+                                          }
+                                  
                                           for (var i = 0; i < data.dto.plates[j].c.length; i++)
                                           {
                                               color = data.dto.plates[j].c[i];
