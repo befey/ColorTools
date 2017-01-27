@@ -22,7 +22,7 @@ public:
     BtLayer(AILayerHandle layer);
     BtLayer(string layerName);
     
-    bool Null() const { return layerHandle; };
+    bool Null() const { return !layerHandle; };
     
     void DeleteLayer();
     

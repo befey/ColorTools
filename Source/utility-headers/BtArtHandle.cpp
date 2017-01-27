@@ -8,11 +8,17 @@
 
 #include "BtArtHandle.hpp"
 #include "BtLayer.hpp"
+#include "GetIllustratorErrorCode.h"
 
 BtArtHandle::BtArtHandle(AIArtHandle artHandle)
 :
 artHandle(artHandle)
 {}
+
+bool operator==(const BtArtHandle& lhs, const BtArtHandle& rhs)
+{
+    return lhs.artHandle == rhs.artHandle;
+}
 
 bool BtArtHandle::GetAttribute(ai::int32 whichAttr) const
 {
@@ -65,35 +71,35 @@ short BtArtHandle::ArtType() const
 
 BtArtHandle BtArtHandle::Parent() const
 {
-    AIArtHandle parent;
+    AIArtHandle parent = nullptr;
     sAIArt->GetArtParent(artHandle, &parent);
     return BtArtHandle(parent);
 }
 
 BtArtHandle BtArtHandle::FirstChild() const
 {
-    AIArtHandle child;
+    AIArtHandle child = nullptr;
     sAIArt->GetArtFirstChild(artHandle, &child);
     return BtArtHandle(child);
 }
 
 BtArtHandle BtArtHandle::LastChild() const
 {
-    AIArtHandle child;
+    AIArtHandle child = nullptr;
     sAIArt->GetArtLastChild(artHandle, &child);
     return BtArtHandle(child);
 }
 
 BtArtHandle BtArtHandle::Sibling() const
 {
-    AIArtHandle sibling;
+    AIArtHandle sibling = nullptr;
     sAIArt->GetArtSibling(artHandle, &sibling);
     return BtArtHandle(sibling);
 }
 
 BtArtHandle BtArtHandle::PriorSibling() const
 {
-    AIArtHandle sibling;
+    AIArtHandle sibling = nullptr;
     sAIArt->GetArtPriorSibling(artHandle, &sibling);
     return BtArtHandle(sibling);
 }
@@ -105,9 +111,15 @@ bool BtArtHandle::LayerGroup() const
     return isLayerGroup;
 }
 
-bool BtArtHandle::IsArtClipping() const
+bool BtArtHandle::IsClippingGroup() const
 {
-    return sAIArt->IsArtClipping(artHandle);
+    if (ArtType() == kGroupArt)
+    {
+        AIBoolean clipped;
+        sAIGroup->GetGroupClipped(artHandle, &clipped);
+        return clipped;
+    }
+    return false;
 }
 
 AIRealRect BtArtHandle::Bounds() const
@@ -115,6 +127,72 @@ AIRealRect BtArtHandle::Bounds() const
     AIRealRect bounds;
     sAIArt->GetArtBounds(artHandle, &bounds);
     return bounds;
+}
+
+bool BtArtHandle::ClippedBounds(AIRealRect& result) const
+{
+    bool boundsValid = false;
+    BtArtHandle enclosingClipArt = GetEnclosingClipArt();
+    while (!enclosingClipArt.Null())
+    {
+        AIRealRect clipRect = enclosingClipArt.Bounds();
+        AIRealRect thisRect;
+        if (boundsValid)
+        {
+            thisRect = result;
+        }
+        else
+        {
+            thisRect = Bounds();
+        }
+        
+        boundsValid = sAIRealMath->AIRealRectIntersect(&clipRect, &thisRect, &result);
+        if (boundsValid)
+        {
+            enclosingClipArt = enclosingClipArt.Parent().GetEnclosingClipArt();
+        }
+        else
+        {
+            return boundsValid;
+        }
+    }
+    return boundsValid;
+}
+
+BtArtHandle BtArtHandle::GetEnclosingClipArt() const
+{
+    BtArtHandle layerGroup(BtLayer(Layer()).GetLayerGroupArt());
+    BtArtHandle parent = Parent();
+    
+    if (*this != layerGroup && parent != layerGroup)
+    {
+        if (parent.IsClippingGroup())
+        {
+            BtArtHandle sibling = parent.FirstChild();
+            do
+            {
+                if (sibling.ClipMask())
+                {
+                    return sibling;
+                }
+                sibling = sibling.Sibling();
+            } while (!sibling.Null());
+        }
+        
+        return parent.GetEnclosingClipArt();
+    }
+    
+    return BtArtHandle();
+}
+
+bool BtArtHandle::OverlapsRect(AIRealRect rect) const
+{
+    AIRealRect artRect;
+    if (ClippedBounds(artRect))
+    {
+        return sAIRealMath->AIRealRectOverlap(&artRect, &rect);
+    }
+    return false;
 }
 
 bool BtArtHandle::ValidArt() const
@@ -129,6 +207,8 @@ bool BtArtHandle::Selected() const
 
 bool BtArtHandle::Selected(bool state)
 {
+    if (Hidden()) Hidden(false);
+    if (Locked()) Locked(false);
     return SetAttribute(kArtSelected, state);
 }
 

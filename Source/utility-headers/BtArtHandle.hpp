@@ -10,8 +10,12 @@
 #define BtArtHandle_hpp
 
 #include "AIArt.h"
+#include "AIRealMath.h"
+#include "AIGroup.h"
 
 extern AIArtSuite* sAIArt;
+extern AIRealMathSuite* sAIRealMath;
+extern AIGroupSuite* sAIGroup;
 
 class BtArtHandle
 {
@@ -19,7 +23,7 @@ public:
     BtArtHandle(){};
     BtArtHandle(AIArtHandle artHandle);
     
-    bool Null() const { return artHandle; };
+    bool Null() const { return !artHandle; };
     
     AILayerHandle Layer() const;
     BtArtHandle& Layer(AILayerHandle newVal);
@@ -33,9 +37,11 @@ public:
     BtArtHandle PriorSibling() const;
     bool LayerGroup() const;
     
-    bool IsArtClipping() const;
+    bool IsClippingGroup() const;
     
     AIRealRect Bounds() const;
+    bool ClippedBounds(AIRealRect& result) const;
+    bool OverlapsRect(AIRealRect rect) const;
     
     bool ValidArt() const;
     
@@ -56,11 +62,16 @@ public:
     inline operator const AIArtHandle(void) const { return artHandle; }
     inline operator AIArtHandle*(void) { return &artHandle; }
     inline operator bool(void) const { return Null(); }
+    
+    friend bool operator==(const BtArtHandle& lhs, const BtArtHandle& rhs);
+    friend bool operator!=(const BtArtHandle& lhs, const BtArtHandle& rhs) { return !operator==(lhs,rhs); };
 private:
     AIArtHandle artHandle = nullptr;
     
     bool GetAttribute(ai::int32 whichAttr) const;
     bool SetAttribute(ai::int32 whichAttr, bool state);
+    
+    BtArtHandle GetEnclosingClipArt() const;
 };
 
 #endif /* BtArtHandle_hpp */

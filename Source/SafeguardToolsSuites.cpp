@@ -35,6 +35,7 @@
     
     AIPathSuite*            sAIPath = NULL;
 	AIPathStyleSuite*       sAIPathStyle = NULL;
+    AIGeometrySuite*        sAIGeometry = NULL;
 
     AITransformArtSuite*    sAITransformArt = NULL;
     AIRealMathSuite*        sAIRealMath = NULL;
@@ -99,6 +100,7 @@ ImportSuite gImportSuites[] =
 
     kAIPathSuite, kAIPathSuiteVersion, &sAIPath,
 	kAIPathStyleSuite, kAIPathStyleSuiteVersion, &sAIPathStyle,
+    kAIGeometrySuite, kAIGeometrySuiteVersion, &sAIGeometry,
 
     kAITransformArtSuite, kAITransformArtSuiteVersion, &sAITransformArt,
     kAIRealMathSuite, kAIRealMathSuiteVersion, &sAIRealMath,

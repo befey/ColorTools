@@ -16,6 +16,7 @@
 #include "AIPathStyle.h"
 #include "IDrawer.h"
 #include "AIArtboard.h"
+#include "AIGeometry.h"
 #include <functional>
 #include <map>
 
@@ -28,6 +29,7 @@ extern AIPathSuite* sAIPath;
 extern AIPathStyleSuite* sAIPathStyle;
 extern AIRealMathSuite* sAIRealMath;
 extern AIArtboardSuite* sAIArtboard;
+extern AIGeometrySuite* sAIGeometry;
 
 
 bool ProcessArtSet(const AIArtSet artSet, std::function<void(AIArtHandle)> callback);

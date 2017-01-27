@@ -9,6 +9,7 @@
 
 #include "ArtTree.h"
 #include "BtLayer.hpp"
+#include "BtArtHandle.hpp"
 #include "GetIllustratorErrorCode.h"
 #include <map>
 
@@ -17,13 +18,11 @@ long CreateArtSetOfPrintingObjectsWithinRect(AIArtSet const targetSet, AIRealRec
     int count;
     size_t c;
     sAILayer->CountLayers(&count);
-    AILayerHandle layer;
+    BtLayer layer;
     
     for (int i = 0; i < count; i++) {
-        sAILayer->GetNthLayer(i, &layer);
-        AIBoolean printed;
-        sAILayer->GetLayerPrinted(layer, &printed);
-        if (printed)
+        sAILayer->GetNthLayer(i, layer);
+        if (layer.Printed())
         {
             AIArtSet layerArtSet;
             sAIArtSet->NewArtSet(&layerArtSet);
@@ -32,16 +31,14 @@ long CreateArtSetOfPrintingObjectsWithinRect(AIArtSet const targetSet, AIRealRec
             
             for (int j = 0; j < c; j++)
             {
-                AIArtHandle currArtHandle;
-                sAIArtSet->IndexArtSet(layerArtSet, j, &currArtHandle);
-                AIRealRect artRect;
-                sAIArt->GetArtBounds(currArtHandle, &artRect);
-                int attr;
-                sAIArt->GetArtUserAttr(currArtHandle, kArtHidden, &attr);
-                short type;
-                sAIArt->GetArtType(currArtHandle, &type);
+                BtArtHandle currArtHandle;
+                sAIArtSet->IndexArtSet(layerArtSet, j, currArtHandle);
+                if (currArtHandle.ArtType() == kGroupArt)
+                {
+                    continue;
+                }
                 
-                if (sAIRealMath->AIRealRectOverlap(&artRect, &rect) && !(attr & kArtHidden) && type != kGroupArt)
+                if (currArtHandle.OverlapsRect(rect) && !currArtHandle.Hidden())
                 {
                     sAIArtSet->AddArtToArtSet(targetSet, currArtHandle);
                 }
@@ -55,7 +52,8 @@ long CreateArtSetOfPrintingObjectsWithinRect(AIArtSet const targetSet, AIRealRec
     return c;
 }
 
-void PutArtInGroup(AIArtHandle currArtHandle, AIArtHandle theGroup) {
+void PutArtInGroup(AIArtHandle currArtHandle, AIArtHandle theGroup)
+{
 	AILayerHandle layer = NULL;
     sAIArt->GetLayerOfArt(currArtHandle, &layer);
 	if (!layer)
@@ -106,7 +104,8 @@ void PutArtInGroup(AIArtHandle currArtHandle, AIArtHandle theGroup) {
 	return;
 }
 
-bool AllLinkedFilesValid() {
+bool AllLinkedFilesValid()
+{
 	size_t count = 0;
 	ai::UnicodeString currArtName;
 	AIArtHandle currArtObj = NULL;
@@ -136,7 +135,8 @@ bool AllLinkedFilesValid() {
 	return TRUE;
 }
 
-AIArtHandle FindTopLevelParent(AIArtHandle currArtHandle) {
+AIArtHandle FindTopLevelParent(AIArtHandle currArtHandle)
+{
 	AIArtHandle currParent = NULL;
 	AIArtHandle parent = NULL;
 	parent = currParent = currArtHandle;
@@ -172,8 +172,8 @@ bool IsArtInArtSet(AIArtSet artSet, AIArtHandle theObject)
 }
 
 
-void GetBoundsOfSelectionFromRoot(AIArtHandle root, AIArtHandle currArtHandle, AIRealRect* bounds, bool* boundsValid) {
-	
+void GetBoundsOfSelectionFromRoot(AIArtHandle root, AIArtHandle currArtHandle, AIRealRect* bounds, bool* boundsValid)
+{
 	AIArtHandle child, sibling;
 	child = sibling = NULL;
 	

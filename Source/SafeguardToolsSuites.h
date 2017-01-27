@@ -32,6 +32,7 @@
 
 #include "AIPath.h"
 #include "AIPathStyle.h"
+#include "AIGeometry.h"
 
 #include "AITransformArt.h"
 #include "AIRealMath.h"
@@ -87,6 +88,7 @@ extern AIArtStyleSuite *sAIArtStyle;
 
 extern AIPathSuite *sAIAPath;
 extern AIPathStyleSuite *sAIPathStyle;
+extern AIGeometrySuite *sAIGeometry;
 
 extern AITransformArtSuite *sAITransformArt;
 extern AIRealMathSuite *sAIRealMath;
