@@ -27,6 +27,7 @@ public:
     
     AILayerHandle Layer() const;
     BtArtHandle& Layer(AILayerHandle newVal);
+    BtArtHandle& PutInGroup(AIArtHandle theGroup);
     
     short ArtType() const;
     

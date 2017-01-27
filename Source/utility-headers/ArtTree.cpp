@@ -52,58 +52,6 @@ long CreateArtSetOfPrintingObjectsWithinRect(AIArtSet const targetSet, AIRealRec
     return c;
 }
 
-void PutArtInGroup(AIArtHandle currArtHandle, AIArtHandle theGroup)
-{
-	AILayerHandle layer = NULL;
-    sAIArt->GetLayerOfArt(currArtHandle, &layer);
-	if (!layer)
-    {
-		return;
-	}
-
-	int eflag = 0;
-    int vflag = 0;
-	ASBoolean editable = FALSE;
-	ASBoolean visible = FALSE;
-	
-	int aattr = 0;
-    int gattr = 0;
-	
-	//Check if the layer is editable
-	sAILayer->GetLayerEditable(layer, &editable);
-	sAILayer->GetLayerVisible(layer, &visible);
-	
-	//Set the layer editable and visible, set flags so we can set it back the way it was
-	if (!editable) { sAILayer->SetLayerEditable(layer, TRUE); eflag = 1; }
-	if (!visible) { sAILayer->SetLayerVisible(layer, TRUE); vflag = 1; }
-	
-	//Check if the art itself is editable
-	sAIArt->GetArtUserAttr(currArtHandle, kArtLocked | kArtHidden, &aattr);
-	if ((aattr & kArtLocked) || (aattr & kArtHidden)) {
-		sAIArt->SetArtUserAttr(currArtHandle, kArtLocked | kArtHidden, 0);
-	}
-    
-    //Check if the group is editable
-    sAIArt->GetArtUserAttr(theGroup, kArtLocked | kArtHidden, &gattr);
-    if ((gattr & kArtLocked) || (gattr & kArtHidden)) {
-        sAIArt->SetArtUserAttr(theGroup, kArtLocked | kArtHidden, 0);
-    }
-	
-	//Put it in the group
-    short type;
-    AIErr err = sAIArt->GetArtType(theGroup, &type);
-    string error = GetIllustratorErrorCode(err);
-	err = sAIArt->ReorderArt(currArtHandle, kPlaceInsideOnTop, theGroup);
-    error = GetIllustratorErrorCode(err);
-	//Set the layer and art attributes back the way they were
-	if(eflag) { sAILayer->SetLayerEditable(layer, FALSE); }
-	if(vflag) { sAILayer->SetLayerVisible(layer, FALSE); }
-	sAIArt->SetArtUserAttr(currArtHandle, kArtLocked | kArtHidden, aattr);
-    sAIArt->SetArtUserAttr(theGroup, kArtLocked | kArtHidden, gattr);
-	
-	return;
-}
-
 bool AllLinkedFilesValid()
 {
 	size_t count = 0;

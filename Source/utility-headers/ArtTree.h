@@ -36,8 +36,6 @@ bool ProcessArtSet(const AIArtSet artSet, std::function<void(AIArtHandle)> callb
 
 long CreateArtSetOfPrintingObjectsWithinRect(AIArtSet const targetSet, AIRealRect rect);
 
-void PutArtInGroup(AIArtHandle theArt, AIArtHandle theGroup); //Moves the art to the group, preserving editability flags
-
 bool AllLinkedFilesValid(); //Checks whether the paths for linked files are valid, if not, returns false
 
 AIArtHandle FindTopLevelParent(AIArtHandle currArtHandle); //Finds the top parent object of the passed handle. Returns passed handle if no parents.

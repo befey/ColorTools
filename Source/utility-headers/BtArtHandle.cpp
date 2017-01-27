@@ -66,6 +66,51 @@ BtArtHandle& BtArtHandle::Layer(AILayerHandle newVal)
     return *this;
 }
 
+BtArtHandle& BtArtHandle::PutInGroup(AIArtHandle theGroup)
+{
+    BtArtHandle btTheGroup(theGroup);
+    if (btTheGroup.ArtType() != kGroupArt)
+    {
+        return *this;
+    }
+    
+    BtLayer layer(Layer());
+    if (!layer)
+    {
+        return *this;
+    }
+
+    //Set the layer editable and visible, set flags so we can set it back the way it was
+    bool eflag = false;
+    bool vflag = false;
+    if (!layer.Editable()) { layer.Editable(true); eflag = true; }
+    if (!layer.Visible()) { layer.Visible(true); vflag = true; }
+    
+    //Check if the art itself is editable
+    bool alflag = false;
+    bool ahflag = false;
+    if (Locked()) { Locked(false); alflag = true; }
+    if (Hidden()) { Hidden(false); ahflag = true; }
+    
+    //Check if the group is editable
+    bool glflag = false;
+    bool ghflag = false;
+    if (btTheGroup.Locked()) { btTheGroup.Locked(false); glflag = true; }
+    if (btTheGroup.Hidden()) { btTheGroup.Hidden(false); ghflag = true; }
+    
+    //Put it in the group
+    sAIArt->ReorderArt(artHandle, kPlaceInsideOnTop, btTheGroup);
+    //Set the layer and art attributes back the way they were
+    if(eflag) { layer.Editable(false); }
+    if(vflag) { layer.Visible(false); }
+    if(alflag) { Locked(true); }
+    if(ahflag) { Hidden(true); }
+    if(glflag) { btTheGroup.Locked(true); }
+    if(ghflag) { btTheGroup.Hidden(true); }
+    
+    return *this;
+}
+
 short BtArtHandle::ArtType() const
 {
     short type;
