@@ -8,6 +8,7 @@
 
 #include "BtTransformArt.hpp"
 #include "ArtTree.h"
+#include "BtArtHandle.hpp"
 #include <cmath>
 
 void RotateArt(AIArtHandle art, AIRealPoint anchor, const AIReal angle)
@@ -60,7 +61,7 @@ void ResizeRectangle(AIArtHandle path, AIRealRect newRect, Direction hDirection,
 
 void MoveArtOutsideBounds(AIArtHandle art, AIRealRect bounds, Direction dir, AIReal offset)
 {
-    AIRealRect artRect = GetBoundsOfArt(art);
+    AIRealRect artRect = BtArtHandle(art).Bounds();
     
     AIReal hMove = 0, vMove = 0;
     

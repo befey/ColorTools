@@ -9,6 +9,7 @@
 #include "BtArtHandle.hpp"
 #include "BtLayer.hpp"
 #include "GetIllustratorErrorCode.h"
+#include "ArtTree.h"
 
 BtArtHandle::BtArtHandle(AIArtHandle artHandle)
 :
@@ -226,6 +227,11 @@ bool BtArtHandle::ClippedBounds(AIRealRect& result) const
         }
     }
     return boundsValid;
+}
+
+AIRealPoint BtArtHandle::Center() const
+{
+    return GetCenterOfRect(Bounds());
 }
 
 BtArtHandle BtArtHandle::GetEnclosingClipArt() const

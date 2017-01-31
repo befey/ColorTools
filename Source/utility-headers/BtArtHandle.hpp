@@ -44,6 +44,8 @@ public:
     AIRealRect Bounds() const;
     bool ClippedBounds(AIRealRect& result) const;
     bool OverlapsRect(AIRealRect rect) const;
+    AIRealPoint Center() const;
+
     
     bool ValidArt() const;
     

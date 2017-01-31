@@ -163,19 +163,6 @@ AIRealRect GetArtboardBounds(int index)
     return rect;
 }
 
-AIRealRect GetBoundsOfArt(AIArtHandle art)
-{
-    AIRealRect rect;
-    sAIArt->GetArtBounds(art, &rect);
-    return rect;
-}
-
-AIRealPoint GetCenterOfArt(AIArtHandle art)
-{
-    AIRealRect rect = GetBoundsOfArt(art);
-    return GetCenterOfRect(rect);
-}
-
 AIRealPoint GetCenterOfRect(AIRealRect rect)
 {
     AIRealPoint center;
@@ -201,7 +188,7 @@ map<int,AIArtHandle> GetArtboardOfArts(vector<AIArtHandle> arts)
         
         for ( auto ah : arts )
         {
-            AIRealPoint artCenter = GetCenterOfArt(ah);
+            AIRealPoint artCenter = BtArtHandle(ah).Center();
             AIReal distance = sAIRealMath->AIRealPointLength(&abCenter, &artCenter);
             
             d.push_back( {i, ah, distance} );

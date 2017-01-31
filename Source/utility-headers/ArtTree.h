@@ -45,8 +45,6 @@ AIArtHandle GetGroupArtOfFirstEditableLayer();
 int GetArtboardCount();
 int GetArtboardOfArt(AIArtHandle artHandle);
 AIRealRect GetArtboardBounds(int index);
-AIRealPoint GetCenterOfArt(AIArtHandle art);
-AIRealRect GetBoundsOfArt(AIArtHandle art);
 AIRealPoint GetCenterOfRect(AIRealRect rect);
 map<int,AIArtHandle> GetArtboardOfArts(vector<AIArtHandle> pluginArts);
 
