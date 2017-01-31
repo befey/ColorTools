@@ -113,7 +113,7 @@ void AIFOColorsCallback(AIFOContentInfoSelector selector, void *info, void *user
         AIBoolean* cmyk = (AIBoolean*)info;
         if ( cmyk[3] )
         {
-            colorsInArt->push_back( GetBlackColor() );
+            colorsInArt->push_back( BtColor::GetBlackColor() );
         }
         if ( cmyk[0] || cmyk[1] || cmyk[2] )
         {

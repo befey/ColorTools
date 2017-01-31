@@ -8,6 +8,7 @@
 
 #include "TickMarkSettings.hpp"
 #include "ColorFuncs.h"
+#include "BtColor.h"
 
 using SafeguardFile::TickMarkSettings;
 
@@ -15,7 +16,7 @@ TickMarkSettings::TickMarkSettings()
 : TickMarkSettings(AIRealRect(), SafeguardFile::ProductType::INVAL, SafeguardFile::TickMarkStyle::NONE) {}
 
 TickMarkSettings::TickMarkSettings(const AIRealRect rect, const ProductType pt, const SafeguardFile::TickMarkStyle tms)
-: bounds(rect), color(GetRegistrationColor())
+: bounds(rect), color(BtColor::GetRegistrationColor())
 {
     if (pt == ProductType::Continuous)
     {

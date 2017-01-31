@@ -558,3 +558,27 @@ bool BtColor::IsRegistration() const
     }
     return false;
 }
+
+BtColor BtColor::GetRegistrationColor()
+{
+    AICustomColorHandle registrationCch;
+    sAICustomColor->GetCurrentRegistrationColor(&registrationCch);
+    AIColor registration = { .kind = kCustomColor, .c.c = { .color = registrationCch, .tint = 0} };
+    return BtColor(registration);
+}
+
+BtColor BtColor::GetBlackColor()
+{
+    AICustomColorHandle blackCch;
+    sAICustomColor->GetCustomColorByName(ai::UnicodeString(SafeguardFile::BLACK_COLOR_NAME), &blackCch);
+    AIColor black = { .kind = kCustomColor, .c.c = { .color = blackCch, .tint = 0} };
+    return BtColor(black);
+}
+
+BtColor BtColor::GetWhiteColor()
+{
+    AICustomColorHandle whiteCch;
+    sAICustomColor->GetCustomColorByName(ai::UnicodeString(SafeguardFile::WHITE_COLOR_NAME), &whiteCch);
+    AIColor white = { .kind = kCustomColor, .c.c = { .color = whiteCch, .tint = 0} };
+    return BtColor(white);
+}

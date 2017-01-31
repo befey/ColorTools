@@ -34,10 +34,6 @@ extern AIRealMathSuite *sAIRealMath;
 extern AITextFrameSuite *sAITextFrame;
 extern AIATEPaintSuite *sAIATEPaint;
 
-
-AIColor GetRegistrationColor();
-AIColor GetBlackColor();
-
 AIReal GetTint(const AIColor color); //Returns the tint of the color to the closest 1%
 
 AIColor GetColorDefinitionFromBook(std::string colorName, bool& found); //colorName must be a full, valid pantone color in the form "PANTONE ### U", returns the color definition from the book. found indicates whether it was or not. If the name includes PANTONE, but it can't be found, looks up the U version instead, colorName will be the name that matches the definition found

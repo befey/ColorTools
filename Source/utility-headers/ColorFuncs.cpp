@@ -508,22 +508,6 @@ void ConvertObjectsToGlobalCMYK(AIColor *color, void *userData, AIErr *result, A
     }
 }
 
-AIColor GetRegistrationColor()
-{
-    AICustomColorHandle registrationCch;
-    sAICustomColor->GetCurrentRegistrationColor(&registrationCch);
-    AIColor registration = { .kind = kCustomColor, .c.c = { .color = registrationCch, .tint = 0} };
-    return registration;
-}
-
-AIColor GetBlackColor()
-{
-    AICustomColorHandle blackCch;
-    sAICustomColor->GetCustomColorByName(ai::UnicodeString(SafeguardFile::BLACK_COLOR_NAME), &blackCch);
-    AIColor black = { .kind = kCustomColor, .c.c = { .color = blackCch, .tint = 0} };
-    return black;
-}
-
 bool operator==(const AIGrayColorStyle& lhs, const AIGrayColorStyle& rhs)
 {
     return (lhs.gray == rhs.gray);
