@@ -40,12 +40,6 @@ bool AllLinkedFilesValid(); //Checks whether the paths for linked files are vali
 
 AIArtHandle FindTopLevelParent(AIArtHandle currArtHandle); //Finds the top parent object of the passed handle. Returns passed handle if no parents.
 
-void GetBoundsOfSelectionFromRoot(AIArtHandle root, AIArtHandle currArtHandle, AIRealRect* bounds, bool* boundsValid);
-//Find the bounds of the tree of objects under root
-
-void GetBoundsOfClipGroup(AIArtHandle root, AIArtHandle currArtHandle, AIRealRect* bounds, bool* boundsValid);
-//Traverses the tree defined by "root" and returns the bounds of the clipping masks contained
-
 AIArtHandle GetGroupArtOfFirstEditableLayer();
 
 int GetArtboardCount();

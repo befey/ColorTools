@@ -7,7 +7,7 @@
 #include "DictionaryWriter.h"
 #include "BtAteTextFeatures.h"
 #include "SafeguardFileConstants.h"
-
+#include "BtArtHandle.hpp"
 
 #include "TextTools.h"
 
@@ -453,10 +453,8 @@ void AlignObject(AIArtSet* artSet, ATE::ParagraphJustification alignStyle)
     {
 		AIArtHandle currArtHandle = NULL;
 		sAIArtSet->IndexArtSet( *artSet, i, &currArtHandle );
-		
-		bool validBounds = FALSE;
-		
-		GetBoundsOfSelectionFromRoot(currArtHandle, currArtHandle, &foundBounds, &validBounds);
+				
+        foundBounds = BtArtHandle(currArtHandle).Bounds();
 		
 		AlignObject(currArtHandle, currArtHandle, foundBounds, artSet, alignStyle);
 		
