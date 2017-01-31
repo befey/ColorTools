@@ -321,6 +321,45 @@ BtColor& BtColor::CustomFlag(AICustomColorFlags newVal)
     return *this;
 }
 
+AIReal BtColor::Tint() const
+{
+    AIReal tintPercent = 0; //Default to 100% for kThreeColor, kGradient, kPattern, kNoneColor
+    if (Kind() == kCustomColor)
+    {
+        if (!IsPantone() && ((sAIRealMath->EqualWithinTol(AiColor().c.c.tint, 0, TOLERANCE)) &&
+                                     (AiCustomColor().kind == kCustomFourColor &&
+                                      sAIRealMath->EqualWithinTol(AiCustomColor().c.f.cyan, 0, TOLERANCE) &&
+                                      sAIRealMath->EqualWithinTol(AiCustomColor().c.f.magenta, 0, TOLERANCE) &&
+                                      sAIRealMath->EqualWithinTol(AiCustomColor().c.f.yellow, 0, TOLERANCE) &&
+                                      AiCustomColor().c.f.black > 0)))
+        {
+            tintPercent = 1 - AiCustomColor().c.f.black;
+        }
+        else
+        {
+            tintPercent = AiColor().c.c.tint;
+        }
+    }
+    else if (Kind() == kGrayColor)
+    {
+        tintPercent = 1 - AiColor().c.g.gray; //Make the rounding work out right
+    }
+    else if ((Kind() == kFourColor &&
+              sAIRealMath->EqualWithinTol(AiColor().c.f.cyan, 0, TOLERANCE) &&
+              sAIRealMath->EqualWithinTol(AiColor().c.f.magenta, 0, TOLERANCE) &&
+              sAIRealMath->EqualWithinTol(AiColor().c.f.yellow, 0, TOLERANCE) &&
+              AiColor().c.f.black > 0))
+    {
+        tintPercent = 1 - AiColor().c.f.black;
+    }
+    else if (Kind() == kNoneColor)
+    {
+        return 0;
+    }
+    
+    return sAIRealMath->AIRealMultiple(tintPercent - .005, .01, true); //TRUE will round the value up, actual tint % down
+}
+
 void BtColor::GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) const
 {
     BtAteTextFeatures textFeatures;

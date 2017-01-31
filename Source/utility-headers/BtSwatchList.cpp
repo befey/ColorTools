@@ -220,7 +220,7 @@ bool BtSwatchList::CustomColorExists(BtColor color, AIColor* outFoundColor) cons
 
 void BtSwatchList::AdjustAllColorsCallback(AIColor *color, void *userData, AIErr *result, AIBoolean *altered)
 {
-    AIReal tintPercent = GetTint(*color);
+    AIReal tintPercent = BtColor(*color).Tint();
     
     BtColor btcolor(*color);
     
@@ -292,7 +292,7 @@ std::vector<std::string> BtSwatchList::GetCurrentSwatchesAsStringVector()
         AIColor currSwatchColor;
         sAISwatchList->GetAIColor(currSwatch, &currSwatchColor);
         
-        AIReal tint = GetTint(currSwatchColor);
+        AIReal tint = BtColor(currSwatchColor).Tint();
         if (tint != 0) {
             int t = sAIRealMath->AIRealMultiple((1 - tint) * 100, 1, TRUE);
             currSwatchName.insert(0, ai::UnicodeString(std::to_string(t).append("% ")));

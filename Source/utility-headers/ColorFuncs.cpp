@@ -15,46 +15,6 @@
 #include <boost/algorithm/string.hpp>
 #include "BtColor.h"
 
-AIReal GetTint(const AIColor color)
-{
-    BtColor btcolor(color);
-    AIReal tintPercent = 0; //Default to 100% for kThreeColor, kGradient, kPattern, kNoneColor
-    if (btcolor.Kind() == kCustomColor)
-    {
-        if (!btcolor.IsPantone() && ((sAIRealMath->EqualWithinTol(btcolor.AiColor().c.c.tint, 0, TOLERANCE)) &&
-            (btcolor.AiCustomColor().kind == kCustomFourColor &&
-          sAIRealMath->EqualWithinTol(btcolor.AiCustomColor().c.f.cyan, 0, TOLERANCE) &&
-          sAIRealMath->EqualWithinTol(btcolor.AiCustomColor().c.f.magenta, 0, TOLERANCE) &&
-          sAIRealMath->EqualWithinTol(btcolor.AiCustomColor().c.f.yellow, 0, TOLERANCE) &&
-          btcolor.AiCustomColor().c.f.black > 0)))
-        {
-            tintPercent = 1 - btcolor.AiCustomColor().c.f.black;
-        }
-        else
-        {
-            tintPercent = btcolor.AiColor().c.c.tint;
-        }
-    }
-    else if (btcolor.Kind() == kGrayColor)
-    {
-        tintPercent = 1 - btcolor.AiColor().c.g.gray; //Make the rounding work out right
-    }
-    else if ((btcolor.Kind() == kFourColor &&
-              sAIRealMath->EqualWithinTol(btcolor.AiColor().c.f.cyan, 0, TOLERANCE) &&
-              sAIRealMath->EqualWithinTol(btcolor.AiColor().c.f.magenta, 0, TOLERANCE) &&
-              sAIRealMath->EqualWithinTol(btcolor.AiColor().c.f.yellow, 0, TOLERANCE) &&
-              btcolor.AiColor().c.f.black > 0))
-    {
-        tintPercent = 1 - btcolor.AiColor().c.f.black;
-    }
-    else if (btcolor.Kind() == kNoneColor)
-    {
-        return 0;
-    }
-    
-    return sAIRealMath->AIRealMultiple(tintPercent - .005, .01, true); //TRUE will round the value up, actual tint % down
-}
-
 AIColor GetColorDefinitionFromBook(string name, bool& found)
 {
     found = false;
@@ -294,7 +254,7 @@ AISwatchRef CheckSwatchListForColor( AIColor& matchColor , AIReal tolerance )
             sAISwatchList->GetAIColor(currSwatch, &currColor);
             string n1 = BtColor(matchColor).Name();
             string n2 = BtColor(currColor).Name();
-            AIBoolean TintsCloseEnough = sAIRealMath->EqualWithinTol(GetTint(currColor), GetTint(matchColor), tolerance);
+            AIBoolean TintsCloseEnough = sAIRealMath->EqualWithinTol(BtColor(currColor).Tint(), BtColor(matchColor).Tint(), tolerance);
             if (n1 == n2)
             {
                 AIBoolean ColorsSame = ColorIsEqual(currColor, matchColor, TRUE);
