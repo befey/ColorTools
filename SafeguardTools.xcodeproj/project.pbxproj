@@ -110,6 +110,10 @@
 		F98BAEE21CA9A0D100965D86 /* BtAiMenuItem.h in Headers */ = {isa = PBXBuildFile; fileRef = F98BAEE01CA9A0D100965D86 /* BtAiMenuItem.h */; };
 		F992803B1D6B723F00E7EBF2 /* SafeguardJobFileDTO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F99280391D6B723F00E7EBF2 /* SafeguardJobFileDTO.cpp */; };
 		F992803C1D6B723F00E7EBF2 /* SafeguardJobFileDTO.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F992803A1D6B723F00E7EBF2 /* SafeguardJobFileDTO.hpp */; };
+		F9A4270E1E423E1E00E05FF6 /* PrintToPdfFolderPrefs.html in Resources */ = {isa = PBXBuildFile; fileRef = F9A4270D1E423E1E00E05FF6 /* PrintToPdfFolderPrefs.html */; };
+		F9A427111E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9A4270F1E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.cpp */; };
+		F9A427121E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9A427101E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.hpp */; };
+		F9A427141E42789500E05FF6 /* PrintToPdfFolderPrefs.js in Resources */ = {isa = PBXBuildFile; fileRef = F9A427131E42789500E05FF6 /* PrintToPdfFolderPrefs.js */; };
 		F9AE0DDA1DCCDA20001F460D /* sg_Symbols.ai in CopyFiles */ = {isa = PBXBuildFile; fileRef = F9AE0DD81DCCDA1D001F460D /* sg_Symbols.ai */; };
 		F9BC95C21DEF14AC00130615 /* ColorEnumerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9BC95C01DEF14AC00130615 /* ColorEnumerator.cpp */; };
 		F9BC95C31DEF14AC00130615 /* ColorEnumerator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9BC95C11DEF14AC00130615 /* ColorEnumerator.hpp */; };
@@ -305,6 +309,10 @@
 		F98BAEE01CA9A0D100965D86 /* BtAiMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BtAiMenuItem.h; path = "Source/utility-headers/BtAiMenuItem.h"; sourceTree = "<group>"; };
 		F99280391D6B723F00E7EBF2 /* SafeguardJobFileDTO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SafeguardJobFileDTO.cpp; path = Source/PlateBleedInfo/SafeguardJobFileDTO.cpp; sourceTree = "<group>"; };
 		F992803A1D6B723F00E7EBF2 /* SafeguardJobFileDTO.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SafeguardJobFileDTO.hpp; path = Source/PlateBleedInfo/SafeguardJobFileDTO.hpp; sourceTree = "<group>"; };
+		F9A4270D1E423E1E00E05FF6 /* PrintToPdfFolderPrefs.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = PrintToPdfFolderPrefs.html; path = com.gosafeguard.SafeguardTools/PrintToPdfFolderPrefs.html; sourceTree = "<group>"; };
+		F9A4270F1E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PrintToPdfFolderPrefsUIController.cpp; path = Source/PrintToPdf/PrintToPdfFolderPrefsUIController.cpp; sourceTree = "<group>"; };
+		F9A427101E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PrintToPdfFolderPrefsUIController.hpp; path = Source/PrintToPdf/PrintToPdfFolderPrefsUIController.hpp; sourceTree = "<group>"; };
+		F9A427131E42789500E05FF6 /* PrintToPdfFolderPrefs.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = PrintToPdfFolderPrefs.js; path = com.gosafeguard.SafeguardTools/js/PrintToPdfFolderPrefs.js; sourceTree = "<group>"; };
 		F9AE0DD81DCCDA1D001F460D /* sg_Symbols.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sg_Symbols.ai; sourceTree = "<group>"; };
 		F9B3FE381D9EBC6F002E10EB /* AIArtboardMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AIArtboardMessage.h; path = "Source/utility-headers/AIArtboardMessage.h"; sourceTree = "<group>"; };
 		F9BC95C01DEF14AC00130615 /* ColorEnumerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ColorEnumerator.cpp; path = "Source/utility-headers/ColorEnumerator.cpp"; sourceTree = "<group>"; };
@@ -473,6 +481,8 @@
 		F91180761CE3B37600AA7AC8 /* PrintToPdf */ = {
 			isa = PBXGroup;
 			children = (
+				F9A4270D1E423E1E00E05FF6 /* PrintToPdfFolderPrefs.html */,
+				F9A427131E42789500E05FF6 /* PrintToPdfFolderPrefs.js */,
 				F937ABF91D551E1F006DD5C4 /* PrintToPdf.html */,
 				F937ABF21D551D72006DD5C4 /* PrintToPdf.js */,
 				F937AC011D551ED7006DD5C4 /* PrintToPdf.css */,
@@ -495,6 +505,8 @@
 				F9138E921D01EE4D00D23C1F /* PrintToPdfConstants.h */,
 				F9138E931D01EE4D00D23C1F /* PrintToPdfUIController.cpp */,
 				F9138E941D01EE4D00D23C1F /* PrintToPdfUIController.h */,
+				F9A4270F1E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.cpp */,
+				F9A427101E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.hpp */,
 				F97B56541D36B92600C10A9F /* TypeToPathsConverter.cpp */,
 				F97B56551D36B92600C10A9F /* TypeToPathsConverter.hpp */,
 			);
@@ -725,6 +737,7 @@
 				F93264D31DC8E2D40020B57A /* SgSymbolDrawer.hpp in Headers */,
 				F9CE24FB1D11A56E0075DDDF /* TextTools.h in Headers */,
 				F97B564F1D36759500C10A9F /* LayerVisibility.hpp in Headers */,
+				F9A427121E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.hpp in Headers */,
 				F91472431E3A3F4E003F2ACA /* BtArtHandle.hpp in Headers */,
 				F9BC95CB1DF1DE9700130615 /* CurrentFilenameRetriever.hpp in Headers */,
 				F9138EA01D01EE4D00D23C1F /* PrintToPdfConstants.h in Headers */,
@@ -808,7 +821,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9A427141E42789500E05FF6 /* PrintToPdfFolderPrefs.js in Resources */,
 				F96DDFB01D2D7BED0066931D /* fontlist.txt in Resources */,
+				F9A4270E1E423E1E00E05FF6 /* PrintToPdfFolderPrefs.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -876,6 +891,7 @@
 				F930DE081DDBA1EC0030B5C1 /* BleedInfoPluginArtToArtboardMatcher.cpp in Sources */,
 				F9138EA11D01EE4D00D23C1F /* PrintToPdfUIController.cpp in Sources */,
 				F9DA3B991D1C6C9300AB6156 /* FileNameDateDrawer.cpp in Sources */,
+				F9A427111E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.cpp in Sources */,
 				F934B1581CC9645A002EAB43 /* ReplaceDataBuilder.cpp in Sources */,
 				F93264D21DC8E2D40020B57A /* SgSymbolDrawer.cpp in Sources */,
 				F90DB92E1D08A25B0039CE5F /* BtAteTextFeatures.cpp in Sources */,

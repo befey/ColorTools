@@ -8,6 +8,7 @@
 
 #include "AppContext.hpp"
 #include "PrintToPdfUIController.h"
+#include "PrintToPdfFolderPrefsUIController.hpp"
 #include "SafeguardToolsPlugin.h"
 #include "SafeguardToolsSuites.h"
 #include "PdfPrinter.h"
@@ -63,6 +64,29 @@ void PrintToPdfUIController::MakePdfButtonClickedFunc (const csxs::event::Event*
     } while(false);
     return;
 }
+
+void PrintToPdfUIController::FolderPrefsHandler (const csxs::event::Event* const event, void* const context)
+{
+    PrintToPdfUIController *printToPdfUIController = (PrintToPdfUIController *)context;
+    if(NULL == printToPdfUIController || event == NULL)
+        return;
+    
+    do {
+        // Set up the application context, so that suite calls can work.
+        AppContext appContext(gPlugin->GetPluginRef());
+        
+        ai::int32 state;
+        sAICSXSExtension->GetExtensionState(PrintToPdfFolderPrefsUIController::PRINTTOPDF_FOLDERPREFS_EXTENSION, state);
+        if (state == kAICSXSExtensionRegisteredState)
+        {
+            PrintToPdfFolderPrefsUIController().LoadExtension();
+        }
+        sAICSXSExtension->LaunchExtension(PrintToPdfFolderPrefsUIController::PRINTTOPDF_FOLDERPREFS_EXTENSION);
+
+    } while(false);
+    return;
+}
+
 
 void PrintToPdfUIController::CancelButtonClickedFunc (const csxs::event::Event* const event, void* const context)
 {
@@ -132,6 +156,11 @@ csxs::event::EventErrorCode PrintToPdfUIController::RegisterCSXSEventListeners()
         {
             break;
         }
+        result =  fPPLib.AddEventListener(EVENT_TYPE_FOLDERPREFS, FolderPrefsHandler, this);
+        if (result != csxs::event::kEventErrorCode_Success)
+        {
+            break;
+        }
     }
     while(false);
     return result;
@@ -159,6 +188,11 @@ csxs::event::EventErrorCode PrintToPdfUIController::RemoveEventListeners()
             break;
         }
         result =  fPPLib.RemoveEventListener(EVENT_TYPE_NO_ARTBOARDS_SEL, NoArtboardsSelectedHandler, this);
+        if (result != csxs::event::kEventErrorCode_Success)
+        {
+            break;
+        }
+        result =  fPPLib.RemoveEventListener(EVENT_TYPE_FOLDERPREFS, FolderPrefsHandler, this);
         if (result != csxs::event::kEventErrorCode_Success)
         {
             break;

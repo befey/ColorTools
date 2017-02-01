@@ -7,11 +7,11 @@ var makePdfEvent = new CSEvent("com.gosafeguard.SafeguardTools.PrintToPdf.makepd
 
 var cancelEvent = new CSEvent("com.gosafeguard.SafeguardTools.PrintToPdf.cancelbutton", "APPLICATION", "ILST", "PrintToPdf");
 
-var resultsBackEvent = new CSEvent("com.gosafeguard.SafeguardTools.PrintToPdf.resultsback", "APPLICATION", "ILST", "PrintToPdf");
-
 var panelLoadedEvent = new CSEvent("com.gosafeguard.SafeguardTools.PrintToPdf.panelloaded", "APPLICATION", "ILST", "PrintToPdf");
 
 var noArtboardsSelectedEvent = new CSEvent("com.gosafeguard.SafeguardTools.PrintToPdf.noartboardsselected", "APPLICATION", "ILST", "PrintToPdf");
+
+var folderPrefsEvent = new CSEvent("com.gosafeguard.SafeguardTools.PrintToPdf.changefolderprefs", "APPLICATION", "ILST", "PrintToPdf");
 
 $(function()
   {
@@ -69,6 +69,11 @@ $(function()
                               ToggleArtboardPrint($(this));
                               });
   
+  $("#changeoutputfolder").on( "click", function ()
+                              {
+                              csInterface.dispatchEvent(folderPrefsEvent);
+                              return false;
+                              });
   
   csInterface.addEventListener("com.gosafeguard.SafeguardTools.PrintToPdf.resultsback", onResultsBack);
   csInterface.addEventListener("com.gosafeguard.SafeguardTools.PrintToPdf.clearresultbox", clearResultBox);

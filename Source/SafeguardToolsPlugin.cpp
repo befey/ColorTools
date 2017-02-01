@@ -151,6 +151,11 @@ ASErr SafeguardToolsPlugin::ShutdownPlugin( SPInterfaceMessage *message )
         printToPdfUIController->RemoveEventListeners();
         Plugin::LockPlugin(false);
     }
+    if (printToPdfFolderPrefsUIController)
+    {
+        printToPdfFolderPrefsUIController->RemoveEventListeners();
+        Plugin::LockPlugin(false);
+    }
     if (plateBleedInfoUIController)
     {
         plateBleedInfoUIController->RemoveEventListeners();
@@ -193,6 +198,14 @@ ASErr SafeguardToolsPlugin::PostStartupPlugin()
     if (NULL == printToPdfUIController)
     {
         printToPdfUIController = std::make_shared<PrintToPdf::PrintToPdfUIController>();
+        
+        error = Plugin::LockPlugin(true);
+        if (error) { return error; }
+    }
+    
+    if (NULL == printToPdfFolderPrefsUIController)
+    {
+        printToPdfFolderPrefsUIController = std::make_shared<PrintToPdf::PrintToPdfFolderPrefsUIController>();
         
         error = Plugin::LockPlugin(true);
         if (error) { return error; }
@@ -368,6 +381,7 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
     else if ( message->menuItem == menuItemHandles.GetHandleWithKey(PRINT_TO_PDF_MENU_ITEM) )
     {
         printToPdfUIController->LoadExtension();
+        printToPdfFolderPrefsUIController->LoadExtension();
         sAICSXSExtension->LaunchExtension(PrintToPdf::PrintToPdfUIController::PRINTTOPDF_UI_EXTENSION);
     }
     else if ( message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
@@ -465,6 +479,7 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
     {
         colorToolsUIController->RegisterCSXSEventListeners();
         printToPdfUIController->RegisterCSXSEventListeners();
+        printToPdfFolderPrefsUIController->RegisterCSXSEventListeners();
         plateBleedInfoUIController->RegisterCSXSEventListeners();
         placeFileSearchUIController->RegisterCSXSEventListeners();
     }

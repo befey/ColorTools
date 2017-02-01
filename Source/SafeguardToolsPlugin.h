@@ -9,6 +9,7 @@
 #include "SafeguardToolsID.h"
 #include "BtAiMenuItemHandles.h"
 #include "PrintToPdfUIController.h"
+#include "PrintToPdfFolderPrefsUIController.hpp"
 #include "PlateBleedInfoUIController.hpp"
 #include "PlaceFileSearchUIController.hpp"
 #include "SafeguardJobFile.h"
@@ -133,6 +134,7 @@ protected:
 private:
     shared_ptr<ColorToolsUIController> colorToolsUIController;
     shared_ptr<PrintToPdf::PrintToPdfUIController> printToPdfUIController;
+    shared_ptr<PrintToPdf::PrintToPdfFolderPrefsUIController> printToPdfFolderPrefsUIController;
     shared_ptr<PlateBleedInfo::PlateBleedInfoUIController> plateBleedInfoUIController;
     shared_ptr<PlaceFileSearch::PlaceFileSearchUIController> placeFileSearchUIController;
     
