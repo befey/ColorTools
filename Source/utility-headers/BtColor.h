@@ -89,9 +89,9 @@ public:
     bool IsNonPrinting() const;
     bool IsRegistration() const;
     
-    static BtColor GetRegistrationColor();
-    static BtColor GetBlackColor();
-    static BtColor GetWhiteColor();
+    static BtColor RegistrationColor();
+    static BtColor BlackColor();
+    static BtColor WhiteColor();
     
     friend bool operator==(const BtColor& lhs, const BtColor& rhs);
     friend bool operator!=(const BtColor& lhs, const BtColor& rhs) { return !operator==(lhs,rhs); };

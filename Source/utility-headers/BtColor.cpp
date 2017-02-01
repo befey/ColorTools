@@ -367,7 +367,7 @@ void BtColor::GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) cons
     
     if (Kind() == kNoneColor)
     {
-        textFeatures.FillColor(GetRegistrationColor());
+        textFeatures.FillColor(RegistrationColor());
         textFeatures.AddTextToRangeWithFeatures("NO IMPRINT", targetRange);
     }
     else
@@ -398,8 +398,8 @@ void BtColor::GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) cons
             c = {.kind = kFourColor, .c.f.cyan = 0, .c.f.magenta = 0, .c.f.yellow = 1, .c.f.black = 0};
             textFeatures.FillColor(c);
             textFeatures.AddTextToRangeWithFeatures("YEL" + method + "  ", targetRange);
-            textFeatures.FillColor(GetBlackColor());
-            name = BtColor(GetBlackColor()).Name() + method;
+            textFeatures.FillColor(BlackColor());
+            name = BlackColor().Name() + method;
         }
         else
         {
@@ -590,7 +590,7 @@ bool BtColor::IsNonPrinting() const
 
 bool BtColor::IsRegistration() const
 {
-    AIColor regColor = GetRegistrationColor();
+    AIColor regColor = RegistrationColor();
     if (AiColor().c.c.color == regColor.c.c.color)
     {
         return true;
@@ -598,7 +598,7 @@ bool BtColor::IsRegistration() const
     return false;
 }
 
-BtColor BtColor::GetRegistrationColor()
+BtColor BtColor::RegistrationColor()
 {
     AICustomColorHandle registrationCch;
     sAICustomColor->GetCurrentRegistrationColor(&registrationCch);
@@ -606,7 +606,7 @@ BtColor BtColor::GetRegistrationColor()
     return BtColor(registration);
 }
 
-BtColor BtColor::GetBlackColor()
+BtColor BtColor::BlackColor()
 {
     AICustomColorHandle blackCch;
     sAICustomColor->GetCustomColorByName(ai::UnicodeString(SafeguardFile::BLACK_COLOR_NAME), &blackCch);
@@ -614,7 +614,7 @@ BtColor BtColor::GetBlackColor()
     return BtColor(black);
 }
 
-BtColor BtColor::GetWhiteColor()
+BtColor BtColor::WhiteColor()
 {
     AICustomColorHandle whiteCch;
     sAICustomColor->GetCustomColorByName(ai::UnicodeString(SafeguardFile::WHITE_COLOR_NAME), &whiteCch);

@@ -115,7 +115,7 @@ void ContinuousColorListDrawer::DrawContinuousColorBlocks(AIArtHandle resultGrou
     sAIPathStyle->GetPathStyle(colorBlock, &currPathStyle);
     currPathStyle.strokePaint = false;
     currPathStyle.fillPaint = true;
-    currPathStyle.fill = { .color = BtColor::GetRegistrationColor(), .overprint = true };
+    currPathStyle.fill = { .color = BtColor::RegistrationColor(), .overprint = true };
     sAIPathStyle->SetPathStyle(colorBlock, &currPathStyle);
        
     if (colorList.size() > 0 && colorList[0].Kind() == kFourColor)
@@ -125,7 +125,7 @@ void ContinuousColorListDrawer::DrawContinuousColorBlocks(AIArtHandle resultGrou
             {.kind = kFourColor, .c.f.cyan = 1, .c.f.magenta = 0, .c.f.yellow = 0, .c.f.black = 0},
             {.kind = kFourColor, .c.f.cyan = 0, .c.f.magenta = 1, .c.f.yellow = 0, .c.f.black = 0},
             {.kind = kFourColor, .c.f.cyan = 0, .c.f.magenta = 0, .c.f.yellow = 1, .c.f.black = 0},
-            {BtColor::GetBlackColor().AiColor()}
+            {BtColor::BlackColor().AiColor()}
         };
         for (auto c : cmykColors)
         {

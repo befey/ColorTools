@@ -16,7 +16,7 @@ TickMarkSettings::TickMarkSettings()
 : TickMarkSettings(AIRealRect(), SafeguardFile::ProductType::INVAL, SafeguardFile::TickMarkStyle::NONE) {}
 
 TickMarkSettings::TickMarkSettings(const AIRealRect rect, const ProductType pt, const SafeguardFile::TickMarkStyle tms)
-: bounds(rect), color(BtColor::GetRegistrationColor())
+: bounds(rect), color(BtColor::RegistrationColor())
 {
     if (pt == ProductType::Continuous)
     {
