@@ -203,6 +203,7 @@ bool BtArtHandle::ClippedBounds(AIRealRect& result) const
 {
     bool boundsValid = false;
     BtArtHandle enclosingClipArt = GetEnclosingClipArt();
+    
     while (!enclosingClipArt.Null())
     {
         AIRealRect clipRect = enclosingClipArt.Bounds();
@@ -226,6 +227,7 @@ bool BtArtHandle::ClippedBounds(AIRealRect& result) const
             return boundsValid;
         }
     }
+    
     return boundsValid;
 }
 
@@ -263,11 +265,11 @@ BtArtHandle BtArtHandle::GetEnclosingClipArt() const
 bool BtArtHandle::OverlapsRect(AIRealRect rect) const
 {
     AIRealRect artRect;
-    if (ClippedBounds(artRect))
+    if (!ClippedBounds(artRect))
     {
-        return sAIRealMath->AIRealRectOverlap(&artRect, &rect);
+        artRect = Bounds();
     }
-    return false;
+    return sAIRealMath->AIRealRectOverlap(&artRect, &rect);
 }
 
 bool BtArtHandle::ValidArt() const
