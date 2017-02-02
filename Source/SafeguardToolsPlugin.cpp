@@ -381,7 +381,6 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
     else if ( message->menuItem == menuItemHandles.GetHandleWithKey(PRINT_TO_PDF_MENU_ITEM) )
     {
         printToPdfUIController->LoadExtension();
-        printToPdfFolderPrefsUIController->LoadExtension();
         sAICSXSExtension->LaunchExtension(PrintToPdf::PrintToPdfUIController::PRINTTOPDF_UI_EXTENSION);
     }
     else if ( message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
