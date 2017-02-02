@@ -174,6 +174,7 @@ function PutColorList(data)
                                   
                                           if (data.dto.plates[j].c.length == 0)
                                           {
+                                            jsonArtboardData.dto.plates[j].shouldPrint = false;
                                             newHtml += "<div class='colorName'>";
                                             newHtml += "NO IMPRINT";
                                             newHtml += "</div>";
