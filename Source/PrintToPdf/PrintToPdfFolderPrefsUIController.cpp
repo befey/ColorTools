@@ -160,36 +160,10 @@ string PrintToPdfFolderPrefsUIController::GetPrintToPdfFolderPrefsAsXml()
     //Format as XML string
     string xmlString;
     
-    PreferenceWriter writer(PRINTTOPDF_FOLDERPREFS_EXTENSION);
     vector<std::pair<string, ai::FilePath>> folders;
-    ai::FilePath foundPath;
-    
-    if ( writer.GetFilePathFromIdentifier(MANUFACTURING_PDF_PRESET, foundPath) )
-    {
-        folders.push_back({MANUFACTURING_PDF_PRESET, foundPath});
-    }
-    else
-    {
-        folders.push_back({MANUFACTURING_PDF_PRESET, ai::FilePath(ai::UnicodeString(PATH_TO_PLANT_MANUFACTURING))});
-    }
-    
-    if ( writer.GetFilePathFromIdentifier(REG_PROOF_PDF_PRESET, foundPath) )
-    {
-        folders.push_back({REG_PROOF_PDF_PRESET, foundPath});
-    }
-    else
-    {
-        folders.push_back({REG_PROOF_PDF_PRESET, ai::FilePath(ai::UnicodeString(PATH_TO_PDFPROOFS))});
-    }
-
-    if ( writer.GetFilePathFromIdentifier(MICR_PROOF_PDF_PRESET, foundPath) )
-    {
-        folders.push_back({MICR_PROOF_PDF_PRESET, foundPath});
-    }
-    else
-    {
-        folders.push_back({MICR_PROOF_PDF_PRESET, ai::FilePath(ai::UnicodeString(PATH_TO_PDFPROOFS))});
-    }
+    folders.push_back(MakePresetPathPair(MANUFACTURING_PDF_PRESET, PATH_TO_PLANT_MANUFACTURING));
+    folders.push_back(MakePresetPathPair(REG_PROOF_PDF_PRESET, PATH_TO_PDFPROOFS));
+    folders.push_back(MakePresetPathPair(MICR_PROOF_PDF_PRESET, PATH_TO_PDFPROOFS));
     
     xmlString.append("<root>");
     for (auto it : folders)
@@ -202,6 +176,21 @@ string PrintToPdfFolderPrefsUIController::GetPrintToPdfFolderPrefsAsXml()
     xmlString.append("</root>");
     
     return xmlString;
+}
+
+std::pair<string, ai::FilePath> PrintToPdfFolderPrefsUIController::MakePresetPathPair(string preset, string defaultPath)
+{
+    PreferenceWriter writer(PRINTTOPDF_FOLDERPREFS_EXTENSION);
+    ai::FilePath foundPath;
+    
+    if ( writer.GetFilePathFromIdentifier(preset, foundPath) )
+    {
+        return {preset, foundPath};
+    }
+    else
+    {
+        return {preset, ai::FilePath(ai::UnicodeString(defaultPath))};
+    }
 }
 
 void PrintToPdfFolderPrefsUIController::SendCloseMessageToHtml()

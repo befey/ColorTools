@@ -65,7 +65,7 @@ namespace PrintToPdf
         static constexpr auto ILST_APP =                          "ILST";
         
     private:
-        
+        std::pair<string, ai::FilePath> MakePresetPathPair(string preset, string defaultPath);
     };
 }
 
