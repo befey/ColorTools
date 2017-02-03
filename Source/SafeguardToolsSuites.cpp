@@ -5,6 +5,7 @@
 	SPBlocksSuite*			sSPBlocks = NULL;
 	AIUnicodeStringSuite*	sAIUnicodeString = NULL;
     AIMenuSuite*			sAIMenu = NULL;
+    AIPreferenceSuite*      sAIPreference = NULL;
     
     AIArtSuite*             sAIArt = NULL;
     AIGroupSuite*           sAIGroup = NULL;
@@ -70,6 +71,7 @@ ImportSuite gImportSuites[] =
 	kAIUnicodeStringSuite, kAIUnicodeStringVersion, &sAIUnicodeString,
     
     kAIMenuSuite, kAIMenuSuiteVersion, &sAIMenu,
+    kAIPreferenceSuite, kAIPreferenceSuiteVersion, &sAIPreference,
     
     kAIArtSuite, kAIArtSuiteVersion, &sAIArt,
     kAIGroupSuite, kAIGroupSuiteVersion, &sAIGroup,

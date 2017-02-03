@@ -6,6 +6,7 @@
 
 // AI suite headers
 #include "AIMenu.h"
+#include "AIPreference.h"
 
 #include "AISwatchLibraries.h"
 #include "AISwatchList.h"
@@ -58,6 +59,7 @@ extern SPBlocksSuite *sSPBlocks;
 extern AIUnicodeStringSuite*	sAIUnicodeString;
 
 extern AIMenuSuite *sAIMenu;
+extern AIPreferenceSuite *sAIPreference;
 
 extern AIArtSuite *sAIArt;
 extern AIGroupSuite *sAIGroup;

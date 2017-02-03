@@ -10,6 +10,8 @@
 #include "PrintToPdfFolderPrefsUIController.hpp"
 #include "SafeguardToolsPlugin.h"
 #include "SafeguardToolsSuites.h"
+#include "PreferenceWriter.hpp"
+#include "PrintToPdfConstants.h"
 
 using PrintToPdf::PrintToPdfFolderPrefsUIController;
 
@@ -139,17 +141,67 @@ void PrintToPdfFolderPrefsUIController::ParseData(const char* eventData)
 ASErr PrintToPdfFolderPrefsUIController::SendFolderPrefsToHtml()
 {
     AIErr error = kNoErr;
+    string folders = GetPrintToPdfFolderPrefsAsXml();
     
     csxs::event::Event event = {
         EVENT_TYPE_RESULTS_BACK,
         csxs::event::kEventScope_Application,
         ILST_APP,
         NULL,
-        ""
+        folders.c_str()
     };
     fPPLib.DispatchEvent(&event);
     
     return error;
+}
+
+string PrintToPdfFolderPrefsUIController::GetPrintToPdfFolderPrefsAsXml()
+{
+    //Format as XML string
+    string xmlString;
+    
+    PreferenceWriter writer(PRINTTOPDF_FOLDERPREFS_EXTENSION);
+    vector<std::pair<string, ai::FilePath>> folders;
+    ai::FilePath foundPath;
+    
+    if ( writer.GetFilePathFromIdentifier(MANUFACTURING_PDF_PRESET, foundPath) )
+    {
+        folders.push_back({MANUFACTURING_PDF_PRESET, foundPath});
+    }
+    else
+    {
+        folders.push_back({MANUFACTURING_PDF_PRESET, ai::FilePath(ai::UnicodeString(PATH_TO_PLANT_MANUFACTURING))});
+    }
+    
+    if ( writer.GetFilePathFromIdentifier(REG_PROOF_PDF_PRESET, foundPath) )
+    {
+        folders.push_back({REG_PROOF_PDF_PRESET, foundPath});
+    }
+    else
+    {
+        folders.push_back({REG_PROOF_PDF_PRESET, ai::FilePath(ai::UnicodeString(PATH_TO_PDFPROOFS))});
+    }
+
+    if ( writer.GetFilePathFromIdentifier(MICR_PROOF_PDF_PRESET, foundPath) )
+    {
+        folders.push_back({MICR_PROOF_PDF_PRESET, foundPath});
+    }
+    else
+    {
+        folders.push_back({MICR_PROOF_PDF_PRESET, ai::FilePath(ai::UnicodeString(PATH_TO_PDFPROOFS))});
+    }
+    
+    xmlString.append("<root>");
+    for (auto it : folders)
+    {
+        xmlString.append("<folder>");
+        xmlString.append("<preset-name>").append(it.first).append("</preset-name>");
+        xmlString.append("<path>").append(it.second.GetFullPath().getInStdString(kAIPlatformCharacterEncoding)).append("</path>");
+        xmlString.append("</folder>");
+    }
+    xmlString.append("</root>");
+    
+    return xmlString;
 }
 
 void PrintToPdfFolderPrefsUIController::SendCloseMessageToHtml()

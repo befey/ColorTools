@@ -51,6 +51,7 @@ namespace PrintToPdf
         static void CancelButtonClickedFunc (const csxs::event::Event* const event, void* const context);
         
         ASErr SendFolderPrefsToHtml();
+        string GetPrintToPdfFolderPrefsAsXml();
         void SendCloseMessageToHtml();
         
         //=================================
@@ -58,7 +59,7 @@ namespace PrintToPdf
         static constexpr auto PRINTTOPDF_FOLDERPREFS_EXTENSION =  "com.gosafeguard.SafeguardTools.PrintToPdf.FolderPrefs";
         static constexpr auto EVENT_TYPE_OK_CLICKED =             "com.gosafeguard.SafeguardTools.PrintToPdf.FolderPrefs.okbutton";
         static constexpr auto EVENT_TYPE_CANCEL_CLICKED =         "com.gosafeguard.SafeguardTools.PrintToPdf.FolderPrefs.cancelbutton";
-        static constexpr auto EVENT_TYPE_RESULTS_BACK =           "com.gosafeguard.SafeguardTools.PrintToPdf.FolderPrefs.resultsback";
+        static constexpr auto EVENT_TYPE_RESULTS_BACK =           "com.gosafeguard.SafeguardTools.PrintToPdf.FolderPrefs.datafromplugin";
         static constexpr auto EVENT_TYPE_FORCE_PANEL_CLOSE =      "com.gosafeguard.SafeguardTools.PrintToPdf.FolderPrefs.forcepanelclose";
         static constexpr auto EVENT_TYPE_PANEL_LOADED =           "com.gosafeguard.SafeguardTools.PrintToPdf.FolderPrefs.panelloaded";
         static constexpr auto ILST_APP =                          "ILST";

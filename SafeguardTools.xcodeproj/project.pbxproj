@@ -114,6 +114,8 @@
 		F9A427111E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9A4270F1E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.cpp */; };
 		F9A427121E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9A427101E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.hpp */; };
 		F9A427141E42789500E05FF6 /* PrintToPdfFolderPrefs.js in Resources */ = {isa = PBXBuildFile; fileRef = F9A427131E42789500E05FF6 /* PrintToPdfFolderPrefs.js */; };
+		F9A427181E45009D00E05FF6 /* PreferenceWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9A427161E45009D00E05FF6 /* PreferenceWriter.cpp */; };
+		F9A427191E45009D00E05FF6 /* PreferenceWriter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9A427171E45009D00E05FF6 /* PreferenceWriter.hpp */; };
 		F9AE0DDA1DCCDA20001F460D /* sg_Symbols.ai in CopyFiles */ = {isa = PBXBuildFile; fileRef = F9AE0DD81DCCDA1D001F460D /* sg_Symbols.ai */; };
 		F9BC95C21DEF14AC00130615 /* ColorEnumerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9BC95C01DEF14AC00130615 /* ColorEnumerator.cpp */; };
 		F9BC95C31DEF14AC00130615 /* ColorEnumerator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9BC95C11DEF14AC00130615 /* ColorEnumerator.hpp */; };
@@ -313,6 +315,8 @@
 		F9A4270F1E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PrintToPdfFolderPrefsUIController.cpp; path = Source/PrintToPdf/PrintToPdfFolderPrefsUIController.cpp; sourceTree = "<group>"; };
 		F9A427101E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PrintToPdfFolderPrefsUIController.hpp; path = Source/PrintToPdf/PrintToPdfFolderPrefsUIController.hpp; sourceTree = "<group>"; };
 		F9A427131E42789500E05FF6 /* PrintToPdfFolderPrefs.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = PrintToPdfFolderPrefs.js; path = com.gosafeguard.SafeguardTools/js/PrintToPdfFolderPrefs.js; sourceTree = "<group>"; };
+		F9A427161E45009D00E05FF6 /* PreferenceWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PreferenceWriter.cpp; path = Source/PreferenceWriter/PreferenceWriter.cpp; sourceTree = "<group>"; };
+		F9A427171E45009D00E05FF6 /* PreferenceWriter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PreferenceWriter.hpp; path = Source/PreferenceWriter/PreferenceWriter.hpp; sourceTree = "<group>"; };
 		F9AE0DD81DCCDA1D001F460D /* sg_Symbols.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sg_Symbols.ai; sourceTree = "<group>"; };
 		F9B3FE381D9EBC6F002E10EB /* AIArtboardMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AIArtboardMessage.h; path = "Source/utility-headers/AIArtboardMessage.h"; sourceTree = "<group>"; };
 		F9BC95C01DEF14AC00130615 /* ColorEnumerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ColorEnumerator.cpp; path = "Source/utility-headers/ColorEnumerator.cpp"; sourceTree = "<group>"; };
@@ -399,6 +403,7 @@
 				F965B58B1D10714B00B0C04C /* ListFonts */,
 				F9779FA41E27E631000FA1FF /* PlaceFileSearch */,
 				F9158D571D073E4E00343D57 /* PlateBleedInfo */,
+				F9A427151E45006D00E05FF6 /* PreferenceWriter */,
 				F91180761CE3B37600AA7AC8 /* PrintToPdf */,
 				F90560601D357B8B0084AB31 /* SafeguardFile */,
 				F91180771CE3B3D100AA7AC8 /* TextTools */,
@@ -690,6 +695,15 @@
 			name = "My Headers";
 			sourceTree = "<group>";
 		};
+		F9A427151E45006D00E05FF6 /* PreferenceWriter */ = {
+			isa = PBXGroup;
+			children = (
+				F9A427161E45009D00E05FF6 /* PreferenceWriter.cpp */,
+				F9A427171E45009D00E05FF6 /* PreferenceWriter.hpp */,
+			);
+			name = PreferenceWriter;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -701,6 +715,7 @@
 				F9138E9F1D01EE4D00D23C1F /* PdfPrinter.h in Headers */,
 				F989A8ED1CA460CE0050C071 /* FixBlack.h in Headers */,
 				F9158D521D05EC4700343D57 /* PathBuilder.h in Headers */,
+				F9A427191E45009D00E05FF6 /* PreferenceWriter.hpp in Headers */,
 				F9F1EB6C1D1B19AF0051B716 /* ColorList.h in Headers */,
 				F9C44EF11D0AF26100205ADF /* Plate.h in Headers */,
 				F992803C1D6B723F00E7EBF2 /* SafeguardJobFileDTO.hpp in Headers */,
@@ -845,6 +860,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9A427181E45009D00E05FF6 /* PreferenceWriter.cpp in Sources */,
 				F937ABE81D5241EB006DD5C4 /* PlateBleedInfoUIController.cpp in Sources */,
 				F989A8F11CA465890050C071 /* IText.cpp in Sources */,
 				F9BC95C61DF1D68500130615 /* TokenCreator.cpp in Sources */,

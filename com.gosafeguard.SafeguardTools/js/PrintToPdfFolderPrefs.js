@@ -11,7 +11,6 @@ $(function()
   {
   csInterface.setWindowTitle("Set output folder preferences:");
   
-  csInterface.addEventListener("com.gosafeguard.SafeguardTools.PrintToPdf.FolderPrefs.resultsback", onResultsBack);
   csInterface.addEventListener("com.gosafeguard.SafeguardTools.PrintToPdf.FolderPrefs.forcepanelclose",
                                function(event)
                                {
@@ -25,14 +24,23 @@ $(function()
 
 function ReceiveDataFromPlugin(event)
 {
-    jsonArtboardData = event.data;
+    var xmlData = $.parseXML(event.data);
+    var $xml = $(xmlData);
     
-    jsonArtboardData.dto.plates.forEach(function(element, index, array)
-                                        {
-                                        storedArtboardPrint[index] = element.shouldPrint;
-                                        });
-    
-    PutColorList(jsonArtboardData);
+    $xml.find("folder").each( function(index, element)
+                             {
+                             $("#folderprefs-textarea").html(function()
+                                                           {
+                                                           var newHtml = $("#folderprefs-textarea").html();
+                                                           
+                                                           newHtml += "<div class='folder'>";
+                                                           newHtml += $(element).find("preset-name").text();
+                                                           newHtml += "<br />";
+                                                           newHtml += $(element).find("path").text();
+                                                           newHtml += "</div>";
+                                                           return newHtml;
+                                                           });
+                             });
 }
 
 function SendFoldersToPlugin()
@@ -47,22 +55,4 @@ function SendFoldersToPlugin()
     };
     makePdfEvent.data = JSON.stringify(data);
     csInterface.dispatchEvent(makePdfEvent);
-}
-
-function onResultsBack(event)
-{
-    var xmlData = $.parseXML(event.data);
-    var $xml = $(xmlData);
-    
-    $xml.find("delete").each( function(index)
-                             {
-                             $("#results-textarea").append("<div class='deleted'> - " + this.textContent + "</div><br />"); //.addClass("deleted");
-                             });
-    $("#results-textarea").append("-----<br />")
-    $xml.find("create").each( function(index)
-                             {
-                             $("#results-textarea").append("<div class='created'> + " + this.textContent + "</div><br />"); //.addClass("created");
-                             });
-    
-    $("#cancel-button").focus();
 }
