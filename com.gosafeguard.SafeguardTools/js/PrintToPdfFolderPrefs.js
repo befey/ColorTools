@@ -7,6 +7,8 @@ var cancelEvent = new CSEvent("com.gosafeguard.SafeguardTools.PrintToPdf.FolderP
 
 var panelLoadedEvent = new CSEvent("com.gosafeguard.SafeguardTools.PrintToPdf.FolderPrefs.panelloaded", "APPLICATION", "ILST", "PrintToPdf");
 
+var changeFolderEvent = new CSEvent("com.gosafeguard.SafeguardTools.PrintToPdf.FolderPrefs.changefolder", "APPLICATION", "ILST", "PrintToPdf");
+
 $(function()
   {
   csInterface.setWindowTitle("Set output folder preferences:");
@@ -17,6 +19,12 @@ $(function()
                                csInterface.closeExtension();
                                });
   csInterface.addEventListener("com.gosafeguard.SafeguardTools.PrintToPdf.FolderPrefs.datafromplugin", ReceiveDataFromPlugin);
+  csInterface.addEventListener("com.gosafeguard.SafeguardTools.PrintToPdf.FolderPrefs.folderfromplugin", FolderFromPlugin);
+  
+  $("#folderprefs-textarea").on( "click", ".folder", function()
+                              {
+                              ChangeFolderPref($(this));
+                              });
   
   csInterface.dispatchEvent(panelLoadedEvent);
   }
@@ -33,19 +41,34 @@ function ReceiveDataFromPlugin(event)
                                                            {
                                                            var newHtml = $("#folderprefs-textarea").html();
                                                            
-                                                           newHtml += "<div class='folder'>";
-                                                           newHtml += $(element).find("preset-name").text();
-                                                           newHtml += "<br />";
-                                                           newHtml += $(element).find("path").text();
+                                                           newHtml += "<div class='feedback-box folder'>";
+                                                           newHtml += "<div class='preset-name'>" + $(element).find("preset-name").text() + "</div>";
+                                                           newHtml += "<div class='path'>" + $(element).find("path").text() + "</div>";
                                                            newHtml += "</div>";
                                                            return newHtml;
                                                            });
                              });
 }
 
+function FolderFromPlugin(event)
+{
+    var xmlData = $.parseXML(event.data);
+    var $xml = $(xmlData);
+    var presetname = $xml.find("folder").find("preset-name").text();
+    var path = $xml.find("folder").find("path").text();
+    
+    $("#folderprefs-textarea").find(".preset-name").each( function(index, element)
+                                                         {
+                                                            if ($(element).text() == presetname)
+                                                            {
+                                                                $(element).siblings(".path").html(path);
+                                                            }
+                                                         });
+}
+
+
 function SendFoldersToPlugin()
 {
-    
     var data = {
         "preset-select"			:	parseInt($("#preset-select").val(), 10),
         "separatefiles-check"	:	$("#separatefiles-check").is(':checked'),
@@ -55,4 +78,14 @@ function SendFoldersToPlugin()
     };
     makePdfEvent.data = JSON.stringify(data);
     csInterface.dispatchEvent(makePdfEvent);
+}
+
+function ChangeFolderPref(folderDiv)
+{
+    var data = {
+        "preset-name" : folderDiv.find(".preset-name").text(),
+        "path" : folderDiv.find(".path").text()
+    };
+    changeFolderEvent.data = JSON.stringify(data);
+    csInterface.dispatchEvent(changeFolderEvent);
 }

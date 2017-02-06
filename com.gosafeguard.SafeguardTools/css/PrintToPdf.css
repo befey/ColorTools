@@ -11,13 +11,16 @@
     height: 25em;
 }
 
-.artboard-colors {
+.feedback-box {
     display: inline-block;
     width: 97%;
     border: 1px dashed darkgreen;
     padding: 1%;
     margin: 1px;
     position: relative;
+}
+
+.artboard-colors {
     background: #f3ffe6;
 }
 

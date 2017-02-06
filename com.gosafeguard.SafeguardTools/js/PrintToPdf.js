@@ -163,7 +163,7 @@ function PutColorList(data)
 
                                       for (var j = 0; j < data.dto.plates.length; j++)
                                       {
-                                          newHtml += "<div class='artboard-colors";
+                                          newHtml += "<div class='feedback-box artboard-colors";
                                           if (jsonArtboardData.dto.plates[j].shouldPrint == false ||
                                               data.dto.plates[j].c.length == 0)
                                           {

@@ -13,6 +13,8 @@
 #include "PreferenceWriter.hpp"
 #include "PrintToPdfConstants.h"
 
+#include "cereal/external/rapidjson/document.h"
+
 using PrintToPdf::PrintToPdfFolderPrefsUIController;
 
 void PrintToPdfFolderPrefsUIController::PanelLoaded (const csxs::event::Event* const event, void* const context)
@@ -67,6 +69,36 @@ void PrintToPdfFolderPrefsUIController::CancelButtonClickedFunc (const csxs::eve
     return;
 }
 
+void PrintToPdfFolderPrefsUIController::ChangeFolderFunc (const csxs::event::Event* const event, void* const context)
+{
+    PrintToPdfFolderPrefsUIController *printToPdfFolderPrefsUIController = (PrintToPdfFolderPrefsUIController *)context;
+    if(NULL == printToPdfFolderPrefsUIController || event == NULL)
+        return;
+    
+    do {
+        // Set up the application context, so that suite calls can work.
+        AppContext appContext(gPlugin->GetPluginRef());
+
+        using namespace rapidjson;
+        
+        Document d;
+        d.Parse(event->data);
+        
+        Value& v = d[PrintToPdfFolderPrefsUIController::CHG_FOLDER_PRESET_NAME];
+        string presetname = (v.GetString());
+        
+        v = d[PrintToPdfFolderPrefsUIController::CHG_FOLDER_PATH];
+        string path = (v.GetString());
+        
+        ai::FilePath aiPath = ChooseNewFolder(path);
+        
+        printToPdfFolderPrefsUIController->SendNewPathToDialog(presetname, aiPath);
+        
+        // Clean up the application context and return.
+    } while(false);
+    return;
+}
+
 PrintToPdfFolderPrefsUIController::PrintToPdfFolderPrefsUIController(void)
 : FlashUIController(PRINTTOPDF_FOLDERPREFS_EXTENSION)
 {
@@ -94,6 +126,11 @@ csxs::event::EventErrorCode PrintToPdfFolderPrefsUIController::RegisterCSXSEvent
         {
             break;
         }
+        result =  fPPLib.AddEventListener(EVENT_TYPE_CHANGE_FOLDER, ChangeFolderFunc, this);
+        if (result != csxs::event::kEventErrorCode_Success)
+        {
+            break;
+        }
     }
     while(false);
     return result;
@@ -116,6 +153,11 @@ csxs::event::EventErrorCode PrintToPdfFolderPrefsUIController::RemoveEventListen
             break;
         }
         result =  fPPLib.RemoveEventListener(EVENT_TYPE_PANEL_LOADED, PanelLoaded, this);
+        if (result != csxs::event::kEventErrorCode_Success)
+        {
+            break;
+        }
+        result =  fPPLib.RemoveEventListener(EVENT_TYPE_CHANGE_FOLDER, ChangeFolderFunc, this);
         if (result != csxs::event::kEventErrorCode_Success)
         {
             break;
@@ -161,9 +203,9 @@ string PrintToPdfFolderPrefsUIController::GetPrintToPdfFolderPrefsAsXml()
     string xmlString;
     
     vector<std::pair<string, ai::FilePath>> folders;
-    folders.push_back(MakePresetPathPair(MANUFACTURING_PDF_PRESET, PATH_TO_PLANT_MANUFACTURING));
-    folders.push_back(MakePresetPathPair(REG_PROOF_PDF_PRESET, PATH_TO_PDFPROOFS));
-    folders.push_back(MakePresetPathPair(MICR_PROOF_PDF_PRESET, PATH_TO_PDFPROOFS));
+    folders.push_back(LoadPresetFromPrefs(MANUFACTURING_PDF_PRESET, PATH_TO_PLANT_MANUFACTURING));
+    folders.push_back(LoadPresetFromPrefs(REG_PROOF_PDF_PRESET, PATH_TO_PDFPROOFS));
+    folders.push_back(LoadPresetFromPrefs(MICR_PROOF_PDF_PRESET, PATH_TO_PDFPROOFS));
     
     xmlString.append("<root>");
     for (auto it : folders)
@@ -178,7 +220,7 @@ string PrintToPdfFolderPrefsUIController::GetPrintToPdfFolderPrefsAsXml()
     return xmlString;
 }
 
-std::pair<string, ai::FilePath> PrintToPdfFolderPrefsUIController::MakePresetPathPair(string preset, string defaultPath)
+std::pair<string, ai::FilePath> PrintToPdfFolderPrefsUIController::LoadPresetFromPrefs(string preset, string defaultPath)
 {
     PreferenceWriter writer(PRINTTOPDF_FOLDERPREFS_EXTENSION);
     ai::FilePath foundPath;
@@ -193,6 +235,12 @@ std::pair<string, ai::FilePath> PrintToPdfFolderPrefsUIController::MakePresetPat
     }
 }
 
+bool PrintToPdfFolderPrefsUIController::SaveNewPathForPreset(string preset, ai::FilePath newPath)
+{
+    PreferenceWriter writer(PRINTTOPDF_FOLDERPREFS_EXTENSION);
+    return writer.SetFilePathForIdentifier(preset, newPath);
+}
+
 void PrintToPdfFolderPrefsUIController::SendCloseMessageToHtml()
 {
     csxs::event::Event event = {
@@ -201,6 +249,35 @@ void PrintToPdfFolderPrefsUIController::SendCloseMessageToHtml()
         ILST_APP,
         NULL,
         NULL
+    };
+    fPPLib.DispatchEvent(&event);
+}
+
+ai::FilePath PrintToPdfFolderPrefsUIController::ChooseNewFolder(string path)
+{
+    ai::FilePath aiPath((ai::UnicodeString)path);
+    
+    sAIUser->GetDirectoryDialog(ai::UnicodeString("Choose new output folder"), aiPath);
+    
+    return aiPath;
+}
+
+void PrintToPdfFolderPrefsUIController::SendNewPathToDialog(string preset, ai::FilePath aiPath)
+{
+    string xmlString;
+    xmlString.append("<root>");
+    xmlString.append("<folder>");
+    xmlString.append("<preset-name>").append(preset).append("</preset-name>");
+    xmlString.append("<path>").append(aiPath.GetFullPath().getInStdString(kAIPlatformCharacterEncoding)).append("</path>");
+    xmlString.append("</folder>");
+    xmlString.append("</root>");
+    
+    csxs::event::Event event = {
+        EVENT_TYPE_FOLDER_BACK,
+        csxs::event::kEventScope_Application,
+        ILST_APP,
+        NULL,
+        xmlString.c_str()
     };
     fPPLib.DispatchEvent(&event);
 }
