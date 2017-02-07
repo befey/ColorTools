@@ -59,7 +59,6 @@ namespace PrintToPdf
         
         //=================================
         // Constant definitions
-        static constexpr auto PRINTTOPDF_FOLDERPREFS_EXTENSION =  "com.gosafeguard.SafeguardTools.PrintToPdf.FolderPrefs";
         static constexpr auto EVENT_TYPE_OK_CLICKED =             "com.gosafeguard.SafeguardTools.PrintToPdf.FolderPrefs.okbutton";
         static constexpr auto EVENT_TYPE_CANCEL_CLICKED =         "com.gosafeguard.SafeguardTools.PrintToPdf.FolderPrefs.cancelbutton";
         static constexpr auto EVENT_TYPE_RESULTS_BACK =           "com.gosafeguard.SafeguardTools.PrintToPdf.FolderPrefs.datafromplugin";

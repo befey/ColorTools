@@ -11,6 +11,8 @@
 
 namespace PrintToPdf
 {
+    static constexpr auto PRINTTOPDF_FOLDERPREFS_EXTENSION =  "com.gosafeguard.SafeguardTools.PrintToPdf.FolderPrefs";
+    
     static constexpr auto MANUFACTURING_PDF_PRESET =        "Manufacturing";
     static constexpr auto REG_PROOF_PDF_PRESET =            "Proof";
     static constexpr auto MICR_PROOF_PDF_PRESET =           "MICR";
