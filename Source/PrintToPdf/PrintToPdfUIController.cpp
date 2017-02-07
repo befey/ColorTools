@@ -76,12 +76,12 @@ void PrintToPdfUIController::FolderPrefsHandler (const csxs::event::Event* const
         AppContext appContext(gPlugin->GetPluginRef());
         
         ai::int32 state;
-        sAICSXSExtension->GetExtensionState(PrintToPdfFolderPrefsUIController::PRINTTOPDF_FOLDERPREFS_EXTENSION, state);
+        sAICSXSExtension->GetExtensionState(PRINTTOPDF_FOLDERPREFS_EXTENSION, state);
         if (state == kAICSXSExtensionRegisteredState)
         {
             PrintToPdfFolderPrefsUIController().LoadExtension();
         }
-        sAICSXSExtension->LaunchExtension(PrintToPdfFolderPrefsUIController::PRINTTOPDF_FOLDERPREFS_EXTENSION);
+        sAICSXSExtension->LaunchExtension(PRINTTOPDF_FOLDERPREFS_EXTENSION);
 
     } while(false);
     return;
