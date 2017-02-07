@@ -69,15 +69,14 @@ function FolderFromPlugin(event)
 
 function SendFoldersToPlugin()
 {
-    var data = {
-        "preset-select"			:	parseInt($("#preset-select").val(), 10),
-        "separatefiles-check"	:	$("#separatefiles-check").is(':checked'),
-        "useroutputfolder-check":	$("#useroutputfolder-check").is(':checked'),
-        "donotdelete-check"     :	$("#donotdelete-check").is(':checked'),
-        "dto"                   :   JSON.stringify(jsonArtboardData)
-    };
-    makePdfEvent.data = JSON.stringify(data);
-    csInterface.dispatchEvent(makePdfEvent);
+    var data = [];
+ 
+    $("#folderprefs-textarea").find(".folder").each( function(index, element)
+                                                    {
+                                                    data.push( [ $(element).find(".preset-name").text(), $(element).find(".path").text() ] );
+                                                    });
+    okEvent.data = JSON.stringify(data);
+    csInterface.dispatchEvent(okEvent);
 }
 
 function ChangeFolderPref(folderDiv)

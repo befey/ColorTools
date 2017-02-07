@@ -74,6 +74,7 @@ namespace PrintToPdf
         
     private:
         std::pair<string, ai::FilePath> LoadPresetFromPrefs(string preset, string defaultPath);
+        void StoreFoldersInPrefs(vector<std::pair<string, ai::FilePath>> folders);
         bool SaveNewPathForPreset(string preset, ai::FilePath newPath);
         
         static ai::FilePath ChooseNewFolder(string path);

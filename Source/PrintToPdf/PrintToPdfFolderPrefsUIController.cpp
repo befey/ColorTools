@@ -46,7 +46,20 @@ void PrintToPdfFolderPrefsUIController::OkButtonClickedFunc (const csxs::event::
         // Set up the application context, so that suite calls can work.
         AppContext appContext(gPlugin->GetPluginRef());
         
+        vector<std::pair<string, ai::FilePath>> folders;
         
+        using namespace rapidjson;
+        
+        Document d;
+        d.Parse(event->data);
+        
+        for ( auto& folder : d.GetArray() )
+        {
+            auto f = folder.GetArray();
+            folders.push_back({f[0].GetString(), ai::FilePath(ai::UnicodeString(f[1].GetString()))});
+        }
+        
+        printToPdfFolderPrefsUIController->StoreFoldersInPrefs(folders);
         
         } while(false);
     return;
@@ -83,7 +96,7 @@ void PrintToPdfFolderPrefsUIController::ChangeFolderFunc (const csxs::event::Eve
         
         Document d;
         d.Parse(event->data);
-        
+
         Value& v = d[PrintToPdfFolderPrefsUIController::CHG_FOLDER_PRESET_NAME];
         string presetname = (v.GetString());
         
@@ -232,6 +245,14 @@ std::pair<string, ai::FilePath> PrintToPdfFolderPrefsUIController::LoadPresetFro
     else
     {
         return {preset, ai::FilePath(ai::UnicodeString(defaultPath))};
+    }
+}
+
+void PrintToPdfFolderPrefsUIController::StoreFoldersInPrefs(vector<std::pair<string, ai::FilePath>> folders)
+{
+    for ( auto folder : folders )
+    {
+        SaveNewPathForPreset(folder.first, folder.second);
     }
 }
 
