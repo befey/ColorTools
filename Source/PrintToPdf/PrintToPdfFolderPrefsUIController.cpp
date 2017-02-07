@@ -60,6 +60,7 @@ void PrintToPdfFolderPrefsUIController::OkButtonClickedFunc (const csxs::event::
         }
         
         printToPdfFolderPrefsUIController->StoreFoldersInPrefs(folders);
+        printToPdfFolderPrefsUIController->SendCloseMessageToHtml();
         
         } while(false);
     return;
