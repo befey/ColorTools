@@ -447,7 +447,7 @@ AIBoolean DictionaryWriter::AddVectorOfBtColorToDictionary(vector<BtColor> color
             sAIEntry->Release(newEntry);
         }
         
-        if (c.AiCustomColorHandle())
+        if (c.Kind() == kCustomColor)
         {
             newEntry = sAIEntry->FromCustomColor(c.AiCustomColorHandle());
             if (newEntry)

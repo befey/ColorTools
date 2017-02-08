@@ -235,6 +235,7 @@ BtColor& BtColor::AiCustomColorHandle(AICustomColorHandle newVal)
         
         aiCustomColorHandle = newVal;
         sAICustomColor->GetCustomColor(aiCustomColorHandle, &aiCustomColor);
+        aiColor.c.c.color = aiCustomColorHandle;
     }
     
     return *this;
