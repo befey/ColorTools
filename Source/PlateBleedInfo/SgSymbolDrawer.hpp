@@ -32,14 +32,16 @@ extern AIPathStyleSuite* sAIPathStyle;
 
 struct SgSymbolDrawerSettings
 {
-    SgSymbolDrawerSettings(AIRealRect artboardBounds, string symbolName, bool shouldDraw) :
+    SgSymbolDrawerSettings(AIRealRect artboardBounds, string symbolName, bool shouldDraw, bool shouldDrawBleedInfo) :
     artboardBounds(artboardBounds),
     symbolName(symbolName),
-    shouldDraw(shouldDraw) {};
+    shouldDraw(shouldDraw),
+    shouldDrawBleedInfo(shouldDrawBleedInfo) {};
     
     AIRealRect artboardBounds;
     string symbolName;
     bool shouldDraw;
+    bool shouldDrawBleedInfo;
 };
 
 constexpr auto SGSYMBOL_ARTHANDLE =            "__bt_sgsymbol_arthandle__";
@@ -99,6 +101,11 @@ class DrawerFactoryImpl<SgSymbolDrawerSettings>
 public:
     static shared_ptr<IDrawer> GetDrawer(SgSymbolDrawerSettings settings)
     {
+        if (!settings.shouldDrawBleedInfo)
+        {
+            return make_shared<NoneSgSymbolDrawer>(settings.symbolName);
+        }
+        
         if (settings.shouldDraw)
         {
             AIRealRect abBounds = settings.artboardBounds;

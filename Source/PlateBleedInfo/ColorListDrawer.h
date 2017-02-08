@@ -19,14 +19,16 @@ extern AIPluginGroupSuite* sAIPluginGroup;
 
 struct ColorListDrawerSettings
 {
-    ColorListDrawerSettings(SafeguardFile::ProductType pt, AIRealRect artboardBounds, ColorList colorList) :
+    ColorListDrawerSettings(SafeguardFile::ProductType pt, AIRealRect artboardBounds, ColorList colorList, bool shouldDrawBleedInfo) :
     pt(pt),
     artboardBounds(artboardBounds),
-    colorList(colorList) {};
+    colorList(colorList),
+    shouldDrawBleedInfo(shouldDrawBleedInfo) {};
     
     SafeguardFile::ProductType pt;
     AIRealRect artboardBounds;
     ColorList colorList;
+    bool shouldDrawBleedInfo;
 };
 
 constexpr auto COLORLIST_ARTHANDLE =            "__bt_colorlist_arthandle__";
@@ -125,6 +127,11 @@ class DrawerFactoryImpl<ColorListDrawerSettings>
 public:
     static shared_ptr<IDrawer> GetDrawer(ColorListDrawerSettings settings)
     {
+        if (!settings.shouldDrawBleedInfo)
+        {
+            return make_shared<SafeguardFile::NoneColorListDrawer>();
+        }
+        
         if (settings.pt == SafeguardFile::ProductType::BusinessStat)
         {
             return make_shared<SafeguardFile::BusStatColorListDrawer>(settings.artboardBounds, settings.colorList);

@@ -17,18 +17,20 @@
 
 struct FileNameDateDrawerSettings
 {
-    FileNameDateDrawerSettings(SafeguardFile::ProductType pt, AIRealRect artboardBounds, SafeguardFile::PlateNumber plateNumber, string token, tm lastModified) :
+    FileNameDateDrawerSettings(SafeguardFile::ProductType pt, AIRealRect artboardBounds, SafeguardFile::PlateNumber plateNumber, string token, tm lastModified, bool shouldDrawBleedInfo) :
     pt(pt),
     artboardBounds(artboardBounds),
     plateNumber(plateNumber),
     token(token),
-    lastModified(lastModified) {};
+    lastModified(lastModified),
+    shouldDrawBleedInfo(shouldDrawBleedInfo) {};
     
     SafeguardFile::ProductType pt;
     AIRealRect artboardBounds;
     SafeguardFile::PlateNumber plateNumber;
     string token;
     tm lastModified;
+    bool shouldDrawBleedInfo;
 };
 
 constexpr auto FILENAMEDATE_ARTHANDLE =            "__bt_filenamedate_arthandle__";
@@ -113,6 +115,11 @@ class DrawerFactoryImpl<FileNameDateDrawerSettings>
 public:
     static shared_ptr<IDrawer> GetDrawer(FileNameDateDrawerSettings settings)
     {
+        if (!settings.shouldDrawBleedInfo)
+        {
+            return make_shared<SafeguardFile::NoneFileNameDateDrawer>();
+        }
+        
         if (settings.pt == SafeguardFile::ProductType::BusinessStat)
         {
             return make_shared<SafeguardFile::BusStatFileNameDateDrawer>(settings.artboardBounds, settings.plateNumber, settings.token, settings.lastModified);

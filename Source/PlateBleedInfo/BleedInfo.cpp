@@ -28,17 +28,6 @@ BleedInfo::BleedInfo(ai::ArtboardID artboardIndex, const PlateBleedInfo::PlateDT
 artboardIndex(artboardIndex),
 colorList(ArtboardBounds())
 {
-    SetPlateNumber();
-    
-    if (plateNumber.GetProductType() == SafeguardFile::CutSheet && colorList.HasCMYK())
-    {
-        shouldAddCMYKBlocks = true;
-    }
-    
-    SetShouldPrint();
-    
-    tmSettings = SafeguardFile::TickMarkSettings(ArtboardBounds(), plateNumber.GetProductType(), SafeguardFile::TickMarkStyle::NONE);
-    
     bleedInfoPluginArt = PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().GetArt(artboardIndex);
     
     if (dto != NULL)
@@ -49,6 +38,17 @@ colorList(ArtboardBounds())
     {
         ReadFromPluginArt();
     }
+    
+    SetPlateNumber();
+    
+    if (plateNumber.GetProductType() == SafeguardFile::CutSheet && colorList.HasCMYK())
+    {
+        shouldAddCMYKBlocks = true;
+    }
+    
+    SetShouldPrint();
+    
+    tmSettings = SafeguardFile::TickMarkSettings(ArtboardBounds(), plateNumber.GetProductType(), SafeguardFile::TickMarkStyle::NONE, shouldDrawBleedInfo);
 }
 
 BleedInfo::~BleedInfo()

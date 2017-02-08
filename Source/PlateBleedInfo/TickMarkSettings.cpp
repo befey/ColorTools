@@ -13,10 +13,13 @@
 using SafeguardFile::TickMarkSettings;
 
 TickMarkSettings::TickMarkSettings()
-: TickMarkSettings(AIRealRect(), SafeguardFile::ProductType::INVAL, SafeguardFile::TickMarkStyle::NONE) {}
+: TickMarkSettings(AIRealRect(), SafeguardFile::ProductType::INVAL, SafeguardFile::TickMarkStyle::NONE, true) {}
 
-TickMarkSettings::TickMarkSettings(const AIRealRect rect, const ProductType pt, const SafeguardFile::TickMarkStyle tms)
-: bounds(rect), color(BtColor::RegistrationColor())
+TickMarkSettings::TickMarkSettings(const AIRealRect rect, const ProductType pt, const SafeguardFile::TickMarkStyle tms, const bool shouldDrawBleedInfo)
+:
+bounds(rect),
+color(BtColor::RegistrationColor()),
+shouldDrawBleedInfo(shouldDrawBleedInfo)
 {
     if (pt == ProductType::Continuous)
     {

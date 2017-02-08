@@ -24,32 +24,25 @@ bleedInfo(bleedInfo)
     
     SafeguardFile::ProductType pt = bleedInfo.PlateNumber().GetProductType();
     
-    drawables.push_back(DrawableFactory().GetDrawable( FileNameDateDrawerSettings(pt, bleedInfo.ArtboardBounds(), bleedInfo.PlateNumber(), bleedInfo.Token(), bleedInfo.LastModified()), bleedInfo.BleedInfoPluginArtHandle()) );
+    drawables.push_back(DrawableFactory().GetDrawable( FileNameDateDrawerSettings(pt, bleedInfo.ArtboardBounds(), bleedInfo.PlateNumber(), bleedInfo.Token(), bleedInfo.LastModified(), bleedInfo.ShouldDrawBleedInfo()), bleedInfo.BleedInfoPluginArtHandle()) );
     
-    drawables.push_back(DrawableFactory().GetDrawable( ColorListDrawerSettings(pt, bleedInfo.ArtboardBounds(), bleedInfo.ColorList()), bleedInfo.BleedInfoPluginArtHandle()) );
+    drawables.push_back(DrawableFactory().GetDrawable( ColorListDrawerSettings(pt, bleedInfo.ArtboardBounds(), bleedInfo.ColorList(), bleedInfo.ShouldDrawBleedInfo()), bleedInfo.BleedInfoPluginArtHandle()) );
     
-    drawables.push_back(DrawableFactory().GetDrawable( SgSymbolDrawerSettings(bleedInfo.ArtboardBounds(), SafeguardFile::AI_CMYK_BLOCKS, bleedInfo.ShouldAddCmykBlocks()), bleedInfo.BleedInfoPluginArtHandle()) );
+    drawables.push_back(DrawableFactory().GetDrawable( SgSymbolDrawerSettings(bleedInfo.ArtboardBounds(), SafeguardFile::AI_CMYK_BLOCKS, bleedInfo.ShouldAddCmykBlocks(), bleedInfo.ShouldDrawBleedInfo()), bleedInfo.BleedInfoPluginArtHandle()) );
     
     bool shouldDrawContReg = bleedInfo.PlateNumber().GetProductType() == SafeguardFile::Continuous;
-    drawables.push_back(DrawableFactory().GetDrawable( SgSymbolDrawerSettings(bleedInfo.ArtboardBounds(), SafeguardFile::AI_CONTINUOUS_REG_TARGET, shouldDrawContReg), bleedInfo.BleedInfoPluginArtHandle()) );
+    drawables.push_back(DrawableFactory().GetDrawable( SgSymbolDrawerSettings(bleedInfo.ArtboardBounds(), SafeguardFile::AI_CONTINUOUS_REG_TARGET, shouldDrawContReg, bleedInfo.ShouldDrawBleedInfo()), bleedInfo.BleedInfoPluginArtHandle()) );
 }
 
 AIArtHandle BleedInfoDrawableController::Draw() const
 {
-    if (bleedInfo.ShouldDrawBleedInfo())
+    if (bleedInfo.BleedInfoPluginArtHandle())
     {
-        if (bleedInfo.BleedInfoPluginArtHandle())
-        {
-             return Update(bleedInfo.BleedInfoPluginArtHandle());
-        }
-        else
-        {
-            return Add();
-        }
+        return Update(bleedInfo.BleedInfoPluginArtHandle());
     }
     else
     {
-        return Remove();
+        return Add();
     }
 }
 

@@ -173,42 +173,44 @@ void ContinuousColorListDrawer::DrawContinuousColorBlocks(AIArtHandle resultGrou
 
 bool ShouldCreateColorListDrawable::Get() const
 {
+    if (!settings.shouldDrawBleedInfo) //We'll have a NoneDrawer here, so we need to "draw" the None color list
+    {
+        return true;
+    }
+    
     if (!pluginArt)
     {
         return true;
     }
-    else
+    
+    DictionaryWriter dw(pluginArt);
+    string json;
+    dw.GetStringDataFromIdentifier(json, PlateBleedInfo::PLATE_BLEEDINFO);
+    PlateBleedInfo::PlateDTO dto(json);
+    
+    if (settings.artboardBounds != dto.bounds)
     {
-        DictionaryWriter dw(pluginArt);
-        string json;
-        dw.GetStringDataFromIdentifier(json, PlateBleedInfo::PLATE_BLEEDINFO);
-        PlateBleedInfo::PlateDTO dto(json);
-        if (settings.artboardBounds != dto.bounds)
+        return true;
+    }
+    
+    AIArtHandle resultGroup = NULL;
+    sAIPluginGroup->GetPluginArtResultArt(pluginArt, &resultGroup);
+    
+    AIArtHandle existingColorListArtHandle = NULL;
+    existingColorListArtHandle = DictionaryWriter(resultGroup).GetArtHandleFromIdentifier(drawable->GetDrawer()->GetDictionaryLabel(resultGroup));
+    if (existingColorListArtHandle)
+    {
+        ColorList existingColorList(vector<AIColor>{});
+        existingColorList.ReadColorListFromArtDictionary(existingColorListArtHandle);
+        if ( existingColorList == settings.colorList )
         {
-            return true;
-        }
-        
-        AIArtHandle resultGroup = NULL;
-        sAIPluginGroup->GetPluginArtResultArt(pluginArt, &resultGroup);
-        
-        AIArtHandle existingColorListArtHandle = NULL;
-        existingColorListArtHandle = DictionaryWriter(resultGroup).GetArtHandleFromIdentifier(drawable->GetDrawer()->GetDictionaryLabel(resultGroup));
-        if (existingColorListArtHandle)
-        {
-            ColorList existingColorList(vector<AIColor>{});
-            existingColorList.ReadColorListFromArtDictionary(existingColorListArtHandle);
-            if ( existingColorList == settings.colorList )
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return false;
         }
         else
         {
             return true;
         }
     }
+
+    return true;
 }
