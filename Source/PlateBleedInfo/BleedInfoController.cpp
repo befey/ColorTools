@@ -12,6 +12,7 @@
 #include "SafeguardJobFile.h"
 #include "PlateBleedInfoUIController.hpp"
 #include "BtDocumentView.hpp"
+#include "BtArtHandle.hpp"
 
 
 using PlateBleedInfo::BleedInfoController;
@@ -30,6 +31,15 @@ BleedInfoController::~BleedInfoController()
     for (auto notifier : notifiers)
     {
         sAINotifier->SetNotifierActive(notifier, TRUE);
+    }
+}
+
+void BleedInfoController::DeSelectAllPluginArts() const
+{
+    auto arts = PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().SortedPluginArts();
+    for ( auto art : arts )
+    {
+        BtArtHandle(art.second).Selected(false);
     }
 }
 

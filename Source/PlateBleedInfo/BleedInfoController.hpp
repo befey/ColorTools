@@ -32,6 +32,7 @@ namespace PlateBleedInfo
         BleedInfoController(vector<AINotifierHandle> notifiers);
         ~BleedInfoController();
         
+        void DeSelectAllPluginArts() const;
         void HandleCropAreaNotification();
         void HandleCreateMenu();
         void HandleEditMenu();
