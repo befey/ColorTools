@@ -200,9 +200,13 @@ bool BtArtHandle::IsClippingGroup() const
 
 AIRealRect BtArtHandle::Bounds() const
 {
-    AIRealRect bounds;
-    sAIArt->GetArtBounds(artHandle, &bounds);
-    return bounds;
+    if (!Null())
+    {
+        AIRealRect bounds;
+        sAIArt->GetArtBounds(artHandle, &bounds);
+        return bounds;
+    }
+    return {0,0,0,0};
 }
 
 bool BtArtHandle::ClippedBounds(AIRealRect& result) const

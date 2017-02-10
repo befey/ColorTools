@@ -7,6 +7,7 @@
 //
 
 #include "BleedInfo.h"
+#include "BtArtHandle.hpp"
 #include "ArtTree.h"
 #include "BleedInfoPluginArtToArtboardMatcher.hpp"
 #include "DictionaryWriter.h"
@@ -161,32 +162,37 @@ AIRealRect BleedInfo::Bleeds() const
 {
     AIRealRect bleedRect;
     
-    AIRealRect pluginArtBounds;
-    if (bleedInfoPluginArt)
-    {
-        sAIArt->GetArtBounds(bleedInfoPluginArt, &pluginArtBounds);
-    }
+    AIRealRect pluginArtBounds = BtArtHandle(bleedInfoPluginArt).Bounds();
     
     AIRealRect artboardBounds = ArtboardBounds();
     
-    int diff = GetExpansionAmountToContainRect(artboardBounds, pluginArtBounds);
+    AIRealRect diff = GetExpansionAmountToContainRect(artboardBounds, pluginArtBounds);
     
     SafeguardFile::ProductType pt = PlateNumber().GetProductType();
     
     if (pt == SafeguardFile::ProductType::CutSheet)
     {
-        if (diff < 36) diff = 36;
-        sAIRealMath->AIRealRectSet(&bleedRect, diff, diff, diff, diff);
+        if (diff.left < 36) diff.left = 36;
+        if (diff.top < 36) diff.top = 36;
+        if (diff.right < 36) diff.right = 36;
+        if (diff.bottom < 36) diff.bottom = 36;
+        sAIRealMath->AIRealRectSet(&bleedRect, diff.left, diff.top, diff.right, diff.bottom);
     }
     else if (pt == SafeguardFile::ProductType::BusinessStat)
     {
-        if (diff < 12) diff = 12;
-        sAIRealMath->AIRealRectSet(&bleedRect, diff, diff, diff, diff);
+        if (diff.left < 12) diff.left = 12;
+        if (diff.top < 12) diff.top = 12;
+        if (diff.right < 12) diff.right = 12;
+        if (diff.bottom < 12) diff.bottom = 12;
+        sAIRealMath->AIRealRectSet(&bleedRect, diff.left, diff.top, diff.right, diff.bottom);
     }
     else if (pt == SafeguardFile::ProductType::Continuous)
     {
-        if (diff < 9) diff = 9;
-        sAIRealMath->AIRealRectSet(&bleedRect, diff, diff, diff, diff);
+        if (diff.left < 9) diff.left = 9;
+        if (diff.top < 9) diff.top = 9;
+        if (diff.right < 9) diff.right = 9;
+        if (diff.bottom < 9) diff.bottom = 9;
+        sAIRealMath->AIRealRectSet(&bleedRect, diff.left, diff.top, diff.right, diff.bottom);
     }
     else //No bleed
     {
@@ -202,7 +208,7 @@ void BleedInfo::FillBleedInfoFromPlateDTO(const PlateBleedInfo::PlateDTO* dto, b
     ShouldPrint(dto->shouldPrint);
     if (changeArtboardName)
     {
-        ArtboardName(dto->artboardName); //Do not set artboard name here or we'll overwrite what's been set in artboards panel.
+        ArtboardName(dto->artboardName);
     }
     //.ShouldAddCmykBlocks(dto->shouldAddCmykBlocks) //Do not set cmyk blocks here or we'll overwrite what's been set by the file type and color list
     TickMarkStyle(SafeguardFile::TickMarkStyle(dto->tmStyle));

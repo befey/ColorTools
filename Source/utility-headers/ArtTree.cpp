@@ -12,6 +12,7 @@
 #include "BtArtHandle.hpp"
 #include "GetIllustratorErrorCode.h"
 #include <map>
+#include <cmath>
 
 long CreateArtSetOfPrintingObjectsWithinRect(AIArtSet const targetSet, AIRealRect rect)
 {
@@ -266,15 +267,13 @@ AIArtHandle DrawRectangle(AIRealRect rect, AIArtHandle prep)
     return pathArt;
 }
 
-int GetExpansionAmountToContainRect(AIRealRect rect1, AIRealRect rect2)
+AIRealRect GetExpansionAmountToContainRect(AIRealRect rect1, AIRealRect rect2)
 {
-    int diff = 0;
-    
-    while ( !sAIRealMath->AIRealRectInAIRealRect(&rect2, &rect1) )
-    {
-        sAIRealMath->AIRealRectInset(&rect1, -1, -1);
-        diff++;
-    }
+    AIRealRect diff = {0,0,0,0};
+    diff.left = std::abs(rect2.left) - std::abs(rect1.left);
+    diff.top = std::abs(rect2.top) - std::abs(rect1.top);
+    diff.right = std::abs(rect2.right) - std::abs(rect1.right);
+    diff.bottom = std::abs(rect2.bottom) - std::abs(rect1.bottom);
     
     return diff;
 }

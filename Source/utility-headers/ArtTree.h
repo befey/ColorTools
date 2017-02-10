@@ -50,7 +50,7 @@ map<int,AIArtHandle> GetArtboardOfArts(vector<AIArtHandle> pluginArts);
 
 AIArtHandle DrawRectangle(AIRealRect rect, AIArtHandle prep);
 
-int GetExpansionAmountToContainRect(AIRealRect rect1, AIRealRect rect2);
+AIRealRect GetExpansionAmountToContainRect(AIRealRect rect1, AIRealRect rect2);
 
 bool operator==(const AIRealRect& lhs, const AIRealRect& rhs);
 inline bool operator!=(const AIRealRect& lhs, const AIRealRect& rhs) { return !operator==(lhs,rhs); };
