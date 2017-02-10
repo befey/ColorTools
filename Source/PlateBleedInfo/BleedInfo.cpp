@@ -161,12 +161,8 @@ void BleedInfo::SetShouldPrint()
 AIRealRect BleedInfo::Bleeds() const
 {
     AIRealRect bleedRect;
-    
-    AIRealRect pluginArtBounds = BtArtHandle(bleedInfoPluginArt).Bounds();
-    
-    AIRealRect artboardBounds = ArtboardBounds();
-    
-    AIRealRect diff = GetExpansionAmountToContainRect(artboardBounds, pluginArtBounds);
+
+    AIRealRect diff = GetExpansionAmountToContainRect(ArtboardBounds(), BtArtHandle(bleedInfoPluginArt).Bounds());
     
     SafeguardFile::ProductType pt = PlateNumber().GetProductType();
     
