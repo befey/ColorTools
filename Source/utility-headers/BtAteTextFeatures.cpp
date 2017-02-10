@@ -76,11 +76,82 @@ bool BtAteTextFeatures::NoBreak(bool* isAssigned) const
 
 BtAteTextFeatures& BtAteTextFeatures::FillColor(AIColor color)
 {
-    ATE::ApplicationPaintRef paintRef;
-    sAIATEPaint->CreateATEApplicationPaint(&color, &paintRef);
-    ATE::IApplicationPaint paint(paintRef);
-    charFeatures.SetFillColor(paint);
+    charFeatures.SetFillColor(CreateIApplicationPaint(color));
     return *this;
+}
+
+AIColor BtAteTextFeatures::FillColor() const
+{
+    bool isAssigned;
+    ATE::IApplicationPaint paint = charFeatures.GetFillColor(&isAssigned);
+    
+    if (isAssigned)
+    {
+        AIColor color;
+        sAIATEPaint->GetAIColor(paint.GetRef(), &color);
+        return color;
+    }
+    
+    return AIColor{.kind = kNoneColor};
+}
+
+BtAteTextFeatures& BtAteTextFeatures::FillOverPrint(bool overprint)
+{
+    charFeatures.SetFillOverPrint(overprint);
+    return *this;
+}
+
+bool BtAteTextFeatures::FillOverPrint() const
+{
+    bool isAssigned;
+    bool overprintOn = charFeatures.GetFillOverPrint(&isAssigned);
+    
+    if (isAssigned)
+    {
+        return overprintOn;
+    }
+    
+    return false;
+}
+
+BtAteTextFeatures& BtAteTextFeatures::StrokeColor(AIColor color)
+{
+    charFeatures.SetStrokeColor(CreateIApplicationPaint(color));
+    return *this;
+}
+
+AIColor BtAteTextFeatures::StrokeColor() const
+{
+    bool isAssigned;
+    ATE::IApplicationPaint paint = charFeatures.GetStrokeColor(&isAssigned);
+    
+    if (isAssigned)
+    {
+        AIColor color;
+        sAIATEPaint->GetAIColor(paint.GetRef(), &color);
+        return color;
+    }
+    
+    return AIColor{.kind = kNoneColor};
+}
+
+BtAteTextFeatures& BtAteTextFeatures::StrokeOverPrint(bool overprint)
+{
+    charFeatures.SetStrokeOverPrint(overprint);
+    return *this;
+}
+
+bool BtAteTextFeatures::StrokeOverPrint() const
+{
+    bool isAssigned;
+    bool overprintOn = charFeatures.GetStrokeOverPrint(&isAssigned);
+    
+    if (isAssigned)
+    {
+        return overprintOn;
+    }
+    
+    return false;
 }
 
 BtAteTextFeatures& BtAteTextFeatures::Justification(ATE::ParagraphJustification newVal)
@@ -120,4 +191,11 @@ void BtAteTextFeatures::ApplyFeaturesToRange(ATE::ITextRange& targetRange)
 {
     targetRange.ReplaceOrAddLocalCharFeatures(charFeatures);
     targetRange.ReplaceOrAddLocalParaFeatures(paraFeatures);
+}
+
+ATE::IApplicationPaint BtAteTextFeatures::CreateIApplicationPaint(AIColor color) const
+{
+    ATE::ApplicationPaintRef paintRef;
+    sAIATEPaint->CreateATEApplicationPaint(&color, &paintRef);
+    return ATE::IApplicationPaint(paintRef);
 }

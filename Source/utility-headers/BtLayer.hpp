@@ -47,17 +47,17 @@ public:
     void PutArtAtTopOfLayer(AIArtHandle art);
     AIArtHandle GetLayerGroupArt() const;
     
+    void MakeEditable();
+    void ResetEditable();
+    
     inline operator const AILayerHandle(void) const { return layerHandle; }
     inline operator AILayerHandle*(void) { return &layerHandle; }
     inline operator bool(void) const { return Null(); }
 private:
     AILayerHandle layerHandle = nullptr;
     
-    bool editableWasFalse = false;
-    bool visibleWasFalse = false;
-    
-    void MakeLayerEditableAndStorePreviousState();
-    void ApplyStoredAttributes();
+    bool storedEditable = true;
+    bool storedVisible = true;
 };
 
 #endif /* BtLayer_hpp */

@@ -12,10 +12,12 @@
 #include "AIArt.h"
 #include "AIRealMath.h"
 #include "AIGroup.h"
+#include "AITextFrame.h"
 
 extern AIArtSuite* sAIArt;
 extern AIRealMathSuite* sAIRealMath;
 extern AIGroupSuite* sAIGroup;
+extern AITextFrameSuite* sAITextFrame;
 
 class BtArtHandle
 {
@@ -24,6 +26,7 @@ public:
     BtArtHandle(AIArtHandle artHandle);
     
     bool Null() const { return !artHandle; };
+    void Dispose();
     
     AILayerHandle Layer() const;
     BtArtHandle& Layer(AILayerHandle newVal);
@@ -61,7 +64,12 @@ public:
     bool ClipMask(bool state);
     bool PartOfCompound() const;
     
+    void MakeEditable();
+    void ResetEditable();
+    
     size_t TimeStamp(AIArtTimeStampOptions options = kAITimeStampOfArt) const;
+    
+    ATE::ITextRange ITextRange() const;
     
     inline operator const AIArtHandle(void) const { return artHandle; }
     inline operator AIArtHandle*(void) { return &artHandle; }
@@ -71,6 +79,8 @@ public:
     friend bool operator!=(const BtArtHandle& lhs, const BtArtHandle& rhs) { return !operator==(lhs,rhs); };
 private:
     AIArtHandle artHandle = nullptr;
+    bool storedLocked = false;
+    bool storedHidden = false;
     
     bool GetAttribute(ai::int32 whichAttr) const;
     bool SetAttribute(ai::int32 whichAttr, bool state);

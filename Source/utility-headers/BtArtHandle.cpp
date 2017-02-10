@@ -48,6 +48,12 @@ bool BtArtHandle::SetAttribute(ai::int32 whichAttr, bool state)
     return true;
 }
 
+void BtArtHandle::Dispose()
+{
+    sAIArt->DisposeArt(artHandle);
+    artHandle = nullptr;
+}
+
 AILayerHandle BtArtHandle::Layer() const
 {
     AILayerHandle layer;
@@ -334,6 +340,20 @@ bool BtArtHandle::PartOfCompound() const
     return GetAttribute(kArtPartOfCompound);
 }
 
+void BtArtHandle::MakeEditable()
+{
+    storedLocked = Locked();
+    Locked(false);
+    storedHidden = Hidden();
+    Hidden(false);
+}
+
+void BtArtHandle::ResetEditable()
+{
+    Locked(storedLocked);
+    Hidden(storedHidden);
+}
+
 size_t BtArtHandle::TimeStamp(AIArtTimeStampOptions options) const
 {
     size_t timeStamp;
@@ -342,4 +362,15 @@ size_t BtArtHandle::TimeStamp(AIArtTimeStampOptions options) const
         return timeStamp;
     }
     return 0;
+}
+
+ATE::ITextRange BtArtHandle::ITextRange() const
+{
+    if (ArtType() == kTextFrameArt)
+    {
+        ATE::TextRangeRef currRangeRef = nullptr;
+        sAITextFrame->GetATETextRange(artHandle, &currRangeRef);
+        return ATE::ITextRange(currRangeRef);
+    }
+    return ITextRange();
 }

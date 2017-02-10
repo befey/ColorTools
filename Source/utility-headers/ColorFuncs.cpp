@@ -14,6 +14,8 @@
 #include "SafeguardFileConstants.h"
 #include <boost/algorithm/string.hpp>
 #include "BtColor.h"
+#include "BtArtHandle.hpp"
+#include "BtAteTextFeatures.h"
 
 AIColor GetColorDefinitionFromBook(string name, bool& found)
 {
@@ -275,23 +277,18 @@ AISwatchRef CheckSwatchListForColor( AIColor& matchColor , AIReal tolerance )
 
 void AdjustOverprint(AIArtHandle currArtObj, AIColor fromColor, AIBoolean includeTints, AIBoolean overprint, ColorToolsUIController::ApplyTo replaceIn, AIBoolean *altered)
 {
+    BtArtHandle btHandle(currArtObj);
+    
 	AIPathStyle currPathStyle;
-	short type = 0; sAIArt->GetArtType(currArtObj, &type);
 	*altered = false;
 	
-	if (type != kTextFrameArt)
+	if (btHandle.ArtType() != kTextFrameArt)
     {
-		sAIPathStyle->GetPathStyle(currArtObj, &currPathStyle);
+		sAIPathStyle->GetPathStyle(btHandle, &currPathStyle);
 		
-		if (type == kPathArt)
+		if (btHandle.ArtType() == kPathArt && btHandle.PartOfCompound())
         {
-			//Check if its part of a compound path and skip if it is
-			int attr = 0;
-			sAIArt->GetArtUserAttr(currArtObj, kArtPartOfCompound, &attr);
-			if (attr & kArtPartOfCompound)
-            {
-				return;
-			}
+			return;
 		}
 		//STROKES
         if (replaceIn == ColorToolsUIController::ApplyTo::Strokes || replaceIn == ColorToolsUIController::ApplyTo::FillsAndStrokes)
@@ -325,48 +322,38 @@ void AdjustOverprint(AIArtHandle currArtObj, AIColor fromColor, AIBoolean includ
 	}
     else
     {
-		ATE::TextRangeRef currRangeRef = NULL;
-		sAITextFrame->GetATETextRange(currArtObj, &currRangeRef);
-		ATE::ITextRange currRange(currRangeRef);
+		ATE::ITextRange currRange = btHandle.ITextRange();
 		
 		ATE::ITextRunsIterator iter = currRange.GetTextRunsIterator();
-		bool isAssigned = false;
-		AIColor textColor;
 		
 		while ( ! iter.IsDone() )
         {
-			ATE::ICharFeatures currRunCharFeatures = iter.Item().GetUniqueCharFeatures();
+			BtAteTextFeatures currRunCharFeatures(iter.Item().GetUniqueCharFeatures());
 			
 			//STROKES
             if (replaceIn == ColorToolsUIController::ApplyTo::Strokes || replaceIn == ColorToolsUIController::ApplyTo::FillsAndStrokes)
             {
-				ATE::IApplicationPaint strokePaint = currRunCharFeatures.GetStrokeColor(&isAssigned);
-				if (isAssigned)
+                if ( ColorIsEqual (currRunCharFeatures.StrokeColor(), fromColor , includeTints ) )
                 {
-					sAIATEPaint->GetAIColor(strokePaint.GetRef(), &textColor);
-					if ( ColorIsEqual (textColor, fromColor , includeTints ) )
-                    {
-						currRunCharFeatures.SetStrokeOverPrint(overprint);
-						iter.Item().SetLocalCharFeatures(currRunCharFeatures);
-						*altered = true;
-					}
-				}
-			}
+                    currRunCharFeatures.StrokeOverPrint(overprint);
+                    *altered = true;
+                }
+            }
 			//FILLS
             if (replaceIn == ColorToolsUIController::ApplyTo::Fills || replaceIn == ColorToolsUIController::ApplyTo::FillsAndStrokes)
             {
-				ATE::IApplicationPaint fillPaint = currRunCharFeatures.GetFillColor(&isAssigned);
-				if (isAssigned)
+                if ( ColorIsEqual (currRunCharFeatures.FillColor(), fromColor , includeTints ) )
                 {
-					sAIATEPaint->GetAIColor(fillPaint.GetRef(), &textColor);
-					if ( ColorIsEqual (textColor, fromColor , includeTints ) )
-                    {
-						currRunCharFeatures.SetFillOverPrint(overprint);
-						iter.Item().SetLocalCharFeatures(currRunCharFeatures);
-						*altered = true;
-					}
-				}
-			}
+                    currRunCharFeatures.FillOverPrint(overprint);
+                    *altered = true;
+                }
+            }
+            
+            if (*altered)
+            {
+                iter.Item().SetLocalCharFeatures(currRunCharFeatures);
+            }
+            
 			iter.Next();
 		}
 	}
@@ -374,16 +361,8 @@ void AdjustOverprint(AIArtHandle currArtObj, AIColor fromColor, AIBoolean includ
 
 void RemoveWhiteOverprint()
 {
-    AIColor whiteColor;
     AIArtHandle currArtHandle;
     AIBoolean altered = false;
-    
-    AICustomColorHandle hWhite = NULL;
-    sAICustomColor->GetCustomColorByName(ai::UnicodeString("White"), &hWhite);
-
-    whiteColor.kind = kCustomColor;
-    whiteColor.c.c.tint = 1;
-    whiteColor.c.c.color = hWhite;
     
     //CREATE THE ART SET
     AIArtSet artSet;
@@ -407,7 +386,7 @@ void RemoveWhiteOverprint()
     for ( int i = 0; i < count; i++ )
     {
         sAIArtSet->IndexArtSet(artSet, i, &currArtHandle);
-        AdjustOverprint(currArtHandle, whiteColor, true, false, ColorToolsUIController::ApplyTo::FillsAndStrokes, &altered);
+        AdjustOverprint(currArtHandle, BtColor::WhiteColor(), true, false, ColorToolsUIController::ApplyTo::FillsAndStrokes, &altered);
     }
     //DISPOSE THE ART SET
     sAIArtSet->DisposeArtSet(&artSet);
