@@ -14,6 +14,7 @@
 #include "AIActionManager.h"
 #include "AIDocument.h"
 #include "AIArtboard.h"
+#include "AIUser.h"
 #include "BtArtboardRange.h"
 #include "VPB.h"
 #include "PlateNumber.h"
@@ -27,6 +28,7 @@
 extern AIActionManagerSuite* sAIActionManager;
 extern AIDocumentSuite* sAIDocument;
 extern AIArtboardSuite* sAIArtboard;
+extern AIUserSuite* sAIUser;
 
 namespace PrintToPdf
 {
@@ -36,6 +38,7 @@ namespace PrintToPdf
     {
     public:
         PdfSettings(PrintToPdf::PdfPreset p, string range = "", bool separateFiles = false, bool doNotDelete = false, bool userOutputFolder = false);
+        PdfSettings(PrintToPdf::PdfPreset p, AIReal bleedAmount, string range = "", bool separateFiles = false, bool doNotDelete = false, bool userOutputFolder = false);
         
         static PdfSettings MakePdfSettingsFromJson(const char* json);
         
@@ -60,7 +63,7 @@ namespace PrintToPdf
         VPB vpb;
         
         void SetPasswords();
-
+        static AIReal GetBleedAmountFromString(string expr);
     };
 }
 

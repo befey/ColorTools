@@ -78,6 +78,7 @@ namespace PrintToPdf
         static constexpr auto SEPARATEFILES_CHECK =               "separatefiles-check";
         static constexpr auto USEROUTPUTFOLDER_CHECK =            "useroutputfolder-check";
         static constexpr auto DONOTDELETE_CHECK =                 "donotdelete-check";
+        static constexpr auto CUSTOMBLEEDS_TEXT =                 "custombleeds-text";
         static constexpr auto RESULTS_TEXTAREA =                  "results-textarea";
         
     private:
