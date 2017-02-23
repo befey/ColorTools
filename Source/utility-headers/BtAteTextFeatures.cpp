@@ -154,6 +154,25 @@ bool BtAteTextFeatures::StrokeOverPrint() const
     return false;
 }
 
+BtAteTextFeatures& BtAteTextFeatures::AutoHyphenate(bool newVal)
+{
+    paraFeatures.SetAutoHyphenate(newVal);
+    return *this;
+}
+
+bool BtAteTextFeatures::AutoHyphenate() const
+{
+    bool isAssigned;
+    bool currVal = paraFeatures.GetAutoHyphenate(&isAssigned);
+    
+    if (isAssigned)
+    {
+        return currVal;
+    }
+    
+    return false;
+}
+
 BtAteTextFeatures& BtAteTextFeatures::Justification(ATE::ParagraphJustification newVal)
 {
     paraFeatures.SetJustification(newVal);

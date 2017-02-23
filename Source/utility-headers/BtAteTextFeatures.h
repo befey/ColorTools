@@ -49,6 +49,9 @@ public:
     BtAteTextFeatures& StrokeOverPrint(bool overprint);
     bool StrokeOverPrint() const;
     
+    BtAteTextFeatures& AutoHyphenate(bool newVal);
+    bool AutoHyphenate() const;
+    
     BtAteTextFeatures& Justification(ATE::ParagraphJustification newVal);
     
     //Adds the text to the range with the features, the last argument defaults to After, set to 0 to insert the text before
