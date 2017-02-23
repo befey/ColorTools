@@ -64,15 +64,23 @@ AIRealRect BleedInfo::ArtboardBounds() const
 
 tm BleedInfo::LastModified() const
 {
-    ai::FilePath aiFilePath;
-    sAIDocument->GetDocumentFileSpecification(aiFilePath);
+    time_t lastWrite = std::time(nullptr);
     
-    boost::system::error_code ec;
-    time_t lastWrite = fs::last_write_time(aiFilePath.GetFullPath().as_Platform(), ec);
+    AIBoolean modified = false;
+    sAIDocument->GetDocumentModified(&modified);
     
-    if (ec != boost::system::errc::success)
+    if (!modified)
     {
-        std::time(&lastWrite);
+        ai::FilePath aiFilePath;
+        sAIDocument->GetDocumentFileSpecification(aiFilePath);
+        
+        boost::system::error_code ec;
+        time_t lastWrite = fs::last_write_time(aiFilePath.GetFullPath().as_Platform(), ec);
+        
+        if (ec != boost::system::errc::success)
+        {
+            lastWrite = std::time(nullptr);
+        }
     }
     
     return *localtime(&lastWrite);
