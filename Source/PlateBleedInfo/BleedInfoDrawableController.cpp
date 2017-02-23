@@ -10,6 +10,7 @@
 #include "SafeguardToolsPlugin.h"
 #include "ArtTree.h"
 #include "BtLayer.hpp"
+#include "BtArtHandle.hpp"
 #include "GetIllustratorErrorCode.h"
 
 
@@ -87,7 +88,10 @@ AIArtHandle BleedInfoDrawableController::CreateResultArt(AIArtHandle pluginGroup
 {
     AIArtHandle resultGroup;
     sAIPluginGroup->GetPluginArtResultArt(pluginGroupArt, &resultGroup);
-        
+    
+    BtLayer pluginGroupLayer(BtArtHandle(resultGroup).Layer());
+    pluginGroupLayer.MakeEditable();
+    
     for (auto drawable : drawables)
     {
         if (drawable)
@@ -96,6 +100,8 @@ AIArtHandle BleedInfoDrawableController::CreateResultArt(AIArtHandle pluginGroup
             drawable->Draw(resultGroup);
         }
     }
+    
+    pluginGroupLayer.ResetEditable();
     
     return pluginGroupArt;
 }
