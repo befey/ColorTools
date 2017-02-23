@@ -19,19 +19,31 @@ using SafeguardFile::LaserFileNameDateDrawer;
 using SafeguardFile::ContinuousFileNameDateDrawer;
 using SafeguardFile::BusStatFileNameDateDrawer;
 
-FileNameDateDrawer::FileNameDateDrawer(AIRealRect bounds, AIRealPoint anchor, PlateNumber plateNumber, string token, tm lastModified) :
-    BleedTextInfoDrawer(bounds, anchor),
-    plateNumber(plateNumber),
-    token(token),
-    lastModified(lastModified)
+FileNameDateDrawer::FileNameDateDrawer(AIRealRect bounds, AIRealPoint anchor, PlateNumber plateNumber, string token, tm lastModified)
+:
+BleedTextInfoDrawer(bounds, anchor),
+plateNumber(plateNumber),
+token(token),
+lastModified(lastModified)
 {
     maxWidth = (artboardBounds.right - artboardBounds.left) * .35;
     maxHeight = (artboardBounds.top - artboardBounds.bottom) * .35;
 }
 
-LaserFileNameDateDrawer::LaserFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, {.h = bounds.right - 4, .v = bounds.bottom - 4.5}, plateNumber, token, lastModified) {};
-ContinuousFileNameDateDrawer::ContinuousFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, {.h = bounds.right, .v = bounds.top - 14}, plateNumber, token, lastModified) {};
-BusStatFileNameDateDrawer::BusStatFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified) : FileNameDateDrawer(bounds, {.h = bounds.right, .v = bounds.bottom - 4.5}, plateNumber, token, lastModified) {};
+LaserFileNameDateDrawer::LaserFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified)
+:
+FileNameDateDrawer(bounds, {.h = bounds.right - 4, .v = bounds.bottom - 4.5}, plateNumber, token, lastModified)
+{};
+
+ContinuousFileNameDateDrawer::ContinuousFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified)
+:
+FileNameDateDrawer(bounds, {.h = bounds.right, .v = bounds.top - 14}, plateNumber, token, lastModified)
+{};
+
+BusStatFileNameDateDrawer::BusStatFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified)
+:
+FileNameDateDrawer(bounds, {.h = bounds.right, .v = bounds.bottom - 4.5}, plateNumber, token, lastModified)
+{};
 
 AIArtHandle LaserFileNameDateDrawer::Draw(AIArtHandle resultGroup) const
 {

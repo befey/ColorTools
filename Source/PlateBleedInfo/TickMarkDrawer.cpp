@@ -12,7 +12,11 @@
 
 using SafeguardFile::TickMarkDrawer;
 
-TickMarkDrawer::TickMarkDrawer(TickMarkSettings settings) : IDrawer(settings.Bounds()), settings(settings) {};
+TickMarkDrawer::TickMarkDrawer(TickMarkSettings settings)
+:
+IDrawer(settings.Bounds()),
+settings(settings)
+{};
 
 AIArtHandle TickMarkDrawer::Draw(AIArtHandle resultGroup) const
 {

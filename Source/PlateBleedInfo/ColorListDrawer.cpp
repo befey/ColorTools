@@ -22,20 +22,29 @@ using SafeguardFile::ContinuousColorListDrawer;
 using SafeguardFile::BusStatColorListDrawer;
 using SafeguardFile::BleedInfo;
 
-ColorListDrawer::ColorListDrawer(AIRealRect artboardBounds, AIRealPoint anchor, ColorList colorList) :
-    BleedTextInfoDrawer(artboardBounds, anchor),
-    colorList(colorList)
+ColorListDrawer::ColorListDrawer(AIRealRect artboardBounds, AIRealPoint anchor, ColorList colorList)
+:
+BleedTextInfoDrawer(artboardBounds, anchor),
+colorList(colorList)
 {
     maxWidth = (artboardBounds.right - artboardBounds.left) * .6;
     maxHeight = (artboardBounds.top - artboardBounds.bottom) * .6;
 }
 
-LaserColorListDrawer::LaserColorListDrawer(AIRealRect bounds, ColorList colorList) :
-    ColorListDrawer(bounds, {.h = bounds.left + 4, .v = bounds.bottom - 4.5}, colorList) {};
-ContinuousColorListDrawer::ContinuousColorListDrawer(AIRealRect bounds, ColorList colorList) :
-    ColorListDrawer(bounds, {.h = bounds.right, .v = bounds.top + ((bounds.bottom - bounds.top) * .4)}, colorList) {};
-BusStatColorListDrawer::BusStatColorListDrawer(AIRealRect bounds, ColorList colorList) :
-    ColorListDrawer(bounds, {.h = bounds.left, .v = bounds.bottom - 4.5}, colorList) {};
+LaserColorListDrawer::LaserColorListDrawer(AIRealRect bounds, ColorList colorList)
+:
+ColorListDrawer(bounds, {.h = bounds.left + 4, .v = bounds.bottom - 4.5}, colorList)
+{};
+
+ContinuousColorListDrawer::ContinuousColorListDrawer(AIRealRect bounds, ColorList colorList)
+:
+ColorListDrawer(bounds, {.h = bounds.right, .v = bounds.top + ((bounds.bottom - bounds.top) * .4)}, colorList)
+{};
+
+BusStatColorListDrawer::BusStatColorListDrawer(AIRealRect bounds, ColorList colorList)
+:
+ColorListDrawer(bounds, {.h = bounds.left, .v = bounds.bottom - 4.5}, colorList)
+{};
 
 AIArtHandle ColorListDrawer::Draw(AIArtHandle resultGroup) const
 {
