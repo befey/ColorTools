@@ -252,7 +252,7 @@ BtColor& BtColor::Name(std::string newVal)
 
 std::string BtColor::Name() const
 {
-    ai::UnicodeString nameUS;
+    ai::UnicodeString nameUS("ERR: COLOR NAME");
     
     if (PrintsAsSpot())
     {
@@ -260,9 +260,13 @@ std::string BtColor::Name() const
         {
             sAICustomColor->GetCustomColorName(AiCustomColorHandle(), nameUS);
         }
-        else if (Kind() == kGrayColor)
+        else if (IsBlack(false))
         {
-            nameUS = ai::UnicodeString("Black");
+            nameUS = ai::UnicodeString(SafeguardFile::BLACK_COLOR_NAME);
+        }
+        else if (IsWhite())
+        {
+            nameUS = ai::UnicodeString(SafeguardFile::WHITE_COLOR_NAME);
         }
     }
     else if (PrintsAsProcess())
