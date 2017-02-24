@@ -31,7 +31,7 @@ colorList(ArtboardBounds())
 {
     bleedInfoPluginArt = PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().GetArt(artboardIndex);
     
-    if (dto != NULL)
+    if (dto != nullptr)
     {
         FillBleedInfoFromPlateDTO(dto, true);
     }

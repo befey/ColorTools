@@ -20,7 +20,7 @@
 #include "BtDocumentView.hpp"
 #include "BleedInfoController.hpp"
 
-SafeguardToolsPlugin *gPlugin = NULL;
+SafeguardToolsPlugin *gPlugin = nullptr;
 
 Plugin* AllocatePlugin(SPPluginRef pluginRef)
 {
@@ -34,12 +34,12 @@ void FixupReload(Plugin* plugin)
 
 SafeguardToolsPlugin::SafeguardToolsPlugin(SPPluginRef pluginRef) :
     Plugin(pluginRef),
-    fRegisterEventNotifierHandle(NULL),
-    fAppStartedNotifierHandle(NULL),
-    fDocOpenedNotifierHandle(NULL),
-    fDocumentCropAreaModifiedNotifierHandle(NULL),
-    fArtSelectionChangedNotifierHandle(NULL),
-    bleedInfoPluginGroupHandle(NULL)
+    fRegisterEventNotifierHandle(nullptr),
+    fAppStartedNotifierHandle(nullptr),
+    fDocOpenedNotifierHandle(nullptr),
+    fDocumentCropAreaModifiedNotifierHandle(nullptr),
+    fArtSelectionChangedNotifierHandle(nullptr),
+    bleedInfoPluginGroupHandle(nullptr)
 {
 	strncpy(fPluginName, kSafeguardToolsPluginName, kMaxStringLength);
 }
@@ -167,7 +167,7 @@ ASErr SafeguardToolsPlugin::ShutdownPlugin( SPInterfaceMessage *message )
         Plugin::LockPlugin(false);
     }
 
-    message->d.globals = NULL;
+    message->d.globals = nullptr;
     return Plugin::ShutdownPlugin(message);
 }
 
@@ -187,7 +187,7 @@ ASErr SafeguardToolsPlugin::PostStartupPlugin()
 {
     ASErr error = kNoErr;
     
-    if (NULL == colorToolsUIController)
+    if (nullptr == colorToolsUIController)
     {
         colorToolsUIController = std::make_shared<ColorToolsUIController>();
         
@@ -195,7 +195,7 @@ ASErr SafeguardToolsPlugin::PostStartupPlugin()
         if (error) { return error; }
     }
     
-    if (NULL == printToPdfUIController)
+    if (nullptr == printToPdfUIController)
     {
         printToPdfUIController = std::make_shared<PrintToPdf::PrintToPdfUIController>();
         
@@ -203,7 +203,7 @@ ASErr SafeguardToolsPlugin::PostStartupPlugin()
         if (error) { return error; }
     }
     
-    if (NULL == printToPdfFolderPrefsUIController)
+    if (nullptr == printToPdfFolderPrefsUIController)
     {
         printToPdfFolderPrefsUIController = std::make_shared<PrintToPdf::PrintToPdfFolderPrefsUIController>();
         
@@ -211,7 +211,7 @@ ASErr SafeguardToolsPlugin::PostStartupPlugin()
         if (error) { return error; }
     }
     
-    if (NULL == plateBleedInfoUIController)
+    if (nullptr == plateBleedInfoUIController)
     {
         plateBleedInfoUIController = std::make_shared<PlateBleedInfo::PlateBleedInfoUIController>();
         
@@ -219,7 +219,7 @@ ASErr SafeguardToolsPlugin::PostStartupPlugin()
         if (error) { return error; }
     }
     
-    if (NULL == placeFileSearchUIController)
+    if (nullptr == placeFileSearchUIController)
     {
         placeFileSearchUIController = std::make_shared<PlaceFileSearch::PlaceFileSearchUIController>();
         
@@ -455,7 +455,7 @@ error:
 
 ASErr SafeguardToolsPlugin::PluginGroupUpdate(AIPluginGroupMessage* message)
 {
-    if (message->art != NULL)
+    if (message->art != nullptr)
     {
         PlateBleedInfo::BleedInfoController({fDocumentCropAreaModifiedNotifierHandle,fArtSelectionChangedNotifierHandle}).HandlePluginGroupUpdate(message);
     }

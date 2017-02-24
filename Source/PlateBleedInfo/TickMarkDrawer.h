@@ -34,7 +34,7 @@ namespace SafeguardFile
     protected:
         TickMarkSettings settings;
         
-        AIArtHandle DrawInvisiblePath(AIArtHandle resultGroup, AIArtHandle tickMarkGroupArt = NULL) const;
+        AIArtHandle DrawInvisiblePath(AIArtHandle resultGroup, AIArtHandle tickMarkGroupArt = nullptr) const;
         
     private:
         struct TickMark
@@ -42,9 +42,9 @@ namespace SafeguardFile
             AIRealPoint start, mid, end;
         };
 
-        AIArtHandle DrawTickMarks(vector<TickMark> ticks, AIArtHandle tickMarkGroupArt = NULL) const;
-        AIArtHandle DrawInner(AIArtHandle resultGroup, AIArtHandle tickMarkGroupArt = NULL) const;
-        AIArtHandle DrawOuter(AIArtHandle resultGroup, AIArtHandle tickMarkGroupArt = NULL) const;
+        AIArtHandle DrawTickMarks(vector<TickMark> ticks, AIArtHandle tickMarkGroupArt = nullptr) const;
+        AIArtHandle DrawInner(AIArtHandle resultGroup, AIArtHandle tickMarkGroupArt = nullptr) const;
+        AIArtHandle DrawOuter(AIArtHandle resultGroup, AIArtHandle tickMarkGroupArt = nullptr) const;
     };
     
     class NoneTickMarkDrawer : public TickMarkDrawer

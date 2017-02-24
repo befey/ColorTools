@@ -25,7 +25,7 @@ using SafeguardFile::SafeguardJobFile;
 void PlateBleedInfoUIController::PanelLoaded (const csxs::event::Event* const event, void* const context)
 {
     PlateBleedInfoUIController *plateBleedInfoUIController = (PlateBleedInfoUIController *)context;
-    if (NULL == plateBleedInfoUIController || event == NULL)
+    if (nullptr == plateBleedInfoUIController || event == nullptr)
     {
         return;
     }
@@ -44,7 +44,7 @@ void PlateBleedInfoUIController::PanelLoaded (const csxs::event::Event* const ev
 void PlateBleedInfoUIController::OkButtonClickedFunc (const csxs::event::Event* const event, void* const context)
 {
     PlateBleedInfoUIController *plateBleedInfoUIController = (PlateBleedInfoUIController *)context;
-    if (NULL == plateBleedInfoUIController || event == NULL)
+    if (nullptr == plateBleedInfoUIController || event == nullptr)
     {
         return;
     }
@@ -83,7 +83,7 @@ void PlateBleedInfoUIController::OkButtonClickedFunc (const csxs::event::Event* 
 void PlateBleedInfoUIController::CancelButtonClickedFunc (const csxs::event::Event* const event, void* const context)
 {
     PlateBleedInfoUIController *plateBleedInfoUIController = (PlateBleedInfoUIController *)context;
-    if (NULL == plateBleedInfoUIController || event == NULL)
+    if (nullptr == plateBleedInfoUIController || event == nullptr)
     {
         return;
     }
@@ -105,7 +105,7 @@ void PlateBleedInfoUIController::CancelButtonClickedFunc (const csxs::event::Eve
 void PlateBleedInfoUIController::ChangeArtboardFunc (const csxs::event::Event* const event, void* const context)
 {
     PlateBleedInfoUIController *plateBleedInfoUIController = (PlateBleedInfoUIController *)context;
-    if (NULL == plateBleedInfoUIController || event == NULL)
+    if (nullptr == plateBleedInfoUIController || event == nullptr)
     {
         return;
     }
@@ -210,8 +210,8 @@ void PlateBleedInfoUIController::SendCloseMessageToHtml()
         EVENT_TYPE_FORCE_PANEL_CLOSE,
         csxs::event::kEventScope_Application,
         ILST_APP,
-        NULL,
-        NULL
+        nullptr,
+        nullptr
     };
     fPPLib.DispatchEvent(&event);
 }
@@ -223,7 +223,7 @@ void PlateBleedInfoUIController::SendBleedInfoToHtml()
         PLATEBLEEDINFO_DATA_FROM_PLUGIN,
         csxs::event::kEventScope_Application,
         ILST_APP,
-        NULL,
+        nullptr,
         json.c_str()
     };
     fPPLib.DispatchEvent(&event);

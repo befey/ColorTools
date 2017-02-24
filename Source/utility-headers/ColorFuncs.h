@@ -45,7 +45,7 @@ bool ColorIsEqual (const AIColor& color1, const AIColor& color2 , const bool inc
 
 
 AISwatchRef CheckSwatchListForColor( AIColor& matchColor , AIReal tolerance ); //Checks the swatchlist for a swatch that matches the color passed
-																		//Returns the close swatch if found, or NULL if theres none    Tolerance =.01 for close match
+																		//Returns the close swatch if found, or nullptr if theres none    Tolerance =.01 for close match
 
 void NameAllColors(AIColor *color, void *userData, AIErr *result, AIBoolean *altered);
 

@@ -20,7 +20,7 @@ settings(settings)
 
 AIArtHandle TickMarkDrawer::Draw(AIArtHandle resultGroup) const
 {
-    AIArtHandle tickMarkGroupArt = NULL;
+    AIArtHandle tickMarkGroupArt = nullptr;
     tickMarkGroupArt = DrawInvisiblePath(resultGroup, tickMarkGroupArt);
     
     if (settings.DrawInner())
@@ -37,7 +37,7 @@ AIArtHandle TickMarkDrawer::Draw(AIArtHandle resultGroup) const
 
 AIArtHandle TickMarkDrawer::DrawInvisiblePath(AIArtHandle resultGroup, AIArtHandle tickMarkGroupArt) const
 {
-    if (tickMarkGroupArt == NULL)
+    if (tickMarkGroupArt == nullptr)
     {
         sAIArt->NewArt(kGroupArt, kPlaceInsideOnTop, resultGroup, &tickMarkGroupArt);
     }
@@ -56,7 +56,7 @@ AIArtHandle TickMarkDrawer::DrawInvisiblePath(AIArtHandle resultGroup, AIArtHand
 
 AIArtHandle TickMarkDrawer::DrawOuter(AIArtHandle resultGroup, AIArtHandle tickMarkGroupArt) const
 {
-    if (tickMarkGroupArt == NULL)
+    if (tickMarkGroupArt == nullptr)
     {
         sAIArt->NewArt(kGroupArt, kPlaceInsideOnTop, resultGroup, &tickMarkGroupArt);
     }
@@ -90,7 +90,7 @@ AIArtHandle TickMarkDrawer::DrawOuter(AIArtHandle resultGroup, AIArtHandle tickM
 
 AIArtHandle TickMarkDrawer::DrawInner(AIArtHandle resultGroup, AIArtHandle tickMarkGroupArt) const
 {
-    if (tickMarkGroupArt == NULL)
+    if (tickMarkGroupArt == nullptr)
     {
         sAIArt->NewArt(kGroupArt, kPlaceInsideOnTop, resultGroup, &tickMarkGroupArt);
     }

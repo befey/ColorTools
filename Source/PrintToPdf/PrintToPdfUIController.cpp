@@ -23,7 +23,7 @@ using PrintToPdf::PrintToPdfUIController;
 void PrintToPdfUIController::PanelLoaded (const csxs::event::Event* const event, void* const context)
 {
     PrintToPdfUIController *printToPdfUIController = (PrintToPdfUIController *)context;
-    if (NULL == printToPdfUIController || event == NULL)
+    if (nullptr == printToPdfUIController || event == nullptr)
     {
         return;
     }
@@ -42,7 +42,7 @@ void PrintToPdfUIController::PanelLoaded (const csxs::event::Event* const event,
 void PrintToPdfUIController::MakePdfButtonClickedFunc (const csxs::event::Event* const event, void* const context)
 {
     PrintToPdfUIController *printToPdfUIController = (PrintToPdfUIController *)context;
-    if(NULL == printToPdfUIController || event == NULL)
+    if(nullptr == printToPdfUIController || event == nullptr)
         return;
     
     do {
@@ -68,7 +68,7 @@ void PrintToPdfUIController::MakePdfButtonClickedFunc (const csxs::event::Event*
 void PrintToPdfUIController::FolderPrefsHandler (const csxs::event::Event* const event, void* const context)
 {
     PrintToPdfUIController *printToPdfUIController = (PrintToPdfUIController *)context;
-    if(NULL == printToPdfUIController || event == NULL)
+    if(nullptr == printToPdfUIController || event == nullptr)
         return;
     
     do {
@@ -91,7 +91,7 @@ void PrintToPdfUIController::FolderPrefsHandler (const csxs::event::Event* const
 void PrintToPdfUIController::CancelButtonClickedFunc (const csxs::event::Event* const event, void* const context)
 {
     PrintToPdfUIController *printToPdfUIController = (PrintToPdfUIController *)context;
-    if(NULL == printToPdfUIController || event == NULL)
+    if(nullptr == printToPdfUIController || event == nullptr)
         return;
     
     do {
@@ -108,7 +108,7 @@ void PrintToPdfUIController::CancelButtonClickedFunc (const csxs::event::Event* 
 void PrintToPdfUIController::NoArtboardsSelectedHandler (const csxs::event::Event* const event, void* const context)
 {
     PrintToPdfUIController *printToPdfUIController = (PrintToPdfUIController *)context;
-    if (NULL == printToPdfUIController || event == NULL)
+    if (nullptr == printToPdfUIController || event == nullptr)
     {
         return;
     }
@@ -117,7 +117,7 @@ void PrintToPdfUIController::NoArtboardsSelectedHandler (const csxs::event::Even
         // Set up the application context, so that suite calls can work.
         AppContext appContext(gPlugin->GetPluginRef());
         
-        sAIUser->WarningAlert(ai::UnicodeString("You haven't selected any artboards to print!"), NULL);
+        sAIUser->WarningAlert(ai::UnicodeString("You haven't selected any artboards to print!"), nullptr);
         
         // Clean up the application context and return.
     } while(false);
@@ -223,7 +223,7 @@ ASErr PrintToPdfUIController::SendResultsXmlToHtml(string resultsXml)
         EVENT_TYPE_RESULTS_BACK,
         csxs::event::kEventScope_Application,
         ILST_APP,
-        NULL,
+        nullptr,
         resultsXml.c_str()
     };
     fPPLib.DispatchEvent(&event);
@@ -237,8 +237,8 @@ void PrintToPdfUIController::SendCloseMessageToHtml()
         EVENT_TYPE_FORCE_PANEL_CLOSE,
         csxs::event::kEventScope_Application,
         ILST_APP,
-        NULL,
-        NULL
+        nullptr,
+        nullptr
     };
     fPPLib.DispatchEvent(&event);
 }
@@ -249,8 +249,8 @@ void PrintToPdfUIController::ClearResultsBox()
         EVENT_TYPE_CLEAR_RESULT_BOX,
         csxs::event::kEventScope_Application,
         ILST_APP,
-        NULL,
-        NULL
+        nullptr,
+        nullptr
     };
     fPPLib.DispatchEvent(&event);
 }
@@ -262,7 +262,7 @@ void PrintToPdfUIController::SendColorListToHtml()
         EVENT_TYPE_DATA_FROM_PLUGIN,
         csxs::event::kEventScope_Application,
         ILST_APP,
-        NULL,
+        nullptr,
         json.c_str()
     };
     fPPLib.DispatchEvent(&event);

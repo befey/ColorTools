@@ -50,9 +50,9 @@ ATETextDOM::Real BtAteTextFeatures::FontSize(bool* isAssigned) const
 
 BtAteTextFeatures& BtAteTextFeatures::Font(string postscriptFontName)
 {
-    AIFontKey currFontKey = NULL;
+    AIFontKey currFontKey = nullptr;
     sAIFont->FindFont(postscriptFontName.c_str(), kAIAnyFontTechnology, kUnknownAIScript, FALSE, &currFontKey);
-    FontRef fontRef = NULL;
+    FontRef fontRef = nullptr;
     sAIFont->FontFromFontKey(currFontKey, &fontRef);
     charFeatures.SetFont(ATE::IFont(fontRef));
     return *this;
@@ -197,7 +197,7 @@ void BtAteTextFeatures::AddTextToRangeWithFeatures(const string text, ATE::IText
         
     //Trash our temporary art objects
     sAIArt->DisposeArt(tempTextHandle);
-    tempTextHandle = NULL;
+    tempTextHandle = nullptr;
 }
 
 void BtAteTextFeatures::AddTextToRangeWithFeatures(ATE::ITextRange sourceRange, ATE::ITextRange& targetRange, int beforeAfter)

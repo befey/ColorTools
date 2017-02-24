@@ -115,10 +115,10 @@ void PlateNumber::GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) 
 Boolean PlateNumber::HasInnerTicks() const
 {
     size_t count = 0;
-    AIArtSet artSet = NULL;
+    AIArtSet artSet = nullptr;
     sAIArtSet->NewArtSet(&artSet);
     
-    AIArtHandle currArtHandle = NULL;
+    AIArtHandle currArtHandle = nullptr;
     
     AIArtSpec specs[] = { { kPathArt , 0 , 0 } };
     
@@ -146,7 +146,7 @@ Boolean PlateNumber::HasInnerTicks() const
             
             AIBoolean overlap = sAIRealMath->AIRealRectOverlap(&pageBounds, &artBounds);
             AIReal length;
-            sAIPath->GetPathLength(currArtHandle, &length, NULL);
+            sAIPath->GetPathLength(currArtHandle, &length, 0);
             if (overlap && sAIRealMath->EqualWithinTol(length, LENGTH_OF_INNER_TICK_PATH, 1))
             {
                 if ( ColorEnumerator(currArtHandle).HasRegistrationColor() )

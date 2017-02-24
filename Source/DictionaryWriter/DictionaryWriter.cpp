@@ -30,7 +30,7 @@ DictionaryWriter::~DictionaryWriter()
 
 AIDictKey DictionaryWriter::Key(string identifier, int CAIndex)
 {
-    AIDictKey currKey = NULL;
+    AIDictKey currKey = nullptr;
     currKey = sAIDictionary->Key(GenerateUIDString(identifier, CAIndex).c_str());
     
     return currKey;
@@ -43,14 +43,14 @@ string DictionaryWriter::GenerateUIDString(string identifier, int CAIndex)
 
 AIUIDRef DictionaryWriter::GetUIDRefFromIdentifier(string identifier, int CAIndex)
 {
-    AIUIDRef uidForIdentifier = NULL;
+    AIUIDRef uidForIdentifier = nullptr;
     
     AIDictKey keyForIdentifier = Key(identifier, CAIndex);
     AIEntryRef entryForIdentifier = sAIDictionary->Get(dictionary, keyForIdentifier);
     
     if (entryForIdentifier)
     {
-        AIUIDREFRef uidRefForIdentifier = NULL;
+        AIUIDREFRef uidRefForIdentifier = nullptr;
         sAIEntry->ToUIDREF(entryForIdentifier, &uidRefForIdentifier);
         if (uidRefForIdentifier)
         {
@@ -67,11 +67,11 @@ AIArtHandle DictionaryWriter::GetArtHandleFromUIDRef(AIUIDRef uidRef)
 {
     if (!uidRef)
     {
-        return NULL;
+        return nullptr;
     }
     
-    AIArtHandle currArtObject = NULL;
-    AIUIDREFRef uidREFRef = NULL;
+    AIArtHandle currArtObject = nullptr;
+    AIUIDREFRef uidREFRef = nullptr;
     sAIUID->NewUIDREF(uidRef, &uidREFRef);
     
     ASErr error = sAIUIDUtils->GetReferencedArt(uidREFRef, &currArtObject);
@@ -83,7 +83,7 @@ AIArtHandle DictionaryWriter::GetArtHandleFromUIDRef(AIUIDRef uidRef)
 
 ASBoolean DictionaryWriter::CheckArtHandleFromUIDRef(AIUIDRef uidRef)
 {
-    //The handle was NULL, so we don't need to look for this one
+    //The handle was nullptr, so we don't need to look for this one
     if (!uidRef)
     {
         return FALSE;
@@ -178,7 +178,7 @@ AIBoolean DictionaryWriter::AddArrayDataToDictionary(AIArrayRef data, string ide
 
 AIArtHandle DictionaryWriter::GetArtHandleFromIdentifier(string identifier, int CAIndex)
 {
-    AIArtHandle foundArtHandle = NULL;
+    AIArtHandle foundArtHandle = nullptr;
     
     AIUIDRef uidForIdentifier = GetUIDRefFromIdentifier(identifier, CAIndex);
     if (uidForIdentifier)
@@ -190,7 +190,7 @@ AIArtHandle DictionaryWriter::GetArtHandleFromIdentifier(string identifier, int 
         return foundArtHandle;
     }
     
-    return NULL;
+    return nullptr;
 }
 
 AIBoolean DictionaryWriter::CheckDictionaryForArtObjectWithIdentifier(string identifier, int CAIndex)
@@ -209,16 +209,16 @@ AIBoolean DictionaryWriter::CheckDictionaryForArtObjectWithIdentifier(string ide
 
 AIBoolean DictionaryWriter::AddArtHandleToDictionary(AIArtHandle currArt, string identifier, int CAIndex)
 {
-    AIUIDRef uid = NULL;
+    AIUIDRef uid = nullptr;
     sAIUIDUtils->GetArtUID(currArt, TRUE /*To create one if there is none*/, &uid);
     
     if (uid)
     {
-        AIUIDREFRef uidREFRef = NULL;
+        AIUIDREFRef uidREFRef = nullptr;
         sAIUID->NewUIDREF(uid, &uidREFRef);
         if (uidREFRef)
         {
-            AIEntryRef newEntry = NULL;
+            AIEntryRef newEntry = nullptr;
             newEntry = sAIEntry->FromUIDREF(uidREFRef);
             if (newEntry)
             {
@@ -258,7 +258,7 @@ AIBoolean DictionaryWriter::RemoveIdentifierFromDictionary(string identifier, in
 
 AIBoolean DictionaryWriter::GetVectorOfAIArtHandleFromIdentifier(vector<AIArtHandle>& handles, string identifier, int CAIndex)
 {
-    AIArrayRef array = NULL;
+    AIArrayRef array = nullptr;
     sAIArray->CreateArray(&array);
     AIBoolean result = GetArrayDataFromIdentifier(array, identifier, CAIndex);
     
@@ -267,16 +267,16 @@ AIBoolean DictionaryWriter::GetVectorOfAIArtHandleFromIdentifier(vector<AIArtHan
         int size = sAIArray->Size(array);
         for ( int i = 0; i < size; i++ )
         {
-            AIEntryRef newEntry = NULL;
+            AIEntryRef newEntry = nullptr;
             newEntry = sAIArray->Get(array, i);
             if (newEntry)
             {
-                AIUIDREFRef uidREFRef = NULL;
+                AIUIDREFRef uidREFRef = nullptr;
                 sAIEntry->ToUIDREF(newEntry, &uidREFRef);
                 
                 if (uidREFRef)
                 {
-                    AIArtHandle ah = NULL;
+                    AIArtHandle ah = nullptr;
                     sAIUIDUtils->GetReferencedArt(uidREFRef, &ah);
                     
                     if (ah)
@@ -304,17 +304,17 @@ AIBoolean DictionaryWriter::AddVectorOfAIArtHandleToDictionary(vector<AIArtHandl
     
     for ( auto ah : handles )
     {
-        AIUIDRef uid = NULL;
+        AIUIDRef uid = nullptr;
         AIErr err = sAIUIDUtils->GetArtUID(ah, TRUE /*To create one if there is none*/, &uid);
         string error = GetIllustratorErrorCode(err);
         
         if (uid)
         {
-            AIUIDREFRef uidREFRef = NULL;
+            AIUIDREFRef uidREFRef = nullptr;
             sAIUID->NewUIDREF(uid, &uidREFRef);
             if (uidREFRef)
             {
-                AIEntryRef newEntry = NULL;
+                AIEntryRef newEntry = nullptr;
                 newEntry = sAIEntry->FromUIDREF(uidREFRef);
                 if (newEntry)
                 {
@@ -335,7 +335,7 @@ AIBoolean DictionaryWriter::AddVectorOfAIArtHandleToDictionary(vector<AIArtHandl
 
 AIBoolean DictionaryWriter::AddAIArtHandleToArrayInDictionary(AIArtHandle art, string identifier, int CAIndex)
 {
-    if (art != NULL)
+    if (art != nullptr)
     {
         vector<AIArtHandle> handles;
         GetVectorOfAIArtHandleFromIdentifier(handles, identifier, CAIndex);
@@ -360,7 +360,7 @@ AIBoolean DictionaryWriter::AddAIArtHandleToArrayInDictionary(AIArtHandle art, s
 
 AIBoolean DictionaryWriter::GetVectorOfBtColorFromIdentifier(vector<BtColor>& colors, string identifier, int CAIndex)
 {
-    AIArrayRef mainArray = NULL;
+    AIArrayRef mainArray = nullptr;
     sAIArray->CreateArray(&mainArray);
     AIBoolean result = GetArrayDataFromIdentifier(mainArray, identifier, CAIndex);
     
@@ -369,11 +369,11 @@ AIBoolean DictionaryWriter::GetVectorOfBtColorFromIdentifier(vector<BtColor>& co
         int size = sAIArray->Size(mainArray);
         for ( int i = 0; i < size; i++ )
         {
-            AIEntryRef colorEntry = NULL;
+            AIEntryRef colorEntry = nullptr;
             colorEntry = sAIArray->Get(mainArray, i);
             if (colorEntry)
             {
-                AIArrayRef colorArray = NULL;
+                AIArrayRef colorArray = nullptr;
                 
                 sAIEntry->ToArray(colorEntry, &colorArray);
                 
@@ -399,8 +399,8 @@ AIBoolean DictionaryWriter::GetVectorOfBtColorFromIdentifier(vector<BtColor>& co
                     
                     if (color.AiColor().kind == kCustomColor)
                     {
-                        AICustomColorHandle ccHandle = NULL;
-                        AIEntryRef ccEntry = NULL;
+                        AICustomColorHandle ccHandle = nullptr;
+                        AIEntryRef ccEntry = nullptr;
                         ccEntry = sAIArray->Get(colorArray, 1);
                         sAIEntry->ToCustomColor(ccEntry, &ccHandle);
                         
@@ -439,7 +439,7 @@ AIBoolean DictionaryWriter::AddVectorOfBtColorToDictionary(vector<BtColor> color
             oarchive(c);
         }
         
-        AIEntryRef newEntry = NULL;
+        AIEntryRef newEntry = nullptr;
         newEntry = sAIEntry->FromUnicodeString(ai::UnicodeString(os.str()));
         if (newEntry)
         {
@@ -485,7 +485,7 @@ AIBoolean DictionaryWriter::AddBtColorToArrayInDictionary(BtColor color, string 
 
 string DictionaryWriter::GetUIDStringForArt(AIArtHandle art)
 {
-    AIUIDREFRef uidREFRef = NULL;
+    AIUIDREFRef uidREFRef = nullptr;
     sAIUIDUtils->NewArtUIDREF(art, &uidREFRef);
     ai::UnicodeString name;
     sAIUIDREF->GetName(uidREFRef, name);

@@ -32,7 +32,7 @@ namespace PlateBleedInfo
     class BleedInfo : public IDrawable
     {
     public:
-        BleedInfo(ai::ArtboardID artboardIndex) : BleedInfo(artboardIndex, NULL) {};
+        BleedInfo(ai::ArtboardID artboardIndex) : BleedInfo(artboardIndex, nullptr) {};
         BleedInfo(ai::ArtboardID artboardIndex, const PlateBleedInfo::PlateDTO* dto);
         ~BleedInfo();
         
@@ -66,14 +66,14 @@ namespace PlateBleedInfo
         void StoreInPluginArt() const;
         void ReadFromPluginArt();
         
-        AIArtHandle Draw(AIArtHandle existingArt = NULL) override;
+        AIArtHandle Draw(AIArtHandle existingArt = nullptr) override;
         void Remove();
     private:
         bool shouldDrawBleedInfo = true;
         bool shouldAddCMYKBlocks = false;
         bool shouldPrint = true;
         
-        AIArtHandle bleedInfoPluginArt = NULL;
+        AIArtHandle bleedInfoPluginArt = nullptr;
         
         ai::ArtboardID artboardIndex;
         class ColorList colorList;

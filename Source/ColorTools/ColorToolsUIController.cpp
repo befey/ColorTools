@@ -20,7 +20,7 @@
 void ColorToolsUIController::ChangeButtonClickedFunc (const csxs::event::Event* const event, void* const context)
 {
     ColorToolsUIController *colorToolsUIController = (ColorToolsUIController *)context;
-    if(NULL == colorToolsUIController || event == NULL)
+    if(nullptr == colorToolsUIController || event == nullptr)
         return;
     
     do {
@@ -41,7 +41,7 @@ void ColorToolsUIController::ChangeButtonClickedFunc (const csxs::event::Event* 
 void ColorToolsUIController::RemoveButtonClickedFunc (const csxs::event::Event* const event, void* const context)
 {
     ColorToolsUIController *colorToolsUIController = (ColorToolsUIController *)context;
-    if(NULL == colorToolsUIController || event == NULL)
+    if(nullptr == colorToolsUIController || event == nullptr)
         return;
     
     do {
@@ -62,7 +62,7 @@ void ColorToolsUIController::RemoveButtonClickedFunc (const csxs::event::Event* 
 void ColorToolsUIController::UpdateListFunc (const csxs::event::Event* const event, void* const context)
 {
     ColorToolsUIController *colorToolsUIController = (ColorToolsUIController *)context;
-    if(NULL == colorToolsUIController || event == NULL)
+    if(nullptr == colorToolsUIController || event == nullptr)
         return;
     
     do {
@@ -159,7 +159,7 @@ ASErr ColorToolsUIController::SendColorListXmlToHtml(string swatchesXml)
         EVENT_TYPE_UPDATE_COLOR_LIST_BACK,
         csxs::event::kEventScope_Application,
         ILST_APP,
-        NULL,
+        nullptr,
         swatchesXml.c_str()
     };
     fPPLib.DispatchEvent(&event);
@@ -178,7 +178,7 @@ ASErr ColorToolsUIController::SendChangeCountToHtml(int count)
         EVENT_TYPE_CHANGE_COUNT_BACK,
         csxs::event::kEventScope_Application,
         ILST_APP,
-        NULL,
+        nullptr,
         buffer
     };
     fPPLib.DispatchEvent(&event);
@@ -216,7 +216,7 @@ ASErr ColorToolsUIController::SendChangeInToHtml(ChangeIn changeIn)
         EVENT_TYPE_CHANGE_IN_BACK,
         csxs::event::kEventScope_Application,
         ILST_APP,
-        NULL,
+        nullptr,
         buffer
     };
     fPPLib.DispatchEvent(&event);
@@ -230,8 +230,8 @@ void ColorToolsUIController::SendCloseMessageToHtml()
         EVENT_TYPE_FORCE_PANEL_CLOSE,
         csxs::event::kEventScope_Application,
         ILST_APP,
-        NULL,
-        NULL
+        nullptr,
+        nullptr
     };
     fPPLib.DispatchEvent(&event);
 }

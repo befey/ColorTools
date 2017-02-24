@@ -49,20 +49,20 @@ AIArtHandle BleedInfoDrawableController::Draw() const
 
 AIArtHandle BleedInfoDrawableController::Add() const
 {
-    AIArtHandle pluginGroupArt = NULL;
+    AIArtHandle pluginGroupArt = nullptr;
     
     BtLayer foregroundLayer(SafeguardFile::FOREGROUND_LAYER);
     AIArtHandle prep = foregroundLayer.GetLayerGroupArt();
     
-    if (prep == NULL)
+    if (prep == nullptr)
     {
         prep = GetGroupArtOfFirstEditableLayer();
     }
     
-    if (prep == NULL)
+    if (prep == nullptr)
     {
         sAIUser->MessageAlert(ai::UnicodeString("No visible, editable layer found."));
-        return NULL;
+        return nullptr;
     }
     
     BtLayer pluginArtLayer(BtArtHandle(prep).Layer());
@@ -92,7 +92,7 @@ AIArtHandle BleedInfoDrawableController::Remove() const
     {
         sAIArt->DisposeArt(bleedInfo.BleedInfoPluginArtHandle());
     }
-    return NULL;
+    return nullptr;
 }
 
 AIArtHandle BleedInfoDrawableController::CreateResultArt(AIArtHandle pluginGroupArt) const

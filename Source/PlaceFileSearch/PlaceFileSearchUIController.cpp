@@ -18,7 +18,7 @@ using PlaceFileSearch::FilePlacer;
 void PlaceFileSearchUIController::SearchButtonClickedFunc (const csxs::event::Event* const event, void* const context)
 {
     PlaceFileSearchUIController *placeFileSearchUIController = (PlaceFileSearchUIController *)context;
-    if(NULL == placeFileSearchUIController || event == NULL)
+    if(nullptr == placeFileSearchUIController || event == nullptr)
         return;
     
     do {
@@ -36,7 +36,7 @@ void PlaceFileSearchUIController::SearchButtonClickedFunc (const csxs::event::Ev
 void PlaceFileSearchUIController::PlaceFileEventFunc (const csxs::event::Event* const event, void* const context)
 {
     PlaceFileSearchUIController *placeFileSearchUIController = (PlaceFileSearchUIController *)context;
-    if(NULL == placeFileSearchUIController || event == NULL)
+    if(nullptr == placeFileSearchUIController || event == nullptr)
         return;
     
     do {
@@ -55,7 +55,7 @@ void PlaceFileSearchUIController::PlaceFileEventFunc (const csxs::event::Event* 
 void PlaceFileSearchUIController::CancelButtonClickedFunc (const csxs::event::Event* const event, void* const context)
 {
     PlaceFileSearchUIController *placeFileSearchUIController = (PlaceFileSearchUIController *)context;
-    if(NULL == placeFileSearchUIController || event == NULL)
+    if(nullptr == placeFileSearchUIController || event == nullptr)
         return;
     
     do {
@@ -148,7 +148,7 @@ ASErr PlaceFileSearchUIController::SendResultsXmlToHtml(string resultsXml)
         EVENT_TYPE_RESULTS_BACK,
         csxs::event::kEventScope_Application,
         ILST_APP,
-        NULL,
+        nullptr,
         resultsXml.c_str()
     };
     fPPLib.DispatchEvent(&event);
@@ -162,8 +162,8 @@ void PlaceFileSearchUIController::SendCloseMessageToHtml()
         EVENT_TYPE_FORCE_PANEL_CLOSE,
         csxs::event::kEventScope_Application,
         ILST_APP,
-        NULL,
-        NULL
+        nullptr,
+        nullptr
     };
     fPPLib.DispatchEvent(&event);
 }

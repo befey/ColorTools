@@ -148,10 +148,10 @@ bool SetColorByName( const string& name , AIColor &color)
     }
     
     
-    numSwatches = sAISwatchList->CountSwatches( NULL );
+    numSwatches = sAISwatchList->CountSwatches( nullptr );
     for ( int i=0; i<numSwatches; i++)
     {
-        swatchRef = sAISwatchList->GetNthSwatch( NULL , i );
+        swatchRef = sAISwatchList->GetNthSwatch( nullptr , i );
         sAISwatchList->GetSwatchName( swatchRef, tempName );
         sAISwatchList->GetAIColor( swatchRef, &tempColor );
         if ( tempName == (ai::UnicodeString)colorName )
@@ -229,13 +229,13 @@ bool ColorIsEqual ( const AIColor& color1 , const AIColor& color2 , const bool i
 
 void NameAllColors(AIColor *color, void* userData, AIErr *result, AIBoolean *altered)
 {
-	if ( sAISwatchList->GetSwatchByColor( NULL , color ) )
+	if ( sAISwatchList->GetSwatchByColor( nullptr , color ) )
     {
         return;
     }
 	else
     {
-		AISwatchRef newSwatch = sAISwatchList->InsertNthSwatch( NULL , -1 );
+		AISwatchRef newSwatch = sAISwatchList->InsertNthSwatch( nullptr , -1 );
 		sAISwatchList->SetAIColor(newSwatch, color);
 	}
 	return;
@@ -245,12 +245,12 @@ AISwatchRef CheckSwatchListForColor( AIColor& matchColor , AIReal tolerance )
 {
     AISwatchRef currSwatch;
     AIColor currColor;
-    int numSwatches = sAISwatchList->CountSwatches(NULL);
+    int numSwatches = sAISwatchList->CountSwatches(nullptr);
     
     //Loop through the swatches to see if the swatch is already there
     for (int i = 0 ; i < numSwatches ; i++ )
     {
-        currSwatch = sAISwatchList->GetNthSwatch(NULL, i);
+        currSwatch = sAISwatchList->GetNthSwatch(nullptr, i);
         if (currSwatch)
         {
             sAISwatchList->GetAIColor(currSwatch, &currColor);
@@ -271,7 +271,7 @@ AISwatchRef CheckSwatchListForColor( AIColor& matchColor , AIReal tolerance )
             }
         }
     }
-    return NULL;
+    return nullptr;
 }
 
 
@@ -405,7 +405,7 @@ void ConvertObjectsToGlobalCMYK(AIColor *color, void *userData, AIErr *result, A
             tColor.c.f.magenta = color->c.f.magenta;
             tColor.c.f.yellow = color->c.f.yellow;
             tColor.c.f.black = color->c.f.black;
-            tColor.flag = NULL;
+            tColor.flag = kCustomSpotColor;
             
             ai::UnicodeString CMYKName; char buffer[30];
             CMYKName = ai::UnicodeString("C=");

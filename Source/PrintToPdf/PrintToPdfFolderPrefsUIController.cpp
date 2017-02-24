@@ -20,7 +20,7 @@ using PrintToPdf::PrintToPdfFolderPrefsUIController;
 void PrintToPdfFolderPrefsUIController::PanelLoaded (const csxs::event::Event* const event, void* const context)
 {
     PrintToPdfFolderPrefsUIController *printToPdfFolderPrefsUIController = (PrintToPdfFolderPrefsUIController *)context;
-    if (NULL == printToPdfFolderPrefsUIController || event == NULL)
+    if (nullptr == printToPdfFolderPrefsUIController || event == nullptr)
     {
         return;
     }
@@ -39,7 +39,7 @@ void PrintToPdfFolderPrefsUIController::PanelLoaded (const csxs::event::Event* c
 void PrintToPdfFolderPrefsUIController::OkButtonClickedFunc (const csxs::event::Event* const event, void* const context)
 {
     PrintToPdfFolderPrefsUIController *printToPdfFolderPrefsUIController = (PrintToPdfFolderPrefsUIController *)context;
-    if(NULL == printToPdfFolderPrefsUIController || event == NULL)
+    if(nullptr == printToPdfFolderPrefsUIController || event == nullptr)
         return;
     
     do {
@@ -69,7 +69,7 @@ void PrintToPdfFolderPrefsUIController::OkButtonClickedFunc (const csxs::event::
 void PrintToPdfFolderPrefsUIController::CancelButtonClickedFunc (const csxs::event::Event* const event, void* const context)
 {
     PrintToPdfFolderPrefsUIController *printToPdfFolderPrefsUIController = (PrintToPdfFolderPrefsUIController *)context;
-    if(NULL == printToPdfFolderPrefsUIController || event == NULL)
+    if(nullptr == printToPdfFolderPrefsUIController || event == nullptr)
         return;
     
     do {
@@ -86,7 +86,7 @@ void PrintToPdfFolderPrefsUIController::CancelButtonClickedFunc (const csxs::eve
 void PrintToPdfFolderPrefsUIController::ChangeFolderFunc (const csxs::event::Event* const event, void* const context)
 {
     PrintToPdfFolderPrefsUIController *printToPdfFolderPrefsUIController = (PrintToPdfFolderPrefsUIController *)context;
-    if(NULL == printToPdfFolderPrefsUIController || event == NULL)
+    if(nullptr == printToPdfFolderPrefsUIController || event == nullptr)
         return;
     
     do {
@@ -203,7 +203,7 @@ ASErr PrintToPdfFolderPrefsUIController::SendFolderPrefsToHtml()
         EVENT_TYPE_RESULTS_BACK,
         csxs::event::kEventScope_Application,
         ILST_APP,
-        NULL,
+        nullptr,
         folders.c_str()
     };
     fPPLib.DispatchEvent(&event);
@@ -269,8 +269,8 @@ void PrintToPdfFolderPrefsUIController::SendCloseMessageToHtml()
         EVENT_TYPE_FORCE_PANEL_CLOSE,
         csxs::event::kEventScope_Application,
         ILST_APP,
-        NULL,
-        NULL
+        nullptr,
+        nullptr
     };
     fPPLib.DispatchEvent(&event);
 }
@@ -298,7 +298,7 @@ void PrintToPdfFolderPrefsUIController::SendNewPathToDialog(string preset, ai::F
         EVENT_TYPE_FOLDER_BACK,
         csxs::event::kEventScope_Application,
         ILST_APP,
-        NULL,
+        nullptr,
         xmlString.c_str()
     };
     fPPLib.DispatchEvent(&event);

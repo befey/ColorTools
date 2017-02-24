@@ -28,7 +28,7 @@ bool FixFreehandType() {
         sAIArtSet->CountArtSet( artSet, &count );
 		for ( int i=0 ; i < count ; i++ ) {
 			
-			AIArtHandle currArtHandle = NULL;
+			AIArtHandle currArtHandle = nullptr;
 			sAIArtSet->IndexArtSet( artSet, i, &currArtHandle );
 			
 			AITextFrameType type;

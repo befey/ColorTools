@@ -125,7 +125,7 @@ bool BtArtHandle::IsInArtSet(AIArtSet theSet) const
     
     for ( int i=0 ; i < count ; i++ )
     {
-        AIArtHandle currArtHandle = NULL;
+        AIArtHandle currArtHandle = nullptr;
         sAIArtSet->IndexArtSet( theSet, i, &currArtHandle );
         if (currArtHandle == artHandle)
         {

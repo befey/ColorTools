@@ -30,7 +30,7 @@ ATE::ITextRange BleedTextInfoDrawer::SetupTextRange(AIArtHandle resultGroup, AIR
     rect.bottom = anchor.v - 400;
     
     AIArtHandle path = DrawRectangle(rect, resultGroup);
-    sAITextFrame->NewInPathText(kPlaceInsideOnTop, resultGroup, orientation, path, NULL, false, newTextFrame);
+    sAITextFrame->NewInPathText(kPlaceInsideOnTop, resultGroup, orientation, path, nullptr, false, newTextFrame);
     //sAITextFrame->NewPointText(kPlaceInsideOnTop, resultGroup, orientation, anchor, newTextFrame);
     //Create the ATE range
     ATE::TextRangeRef textRangeRef;

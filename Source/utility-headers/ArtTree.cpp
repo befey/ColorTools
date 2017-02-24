@@ -57,7 +57,7 @@ bool AllLinkedFilesValid()
 {
 	size_t count = 0;
 	ai::UnicodeString currArtName;
-	AIArtHandle currArtObj = NULL;
+	AIArtHandle currArtObj = nullptr;
 
 	AIArtSet artSet;
     sAIArtSet->NewArtSet(&artSet);
@@ -74,7 +74,7 @@ bool AllLinkedFilesValid()
 			ai::FilePath path;
 			sAIPlaced->GetPlacedFileSpecification(currArtObj, path);
 			if (!path.Exists(TRUE)) {
-				sAIArtSet->DisposeArtSet(&artSet); artSet = NULL;
+				sAIArtSet->DisposeArtSet(&artSet); artSet = nullptr;
 				return FALSE;
 			}
 		}
@@ -86,8 +86,8 @@ bool AllLinkedFilesValid()
 
 AIArtHandle FindTopLevelParent(AIArtHandle currArtHandle)
 {
-	AIArtHandle currParent = NULL;
-	AIArtHandle parent = NULL;
+	AIArtHandle currParent = nullptr;
+	AIArtHandle parent = nullptr;
 	parent = currParent = currArtHandle;
 	
 	//If we have an object that is part of a group, we need to find the bounds of the top level parent group and use those for how much to move it
@@ -135,7 +135,7 @@ AIArtHandle GetGroupArtOfFirstEditableLayer()
         }
     }
     
-    return NULL;
+    return nullptr;
 }
 
 int GetArtboardCount()

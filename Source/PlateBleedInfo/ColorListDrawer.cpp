@@ -73,10 +73,10 @@ AIArtHandle LaserColorListDrawer::DrawerSpecificSteps(AIArtHandle resultGroup) c
 
 AIArtHandle ContinuousColorListDrawer::DrawerSpecificSteps(AIArtHandle resultGroup) const
 {
-    AIArtHandle colorListGroup = NULL;
+    AIArtHandle colorListGroup = nullptr;
     sAIArt->NewArt(kGroupArt, kPlaceInsideOnTop, resultGroup, &colorListGroup);
     
-    AIArtHandle colorListArt = NULL;
+    AIArtHandle colorListArt = nullptr;
     
     //Passing maxHeight here because we're going to rotate
     ATE::ITextRange range = SetupTextRange(colorListGroup, maxHeight, ATE::kLeftJustify, kHorizontalTextOrientation, &colorListArt);
@@ -202,10 +202,10 @@ bool ShouldCreateColorListDrawable::Get() const
         return true;
     }
     
-    AIArtHandle resultGroup = NULL;
+    AIArtHandle resultGroup = nullptr;
     sAIPluginGroup->GetPluginArtResultArt(pluginArt, &resultGroup);
     
-    AIArtHandle existingColorListArtHandle = NULL;
+    AIArtHandle existingColorListArtHandle = nullptr;
     existingColorListArtHandle = DictionaryWriter(resultGroup).GetArtHandleFromIdentifier(drawable->GetDrawer()->GetDictionaryLabel(resultGroup));
     if (existingColorListArtHandle)
     {

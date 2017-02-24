@@ -101,7 +101,7 @@ public:
 private:
     AIColor aiColor;
     AICustomColor aiCustomColor;
-    AICustomColorHandle aiCustomColorHandle = NULL;
+    AICustomColorHandle aiCustomColorHandle = nullptr;
     
     SafeguardFile::InkMethod method = SafeguardFile::InkMethod::INVAL;
     

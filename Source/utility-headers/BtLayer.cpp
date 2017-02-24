@@ -24,7 +24,7 @@ void BtLayer::DeleteLayer()
     if (layerHandle)
     {
         sAILayer->DeleteLayer(layerHandle);
-        layerHandle = NULL;
+        layerHandle = nullptr;
     }
 }
 
@@ -177,9 +177,9 @@ void BtLayer::PutArtAtTopOfLayer(AIArtHandle art)
 
 AIArtHandle BtLayer::GetLayerGroupArt() const
 {
-    if (layerHandle == NULL)
+    if (layerHandle == nullptr)
     {
-        return NULL;
+        return nullptr;
     }
     AIArtHandle layerGroup;
     sAIArt->GetFirstArtOfLayer(layerHandle, &layerGroup);

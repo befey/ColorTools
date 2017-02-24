@@ -2,64 +2,64 @@
 #include "SafeguardToolsSuites.h"
 
 // Suite externs
-	SPBlocksSuite*			sSPBlocks = NULL;
-	AIUnicodeStringSuite*	sAIUnicodeString = NULL;
-    AIMenuSuite*			sAIMenu = NULL;
-    AIPreferenceSuite*      sAIPreference = NULL;
+	SPBlocksSuite*			sSPBlocks = nullptr;
+	AIUnicodeStringSuite*	sAIUnicodeString = nullptr;
+    AIMenuSuite*			sAIMenu = nullptr;
+    AIPreferenceSuite*      sAIPreference = nullptr;
     
-    AIArtSuite*             sAIArt = NULL;
-    AIGroupSuite*           sAIGroup = NULL;
-    AILayerSuite*           sAILayer = NULL;
-    AIPluginGroupSuite*     sAIPluginGroup = NULL;
-    AIPlacedSuite*          sAIPlaced = NULL;
-    AIRasterSuite*          sAIRaster = NULL;
-    AIFOConversionSuite*    sAIFOConversion = NULL;
-    AISymbolSuite*          sAISymbol = NULL;
+    AIArtSuite*             sAIArt = nullptr;
+    AIGroupSuite*           sAIGroup = nullptr;
+    AILayerSuite*           sAILayer = nullptr;
+    AIPluginGroupSuite*     sAIPluginGroup = nullptr;
+    AIPlacedSuite*          sAIPlaced = nullptr;
+    AIRasterSuite*          sAIRaster = nullptr;
+    AIFOConversionSuite*    sAIFOConversion = nullptr;
+    AISymbolSuite*          sAISymbol = nullptr;
 
-    AIUndoSuite*            sAIUndo = NULL;
-    AISwatchLibrariesSuite* sAISwatchLibrary = NULL;
-	AISwatchListSuite*      sAISwatchList = NULL;
-	AISwatchGroupSuite*     sAISwatchGroup = NULL;
-	AICustomColorSuite*     sAICustomColor = NULL;
-	AIColorConversionSuite* sAIColorConversion = NULL;
+    AIUndoSuite*            sAIUndo = nullptr;
+    AISwatchLibrariesSuite* sAISwatchLibrary = nullptr;
+	AISwatchListSuite*      sAISwatchList = nullptr;
+	AISwatchGroupSuite*     sAISwatchGroup = nullptr;
+	AICustomColorSuite*     sAICustomColor = nullptr;
+	AIColorConversionSuite* sAIColorConversion = nullptr;
 
-    AIDocumentSuite*        sAIDocument = NULL;
-	AIDocumentListSuite*    sAIDocumentList = NULL;
-    AIDocumentViewSuite*    sAIDocumentView = NULL;
-    AIArtboardSuite*        sAIArtboard = NULL;
-    AIArtboardRangeSuite*   sAIArtboardRange = NULL;
-    AIHardSoftSuite*        sAIHardSoft = NULL;
-    AIIsolationModeSuite*   sAIIsolationMode = NULL;
+    AIDocumentSuite*        sAIDocument = nullptr;
+	AIDocumentListSuite*    sAIDocumentList = nullptr;
+    AIDocumentViewSuite*    sAIDocumentView = nullptr;
+    AIArtboardSuite*        sAIArtboard = nullptr;
+    AIArtboardRangeSuite*   sAIArtboardRange = nullptr;
+    AIHardSoftSuite*        sAIHardSoft = nullptr;
+    AIIsolationModeSuite*   sAIIsolationMode = nullptr;
 
-	AIArtSetSuite*          sAIArtSet = NULL;
-	AIArtStyleSuite*        sAIArtStyle = NULL;
+	AIArtSetSuite*          sAIArtSet = nullptr;
+	AIArtStyleSuite*        sAIArtStyle = nullptr;
     
-    AIPathSuite*            sAIPath = NULL;
-	AIPathStyleSuite*       sAIPathStyle = NULL;
-    AIGeometrySuite*        sAIGeometry = NULL;
+    AIPathSuite*            sAIPath = nullptr;
+	AIPathStyleSuite*       sAIPathStyle = nullptr;
+    AIGeometrySuite*        sAIGeometry = nullptr;
 
-    AITransformArtSuite*    sAITransformArt = NULL;
-    AIRealMathSuite*        sAIRealMath = NULL;
-	AIMatchingArtSuite*     sAIMatchingArt = NULL;
-	AIMdMemorySuite*        sAIMdMemory = NULL;
-	AIPatternSuite*         sAIPattern = NULL;
+    AITransformArtSuite*    sAITransformArt = nullptr;
+    AIRealMathSuite*        sAIRealMath = nullptr;
+	AIMatchingArtSuite*     sAIMatchingArt = nullptr;
+	AIMdMemorySuite*        sAIMdMemory = nullptr;
+	AIPatternSuite*         sAIPattern = nullptr;
 	
-	AITextFrameSuite*       sAITextFrame = NULL;
-	AIATEPaintSuite*        sAIATEPaint = NULL;
-	AIATETextUtilSuite*     sAIATETextUtil = NULL;
-    AICSXSExtensionSuite*   sAICSXSExtension = NULL;
-    AIFontSuite*            sAIFont = NULL;
+	AITextFrameSuite*       sAITextFrame = nullptr;
+	AIATEPaintSuite*        sAIATEPaint = nullptr;
+	AIATETextUtilSuite*     sAIATETextUtil = nullptr;
+    AICSXSExtensionSuite*   sAICSXSExtension = nullptr;
+    AIFontSuite*            sAIFont = nullptr;
     
-    AIUIDSuite*             sAIUID = NULL;
-    AIUIDREFSuite*          sAIUIDREF = NULL;
-    AIUIDUtilsSuite*        sAIUIDUtils = NULL;
-    AIUIDPoolSuite*         sAIUIDPool = NULL;
+    AIUIDSuite*             sAIUID = nullptr;
+    AIUIDREFSuite*          sAIUIDREF = nullptr;
+    AIUIDUtilsSuite*        sAIUIDUtils = nullptr;
+    AIUIDPoolSuite*         sAIUIDPool = nullptr;
     
-    AIDictionarySuite*      sAIDictionary = NULL;
-    AIEntrySuite*           sAIEntry = NULL;
-    AIArraySuite*           sAIArray = NULL;
+    AIDictionarySuite*      sAIDictionary = nullptr;
+    AIEntrySuite*           sAIEntry = nullptr;
+    AIArraySuite*           sAIArray = nullptr;
 
-    AIActionManagerSuite*   sAIActionManager = NULL;
+    AIActionManagerSuite*   sAIActionManager = nullptr;
 
     
 	EXTERN_TEXT_SUITES

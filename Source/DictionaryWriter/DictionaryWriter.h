@@ -79,9 +79,9 @@ private:
     AIUIDRef GetUIDRefFromIdentifier(string identifier, int CAIndex = -1);
     
     AIArtHandle GetArtHandleFromUIDRef(AIUIDRef uidRef);
-    //Returns the handle to the art object with the associated id, or a NULL handle if it couldn't be found
+    //Returns the handle to the art object with the associated id, or a nullptr handle if it couldn't be found
     ASBoolean CheckArtHandleFromUIDRef(AIUIDRef uidRef);
-    //Returns TRUE if the uid points to an art handle in the document, FALSE if its NULL or invalid
+    //Returns TRUE if the uid points to an art handle in the document, FALSE if its nullptr or invalid
 };
 
 #endif /* DictionaryWriter_h */

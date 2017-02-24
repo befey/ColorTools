@@ -99,7 +99,7 @@ AIRealRect FitTextFrameToContents(AIArtHandle textFrameArt)
             TextRangeRef textRange;
             sAITextFrame->GetATETextRange(textFrameArt, &textRange);
             sAIATETextUtil->GetBoundsFromTextRange(textRange, &rect);
-            AIArtHandle path = NULL;
+            AIArtHandle path = nullptr;
             sAITextFrame->GetPathObject(textFrameArt, &path);
             bool isAssigned;
             ATE::ParagraphJustification justification = ATE::ITextRange(textRange).GetUniqueLocalParaFeatures().GetJustification(&isAssigned);

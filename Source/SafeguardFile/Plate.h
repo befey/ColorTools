@@ -20,7 +20,7 @@ namespace SafeguardFile
     class Plate : public IDrawable
     {
     public:
-        Plate(ai::ArtboardID id) : Plate(id, NULL) {};
+        Plate(ai::ArtboardID id) : Plate(id, nullptr) {};
         Plate(ai::ArtboardID id, const PlateBleedInfo::PlateDTO* dto);
         
         AIRealRect GetArtboardBounds() const;
@@ -34,7 +34,7 @@ namespace SafeguardFile
         AIRealRect GetBleeds() const;
         ColorList GetColors();
         
-        AIArtHandle Draw(AIArtHandle existingArt = NULL) override { return bleedInfo->Draw(existingArt); };
+        AIArtHandle Draw(AIArtHandle existingArt = nullptr) override { return bleedInfo->Draw(existingArt); };
         void RemoveBleedInfo() { bleedInfo->Remove(); };
         
         const PlateBleedInfo::BleedInfo& GetBleedInfo() const { return *bleedInfo; };

@@ -69,7 +69,7 @@ namespace SafeguardFile
     {
     public:
         NoneSgSymbolDrawer(string symbolName) : SgSymbolDrawer({}, {}, symbolName) {};
-        AIArtHandle Draw(AIArtHandle resultGroup) const override { return NULL; };
+        AIArtHandle Draw(AIArtHandle resultGroup) const override { return nullptr; };
     };
     
     class SgSymbolDrawable : public IDrawable

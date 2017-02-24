@@ -275,11 +275,11 @@ std::string BtColor::Name() const
     }
     else
     {
-        int numSwatches = sAISwatchList->CountSwatches( NULL );
+        int numSwatches = sAISwatchList->CountSwatches( nullptr );
         for ( int i=0; i<numSwatches; i++)
         {
             AIColor tempColor;
-            AISwatchRef swatchRef = sAISwatchList->GetNthSwatch( NULL , i );
+            AISwatchRef swatchRef = sAISwatchList->GetNthSwatch( nullptr , i );
             sAISwatchList->GetAIColor( swatchRef, &tempColor );
             if ( ColorIsEqual(AiColor(), tempColor, true) )
             {

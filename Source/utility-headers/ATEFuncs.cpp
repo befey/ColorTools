@@ -13,12 +13,12 @@
 
 ai::UnicodeString GetNameFromATETextRange(ATE::ITextRange targetRange) {
 	ATE::ITextFramesIterator itemFrameIterator = targetRange.GetTextFramesIterator();
-	AIArtHandle itemArtHandle = NULL;
+	AIArtHandle itemArtHandle = nullptr;
 	ATE::ITextFrame itemTextFrame = itemFrameIterator.Item();
 	ATE::TextFrameRef itemTextFrameRef = itemTextFrame.GetRef();
 	sAITextFrame->GetAITextFrame(itemTextFrameRef, &itemArtHandle);
 	ai::UnicodeString itemName;
-	sAIArt->GetArtName(itemArtHandle, itemName, NULL);
+	sAIArt->GetArtName(itemArtHandle, itemName, nullptr);
 
 	return itemName;
 }
@@ -70,7 +70,7 @@ void SetAIColorForATETextRange(ATE::ITextRange theRange, AIColor theColor, bool 
 	ATE::ICharFeatures targetICharFeatures;
 	
 	//Change the AIColor to the ATE Color
-	ATE::ApplicationPaintRef ateApplicationPaintRef = NULL;
+	ATE::ApplicationPaintRef ateApplicationPaintRef = nullptr;
 	sAIATEPaint->CreateATEApplicationPaint(&theColor, &ateApplicationPaintRef);
 	ATE::IApplicationPaint targetIApplicationPaint(ateApplicationPaintRef);
 	
@@ -162,7 +162,7 @@ string GetDisplayFontNameFromPostscriptFontName(const string postscriptFontName)
 void AddTextToRange(const string text, ATE::ITextRange& targetRange, int beforeAfter)
 {
     //We have to create a new point text so we can get a new blank range
-    AIArtHandle tempTextHandle = NULL; AIRealPoint anchor ={0,0};
+    AIArtHandle tempTextHandle = nullptr; AIRealPoint anchor ={0,0};
     
     AIArtHandle prep = GetGroupArtOfFirstEditableLayer();
         

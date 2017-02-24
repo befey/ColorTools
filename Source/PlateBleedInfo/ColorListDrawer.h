@@ -78,9 +78,9 @@ namespace SafeguardFile
     {
     public:
         NoneColorListDrawer() : ColorListDrawer({}, {}, ColorList(vector<AIColor>{})) {};
-        AIArtHandle Draw(AIArtHandle resultGroup) const override { return NULL; };
+        AIArtHandle Draw(AIArtHandle resultGroup) const override { return nullptr; };
     private:
-        AIArtHandle DrawerSpecificSteps(AIArtHandle resultGroup) const override { return NULL; };
+        AIArtHandle DrawerSpecificSteps(AIArtHandle resultGroup) const override { return nullptr; };
     };
     
     class ColorListDrawable : public IDrawable

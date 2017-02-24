@@ -18,8 +18,8 @@ void FilePlacer::Place() const
     data.m_disableTemplate = false;
     data.m_doShowParamDialog = true;
     data.m_lParam = kPlacedArt;
-    data.m_hNewArt = NULL;
-    data.m_hOldArt = NULL;
+    data.m_hNewArt = nullptr;
+    data.m_hOldArt = nullptr;
     data.m_pFilePath = &aiFilePath;
     data.m_filemethod = 0;
     data.m_lPlaceMode = kVanillaPlace;

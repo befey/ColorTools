@@ -112,8 +112,8 @@ void adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *alter
     
     *altered = FALSE;
     
-    AISwatchRef fromSwatchRef = sAISwatchList->GetSwatchByColor(NULL, &data->fromColor);
-    AISwatchRef colorSwatchRef = sAISwatchList->GetSwatchByColor(NULL, color);
+    AISwatchRef fromSwatchRef = sAISwatchList->GetSwatchByColor(nullptr, &data->fromColor);
+    AISwatchRef colorSwatchRef = sAISwatchList->GetSwatchByColor(nullptr, color);
     
     if (color->kind == kGrayColor ||
         color->kind == kFourColor ||
@@ -148,7 +148,7 @@ void adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *alter
                     else
                     {
                         //Insert a new Swatch into the main group
-                        toColorTintSwatch = sAISwatchList->InsertNthSwatch(NULL, -1);
+                        toColorTintSwatch = sAISwatchList->InsertNthSwatch(nullptr, -1);
                         if (toColorTintSwatch)
                         {
                             //Apply the tempColor to the new swatch

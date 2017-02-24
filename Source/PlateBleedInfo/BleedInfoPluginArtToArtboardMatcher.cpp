@@ -73,5 +73,5 @@ AIArtHandle BleedInfoPluginArtToArtboardMatcher::GetArt(int artboardIndex)
     {
         return iter->second;
     }
-    return NULL;
+    return nullptr;
 }

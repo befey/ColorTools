@@ -81,7 +81,7 @@ namespace SafeguardFile
     public:
         NoneFileNameDateDrawer() : FileNameDateDrawer({}, {}, PlateNumber(), "", {}) {};
     private:
-        AIArtHandle Draw(AIArtHandle resultGroup) const override { return NULL; };
+        AIArtHandle Draw(AIArtHandle resultGroup) const override { return nullptr; };
     };
     
     class FileNameDateDrawable : public IDrawable
