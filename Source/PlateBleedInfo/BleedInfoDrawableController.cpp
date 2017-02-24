@@ -59,9 +59,20 @@ AIArtHandle BleedInfoDrawableController::Add() const
         prep = GetGroupArtOfFirstEditableLayer();
     }
     
+    if (prep == NULL)
+    {
+        sAIUser->MessageAlert(ai::UnicodeString("No visible, editable layer found."));
+        return NULL;
+    }
+    
+    BtLayer pluginArtLayer(BtArtHandle(prep).Layer());
+    pluginArtLayer.MakeEditable();
+    
     sAIArt->NewArt(kPluginArt, kPlaceInsideOnBottom, prep, &pluginGroupArt);
     AIErr err = sAIPluginGroup->UseAIPluginGroup(pluginGroupArt, gPlugin->GetBleedInfoPluginGroupHandle());
     string error = GetIllustratorErrorCode(err);
+    
+    pluginArtLayer.ResetEditable();
     
     CreateResultArt(pluginGroupArt);
     
@@ -86,7 +97,7 @@ AIArtHandle BleedInfoDrawableController::Remove() const
 
 AIArtHandle BleedInfoDrawableController::CreateResultArt(AIArtHandle pluginGroupArt) const
 {
-    AIArtHandle resultGroup;
+    AIArtHandle resultGroup = nullptr;
     sAIPluginGroup->GetPluginArtResultArt(pluginGroupArt, &resultGroup);
     
     BtLayer pluginGroupLayer(BtArtHandle(resultGroup).Layer());
