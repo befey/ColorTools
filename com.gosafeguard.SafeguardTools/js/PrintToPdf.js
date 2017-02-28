@@ -15,76 +15,76 @@ var folderPrefsEvent = new CSEvent("com.gosafeguard.SafeguardTools.PrintToPdf.ch
 
 $(function()
   {
-  csInterface.setWindowTitle("Print To PDF");
-  $('#preset-select').change(function()
-                             {
-                                if ( $('#preset-select').val() == 0 ) //Manufacturing
-                                {
-                                    $('#separatefiles-check').prop('checked', true);
-                                    $('.artboard-colors').each(function(i,e) {
-                                                                ResetArtboardPrintToStored($(e));
-                                                               });
-                                }
-                                else
-                                {
-                                    $('#separatefiles-check').prop('checked', false);
-                                    $('.artboard-colors').each(function(i,e) {
-                                                                TurnOnAllArtboardPrint($(e));
-                                                               });
-                                }
-                             });
-
-  $('#allpages-check').change(function()
-                              {
-                                if ($(this).is(':checked'))
-                                {
-                                    $("#range-text").css("color","gray");
-                                }
-                                else
-                                {
-                                    $("#range-text").css("color","black");
-                                    $("#range-text").focus();
-                                }
-                              });
-  
-  $('#range-text').on('focus', function()
-                      {
-                      $("#allpages-check").attr('checked', false);
-                      $("#range-text").css("color","black");
-                      
-                      $("#range-text")
-                      .one('mouseup.mouseupSelect', function() {
-                           $("#range-text").select();
-                           return false;
-                           })
-                      .one('mousedown', function() {
-                           // compensate for untriggered 'mouseup' caused by focus via tab
-                           $("#range-text").off('mouseup.mouseupSelect');
-                           })
-                      .select();
-                      });
-  
-  $("#colorlist-textarea").on( "click", ".artboard-colors", function()
-                              {
-                              ToggleArtboardPrint($(this));
-                              });
-  
-  $("#changeoutputfolder").on( "click", function ()
-                              {
-                              csInterface.dispatchEvent(folderPrefsEvent);
-                              return false;
-                              });
-  
-  csInterface.addEventListener("com.gosafeguard.SafeguardTools.PrintToPdf.resultsback", onResultsBack);
-  csInterface.addEventListener("com.gosafeguard.SafeguardTools.PrintToPdf.clearresultbox", clearResultBox);
-  csInterface.addEventListener("com.gosafeguard.SafeguardTools.PrintToPdf.forcepanelclose",
-                               function(event)
-                               {
-                               csInterface.closeExtension();
-                               });
-  csInterface.addEventListener("com.gosafeguard.SafeguardTools.PrintToPdf.datafromplugin", ReceiveDataFromPlugin);
-  
-  csInterface.dispatchEvent(panelLoadedEvent);
+      csInterface.setWindowTitle("Print To PDF");
+      $('#preset-select').change(function()
+                                 {
+                                     if ( $('#preset-select').val() == 0 ) //Manufacturing
+                                     {
+                                         $('#separatefiles-check').prop('checked', true);
+                                         $('.artboard-colors').each(function(i,e) {
+                                             ResetArtboardPrintToStored($(e));
+                                         });
+                                     }
+                                     else
+                                     {
+                                         $('#separatefiles-check').prop('checked', false);
+                                         $('.artboard-colors').each(function(i,e) {
+                                             TurnOnAllArtboardPrint($(e));
+                                         });
+                                     }
+                                 });
+      
+      $('#allpages-check').change(function()
+                                  {
+                                      if ($(this).is(':checked'))
+                                      {
+                                          $("#range-text").css("color","gray");
+                                      }
+                                      else
+                                      {
+                                          $("#range-text").css("color","black");
+                                          $("#range-text").focus();
+                                      }
+                                  });
+      
+      $('#range-text').on('focus', function()
+                          {
+                              $("#allpages-check").attr('checked', false);
+                              $("#range-text").css("color","black");
+                              
+                              $("#range-text")
+                              .one('mouseup.mouseupSelect', function() {
+                                  $("#range-text").select();
+                                  return false;
+                              })
+                              .one('mousedown', function() {
+                                  // compensate for untriggered 'mouseup' caused by focus via tab
+                                  $("#range-text").off('mouseup.mouseupSelect');
+                              })
+                              .select();
+                          });
+      
+      $("#colorlist-textarea").on( "click", ".artboard-colors", function()
+                                  {
+                                      ToggleArtboardPrint($(this));
+                                  });
+      
+      $("#changeoutputfolder").on( "click", function ()
+                                  {
+                                      csInterface.dispatchEvent(folderPrefsEvent);
+                                      return false;
+                                  });
+      
+      csInterface.addEventListener("com.gosafeguard.SafeguardTools.PrintToPdf.resultsback", onResultsBack);
+      csInterface.addEventListener("com.gosafeguard.SafeguardTools.PrintToPdf.clearresultbox", clearResultBox);
+      csInterface.addEventListener("com.gosafeguard.SafeguardTools.PrintToPdf.forcepanelclose",
+                                   function(event)
+                                   {
+                                       csInterface.closeExtension();
+                                   });
+      csInterface.addEventListener("com.gosafeguard.SafeguardTools.PrintToPdf.datafromplugin", ReceiveDataFromPlugin);
+      
+      csInterface.dispatchEvent(panelLoadedEvent);
   }
   );
 
@@ -93,9 +93,9 @@ function ReceiveDataFromPlugin(event)
     jsonArtboardData = event.data;
     
     jsonArtboardData.dto.plates.forEach(function(element, index, array)
-                                     {
-                                        storedArtboardPrint[index] = element.shouldPrint;
-                                     });
+                                        {
+                                            storedArtboardPrint[index] = element.shouldPrint;
+                                        });
     
     PutColorList(jsonArtboardData);
 }
@@ -140,12 +140,12 @@ function onResultsBack(event)
     
     $xml.find("delete").each( function(index)
                              {
-                             $("#results-textarea").append("<div class='deleted'> - " + this.textContent + "</div><br />"); //.addClass("deleted");
+                                 $("#results-textarea").append("<div class='deleted'> - " + this.textContent + "</div><br />"); //.addClass("deleted");
                              });
     $("#results-textarea").append("-----<br />")
     $xml.find("create").each( function(index)
                              {
-                             $("#results-textarea").append("<div class='created'> + " + this.textContent + "</div><br />"); //.addClass("created");
+                                 $("#results-textarea").append("<div class='created'> + " + this.textContent + "</div><br />"); //.addClass("created");
                              });
     
     $("#cancel-button").focus();
@@ -161,39 +161,39 @@ function PutColorList(data)
     $("#colorlist-textarea").html(function()
                                   {
                                       var newHtml = "";
-
+                                      
                                       for (var j = 0; j < data.dto.plates.length; j++)
                                       {
                                           newHtml += "<div class='feedback-box artboard-colors";
                                           if (jsonArtboardData.dto.plates[j].shouldPrint == false ||
                                               data.dto.plates[j].c.length == 0)
                                           {
-                                            newHtml += " artboard-deselected";
+                                              newHtml += " artboard-deselected";
                                           }
-                                  
+                                          
                                           newHtml += "' id='ab-" + j + "'>";
-                                  
+                                          
                                           if (data.dto.plates[j].c.length == 0)
                                           {
-                                            jsonArtboardData.dto.plates[j].shouldPrint = false;
-                                            newHtml += "<div class='colorName'>";
-                                            newHtml += "NO IMPRINT";
-                                            newHtml += "</div>";
+                                              jsonArtboardData.dto.plates[j].shouldPrint = false;
+                                              newHtml += "<div class='colorName'>";
+                                              newHtml += "NO IMPRINT";
+                                              newHtml += "</div>";
                                           }
-                                  
+                                          
                                           for (var i = 0; i < data.dto.plates[j].c.length; i++)
                                           {
                                               color = data.dto.plates[j].c[i];
                                               newHtml += "<div class='colorName'>";
                                               if (color.colorName == "CMYK")
                                               {
-                                                newHtml += "<div class='cmyk'>";
-                                                newHtml += color.colorName;
-                                                newHtml += "</div>";
+                                                  newHtml += "<div class='cmyk'>";
+                                                  newHtml += color.colorName;
+                                                  newHtml += "</div>";
                                               }
                                               else
                                               {
-                                                newHtml += color.colorName;
+                                                  newHtml += color.colorName;
                                               }
                                               newHtml += "</div>";
                                           }
@@ -207,7 +207,7 @@ function ToggleArtboardPrint(artboardDiv)
 {
     var index = parseInt(artboardDiv.attr('id').slice(3), 10);
     jsonArtboardData.dto.plates[index].shouldPrint = !jsonArtboardData.dto.plates[index].shouldPrint;
-
+    
     artboardDiv.toggleClass("artboard-deselected");
 }
 
@@ -216,7 +216,7 @@ function TurnOnAllArtboardPrint(artboardDiv)
     var index = parseInt(artboardDiv.attr('id').slice(3), 10);
     storedArtboardPrint[index] = jsonArtboardData.dto.plates[index].shouldPrint;
     jsonArtboardData.dto.plates[index].shouldPrint = true;
-
+    
     artboardDiv.toggleClass("artboard-deselected", false);
 }
 
