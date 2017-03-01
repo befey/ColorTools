@@ -64,12 +64,9 @@ void ColorList::RemoveDuplicates()
             p_ColorList.erase(
                               std::remove_if(p_ColorList.begin(), p_ColorList.end(), [](BtColor c)
                                              {
-                                                 if (c.Kind() != kFourColor)
+                                                 if (c.IsBlack(false))
                                                  {
-                                                     if (c.IsBlack(false))
-                                                     {
-                                                         return true;
-                                                     }
+                                                     return true;
                                                  }
                                                  return false;
                                              }
