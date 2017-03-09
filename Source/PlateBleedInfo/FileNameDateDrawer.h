@@ -14,16 +14,18 @@
 #include <ctime>
 #include "IDrawer.h"
 #include "IDrawable.hpp"
+#include "BleedInfo.h"
 
 struct FileNameDateDrawerSettings
 {
-    FileNameDateDrawerSettings(SafeguardFile::ProductType pt, AIRealRect artboardBounds, SafeguardFile::PlateNumber plateNumber, string token, tm lastModified, bool shouldDrawBleedInfo) :
-    pt(pt),
-    artboardBounds(artboardBounds),
-    plateNumber(plateNumber),
-    token(token),
-    lastModified(lastModified),
-    shouldDrawBleedInfo(shouldDrawBleedInfo) {};
+    FileNameDateDrawerSettings(PlateBleedInfo::BleedInfo bleedInfo)
+    :
+    pt(bleedInfo.PlateNumber().GetProductType()),
+    artboardBounds(bleedInfo.ArtboardBounds()),
+    plateNumber(bleedInfo.PlateNumber()),
+    token(bleedInfo.Token()),
+    lastModified(bleedInfo.LastModified()),
+    shouldDrawBleedInfo(bleedInfo.ShouldDrawBleedInfo()) {};
     
     SafeguardFile::ProductType pt;
     AIRealRect artboardBounds;

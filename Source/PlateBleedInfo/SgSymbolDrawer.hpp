@@ -20,6 +20,7 @@
 #include "AIPathStyle.h"
 #include "IDrawer.h"
 #include "IDrawable.hpp"
+#include "BleedInfo.h"
 
 extern AIArtSuite* sAIArt;
 extern AISymbolSuite* sAISymbol;
@@ -32,11 +33,12 @@ extern AIPathStyleSuite* sAIPathStyle;
 
 struct SgSymbolDrawerSettings
 {
-    SgSymbolDrawerSettings(AIRealRect artboardBounds, string symbolName, bool shouldDraw, bool shouldDrawBleedInfo) :
-    artboardBounds(artboardBounds),
+    SgSymbolDrawerSettings(PlateBleedInfo::BleedInfo bleedInfo, string symbolName, bool shouldDraw)
+    :
+    artboardBounds(bleedInfo.ArtboardBounds()),
     symbolName(symbolName),
     shouldDraw(shouldDraw),
-    shouldDrawBleedInfo(shouldDrawBleedInfo) {};
+    shouldDrawBleedInfo(bleedInfo.ShouldDrawBleedInfo()) {};
     
     AIRealRect artboardBounds;
     string symbolName;

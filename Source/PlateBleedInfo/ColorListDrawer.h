@@ -14,16 +14,18 @@
 #include "IDrawer.h"
 #include "IDrawable.hpp"
 #include "AIPluginGroup.h"
+#include "BleedInfo.h"
 
 extern AIPluginGroupSuite* sAIPluginGroup;
 
 struct ColorListDrawerSettings
 {
-    ColorListDrawerSettings(SafeguardFile::ProductType pt, AIRealRect artboardBounds, ColorList colorList, bool shouldDrawBleedInfo) :
-    pt(pt),
-    artboardBounds(artboardBounds),
-    colorList(colorList),
-    shouldDrawBleedInfo(shouldDrawBleedInfo) {};
+    ColorListDrawerSettings(PlateBleedInfo::BleedInfo bleedInfo)
+    :
+    pt(bleedInfo.PlateNumber().GetProductType()),
+    artboardBounds(bleedInfo.ArtboardBounds()),
+    colorList(bleedInfo.ColorList()),
+    shouldDrawBleedInfo(bleedInfo.ShouldDrawBleedInfo()) {};
     
     SafeguardFile::ProductType pt;
     AIRealRect artboardBounds;
