@@ -12,6 +12,7 @@
 #include "BtLayer.hpp"
 #include "BtArtHandle.hpp"
 #include "GetIllustratorErrorCode.h"
+#include "DrawDrawableCommand.hpp"
 
 
 using PlateBleedInfo::BleedInfoDrawableController;
@@ -105,11 +106,7 @@ AIArtHandle BleedInfoDrawableController::CreateResultArt(AIArtHandle pluginGroup
     
     for (auto drawable : drawables)
     {
-        if (drawable)
-        {
-            drawable->Clear(resultGroup);
-            drawable->Draw(resultGroup);
-        }
+        DrawDrawableCommand(drawable, resultGroup).Execute();
     }
     
     pluginGroupLayer.ResetEditable();
