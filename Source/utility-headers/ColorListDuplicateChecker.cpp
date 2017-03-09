@@ -38,6 +38,16 @@ ColorListDuplicateChecker::ColorListDuplicateChecker(const BtColor& base)
     };
     AddPredicate(ColorListDuplicatePredicate(NonColor));
     
+    predFunc ExactMatch = [&found1 = found1] (const BtColor& base, const BtColor& compare)
+    {
+        if (base == compare && &base != &compare)
+        {
+            return true;
+        }
+        return false;
+    };
+    AddPredicate(ColorListDuplicatePredicate(ExactMatch));
+    
     predFunc GrayColor = [&found1 = found1] (const BtColor& base, const BtColor& compare)
     {
         if (base.Kind() == kGrayColor && base.Kind() == compare.Kind() && base.Method() == compare.Method())
