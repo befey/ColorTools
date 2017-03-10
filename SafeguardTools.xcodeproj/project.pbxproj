@@ -122,6 +122,8 @@
 		F9B0B1F41E71C0B700B27FC8 /* DrawDrawableCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9B0B1F21E71C0B700B27FC8 /* DrawDrawableCommand.hpp */; };
 		F9B0B1F71E71F11800B27FC8 /* ColorListCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9B0B1F51E71F11800B27FC8 /* ColorListCommand.cpp */; };
 		F9B0B1F81E71F11800B27FC8 /* ColorListCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9B0B1F61E71F11800B27FC8 /* ColorListCommand.hpp */; };
+		F9B0B1FB1E7328AF00B27FC8 /* FilesystemCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9B0B1F91E7328AF00B27FC8 /* FilesystemCommand.cpp */; };
+		F9B0B1FC1E7328AF00B27FC8 /* FilesystemCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9B0B1FA1E7328AF00B27FC8 /* FilesystemCommand.hpp */; };
 		F9BC95C21DEF14AC00130615 /* ColorEnumerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9BC95C01DEF14AC00130615 /* ColorEnumerator.cpp */; };
 		F9BC95C31DEF14AC00130615 /* ColorEnumerator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9BC95C11DEF14AC00130615 /* ColorEnumerator.hpp */; };
 		F9BC95C61DF1D68500130615 /* TokenCreator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9BC95C41DF1D68500130615 /* TokenCreator.cpp */; };
@@ -328,6 +330,8 @@
 		F9B0B1F21E71C0B700B27FC8 /* DrawDrawableCommand.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = DrawDrawableCommand.hpp; path = "Source/utility-headers/Commands/DrawDrawableCommand.hpp"; sourceTree = "<group>"; };
 		F9B0B1F51E71F11800B27FC8 /* ColorListCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ColorListCommand.cpp; path = "Source/utility-headers/Commands/ColorListCommand.cpp"; sourceTree = "<group>"; };
 		F9B0B1F61E71F11800B27FC8 /* ColorListCommand.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ColorListCommand.hpp; path = "Source/utility-headers/Commands/ColorListCommand.hpp"; sourceTree = "<group>"; };
+		F9B0B1F91E7328AF00B27FC8 /* FilesystemCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FilesystemCommand.cpp; path = "Source/utility-headers/Commands/FilesystemCommand.cpp"; sourceTree = "<group>"; };
+		F9B0B1FA1E7328AF00B27FC8 /* FilesystemCommand.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FilesystemCommand.hpp; path = "Source/utility-headers/Commands/FilesystemCommand.hpp"; sourceTree = "<group>"; };
 		F9B3FE381D9EBC6F002E10EB /* AIArtboardMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AIArtboardMessage.h; path = "Source/utility-headers/AIArtboardMessage.h"; sourceTree = "<group>"; };
 		F9BC95C01DEF14AC00130615 /* ColorEnumerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ColorEnumerator.cpp; path = "Source/utility-headers/ColorEnumerator.cpp"; sourceTree = "<group>"; };
 		F9BC95C11DEF14AC00130615 /* ColorEnumerator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ColorEnumerator.hpp; path = "Source/utility-headers/ColorEnumerator.hpp"; sourceTree = "<group>"; };
@@ -356,8 +360,8 @@
 		F9DA3B9C1D1D7E6200AB6156 /* BleedTextInfoDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BleedTextInfoDrawer.h; path = Source/PlateBleedInfo/BleedTextInfoDrawer.h; sourceTree = "<group>"; };
 		F9DD295C1DEC90E40004EFF0 /* BleedInfoController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BleedInfoController.cpp; path = Source/PlateBleedInfo/BleedInfoController.cpp; sourceTree = "<group>"; };
 		F9DD295D1DEC90E40004EFF0 /* BleedInfoController.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = BleedInfoController.hpp; path = Source/PlateBleedInfo/BleedInfoController.hpp; sourceTree = "<group>"; };
-		F9E284261D254E2D001B0F98 /* PathCreator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PathCreator.cpp; path = Source/PrintToPdf/PathCreator.cpp; sourceTree = "<group>"; };
-		F9E284271D254E2D001B0F98 /* PathCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PathCreator.h; path = Source/PrintToPdf/PathCreator.h; sourceTree = "<group>"; };
+		F9E284261D254E2D001B0F98 /* PathCreator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PathCreator.cpp; path = "Source/utility-headers/PathCreator.cpp"; sourceTree = "<group>"; };
+		F9E284271D254E2D001B0F98 /* PathCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PathCreator.h; path = "Source/utility-headers/PathCreator.h"; sourceTree = "<group>"; };
 		F9F079621D47ED21004AC522 /* BleedInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BleedInfo.cpp; path = Source/PlateBleedInfo/BleedInfo.cpp; sourceTree = "<group>"; };
 		F9F079641D47EEC1004AC522 /* TickMarkSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TickMarkSettings.cpp; path = Source/PlateBleedInfo/TickMarkSettings.cpp; sourceTree = "<group>"; };
 		F9F079651D47EEC1004AC522 /* TickMarkSettings.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TickMarkSettings.hpp; path = Source/PlateBleedInfo/TickMarkSettings.hpp; sourceTree = "<group>"; };
@@ -509,8 +513,6 @@
 				F9138E8A1D01EE4D00D23C1F /* PasswordRetriever.h */,
 				F9158D4F1D05EC4700343D57 /* PathBuilder.cpp */,
 				F9158D501D05EC4700343D57 /* PathBuilder.h */,
-				F9E284261D254E2D001B0F98 /* PathCreator.cpp */,
-				F9E284271D254E2D001B0F98 /* PathCreator.h */,
 				F9138E8C1D01EE4D00D23C1F /* PdfResults.cpp */,
 				F9138E8D1D01EE4D00D23C1F /* PdfResults.h */,
 				F9138E8E1D01EE4D00D23C1F /* PdfSettings.cpp */,
@@ -701,6 +703,8 @@
 				F9B0B1F01E71C08800B27FC8 /* Commands */,
 				F9F079681D4BC4D3004AC522 /* IDrawer.h */,
 				F960E1401E09940A0070D90E /* IDrawable.hpp */,
+				F9E284261D254E2D001B0F98 /* PathCreator.cpp */,
+				F9E284271D254E2D001B0F98 /* PathCreator.h */,
 				F947263E1CB2E1F400649020 /* VPB.cpp */,
 				F947263D1CB2E1F400649020 /* VPB.h */,
 			);
@@ -723,6 +727,8 @@
 				F9B0B1F61E71F11800B27FC8 /* ColorListCommand.hpp */,
 				F9B0B1F11E71C0B700B27FC8 /* DrawDrawableCommand.cpp */,
 				F9B0B1F21E71C0B700B27FC8 /* DrawDrawableCommand.hpp */,
+				F9B0B1F91E7328AF00B27FC8 /* FilesystemCommand.cpp */,
+				F9B0B1FA1E7328AF00B27FC8 /* FilesystemCommand.hpp */,
 			);
 			name = Commands;
 			sourceTree = "<group>";
@@ -741,6 +747,7 @@
 				F9A427191E45009D00E05FF6 /* PreferenceWriter.hpp in Headers */,
 				F9F1EB6C1D1B19AF0051B716 /* ColorList.h in Headers */,
 				F9C44EF11D0AF26100205ADF /* Plate.h in Headers */,
+				F9B0B1FC1E7328AF00B27FC8 /* FilesystemCommand.hpp in Headers */,
 				F992803C1D6B723F00E7EBF2 /* SafeguardJobFileDTO.hpp in Headers */,
 				F9779FA81E27E667000FA1FF /* PlaceFileSearcher.hpp in Headers */,
 				F90E3F9E1CA475880081C333 /* ATEFuncs.h in Headers */,
@@ -936,6 +943,7 @@
 				F9138EA11D01EE4D00D23C1F /* PrintToPdfUIController.cpp in Sources */,
 				F9DA3B991D1C6C9300AB6156 /* FileNameDateDrawer.cpp in Sources */,
 				F9A427111E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.cpp in Sources */,
+				F9B0B1FB1E7328AF00B27FC8 /* FilesystemCommand.cpp in Sources */,
 				F934B1581CC9645A002EAB43 /* ReplaceDataBuilder.cpp in Sources */,
 				F93264D21DC8E2D40020B57A /* SgSymbolDrawer.cpp in Sources */,
 				F90DB92E1D08A25B0039CE5F /* BtAteTextFeatures.cpp in Sources */,

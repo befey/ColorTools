@@ -12,7 +12,6 @@
 #include "PdfSettings.h"
 #include "PdfResults.h"
 #include "PathBuilder.h"
-#include "PathCreator.h"
 #include "ExistingFileDeleter.h"
 #include "LayerVisibility.hpp"
 #include "TypeToPathsConverter.hpp"
@@ -29,7 +28,6 @@ namespace PrintToPdf
         PdfPrinter(const PdfPreset preset, const bool doNotDelete, const bool userOutputFolder);
         
         unique_ptr<PathBuilder> pathBuilder;
-        unique_ptr<PathCreator> pathCreator;
         unique_ptr<ExistingFileDeleter> efDeleter;
         unique_ptr<LayerVisibility> layerVisibility;
         unique_ptr<TypeToPathsConverter> tpConverter;

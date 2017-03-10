@@ -12,6 +12,7 @@
 #include "PdfResults.h"
 #include "CurrentFilenameRetriever.hpp"
 #include "TokenCreator.hpp"
+#include "FilesystemCommand.hpp"
 
 using PrintToPdf::PdfPrinter;
 using PrintToPdf::SingleFilePdfPrinter;
@@ -24,9 +25,7 @@ SingleFilePdfPrinter::SingleFilePdfPrinter(const PdfPreset preset, const bool do
 SeparateFilePdfPrinter::SeparateFilePdfPrinter(const PdfPreset preset, const bool doNotDelete, const bool userOutputFolder) : PdfPrinter(preset, doNotDelete, userOutputFolder) {}
 
 PdfPrinter::PdfPrinter(const PdfPreset preset, const bool doNotDelete, const bool userOutputFolder)
-{
-    pathCreator = make_unique<PathCreator>();
-    
+{   
     efDeleter = ExistingFileDeleter::GetExistingFileDeleter(doNotDelete);
     
     tpConverter = make_unique<TypeToPathsConverter>();
@@ -62,7 +61,7 @@ PdfResults PdfPrinter::DoIt(const PdfSettings& settings) const
 {
     PdfResults transactions;
     
-    if ( pathCreator->CreatePath(outputPath) )
+    if ( CreatePathCommand(outputPath).Execute() )
     {
         transactions.AddResult(efDeleter->Delete(plateNumber, outputPath));
         
@@ -88,9 +87,12 @@ PdfResults SingleFilePdfPrinter::CustomPrintSteps(const PdfSettings& settings) c
     // Set Path
     settings.SetPath(pathToPdfFile);
         
-    sAIActionManager->PlayActionEvent(kSaveACopyAsAction, kDialogOff, settings);
+    AIErr error = sAIActionManager->PlayActionEvent(kSaveACopyAsAction, kDialogOff, settings);
     
-    transactions.AddResult({PdfResults::Transaction::Created, pathToPdfFile});
+    if (error == kNoErr)
+    {
+        transactions.AddResult({PdfResults::Transaction::Created, pathToPdfFile});
+    }
     
     return transactions;
 }
@@ -122,9 +124,12 @@ PdfResults SeparateFilePdfPrinter::CustomPrintSteps(const PdfSettings& settings)
         // Set Range
         settings.SetVpbRange(to_string(index+1));
         
-        sAIActionManager->PlayActionEvent(kSaveACopyAsAction, kDialogOff, settings);
+        AIErr error = sAIActionManager->PlayActionEvent(kSaveACopyAsAction, kDialogOff, settings);
         
-        transactions.AddResult({PdfResults::Transaction::Created, pathToPdfFile});
+        if (error == kNoErr)
+        {
+            transactions.AddResult({PdfResults::Transaction::Created, pathToPdfFile});
+        }
         
         pathToPdfFile.RemoveComponent();
     }
