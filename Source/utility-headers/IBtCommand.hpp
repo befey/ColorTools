@@ -12,7 +12,7 @@
 class IBtCommand
 {
 public:
-    virtual void Execute() const = 0;
+    virtual bool Execute() const = 0;
 protected:
     IBtCommand() {};
     ~IBtCommand() {};

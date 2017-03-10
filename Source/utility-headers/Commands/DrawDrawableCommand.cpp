@@ -15,11 +15,13 @@ drawable(drawable),
 prep(prep)
 {}
 
-void DrawDrawableCommand::Execute() const
+bool DrawDrawableCommand::Execute() const
 {
     if (drawable != nullptr && !prep.Null())
     {
         drawable->Clear(prep);
         drawable->Draw(prep);
     }
+    
+    return true;
 }

@@ -18,7 +18,7 @@ class DrawDrawableCommand : public IBtCommand
 public:
     DrawDrawableCommand(shared_ptr<IDrawable> drawable, BtArtHandle prep);
     
-    void Execute() const override;
+    bool Execute() const override;
 private:
     
     shared_ptr<IDrawable> drawable;

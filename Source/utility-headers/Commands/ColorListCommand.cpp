@@ -19,19 +19,21 @@ ColorListCommand(colorList)
     commands.push_back(make_shared<RemoveNonPrintingColorsCommand>(colorList));
 }
 
-void CleanUpColorListCommand::Execute() const
+bool CleanUpColorListCommand::Execute() const
 {
     for ( auto command : commands )
     {
         command->Execute();
     }
+    
+    return true;
 }
 
-void RemoveNonSolidColorsCommand::Execute() const
+bool RemoveNonSolidColorsCommand::Execute() const
 {
     if ( colorList.empty() )
     {
-        return;
+        return false;
     }
     for ( auto color = colorList.begin(); color != colorList.end(); color++ )
     {
@@ -41,9 +43,11 @@ void RemoveNonSolidColorsCommand::Execute() const
             colorList.erase( std::remove_if(color, colorList.end(), checker ), colorList.end() );
         }
     }
+    
+    return true;
 }
 
-void RemoveNonPrintingColorsCommand::Execute() const
+bool RemoveNonPrintingColorsCommand::Execute() const
 {
     colorList.erase(
                       std::remove_if(colorList.begin(), colorList.end(), [this](BtColor c)
@@ -61,13 +65,14 @@ void RemoveNonPrintingColorsCommand::Execute() const
                                      ),
                       colorList.end()
                       );
+    return true;
 }
 
-void RemoveDuplicateColorsCommand::Execute() const
+bool RemoveDuplicateColorsCommand::Execute() const
 {
     if ( colorList.size() <= 1 )
     {
-        return;
+        return false;
     }
     for ( auto color = colorList.begin(); color != colorList.end(); color++ )
     {
@@ -77,9 +82,11 @@ void RemoveDuplicateColorsCommand::Execute() const
             colorList.erase( std::remove_if(color, colorList.end(), checker ), colorList.end() );
         }
     }
+    
+    return true;
 }
 
-void RemoveBlackIfCMYKPresentCommand::Execute() const
+bool RemoveBlackIfCMYKPresentCommand::Execute() const
 {
     for ( auto color : colorList )
     {
@@ -100,4 +107,6 @@ void RemoveBlackIfCMYKPresentCommand::Execute() const
             break;
         }
     }
+    
+    return true;
 }

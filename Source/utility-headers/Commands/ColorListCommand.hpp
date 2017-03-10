@@ -27,7 +27,7 @@ class CleanUpColorListCommand : public ColorListCommand
 public:
     CleanUpColorListCommand(vector<BtColor>& colorList);
     
-    void Execute() const override;
+    bool Execute() const override;
 
 private:    
     vector<shared_ptr<IBtCommand>> commands;
@@ -39,7 +39,7 @@ class RemoveNonSolidColorsCommand : public ColorListCommand
 public:
     RemoveNonSolidColorsCommand(vector<BtColor>& colorList) : ColorListCommand(colorList) {};
     
-    void Execute() const override;
+    bool Execute() const override;
 };
 
 class RemoveNonPrintingColorsCommand : public ColorListCommand
@@ -47,7 +47,7 @@ class RemoveNonPrintingColorsCommand : public ColorListCommand
 public:
     RemoveNonPrintingColorsCommand(vector<BtColor>& colorList) : ColorListCommand(colorList) {};
     
-    void Execute() const override;
+    bool Execute() const override;
 };
 
 
@@ -56,7 +56,7 @@ class RemoveDuplicateColorsCommand : public ColorListCommand
 public:
     RemoveDuplicateColorsCommand(vector<BtColor>& colorList) : ColorListCommand(colorList) {};
     
-    void Execute() const override;
+    bool Execute() const override;
 };
 
 class RemoveBlackIfCMYKPresentCommand : public ColorListCommand
@@ -64,7 +64,7 @@ class RemoveBlackIfCMYKPresentCommand : public ColorListCommand
 public:
     RemoveBlackIfCMYKPresentCommand(vector<BtColor>& colorList) : ColorListCommand(colorList) {};
     
-    void Execute() const override;
+    bool Execute() const override;
 };
 
 
