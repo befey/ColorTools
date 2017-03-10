@@ -13,15 +13,23 @@
 #include "ArtTree.h"
 #include "ColorEnumerator.hpp"
 #include "DictionaryWriter.h"
-#include "ColorListDuplicateChecker.hpp"
+#include "ColorListCommand.hpp"
 
 ColorList::ColorList(AIRealRect area)
 :
 area(area)
 {
     FillColorList();
-    RemoveDuplicates();
-    RemoveNonPrintingColors();
+    CleanUpColorListCommand(p_ColorList).Execute();
+    Sort();
+}
+
+ColorList::ColorList(const ColorList& other)
+:
+p_ColorList(other.p_ColorList),
+area(other.area)
+{
+    CleanUpColorListCommand(p_ColorList).Execute();
     Sort();
 }
 
@@ -39,63 +47,6 @@ void ColorList::FillColorList()
 void ColorList::AddColorsOfArtToColorList(AIArtHandle art)
 {
     AddColorsToList( ColorEnumerator(art).GetColorList() );
-}
-
-void ColorList::RemoveDuplicates()
-{
-    if (p_ColorList.size() <= 1)
-    {
-        return;
-    }
-    for(auto color = p_ColorList.begin(); color != p_ColorList.end(); color++)
-    {
-        if (p_ColorList.size() > 0)
-        {
-            ColorListDuplicateChecker checker(*color);
-            p_ColorList.erase( std::remove_if(color, p_ColorList.end(), checker ), p_ColorList.end() );
-        }
-        
-    }
-    //Now go through the whole list after duplicates have been removed and get rid of any remaining black if we have a CMYK color
-    for ( auto color : p_ColorList )
-    {
-        if (color.PrintsAsProcess())
-        {
-            p_ColorList.erase(
-                              std::remove_if(p_ColorList.begin(), p_ColorList.end(), [](BtColor c)
-                                             {
-                                                 if (c.IsBlack(false))
-                                                 {
-                                                     return true;
-                                                 }
-                                                 return false;
-                                             }
-                                             ),
-                              p_ColorList.end()
-                              );
-            break;
-        }
-    }
-}
-
-void ColorList::RemoveNonPrintingColors()
-{
-    p_ColorList.erase(
-                    std::remove_if(p_ColorList.begin(), p_ColorList.end(), [this](BtColor c)
-                                   {
-                                       if (c.IsNonPrinting())
-                                       {
-                                           return true;
-                                       }
-                                       else if ((c.Name() == SafeguardFile::REGISTRATION_COLOR_NAME) && (p_ColorList.size() > 1))
-                                       {
-                                           return true;
-                                       }
-                                       return false;
-                                   }
-                                   ),
-                    p_ColorList.end()
-                    );
 }
 
 void ColorList::AddColorsToList(vector<AIColor> colors)

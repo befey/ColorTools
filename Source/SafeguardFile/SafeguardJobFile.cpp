@@ -98,9 +98,8 @@ ColorList SafeguardJobFile::GetAllColorsOnJob() const
     {
         colorLists[0].AddColorsToList(colorLists.at(i));
     }
-    ColorList colorList = colorLists[0];
-    colorList.RemoveDuplicates();
-    colorList.RemoveNonPrintingColors();
-    colorList.Sort();
+    
+    ColorList colorList = colorLists[0]; //Copy constructor calls duplicate removal, etc.
+
     return colorList;
 }

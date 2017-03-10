@@ -25,12 +25,11 @@ class ColorList : public ICanBeTextRange
 public:
     ColorList(AIRealRect area);
     ColorList(vector<AIColor> colors) { AddColorsToList(colors); };
+    ColorList(const ColorList& other);
     
     void AddColorsToList(vector<AIColor> colors);
     void AddColorsToList(vector<BtColor> colors);
     void AddColorsToList(ColorList colors);
-    void RemoveDuplicates();
-    void RemoveNonPrintingColors();
     void Sort();
     
     bool HasCMYK() const;
