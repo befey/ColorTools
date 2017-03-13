@@ -197,7 +197,7 @@ bool ColorIsEqual ( const AIColor& color1 , const AIColor& color2 , const bool i
 	
 	//CUSTOM COLOR
 	if ((color1.kind == kCustomColor) && (color1.kind == color2.kind))
-    {
+    {        
         if (!ignoreTints && (color1.c.c.tint != color2.c.c.tint)) //If we care about tints and they don't match
         {
             return false;

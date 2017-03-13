@@ -33,7 +33,7 @@ ColorListDuplicateChecker::ColorListDuplicateChecker(const BtColor& base)
     
     predFunc ExactMatch = [] (const BtColor& base, const BtColor& compare)
     {
-        if (base == compare)
+        if (base == compare && base.Name() == compare.Name())
         {
             return true;
         }
