@@ -116,4 +116,3 @@ ColorListNonSolidColorChecker::ColorListNonSolidColorChecker(const BtColor& base
     };
     AddPredicate(ColorListCheckerPredicate(RemoveBlackIfProcess));
 }
-

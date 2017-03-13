@@ -13,8 +13,8 @@ CleanUpColorListCommand::CleanUpColorListCommand(vector<BtColor>& colorList)
 :
 ColorListCommand(colorList)
 {
-    commands.push_back(make_shared<RemoveNonSolidColorsCommand>(colorList));
     commands.push_back(make_shared<RemoveDuplicateColorsCommand>(colorList));
+    commands.push_back(make_shared<RemoveNonSolidColorsCommand>(colorList));
     commands.push_back(make_shared<RemoveBlackIfCMYKPresentCommand>(colorList));
     commands.push_back(make_shared<RemoveNonPrintingColorsCommand>(colorList));
 }
