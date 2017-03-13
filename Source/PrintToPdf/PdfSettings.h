@@ -19,7 +19,6 @@
 #include "VPB.h"
 #include "PlateNumber.h"
 #include "PrintToPdfUIController.h"
-#include "PdfResults.h"
 #include "PrintToPdfConstants.h"
 #include "PasswordRetriever.h"
 

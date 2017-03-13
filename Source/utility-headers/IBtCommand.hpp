@@ -18,4 +18,17 @@ protected:
     ~IBtCommand() {};
 };
 
+class VerifySuccessCommand : public IBtCommand
+{
+public:
+    virtual bool Execute() const = 0;
+    
+    bool RequireSuccess() const { return requireSuccess; };
+protected:
+    VerifySuccessCommand(bool requireSuccess) : requireSuccess(requireSuccess) {};
+    ~VerifySuccessCommand() {};
+    
+    bool requireSuccess = false;
+};
+
 #endif /* IBtCommand_hpp */

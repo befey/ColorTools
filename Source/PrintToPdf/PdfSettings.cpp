@@ -7,7 +7,6 @@
 //
 
 #include "PdfSettings.h"
-#include "PdfResults.h"
 #include "Plate.h"
 #include "SafeguardJobFile.h"
 #include "SafeguardJobFileDTO.hpp"
@@ -20,7 +19,6 @@
 
 using PrintToPdf::PdfSettings;
 using PrintToPdf::PdfPreset;
-using PrintToPdf::PdfResults;
 using SafeguardFile::SafeguardJobFile;
 using SafeguardFile::ProductType;
 

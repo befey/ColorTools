@@ -13,10 +13,7 @@
 #include <boost/algorithm/string.hpp>
 #include <iostream>
 
-using SafeguardFile::PlateNumber;
-using PrintToPdf::ExistingFileDeleter;
-using PrintToPdf::PdfResults;
-using Transaction = PrintToPdf::PdfResults::Transaction;
+using Transaction = FilesystemResults::Transaction;
 
 namespace fs = boost::filesystem;
 
@@ -25,10 +22,10 @@ unique_ptr<ExistingFileDeleter> ExistingFileDeleter::GetExistingFileDeleter(bool
     return unique_ptr<ExistingFileDeleter> { make_unique<ExistingFileDeleter>(doNotDelete) };
 }
 
-PdfResults ExistingFileDeleter::Delete(PlateNumber pn, ai::FilePath fp)
+FilesystemResults ExistingFileDeleter::Delete(string matchString, ai::FilePath fp)
 {
     vector<fs::path> filesToDelete;
-    PdfResults deletedFiles;
+    FilesystemResults deletedFiles;
     
     if (doNotDelete)
     {
@@ -36,16 +33,15 @@ PdfResults ExistingFileDeleter::Delete(PlateNumber pn, ai::FilePath fp)
     }
     
     fs::path p = fp.GetFullPath().as_Platform();
-    string filename = pn;
-    boost::algorithm::to_upper(filename);
+    boost::algorithm::to_upper(matchString);
 
     typedef function<bool(const fs::directory_entry&)> filterfunc;
-    filterfunc pred = [filename](const fs::directory_entry& e)
+    filterfunc pred = [matchString](const fs::directory_entry& e)
     {
         string currFile = e.path().filename().string();
         boost::algorithm::to_upper(currFile);
         
-        if (currFile.find(filename) != string::npos)
+        if (currFile.find(matchString) != string::npos)
         {
             return true;
         }
