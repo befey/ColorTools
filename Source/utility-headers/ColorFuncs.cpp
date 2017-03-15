@@ -238,6 +238,19 @@ void NameAllColors(AIColor *color, void* userData, AIErr *result, AIBoolean *alt
 		AISwatchRef newSwatch = sAISwatchList->InsertNthSwatch( nullptr , -1 );
 		sAISwatchList->SetAIColor(newSwatch, color);
 	}
+    
+    //Make sure 100% color swatch exists
+    BtColor btColor(*color);
+    if (btColor.Tint() > 0)
+    {
+        btColor.Tint(0); //100%
+        AIColor c = btColor.AiColor();
+        if (!CheckSwatchListForColor(c, 0))
+        {
+            AISwatchRef newSwatch = sAISwatchList->InsertNthSwatch( nullptr , -1 );
+            sAISwatchList->SetAIColor(newSwatch, &c);
+        }
+    }
 	return;
 }
 

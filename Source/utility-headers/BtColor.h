@@ -75,6 +75,7 @@ public:
     BtColor& Method(SafeguardFile::InkMethod newVal) { method = newVal; return *this; };
     SafeguardFile::InkMethod Method() const { return method; };
     
+    BtColor& Tint(AIReal newVal) { aiColor.c.c.tint = newVal; return *this; };
     AIReal Tint() const;
     
     //Color Type checks
