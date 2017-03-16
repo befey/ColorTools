@@ -33,12 +33,16 @@ shouldDrawBleedInfo(shouldDrawBleedInfo)
     {
         tmStyle = TickMarkStyle::Outer;
     }
+    else if (pt == ProductType::BusinessStat)
+    {
+        tmStyle = TickMarkStyle::BsStyle;
+    }
     else
     {
         tmStyle = TickMarkStyle::NONE;
     }
     
-    if (pt == ProductType::Snapset || pt == ProductType::Continuous)
+    if (pt == ProductType::Snapset || pt == ProductType::Continuous || pt == ProductType::BusinessStat)
     {
         offset = TICK_LENGTH_CONTINUOUS;
     }

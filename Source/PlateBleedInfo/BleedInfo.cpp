@@ -31,6 +31,12 @@ colorList(ArtboardBounds())
 {
     bleedInfoPluginArt = PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().GetArt(artboardIndex);
     
+    SetPlateNumber();
+    
+    SetShouldPrint();
+    
+    tmSettings = SafeguardFile::TickMarkSettings(ArtboardBounds(), plateNumber.GetProductType(), SafeguardFile::TickMarkStyle::NONE, shouldDrawBleedInfo);
+    
     if (dto != nullptr)
     {
         FillBleedInfoFromPlateDTO(dto, true);
@@ -40,16 +46,10 @@ colorList(ArtboardBounds())
         ReadFromPluginArt();
     }
     
-    SetPlateNumber();
-    
     if (plateNumber.GetProductType() == SafeguardFile::CutSheet && colorList.HasCMYK())
     {
         shouldAddCMYKBlocks = true;
     }
-    
-    SetShouldPrint();
-    
-    tmSettings = SafeguardFile::TickMarkSettings(ArtboardBounds(), plateNumber.GetProductType(), SafeguardFile::TickMarkStyle::NONE, shouldDrawBleedInfo);
 }
 
 BleedInfo::~BleedInfo()

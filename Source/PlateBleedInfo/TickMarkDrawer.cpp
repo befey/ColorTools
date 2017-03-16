@@ -35,6 +35,25 @@ AIArtHandle TickMarkDrawer::Draw(AIArtHandle resultGroup) const
     return tickMarkGroupArt;
 }
 
+AIArtHandle BsTickMarkDrawer::Draw(AIArtHandle resultGroup) const
+{
+    AIArtHandle tickMarkGroupArt = nullptr;
+    tickMarkGroupArt = DrawInvisiblePath(resultGroup, tickMarkGroupArt);
+    
+    AIArtHandle registrationPathArt = DrawRectangle(settings.Bounds(), tickMarkGroupArt);
+    
+    AIPathStyle currPathStyle;
+    sAIPathStyle->GetPathStyle(registrationPathArt, &currPathStyle);
+    currPathStyle.strokePaint = true;
+    currPathStyle.stroke.color = settings.Color();
+    currPathStyle.stroke.width = settings.Weight();
+    currPathStyle.stroke.overprint = true;
+    currPathStyle.fillPaint = false;
+    sAIPathStyle->SetPathStyle(registrationPathArt, &currPathStyle);
+    
+    return tickMarkGroupArt;
+}
+
 AIArtHandle TickMarkDrawer::DrawInvisiblePath(AIArtHandle resultGroup, AIArtHandle tickMarkGroupArt) const
 {
     if (tickMarkGroupArt == nullptr)
@@ -139,9 +158,10 @@ AIArtHandle TickMarkDrawer::DrawTickMarks(vector<TickMark> ticks, AIArtHandle ti
         
         AIPathStyle currPathStyle;
         sAIPathStyle->GetPathStyle(tickMarkArt, &currPathStyle);
-        currPathStyle.stroke.color = settings.Color();
         currPathStyle.strokePaint = true;
+        currPathStyle.stroke.color = settings.Color();
         currPathStyle.stroke.width = settings.Weight();
+        currPathStyle.stroke.overprint = true;
         currPathStyle.fillPaint = false;
         sAIPathStyle->SetPathStyle(tickMarkArt, &currPathStyle);
     }

@@ -67,7 +67,17 @@ namespace SafeguardFile
         NONE,
         Outer,
         Inner,
-        Both
+        Both,
+        BsStyle
+    };
+    
+    const std::map<TickMarkStyle, string> TickMarkStyleStrings
+    {
+        {TickMarkStyle::NONE, "NONE"},
+        {TickMarkStyle::Outer, "Outer"},
+        {TickMarkStyle::Inner, "Inner"},
+        {TickMarkStyle::Both, "Both (Continuous Style)"},
+        {TickMarkStyle::BsStyle, "Registration Line (BStat Style)"}
     };
     
     constexpr auto AI_CMYK_BLOCKS =             "sg_CMYK_Blocks";

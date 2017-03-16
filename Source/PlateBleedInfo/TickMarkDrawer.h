@@ -47,6 +47,13 @@ namespace SafeguardFile
         AIArtHandle DrawOuter(AIArtHandle resultGroup, AIArtHandle tickMarkGroupArt = nullptr) const;
     };
     
+    class BsTickMarkDrawer : public TickMarkDrawer
+    {
+    public:
+        BsTickMarkDrawer(TickMarkSettings settings) : TickMarkDrawer(settings) {};
+        AIArtHandle Draw(AIArtHandle resultGroup) const override;
+    };
+
     class NoneTickMarkDrawer : public TickMarkDrawer
     {
     public:
@@ -82,6 +89,7 @@ public:
 
 using SafeguardFile::TickMarkSettings;
 using SafeguardFile::TickMarkDrawer;
+using SafeguardFile::BsTickMarkDrawer;
 using SafeguardFile::NoneTickMarkDrawer;
 template <>
 class DrawerFactoryImpl<TickMarkSettings>
@@ -93,7 +101,15 @@ public:
         {
             return make_shared<NoneTickMarkDrawer>(tmSettings);
         }
-        return make_shared<TickMarkDrawer>(tmSettings);
+        
+        if (tmSettings.TickMarkStyle() == SafeguardFile::TickMarkStyle::BsStyle)
+        {
+            return make_shared<BsTickMarkDrawer>(tmSettings);
+        }
+        else
+        {
+            return make_shared<TickMarkDrawer>(tmSettings);
+        }
     };
 };
 
