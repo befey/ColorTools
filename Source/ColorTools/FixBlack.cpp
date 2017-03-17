@@ -21,8 +21,7 @@ bool FixBlack() {
 	sAIDocument->SetDocumentSpotColorMode(nullptr, kAILegacySpotColorMode, TRUE, &converted);
     
     BtSwatchList swatchList;
-    swatchList.CreateOrConvertToCustomColor(SafeguardFile::BLACK_COLOR_NAME);
-    swatchList.CreateOrConvertToCustomColor(SafeguardFile::WHITE_COLOR_NAME);
+    swatchList.FixStdColors();
 
     swatchList.AdjustAllColors();
 	

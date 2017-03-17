@@ -23,14 +23,11 @@
 #include "cereal/access.hpp"
 
 extern AIATETextUtilSuite* sAIATETextUtil;
-
-
-//=================================
-// forward declared dependencies
 extern AICustomColorSuite* sAICustomColor;
 extern AIColorConversionSuite* sAIColorConversion;
 
 static constexpr AIReal TOLERANCE = .002;
+#define	kCustomProcessColor 0x0000
 
 //=================================
 // BtColor - wrapper for a AICustomColor definition
@@ -99,6 +96,61 @@ public:
     friend bool operator< (const BtColor& lhs, const BtColor& rhs);
     
     inline operator AIColor(void) const { return aiColor; }
+    
+    static BtColor* Black()
+    {
+        return new BtColor
+        {
+            SafeguardFile::BLACK_COLOR_NAME,
+            kCustomFourColor,
+            {.f.cyan = 0, .f.yellow = 0, .f.magenta = 0, .f.black = 1},
+            kCustomProcessColor
+        };
+    };
+    
+    static BtColor* White()
+    {
+        return new BtColor
+        {
+            SafeguardFile::WHITE_COLOR_NAME,
+            kCustomFourColor,
+            {.f.cyan = 0, .f.yellow = 0, .f.magenta = 0, .f.black = 0},
+            kCustomProcessColor
+        };
+    };
+    
+    static BtColor* MicrBlack()
+    {
+        return new BtColor
+        {
+            SafeguardFile::MICR_BLACK_MAG_COLOR_NAME,
+            kCustomFourColor,
+            {.f.cyan = 0, .f.yellow = 0, .f.magenta = 0, .f.black = 1},
+            kCustomSpotColor
+        };
+    };
+    
+    static BtColor* Keyline()
+    {
+        return new BtColor
+        {
+            SafeguardFile::KEYLINE_COLOR_NAME,
+            kCustomFourColor,
+            {.f.cyan = 1, .f.yellow = 0, .f.magenta = 0, .f.black = 0},
+            kCustomSpotColor
+        };
+    };
+    
+    static BtColor* Gripper()
+    {
+        return new BtColor
+        {
+            SafeguardFile::GRIPPER_COLOR_NAME,
+            kCustomFourColor,
+            {.f.cyan = .80, .f.yellow = 0, .f.magenta = 1, .f.black = 0},
+            kCustomSpotColor
+        };
+    };
 private:
     AIColor aiColor;
     AICustomColor aiCustomColor;

@@ -11,6 +11,14 @@
 #include "GetIllustratorErrorCode.h"
 
 //Behaviors
+void BtSwatchList::FixStdColors()
+{
+    for ( auto color : StdColorDefinitions )
+    {
+        CreateOrConvertToCustomColor(color.second);
+    }
+}
+
 void BtSwatchList::CreateOrConvertToCustomColor(std::string colorName)
 {
     auto it = StdColorDefinitions.find(colorName);
