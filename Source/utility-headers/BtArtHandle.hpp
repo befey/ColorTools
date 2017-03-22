@@ -13,11 +13,14 @@
 #include "AIRealMath.h"
 #include "AIGroup.h"
 #include "AITextFrame.h"
+#include "AIPathStyle.h"
+#include "BtColor.h"
 
 extern AIArtSuite* sAIArt;
 extern AIRealMathSuite* sAIRealMath;
 extern AIGroupSuite* sAIGroup;
 extern AITextFrameSuite* sAITextFrame;
+extern AIPathStyleSuite* sAIPathStyle;
 
 class BtArtHandle
 {
@@ -49,7 +52,6 @@ public:
     bool OverlapsRect(AIRealRect rect) const;
     AIRealPoint Center() const;
 
-    
     bool ValidArt() const;
     
     bool Selected() const;
@@ -67,9 +69,34 @@ public:
     void MakeEditable();
     void ResetEditable();
     
+    BtArtHandle& PathStyle(AIPathStyle newVal);
+    AIPathStyle PathStyle() const;
+    BtArtHandle& Stroke(bool newVal);
+    bool Stroke() const;
+    BtArtHandle& StrokeColor(BtColor newVal);
+    BtColor StrokeColor() const;
+    BtArtHandle& StrokeWeight(AIReal newVal);
+    AIReal StrokeWeight() const;
+    BtArtHandle& OverprintStroke(bool newVal);
+    bool OverprintStroke() const;
+    BtArtHandle& StrokeStyle(AIStrokeStyle newVal);
+    AIStrokeStyle StrokeStyle() const;
+    
+    BtArtHandle& Fill(bool newVal);
+    bool Fill() const;
+    BtArtHandle& FillColor(BtColor newVal);
+    BtColor FillColor() const;
+    BtArtHandle& OverprintFill(bool newVal);
+    bool OverprintFill() const;
+    BtArtHandle& FillStyle(AIFillStyle newVal);
+    AIFillStyle FillStyle() const;
+    
+    
     size_t TimeStamp(AIArtTimeStampOptions options = kAITimeStampOfArt) const;
     
     ATE::ITextRange ITextRange() const;
+    
+    void VisitEachArtInTree(void (*visitFunc)(BtArtHandle)) const;
     
     inline operator const AIArtHandle(void) const { return artHandle; }
     inline operator AIArtHandle*(void) { return &artHandle; }

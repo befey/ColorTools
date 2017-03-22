@@ -399,7 +399,7 @@ void RemoveWhiteOverprint()
     for ( int i = 0; i < count; i++ )
     {
         sAIArtSet->IndexArtSet(artSet, i, &currArtHandle);
-        AdjustOverprint(currArtHandle, BtColor::WhiteColor(), true, false, ColorToolsUIController::ApplyTo::FillsAndStrokes, &altered);
+        AdjustOverprint(currArtHandle, *BtColor::White(), true, false, ColorToolsUIController::ApplyTo::FillsAndStrokes, &altered);
     }
     //DISPOSE THE ART SET
     sAIArtSet->DisposeArtSet(&artSet);

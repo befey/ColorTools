@@ -38,6 +38,11 @@ PdfPrinter::PdfPrinter(const PdfPreset preset, const bool doNotDelete, const boo
     printCommand.AddCommand(make_shared<SetLayerVisibilityCommand>(plateNumber.GetProductType(), preset, false));
     
     printCommand.AddCommand(make_shared<ConvertTypeToPathsCommand>(false));
+    
+    if (plateNumber.GetProductType() == SafeguardFile::ProductType::BusinessStat)
+    {
+        printCommand.AddCommand(make_shared<MakeKeylineBoundingBox>(false));
+    }
 }
 
 unique_ptr<PdfPrinter> PdfPrinter::GetPrinter(const PdfPreset preset, const bool separateFiles, const bool doNotDelete, const bool userOutputFolder)

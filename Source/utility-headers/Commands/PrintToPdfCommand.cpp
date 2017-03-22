@@ -9,6 +9,11 @@
 #include "PrintToPdfCommand.hpp"
 #include "TypeToPathsConverter.hpp"
 #include "LayerVisibility.hpp"
+#include "BleedInfoPluginArtToArtboardMatcher.hpp"
+#include "DictionaryWriter.h"
+#include "TickMarkDrawer.h"
+#include "TickMarkSettings.hpp"
+#include "BtArtHandle.hpp"
 
 bool PrintToPdfCommand::Execute() const
 {
@@ -33,6 +38,31 @@ bool ConvertTypeToPathsCommand::Execute() const
 bool SetLayerVisibilityCommand::Execute() const
 {
     PrintToPdf::LayerVisibility::GetLayerVisibility(productType, preset)->SetLayerVisibility();
+    
+    return true;
+}
+
+bool MakeKeylineBoundingBox::Execute() const
+{
+    PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher matcher;
+    
+    if (matcher.IsBleedInfoPluginArtCreated())
+    {
+        SafeguardFile::TickMarkDrawer drawer{SafeguardFile::TickMarkSettings{}};
+        for (auto bleedInfoArt : matcher.SortedPluginArts())
+        {
+            AIArtHandle resultArt = nullptr;
+            sAIPluginGroup->GetPluginArtResultArt(bleedInfoArt.second, &resultArt);
+            AIArtHandle tickMarkArt = DictionaryWriter(resultArt).GetArtHandleFromIdentifier(drawer.GetDictionaryLabel(resultArt));
+            BtArtHandle(tickMarkArt).VisitEachArtInTree( [](BtArtHandle handle)
+            {
+                if (handle.StrokeColor() == BtColor::RegistrationColor())
+                {
+                    handle.StrokeColor(*BtColor::Keyline());
+                }
+            });
+        }
+    }
     
     return true;
 }

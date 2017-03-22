@@ -358,6 +358,143 @@ void BtArtHandle::ResetEditable()
     Hidden(storedHidden);
 }
 
+BtArtHandle& BtArtHandle::PathStyle(AIPathStyle newVal)
+{
+    if (!Null())
+    {
+        sAIPathStyle->SetPathStyle(artHandle, &newVal);
+    }
+    return *this;
+}
+
+AIPathStyle BtArtHandle::PathStyle() const
+{
+    AIPathStyle val;
+    if (!Null())
+    {
+        sAIPathStyle->GetPathStyle(artHandle, &val);
+    }
+    return val;
+}
+
+BtArtHandle& BtArtHandle::Stroke(bool newVal)
+{
+    AIPathStyle style = PathStyle();
+    style.strokePaint = newVal;
+    PathStyle(style);
+    return *this;
+}
+
+bool BtArtHandle::Stroke() const
+{
+    return PathStyle().strokePaint;
+}
+
+BtArtHandle& BtArtHandle::StrokeColor(BtColor newVal)
+{
+    AIStrokeStyle style = StrokeStyle();
+    style.color = newVal;
+    StrokeStyle(style);
+    return *this;
+}
+
+BtColor BtArtHandle::StrokeColor() const
+{
+    return StrokeStyle().color;
+}
+
+BtArtHandle& BtArtHandle::StrokeWeight(AIReal newVal)
+{
+    AIStrokeStyle style = StrokeStyle();
+    style.width = newVal;
+    StrokeStyle(style);
+    return *this;
+}
+
+AIReal BtArtHandle::StrokeWeight() const
+{
+    return StrokeStyle().width;
+}
+
+BtArtHandle& BtArtHandle::OverprintStroke(bool newVal)
+{
+    AIStrokeStyle style = StrokeStyle();
+    style.overprint = newVal;
+    StrokeStyle(style);
+    return *this;
+}
+
+bool BtArtHandle::OverprintStroke() const
+{
+    return StrokeStyle().overprint;
+}
+
+BtArtHandle& BtArtHandle::StrokeStyle(AIStrokeStyle newVal)
+{
+    AIPathStyle style = PathStyle();
+    style.stroke = newVal;
+    PathStyle(style);
+    return *this;
+}
+
+AIStrokeStyle BtArtHandle::StrokeStyle() const
+{
+    return PathStyle().stroke;
+}
+
+BtArtHandle& BtArtHandle::Fill(bool newVal)
+{
+    AIPathStyle style = PathStyle();
+    style.fillPaint = newVal;
+    PathStyle(style);
+    return *this;
+}
+
+bool BtArtHandle::Fill() const
+{
+    return PathStyle().fillPaint;
+}
+
+BtArtHandle& BtArtHandle::FillColor(BtColor newVal)
+{
+    AIFillStyle style = FillStyle();
+    style.color = newVal;
+    FillStyle(style);
+    return *this;
+}
+
+BtColor BtArtHandle::FillColor() const
+{
+    return FillStyle().color;
+}
+
+BtArtHandle& BtArtHandle::OverprintFill(bool newVal)
+{
+    AIFillStyle style = FillStyle();
+    style.overprint = newVal;
+    FillStyle(style);
+    return *this;
+}
+
+bool BtArtHandle::OverprintFill() const
+{
+    return FillStyle().overprint;
+}
+
+BtArtHandle& BtArtHandle::FillStyle(AIFillStyle newVal)
+{
+    AIPathStyle style = PathStyle();
+    style.fill = newVal;
+    PathStyle(style);
+    return *this;
+}
+
+AIFillStyle BtArtHandle::FillStyle() const
+{
+    return PathStyle().fill;
+}
+
+
 size_t BtArtHandle::TimeStamp(AIArtTimeStampOptions options) const
 {
     size_t timeStamp;
@@ -377,4 +514,34 @@ ATE::ITextRange BtArtHandle::ITextRange() const
         return ATE::ITextRange(currRangeRef);
     }
     return ITextRange();
+}
+
+void BtArtHandle::VisitEachArtInTree(void (*visitFunc)(BtArtHandle)) const
+{
+    BtArtHandle currArt = *this;
+    while (!currArt.Null())
+    {
+        visitFunc(currArt);
+        
+        if ( !currArt.FirstChild().Null() )
+        {
+            currArt = currArt.FirstChild();
+        }
+        else
+        {
+            while (currArt.Sibling().Null() && currArt.artHandle != this->artHandle)
+            {
+                currArt = currArt.Parent();
+            }
+            
+            if (currArt.artHandle != this->artHandle)
+            {
+                currArt = currArt.Sibling();
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
 }

@@ -403,8 +403,8 @@ void BtColor::GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) cons
             c = {.kind = kFourColor, .c.f.cyan = 0, .c.f.magenta = 0, .c.f.yellow = 1, .c.f.black = 0};
             textFeatures.FillColor(c);
             textFeatures.AddTextToRangeWithFeatures("YEL" + method + "  ", targetRange);
-            textFeatures.FillColor(BlackColor());
-            name = BlackColor().Name() + method;
+            textFeatures.FillColor(*BtColor::Black());
+            name = BtColor::Black()->Name() + method;
         }
         else
         {
@@ -605,24 +605,8 @@ bool BtColor::IsRegistration() const
 
 BtColor BtColor::RegistrationColor()
 {
-    AICustomColorHandle registrationCch;
+    AICustomColorHandle registrationCch = nullptr;
     sAICustomColor->GetCurrentRegistrationColor(&registrationCch);
     AIColor registration = { .kind = kCustomColor, .c.c = { .color = registrationCch, .tint = 0} };
     return BtColor(registration);
-}
-
-BtColor BtColor::BlackColor()
-{
-    AICustomColorHandle blackCch;
-    sAICustomColor->GetCustomColorByName(ai::UnicodeString(SafeguardFile::BLACK_COLOR_NAME), &blackCch);
-    AIColor black = { .kind = kCustomColor, .c.c = { .color = blackCch, .tint = 0} };
-    return BtColor(black);
-}
-
-BtColor BtColor::WhiteColor()
-{
-    AICustomColorHandle whiteCch;
-    sAICustomColor->GetCustomColorByName(ai::UnicodeString(SafeguardFile::WHITE_COLOR_NAME), &whiteCch);
-    AIColor white = { .kind = kCustomColor, .c.c = { .color = whiteCch, .tint = 0} };
-    return BtColor(white);
 }

@@ -9,9 +9,12 @@
 #ifndef PrintToPdfCommand_hpp
 #define PrintToPdfCommand_hpp
 
+#include "AIPluginGroup.h"
 #include "IBtCommand.hpp"
 #include "SafeguardFileConstants.h"
 #include "PrintToPdfConstants.h"
+
+extern AIPluginGroupSuite* sAIPluginGroup;
 
 class PrintToPdfCommand : public IBtCommand
 {
@@ -45,5 +48,12 @@ public:
     bool Execute() const override;
 };
 
+class MakeKeylineBoundingBox : public VerifySuccessCommand
+{
+public:
+    MakeKeylineBoundingBox(bool requireSuccess) : VerifySuccessCommand(requireSuccess) {};
+    
+    bool Execute() const override;
+};
 
 #endif /* PrintToPdfCommand_hpp */

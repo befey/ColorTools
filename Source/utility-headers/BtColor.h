@@ -88,8 +88,6 @@ public:
     bool IsRegistration() const;
     
     static BtColor RegistrationColor();
-    static BtColor BlackColor();
-    static BtColor WhiteColor();
     
     friend bool operator==(const BtColor& lhs, const BtColor& rhs);
     friend bool operator!=(const BtColor& lhs, const BtColor& rhs) { return !operator==(lhs,rhs); };
