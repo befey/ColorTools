@@ -49,7 +49,8 @@ namespace SafeguardFile
         Flat,
         Thermo,
         Foil,
-        Emboss
+        Emboss,
+        Magnetic
     };
     
     const std::map<InkMethod, string> InkMethodStrings
@@ -58,7 +59,8 @@ namespace SafeguardFile
         {InkMethod::Flat, "FLAT"},
         {InkMethod::Thermo, "THERMO"},
         {InkMethod::Foil, "FOIL"},
-        {InkMethod::Emboss, "EMBOSS"}
+        {InkMethod::Emboss, "EMBOSS"},
+        {InkMethod::Magnetic, "MAG"}
     };
     
     //These values map to the "Value" property of our extension panel select options

@@ -78,6 +78,7 @@ function LoadJsonDataForCurrentArtboard()
             "<option value='2'>Thermo</option>" +
             "<option value='3'>Foil</option>" +
             "<option value='4'>Emboss</option>" +
+            "<option value='5'>Magnetic</option>" +
             "</select>" +
             "</div></div>";
         }
