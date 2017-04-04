@@ -68,10 +68,10 @@ function LoadJsonDataForCurrentArtboard()
         for (var i = 0; i < jsonArtboardData.dto.plates[currArtboardId].c.length; i++)
         {
             var color = jsonArtboardData.dto.plates[currArtboardId].c[i];
-            newHtml += "<div class='row'><div id='colorname-text" + i + "' class='col-xs-8'>" +
+            newHtml += "<div id='colorname-text" + i + "' class='col-xs-5'>" +
             color.colorName +
             "</div>" +
-            "<div class='col-xs-4'>" +
+            "<div class='col-xs-5'>" +
             "<select id='inktype-select" + i + "'>" +
             "<option value='0'></option>" +
             "<option value='1'>Flat</option>" +
@@ -80,7 +80,7 @@ function LoadJsonDataForCurrentArtboard()
             "<option value='4'>Emboss</option>" +
             "<option value='5'>Magnetic</option>" +
             "</select>" +
-            "</div></div>";
+            "</div>";
         }
         return newHtml;
     });
