@@ -38,7 +38,7 @@ namespace SafeguardFile
         SafeguardFile::TickMarkStyle tmStyle;
         bool shouldDrawBleedInfo;
         
-        static constexpr auto TICK_LENGTH_CUTSHEET = 27;
+        static constexpr auto TICK_LENGTH_CUTSHEET = 9;
         static constexpr auto TICK_LENGTH_CONTINUOUS = 9;
         static constexpr auto TICK_LENGTH_NONE = 0;
         
