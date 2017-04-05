@@ -13,208 +13,9 @@
 #include "GetIllustratorErrorCode.h"
 #include "SafeguardFileConstants.h"
 #include <boost/algorithm/string.hpp>
-
-const AIReal TOLERANCE = .002;
-
-AIReal GetTint(const AIColor color)
-{
-    AIReal tintPercent = 0; //Default to 100% for kThreeColor, kGradient, kPattern, kNoneColor
-    if (color.kind == kCustomColor)
-    {
-        AICustomColor cColor;
-        sAICustomColor->GetCustomColor(color.c.c.color, &cColor);
-        
-        if (!ColorIsPantone(color) && ((sAIRealMath->EqualWithinTol(color.c.c.tint, 0, TOLERANCE)) &&
-            (cColor.kind == kCustomFourColor &&
-          sAIRealMath->EqualWithinTol(cColor.c.f.cyan, 0, TOLERANCE) &&
-          sAIRealMath->EqualWithinTol(cColor.c.f.magenta, 0, TOLERANCE) &&
-          sAIRealMath->EqualWithinTol(cColor.c.f.yellow, 0, TOLERANCE) &&
-          cColor.c.f.black > 0)))
-        {
-            tintPercent = 1 - cColor.c.f.black;
-        }
-        else
-        {
-            tintPercent = color.c.c.tint;
-        }
-    }
-    else if (color.kind == kGrayColor)
-    {
-        tintPercent = 1 - color.c.g.gray; //Make the rounding work out right
-    }
-    else if ((color.kind == kFourColor &&
-              sAIRealMath->EqualWithinTol(color.c.f.cyan, 0, TOLERANCE) &&
-              sAIRealMath->EqualWithinTol(color.c.f.magenta, 0, TOLERANCE) &&
-              sAIRealMath->EqualWithinTol(color.c.f.yellow, 0, TOLERANCE) &&
-              color.c.f.black > 0))
-    {
-        tintPercent = 1 - color.c.f.black;
-    }
-    else if (color.kind == kNoneColor)
-    {
-        return 0;
-    }
-    
-    return sAIRealMath->AIRealMultiple(tintPercent - .005, .01, true); //TRUE will round the value up, actual tint % down
-}
-
-bool ColorIsBlack(const AIColor color)
-{
-    if (color.kind == kCustomColor)
-    {
-        if (GetColorName(color) == SafeguardFile::MICR_BLACK_MAG_COLOR_NAME)
-        {
-            return false;
-        }
-        
-        AICustomColor cColor;
-        sAICustomColor->GetCustomColor(color.c.c.color, &cColor);
-        
-        if ((GetColorName(color) == SafeguardFile::BLACK_COLOR_NAME) ||
-            ((cColor.kind == kCustomFourColor &&
-              sAIRealMath->EqualWithinTol(cColor.c.f.cyan, 0, TOLERANCE) &&
-              sAIRealMath->EqualWithinTol(cColor.c.f.magenta, 0, TOLERANCE) &&
-              sAIRealMath->EqualWithinTol(cColor.c.f.yellow, 0, TOLERANCE) &&
-              cColor.c.f.black > 0)) ||
-            ((cColor.kind == kCustomThreeColor &&
-              sAIRealMath->EqualWithinTol(cColor.c.rgb.red, 0, TOLERANCE) &&
-              sAIRealMath->EqualWithinTol(cColor.c.rgb.green, 0, TOLERANCE) &&
-              sAIRealMath->EqualWithinTol(cColor.c.rgb.blue, 0, TOLERANCE))) ||
-            ((cColor.kind == kCustomLabColor &&
-              sAIRealMath->EqualWithinTol(cColor.c.lab.a, 0, (TOLERANCE*255)) &&
-              sAIRealMath->EqualWithinTol(cColor.c.lab.b, 0, (TOLERANCE*255)) &&
-              cColor.c.lab.l < 100))
-           )
-        {
-            return true;
-        }
-    }
-    else if (
-             (color.kind == kGrayColor && color.c.g.gray > 0) ||
-             (color.kind == kFourColor &&
-               sAIRealMath->EqualWithinTol(color.c.f.cyan, 0, TOLERANCE) &&
-               sAIRealMath->EqualWithinTol(color.c.f.magenta, 0, TOLERANCE) &&
-               sAIRealMath->EqualWithinTol(color.c.f.yellow, 0, TOLERANCE) &&
-               color.c.f.black > 0) ||
-             (color.kind == kFourColor && ////C=70 M=67 Y=64 K=74
-              sAIRealMath->EqualWithinTol(color.c.f.cyan, .7, TOLERANCE*2.5) &&
-              sAIRealMath->EqualWithinTol(color.c.f.magenta, .67, TOLERANCE*2.5) &&
-              sAIRealMath->EqualWithinTol(color.c.f.yellow, .64, TOLERANCE*2.5) &&
-              sAIRealMath->EqualWithinTol(color.c.f.black, .74, TOLERANCE*2.5)) ||
-             (color.kind == kFourColor && ////C=75 M=68 Y=67 K=90
-              sAIRealMath->EqualWithinTol(color.c.f.cyan, .75, TOLERANCE*2.5) &&
-              sAIRealMath->EqualWithinTol(color.c.f.magenta, .68, TOLERANCE*2.5) &&
-              sAIRealMath->EqualWithinTol(color.c.f.yellow, .67, TOLERANCE*2.5) &&
-              sAIRealMath->EqualWithinTol(color.c.f.black, .90, TOLERANCE*2.5)) ||
-             (color.kind == kThreeColor &&
-               sAIRealMath->EqualWithinTol(color.c.rgb.red, 0, TOLERANCE) &&
-               sAIRealMath->EqualWithinTol(color.c.rgb.green, 0, TOLERANCE) &&
-               sAIRealMath->EqualWithinTol(color.c.rgb.blue, 0, TOLERANCE))
-             )
-    {
-        return true;
-    }
-
-    return false;
-}
-
-bool ColorIsWhite(const AIColor color)
-{
-    if (color.kind == kCustomColor)
-    {
-        AICustomColor cColor;
-        sAICustomColor->GetCustomColor(color.c.c.color, &cColor);
-        
-        if ((GetColorName(color) == "White") ||
-            ((cColor.kind == kCustomFourColor &&
-              sAIRealMath->EqualWithinTol(cColor.c.f.cyan, 0, TOLERANCE) &&
-              sAIRealMath->EqualWithinTol(cColor.c.f.magenta, 0, TOLERANCE) &&
-              sAIRealMath->EqualWithinTol(cColor.c.f.yellow, 0, TOLERANCE) &&
-              sAIRealMath->EqualWithinTol(cColor.c.f.black, 0, TOLERANCE))) ||
-            ((cColor.kind == kCustomThreeColor &&
-              sAIRealMath->EqualWithinTol(cColor.c.rgb.red, 1, TOLERANCE) &&
-              sAIRealMath->EqualWithinTol(cColor.c.rgb.green, 1, TOLERANCE) &&
-              sAIRealMath->EqualWithinTol(cColor.c.rgb.blue, 1, TOLERANCE))) ||
-            ((cColor.kind == kCustomLabColor &&
-              sAIRealMath->EqualWithinTol(cColor.c.lab.a, 0, (TOLERANCE*255)) &&
-              sAIRealMath->EqualWithinTol(cColor.c.lab.b, 0, (TOLERANCE*255)) &&
-              sAIRealMath->EqualWithinTol(cColor.c.lab.l, 100, (TOLERANCE*255))))
-           )
-        {
-            return true;
-        }
-    }
-    else if (
-             (color.kind == kGrayColor &&
-              sAIRealMath->EqualWithinTol(color.c.g.gray, 0, TOLERANCE)) ||
-             (color.kind == kFourColor &&
-              sAIRealMath->EqualWithinTol(color.c.f.cyan, 0, TOLERANCE) &&
-              sAIRealMath->EqualWithinTol(color.c.f.magenta, 0, TOLERANCE) &&
-              sAIRealMath->EqualWithinTol(color.c.f.yellow, 0, TOLERANCE) &&
-              sAIRealMath->EqualWithinTol(color.c.f.black, 0, TOLERANCE)) ||
-             (color.kind == kThreeColor &&
-              sAIRealMath->EqualWithinTol(color.c.rgb.red, 0, TOLERANCE) &&
-              sAIRealMath->EqualWithinTol(color.c.rgb.green, 0, TOLERANCE) &&
-              sAIRealMath->EqualWithinTol(color.c.rgb.blue, 0, TOLERANCE))
-             )
-    {
-        return true;
-    }
-
-    return false;
-}
-
-bool ColorIsGripper(const AIColor color)
-{
-    if (GetColorName(color) == SafeguardFile::GRIPPER_COLOR_NAME)
-    {
-        return true;
-    }
-    return false;
-}
-
-bool ColorIsKeyline(const AIColor color)
-{
-    if (GetColorName(color) == SafeguardFile::KEYLINE_COLOR_NAME)
-    {
-        return true;
-    }
-    return false;
-}
-
-bool ColorIsPantone(const AIColor color)
-{
-    //If the swatch name includes "PANTONE" return true
-    string s = GetColorName(color);
-    ai::UnicodeString colorName(s);
-    if (colorName.caseFind(ai::UnicodeString("PANTONE"), 0) != string::npos)
-    {
-        return true;
-    }
-    return false;
-}
-
-bool ColorIsNonPrinting(const AIColor color)
-{
-    if (ColorIsWhite(color))
-    {
-        return true;
-    }
-/*    if (GetRegistrationColor().c.c.color == color.c.c.color)
-    {
-        return true;
-    }
-*/  if (ColorIsGripper(color))
-    {
-        return true;
-    }
-    if (ColorIsKeyline(color))
-    {
-        return true;
-    }
-    
-    return false;
-}
+#include "BtColor.h"
+#include "BtArtHandle.hpp"
+#include "BtAteTextFeatures.h"
 
 AIColor GetColorDefinitionFromBook(string name, bool& found)
 {
@@ -287,9 +88,10 @@ string GetInnerPantoneColorNumber(string fullName)
 
 string GetInnerPantoneColorNumber(AIColor color)
 {
-    if (ColorIsPantone(color))
+    BtColor btcolor(color);
+    if (btcolor.IsPantone())
     {
-        return GetInnerPantoneColorNumber(GetColorName(color));
+        return GetInnerPantoneColorNumber(btcolor.Name());
     }
     return "";
 }
@@ -346,10 +148,10 @@ bool SetColorByName( const string& name , AIColor &color)
     }
     
     
-    numSwatches = sAISwatchList->CountSwatches( NULL );
+    numSwatches = sAISwatchList->CountSwatches( nullptr );
     for ( int i=0; i<numSwatches; i++)
     {
-        swatchRef = sAISwatchList->GetNthSwatch( NULL , i );
+        swatchRef = sAISwatchList->GetNthSwatch( nullptr , i );
         sAISwatchList->GetSwatchName( swatchRef, tempName );
         sAISwatchList->GetAIColor( swatchRef, &tempColor );
         if ( tempName == (ai::UnicodeString)colorName )
@@ -370,59 +172,24 @@ bool SetColorByName( const string& name , AIColor &color)
     return false;
 }
 
-string GetColorName(const AIColor color)
-{
-    ai::UnicodeString nameUS;
-    
-    if (color.kind == kCustomColor)
-    {
-        sAICustomColor->GetCustomColorName(color.c.c.color, nameUS);
-    }
-    else if (color.kind == kFourColor)
-    {
-        nameUS = ai::UnicodeString(SafeguardFile::CMYK_COLOR_NAME);
-    }
-    else
-    {
-        int numSwatches = sAISwatchList->CountSwatches( NULL );
-        for ( int i=0; i<numSwatches; i++)
-        {
-            AIColor tempColor;
-            AISwatchRef swatchRef = sAISwatchList->GetNthSwatch( NULL , i );
-            sAISwatchList->GetAIColor( swatchRef, &tempColor );
-            if ( ColorIsEqual(color, tempColor, true) )
-            {
-                sAISwatchList->GetSwatchName( swatchRef, nameUS );
-            }
-        }
-    }
-    
-    return nameUS.getInStdString(kAIPlatformCharacterEncoding);
-}
-
 bool ColorIsEqual ( const AIColor& color1 , const AIColor& color2 , const bool ignoreTints )
 {
 	//GRAY COLOR
 	if ((color1.kind == kGrayColor) && (color1.kind == color2.kind))
     {
-		if (color1.c.g.gray == color2.c.g.gray) { return true; }
+		return color1.c.g == color2.c.g;
 	}
 	
 	//FOUR COLOR
 	if ((color1.kind == kFourColor) && (color1.kind == color2.kind))
     {
-		if ( (color1.c.f.cyan == color2.c.f.cyan) &&
-		  (color1.c.f.magenta == color2.c.f.magenta) &&
-		  (color1.c.f.yellow == color2.c.f.yellow) &&
-		  (color1.c.f.black == color2.c.f.black) ) { return true; }
+		return color1.c.f == color2.c.f;
 	}
 
 	//THREE COLOR
 	if ((color1.kind == kThreeColor) && (color1.kind == color2.kind))
     {
-		if ( (color1.c.rgb.red == color2.c.rgb.red) &&
-		  (color1.c.rgb.green == color2.c.rgb.green) &&
-		  (color1.c.rgb.blue == color2.c.rgb.blue) ) { return true; }
+		return color1.c.rgb == color2.c.rgb;
 	}
 	
 	//NONE COLOR
@@ -430,37 +197,30 @@ bool ColorIsEqual ( const AIColor& color1 , const AIColor& color2 , const bool i
 	
 	//CUSTOM COLOR
 	if ((color1.kind == kCustomColor) && (color1.kind == color2.kind))
-    {
-		AICustomColor ccolor1, ccolor2;
-        sAICustomColor->GetCustomColor( color1.c.c.color, &ccolor1 );
-        sAICustomColor->GetCustomColor( color2.c.c.color, &ccolor2 );
-		
+    {        
         if (!ignoreTints && (color1.c.c.tint != color2.c.c.tint)) //If we care about tints and they don't match
         {
             return false;
         }
         
+        AICustomColor ccolor1, ccolor2;
+        sAICustomColor->GetCustomColor( color1.c.c.color, &ccolor1 );
+        sAICustomColor->GetCustomColor( color2.c.c.color, &ccolor2 );
+        
         //CUSTOM FOUR COLOR
         if ( (ccolor1.kind == kCustomFourColor ) && (ccolor1.kind == ccolor2.kind) )
         {
-            if ( (ccolor1.c.f.cyan == ccolor2.c.f.cyan) &&
-                (ccolor1.c.f.magenta == ccolor2.c.f.magenta) &&
-                (ccolor1.c.f.yellow == ccolor2.c.f.yellow) &&
-                (ccolor1.c.f.black == ccolor2.c.f.black) ) { return true; }
+            return ccolor1.c.f == ccolor2.c.f;
         }
         //CUSTOM THREE COLOR
         if ( (ccolor1.kind == kCustomThreeColor ) && (ccolor1.kind == ccolor2.kind) )
         {
-            if ( (ccolor1.c.rgb.red == ccolor2.c.rgb.red) &&
-                (ccolor1.c.rgb.green == ccolor2.c.rgb.green) &&
-                (ccolor1.c.rgb.blue == ccolor2.c.rgb.blue) ) { return true; }
+            return ccolor1.c.rgb == ccolor2.c.rgb;
         }
         //CUSTOM LAB COLOR
         if ( (ccolor1.kind == kCustomLabColor ) && (ccolor1.kind == ccolor2.kind) )
         {
-            if ( (ccolor1.c.lab.l == ccolor2.c.lab.l) &&
-                (ccolor1.c.lab.a == ccolor2.c.lab.a) &&
-                (ccolor1.c.lab.b == ccolor2.c.lab.b) ) { return true; }
+            return ccolor1.c.lab == ccolor2.c.lab;
         }
 	}
 	return false;
@@ -469,36 +229,47 @@ bool ColorIsEqual ( const AIColor& color1 , const AIColor& color2 , const bool i
 
 void NameAllColors(AIColor *color, void* userData, AIErr *result, AIBoolean *altered)
 {
-	if ( sAISwatchList->GetSwatchByColor( NULL , color ) )
+	if ( sAISwatchList->GetSwatchByColor( nullptr , color ) )
     {
         return;
     }
 	else
     {
-		AISwatchRef newSwatch = sAISwatchList->InsertNthSwatch( NULL , -1 );
+		AISwatchRef newSwatch = sAISwatchList->InsertNthSwatch( nullptr , -1 );
 		sAISwatchList->SetAIColor(newSwatch, color);
 	}
+    
+    //Make sure 100% color swatch exists
+    BtColor btColor(*color);
+    if (btColor.Tint() > 0)
+    {
+        btColor.Tint(0); //100%
+        AIColor c = btColor.AiColor();
+        if (!CheckSwatchListForColor(c, 0))
+        {
+            AISwatchRef newSwatch = sAISwatchList->InsertNthSwatch( nullptr , -1 );
+            sAISwatchList->SetAIColor(newSwatch, &c);
+        }
+    }
 	return;
 }
-
-
 
 AISwatchRef CheckSwatchListForColor( AIColor& matchColor , AIReal tolerance )
 {
     AISwatchRef currSwatch;
     AIColor currColor;
-    int numSwatches = sAISwatchList->CountSwatches(NULL);
+    int numSwatches = sAISwatchList->CountSwatches(nullptr);
     
     //Loop through the swatches to see if the swatch is already there
     for (int i = 0 ; i < numSwatches ; i++ )
     {
-        currSwatch = sAISwatchList->GetNthSwatch(NULL, i);
+        currSwatch = sAISwatchList->GetNthSwatch(nullptr, i);
         if (currSwatch)
         {
             sAISwatchList->GetAIColor(currSwatch, &currColor);
-            string n1 = GetColorName(matchColor);
-            string n2 = GetColorName(currColor);
-            AIBoolean TintsCloseEnough = sAIRealMath->EqualWithinTol(GetTint(currColor), GetTint(matchColor), tolerance);
+            string n1 = BtColor(matchColor).Name();
+            string n2 = BtColor(currColor).Name();
+            AIBoolean TintsCloseEnough = sAIRealMath->EqualWithinTol(BtColor(currColor).Tint(), BtColor(matchColor).Tint(), tolerance);
             if (n1 == n2)
             {
                 AIBoolean ColorsSame = ColorIsEqual(currColor, matchColor, TRUE);
@@ -507,35 +278,30 @@ AISwatchRef CheckSwatchListForColor( AIColor& matchColor , AIReal tolerance )
                     return currSwatch;
                 }
             }
-            if (TintsCloseEnough && ((ColorIsBlack(matchColor) && n2 == SafeguardFile::BLACK_COLOR_NAME) || (ColorIsWhite(matchColor) && n2 == SafeguardFile::WHITE_COLOR_NAME)))
+            if (TintsCloseEnough && ((BtColor(matchColor).IsBlack() && n2 == SafeguardFile::BLACK_COLOR_NAME) || (BtColor(matchColor).IsWhite() && n2 == SafeguardFile::WHITE_COLOR_NAME)))
             {
                 return currSwatch;
             }
         }
     }
-    return NULL;
+    return nullptr;
 }
 
 
 void AdjustOverprint(AIArtHandle currArtObj, AIColor fromColor, AIBoolean includeTints, AIBoolean overprint, ColorToolsUIController::ApplyTo replaceIn, AIBoolean *altered)
 {
+    BtArtHandle btHandle(currArtObj);
+    
 	AIPathStyle currPathStyle;
-	short type = 0; sAIArt->GetArtType(currArtObj, &type);
 	*altered = false;
 	
-	if (type != kTextFrameArt)
+	if (btHandle.ArtType() != kTextFrameArt)
     {
-		sAIPathStyle->GetPathStyle(currArtObj, &currPathStyle);
+		sAIPathStyle->GetPathStyle(btHandle, &currPathStyle);
 		
-		if (type == kPathArt)
+		if (btHandle.ArtType() == kPathArt && btHandle.PartOfCompound())
         {
-			//Check if its part of a compound path and skip if it is
-			int attr = 0;
-			sAIArt->GetArtUserAttr(currArtObj, kArtPartOfCompound, &attr);
-			if (attr & kArtPartOfCompound)
-            {
-				return;
-			}
+			return;
 		}
 		//STROKES
         if (replaceIn == ColorToolsUIController::ApplyTo::Strokes || replaceIn == ColorToolsUIController::ApplyTo::FillsAndStrokes)
@@ -569,73 +335,47 @@ void AdjustOverprint(AIArtHandle currArtObj, AIColor fromColor, AIBoolean includ
 	}
     else
     {
-		ATE::TextRangeRef currRangeRef = NULL;
-		sAITextFrame->GetATETextRange(currArtObj, &currRangeRef);
-		ATE::ITextRange currRange(currRangeRef);
+		ATE::ITextRange currRange = btHandle.ITextRange();
 		
 		ATE::ITextRunsIterator iter = currRange.GetTextRunsIterator();
-		bool isAssigned = false;
-		AIColor textColor;
 		
 		while ( ! iter.IsDone() )
         {
-			ATE::ICharFeatures currRunCharFeatures = iter.Item().GetUniqueCharFeatures();
+			BtAteTextFeatures currRunCharFeatures(iter.Item().GetUniqueCharFeatures());
 			
 			//STROKES
             if (replaceIn == ColorToolsUIController::ApplyTo::Strokes || replaceIn == ColorToolsUIController::ApplyTo::FillsAndStrokes)
             {
-				ATE::IApplicationPaint strokePaint = currRunCharFeatures.GetStrokeColor(&isAssigned);
-				if (isAssigned)
+                if ( ColorIsEqual (currRunCharFeatures.StrokeColor(), fromColor , includeTints ) )
                 {
-					sAIATEPaint->GetAIColor(strokePaint.GetRef(), &textColor);
-					if ( ColorIsEqual (textColor, fromColor , includeTints ) )
-                    {
-						currRunCharFeatures.SetStrokeOverPrint(overprint);
-						iter.Item().SetLocalCharFeatures(currRunCharFeatures);
-						*altered = true;
-					}
-				}
-			}
+                    currRunCharFeatures.StrokeOverPrint(overprint);
+                    *altered = true;
+                }
+            }
 			//FILLS
             if (replaceIn == ColorToolsUIController::ApplyTo::Fills || replaceIn == ColorToolsUIController::ApplyTo::FillsAndStrokes)
             {
-				ATE::IApplicationPaint fillPaint = currRunCharFeatures.GetFillColor(&isAssigned);
-				if (isAssigned)
+                if ( ColorIsEqual (currRunCharFeatures.FillColor(), fromColor , includeTints ) )
                 {
-					sAIATEPaint->GetAIColor(fillPaint.GetRef(), &textColor);
-					if ( ColorIsEqual (textColor, fromColor , includeTints ) )
-                    {
-						currRunCharFeatures.SetFillOverPrint(overprint);
-						iter.Item().SetLocalCharFeatures(currRunCharFeatures);
-						*altered = true;
-					}
-				}
-			}
+                    currRunCharFeatures.FillOverPrint(overprint);
+                    *altered = true;
+                }
+            }
+            
+            if (*altered)
+            {
+                iter.Item().SetLocalCharFeatures(currRunCharFeatures);
+            }
+            
 			iter.Next();
 		}
 	}
 }
 
-
-void ChangeColor(AIColor *targetColor, AIColor colorToCopy)
-{
-	targetColor->kind = colorToCopy.kind;
-	targetColor->c.c.tint = colorToCopy.c.c.tint;
-	targetColor->c.c.color = colorToCopy.c.c.color;
-}
-
 void RemoveWhiteOverprint()
 {
-    AIColor whiteColor;
     AIArtHandle currArtHandle;
     AIBoolean altered = false;
-    
-    AICustomColorHandle hWhite = NULL;
-    sAICustomColor->GetCustomColorByName(ai::UnicodeString("White"), &hWhite);
-
-    whiteColor.kind = kCustomColor;
-    whiteColor.c.c.tint = 1;
-    whiteColor.c.c.color = hWhite;
     
     //CREATE THE ART SET
     AIArtSet artSet;
@@ -659,7 +399,7 @@ void RemoveWhiteOverprint()
     for ( int i = 0; i < count; i++ )
     {
         sAIArtSet->IndexArtSet(artSet, i, &currArtHandle);
-        AdjustOverprint(currArtHandle, whiteColor, true, false, ColorToolsUIController::ApplyTo::FillsAndStrokes, &altered);
+        AdjustOverprint(currArtHandle, *BtColor::White(), true, false, ColorToolsUIController::ApplyTo::FillsAndStrokes, &altered);
     }
     //DISPOSE THE ART SET
     sAIArtSet->DisposeArtSet(&artSet);
@@ -678,7 +418,7 @@ void ConvertObjectsToGlobalCMYK(AIColor *color, void *userData, AIErr *result, A
             tColor.c.f.magenta = color->c.f.magenta;
             tColor.c.f.yellow = color->c.f.yellow;
             tColor.c.f.black = color->c.f.black;
-            tColor.flag = NULL;
+            tColor.flag = kCustomSpotColor;
             
             ai::UnicodeString CMYKName; char buffer[30];
             CMYKName = ai::UnicodeString("C=");
@@ -720,32 +460,6 @@ void ConvertObjectsToGlobalCMYK(AIColor *color, void *userData, AIErr *result, A
     }
 }
 
-AIColor GetRegistrationColor()
-{
-    AICustomColorHandle registrationCch;
-    sAICustomColor->GetCurrentRegistrationColor(&registrationCch);
-    AIColor registration = { .kind = kCustomColor, .c.c = { .color = registrationCch, .tint = 0} };
-    return registration;
-}
-
-bool ColorIsRegistration(AIColor color)
-{
-    AIColor regColor = GetRegistrationColor();
-    if (color.c.c.color == regColor.c.c.color)
-    {
-        return true;
-    }
-    return false;
-}
-
-AIColor GetBlackColor()
-{
-    AICustomColorHandle blackCch;
-    sAICustomColor->GetCustomColorByName(ai::UnicodeString(SafeguardFile::BLACK_COLOR_NAME), &blackCch);
-    AIColor black = { .kind = kCustomColor, .c.c = { .color = blackCch, .tint = 0} };
-    return black;
-}
-
 bool operator==(const AIGrayColorStyle& lhs, const AIGrayColorStyle& rhs)
 {
     return (lhs.gray == rhs.gray);
@@ -759,4 +473,9 @@ bool operator==(const AIFourColorStyle& lhs, const AIFourColorStyle& rhs)
 bool operator==(const AIThreeColorStyle& lhs, const AIThreeColorStyle& rhs)
 {
     return (lhs.red == rhs.red) && (lhs.green == rhs.green) && (lhs.blue == rhs.blue);
+}
+
+bool operator==(const AILabColorStyle& lhs, const AILabColorStyle& rhs)
+{
+    return (lhs.l == rhs.l) && (lhs.a == rhs.a) && (lhs.b == rhs.b);
 }

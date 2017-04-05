@@ -19,7 +19,7 @@ bool ColorEnumerator::HasRegistrationColor()
 {
     for (auto color : colorList)
     {
-        if (ColorIsRegistration(color.AiColor()))
+        if (color.IsRegistration())
         {
             return true;
         }
@@ -113,7 +113,7 @@ void AIFOColorsCallback(AIFOContentInfoSelector selector, void *info, void *user
         AIBoolean* cmyk = (AIBoolean*)info;
         if ( cmyk[3] )
         {
-            colorsInArt->push_back( GetBlackColor() );
+            colorsInArt->push_back( *BtColor::Black() );
         }
         if ( cmyk[0] || cmyk[1] || cmyk[2] )
         {

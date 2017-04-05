@@ -11,7 +11,6 @@
 #include <boost/system/system_error.hpp>
 #include <boost/filesystem.hpp>
 
-using PrintToPdf::PathCreator;
 namespace fs = boost::filesystem;
 
 bool PathCreator::CreatePath(ai::FilePath path) const

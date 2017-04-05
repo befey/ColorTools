@@ -12,9 +12,14 @@
 #include "AICSXSExtension.h"
 #include "AIArt.h"
 #include "AIPluginGroup.h"
+#include "AIUndo.h"
+#include "AIIsolationMode.h"
 
 extern AICSXSExtensionSuite* sAICSXSExtension;
 extern AIArtSuite* sAIArt;
+extern AIPluginGroupSuite* sAIPluginGroup;
+extern AIUndoSuite* sAIUndo;
+extern AIIsolationModeSuite* sAIIsolationMode;
 
 namespace PlateBleedInfo
 {
@@ -22,14 +27,23 @@ namespace PlateBleedInfo
     
     class BleedInfoController
     {
-    public:        
+    public:
+        BleedInfoController() {};
+        BleedInfoController(vector<AINotifierHandle> notifiers);
+        ~BleedInfoController();
+        
+        void DeSelectAllPluginArts() const;
         void HandleCropAreaNotification();
         void HandleCreateMenu();
         void HandleEditMenu();
         ASErr HandlePluginGroupNotify(AIPluginGroupMessage* message);
+        ASErr HandlePluginGroupUpdate(AIPluginGroupMessage* message);
+
     private:
-        bool ShouldDoUpdate();
+        bool SameTimestamp();
         void DrawBleedInfo();
+        
+        vector<AINotifierHandle> notifiers;
     };
 }
 

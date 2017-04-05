@@ -7,10 +7,10 @@
 //
 
 #include "PdfSettings.h"
-#include "PdfResults.h"
 #include "Plate.h"
 #include "SafeguardJobFile.h"
 #include "SafeguardJobFileDTO.hpp"
+#include "GetIllustratorErrorCode.h"
 
 #include "cereal/cereal.hpp"
 #include "cereal/types/vector.hpp"
@@ -19,9 +19,14 @@
 
 using PrintToPdf::PdfSettings;
 using PrintToPdf::PdfPreset;
-using PrintToPdf::PdfResults;
 using SafeguardFile::SafeguardJobFile;
 using SafeguardFile::ProductType;
+
+PdfSettings::PdfSettings(PrintToPdf::PdfPreset p, AIReal bleedAmount, string r, bool s, bool dnd, bool uof)
+: PdfSettings(p, r, s, dnd, uof)
+{
+    SetBleeds(AIRealRect{bleedAmount,bleedAmount,bleedAmount,bleedAmount});
+}
 
 PdfSettings::PdfSettings(PdfPreset p, string r, bool s, bool dnd, bool uof)
 :
@@ -144,6 +149,13 @@ PdfSettings PdfSettings::MakePdfSettingsFromJson(const char* json)
     v = d[PrintToPdfUIController::USEROUTPUTFOLDER_CHECK];
     bool userOutputFolder = (v.GetBool());
     
+    v = d[PrintToPdfUIController::CUSTOMBLEEDS_TEXT];
+    AIReal customBleedAmount = GetBleedAmountFromString(string(v.GetString()));
+    if (customBleedAmount != -1)
+    {
+        return PdfSettings(preset, customBleedAmount, r, separateFiles, doNotDelete, userOutputFolder);
+    }
+
     return PdfSettings(preset, r, separateFiles, doNotDelete, userOutputFolder);
 }
 
@@ -197,6 +209,26 @@ void PdfSettings::SetVpbRange(string vpbRange) const
 {
     sAIActionManager->AIActionSetString(vpb, kAIExportDocumentSaveRangeKey, vpbRange.c_str());
 }
+
+AIReal PdfSettings::GetBleedAmountFromString(string expr)
+{
+    AIExpressionOptions options =
+    {
+        .unit = kAIPointUnits,
+        .minValue = -1,
+        .maxValue = kAIRealMax,
+        .oldValue = -1,
+        .precision = 0
+    };
+    
+    ai::UnicodeString evaluatedExpr;
+    AIBoolean isChanged;
+    AIDouble numericValue = 999;
+    sAIUser->EvaluateExpression(ai::UnicodeString(expr), options, evaluatedExpr, isChanged, numericValue);
+    
+    return numericValue; //-1 if error
+}
+
 /**************************************************************************
  **************************************************************************/
 

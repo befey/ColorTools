@@ -7,11 +7,12 @@
 //
 
 #include "BleedInfo.h"
+#include "BtArtHandle.hpp"
 #include "ArtTree.h"
 #include "BleedInfoPluginArtToArtboardMatcher.hpp"
 #include "DictionaryWriter.h"
 #include "BleedInfoWriter.hpp"
-#include "BleedInfoDrawer.h"
+#include "BleedInfoDrawableController.h"
 #include "SafeguardJobFileDTO.hpp"
 #include "TokenCreator.hpp"
 #include "ArtboardNameRetriever.hpp"
@@ -28,27 +29,32 @@ BleedInfo::BleedInfo(ai::ArtboardID artboardIndex, const PlateBleedInfo::PlateDT
 artboardIndex(artboardIndex),
 colorList(ArtboardBounds())
 {
-    SetPlateNumber();
+    bleedInfoPluginArt = PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().GetArt(artboardIndex);
     
-    if (plateNumber.GetProductType() == SafeguardFile::CutSheet && colorList.HasCMYK())
-    {
-        shouldAddCMYKBlocks = true;
-    }
+    SetPlateNumber();
     
     SetShouldPrint();
     
-    tmSettings = SafeguardFile::TickMarkSettings(ArtboardBounds(), plateNumber.GetProductType(), SafeguardFile::TickMarkStyle::NONE);
+    tmSettings = SafeguardFile::TickMarkSettings(ArtboardBounds(), plateNumber.GetProductType(), SafeguardFile::TickMarkStyle::NONE, shouldDrawBleedInfo);
     
-    bleedInfoPluginArt = PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().GetArt(artboardIndex);
-    
-    if (dto != NULL)
+    if (dto != nullptr)
     {
         FillBleedInfoFromPlateDTO(dto, true);
     }
     else
     {
         ReadFromPluginArt();
-    }   
+    }
+    
+    if (plateNumber.GetProductType() == SafeguardFile::CutSheet && colorList.HasCMYK())
+    {
+        shouldAddCMYKBlocks = true;
+    }
+}
+
+BleedInfo::~BleedInfo()
+{
+    StoreInPluginArt();
 }
 
 AIRealRect BleedInfo::ArtboardBounds() const
@@ -58,15 +64,23 @@ AIRealRect BleedInfo::ArtboardBounds() const
 
 tm BleedInfo::LastModified() const
 {
-    ai::FilePath aiFilePath;
-    sAIDocument->GetDocumentFileSpecification(aiFilePath);
+    time_t lastWrite = std::time(nullptr);
     
-    boost::system::error_code ec;
-    time_t lastWrite = fs::last_write_time(aiFilePath.GetFullPath().as_Platform(), ec);
+    AIBoolean modified = false;
+    sAIDocument->GetDocumentModified(&modified);
     
-    if (ec != boost::system::errc::success)
+    if (!modified)
     {
-        std::time(&lastWrite);
+        ai::FilePath aiFilePath;
+        sAIDocument->GetDocumentFileSpecification(aiFilePath);
+        
+        boost::system::error_code ec;
+        time_t lastWrite = fs::last_write_time(aiFilePath.GetFullPath().as_Platform(), ec);
+        
+        if (ec != boost::system::errc::success)
+        {
+            lastWrite = std::time(nullptr);
+        }
     }
     
     return *localtime(&lastWrite);
@@ -111,7 +125,6 @@ BleedInfo& BleedInfo::ArtboardName(string newVal)
         props.SetName(ai::UnicodeString(newVal));
         sAIArtboard->Update(abList, ArtboardIndex(), props);
     }
-    StoreInPluginArt();
     return *this;
 }
 
@@ -119,13 +132,11 @@ void BleedInfo::SetPlateNumber()
 {
     //TODO: Make this handle the other plate number cases when we don't want to use the filename
     SetPlateNumber(CurrentFilenameRetriever::GetFilenameNoExt());
-    StoreInPluginArt();
 }
 
 void BleedInfo::SetPlateNumber(string pn)
 {
     plateNumber = SafeguardFile::PlateNumber(pn);
-    StoreInPluginArt();
 }
 
 void BleedInfo::SetShouldPrint()
@@ -158,20 +169,34 @@ void BleedInfo::SetShouldPrint()
 AIRealRect BleedInfo::Bleeds() const
 {
     AIRealRect bleedRect;
+
+    AIRealRect diff = GetExpansionAmountToContainRect(ArtboardBounds(), BtArtHandle(bleedInfoPluginArt).Bounds());
     
     SafeguardFile::ProductType pt = PlateNumber().GetProductType();
     
     if (pt == SafeguardFile::ProductType::CutSheet)
     {
-        sAIRealMath->AIRealRectSet(&bleedRect, 36, 36, 36, 36);
+        if (diff.left < 36) diff.left = 36;
+        if (diff.top < 36) diff.top = 36;
+        if (diff.right < 36) diff.right = 36;
+        if (diff.bottom < 36) diff.bottom = 36;
+        sAIRealMath->AIRealRectSet(&bleedRect, diff.left, diff.top, diff.right, diff.bottom);
     }
     else if (pt == SafeguardFile::ProductType::BusinessStat)
     {
-        sAIRealMath->AIRealRectSet(&bleedRect, 12, 12, 12, 12);
+        if (diff.left < 12) diff.left = 12;
+        if (diff.top < 12) diff.top = 12;
+        if (diff.right < 12) diff.right = 12;
+        if (diff.bottom < 12) diff.bottom = 12;
+        sAIRealMath->AIRealRectSet(&bleedRect, diff.left, diff.top, diff.right, diff.bottom);
     }
     else if (pt == SafeguardFile::ProductType::Continuous)
     {
-        sAIRealMath->AIRealRectSet(&bleedRect, 9, 9, 9, 9);
+        if (diff.left < 9) diff.left = 9;
+        if (diff.top < 9) diff.top = 9;
+        if (diff.right < 9) diff.right = 9;
+        if (diff.bottom < 9) diff.bottom = 9;
+        sAIRealMath->AIRealRectSet(&bleedRect, diff.left, diff.top, diff.right, diff.bottom);
     }
     else //No bleed
     {
@@ -187,7 +212,7 @@ void BleedInfo::FillBleedInfoFromPlateDTO(const PlateBleedInfo::PlateDTO* dto, b
     ShouldPrint(dto->shouldPrint);
     if (changeArtboardName)
     {
-        ArtboardName(dto->artboardName); //Do not set artboard name here or we'll overwrite what's been set in artboards panel.
+        ArtboardName(dto->artboardName);
     }
     //.ShouldAddCmykBlocks(dto->shouldAddCmykBlocks) //Do not set cmyk blocks here or we'll overwrite what's been set by the file type and color list
     TickMarkStyle(SafeguardFile::TickMarkStyle(dto->tmStyle));
@@ -195,7 +220,6 @@ void BleedInfo::FillBleedInfoFromPlateDTO(const PlateBleedInfo::PlateDTO* dto, b
     {
         ColorList().SetColorMethod(color.colorName, SafeguardFile::InkMethod(color.method) );
     }
-    StoreInPluginArt();
 }
 
 void BleedInfo::StoreInPluginArt() const
@@ -215,22 +239,16 @@ void BleedInfo::ReadFromPluginArt()
         
         FillBleedInfoFromPlateDTO(&dto, false);
     }
-    StoreInPluginArt();
 }
 
-void BleedInfo::Draw()
+AIArtHandle BleedInfo::Draw(AIArtHandle existingArt)
 {
-    bleedInfoPluginArt = ( PlateBleedInfo::BleedInfoDrawer(make_shared<BleedInfo>(*this)).Draw() );
-    StoreInPluginArt();
-    
+    BleedInfoDrawableController controller(*this); //Sets up all drawers
+    bleedInfoPluginArt = controller.Draw();
+        
+    //These null-check bleedInfoPluginArt
     DictionaryWriter dw;
     dw.AddAIArtHandleToArrayInDictionary(bleedInfoPluginArt, SG_BLEEDINFO_ARTHANDLES);
-    
-    StoreInPluginArt();
-}
-
-void BleedInfo::Remove()
-{
-    bleedInfoPluginArt = ( PlateBleedInfo::BleedInfoDrawer(make_shared<BleedInfo>(*this)).Remove() );
-    bleedInfoPluginArt = NULL;
+            
+    return bleedInfoPluginArt;
 }

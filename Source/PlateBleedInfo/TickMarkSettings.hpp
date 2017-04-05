@@ -18,7 +18,7 @@ namespace SafeguardFile
     {
     public:
         TickMarkSettings();
-        TickMarkSettings(const AIRealRect rect, const ProductType pt, const SafeguardFile::TickMarkStyle tms);
+        TickMarkSettings(const AIRealRect rect, const ProductType pt, const SafeguardFile::TickMarkStyle tms, const bool shouldDrawBleedInfo);
         
         AIRealRect Bounds() const { return bounds; };
         int Offset() const { return offset; };
@@ -26,6 +26,7 @@ namespace SafeguardFile
         AIColor Color() const { return color; };
         bool DrawInner() const;
         bool DrawOuter() const;
+        bool ShouldDrawBleedInfo() const { return shouldDrawBleedInfo; };
         
         SafeguardFile::TickMarkStyle TickMarkStyle() const { return tmStyle; };
         TickMarkSettings& TickMarkStyle(SafeguardFile::TickMarkStyle newVal) { tmStyle = newVal; return *this;};
@@ -35,8 +36,9 @@ namespace SafeguardFile
         float weight = .5;
         AIColor color;
         SafeguardFile::TickMarkStyle tmStyle;
+        bool shouldDrawBleedInfo;
         
-        static constexpr auto TICK_LENGTH_CUTSHEET = 27;
+        static constexpr auto TICK_LENGTH_CUTSHEET = 9;
         static constexpr auto TICK_LENGTH_CONTINUOUS = 9;
         static constexpr auto TICK_LENGTH_NONE = 0;
         

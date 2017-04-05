@@ -11,7 +11,7 @@
 #include "SDKErrors.h"
 
 
-VPB::VPB() : fActionParamValueRef(NULL)
+VPB::VPB() : fActionParamValueRef(nullptr)
 {
 	ASErr result = kNoErr;
 	try {
@@ -33,7 +33,7 @@ VPB::~VPB()
 		SDK_ASSERT(sAIActionManager);
 		result = sAIActionManager->AIDeleteActionParamValue(fActionParamValueRef);
 		SDK_ASSERT(!result);
-		fActionParamValueRef = NULL;
+		fActionParamValueRef = nullptr;
 	}
 	catch (ai::Error) {
 	}

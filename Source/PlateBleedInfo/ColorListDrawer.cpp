@@ -12,7 +12,9 @@
 #include "BtTransformArt.hpp"
 #include "SafeguardFileConstants.h"
 #include "BtLayer.hpp"
+#include "SafeguardJobFileDTO.hpp"
 #include "ArtTree.h"
+#include "BleedInfo.h"
 
 using SafeguardFile::ColorListDrawer;
 using SafeguardFile::LaserColorListDrawer;
@@ -20,74 +22,101 @@ using SafeguardFile::ContinuousColorListDrawer;
 using SafeguardFile::BusStatColorListDrawer;
 using SafeguardFile::BleedInfo;
 
-ColorListDrawer::ColorListDrawer(AIRealRect bounds, AIRealPoint anchor, ColorList colorList) :
-    BleedTextInfoDrawer(bounds, anchor),
-    colorList(colorList)
+ColorListDrawer::ColorListDrawer(AIRealRect artboardBounds, AIRealPoint anchor, ColorList colorList)
+:
+BleedTextInfoDrawer(artboardBounds, anchor),
+colorList(colorList)
 {
-    maxWidth = (bounds.right - bounds.left) * .7;
-    maxHeight = (bounds.top - bounds.bottom) * .7;
+    maxWidth = (artboardBounds.right - artboardBounds.left) * .6;
+    maxHeight = (artboardBounds.top - artboardBounds.bottom) * .6;
 }
 
-LaserColorListDrawer::LaserColorListDrawer(AIRealRect bounds, ColorList colorList) :
-    ColorListDrawer(bounds, {.h = bounds.left + 4, .v = bounds.bottom - 14}, colorList) {};
-ContinuousColorListDrawer::ContinuousColorListDrawer(AIRealRect bounds, ColorList colorList) :
-    ColorListDrawer(bounds, {.h = bounds.right + 2, .v = bounds.top - 120}, colorList) {};
-BusStatColorListDrawer::BusStatColorListDrawer(AIRealRect bounds, ColorList colorList) :
-    ColorListDrawer(bounds, {.h = bounds.left, .v = bounds.bottom - 12}, colorList) {};
+LaserColorListDrawer::LaserColorListDrawer(AIRealRect bounds, ColorList colorList)
+:
+ColorListDrawer(bounds, {.h = bounds.left + 4, .v = bounds.bottom - 4.5}, colorList)
+{};
 
-AIArtHandle LaserColorListDrawer::DoDraw(AIArtHandle resultGroup) const
+ContinuousColorListDrawer::ContinuousColorListDrawer(AIRealRect bounds, ColorList colorList)
+:
+ColorListDrawer(bounds, {.h = bounds.right, .v = bounds.top + ((bounds.bottom - bounds.top) * .4)}, colorList)
+{};
+
+BusStatColorListDrawer::BusStatColorListDrawer(AIRealRect bounds, ColorList colorList)
+:
+ColorListDrawer(bounds, {.h = bounds.left, .v = bounds.bottom - 4.5}, colorList)
+{};
+
+AIArtHandle ColorListDrawer::Draw(AIArtHandle resultGroup) const
+{
+    AIArtHandle colorListArt = DrawerSpecificSteps(resultGroup);
+    colorList.WriteColorListToArtDictionary(colorListArt);
+
+    return colorListArt;
+}
+
+AIArtHandle LaserColorListDrawer::DrawerSpecificSteps(AIArtHandle resultGroup) const
 {
     AIArtHandle colorListArt;
     
-    ATE::ITextRange range = SetupTextRange(resultGroup, kHorizontalTextOrientation, &colorListArt);
+    ATE::ITextRange range = SetupTextRange(resultGroup, maxWidth, ATE::kLeftJustify, kHorizontalTextOrientation, &colorListArt);
     
-    colorList.AsTextRange(range, maxWidth);
+    colorList.AsTextRange(range);
     
     BtAteTextFeatures textFeatures;
     textFeatures.FontSize(12).Font("Helvetica-Bold").Justification(ATE::kLeftJustify);
     textFeatures.ApplyFeaturesToRange(range);
 
+    FitTextFrameToContents(colorListArt);
+    
     return colorListArt;
 }
 
-AIArtHandle ContinuousColorListDrawer::DoDraw(AIArtHandle resultGroup) const
+AIArtHandle ContinuousColorListDrawer::DrawerSpecificSteps(AIArtHandle resultGroup) const
 {
-    AIArtHandle colorListArt;
+    AIArtHandle colorListGroup = nullptr;
+    sAIArt->NewArt(kGroupArt, kPlaceInsideOnTop, resultGroup, &colorListGroup);
     
-    ATE::ITextRange range = SetupTextRange(resultGroup, kHorizontalTextOrientation, &colorListArt);
+    AIArtHandle colorListArt = nullptr;
     
-    colorList.AsTextRange(range, maxHeight);
+    //Passing maxHeight here because we're going to rotate
+    ATE::ITextRange range = SetupTextRange(colorListGroup, maxHeight, ATE::kLeftJustify, kHorizontalTextOrientation, &colorListArt);
     
-    RotateArt(colorListArt, anchor, -90);
-    MoveArtOutsideBounds(colorListArt, bounds, Direction::Right, 2);
+    colorList.AsTextRange(range);
     
     BtAteTextFeatures textFeatures;
     textFeatures.FontSize(9).Font("Helvetica-Bold").Justification(ATE::kLeftJustify);
     textFeatures.ApplyFeaturesToRange(range);
     
-    DrawContinuousColorBlocks(resultGroup);
+    FitTextFrameToContents(colorListArt);
     
-    return colorListArt;
+    RotateArt(colorListArt, anchor, -90);
+    MoveArtOutsideBounds(colorListArt, artboardBounds, Direction::Right, 0);
+    
+    DrawContinuousColorBlocks(colorListGroup);
+    
+    return colorListGroup;
 }
 
-AIArtHandle BusStatColorListDrawer::DoDraw(AIArtHandle resultGroup) const
+AIArtHandle BusStatColorListDrawer::DrawerSpecificSteps(AIArtHandle resultGroup) const
 {
     AIArtHandle colorListArt;
     
-    ATE::ITextRange range = SetupTextRange(resultGroup, kHorizontalTextOrientation, &colorListArt);
+    ATE::ITextRange range = SetupTextRange(resultGroup, maxWidth, ATE::kLeftJustify, kHorizontalTextOrientation, &colorListArt);
     
-    colorList.AsTextRange(range, maxWidth);
+    colorList.AsTextRange(range);
     
     BtAteTextFeatures textFeatures;
     textFeatures.FontSize(7).Font("Helvetica-Condensed-Bold").Justification(ATE::kLeftJustify);
     textFeatures.ApplyFeaturesToRange(range);
+    
+    FitTextFrameToContents(colorListArt);
     
     return colorListArt;
 }
 
 void ContinuousColorListDrawer::DrawContinuousColorBlocks(AIArtHandle resultGroup) const
 {
-    AIRealRect rect = { .top = bounds.top - 66, .right = bounds.right - 12, .bottom = bounds.top - 66 - 12, .left = bounds.right - 12 - 12 };
+    AIRealRect rect = { .top = artboardBounds.top - 66, .right = artboardBounds.right - 12, .bottom = artboardBounds.top - 66 - 12, .left = artboardBounds.right - 12 - 12 };
     
     AIArtHandle colorBlock = DrawRectangle(rect, resultGroup);
     
@@ -95,7 +124,7 @@ void ContinuousColorListDrawer::DrawContinuousColorBlocks(AIArtHandle resultGrou
     sAIPathStyle->GetPathStyle(colorBlock, &currPathStyle);
     currPathStyle.strokePaint = false;
     currPathStyle.fillPaint = true;
-    currPathStyle.fill = { .color = GetRegistrationColor(), .overprint = true };
+    currPathStyle.fill = { .color = BtColor::RegistrationColor(), .overprint = true };
     sAIPathStyle->SetPathStyle(colorBlock, &currPathStyle);
        
     if (colorList.size() > 0 && colorList[0].Kind() == kFourColor)
@@ -105,7 +134,7 @@ void ContinuousColorListDrawer::DrawContinuousColorBlocks(AIArtHandle resultGrou
             {.kind = kFourColor, .c.f.cyan = 1, .c.f.magenta = 0, .c.f.yellow = 0, .c.f.black = 0},
             {.kind = kFourColor, .c.f.cyan = 0, .c.f.magenta = 1, .c.f.yellow = 0, .c.f.black = 0},
             {.kind = kFourColor, .c.f.cyan = 0, .c.f.magenta = 0, .c.f.yellow = 1, .c.f.black = 0},
-            {GetBlackColor()}
+            {BtColor::Black()->AiColor()}
         };
         for (auto c : cmykColors)
         {
@@ -113,7 +142,7 @@ void ContinuousColorListDrawer::DrawContinuousColorBlocks(AIArtHandle resultGrou
             rect.bottom -= 36;
             
             //Make sure the blocks only go about 60% down the page
-            if (! (rect.bottom < bounds.bottom * .6) )
+            if (! (rect.bottom < artboardBounds.bottom * .6) )
             {
                 AIArtHandle colorBlock = DrawRectangle(rect, resultGroup);
                 
@@ -136,7 +165,7 @@ void ContinuousColorListDrawer::DrawContinuousColorBlocks(AIArtHandle resultGrou
                           rect.bottom -= 36;
                           
                           //Make sure the blocks only go about 60% down the page
-                          if (! (rect.bottom < bounds.bottom * .6) )
+                          if (! (rect.bottom < artboardBounds.bottom * .6) )
                           {
                               AIArtHandle colorBlock = DrawRectangle(rect, resultGroup);
                               
@@ -149,4 +178,48 @@ void ContinuousColorListDrawer::DrawContinuousColorBlocks(AIArtHandle resultGrou
                           }
                       });
     }
+}
+
+bool ShouldCreateColorListDrawable::Get() const
+{
+    if (!settings.shouldDrawBleedInfo) //We'll have a NoneDrawer here, so we need to "draw" the None color list
+    {
+        return true;
+    }
+    
+    if (!pluginArt)
+    {
+        return true;
+    }
+    
+    DictionaryWriter dw(pluginArt);
+    string json;
+    dw.GetStringDataFromIdentifier(json, PlateBleedInfo::PLATE_BLEEDINFO);
+    PlateBleedInfo::PlateDTO dto(json);
+    
+    if (settings.artboardBounds != dto.bounds)
+    {
+        return true;
+    }
+    
+    AIArtHandle resultGroup = nullptr;
+    sAIPluginGroup->GetPluginArtResultArt(pluginArt, &resultGroup);
+    
+    AIArtHandle existingColorListArtHandle = nullptr;
+    existingColorListArtHandle = DictionaryWriter(resultGroup).GetArtHandleFromIdentifier(drawable->GetDrawer()->GetDictionaryLabel(resultGroup));
+    if (existingColorListArtHandle)
+    {
+        ColorList existingColorList(vector<AIColor>{});
+        existingColorList.ReadColorListFromArtDictionary(existingColorListArtHandle);
+        if ( existingColorList == settings.colorList )
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    return true;
 }

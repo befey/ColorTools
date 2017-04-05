@@ -48,6 +48,7 @@ namespace PrintToPdf
         
         static void PanelLoaded (const csxs::event::Event* const event, void* const context);
         static void MakePdfButtonClickedFunc (const csxs::event::Event* const event, void* const context);
+        static void FolderPrefsHandler (const csxs::event::Event* const event, void* const context);
         static void CancelButtonClickedFunc (const csxs::event::Event* const event, void* const context);
         static void NoArtboardsSelectedHandler (const csxs::event::Event* const event, void* const context);
         
@@ -59,24 +60,26 @@ namespace PrintToPdf
         
         //=================================
         // Constant definitions
-        static constexpr auto PRINTTOPDF_UI_EXTENSION =         "com.gosafeguard.SafeguardTools.PrintToPdf";
-        static constexpr auto EVENT_TYPE_MAKEPDF_CLICKED =      "com.gosafeguard.SafeguardTools.PrintToPdf.makepdfbutton";
-        static constexpr auto EVENT_TYPE_CANCEL_CLICKED =       "com.gosafeguard.SafeguardTools.PrintToPdf.cancelbutton";
-        static constexpr auto EVENT_TYPE_RESULTS_BACK =         "com.gosafeguard.SafeguardTools.PrintToPdf.resultsback";
-        static constexpr auto EVENT_TYPE_FORCE_PANEL_CLOSE =    "com.gosafeguard.SafeguardTools.PrintToPdf.forcepanelclose";
-        static constexpr auto EVENT_TYPE_PANEL_LOADED =         "com.gosafeguard.SafeguardTools.PrintToPdf.panelloaded";
-        static constexpr auto EVENT_TYPE_DATA_FROM_PLUGIN =     "com.gosafeguard.SafeguardTools.PrintToPdf.datafromplugin";
-        static constexpr auto EVENT_TYPE_CLEAR_RESULT_BOX =     "com.gosafeguard.SafeguardTools.PrintToPdf.clearresultbox";
-        static constexpr auto EVENT_TYPE_NO_ARTBOARDS_SEL =     "com.gosafeguard.SafeguardTools.PrintToPdf.noartboardsselected";
-        static constexpr auto ILST_APP =                        "ILST";
+        static constexpr auto PRINTTOPDF_UI_EXTENSION =           "com.gosafeguard.SafeguardTools.PrintToPdf";
+        static constexpr auto EVENT_TYPE_MAKEPDF_CLICKED =        "com.gosafeguard.SafeguardTools.PrintToPdf.makepdfbutton";
+        static constexpr auto EVENT_TYPE_FOLDERPREFS =            "com.gosafeguard.SafeguardTools.PrintToPdf.changefolderprefs";
+        static constexpr auto EVENT_TYPE_CANCEL_CLICKED =         "com.gosafeguard.SafeguardTools.PrintToPdf.cancelbutton";
+        static constexpr auto EVENT_TYPE_RESULTS_BACK =           "com.gosafeguard.SafeguardTools.PrintToPdf.resultsback";
+        static constexpr auto EVENT_TYPE_FORCE_PANEL_CLOSE =      "com.gosafeguard.SafeguardTools.PrintToPdf.forcepanelclose";
+        static constexpr auto EVENT_TYPE_PANEL_LOADED =           "com.gosafeguard.SafeguardTools.PrintToPdf.panelloaded";
+        static constexpr auto EVENT_TYPE_DATA_FROM_PLUGIN =       "com.gosafeguard.SafeguardTools.PrintToPdf.datafromplugin";
+        static constexpr auto EVENT_TYPE_CLEAR_RESULT_BOX =       "com.gosafeguard.SafeguardTools.PrintToPdf.clearresultbox";
+        static constexpr auto EVENT_TYPE_NO_ARTBOARDS_SEL =       "com.gosafeguard.SafeguardTools.PrintToPdf.noartboardsselected";
+        static constexpr auto ILST_APP =                          "ILST";
         
-        static constexpr auto PRESET_SELECT =                   "preset-select";
+        static constexpr auto PRESET_SELECT =                     "preset-select";
                 
-        static constexpr auto DTO =                             "dto";
-        static constexpr auto SEPARATEFILES_CHECK =             "separatefiles-check";
-        static constexpr auto USEROUTPUTFOLDER_CHECK =          "useroutputfolder-check";
-        static constexpr auto DONOTDELETE_CHECK =               "donotdelete-check";
-        static constexpr auto RESULTS_TEXTAREA =                "results-textarea";
+        static constexpr auto DTO =                               "dto";
+        static constexpr auto SEPARATEFILES_CHECK =               "separatefiles-check";
+        static constexpr auto USEROUTPUTFOLDER_CHECK =            "useroutputfolder-check";
+        static constexpr auto DONOTDELETE_CHECK =                 "donotdelete-check";
+        static constexpr auto CUSTOMBLEEDS_TEXT =                 "custombleeds-text";
+        static constexpr auto RESULTS_TEXTAREA =                  "results-textarea";
         
     private:
         

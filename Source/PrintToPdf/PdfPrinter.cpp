@@ -9,7 +9,6 @@
 #include "SafeguardToolsPlugin.h"
 #include "PdfPrinter.h"
 #include "PdfSettings.h"
-#include "PdfResults.h"
 #include "CurrentFilenameRetriever.hpp"
 #include "TokenCreator.hpp"
 
@@ -17,7 +16,6 @@ using PrintToPdf::PdfPrinter;
 using PrintToPdf::SingleFilePdfPrinter;
 using PrintToPdf::SeparateFilePdfPrinter;
 using PrintToPdf::PdfSettings;
-using PrintToPdf::PdfResults;
 using SafeguardFile::ProductType;
 
 SingleFilePdfPrinter::SingleFilePdfPrinter(const PdfPreset preset, const bool doNotDelete, const bool userOutputFolder) : PdfPrinter(preset, doNotDelete, userOutputFolder) {}
@@ -25,18 +23,26 @@ SeparateFilePdfPrinter::SeparateFilePdfPrinter(const PdfPreset preset, const boo
 
 PdfPrinter::PdfPrinter(const PdfPreset preset, const bool doNotDelete, const bool userOutputFolder)
 {
-    pathCreator = make_unique<PathCreator>();
-    
-    efDeleter = ExistingFileDeleter::GetExistingFileDeleter(doNotDelete);
-    
-    tpConverter = make_unique<TypeToPathsConverter>();
-    
     plateNumber = SafeguardFile::PlateNumber(CurrentFilenameRetriever::GetFilenameNoExt());
     
-    layerVisibility = LayerVisibility::GetLayerVisibility(plateNumber.GetProductType(), preset);
-        
     pathBuilder = PathBuilder::GetPathBuilder(preset, userOutputFolder);
     outputPath = pathBuilder->GetAiFilePath(plateNumber);
+    
+    printCommand.AddCommand(make_shared<CreatePathCommand>(outputPath, true, transactions));
+    
+    if (!doNotDelete)
+    {
+        printCommand.AddCommand(make_shared<DeleteFilesMatchingCommand>(outputPath, plateNumber, false, transactions));
+    }
+    
+    printCommand.AddCommand(make_shared<SetLayerVisibilityCommand>(plateNumber.GetProductType(), preset, false));
+    
+    printCommand.AddCommand(make_shared<ConvertTypeToPathsCommand>(false));
+    
+    if (plateNumber.GetProductType() == SafeguardFile::ProductType::BusinessStat)
+    {
+        printCommand.AddCommand(make_shared<MakeKeylineBoundingBox>(false));
+    }
 }
 
 unique_ptr<PdfPrinter> PdfPrinter::GetPrinter(const PdfPreset preset, const bool separateFiles, const bool doNotDelete, const bool userOutputFolder)
@@ -51,33 +57,26 @@ unique_ptr<PdfPrinter> PdfPrinter::GetPrinter(const PdfPreset preset, const bool
     }
 }
 
-PdfResults PdfPrinter::Print(const PdfSettings& settings)
+FilesystemResults PdfPrinter::Print(const PdfSettings& settings)
 {
     unique_ptr<PdfPrinter> printer = GetPrinter(settings.GetPreset(), settings.OutputSeparateFiles(), settings.DoNotDelete(), settings.UserOutputFolder());
     
     return printer->DoIt(settings);
 }
 
-PdfResults PdfPrinter::DoIt(const PdfSettings& settings) const
-{
-    PdfResults transactions;
-    
-    if ( pathCreator->CreatePath(outputPath) )
-    {
-        transactions.AddResult(efDeleter->Delete(plateNumber, outputPath));
-        
-        layerVisibility->SetLayerVisibility();
-        tpConverter->ConvertTypeToPaths();
-        
+FilesystemResults PdfPrinter::DoIt(const PdfSettings& settings)
+{    
+    if ( printCommand.Execute() )
+    {        
         transactions.AddResult(CustomPrintSteps(settings));
     }
     
     return transactions;
 }
 
-PdfResults SingleFilePdfPrinter::CustomPrintSteps(const PdfSettings& settings) const
+FilesystemResults SingleFilePdfPrinter::CustomPrintSteps(const PdfSettings& settings) const
 {
-    PdfResults transactions;
+    FilesystemResults transactions;
     
     ai::FilePath pathToPdfFile = outputPath;
     
@@ -88,16 +87,19 @@ PdfResults SingleFilePdfPrinter::CustomPrintSteps(const PdfSettings& settings) c
     // Set Path
     settings.SetPath(pathToPdfFile);
         
-    sAIActionManager->PlayActionEvent(kSaveACopyAsAction, kDialogOff, settings);
+    AIErr error = sAIActionManager->PlayActionEvent(kSaveACopyAsAction, kDialogOff, settings);
     
-    transactions.AddResult({PdfResults::Transaction::Created, pathToPdfFile});
+    if (error == kNoErr)
+    {
+        transactions.AddResult({FilesystemResults::Transaction::Created, pathToPdfFile});
+    }
     
     return transactions;
 }
 
-PdfResults SeparateFilePdfPrinter::CustomPrintSteps(const PdfSettings& settings) const
+FilesystemResults SeparateFilePdfPrinter::CustomPrintSteps(const PdfSettings& settings) const
 {
-    PdfResults transactions;
+    FilesystemResults transactions;
     
     AIArtboardRangeIterator iter;
     sAIArtboardRange->Begin(settings.GetRange(), &iter);
@@ -122,9 +124,12 @@ PdfResults SeparateFilePdfPrinter::CustomPrintSteps(const PdfSettings& settings)
         // Set Range
         settings.SetVpbRange(to_string(index+1));
         
-        sAIActionManager->PlayActionEvent(kSaveACopyAsAction, kDialogOff, settings);
+        AIErr error = sAIActionManager->PlayActionEvent(kSaveACopyAsAction, kDialogOff, settings);
         
-        transactions.AddResult({PdfResults::Transaction::Created, pathToPdfFile});
+        if (error == kNoErr)
+        {
+            transactions.AddResult({FilesystemResults::Transaction::Created, pathToPdfFile});
+        }
         
         pathToPdfFile.RemoveComponent();
     }

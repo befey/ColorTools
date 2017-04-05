@@ -34,11 +34,12 @@ artboardIndex(bleedInfo->ArtboardIndex()),
 plateNumber(bleedInfo->PlateNumber()),
 token(bleedInfo->Token()),
 shouldAddCmykBlocks(bleedInfo->ShouldAddCmykBlocks()),
-tmStyle(int(bleedInfo->TickMarkSettings().TickMarkStyle()))
+tmStyle(int(bleedInfo->TickMarkSettings().TickMarkStyle())),
+bounds(bleedInfo->ArtboardBounds())
 {
     artboardName = bleedInfo->ArtboardName(isDefaultArtboardName);
     
-    for (auto color : bleedInfo->ConstColorList() )
+    for (auto color : bleedInfo->ColorList() )
     {
         c.push_back(ColorDTO(color, fullColorName));
     }

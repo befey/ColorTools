@@ -12,8 +12,8 @@
 
 void BtDocumentView::StoreCurrentDocumentView()
 {
-    sAIDocumentView->GetDocumentViewCenter(NULL, &center);
-    sAIDocumentView->GetDocumentViewZoom(NULL, &zoom);
+    sAIDocumentView->GetDocumentViewCenter(nullptr, &center);
+    sAIDocumentView->GetDocumentViewZoom(nullptr, &zoom);
     DictionaryWriter dw;
     dw.AddAIRealToDictionary(center.h, BTDOCVIEW_CENTERH);
     dw.AddAIRealToDictionary(center.v, BTDOCVIEW_CENTERV);
@@ -26,8 +26,8 @@ void BtDocumentView::RecallDocumentView()
     center.h = dw.GetAIRealFromIdentifier(BTDOCVIEW_CENTERH);
     center.v = dw.GetAIRealFromIdentifier(BTDOCVIEW_CENTERV);
     zoom = dw.GetAIRealFromIdentifier(BTDOCVIEW_ZOOM);
-    sAIDocumentView->SetDocumentViewCenter(NULL, &center);
-    sAIDocumentView->SetDocumentViewZoom(NULL, zoom);
+    sAIDocumentView->SetDocumentViewCenter(nullptr, &center);
+    sAIDocumentView->SetDocumentViewZoom(nullptr, zoom);
 }
 
 void BtDocumentView::SetViewOnArtboard(ai::ArtboardID id)
@@ -44,10 +44,10 @@ void BtDocumentView::SetViewOnArtboard(ai::ArtboardID id)
     AIRealPoint center {.h = bounds.left + ( abWidth / 2 ),
                         .v = bounds.top - ( abHeight / 2 ) };
     
-    sAIDocumentView->SetDocumentViewCenter(NULL, &center);
+    sAIDocumentView->SetDocumentViewCenter(nullptr, &center);
     
     AIRealRect viewBounds;
-    sAIDocumentView->GetDocumentViewBounds(NULL, &viewBounds);
+    sAIDocumentView->GetDocumentViewBounds(nullptr, &viewBounds);
     
     AIReal viewWidth = viewBounds.right - viewBounds.left;
     AIReal viewHeight = viewBounds.top - viewBounds.bottom;
@@ -57,8 +57,8 @@ void BtDocumentView::SetViewOnArtboard(ai::ArtboardID id)
 
     AIReal zoom = viewRatio > abRatio ? viewHeight / abHeight : viewWidth / abWidth;
     AIReal currZoom;
-    sAIDocumentView->GetDocumentViewZoom(NULL, &currZoom);
-    sAIDocumentView->SetDocumentViewZoom(NULL, currZoom * zoom * .9);
+    sAIDocumentView->GetDocumentViewZoom(nullptr, &currZoom);
+    sAIDocumentView->SetDocumentViewZoom(nullptr, currZoom * zoom * .9);
     sAIDocument->RedrawDocument();
     sAIUser->AppIdle();
 }

@@ -11,13 +11,10 @@
 
 #include "AIFilePath.h"
 
-namespace PrintToPdf
+class PathCreator
 {
-    class PathCreator
-    {
-    public:
-        bool CreatePath(ai::FilePath path) const;
-    };
-}
+public:
+    bool CreatePath(ai::FilePath path) const;
+};
 
 #endif /* defined(__SafeguardTools__PathCreator__) */

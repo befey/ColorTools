@@ -19,22 +19,22 @@
 #include "ColorFuncs.h"
 #include "ICanBeTextRange.h"
 #include "AIATETextUtil.h"
+#include "cereal/cereal.hpp"
+#include "cereal/access.hpp"
 
 extern AIATETextUtilSuite* sAIATETextUtil;
-
-
-//=================================
-// forward declared dependencies
 extern AICustomColorSuite* sAICustomColor;
 extern AIColorConversionSuite* sAIColorConversion;
 
+static constexpr AIReal TOLERANCE = .002;
+#define	kCustomProcessColor 0x0000
 
 //=================================
 // BtColor - wrapper for a AICustomColor definition
 class BtColor : public ICanBeTextRange
 {
 public:
-    //Constuctor
+    //Constuctors
     BtColor() {};
     BtColor(AIColor aiColor) :  BtColor(aiColor, SafeguardFile::InkMethod::INVAL) {};
     BtColor(AIColor aiColor, SafeguardFile::InkMethod method);
@@ -56,7 +56,9 @@ public:
     AIColor AiColor() const { return aiColor; };
     
     BtColor& AiCustomColor(AICustomColor newVal, std::string name, AIReal tint, SafeguardFile::InkMethod method);
-    AICustomColor AiCustomColor() const;
+    const AICustomColor AiCustomColor() const;
+    BtColor& AiCustomColorHandle(AICustomColorHandle newVal);
+    const AICustomColorHandle AiCustomColorHandle() const { return aiCustomColorHandle; };
     
     BtColor& Name(std::string newVal);
     std::string Name() const;
@@ -64,23 +66,110 @@ public:
     
     AIColorTag Kind() const { return aiColor.kind; };
     
+    AICustomColorFlags CustomFlag() const;
+    BtColor& CustomFlag(AICustomColorFlags newVal);
+    
     BtColor& Method(SafeguardFile::InkMethod newVal) { method = newVal; return *this; };
     SafeguardFile::InkMethod Method() const { return method; };
     
+    BtColor& Tint(AIReal newVal) { aiColor.c.c.tint = newVal; return *this; };
+    AIReal Tint() const;
+    
+    //Color Type checks
+    bool PrintsAsProcess() const;
+    bool PrintsAsSpot() const;
+    
+    bool IsBlack(bool includeCMYKBuilds = true) const;
+    bool IsWhite() const;
+    bool IsGripper() const;
+    bool IsKeyline() const;
+    bool IsPantone() const; //Returns true if the color name includes PANTONE
+    bool IsNonPrinting() const;
+    bool IsRegistration() const;
+    
+    static BtColor RegistrationColor();
+    
+    friend bool operator==(const BtColor& lhs, const BtColor& rhs);
+    friend bool operator!=(const BtColor& lhs, const BtColor& rhs) { return !operator==(lhs,rhs); };
     friend bool operator< (const BtColor& lhs, const BtColor& rhs);
     
     inline operator AIColor(void) const { return aiColor; }
+    
+    static BtColor* Black()
+    {
+        return new BtColor
+        {
+            SafeguardFile::BLACK_COLOR_NAME,
+            kCustomFourColor,
+            {.f.cyan = 0, .f.yellow = 0, .f.magenta = 0, .f.black = 1},
+            kCustomProcessColor
+        };
+    };
+    
+    static BtColor* White()
+    {
+        return new BtColor
+        {
+            SafeguardFile::WHITE_COLOR_NAME,
+            kCustomFourColor,
+            {.f.cyan = 0, .f.yellow = 0, .f.magenta = 0, .f.black = 0},
+            kCustomProcessColor
+        };
+    };
+    
+    static BtColor* MicrBlack()
+    {
+        return new BtColor
+        {
+            SafeguardFile::MICR_BLACK_MAG_COLOR_NAME,
+            kCustomFourColor,
+            {.f.cyan = 0, .f.yellow = 0, .f.magenta = 0, .f.black = 1},
+            kCustomSpotColor
+        };
+    };
+    
+    static BtColor* Keyline()
+    {
+        return new BtColor
+        {
+            SafeguardFile::KEYLINE_COLOR_NAME,
+            kCustomFourColor,
+            {.f.cyan = 1, .f.yellow = 0, .f.magenta = 0, .f.black = 0},
+            kCustomSpotColor
+        };
+    };
+    
+    static BtColor* Gripper()
+    {
+        return new BtColor
+        {
+            SafeguardFile::GRIPPER_COLOR_NAME,
+            kCustomFourColor,
+            {.f.cyan = .80, .f.yellow = 0, .f.magenta = 1, .f.black = 0},
+            kCustomSpotColor
+        };
+    };
 private:
     AIColor aiColor;
     AICustomColor aiCustomColor;
-    AICustomColorHandle aiCustomColorHandle = NULL;
+    AICustomColorHandle aiCustomColorHandle = nullptr;
     
     SafeguardFile::InkMethod method = SafeguardFile::InkMethod::INVAL;
     
     AILabColorStyle GetLabApproximation() const;
     
     void GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) const override;
+    
+    friend class cereal::access;
+    template <class Archive,
+    cereal::traits::EnableIf<cereal::traits::is_text_archive<Archive>::value> = cereal::traits::sfinae>
+    void save( Archive & ar ) const;
+    friend class cereal::access;
+    template <class Archive,
+    cereal::traits::EnableIf<cereal::traits::is_text_archive<Archive>::value> = cereal::traits::sfinae>
+    void load( Archive & ar );
 };
 
+#include "BtColor.tpp"
 
 #endif /* defined(__SafeguardTools__BtColor__) */

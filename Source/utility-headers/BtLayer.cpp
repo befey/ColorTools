@@ -7,8 +7,10 @@
 //
 
 #include "BtLayer.hpp"
+#include "BtArtHandle.hpp"
 #include "ArtTree.h"
 #include "Plate.h"
+#include "GetIllustratorErrorCode.h"
 
 
 BtLayer::BtLayer(AILayerHandle layer) : layerHandle(layer) {}
@@ -22,7 +24,7 @@ void BtLayer::DeleteLayer()
     if (layerHandle)
     {
         sAILayer->DeleteLayer(layerHandle);
-        layerHandle = NULL;
+        layerHandle = nullptr;
     }
 }
 
@@ -137,28 +139,18 @@ void BtLayer::ConvertTextToPaths() const
     
     ProcessArtSet(artSet, [](AIArtHandle handle)
                   {
-                      short type;
-                      sAIArt->GetArtType(handle, &type);
+                      BtArtHandle btHandle(handle);
                       
-                      if (type == kTextFrameArt)
+                      if (btHandle.ArtType() == kTextFrameArt)
                       {
-                          int attr = 0;
-                          //Check if the art is visible
-                          sAIArt->GetArtUserAttr(handle, kArtHidden, &attr);
-                          if (!(attr & kArtHidden))
+                          if (!btHandle.Hidden())
                           {
-                              //Check if the art is editable
-                              attr = 0;
-                              sAIArt->GetArtUserAttr(handle, kArtLocked, &attr);
-                              if (attr & kArtLocked)
-                              {
-                                  sAIArt->SetArtUserAttr(handle, kArtLocked, 0);
-                              }
+                              btHandle.Locked(false);
                               
                               //Convert the type to paths
                               AIArtHandle tempNewPaths;
                               sAITextFrame->CreateOutline(handle, &tempNewPaths);
-                              sAIArt->DisposeArt(handle);
+                              btHandle.Dispose();
                           }
                       }
                   });
@@ -170,55 +162,40 @@ void BtLayer::PutArtAtTopOfLayer(AIArtHandle art)
 {
     AIArtHandle layerGroup = GetLayerGroupArt();
 
-    MakeLayerEditableAndStorePreviousState();
+    MakeEditable();
     
-    int attr = 0;
+    BtArtHandle btHandle(art);
+
+    btHandle.MakeEditable();
     
-    //Check if the art itself is editable
-    sAIArt->GetArtUserAttr(art, kArtLocked | kArtHidden, &attr);
-    if ((attr & kArtLocked) || (attr & kArtHidden))
-    {
-        sAIArt->SetArtUserAttr(art, kArtLocked | kArtHidden, 0);
-    }
+    btHandle.PutInGroup(layerGroup);
     
-    sAIArt->ReorderArt(art, kPlaceInsideOnTop, layerGroup);
+    ResetEditable();
     
-    ApplyStoredAttributes();
-    
-    sAIArt->SetArtUserAttr(art, kArtLocked | kArtHidden, attr);
+    btHandle.ResetEditable();
 }
 
 AIArtHandle BtLayer::GetLayerGroupArt() const
 {
+    if (layerHandle == nullptr)
+    {
+        return nullptr;
+    }
     AIArtHandle layerGroup;
     sAIArt->GetFirstArtOfLayer(layerHandle, &layerGroup);
     return layerGroup;
 }
 
-void BtLayer::MakeLayerEditableAndStorePreviousState()
+void BtLayer::MakeEditable()
 {
-    //Unlock and Unhide the layer
-    if (!Editable())
-    {
-        Editable(TRUE);
-        editableWasFalse = true;
-    }
-    if (!Visible())
-    {
-        Visible(TRUE);
-        visibleWasFalse = true;
-    }
+    storedEditable = Editable();
+    Editable(true);
+    storedVisible = Visible();
+    Visible(true);
 }
 
-void BtLayer::ApplyStoredAttributes()
+void BtLayer::ResetEditable()
 {
-    //Set the layer and art attributes back the way they were
-    if (editableWasFalse)
-    {
-        Editable(FALSE);
-    }
-    if (visibleWasFalse)
-    {
-        Visible(FALSE);
-    }
+    Editable(storedEditable);
+    Visible(storedVisible);
 }

@@ -18,7 +18,7 @@ using PlateBleedInfo::BleedInfoToJsonStrategy;
 
 void BleedInfoToArtStrategy::Write(const PlateBleedInfo::BleedInfo* bleedInfo) const
 {
-    if (art != NULL)
+    if (art != nullptr)
     {
         DictionaryWriter dw(art);
         string json;

@@ -10,6 +10,7 @@
 #include "ArtTree.h"
 #include <vector>
 #include "SafeguardJobFileDTO.hpp"
+#include "BleedInfoPluginArtToArtboardMatcher.hpp"
 
 using SafeguardFile::SafeguardJobFile;
 using SafeguardFile::PlateNumber;
@@ -35,7 +36,7 @@ void SafeguardJobFile::UpdateBleedInfo()
 {
     for ( auto& plate : plates )
     {
-        plate.second->DrawBleedInfo();
+        plate.second->Draw();
     }
 }
 
@@ -97,9 +98,8 @@ ColorList SafeguardJobFile::GetAllColorsOnJob() const
     {
         colorLists[0].AddColorsToList(colorLists.at(i));
     }
-    ColorList colorList = colorLists[0];
-    colorList.RemoveDuplicates();
-    colorList.RemoveNonPrintingColors();
-    colorList.Sort();
+    
+    ColorList colorList = colorLists[0]; //Copy constructor calls duplicate removal, etc.
+
     return colorList;
 }

@@ -7,6 +7,7 @@
 //
 
 #include "PathBuilder.h"
+#include "PreferenceWriter.hpp"
 #include "PrintToPdfConstants.h"
 #include "SafeguardFileConstants.h"
 #include <boost/filesystem.hpp>
@@ -49,7 +50,6 @@ unique_ptr<PathBuilder> PathBuilder::GetPathBuilder(PdfPreset preset, bool userO
 ai::FilePath ManufacturingPathBuilder::GetAiFilePath(const PlateNumber pn) const
 {
     string prodCode;
-    ai::FilePath saveasFilePath;
     
     if (pn.GetProductType() == SafeguardFile::BusinessStat)
     {
@@ -64,8 +64,13 @@ ai::FilePath ManufacturingPathBuilder::GetAiFilePath(const PlateNumber pn) const
         prodCode = pn.GetProductIndicator();
     }
     
-    ai::UnicodeString fpUS = ai::UnicodeString(PATH_TO_PLANT_MANUFACTURING);
-    saveasFilePath.Set(fpUS);
+    ai::FilePath saveasFilePath;
+    PreferenceWriter writer(PrintToPdf::PRINTTOPDF_FOLDERPREFS_EXTENSION);
+    if (!writer.GetFilePathFromIdentifier(MANUFACTURING_PDF_PRESET, saveasFilePath))
+    {
+        saveasFilePath.Set(ai::UnicodeString(PATH_TO_PLANT_MANUFACTURING));
+    }
+    
     saveasFilePath.AddComponent(ai::UnicodeString(prodCode + " to be Plated"));
     saveasFilePath.AddComponent(ai::UnicodeString(pn.GetPlantIndicator() + " " + prodCode + " to be Plated"));
     
@@ -81,8 +86,12 @@ ai::FilePath ManufacturingPathBuilder::GetAiFilePath(const PlateNumber pn) const
 
 ai::FilePath ProofPathBuilder::GetAiFilePath(const PlateNumber pn) const
 {
-    ai::UnicodeString fpUS = ai::UnicodeString(PATH_TO_PDFPROOFS);
-    ai::FilePath saveasFilePath(fpUS);
+    ai::FilePath saveasFilePath;
+    PreferenceWriter writer(PrintToPdf::PRINTTOPDF_FOLDERPREFS_EXTENSION);
+    if (!writer.GetFilePathFromIdentifier(REG_PROOF_PDF_PRESET, saveasFilePath))
+    {
+        saveasFilePath.Set(ai::UnicodeString(PATH_TO_PDFPROOFS));
+    }
     
     fs::path outputPath( saveasFilePath.GetFullPath().as_Platform() );
     string prodCode = pn.GetProductIndicator();
@@ -97,8 +106,12 @@ ai::FilePath ProofPathBuilder::GetAiFilePath(const PlateNumber pn) const
 
 ai::FilePath MicrProofPathBuilder::GetAiFilePath(const PlateNumber pn) const
 {
-    ai::UnicodeString fpUS = ai::UnicodeString(PATH_TO_MICR_PDF);
-    ai::FilePath saveasFilePath(fpUS);
+    ai::FilePath saveasFilePath;
+    PreferenceWriter writer(PrintToPdf::PRINTTOPDF_FOLDERPREFS_EXTENSION);
+    if (!writer.GetFilePathFromIdentifier(MICR_PROOF_PDF_PRESET, saveasFilePath))
+    {
+        saveasFilePath.Set(ai::UnicodeString(PATH_TO_MICR_PDF));
+    }
     
     fs::path outputPath( saveasFilePath.GetFullPath().as_Platform() );
     string prodCode = pn.GetProductIndicator();

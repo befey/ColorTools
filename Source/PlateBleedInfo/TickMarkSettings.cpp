@@ -8,14 +8,18 @@
 
 #include "TickMarkSettings.hpp"
 #include "ColorFuncs.h"
+#include "BtColor.h"
 
 using SafeguardFile::TickMarkSettings;
 
 TickMarkSettings::TickMarkSettings()
-: TickMarkSettings(AIRealRect(), SafeguardFile::ProductType::INVAL, SafeguardFile::TickMarkStyle::NONE) {}
+: TickMarkSettings(AIRealRect(), SafeguardFile::ProductType::INVAL, SafeguardFile::TickMarkStyle::NONE, true) {}
 
-TickMarkSettings::TickMarkSettings(const AIRealRect rect, const ProductType pt, const SafeguardFile::TickMarkStyle tms)
-: bounds(rect), color(GetRegistrationColor())
+TickMarkSettings::TickMarkSettings(const AIRealRect rect, const ProductType pt, const SafeguardFile::TickMarkStyle tms, const bool shouldDrawBleedInfo)
+:
+bounds(rect),
+color(BtColor::RegistrationColor()),
+shouldDrawBleedInfo(shouldDrawBleedInfo)
 {
     if (pt == ProductType::Continuous)
     {
@@ -29,12 +33,16 @@ TickMarkSettings::TickMarkSettings(const AIRealRect rect, const ProductType pt, 
     {
         tmStyle = TickMarkStyle::Outer;
     }
+    else if (pt == ProductType::BusinessStat)
+    {
+        tmStyle = TickMarkStyle::BsStyle;
+    }
     else
     {
         tmStyle = TickMarkStyle::NONE;
     }
     
-    if (pt == ProductType::Snapset || pt == ProductType::Continuous)
+    if (pt == ProductType::Snapset || pt == ProductType::Continuous || pt == ProductType::BusinessStat)
     {
         offset = TICK_LENGTH_CONTINUOUS;
     }

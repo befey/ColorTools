@@ -126,8 +126,6 @@
 										<key>UID</key>
 										<integer>0</integer>
 									</dict>
-<<<<<<< HEAD
-=======
 									<dict>
 										<key>CHILDREN</key>
 										<array>
@@ -201,7 +199,6 @@
 										<key>UID</key>
 										<integer>0</integer>
 									</dict>
->>>>>>> Create-CC-2017-Installer
 								</array>
 								<key>EXPANDED</key>
 								<true/>
@@ -312,6 +309,39 @@
 								<integer>493</integer>
 								<key>TYPE</key>
 								<integer>1</integer>
+								<key>UID</key>
+								<integer>0</integer>
+							</dict>
+							<dict>
+								<key>CHILDREN</key>
+								<array>
+									<dict>
+										<key>CHILDREN</key>
+										<array/>
+										<key>GID</key>
+										<integer>0</integer>
+										<key>PATH</key>
+										<string>/Users/t431962/Desktop/SafeguardTools/Resources/Mac/Fonts/IDAutomationC39XS.otf</string>
+										<key>PATH_TYPE</key>
+										<integer>0</integer>
+										<key>PERMISSIONS</key>
+										<integer>448</integer>
+										<key>TYPE</key>
+										<integer>3</integer>
+										<key>UID</key>
+										<integer>0</integer>
+									</dict>
+								</array>
+								<key>GID</key>
+								<integer>0</integer>
+								<key>PATH</key>
+								<string>Fonts</string>
+								<key>PATH_TYPE</key>
+								<integer>0</integer>
+								<key>PERMISSIONS</key>
+								<integer>493</integer>
+								<key>TYPE</key>
+								<integer>2</integer>
 								<key>UID</key>
 								<integer>0</integer>
 							</dict>
@@ -644,11 +674,7 @@
 			<key>OVERWRITE_PERMISSIONS</key>
 			<false/>
 			<key>VERSION</key>
-<<<<<<< HEAD
-			<string>1.6.2.2</string>
-=======
 			<string>1.7.1</string>
->>>>>>> Create-CC-2017-Installer
 		</dict>
 		<key>PROJECT_COMMENTS</key>
 		<dict>
@@ -845,11 +871,7 @@
 				</dict>
 			</array>
 			<key>NAME</key>
-<<<<<<< HEAD
-			<string>Safeguard Plugins Installer 1.6.2.2</string>
-=======
 			<string>Safeguard Plugins Installer 1.7.1</string>
->>>>>>> Create-CC-2017-Installer
 		</dict>
 	</dict>
 	<key>TYPE</key>

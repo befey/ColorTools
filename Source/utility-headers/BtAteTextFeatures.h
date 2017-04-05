@@ -41,6 +41,16 @@ public:
     bool NoBreak(bool* isAssigned) const;
     
     BtAteTextFeatures& FillColor(AIColor color);
+    AIColor FillColor() const;
+    BtAteTextFeatures& FillOverPrint(bool overprint);
+    bool FillOverPrint() const;
+    BtAteTextFeatures& StrokeColor(AIColor color);
+    AIColor StrokeColor() const;
+    BtAteTextFeatures& StrokeOverPrint(bool overprint);
+    bool StrokeOverPrint() const;
+    
+    BtAteTextFeatures& AutoHyphenate(bool newVal);
+    bool AutoHyphenate() const;
     
     BtAteTextFeatures& Justification(ATE::ParagraphJustification newVal);
     
@@ -55,6 +65,8 @@ public:
 private:
     ATE::ICharFeatures charFeatures;
     ATE::IParaFeatures paraFeatures;
+    
+    ATE::IApplicationPaint CreateIApplicationPaint(AIColor color) const;
 };
 
 #endif /* defined(__SafeguardTools__BtAteTextFeatures__) */

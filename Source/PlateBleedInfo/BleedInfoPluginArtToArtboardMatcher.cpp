@@ -56,6 +56,11 @@ void BleedInfoPluginArtToArtboardMatcher::DisposePluginArtHandlesWithNoArtboard(
     }
 }
 
+bool BleedInfoPluginArtToArtboardMatcher::IsBleedInfoPluginArtCreated()
+{
+    return sortedPluginArts.size();
+}
+
 bool BleedInfoPluginArtToArtboardMatcher::IsBleedInfoPluginArtCreated(int artboardIndex)
 {
     return sortedPluginArts.count(artboardIndex);
@@ -68,5 +73,5 @@ AIArtHandle BleedInfoPluginArtToArtboardMatcher::GetArt(int artboardIndex)
     {
         return iter->second;
     }
-    return NULL;
+    return nullptr;
 }

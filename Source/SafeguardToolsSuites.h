@@ -6,6 +6,7 @@
 
 // AI suite headers
 #include "AIMenu.h"
+#include "AIPreference.h"
 
 #include "AISwatchLibraries.h"
 #include "AISwatchList.h"
@@ -18,6 +19,7 @@
 #include "AIArtboard.h"
 #include "AIArtboardRange.h"
 #include "AIHardSoft.h"
+#include "AIIsolationMode.h"
 
 #include "AIGroup.h"
 #include "AILayer.h"
@@ -31,6 +33,7 @@
 
 #include "AIPath.h"
 #include "AIPathStyle.h"
+#include "AIGeometry.h"
 
 #include "AITransformArt.h"
 #include "AIRealMath.h"
@@ -56,6 +59,7 @@ extern SPBlocksSuite *sSPBlocks;
 extern AIUnicodeStringSuite*	sAIUnicodeString;
 
 extern AIMenuSuite *sAIMenu;
+extern AIPreferenceSuite *sAIPreference;
 
 extern AIArtSuite *sAIArt;
 extern AIGroupSuite *sAIGroup;
@@ -79,12 +83,14 @@ extern AIDocumentViewSuite* sAIDocumentView;
 extern AIArtboardSuite* sAIArtboard;
 extern AIArtboardRangeSuite* sAIArtboardRange;
 extern AIHardSoftSuite* sAIHardSoft;
+extern AIIsolationModeSuite* sAIIsolationMode;
 
 extern AIArtSetSuite *sAIArtSet;
 extern AIArtStyleSuite *sAIArtStyle;
 
 extern AIPathSuite *sAIAPath;
 extern AIPathStyleSuite *sAIPathStyle;
+extern AIGeometrySuite *sAIGeometry;
 
 extern AITransformArtSuite *sAITransformArt;
 extern AIRealMathSuite *sAIRealMath;

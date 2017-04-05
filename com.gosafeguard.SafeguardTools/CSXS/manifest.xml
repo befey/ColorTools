@@ -1,93 +1,139 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ExtensionManifest ExtensionBundleId="com.gosafeguard.SafeguardTools" ExtensionBundleName="SafeguardTools" ExtensionBundleVersion="1.6.1.0" Version="6.0">
-  <ExtensionList>
-    <Extension Id="com.gosafeguard.SafeguardTools.ColorTools" Version="1.1.0"/>
-    <Extension Id="com.gosafeguard.SafeguardTools.PrintToPdf" Version="1.1.0"/>
-    <Extension Id="com.gosafeguard.SafeguardTools.PlateBleedInfo" Version="1.0.0"/>
-  </ExtensionList>
-  <ExecutionEnvironment>
-    <HostList>
-      <Host Name="ILST" Version="[19.0,21.9]"/>
-    </HostList>
-    <LocaleList>
-      <Locale Code="All"/>
-    </LocaleList>
-    <RequiredRuntimeList>
-      <RequiredRuntime Name="CSXS" Version="7.0"/>
-    </RequiredRuntimeList>
-  </ExecutionEnvironment>
-  <DispatchInfoList>
-    <Extension Id="com.gosafeguard.SafeguardTools.ColorTools">
-      <DispatchInfo>
-        <Resources>
-          <MainPath>./ColorTools.html</MainPath>
-        </Resources>
-        <Lifecycle>
-            <AutoVisible>false</AutoVisible>
-        </Lifecycle>
-        <UI>
-          <Type>Panel</Type>
-          <!-- <Menu>Find and Replace Graphics</Menu>Disable Extensions menu -->
-          <Geometry>
-            <Size>
-              <Width>230</Width>
-              <Height>190</Height>
-            </Size>
-            <MaxSize>
-              <Width>230</Width>
-              <Height>190</Height>
-            </MaxSize>
-            <MinSize>
-              <Width>230</Width>
-              <Height>190</Height>
-            </MinSize>
-          </Geometry>
-        </UI>
-      </DispatchInfo>
-    </Extension>
-  </DispatchInfoList>
-  <DispatchInfoList>
-    <Extension Id="com.gosafeguard.SafeguardTools.PrintToPdf">
-      <DispatchInfo>
-        <Resources>
-          <MainPath>./PrintToPdf.html</MainPath>
-        </Resources>
-        <Lifecycle>
-            <AutoVisible>false</AutoVisible>
-        </Lifecycle>
-        <UI>
-          <Type>ModalDialog</Type>
-          <!-- <Menu>Print To PDF</Menu>Disable Extensions menu -->
-          <Geometry>
-            <Size>
-              <Width>520</Width>
-              <Height>740</Height>
-            </Size>
-          </Geometry>
-        </UI>
-      </DispatchInfo>
-    </Extension>
-  </DispatchInfoList>
-  <DispatchInfoList>
-    <Extension Id="com.gosafeguard.SafeguardTools.PlateBleedInfo">
-      <DispatchInfo>
-        <Resources>
-          <MainPath>./PlateBleedInfo.html</MainPath>
-        </Resources>
-        <Lifecycle>
-            <AutoVisible>false</AutoVisible>
-        </Lifecycle>
-        <UI>
-          <Type>ModalDialog</Type>
-          <!-- <Menu>Plate Bleed Info</Menu>Disable Extensions menu -->
-          <Geometry>
-            <Size>
-              <Width>520</Width>
-              <Height>740</Height>
-            </Size>
-          </Geometry>
-        </UI>
-      </DispatchInfo>
-    </Extension>
-  </DispatchInfoList>
+    <ExtensionList>
+        <Extension Id="com.gosafeguard.SafeguardTools.ColorTools" Version="1.1.0"/>
+        <Extension Id="com.gosafeguard.SafeguardTools.PrintToPdf" Version="1.1.0"/>
+        <Extension Id="com.gosafeguard.SafeguardTools.PrintToPdf.FolderPrefs" Version="1.0.0"/>
+        <Extension Id="com.gosafeguard.SafeguardTools.PlateBleedInfo" Version="1.0.0"/>
+        <Extension Id="com.gosafeguard.SafeguardTools.PlaceFileSearch" Version="1.0.0"/>
+    </ExtensionList>
+    <ExecutionEnvironment>
+        <HostList>
+            <Host Name="ILST" Version="[19.0,21.9]"/>
+        </HostList>
+        <LocaleList>
+            <Locale Code="All"/>
+        </LocaleList>
+        <RequiredRuntimeList>
+            <RequiredRuntime Name="CSXS" Version="7.0"/>
+        </RequiredRuntimeList>
+    </ExecutionEnvironment>
+    <DispatchInfoList>
+        <Extension Id="com.gosafeguard.SafeguardTools.ColorTools">
+            <DispatchInfo>
+                <Resources>
+                    <MainPath>./ColorTools.html</MainPath>
+                </Resources>
+                <Lifecycle>
+                    <AutoVisible>false</AutoVisible>
+                </Lifecycle>
+                <UI>
+                    <Type>Panel</Type>
+                    <!-- <Menu>Find and Replace Graphics</Menu>Disable Extensions menu -->
+                    <Geometry>
+                        <Size>
+                            <Width>230</Width>
+                            <Height>190</Height>
+                        </Size>
+                        <MaxSize>
+                            <Width>230</Width>
+                            <Height>190</Height>
+                        </MaxSize>
+                        <MinSize>
+                            <Width>230</Width>
+                            <Height>190</Height>
+                        </MinSize>
+                    </Geometry>
+                </UI>
+            </DispatchInfo>
+        </Extension>
+    </DispatchInfoList>
+    <DispatchInfoList>
+        <Extension Id="com.gosafeguard.SafeguardTools.PrintToPdf">
+            <DispatchInfo>
+                <Resources>
+                    <MainPath>./PrintToPdf.html</MainPath>
+                </Resources>
+                <Lifecycle>
+                    <AutoVisible>false</AutoVisible>
+                </Lifecycle>
+                <UI>
+                    <Type>ModalDialog</Type>
+                    <!-- <Menu>Print To PDF</Menu>Disable Extensions menu -->
+                    <Geometry>
+                        <Size>
+                            <Width>520</Width>
+                            <Height>740</Height>
+                        </Size>
+                    </Geometry>
+                </UI>
+            </DispatchInfo>
+        </Extension>
+    </DispatchInfoList>
+    <DispatchInfoList>
+        <Extension Id="com.gosafeguard.SafeguardTools.PrintToPdf.FolderPrefs">
+            <DispatchInfo>
+                <Resources>
+                    <MainPath>./PrintToPdfFolderPrefs.html</MainPath>
+                </Resources>
+                <Lifecycle>
+                    <AutoVisible>false</AutoVisible>
+                </Lifecycle>
+                <UI>
+                    <Type>ModalDialog</Type>
+                    <!-- <Menu>Print To PDF</Menu>Disable Extensions menu -->
+                    <Geometry>
+                        <Size>
+                            <Width>520</Width>
+                            <Height>500</Height>
+                        </Size>
+                    </Geometry>
+                </UI>
+            </DispatchInfo>
+        </Extension>
+    </DispatchInfoList>
+    <DispatchInfoList>
+        <Extension Id="com.gosafeguard.SafeguardTools.PlateBleedInfo">
+            <DispatchInfo>
+                <Resources>
+                    <MainPath>./PlateBleedInfo.html</MainPath>
+                </Resources>
+                <Lifecycle>
+                    <AutoVisible>false</AutoVisible>
+                </Lifecycle>
+                <UI>
+                    <Type>ModalDialog</Type>
+                    <!-- <Menu>Plate Bleed Info</Menu>Disable Extensions menu -->
+                    <Geometry>
+                        <Size>
+                            <Width>520</Width>
+                            <Height>740</Height>
+                        </Size>
+                    </Geometry>
+                </UI>
+            </DispatchInfo>
+        </Extension>
+    </DispatchInfoList>
+    <DispatchInfoList>
+        <Extension Id="com.gosafeguard.SafeguardTools.PlaceFileSearch">
+            <DispatchInfo>
+                <Resources>
+                    <MainPath>./PlaceFileSearch.html</MainPath>
+                </Resources>
+                <Lifecycle>
+                    <AutoVisible>false</AutoVisible>
+                </Lifecycle>
+                <UI>
+                    <Type>ModalDialog</Type>
+                    <!-- <Menu>Plate Bleed Info</Menu>Disable Extensions menu -->
+                    <Geometry>
+                        <Size>
+                            <Width>520</Width>
+                            <Height>740</Height>
+                        </Size>
+                    </Geometry>
+                </UI>
+            </DispatchInfo>
+        </Extension>
+    </DispatchInfoList>
 </ExtensionManifest>

@@ -1,20 +1,19 @@
 //
-//  PdfResults.cpp
+//  FilesystemResults.cpp
 //  SafeguardTools
 //
-//  Created by T431962 on 4/27/16.
+//  Created by T431962 on 3/10/17.
 //
 //
 
-#include "PdfResults.h"
-using PrintToPdf::PdfResults;
+#include "FilesystemResults.hpp"
 
-void PdfResults::AddResult(Transaction transaction)
+void FilesystemResults::AddResult(Transaction transaction)
 {
     results.push_back(transaction);
 }
 
-void PdfResults::AddResult(PdfResults resultList)
+void FilesystemResults::AddResult(FilesystemResults resultList)
 {
     for (auto transaction : resultList.results)
     {
@@ -22,7 +21,7 @@ void PdfResults::AddResult(PdfResults resultList)
     }
 }
 
-string PdfResults::MakeXmlString() const
+string FilesystemResults::MakeXmlString() const
 {
     //Format as XML string
     string xmlString;

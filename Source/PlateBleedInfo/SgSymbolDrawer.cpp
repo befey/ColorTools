@@ -14,14 +14,14 @@
 
 using SafeguardFile::SgSymbolDrawer;
 
-AIArtHandle SgSymbolDrawer::DoDraw(AIArtHandle resultGroup) const
+AIArtHandle SgSymbolDrawer::Draw(AIArtHandle resultGroup) const
 {
-    AIArtHandle placedSymbol = NULL;
+    AIArtHandle placedSymbol = nullptr;
     AIPatternHandle symbol = LoadSymbolFromFile();
     
-    if (symbol != NULL)
+    if (symbol != nullptr)
     {
-        sAISymbol->NewInstanceAtLocation(symbol, GetCenterOfRect(bounds), kPlaceInsideOnBottom, resultGroup, &placedSymbol);
+        sAISymbol->NewInstanceAtLocation(symbol, GetCenterOfRect(symbolBounds), kPlaceInsideOnBottom, resultGroup, &placedSymbol);
     }
     
     return placedSymbol;
@@ -29,19 +29,19 @@ AIArtHandle SgSymbolDrawer::DoDraw(AIArtHandle resultGroup) const
 
 AIPatternHandle SgSymbolDrawer::LoadSymbolFromFile() const
 {
-    AIPatternHandle symbol = NULL;
+    AIPatternHandle symbol = nullptr;
     sAISymbol->GetSymbolPatternByName(ai::UnicodeString(symbolName), &symbol);
     
-    if (symbol == NULL)
+    if (symbol == nullptr)
     {
         ai::FilePath pathToFile;
         sAIFolders->FindFolder(kAIPresetSymbolsFolderType, false, pathToFile);
         pathToFile.AddComponent(ai::FilePath(ai::UnicodeString(SG_SYMBOL_FILENAME)));
         
-        AIDocumentHandle symbolDoc = NULL;
+        AIDocumentHandle symbolDoc = nullptr;
         sAIPathStyle->ImportStyles(pathToFile, &symbolDoc);
         
-        AIPatternHandle curr = NULL;
+        AIPatternHandle curr = nullptr;
         AIErr err = sAISymbol->GetSymbolByNameFromDocument(ai::UnicodeString(symbolName), &curr, symbolDoc);
         string error = GetIllustratorErrorCode(err);
         

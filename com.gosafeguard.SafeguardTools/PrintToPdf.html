@@ -6,6 +6,7 @@
         <script src="js/CSInterface.js"></script>
         <script src="js/PrintToPdf.js"></script>
         
+        <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
         <link rel="stylesheet" href="css/common.css" type="text/css" />
         <link rel="stylesheet" href="css/PrintToPdf.css" type="text/css" />
     </head>
@@ -13,36 +14,62 @@
     <body>
         
         <form>
-            <div class="field">
-                <label for="preset-select">Choose PDF Preset:</label>
-                <select id="preset-select">
-                    <option value="0" selected="selected">Manufacturing</option>
-                    <option value="1">Proof</option>
-                    <option value="2">Proof with MICR Password</option>
-                </select>
-            </div>
-            <div class="field">
-                <input type="checkbox" id="separatefiles-check" checked="true"><label for="separatefiles-check">Output separate files</label>
-            </div>
-            <div class="wide-field">
-                <div class="info-area" id="results-textarea"></div>
-            </div>
-            <div class="wide-field">
-                <div class="info-area" id="colorlist-textarea"></div>
-            </div>
-            
-            <div class="field">
-            <input  type="checkbox" class="tinycheckbox" id="useroutputfolder-check" />
-            <label for="useroutputfolder-check" class="tinycheckboxtext">User select output folder</label><br>
-            <input type="checkbox" class="tinycheckbox" id="donotdelete-check" />
-            <label for="donotdelete-check" class="tinycheckboxtext">Do not delete existing files</label>
-            </div>
-            
-            <div class="field">
-            <span class="buttons">
-                <input type="button" id="cancel-button" onClick="csInterface.dispatchEvent(cancelEvent)" value="Close" />
-                <input type="button" id="makepdf-button" onClick="VerifySettings()" value="Make PDF" autofocus />
-            </span>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <label for="preset-select">Choose PDF Preset:</label>
+                        <select id="preset-select">
+                            <option value="0" selected="selected">Manufacturing</option>
+                            <option value="1">Proof</option>
+                            <option value="2">Proof with MICR Password</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <input type="checkbox" id="separatefiles-check" checked="true" />
+                                <label for="separatefiles-check">Output separate files</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12" atyle="display: flex;">
+                                <label for="custombleeds-text">Override default bleeds</label>
+                                <input type="text" id="custombleeds-text" size="8" style="flex: 1 1 auto;" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="info-area" id="results-textarea"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="info-area" id="colorlist-textarea"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">&nbsp;</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <input type="checkbox" class="tinycheckbox" id="useroutputfolder-check" />
+                        <label for="useroutputfolder-check" class="tinycheckboxtext">User select output folder</label>
+                        <button type="button" class="btn btn-xs btn-default" id="changeoutputfolder">
+                            <span class="glyphicon glyphicon-folder-open"></span>&nbsp;
+                        </button>
+                        <br />
+                        <input type="checkbox" class="tinycheckbox" id="donotdelete-check" />
+                        <label for="donotdelete-check" class="tinycheckboxtext">Do not delete existing files</label>
+                    </div>
+                    <div class="col-xs-6">
+                        <span class="buttons">
+                            <input type="button" id="cancel-button" onClick="csInterface.dispatchEvent(cancelEvent)" value="Close" />
+                            <input type="button" id="makepdf-button" onClick="VerifySettings()" value="Make PDF" autofocus />
+                        </span>
+                    </div>
+                </div>
             </div>
         </form>
         

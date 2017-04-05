@@ -11,6 +11,14 @@
 #include "GetIllustratorErrorCode.h"
 
 //Behaviors
+void BtSwatchList::FixStdColors()
+{
+    for ( auto color : StdColorDefinitions )
+    {
+        CreateOrConvertToCustomColor(color.second);
+    }
+}
+
 void BtSwatchList::CreateOrConvertToCustomColor(std::string colorName)
 {
     auto it = StdColorDefinitions.find(colorName);
@@ -25,7 +33,7 @@ void BtSwatchList::CreateOrConvertToCustomColor(BtColor color)
     AICustomColor newCustomColorDefinition = color.AiCustomColor();
     
     AIColor newAiColorDefinition;
-    AICustomColorHandle hCreatedCustomColor = NULL;
+    AICustomColorHandle hCreatedCustomColor = nullptr;
     
     if ( ColorHasDefinitionAlready(color, &newAiColorDefinition) && newAiColorDefinition.kind == kCustomColor)
     {
@@ -46,14 +54,14 @@ void BtSwatchList::CreateOrConvertToCustomColor(BtColor color)
     //CreateSwatch(color->GetName(), newAiColorDefinition);
     {
         AIColor dColor;
-        AISwatchRef swatch = NULL;
+        AISwatchRef swatch = nullptr;
         if (SwatchNameExists(color.Name(), &dColor))
         {
-            swatch = sAISwatchList->GetSwatchByName(NULL, ai::UnicodeString(color.Name()));
+            swatch = sAISwatchList->GetSwatchByName(nullptr, ai::UnicodeString(color.Name()));
         }
         else
         {
-            swatch = sAISwatchList->InsertNthSwatch(NULL, 2);
+            swatch = sAISwatchList->InsertNthSwatch(nullptr, 2);
         }
         ASErr err = sAISwatchList->SetAIColor(swatch, &newAiColorDefinition);
         sAISwatchList->SetSwatchName(swatch, ai::UnicodeString(color.Name()));
@@ -64,14 +72,14 @@ void BtSwatchList::CreateOrConvertToCustomColor(BtColor color)
 void BtSwatchList::AdjustAllColors()
 {
     VisitAIColorFlags controlFlags = kVisitColorsSolidOnly | kVisitGlobalObjectsOnceOnly;
-    sAIPathStyle->AdjustObjectAIColors( NULL , AdjustAllColorsCallback , NULL , controlFlags , NULL );
+    sAIPathStyle->AdjustObjectAIColors( nullptr , AdjustAllColorsCallback , nullptr , controlFlags , nullptr );
     
-    //sAIPathStyle->AdjustObjectAIColors( NULL , ConvertObjectsToGlobalCMYK , NULL , controlFlags , NULL );
+    //sAIPathStyle->AdjustObjectAIColors( nullptr , ConvertObjectsToGlobalCMYK , nullptr , controlFlags , nullptr );
     RemoveWhiteOverprint();
 }
 
 void BtSwatchList::RemoveUnusedColors() {
-    int numSwatches = sAISwatchList->CountSwatches(NULL);
+    int numSwatches = sAISwatchList->CountSwatches(nullptr);
     
     AIArtSet artSet;
     sAIArtSet->NewArtSet(&artSet);
@@ -93,7 +101,7 @@ void BtSwatchList::RemoveUnusedColors() {
     
     //Loop through all the swatches in the list
     for(int i=0; i<numSwatches; i++) {
-        AISwatchRef currSwatch = sAISwatchList->GetNthSwatch(NULL, i);
+        AISwatchRef currSwatch = sAISwatchList->GetNthSwatch(nullptr, i);
         AIColor currSwatchColor;
         AIColor currColor; AICustomColor currCustomColor;
         used = FALSE;
@@ -127,7 +135,7 @@ void BtSwatchList::RemoveUnusedColors() {
         //Loop through each art object to see if it uses the current swatch
         for ( int j=0 ; j< count ; j++ ) {
             if(used) {break;}
-            AIArtHandle currArtObj = NULL;
+            AIArtHandle currArtObj = nullptr;
             AIColorUsedHow usage;
             sAIArtSet->IndexArtSet( artSet, j, &currArtObj );
             if (currArtObj) {
@@ -142,28 +150,28 @@ void BtSwatchList::RemoveUnusedColors() {
             }
         }
         
-        if (!used) { sAISwatchList->RemoveNthSwatch(NULL, i); numSwatches--; i--; }
+        if (!used) { sAISwatchList->RemoveNthSwatch(nullptr, i); numSwatches--; i--; }
     }
     //DISPOSE OF THE ART SET
     sAIArtSet->DisposeArtSet(&artSet);
-    artSet = NULL;
+    artSet = nullptr;
     
     //Loop through the swatch groups and remove any empty ones
-    count = sAISwatchGroup->CountSwatchGroups(NULL);
+    count = sAISwatchGroup->CountSwatchGroups(nullptr);
     for ( int i=0 ; i<count; i++) {
-        AISwatchGroupRef currSwatchGroup = sAISwatchGroup->GetNthSwatchGroup(NULL, i);
+        AISwatchGroupRef currSwatchGroup = sAISwatchGroup->GetNthSwatchGroup(nullptr, i);
         int currCount = sAISwatchGroup->CountSwatches(currSwatchGroup);
-        if (!currCount) { sAISwatchGroup->RemoveSwatchGroup(NULL, currSwatchGroup, FALSE); i--; count--; }
+        if (!currCount) { sAISwatchGroup->RemoveSwatchGroup(nullptr, currSwatchGroup, FALSE); i--; count--; }
     }
 }
 
 
 void BtSwatchList::CreateSwatch(std::string name, AIColor color)
 {
-    AISwatchRef swatch = sAISwatchList->GetSwatchByColor(NULL, &color);
-    if (swatch == NULL)
+    AISwatchRef swatch = sAISwatchList->GetSwatchByColor(nullptr, &color);
+    if (swatch == nullptr)
     {
-        swatch = sAISwatchList->InsertNthSwatch(NULL, -1);
+        swatch = sAISwatchList->InsertNthSwatch(nullptr, -1);
     }
     sAISwatchList->SetAIColor(swatch, &color);
     if (!name.empty())
@@ -175,7 +183,7 @@ void BtSwatchList::CreateSwatch(std::string name, AIColor color)
 
 AISwatchRef BtSwatchList::GetSwatchByName(std::string name) const
 {
-    return sAISwatchList->GetSwatchByName(NULL, ai::UnicodeString(name));
+    return sAISwatchList->GetSwatchByName(nullptr, ai::UnicodeString(name));
 }
 
 bool BtSwatchList::ColorHasDefinitionAlready(BtColor color, AIColor* outFoundColor) const
@@ -186,7 +194,7 @@ bool BtSwatchList::ColorHasDefinitionAlready(BtColor color, AIColor* outFoundCol
 bool BtSwatchList::SwatchNameExists(std::string name, AIColor* outFoundColor) const
 {
     AISwatchRef hFoundSwatch = GetSwatchByName(name);
-    if (hFoundSwatch != NULL)
+    if (hFoundSwatch != nullptr)
     {
         sAISwatchList->GetAIColor(hFoundSwatch, outFoundColor);
         return TRUE;
@@ -198,7 +206,7 @@ bool BtSwatchList::SwatchNameExists(std::string name, AIColor* outFoundColor) co
 bool BtSwatchList::CustomColorExists(BtColor color, AIColor* outFoundColor) const
 {
     int custColorCount = 0;
-    AICustomColorHandle hFoundColor = NULL;
+    AICustomColorHandle hFoundColor = nullptr;
     sAICustomColor->CountCustomColors(&custColorCount);
     for (int i = 0; i < custColorCount; i++)
     {
@@ -220,44 +228,35 @@ bool BtSwatchList::CustomColorExists(BtColor color, AIColor* outFoundColor) cons
 
 void BtSwatchList::AdjustAllColorsCallback(AIColor *color, void *userData, AIErr *result, AIBoolean *altered)
 {
-    AIReal tintPercent = GetTint(*color);
+    AIReal tintPercent = BtColor(*color).Tint();
     
-    if (ColorIsPantone(*color) && tintPercent != 1)
+    BtColor btcolor(*color);
+    
+    if (btcolor.IsPantone() && tintPercent != 1)
     {
-        string colorName = GetColorName(*color);
-        
         bool found = FALSE;
-        AIColor foundColor = GetColorDefinitionFromBook(colorName, found);
+        AIColor foundColor = GetColorDefinitionFromBook(btcolor.Name(), found);
         
         if (found)
         {
             //Check if a swatch already exists for this color and tint %
-            colorName = GetColorName(foundColor);
             foundColor.c.c.tint = tintPercent;
-            //AISwatchRef existingSwatch = checkSwatchListForColor(foundColor , .0001 );
-            
-            //if (existingSwatch == NULL)
-            //{
-            //    CreateSwatch(colorName, foundColor);
-            //}
+
             *altered = TRUE;
             *color = foundColor;
             return;
         }
         else
         {
-            AICustomColor cc;
-            sAICustomColor->GetCustomColor(color->c.c.color, &cc);
-            if (cc.flag == 0)
+            if (btcolor.Kind() == kCustomColor && btcolor.CustomFlag() == 0)
             {
-                cc.flag = kCustomSpotColor;
-                sAICustomColor->SetCustomColor(color->c.c.color, &cc);
+                btcolor.CustomFlag(kCustomSpotColor);
             }
         }
     }
-    if (ColorIsBlack(*color) && tintPercent < 1)
+    if (btcolor.IsBlack() && tintPercent < 1)
     {
-        AICustomColorHandle hBlack = NULL;
+        AICustomColorHandle hBlack = nullptr;
         sAICustomColor->GetCustomColorByName(ai::UnicodeString("Black"), &hBlack);
         color->kind = kCustomColor;
         color->c.c.tint = tintPercent;
@@ -265,16 +264,16 @@ void BtSwatchList::AdjustAllColorsCallback(AIColor *color, void *userData, AIErr
         
         AISwatchRef existingSwatch = CheckSwatchListForColor( *color , .0001 );
         
-        if(existingSwatch != NULL) {
+        if(existingSwatch != nullptr) {
             sAISwatchList->GetAIColor(existingSwatch, color);
         } else {
             CreateSwatch("", *color);
         }
         *altered = TRUE; return;
     }
-    if (ColorIsWhite(*color) || tintPercent == 1)
+    if (btcolor.IsWhite() || tintPercent == 1)
     {
-        AICustomColorHandle hWhite = NULL;
+        AICustomColorHandle hWhite = nullptr;
         sAICustomColor->GetCustomColorByName(ai::UnicodeString("White"), &hWhite);
         color->kind = kCustomColor;
         color->c.c.tint = 0;
@@ -289,11 +288,11 @@ void BtSwatchList::AdjustAllColorsCallback(AIColor *color, void *userData, AIErr
 std::vector<std::string> BtSwatchList::GetCurrentSwatchesAsStringVector()
 {
     vector<string> swatches;
-    int numSwatches = sAISwatchList->CountSwatches(NULL);
+    int numSwatches = sAISwatchList->CountSwatches(nullptr);
     swatches.resize(numSwatches);
     
     for(int i=0; i<numSwatches; i++) {
-        AISwatchRef currSwatch = sAISwatchList->GetNthSwatch(NULL, i);
+        AISwatchRef currSwatch = sAISwatchList->GetNthSwatch(nullptr, i);
         
         ai::UnicodeString currSwatchName;
         sAISwatchList->GetSwatchName(currSwatch, currSwatchName);
@@ -301,7 +300,7 @@ std::vector<std::string> BtSwatchList::GetCurrentSwatchesAsStringVector()
         AIColor currSwatchColor;
         sAISwatchList->GetAIColor(currSwatch, &currSwatchColor);
         
-        AIReal tint = GetTint(currSwatchColor);
+        AIReal tint = BtColor(currSwatchColor).Tint();
         if (tint != 0) {
             int t = sAIRealMath->AIRealMultiple((1 - tint) * 100, 1, TRUE);
             currSwatchName.insert(0, ai::UnicodeString(std::to_string(t).append("% ")));

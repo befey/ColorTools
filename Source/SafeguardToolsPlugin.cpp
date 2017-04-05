@@ -7,8 +7,6 @@
 
 #include "GetIllustratorErrorCode.h"
 
-#include "ColorToolsUIController.h"
-#include "PrintToPdfUIController.h"
 #include "BtSwatchList.h"
 #include "BtAiMenuItem.h"
 #include "BtAiMenuItemHandles.h"
@@ -22,7 +20,7 @@
 #include "BtDocumentView.hpp"
 #include "BleedInfoController.hpp"
 
-SafeguardToolsPlugin *gPlugin = NULL;
+SafeguardToolsPlugin *gPlugin = nullptr;
 
 Plugin* AllocatePlugin(SPPluginRef pluginRef)
 {
@@ -36,11 +34,12 @@ void FixupReload(Plugin* plugin)
 
 SafeguardToolsPlugin::SafeguardToolsPlugin(SPPluginRef pluginRef) :
     Plugin(pluginRef),
-    fRegisterEventNotifierHandle(NULL),
-    fAppStartedNotifierHandle(NULL),
-    fDocOpenedNotifierHandle(NULL),
-    fDocumentCropAreaModifiedNotifierHandle(NULL),
-    fArtSelectionChangedNotifierHandle(NULL)
+    fRegisterEventNotifierHandle(nullptr),
+    fAppStartedNotifierHandle(nullptr),
+    fDocOpenedNotifierHandle(nullptr),
+    fDocumentCropAreaModifiedNotifierHandle(nullptr),
+    fArtSelectionChangedNotifierHandle(nullptr),
+    bleedInfoPluginGroupHandle(nullptr)
 {
 	strncpy(fPluginName, kSafeguardToolsPluginName, kMaxStringLength);
 }
@@ -152,13 +151,23 @@ ASErr SafeguardToolsPlugin::ShutdownPlugin( SPInterfaceMessage *message )
         printToPdfUIController->RemoveEventListeners();
         Plugin::LockPlugin(false);
     }
+    if (printToPdfFolderPrefsUIController)
+    {
+        printToPdfFolderPrefsUIController->RemoveEventListeners();
+        Plugin::LockPlugin(false);
+    }
     if (plateBleedInfoUIController)
     {
         plateBleedInfoUIController->RemoveEventListeners();
         Plugin::LockPlugin(false);
     }
+    if (plateBleedInfoUIController)
+    {
+        placeFileSearchUIController->RemoveEventListeners();
+        Plugin::LockPlugin(false);
+    }
 
-    message->d.globals = NULL;
+    message->d.globals = nullptr;
     return Plugin::ShutdownPlugin(message);
 }
 
@@ -178,7 +187,7 @@ ASErr SafeguardToolsPlugin::PostStartupPlugin()
 {
     ASErr error = kNoErr;
     
-    if (NULL == colorToolsUIController)
+    if (nullptr == colorToolsUIController)
     {
         colorToolsUIController = std::make_shared<ColorToolsUIController>();
         
@@ -186,7 +195,7 @@ ASErr SafeguardToolsPlugin::PostStartupPlugin()
         if (error) { return error; }
     }
     
-    if (NULL == printToPdfUIController)
+    if (nullptr == printToPdfUIController)
     {
         printToPdfUIController = std::make_shared<PrintToPdf::PrintToPdfUIController>();
         
@@ -194,14 +203,29 @@ ASErr SafeguardToolsPlugin::PostStartupPlugin()
         if (error) { return error; }
     }
     
-    if (NULL == plateBleedInfoUIController)
+    if (nullptr == printToPdfFolderPrefsUIController)
+    {
+        printToPdfFolderPrefsUIController = std::make_shared<PrintToPdf::PrintToPdfFolderPrefsUIController>();
+        
+        error = Plugin::LockPlugin(true);
+        if (error) { return error; }
+    }
+    
+    if (nullptr == plateBleedInfoUIController)
     {
         plateBleedInfoUIController = std::make_shared<PlateBleedInfo::PlateBleedInfoUIController>();
         
         error = Plugin::LockPlugin(true);
         if (error) { return error; }
     }
-
+    
+    if (nullptr == placeFileSearchUIController)
+    {
+        placeFileSearchUIController = std::make_shared<PlaceFileSearch::PlaceFileSearchUIController>();
+        
+        error = Plugin::LockPlugin(true);
+        if (error) { return error; }
+    }
     
     return error;
 }
@@ -260,15 +284,21 @@ ASErr SafeguardToolsPlugin::AddMenus(SPInterfaceMessage* message)
     BtAiMenuItem::AddMenu(PrintToPdfMenuItem, &menuItemHandles);
 
     
-/*    //CREATE SLUG INFO
+    //CREATE SLUG INFO
     BtAiMenuItem CreatePlateBleedInfoMenuItem = BtAiMenuItem(kDocumentUtilsMenuGroup, CREATE_PLATE_BLEED_INFO_MENU_ITEM, kMenuItemWantsUpdateOption);
     CreatePlateBleedInfoMenuItem.SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, 0, 0, kIfOpenDocument, 0);
     BtAiMenuItem::AddMenu(CreatePlateBleedInfoMenuItem, &menuItemHandles);
     
     BtAiMenuItem EditPlateBleedInfoMenuItem = BtAiMenuItem(kDocumentUtilsMenuGroup, EDIT_PLATE_BLEED_INFO_MENU_ITEM, kMenuItemWantsUpdateOption);
-    CreatePlateBleedInfoMenuItem.SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, 0, 0, kIfOpenDocument, 0);
+    EditPlateBleedInfoMenuItem.SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, 0, 0, kIfOpenDocument, 0);
     BtAiMenuItem::AddMenu(EditPlateBleedInfoMenuItem, &menuItemHandles);
-*/
+
+    
+    //Place File Search
+    BtAiMenuItem SafeguardMfgPlaceMenuItem = BtAiMenuItem(kPlaceMenuGroup, SG_MFG_PLACE_MENU_ITEM, kMenuItemNoOptions);
+    SafeguardMfgPlaceMenuItem.SetAutoUpdateOptions(kAutoEnableMenuItemAction, 0, 0, 0, 0, kIfOpenDocument, 0);
+    BtAiMenuItem::AddMenu(SafeguardMfgPlaceMenuItem, &menuItemHandles);
+    
     return kNoErr;
 }
 
@@ -355,23 +385,17 @@ ASErr SafeguardToolsPlugin::GoMenuItem(AIMenuMessage* message)
     }
     else if ( message->menuItem == menuItemHandles.GetHandleWithKey(CREATE_PLATE_BLEED_INFO_MENU_ITEM) )
     {
-        sAINotifier->SetNotifierActive(gPlugin->fDocumentCropAreaModifiedNotifierHandle, FALSE);
-        sAINotifier->SetNotifierActive(gPlugin->fArtSelectionChangedNotifierHandle, FALSE);
-        
-        PlateBleedInfo::BleedInfoController().HandleCreateMenu();
-        
-        sAINotifier->SetNotifierActive(gPlugin->fArtSelectionChangedNotifierHandle, TRUE);
-        sAINotifier->SetNotifierActive(gPlugin->fDocumentCropAreaModifiedNotifierHandle, TRUE);
+        PlateBleedInfo::BleedInfoController({fDocumentCropAreaModifiedNotifierHandle,fArtSelectionChangedNotifierHandle}).HandleCreateMenu();
     }
     else if ( message->menuItem == menuItemHandles.GetHandleWithKey(EDIT_PLATE_BLEED_INFO_MENU_ITEM) )
     {
-        sAINotifier->SetNotifierActive(gPlugin->fDocumentCropAreaModifiedNotifierHandle, FALSE);
-        sAINotifier->SetNotifierActive(gPlugin->fArtSelectionChangedNotifierHandle, FALSE);
-        
-        PlateBleedInfo::BleedInfoController().HandleEditMenu();
-        
-        sAINotifier->SetNotifierActive(gPlugin->fArtSelectionChangedNotifierHandle, TRUE);
-        sAINotifier->SetNotifierActive(gPlugin->fDocumentCropAreaModifiedNotifierHandle, TRUE);
+        PlateBleedInfo::BleedInfoController({fDocumentCropAreaModifiedNotifierHandle,fArtSelectionChangedNotifierHandle}).HandleEditMenu();
+    }
+    
+    else if ( message->menuItem == menuItemHandles.GetHandleWithKey(SG_MFG_PLACE_MENU_ITEM) )
+    {
+        placeFileSearchUIController->LoadExtension();
+        sAICSXSExtension->LaunchExtension(PlaceFileSearch::PlaceFileSearchUIController::PLACEFILESEARCH_UI_EXTENSION);
     }
 	
 	if (error)
@@ -431,7 +455,10 @@ error:
 
 ASErr SafeguardToolsPlugin::PluginGroupUpdate(AIPluginGroupMessage* message)
 {
-    SafeguardJobFile().UpdateBleedInfo();
+    if (message->art != nullptr)
+    {
+        PlateBleedInfo::BleedInfoController({fDocumentCropAreaModifiedNotifierHandle,fArtSelectionChangedNotifierHandle}).HandlePluginGroupUpdate(message);
+    }
     
     return kNoErr;
 }
@@ -451,7 +478,9 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
     {
         colorToolsUIController->RegisterCSXSEventListeners();
         printToPdfUIController->RegisterCSXSEventListeners();
+        printToPdfFolderPrefsUIController->RegisterCSXSEventListeners();
         plateBleedInfoUIController->RegisterCSXSEventListeners();
+        placeFileSearchUIController->RegisterCSXSEventListeners();
     }
     
     if ( message->notifier == fAppStartedNotifierHandle )
@@ -472,13 +501,9 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
     }
     if (message->notifier == fDocumentCropAreaModifiedNotifierHandle || message->notifier == fArtSelectionChangedNotifierHandle)
     {
-        sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, FALSE);
-        sAINotifier->SetNotifierActive(fArtSelectionChangedNotifierHandle, FALSE);
-        
-        PlateBleedInfo::BleedInfoController().HandleCropAreaNotification();
-        
-        sAINotifier->SetNotifierActive(fArtSelectionChangedNotifierHandle, TRUE);
-        sAINotifier->SetNotifierActive(fDocumentCropAreaModifiedNotifierHandle, TRUE);
+        PlateBleedInfo::BleedInfoController biController({fDocumentCropAreaModifiedNotifierHandle,fArtSelectionChangedNotifierHandle});
+        biController.DeSelectAllPluginArts();
+        biController.HandleCropAreaNotification();
     }
     return kNoErr;
 }

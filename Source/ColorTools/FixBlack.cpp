@@ -18,17 +18,16 @@ bool FixBlack() {
 	sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Fix Black"), ai::UnicodeString("Redo Fix Black"));
 	
 	AIBoolean converted = FALSE;
-	sAIDocument->SetDocumentSpotColorMode(NULL, kAILegacySpotColorMode, TRUE, &converted);
+	sAIDocument->SetDocumentSpotColorMode(nullptr, kAILegacySpotColorMode, TRUE, &converted);
     
     BtSwatchList swatchList;
-    swatchList.CreateOrConvertToCustomColor(SafeguardFile::BLACK_COLOR_NAME);
-    swatchList.CreateOrConvertToCustomColor(SafeguardFile::WHITE_COLOR_NAME);
+    swatchList.FixStdColors();
 
     swatchList.AdjustAllColors();
 	
 	// 4. Name all the colors
     VisitAIColorFlags controlFlags = kVisitColorsSolidOnly | kVisitGlobalObjectsOnceOnly;
-	sAIPathStyle->AdjustObjectAIColors( NULL , NameAllColors , NULL , controlFlags , NULL );
+	sAIPathStyle->AdjustObjectAIColors( nullptr , NameAllColors , nullptr , controlFlags , nullptr );
 	
 	// 5. Remove unused colors
 	swatchList.RemoveUnusedColors();

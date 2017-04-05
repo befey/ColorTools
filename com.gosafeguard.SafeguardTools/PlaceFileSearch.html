@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+    <head>
+        <script src="js/jquery-1.9.1.min.js"></script>
+        <script src="js/CSInterface.js"></script>
+        <script src="js/PlaceFileSearch.js"></script>
+        <link rel="stylesheet" href="css/common.css" type="text/css" />
+        <link rel="stylesheet" href="css/PlaceFileSearch.css" type="text/css" />
+    </head>
+    <body>
+        <form>
+            <input type="text" id="search-string" autofocus/>
+            <input type="button" id="search-button" onClick="Search()" value="Search" />
+            <input type="button" style="float: right" id="cancel-button" onClick="csInterface.dispatchEvent(cancelEvent)" value="Close" />
+            <br />
+            <div class="wide-field">
+                <div class="info-area" id="results-textarea"></div>
+            </div>
+
+        </form>
+    </body>
+</html>

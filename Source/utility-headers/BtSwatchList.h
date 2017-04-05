@@ -28,7 +28,6 @@ extern AIPathStyleSuite* sAIPathStyle;
 extern AIArtSetSuite* sAIArtSet;
 
 
-
 //=================================
 // BtSwatchlist - wrapper for the AISwatchList stuff
 class BtSwatchList
@@ -36,7 +35,8 @@ class BtSwatchList
 public:
     
     //Behaviors
-    void CreateOrConvertToCustomColor(std::string colorName); //colorName must be one of the standard colors defined, see ColorFuncs.h
+    void FixStdColors();
+    void CreateOrConvertToCustomColor(std::string colorName); //colorName must be one of the standard colors defined, see below
     void CreateOrConvertToCustomColor(BtColor color);
     void AdjustAllColors();
     
@@ -47,28 +47,13 @@ public:
     
     const std::unordered_map<std::string, BtColor> StdColorDefinitions
     {
-        { SafeguardFile::BLACK_COLOR_NAME,
-            { SafeguardFile::BLACK_COLOR_NAME,
-                kCustomFourColor,
-                {.f.cyan = 0, .f.yellow = 0, .f.magenta = 0, .f.black = 1},
-                0
-            }
-        },
-        { SafeguardFile::WHITE_COLOR_NAME,
-            { SafeguardFile::WHITE_COLOR_NAME,
-                kCustomFourColor,
-                {.f.cyan = 0, .f.yellow = 0, .f.magenta = 0, .f.black = 0},
-                0
-            }
-        },
-        { SafeguardFile::MICR_BLACK_MAG_COLOR_NAME,
-            { SafeguardFile::MICR_BLACK_MAG_COLOR_NAME,
-                kCustomFourColor,
-                {.f.cyan = 0, .f.yellow = 0, .f.magenta = 0, .f.black = 1},
-                0
-            }
-        },
+        { SafeguardFile::BLACK_COLOR_NAME, *BtColor::Black() },
+        { SafeguardFile::WHITE_COLOR_NAME, *BtColor::White() },
+        { SafeguardFile::MICR_BLACK_MAG_COLOR_NAME, *BtColor::MicrBlack() },
+        { SafeguardFile::KEYLINE_COLOR_NAME, *BtColor::Keyline() },
+        { SafeguardFile::GRIPPER_COLOR_NAME, *BtColor::Gripper() }
     };
+
 private:
     //Members    
     

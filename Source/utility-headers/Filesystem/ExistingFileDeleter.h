@@ -9,22 +9,19 @@
 #ifndef __SafeguardTools__ExistingFileDeleter__
 #define __SafeguardTools__ExistingFileDeleter__
 
-#include "PdfResults.h"
-#include "PlateNumber.h"
+#include "FilesystemResults.hpp"
 
-namespace PrintToPdf
-{
-    class ExistingFileDeleter
+class ExistingFileDeleter
     {
     public:
         ExistingFileDeleter(bool doNotDelete) : doNotDelete(doNotDelete) {};
         
         static unique_ptr<ExistingFileDeleter> GetExistingFileDeleter(bool doNotDelete);
         
-        PdfResults Delete(SafeguardFile::PlateNumber, ai::FilePath);
+        FilesystemResults Delete(string matchString, ai::FilePath);
         
     private:
         bool doNotDelete;
     };
-}
+
 #endif /* defined(__SafeguardTools__ExistingFileDeleter__) */
