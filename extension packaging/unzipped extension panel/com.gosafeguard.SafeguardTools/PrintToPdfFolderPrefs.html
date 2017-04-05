@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+    
+    <head>
+        <script src="js/jquery-1.9.1.min.js"></script>
+        <script src="js/CSInterface.js"></script>
+        <script src="js/PrintToPdfFolderPrefs.js"></script>
+        
+        <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+        <link rel="stylesheet" href="css/common.css" type="text/css" />
+        <link rel="stylesheet" href="css/PrintToPdf.css" type="text/css" />
+    </head>
+    
+    <body>
+        
+        <form>
+            <div class="wide-field">
+                <div class="info-area" id="folderprefs-textarea"></div>
+            </div>
+            
+            <div class="field">
+                <span class="buttons">
+                    <input type="button" id="cancel-button" onClick="csInterface.dispatchEvent(cancelEvent)" value="Cancel" />
+                    <input type="button" id="ok-button" onClick="SendFoldersToPlugin()" value="OK" autofocus />
+                </span>
+            </div>
+        </form>
+        
+    </body>
+    
+</html>

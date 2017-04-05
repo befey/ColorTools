@@ -1,4 +1,4 @@
-var csInterface = new CSInterface(); 
+var csInterface = new CSInterface();
 var jsonArtboardData;
 var currArtboardId = 0;
 
@@ -12,25 +12,25 @@ var sendDataBackEvent = new CSEvent("com.gosafeguard.SafeguardTools.PlateBleedIn
 
 $(function()
   {
-  csInterface.setWindowTitle("Edit Plate Bleed Info");
-  
-  csInterface.addEventListener("com.gosafeguard.SafeguardTools.PlateBleedInfo.forcepanelclose",
-                               function(event)
-                               {
-                               csInterface.closeExtension();
-                               });
-  
-  csInterface.addEventListener("com.gosafeguard.SafeguardTools.PlateBleedInfo.datafromplugin", ReceiveDataFromPlugin);
-  
-  csInterface.dispatchEvent(panelLoadedEvent);
-  
+      csInterface.setWindowTitle("Edit Plate Bleed Info");
+      
+      csInterface.addEventListener("com.gosafeguard.SafeguardTools.PlateBleedInfo.forcepanelclose",
+                                   function(event)
+                                   {
+                                       csInterface.closeExtension();
+                                   });
+      
+      csInterface.addEventListener("com.gosafeguard.SafeguardTools.PlateBleedInfo.datafromplugin", ReceiveDataFromPlugin);
+      
+      csInterface.dispatchEvent(panelLoadedEvent);
+      
   }
   );
 
 function ReceiveDataFromPlugin(event)
 {
     jsonArtboardData = event.data;
-
+    
     LoadJsonDataForCurrentArtboard();
     ChangeArtboard(currArtboardId);
 }
@@ -64,25 +64,26 @@ function LoadJsonDataForCurrentArtboard()
     $("#displaybleedinfo-check").prop('checked', jsonArtboardData.dto.plates[currArtboardId].shouldDrawBleedInfo);
     
     $("#inks").html(function() {
-                    var newHtml = "";
-                    for (var i = 0; i < jsonArtboardData.dto.plates[currArtboardId].c.length; i++)
-                    {
-                        var color = jsonArtboardData.dto.plates[currArtboardId].c[i];
-                        newHtml += "<div class='trow'><div id='colorname-text" + i + "' class='tcell1'>" +
-                        color.colorName +
-                        "</div>" +
-                        "<div class='tcell2'>" +
-                        "<select id='inktype-select" + i + "'>" +
-                        "<option value='0'></option>" +
-                        "<option value='1'>Flat</option>" +
-                        "<option value='2'>Thermo</option>" +
-                        "<option value='3'>Foil</option>" +
-                        "<option value='4'>Emboss</option>" +
-                        "</select>" +
-                        "</div></div>";
-                    }
-                    return newHtml;
-                    });
+        var newHtml = "";
+        for (var i = 0; i < jsonArtboardData.dto.plates[currArtboardId].c.length; i++)
+        {
+            var color = jsonArtboardData.dto.plates[currArtboardId].c[i];
+            newHtml += "<div id='colorname-text" + i + "' class='col-xs-5'>" +
+            color.colorName +
+            "</div>" +
+            "<div class='col-xs-5'>" +
+            "<select id='inktype-select" + i + "'>" +
+            "<option value='0'></option>" +
+            "<option value='1'>Flat</option>" +
+            "<option value='2'>Thermo</option>" +
+            "<option value='3'>Foil</option>" +
+            "<option value='4'>Emboss</option>" +
+            "<option value='5'>Magnetic</option>" +
+            "</select>" +
+            "</div>";
+        }
+        return newHtml;
+    });
     
     for (var i = 0; i < jsonArtboardData.dto.plates[currArtboardId].c.length; i++)
     {
