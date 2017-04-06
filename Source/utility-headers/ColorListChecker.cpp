@@ -41,6 +41,16 @@ ColorListDuplicateChecker::ColorListDuplicateChecker(const BtColor& base)
     };
     AddPredicate(ColorListCheckerPredicate(ExactMatch));
     
+    predFunc BothBlack = [] (const BtColor& base, const BtColor& compare)
+    {
+        if (base.IsBlack() && compare.IsBlack())
+        {
+            return true;
+        }
+        return false;
+    };
+    AddPredicate(ColorListCheckerPredicate(BothBlack));
+    
     predFunc GrayColor = [] (const BtColor& base, const BtColor& compare)
     {
         if (base.Kind() == kGrayColor && base.Kind() == compare.Kind() && base.Method() == compare.Method())
