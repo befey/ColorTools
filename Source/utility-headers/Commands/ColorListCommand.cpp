@@ -95,7 +95,7 @@ bool RemoveBlackIfCMYKPresentCommand::Execute() const
             colorList.erase(
                             std::remove_if(colorList.begin(), colorList.end(), [](BtColor c)
                                            {
-                                               if (c.IsBlack(false))
+                                               if (c.IsBlack(DoNotIncludeCMYKBuilds))
                                                {
                                                    return true;
                                                }

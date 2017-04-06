@@ -43,7 +43,7 @@ ColorListDuplicateChecker::ColorListDuplicateChecker(const BtColor& base)
     
     predFunc BothBlack = [] (const BtColor& base, const BtColor& compare)
     {
-        if (base.IsBlack() && compare.IsBlack())
+        if (base.IsBlack(DoNotIncludeCMYKBuilds) && compare.IsBlack(DoNotIncludeCMYKBuilds))
         {
             return true;
         }
@@ -118,7 +118,7 @@ ColorListNonSolidColorChecker::ColorListNonSolidColorChecker(const BtColor& base
         
     predFunc RemoveBlackIfProcess = [] (const BtColor& base, const BtColor& compare)
     {
-        if (base.PrintsAsProcess() && compare.IsBlack(false) && base.Method() == compare.Method())
+        if (base.PrintsAsProcess() && compare.IsBlack(DoNotIncludeCMYKBuilds) && base.Method() == compare.Method())
         {
             return true;
         }

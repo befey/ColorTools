@@ -27,6 +27,7 @@ extern AICustomColorSuite* sAICustomColor;
 extern AIColorConversionSuite* sAIColorConversion;
 
 static constexpr AIReal TOLERANCE = .002;
+static constexpr bool DoNotIncludeCMYKBuilds = false;
 #define	kCustomProcessColor 0x0000
 
 //=================================
