@@ -93,17 +93,17 @@ bool RemoveBlackIfCMYKPresentCommand::Execute() const
         if (color.PrintsAsProcess())
         {
             colorList.erase(
-                              std::remove_if(colorList.begin(), colorList.end(), [](BtColor c)
-                                             {
-                                                 if (c.IsBlack(false))
-                                                 {
-                                                     return true;
-                                                 }
-                                                 return false;
-                                             }
-                                             ),
-                              colorList.end()
-                              );
+                            std::remove_if(colorList.begin(), colorList.end(), [](BtColor c)
+                                           {
+                                               if (c.IsBlack(false))
+                                               {
+                                                   return true;
+                                               }
+                                               return false;
+                                           }
+                                           ),
+                            colorList.end()
+                            );
             break;
         }
     }
