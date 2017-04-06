@@ -260,7 +260,7 @@ std::string BtColor::Name() const
         {
             sAICustomColor->GetCustomColorName(AiCustomColorHandle(), nameUS);
         }
-        else if (IsBlack(false))
+        else if (IsBlack(DoNotIncludeCMYKBuilds))
         {
             nameUS = ai::UnicodeString(SafeguardFile::BLACK_COLOR_NAME);
         }
@@ -427,12 +427,12 @@ void BtColor::GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) cons
 
 bool BtColor::PrintsAsProcess() const
 {
-    return ( Kind() == kFourColor || Kind() == kThreeColor || ( Kind() == kCustomColor && AiCustomColor().flag == 0 ) ) && (!IsBlack(false) && !IsWhite());
+    return ( Kind() == kFourColor || Kind() == kThreeColor || ( Kind() == kCustomColor && AiCustomColor().flag == 0 ) ) && (!IsBlack(DoNotIncludeCMYKBuilds) && !IsWhite());
 }
 
 bool BtColor::PrintsAsSpot() const
 {
-    return ( Kind() == kCustomColor && AiCustomColor().flag == kCustomSpotColor ) || IsBlack(false) || IsWhite();
+    return ( Kind() == kCustomColor && AiCustomColor().flag == kCustomSpotColor ) || IsBlack(DoNotIncludeCMYKBuilds) || IsWhite();
 }
 
 bool BtColor::IsBlack(bool includeCMYKBuilds) const
