@@ -382,7 +382,10 @@ void BtColor::GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) cons
         
         if (Method() != SafeguardFile::InkMethod::NONE)
         {
-            method = " " + SafeguardFile::InkMethodStrings.at(Method());
+            if ( Method() != GetInkMethodFromColorName(Name()) )
+            {
+                method = " " + SafeguardFile::InkMethodStrings.at(Method());
+            }
         }
         
         if (IsPantone())
