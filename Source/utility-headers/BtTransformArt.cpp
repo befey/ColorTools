@@ -49,6 +49,8 @@ void ResizeRectangle(AIArtHandle path, AIRealRect newRect, Direction hDirection,
     
     AIReal h = std::abs(newRect.right - newRect.left) / std::abs(currBounds.right - currBounds.left);
     AIReal v = std::abs(newRect.bottom - newRect.top) / std::abs(currBounds.bottom - currBounds.top);
+    h = sAIRealMath->AIRealMultiple(h, .01, true);
+    v = sAIRealMath->AIRealMultiple(v, .01, true);
     
     //Apply scale
     sAIRealMath->AIRealMatrixConcatScale(&transformMatrix, h, v);
