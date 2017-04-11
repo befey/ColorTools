@@ -493,6 +493,9 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
         BtSwatchList swatchList;
         string swatchesXml = swatchList.GetColorListAsXMLString();
         colorToolsUIController->SendColorListXmlToHtml(swatchesXml);
+        
+        PlateBleedInfo::BleedInfoController biController({fDocumentCropAreaModifiedNotifierHandle,fArtSelectionChangedNotifierHandle});
+        biController.RedrawOnDocOpen();
     }
     
     if (message->notifier == fArtSelectionChangedNotifierHandle )

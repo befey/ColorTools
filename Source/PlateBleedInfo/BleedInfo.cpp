@@ -24,10 +24,11 @@ namespace fs = boost::filesystem;
 
 using PlateBleedInfo::BleedInfo;
 
-BleedInfo::BleedInfo(ai::ArtboardID artboardIndex, const PlateBleedInfo::PlateDTO* dto)
+BleedInfo::BleedInfo(ai::ArtboardID artboardIndex, bool redrawAllWithoutCheck, const PlateBleedInfo::PlateDTO* dto)
 :
 artboardIndex(artboardIndex),
-colorList(ArtboardBounds())
+colorList(ArtboardBounds()),
+redrawAllWithoutCheck(redrawAllWithoutCheck)
 {
     bleedInfoPluginArt = PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().GetArt(artboardIndex);
     

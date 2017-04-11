@@ -20,8 +20,8 @@ namespace SafeguardFile
     class Plate : public IDrawable
     {
     public:
-        Plate(ai::ArtboardID id) : Plate(id, nullptr) {};
-        Plate(ai::ArtboardID id, const PlateBleedInfo::PlateDTO* dto);
+        Plate(ai::ArtboardID id, bool redrawAllWithoutCheck) : Plate(id, redrawAllWithoutCheck, nullptr) {};
+        Plate(ai::ArtboardID id, bool redrawAllWithoutCheck, const PlateBleedInfo::PlateDTO* dto);
         
         AIRealRect GetArtboardBounds() const;
         tm GetLastModified() const;

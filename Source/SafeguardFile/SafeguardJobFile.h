@@ -24,7 +24,7 @@ namespace SafeguardFile
     class SafeguardJobFile
     {
     public:
-        SafeguardJobFile();
+        SafeguardJobFile(bool redrawAllWithoutCheck = false);
         SafeguardJobFile(const PlateBleedInfo::SafeguardJobFileDTO* dto);
                 
         const PlateNumber GetPlateNumber(int plateIndex = 0) const;

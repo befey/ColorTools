@@ -32,8 +32,8 @@ namespace PlateBleedInfo
     class BleedInfo : public IDrawable
     {
     public:
-        BleedInfo(ai::ArtboardID artboardIndex) : BleedInfo(artboardIndex, nullptr) {};
-        BleedInfo(ai::ArtboardID artboardIndex, const PlateBleedInfo::PlateDTO* dto);
+        BleedInfo(ai::ArtboardID artboardIndex, bool redrawAllWithoutCheck) : BleedInfo(artboardIndex, redrawAllWithoutCheck, nullptr) {};
+        BleedInfo(ai::ArtboardID artboardIndex, bool redrawAllWithoutCheck, const PlateBleedInfo::PlateDTO* dto);
         ~BleedInfo();
         
         ai::ArtboardID ArtboardIndex() const { return artboardIndex; };
@@ -56,6 +56,7 @@ namespace PlateBleedInfo
         bool ShouldAddCmykBlocks() const { return shouldAddCMYKBlocks; };
         BleedInfo& ShouldAddCmykBlocks(bool newVal) { shouldAddCMYKBlocks = newVal; return *this; };
         bool ShouldPrint() const { return shouldPrint; };
+        bool RedrawAllWithoutCheck() const { return redrawAllWithoutCheck; };
         BleedInfo& ShouldPrint(bool newVal) { shouldPrint = newVal; return *this; };
         const SafeguardFile::PlateNumber PlateNumber() const { return plateNumber; };
         class ColorList& ColorList() { return colorList; };
@@ -72,6 +73,8 @@ namespace PlateBleedInfo
         bool shouldDrawBleedInfo = true;
         bool shouldAddCMYKBlocks = false;
         bool shouldPrint = true;
+        
+        bool redrawAllWithoutCheck = false;
         
         AIArtHandle bleedInfoPluginArt = nullptr;
         

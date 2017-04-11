@@ -25,12 +25,14 @@ struct ColorListDrawerSettings
     pt(bleedInfo.PlateNumber().GetProductType()),
     artboardBounds(bleedInfo.ArtboardBounds()),
     colorList(bleedInfo.ColorList()),
-    shouldDrawBleedInfo(bleedInfo.ShouldDrawBleedInfo()) {};
+    shouldDrawBleedInfo(bleedInfo.ShouldDrawBleedInfo()),
+    redrawAllWithoutCheck(bleedInfo.RedrawAllWithoutCheck()) {};
     
     SafeguardFile::ProductType pt;
     AIRealRect artboardBounds;
     ColorList colorList;
     bool shouldDrawBleedInfo;
+    bool redrawAllWithoutCheck;
 };
 
 constexpr auto COLORLIST_ARTHANDLE =            "__bt_colorlist_arthandle__";
@@ -98,7 +100,7 @@ namespace SafeguardFile
 class ShouldCreateColorListDrawable
 {
 public:
-    ShouldCreateColorListDrawable(std::shared_ptr<IDrawable>drawable, ColorListDrawerSettings settings, AIArtHandle pluginArt) : drawable(drawable),settings(settings), pluginArt(pluginArt) {};
+    ShouldCreateColorListDrawable(std::shared_ptr<IDrawable>drawable, ColorListDrawerSettings settings, AIArtHandle pluginArt) : drawable(drawable), settings(settings), pluginArt(pluginArt) {};
     bool Get() const;
 private:
     std::shared_ptr<IDrawable> drawable;
@@ -114,10 +116,12 @@ public:
     static std::shared_ptr<IDrawable> GetDrawable(ColorListDrawerSettings settings, AIArtHandle pluginArt)
     {
         std::shared_ptr<IDrawable> drawable = make_shared<ColorListDrawable>(settings);
+        
         if ( ShouldCreateColorListDrawable(drawable, settings, pluginArt).Get() )
         {
             return drawable;
         }
+        
         return nullptr;
     };
 };

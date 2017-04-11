@@ -14,6 +14,7 @@
 #include "BtDocumentView.hpp"
 #include "BtArtHandle.hpp"
 
+static constexpr bool RedrawAllWithoutCheck = true;
 
 using PlateBleedInfo::BleedInfoController;
 
@@ -40,6 +41,14 @@ void BleedInfoController::DeSelectAllPluginArts() const
     for ( auto art : arts )
     {
         BtArtHandle(art.second).Selected(false);
+    }
+}
+
+void BleedInfoController::RedrawOnDocOpen()
+{
+    if ( PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().IsBleedInfoPluginArtCreated() )
+    {
+        DrawBleedInfo(RedrawAllWithoutCheck);
     }
 }
 
@@ -117,11 +126,11 @@ bool BleedInfoController::SameTimestamp()
     return false;
 }
 
-void BleedInfoController::DrawBleedInfo()
+void BleedInfoController::DrawBleedInfo(bool redrawAllWithoutCheck)
 {
     if (! sAIIsolationMode->IsInIsolationMode() )
     {
-        SafeguardFile::SafeguardJobFile().UpdateBleedInfo();
+        SafeguardFile::SafeguardJobFile(redrawAllWithoutCheck).UpdateBleedInfo();
         DictionaryWriter dw;
         dw.AddAIRealToDictionary(sAIArt->GetGlobalTimeStamp(), PLATE_BLEEDINFO_TIMESTAMP);
     }

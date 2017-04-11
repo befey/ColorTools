@@ -16,11 +16,11 @@ using SafeguardFile::SafeguardJobFile;
 using SafeguardFile::PlateNumber;
 using PlateBleedInfo::BleedInfo;
 
-SafeguardJobFile::SafeguardJobFile()
+SafeguardJobFile::SafeguardJobFile(bool redrawAllWithoutCheck)
 {
     for ( int i = 0; i < GetArtboardCount(); i++ )
     {
-        plates.emplace(i, make_shared<Plate>(i));
+        plates.emplace(i, make_shared<Plate>(i, redrawAllWithoutCheck));
     }
 }
 

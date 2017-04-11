@@ -182,6 +182,11 @@ void ContinuousColorListDrawer::DrawContinuousColorBlocks(AIArtHandle resultGrou
 
 bool ShouldCreateColorListDrawable::Get() const
 {
+    if (settings.redrawAllWithoutCheck)
+    {
+        return true;
+    }
+    
     if (!settings.shouldDrawBleedInfo) //We'll have a NoneDrawer here, so we need to "draw" the None color list
     {
         return true;

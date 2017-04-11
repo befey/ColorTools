@@ -11,8 +11,8 @@
 using SafeguardFile::Plate;
 using SafeguardFile::PlateNumber;
 
-Plate::Plate(ai::ArtboardID id, const PlateBleedInfo::PlateDTO* dto)
-: bleedInfo(make_shared<PlateBleedInfo::BleedInfo>(id, dto))
+Plate::Plate(ai::ArtboardID id, bool redrawAllWithoutCheck, const PlateBleedInfo::PlateDTO* dto)
+: bleedInfo(make_shared<PlateBleedInfo::BleedInfo>(id, redrawAllWithoutCheck, dto))
 {
 }
     

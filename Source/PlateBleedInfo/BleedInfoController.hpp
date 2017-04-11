@@ -33,6 +33,7 @@ namespace PlateBleedInfo
         ~BleedInfoController();
         
         void DeSelectAllPluginArts() const;
+        void RedrawOnDocOpen();
         void HandleCropAreaNotification();
         void HandleCreateMenu();
         void HandleEditMenu();
@@ -41,7 +42,7 @@ namespace PlateBleedInfo
 
     private:
         bool SameTimestamp();
-        void DrawBleedInfo();
+        void DrawBleedInfo(bool redrawAllWithoutCheck = false);
         
         vector<AINotifierHandle> notifiers;
     };
