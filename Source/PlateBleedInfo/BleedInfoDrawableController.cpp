@@ -67,7 +67,7 @@ AIArtHandle BleedInfoDrawableController::Add() const
     BtLayer pluginArtLayer(BtArtHandle(prep).Layer());
     pluginArtLayer.MakeEditable();
     
-    sAIArt->NewArt(kPluginArt, kPlaceInsideOnBottom, prep, &pluginGroupArt);
+    sAIArt->NewArt(kPluginArt, kPlaceInsideOnTop, prep, &pluginGroupArt);
     AIErr err = sAIPluginGroup->UseAIPluginGroup(pluginGroupArt, gPlugin->GetBleedInfoPluginGroupHandle());
     string error = GetIllustratorErrorCode(err);
     
@@ -106,6 +106,8 @@ AIArtHandle BleedInfoDrawableController::CreateResultArt(AIArtHandle pluginGroup
     {
         DrawDrawableCommand(drawable, resultGroup).Execute();
     }
+    
+    pluginGroupLayer.PutArtAtTopOfLayer(pluginGroupArt);
     
     pluginGroupLayer.ResetEditable();
     
