@@ -501,8 +501,12 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
     if (message->notifier == fArtSelectionChangedNotifierHandle )
     {
         colorToolsUIController->UpdateChangeInStatus();
+        
+        PlateBleedInfo::BleedInfoController biController({fDocumentCropAreaModifiedNotifierHandle,fArtSelectionChangedNotifierHandle});
+        biController.DeSelectAllPluginArts();
+        biController.HandleSelectionChangeNotification();
     }
-    if (message->notifier == fDocumentCropAreaModifiedNotifierHandle || message->notifier == fArtSelectionChangedNotifierHandle)
+    if (message->notifier == fDocumentCropAreaModifiedNotifierHandle)
     {
         PlateBleedInfo::BleedInfoController biController({fDocumentCropAreaModifiedNotifierHandle,fArtSelectionChangedNotifierHandle});
         biController.DeSelectAllPluginArts();

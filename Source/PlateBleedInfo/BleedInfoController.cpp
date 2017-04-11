@@ -52,7 +52,7 @@ void BleedInfoController::RedrawOnDocOpen()
     }
 }
 
-void BleedInfoController::HandleCropAreaNotification()
+void BleedInfoController::HandleSelectionChangeNotification()
 {
     if ( PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().IsBleedInfoPluginArtCreated() )
     {
@@ -60,6 +60,14 @@ void BleedInfoController::HandleCropAreaNotification()
         {
             DrawBleedInfo();
         }
+    }
+}
+
+void BleedInfoController::HandleCropAreaNotification()
+{
+    if ( PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().IsBleedInfoPluginArtCreated() )
+    {
+        DrawBleedInfo(RedrawAllWithoutCheck);
     }
 }
 

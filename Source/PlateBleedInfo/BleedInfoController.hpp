@@ -34,6 +34,7 @@ namespace PlateBleedInfo
         
         void DeSelectAllPluginArts() const;
         void RedrawOnDocOpen();
+        void HandleSelectionChangeNotification();
         void HandleCropAreaNotification();
         void HandleCreateMenu();
         void HandleEditMenu();
