@@ -17,6 +17,12 @@ BtLayer::BtLayer(AILayerHandle layer) : layerHandle(layer) {}
 BtLayer::BtLayer(string layerName)
 {
     sAILayer->GetLayerByTitle(&layerHandle, ai::UnicodeString(layerName));
+    
+    if (layerHandle == nullptr)
+    {
+        sAILayer->InsertLayer(nullptr, kPlaceAboveAll, &layerHandle);
+        Title(layerName);
+    }
 }
 
 void BtLayer::DeleteLayer()
