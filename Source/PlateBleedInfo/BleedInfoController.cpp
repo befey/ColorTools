@@ -74,6 +74,7 @@ void BleedInfoController::HandleCropAreaNotification()
 
 void BleedInfoController::HandleCreateMenu()
 {
+    RequiredLayersCreator::CreateRequiredLayers();
     DrawBleedInfo(RedrawAllWithoutCheck);
 }
 
@@ -139,8 +140,6 @@ void BleedInfoController::DrawBleedInfo(bool redrawAllWithoutCheck)
 {
     if (! sAIIsolationMode->IsInIsolationMode() )
     {
-        RequiredLayersCreator::CreateRequiredLayers();
-        
         SafeguardFile::SafeguardJobFile(redrawAllWithoutCheck).UpdateBleedInfo();
         DictionaryWriter dw;
         dw.AddAIRealToDictionary(sAIArt->GetGlobalTimeStamp(), PLATE_BLEEDINFO_TIMESTAMP);
