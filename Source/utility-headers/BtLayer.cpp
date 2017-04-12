@@ -14,11 +14,11 @@
 
 
 BtLayer::BtLayer(AILayerHandle layer) : layerHandle(layer) {}
-BtLayer::BtLayer(string layerName)
+BtLayer::BtLayer(string layerName, bool createIfDoesNotExist)
 {
     sAILayer->GetLayerByTitle(&layerHandle, ai::UnicodeString(layerName));
     
-    if (layerHandle == nullptr)
+    if (layerHandle == nullptr && createIfDoesNotExist)
     {
         sAILayer->InsertLayer(nullptr, kPlaceAboveAll, &layerHandle);
         Title(layerName);

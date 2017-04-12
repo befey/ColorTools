@@ -18,38 +18,53 @@ void RequiredLayersCreator::CreateRequiredLayers()
     sAILayer->CountLayers(&count);
     
     bool foundPrintingLayer = false;
-    bool foundNonPrintingLayer = false;
-    
-    for (int i = 0; i < count; i++)
+    BtLayer foregroundLayer(SafeguardFile::FOREGROUND_LAYER, DoNotCreateLayer);
+    if (foregroundLayer)
     {
-        AILayerHandle layer;
-        sAILayer->GetNthLayer(i, &layer);
-        BtLayer btLayer(layer);
-        if (!foundPrintingLayer && btLayer.Printed())
+        foundPrintingLayer = true;
+    }
+    
+    bool foundNonPrintingLayer = false;
+    BtLayer backgroundLayer(SafeguardFile::BACKGROUND_LAYER, DoNotCreateLayer);
+    if (backgroundLayer)
+    {
+        foundNonPrintingLayer = true;
+    }
+    
+    if (!foundPrintingLayer || !foundNonPrintingLayer)
+    {
+        for (int i = 0; i < count; i++)
         {
-            btLayer.Title(SafeguardFile::FOREGROUND_LAYER);
-            foundPrintingLayer = true;
-        }
-        if (!foundNonPrintingLayer && !btLayer.Printed())
-        {
-            btLayer.Title(SafeguardFile::BACKGROUND_LAYER);
-            foundNonPrintingLayer = true;
-        }
-        
-        if (foundPrintingLayer && foundNonPrintingLayer)
-        {
-            break;
+            AILayerHandle layer;
+            sAILayer->GetNthLayer(i, &layer);
+            BtLayer btLayer(layer);
+            if (!foundPrintingLayer && btLayer.Printed())
+            {
+                foregroundLayer = btLayer;
+                foundPrintingLayer = true;
+            }
+            if (!foundNonPrintingLayer && !btLayer.Printed())
+            {
+                backgroundLayer = btLayer;
+                foundNonPrintingLayer = true;
+            }
+            
+            if (foundPrintingLayer && foundNonPrintingLayer)
+            {
+                break;
+            }
         }
     }
     
     if (!foundPrintingLayer)
     {
-        BtLayer(SafeguardFile::FOREGROUND_LAYER).Printed(true).Visible(true).Editable(true);
+        foregroundLayer = BtLayer(SafeguardFile::FOREGROUND_LAYER);
     }
     if (!foundNonPrintingLayer)
     {
-        BtLayer(SafeguardFile::BACKGROUND_LAYER).Printed(false).Visible(true).Editable(true);
+        backgroundLayer = BtLayer(SafeguardFile::BACKGROUND_LAYER);
     }
     
-    BtLayer(SafeguardFile::FOREGROUND_LAYER).MoveToTop().MakeCurrent();
+    foregroundLayer.Printed(true).Visible(true).Editable(true).MoveToTop().MakeCurrent();
+    backgroundLayer.Printed(false).Visible(true).Editable(true);
 }

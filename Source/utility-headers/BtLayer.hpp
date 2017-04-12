@@ -15,12 +15,14 @@
 extern AILayerSuite* sAILayer;
 extern AIArtSetSuite* sAIArtSet;
 
+static constexpr bool DoNotCreateLayer = false;
+
 class BtLayer
 {
 public:
     BtLayer(){};
     BtLayer(AILayerHandle layer);
-    BtLayer(string layerName);
+    BtLayer(string layerName, bool createIfDoesNotExist = true);
     BtLayer(int layerIndex);
     
     bool Null() const { return !layerHandle; };

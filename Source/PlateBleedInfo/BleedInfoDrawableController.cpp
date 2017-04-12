@@ -50,7 +50,7 @@ AIArtHandle BleedInfoDrawableController::Add() const
 {
     AIArtHandle pluginGroupArt = nullptr;
     
-    BtLayer foregroundLayer(SafeguardFile::FOREGROUND_LAYER);
+    BtLayer foregroundLayer(SafeguardFile::FOREGROUND_LAYER, DoNotCreateLayer);
     AIArtHandle prep = foregroundLayer.GetLayerGroupArt();
     
     if (prep == nullptr)
