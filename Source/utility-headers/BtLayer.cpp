@@ -25,6 +25,11 @@ BtLayer::BtLayer(string layerName)
     }
 }
 
+BtLayer::BtLayer(int layerIndex)
+{
+    sAILayer->GetNthLayer(layerIndex, &layerHandle);
+}
+
 void BtLayer::DeleteLayer()
 {
     if (layerHandle)
@@ -192,16 +197,40 @@ AIArtHandle BtLayer::GetLayerGroupArt() const
     return layerGroup;
 }
 
-void BtLayer::MakeEditable()
+BtLayer& BtLayer::MoveToTop()
+{
+    BtArtHandle layerGroup(GetLayerGroupArt());
+    BtArtHandle topLayerGroup(BtLayer(int(0)).GetLayerGroupArt());
+    
+    sAIArt->ReorderArt(layerGroup, kPlaceAbove, topLayerGroup);
+    
+    return *this;
+}
+
+BtLayer& BtLayer::MakeEditable()
 {
     storedEditable = Editable();
     Editable(true);
     storedVisible = Visible();
     Visible(true);
+    
+    return *this;
 }
 
-void BtLayer::ResetEditable()
+BtLayer& BtLayer::ResetEditable()
 {
     Editable(storedEditable);
     Visible(storedVisible);
+    
+    return *this;
+}
+
+BtLayer& BtLayer::MakeCurrent()
+{
+    if (layerHandle)
+    {
+        sAILayer->SetCurrentLayer(layerHandle);
+    }
+    
+    return *this;
 }

@@ -108,6 +108,8 @@
 		F98BAEE21CA9A0D100965D86 /* BtAiMenuItem.h in Headers */ = {isa = PBXBuildFile; fileRef = F98BAEE01CA9A0D100965D86 /* BtAiMenuItem.h */; };
 		F992803B1D6B723F00E7EBF2 /* SafeguardJobFileDTO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F99280391D6B723F00E7EBF2 /* SafeguardJobFileDTO.cpp */; };
 		F992803C1D6B723F00E7EBF2 /* SafeguardJobFileDTO.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F992803A1D6B723F00E7EBF2 /* SafeguardJobFileDTO.hpp */; };
+		F9A053871E9E58CC001F6C7E /* RequiredLayersCreator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9A053851E9E58CC001F6C7E /* RequiredLayersCreator.cpp */; };
+		F9A053881E9E58CC001F6C7E /* RequiredLayersCreator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9A053861E9E58CC001F6C7E /* RequiredLayersCreator.hpp */; };
 		F9A4270E1E423E1E00E05FF6 /* PrintToPdfFolderPrefs.html in Resources */ = {isa = PBXBuildFile; fileRef = F9A4270D1E423E1E00E05FF6 /* PrintToPdfFolderPrefs.html */; };
 		F9A427111E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9A4270F1E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.cpp */; };
 		F9A427121E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9A427101E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.hpp */; };
@@ -318,6 +320,8 @@
 		F98BAEE01CA9A0D100965D86 /* BtAiMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BtAiMenuItem.h; path = "Source/utility-headers/BtAiMenuItem.h"; sourceTree = "<group>"; };
 		F99280391D6B723F00E7EBF2 /* SafeguardJobFileDTO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SafeguardJobFileDTO.cpp; path = Source/PlateBleedInfo/SafeguardJobFileDTO.cpp; sourceTree = "<group>"; };
 		F992803A1D6B723F00E7EBF2 /* SafeguardJobFileDTO.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SafeguardJobFileDTO.hpp; path = Source/PlateBleedInfo/SafeguardJobFileDTO.hpp; sourceTree = "<group>"; };
+		F9A053851E9E58CC001F6C7E /* RequiredLayersCreator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RequiredLayersCreator.cpp; path = Source/PlateBleedInfo/RequiredLayersCreator.cpp; sourceTree = "<group>"; };
+		F9A053861E9E58CC001F6C7E /* RequiredLayersCreator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = RequiredLayersCreator.hpp; path = Source/PlateBleedInfo/RequiredLayersCreator.hpp; sourceTree = "<group>"; };
 		F9A4270D1E423E1E00E05FF6 /* PrintToPdfFolderPrefs.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = PrintToPdfFolderPrefs.html; path = com.gosafeguard.SafeguardTools/PrintToPdfFolderPrefs.html; sourceTree = "<group>"; };
 		F9A4270F1E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PrintToPdfFolderPrefsUIController.cpp; path = Source/PrintToPdf/PrintToPdfFolderPrefsUIController.cpp; sourceTree = "<group>"; };
 		F9A427101E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PrintToPdfFolderPrefsUIController.hpp; path = Source/PrintToPdf/PrintToPdfFolderPrefsUIController.hpp; sourceTree = "<group>"; };
@@ -563,6 +567,8 @@
 				F930DE0B1DDCED110030B5C1 /* BleedInfoWriter.hpp */,
 				F930DE061DDBA1EC0030B5C1 /* BleedInfoPluginArtToArtboardMatcher.cpp */,
 				F930DE071DDBA1EC0030B5C1 /* BleedInfoPluginArtToArtboardMatcher.hpp */,
+				F9A053851E9E58CC001F6C7E /* RequiredLayersCreator.cpp */,
+				F9A053861E9E58CC001F6C7E /* RequiredLayersCreator.hpp */,
 				F9F079641D47EEC1004AC522 /* TickMarkSettings.cpp */,
 				F9F079651D47EEC1004AC522 /* TickMarkSettings.hpp */,
 			);
@@ -778,6 +784,7 @@
 				F9138E9D1D01EE4D00D23C1F /* PdfSettings.h in Headers */,
 				F9B0B2041E73439D00B27FC8 /* FilesystemResults.hpp in Headers */,
 				F989A8EB1CA460CE0050C071 /* FindReplaceGraphics.h in Headers */,
+				F9A053881E9E58CC001F6C7E /* RequiredLayersCreator.hpp in Headers */,
 				F9DA3B921D1C5EFA00AB6156 /* BleedInfoDrawableController.h in Headers */,
 				F989A8EF1CA460CE0050C071 /* ReplaceData.h in Headers */,
 				F9DD295F1DEC90E40004EFF0 /* BleedInfoController.hpp in Headers */,
@@ -927,6 +934,7 @@
 				F979B6051CA31E87004BA4AD /* Main.cpp in Sources */,
 				F9DA3B9D1D1D7E6200AB6156 /* BleedTextInfoDrawer.cpp in Sources */,
 				F9FEC8291CB576280097473A /* IAIArtboards.cpp in Sources */,
+				F9A053871E9E58CC001F6C7E /* RequiredLayersCreator.cpp in Sources */,
 				F9158D551D05FBE900343D57 /* ExistingFileDeleter.cpp in Sources */,
 				F992803B1D6B723F00E7EBF2 /* SafeguardJobFileDTO.cpp in Sources */,
 				F90AE3F21CAAF8AF0076A9BC /* BtAiMenuItemHandles.cpp in Sources */,

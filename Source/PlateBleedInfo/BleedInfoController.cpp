@@ -13,6 +13,7 @@
 #include "PlateBleedInfoUIController.hpp"
 #include "BtDocumentView.hpp"
 #include "BtArtHandle.hpp"
+#include "RequiredLayersCreator.hpp"
 
 static constexpr bool RedrawAllWithoutCheck = true;
 
@@ -73,14 +74,14 @@ void BleedInfoController::HandleCropAreaNotification()
 
 void BleedInfoController::HandleCreateMenu()
 {
-    DrawBleedInfo();
+    DrawBleedInfo(RedrawAllWithoutCheck);
 }
 
 void BleedInfoController::HandleEditMenu()
 {
     if ( !PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().IsBleedInfoPluginArtCreated() )
     {
-        DrawBleedInfo();
+        DrawBleedInfo(RedrawAllWithoutCheck);
         sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Edit Safeguard Plate Info"), ai::UnicodeString("Redo Edit Safeguard Plate Info"));
     }
     
@@ -138,6 +139,8 @@ void BleedInfoController::DrawBleedInfo(bool redrawAllWithoutCheck)
 {
     if (! sAIIsolationMode->IsInIsolationMode() )
     {
+        RequiredLayersCreator::CreateRequiredLayers();
+        
         SafeguardFile::SafeguardJobFile(redrawAllWithoutCheck).UpdateBleedInfo();
         DictionaryWriter dw;
         dw.AddAIRealToDictionary(sAIArt->GetGlobalTimeStamp(), PLATE_BLEEDINFO_TIMESTAMP);

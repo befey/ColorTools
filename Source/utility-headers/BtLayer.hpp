@@ -21,6 +21,7 @@ public:
     BtLayer(){};
     BtLayer(AILayerHandle layer);
     BtLayer(string layerName);
+    BtLayer(int layerIndex);
     
     bool Null() const { return !layerHandle; };
     
@@ -47,8 +48,12 @@ public:
     void PutArtAtTopOfLayer(AIArtHandle art);
     AIArtHandle GetLayerGroupArt() const;
     
-    void MakeEditable();
-    void ResetEditable();
+    BtLayer& MoveToTop();
+    
+    BtLayer& MakeEditable();
+    BtLayer& ResetEditable();
+    
+    BtLayer& MakeCurrent();
     
     inline operator const AILayerHandle(void) const { return layerHandle; }
     inline operator AILayerHandle*(void) { return &layerHandle; }
