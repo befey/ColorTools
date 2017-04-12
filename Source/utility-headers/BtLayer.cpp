@@ -199,11 +199,14 @@ AIArtHandle BtLayer::GetLayerGroupArt() const
 
 BtLayer& BtLayer::MoveToTop()
 {
-    BtArtHandle layerGroup(GetLayerGroupArt());
-    BtArtHandle topLayerGroup(BtLayer(int(0)).GetLayerGroupArt());
+    if (layerHandle)
+    {
+        BtArtHandle layerGroup(GetLayerGroupArt());
+        BtArtHandle topLayerGroup(BtLayer(int(0)).GetLayerGroupArt());
     
-    sAIArt->ReorderArt(layerGroup, kPlaceAbove, topLayerGroup);
-    
+        sAIArt->ReorderArt(layerGroup, kPlaceAbove, topLayerGroup);
+    }
+
     return *this;
 }
 
