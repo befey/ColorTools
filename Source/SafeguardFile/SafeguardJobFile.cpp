@@ -24,11 +24,11 @@ SafeguardJobFile::SafeguardJobFile(bool redrawAllWithoutCheck)
     }
 }
 
-SafeguardJobFile::SafeguardJobFile(const PlateBleedInfo::SafeguardJobFileDTO* dto)
+SafeguardJobFile::SafeguardJobFile(const PlateBleedInfo::SafeguardJobFileDTO* dto, bool redrawAllWithoutCheck)
 {
     for ( int i = 0; i < GetArtboardCount(); i++ )
     {
-        plates.emplace(i, make_shared<Plate>(i, &dto->GetPlateDTOs()[i]));
+        plates.emplace(i, make_shared<Plate>(i, redrawAllWithoutCheck, &dto->GetPlateDTOs()[i]));
     }
 }
 
