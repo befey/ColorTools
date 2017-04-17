@@ -67,7 +67,7 @@ void PlateBleedInfoUIController::OkButtonClickedFunc (const csxs::event::Event* 
             }
         }
         
-        SafeguardJobFile sgJobFile(&plateBleedInfoDTO);
+        SafeguardJobFile sgJobFile(&plateBleedInfoDTO, true);
         sgJobFile.UpdateBleedInfo();  //Refresh the file with the new data
         
         BtDocumentView docView;
