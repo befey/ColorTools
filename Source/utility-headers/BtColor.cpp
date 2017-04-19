@@ -402,10 +402,10 @@ void BtColor::GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) cons
             textFeatures.AddTextToRangeWithFeatures("CYAN" + method + "  ", targetRange);
             c = {.kind = kFourColor, .c.f.cyan = 0, .c.f.magenta = 1, .c.f.yellow = 0, .c.f.black = 0};
             textFeatures.FillColor(c);
-            textFeatures.AddTextToRangeWithFeatures("MAG" + method + "  ", targetRange);
+            textFeatures.AddTextToRangeWithFeatures("MGTA" + method + "  ", targetRange);
             c = {.kind = kFourColor, .c.f.cyan = 0, .c.f.magenta = 0, .c.f.yellow = 1, .c.f.black = 0};
             textFeatures.FillColor(c);
-            textFeatures.AddTextToRangeWithFeatures("YEL" + method + "  ", targetRange);
+            textFeatures.AddTextToRangeWithFeatures("YELO" + method + "  ", targetRange);
             textFeatures.FillColor(*BtColor::Black());
             name = BtColor::Black()->Name() + method;
         }
