@@ -395,7 +395,7 @@ void BtColor::GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) cons
             textFillColor.c.c.tint = 0;
             textFeatures.FillColor(textFillColor);
         }
-        else if (Kind() == kFourColor)
+        else if (Kind() == kFourColor && !PrintsAsSpot())
         {
             AIColor c = {.kind = kFourColor, .c.f.cyan = 1, .c.f.magenta = 0, .c.f.yellow = 0, .c.f.black = 0};
             textFeatures.FillColor(c);
