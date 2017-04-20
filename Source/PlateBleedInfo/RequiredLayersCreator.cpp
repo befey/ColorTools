@@ -19,14 +19,14 @@ void RequiredLayersCreator::CreateRequiredLayers()
     
     bool foundPrintingLayer = false;
     BtLayer foregroundLayer(SafeguardFile::FOREGROUND_LAYER, DoNotCreateLayer);
-    if (foregroundLayer)
+    if (!foregroundLayer.Null())
     {
         foundPrintingLayer = true;
     }
     
     bool foundNonPrintingLayer = false;
     BtLayer backgroundLayer(SafeguardFile::BACKGROUND_LAYER, DoNotCreateLayer);
-    if (backgroundLayer)
+    if (!backgroundLayer.Null())
     {
         foundNonPrintingLayer = true;
     }

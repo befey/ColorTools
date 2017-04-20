@@ -82,7 +82,7 @@ BtArtHandle& BtArtHandle::PutInGroup(AIArtHandle theGroup)
     }
     
     BtLayer layer(Layer());
-    if (!layer)
+    if (!layer.Null())
     {
         return *this;
     }
