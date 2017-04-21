@@ -135,6 +135,10 @@ ASErr SafeguardToolsPlugin::StartupPlugin( SPInterfaceMessage *message )
     error = sAINotifier->AddNotifier( fPluginRef, kSafeguardToolsPluginName,
                                      kAIArtSelectionChangedNotifier, &fArtSelectionChangedNotifierHandle);
     if (error) { return error; }
+    error = sAINotifier->AddNotifier( fPluginRef, kSafeguardToolsPluginName,
+                                     kAIDocumentSavedNotifier, &fDocumentSavedNotifierHandle);
+    if (error) { return error; }
+
     
     return error;
 }
@@ -511,6 +515,12 @@ ASErr SafeguardToolsPlugin::Notify(AINotifierMessage *message )
         PlateBleedInfo::BleedInfoController biController({fDocumentCropAreaModifiedNotifierHandle,fArtSelectionChangedNotifierHandle});
         biController.DeSelectAllPluginArts();
         biController.HandleCropAreaNotification();
+    }
+    if (message->notifier == fDocumentSavedNotifierHandle)
+    {
+        PlateBleedInfo::BleedInfoController biController({fDocumentCropAreaModifiedNotifierHandle,fArtSelectionChangedNotifierHandle});
+        biController.DeSelectAllPluginArts();
+        biController.RedrawOnDocOpen();
     }
     return kNoErr;
 }
