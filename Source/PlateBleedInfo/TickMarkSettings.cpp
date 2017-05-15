@@ -32,6 +32,7 @@ shouldDrawBleedInfo(shouldDrawBleedInfo)
     else if (pt == ProductType::CutSheet)
     {
         tmStyle = TickMarkStyle::Outer;
+        weight = TICK_STROKE_CUTSHEET;
     }
     else if (pt == ProductType::BusinessStat)
     {

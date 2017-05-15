@@ -31,18 +31,20 @@ namespace SafeguardFile
         SafeguardFile::TickMarkStyle TickMarkStyle() const { return tmStyle; };
         TickMarkSettings& TickMarkStyle(SafeguardFile::TickMarkStyle newVal) { tmStyle = newVal; return *this;};
     private:
+        static constexpr auto TICK_LENGTH_CONTINUOUS = 9;
+        static constexpr auto TICK_LENGTH_NONE = 0;
+        static constexpr auto TICK_STROKE_STANDARD = .5;
+        
+        static constexpr auto TICK_LENGTH_CUTSHEET = 9;
+        static constexpr auto TICK_TINT_CUTSHEET = 0;
+        static constexpr auto TICK_STROKE_CUTSHEET = .25;
+        
         AIRealRect bounds;
         int offset;
-        float weight = .5;
+        float weight = TICK_STROKE_STANDARD;
         AIColor color;
         SafeguardFile::TickMarkStyle tmStyle;
         bool shouldDrawBleedInfo;
-        
-        static constexpr auto TICK_LENGTH_CUTSHEET = 27;
-        static constexpr auto TICK_LENGTH_CONTINUOUS = 9;
-        static constexpr auto TICK_LENGTH_NONE = 0;
-        
-        static constexpr auto TICK_TINT_CUTSHEET = .8;
     };
 }
 
