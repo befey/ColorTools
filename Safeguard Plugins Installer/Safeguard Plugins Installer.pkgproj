@@ -674,7 +674,7 @@
 			<key>OVERWRITE_PERMISSIONS</key>
 			<false/>
 			<key>VERSION</key>
-			<string>1.8.0.2</string>
+			<string>1.8.1</string>
 		</dict>
 		<key>PROJECT_COMMENTS</key>
 		<dict>
@@ -871,7 +871,7 @@
 				</dict>
 			</array>
 			<key>NAME</key>
-			<string>Safeguard Plugins Installer 1.8.0.2</string>
+			<string>Safeguard Plugins Installer 1.8.1</string>
 		</dict>
 	</dict>
 	<key>TYPE</key>
