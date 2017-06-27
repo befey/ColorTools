@@ -171,7 +171,7 @@ AIRealRect BleedInfo::Bleeds() const
 {
     AIRealRect bleedRect;
 
-    AIRealRect diff = GetExpansionAmountToContainRect(ArtboardBounds(), BtArtHandle(bleedInfoPluginArt).Bounds());
+    AIRealRect diff = {0,0,0,0};//GetExpansionAmountToContainRect(ArtboardBounds(), BtArtHandle(bleedInfoPluginArt).Bounds());
     
     SafeguardFile::ProductType pt = PlateNumber().GetProductType();
     
