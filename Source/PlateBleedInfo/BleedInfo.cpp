@@ -76,7 +76,7 @@ tm BleedInfo::LastModified() const
         sAIDocument->GetDocumentFileSpecification(aiFilePath);
         
         boost::system::error_code ec;
-        time_t lastWrite = fs::last_write_time(aiFilePath.GetFullPath().as_Platform(), ec);
+        lastWrite = fs::last_write_time(aiFilePath.GetFullPath().as_Platform(), ec);
         
         if (ec != boost::system::errc::success)
         {
