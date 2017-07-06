@@ -82,6 +82,7 @@ void BleedInfoController::HandleEditMenu()
 {
     if ( !PlateBleedInfo::BleedInfoPluginArtToArtboardMatcher().IsBleedInfoPluginArtCreated() )
     {
+        RequiredLayersCreator::CreateRequiredLayers();
         DrawBleedInfo(RedrawAllWithoutCheck);
         sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Edit Safeguard Plate Info"), ai::UnicodeString("Redo Edit Safeguard Plate Info"));
     }
