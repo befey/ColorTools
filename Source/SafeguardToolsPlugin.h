@@ -145,6 +145,7 @@ private:
     AINotifierHandle fDocumentCropAreaModifiedNotifierHandle;
     AINotifierHandle fArtSelectionChangedNotifierHandle;
     AINotifierHandle fDocumentSavedNotifierHandle;
+    AINotifierHandle fAIArtCustomColorChangedNotifier;
     
 	/**	Menu item handles**/
     BtAiMenuItemHandles menuItemHandles;
