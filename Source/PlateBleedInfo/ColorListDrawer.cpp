@@ -169,6 +169,11 @@ void ContinuousColorListDrawer::DrawContinuousColorBlocks(AIArtHandle resultGrou
                           {
                               AIArtHandle colorBlock = DrawRectangle(rect, resultGroup);
                               
+                              if (c.Kind() == kCustomColor)
+                              {
+                                  c.Tint(0);
+                              }
+                              
                               AIPathStyle currPathStyle;
                               sAIPathStyle->GetPathStyle(colorBlock, &currPathStyle);
                               currPathStyle.strokePaint = false;
