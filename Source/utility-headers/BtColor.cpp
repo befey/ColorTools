@@ -409,11 +409,18 @@ void BtColor::GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) cons
             textFeatures.FillColor(*BtColor::Black());
             name = BtColor::Black()->Name() + method;
         }
-        else
+        else if (Kind() == kGrayColor)
         {
             name = Name() + method;
             textFillColor = AiColor();
-            textFillColor.c.c.tint = 0;
+            textFillColor.c.g.gray = 1;
+            textFeatures.FillColor(textFillColor);
+        }
+        else //kFourColor but prints as spot (black or gray)
+        {
+            name = Name() + method;
+            textFillColor = AiColor();
+            textFillColor.c.f.black = 1;
             textFeatures.FillColor(textFillColor);
         }
         
