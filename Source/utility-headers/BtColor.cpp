@@ -416,11 +416,12 @@ void BtColor::GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) cons
             textFillColor.c.g.gray = 1;
             textFeatures.FillColor(textFillColor);
         }
-        else //kFourColor but prints as spot (black or gray)
+        else //kFourColor but prints as spot (black or gray), or a kCustomColor that isn't named as a PANTONE color
         {
             name = Name() + method;
             textFillColor = AiColor();
             textFillColor.c.f.black = 1;
+            textFillColor.c.c.tint = 0;
             textFeatures.FillColor(textFillColor);
         }
         
