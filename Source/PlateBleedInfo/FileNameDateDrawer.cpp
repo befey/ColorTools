@@ -76,7 +76,7 @@ AIArtHandle ContinuousFileNameDateDrawer::Draw(AIArtHandle resultGroup) const
     FitTextFrameToContents(plateNumberDateArt);
     
     RotateArt(plateNumberDateArt, anchor, -90);
-    MoveArtOutsideBounds(plateNumberDateArt, artboardBounds, Direction::Right, 0);
+    MoveArtOutsideBounds(plateNumberDateArt, artboardBounds, Direction::Right, 1);
     
     return plateNumberDateArt;
 }

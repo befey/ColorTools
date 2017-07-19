@@ -63,7 +63,23 @@ void ResizeRectangle(AIArtHandle path, AIRealRect newRect, Direction hDirection,
 
 void MoveArtOutsideBounds(AIArtHandle art, AIRealRect bounds, Direction dir, AIReal offset)
 {
-    AIRealRect artRect = BtArtHandle(art).Bounds();
+    BtArtHandle btArt(art);
+    AIRealRect artRect = btArt.Bounds();
+    
+    if (btArt.ArtType() == kTextFrameArt)
+    {
+        if (!btArt.Hidden())
+        {
+            btArt.Locked(false);
+            
+            //Convert the type to paths
+            AIArtHandle tempNewPaths;
+            sAITextFrame->CreateOutline(art, &tempNewPaths);
+            BtArtHandle tempPaths(tempNewPaths);
+            artRect = tempPaths.Bounds();
+            tempPaths.Dispose();
+        }
+    }
     
     AIReal hMove = 0, vMove = 0;
     

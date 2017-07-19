@@ -90,7 +90,7 @@ AIArtHandle ContinuousColorListDrawer::DrawerSpecificSteps(AIArtHandle resultGro
     FitTextFrameToContents(colorListArt);
     
     RotateArt(colorListArt, anchor, -90);
-    MoveArtOutsideBounds(colorListArt, artboardBounds, Direction::Right, 0);
+    MoveArtOutsideBounds(colorListArt, artboardBounds, Direction::Right, 1);
     
     DrawContinuousColorBlocks(colorListGroup);
     
