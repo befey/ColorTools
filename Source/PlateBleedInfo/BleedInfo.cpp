@@ -14,6 +14,7 @@
 #include "BleedInfoWriter.hpp"
 #include "BleedInfoDrawableController.h"
 #include "SafeguardJobFileDTO.hpp"
+#include "SafeguardFileConstants.h"
 #include "TokenCreator.hpp"
 #include "ArtboardNameRetriever.hpp"
 #include "CurrentFilenameRetriever.hpp"
@@ -182,6 +183,12 @@ AIRealRect BleedInfo::Bleeds() const
         if (diff.right < 36) diff.right = 36;
         if (diff.bottom < 36) diff.bottom = 36;
         sAIRealMath->AIRealRectSet(&bleedRect, diff.left, diff.top, diff.right, diff.bottom);
+        
+        if (TickMarkSettings().TickMarkStyle() == SafeguardFile::TickMarkStyle::Inner)
+        {
+            sAIRealMath->AIRealRectSet(&bleedRect, 0, 0, 0, 0);
+        }
+        
     }
     else if (pt == SafeguardFile::ProductType::BusinessStat)
     {
