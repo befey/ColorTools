@@ -109,7 +109,7 @@ void FileNameDateDrawer::PutPlateNumberDateStringInTextRange(ATE::ITextRange& ta
     
     int month, year;
     month = lastModified.tm_mon + 1;
-    year = lastModified.tm_year + 1900;
+    year = (lastModified.tm_year + 1900) % 100;
     
     AddTextToRange("  " + to_string(month) + "/" + to_string(year), targetRange);
 }
