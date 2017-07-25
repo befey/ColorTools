@@ -53,7 +53,7 @@ AIArtHandle LaserFileNameDateDrawer::Draw(AIArtHandle resultGroup) const
     
     PutPlateNumberDateStringInTextRange(range);
     BtAteTextFeatures textFeatures;
-    textFeatures.FontSize(12).Font("Helvetica-Bold").Justification(ATE::kRightJustify).FillColor(BtColor::RegistrationColor()).AutoHyphenate(false);
+    textFeatures.FontSize(12).Font("Helvetica-Bold").Leading(12.5).Justification(ATE::kRightJustify).FillColor(BtColor::RegistrationColor()).AutoHyphenate(false);
     textFeatures.ApplyFeaturesToRange(range);
     
     FitTextFrameToContents(plateNumberDateArt);

@@ -63,7 +63,7 @@ AIArtHandle LaserColorListDrawer::DrawerSpecificSteps(AIArtHandle resultGroup) c
     colorList.AsTextRange(range);
     
     BtAteTextFeatures textFeatures;
-    textFeatures.FontSize(12).Font("Helvetica-Bold").Justification(ATE::kLeftJustify);
+    textFeatures.FontSize(12).Font("Helvetica-Bold").Leading(12.5).Justification(ATE::kLeftJustify);
     textFeatures.ApplyFeaturesToRange(range);
 
     FitTextFrameToContents(colorListArt);
