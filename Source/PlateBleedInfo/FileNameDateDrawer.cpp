@@ -70,7 +70,7 @@ AIArtHandle ContinuousFileNameDateDrawer::Draw(AIArtHandle resultGroup) const
     
     PutPlateNumberDateStringInTextRange(range);
     BtAteTextFeatures textFeatures;
-    textFeatures.FontSize(8).Font("Helvetica").Justification(ATE::kLeftJustify).FillColor(BtColor::RegistrationColor()).AutoHyphenate(false);
+    textFeatures.FontSize(8).Font("Helvetica").Leading(8.5).Justification(ATE::kLeftJustify).FillColor(BtColor::RegistrationColor()).AutoHyphenate(false);
     textFeatures.ApplyFeaturesToRange(range);
 
     FitTextFrameToContents(plateNumberDateArt);

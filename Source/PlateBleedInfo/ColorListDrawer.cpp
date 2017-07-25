@@ -84,7 +84,7 @@ AIArtHandle ContinuousColorListDrawer::DrawerSpecificSteps(AIArtHandle resultGro
     colorList.AsTextRange(range);
     
     BtAteTextFeatures textFeatures;
-    textFeatures.FontSize(9).Font("Helvetica-Bold").Justification(ATE::kLeftJustify);
+    textFeatures.FontSize(9).Font("Helvetica-Bold").Leading(9.5).Justification(ATE::kLeftJustify);
     textFeatures.ApplyFeaturesToRange(range);
     
     FitTextFrameToContents(colorListArt);
