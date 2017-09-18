@@ -24,7 +24,7 @@ bool FixFreehandType() {
 		sAIArtSet->MatchingArtSet( selectedSpecs , 1, artSet );
 		
 		//Loop the art set
-		size_t count;
+		size_t count = 0;
         sAIArtSet->CountArtSet( artSet, &count );
 		for ( int i=0 ; i < count ; i++ ) {
 			
@@ -79,9 +79,8 @@ bool FixFreehandType() {
 				
 				FixTextAttributes(currTextRange, firstRunBaselineShift);
 			}
-            
-            sAIArtSet->DisposeArtSet(&artSet);
 		}
+        sAIArtSet->DisposeArtSet(&artSet);
 	}
 	
 	return true;
