@@ -130,7 +130,7 @@ public:
         {
             return make_shared<SafeguardFile::ContinuousFileNameDateDrawer>(settings.artboardBounds, settings.plateNumber, settings.token, settings.lastModified);
         }
-        else if (settings.pt == SafeguardFile::ProductType::CutSheet || settings.pt == SafeguardFile::ProductType::Envelope)
+        else if (settings.pt == SafeguardFile::ProductType::CutSheet || settings.pt == SafeguardFile::ProductType::Envelope || settings.pt == SafeguardFile::ProductType::Snapset)
         {
             return make_shared<SafeguardFile::LaserFileNameDateDrawer>(settings.artboardBounds, settings.plateNumber, settings.token, settings.lastModified);
         }

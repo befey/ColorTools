@@ -146,7 +146,7 @@ public:
         {
             return make_shared<SafeguardFile::ContinuousColorListDrawer>(settings.artboardBounds, settings.colorList);
         }
-        else if (settings.pt == SafeguardFile::ProductType::CutSheet || settings.pt == SafeguardFile::ProductType::Envelope)
+        else if (settings.pt == SafeguardFile::ProductType::CutSheet || settings.pt == SafeguardFile::ProductType::Envelope || settings.pt == SafeguardFile::ProductType::Snapset)
         {
             return make_shared<SafeguardFile::LaserColorListDrawer>(settings.artboardBounds, settings.colorList);
         }
