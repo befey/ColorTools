@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F965031C1FCDFAF900C3B095 /* PathCreator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F965031A1FCDFAF900C3B095 /* PathCreator.cpp */; };
 		F9C7FA3C1FCDE0DC0022E730 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9C7FA3B1FCDE0DC0022E730 /* main.cpp */; };
 		F9C7FA4A1FCDF1CE0022E730 /* ExistingFileDeleter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9C7FA481FCDF1CE0022E730 /* ExistingFileDeleter.cpp */; };
 		F9C7FA4D1FCDF4130022E730 /* FilesystemResults.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9C7FA4B1FCDF4130022E730 /* FilesystemResults.cpp */; };
@@ -25,6 +26,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F965031A1FCDFAF900C3B095 /* PathCreator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PathCreator.cpp; path = "../../Source/utility-headers/Filesystem/PathCreator.cpp"; sourceTree = "<group>"; };
+		F965031B1FCDFAF900C3B095 /* PathCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PathCreator.h; path = "../../Source/utility-headers/Filesystem/PathCreator.h"; sourceTree = "<group>"; };
 		F9C7FA381FCDE0DC0022E730 /* ManufacturingVoidCleanup */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ManufacturingVoidCleanup; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9C7FA3B1FCDE0DC0022E730 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		F9C7FA481FCDF1CE0022E730 /* ExistingFileDeleter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ExistingFileDeleter.cpp; path = "../../Source/utility-headers/Filesystem/ExistingFileDeleter.cpp"; sourceTree = "<group>"; };
@@ -44,6 +47,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F96503191FCDFACF00C3B095 /* Shared Headers */ = {
+			isa = PBXGroup;
+			children = (
+				F9C7FA481FCDF1CE0022E730 /* ExistingFileDeleter.cpp */,
+				F9C7FA491FCDF1CE0022E730 /* ExistingFileDeleter.h */,
+				F9C7FA4B1FCDF4130022E730 /* FilesystemResults.cpp */,
+				F9C7FA4C1FCDF4130022E730 /* FilesystemResults.hpp */,
+				F965031A1FCDFAF900C3B095 /* PathCreator.cpp */,
+				F965031B1FCDFAF900C3B095 /* PathCreator.h */,
+			);
+			name = "Shared Headers";
+			sourceTree = "<group>";
+		};
 		F9C7FA2F1FCDE0DB0022E730 = {
 			isa = PBXGroup;
 			children = (
@@ -63,11 +79,8 @@
 		F9C7FA3A1FCDE0DC0022E730 /* ManufacturingVoidCleanup */ = {
 			isa = PBXGroup;
 			children = (
+				F96503191FCDFACF00C3B095 /* Shared Headers */,
 				F9C7FA3B1FCDE0DC0022E730 /* main.cpp */,
-				F9C7FA481FCDF1CE0022E730 /* ExistingFileDeleter.cpp */,
-				F9C7FA491FCDF1CE0022E730 /* ExistingFileDeleter.h */,
-				F9C7FA4B1FCDF4130022E730 /* FilesystemResults.cpp */,
-				F9C7FA4C1FCDF4130022E730 /* FilesystemResults.hpp */,
 			);
 			path = ManufacturingVoidCleanup;
 			sourceTree = "<group>";
@@ -130,6 +143,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9C7FA4A1FCDF1CE0022E730 /* ExistingFileDeleter.cpp in Sources */,
+				F965031C1FCDFAF900C3B095 /* PathCreator.cpp in Sources */,
 				F9C7FA4D1FCDF4130022E730 /* FilesystemResults.cpp in Sources */,
 				F9C7FA3C1FCDE0DC0022E730 /* main.cpp in Sources */,
 			);
