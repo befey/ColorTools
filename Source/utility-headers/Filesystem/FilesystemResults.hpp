@@ -9,6 +9,9 @@
 #ifndef FilesystemResults_hpp
 #define FilesystemResults_hpp
 
+#include <string>
+#include <boost/filesystem.hpp>
+
 class FilesystemResults
 {
 public:
@@ -20,13 +23,13 @@ public:
             Created
         };
         Action action;
-        ai::FilePath path;
+        boost::filesystem::path path;
     };
     
     void AddResult(Transaction transaction);
     void AddResult(FilesystemResults resultList);
     
-    string MakeXmlString() const;
+    std::string MakeXmlString() const;
     
 private:
     std::vector<Transaction> results;
