@@ -9,20 +9,17 @@
 #include "PathCreator.h"
 
 #include <boost/system/system_error.hpp>
-#include <boost/filesystem.hpp>
 
 namespace fs = boost::filesystem;
 
-bool PathCreator::CreatePath(ai::FilePath path) const
+bool PathCreator::CreatePath(fs::path path) const
 {
-    fs::path p = path.GetFullPath().as_Platform();
-    
-    if (fs::exists(p))
+    if (fs::exists(path))
     {
         return true;
     }
     else
     {
-        return fs::create_directories(p);
+        return fs::create_directories(path);
     }
 }
