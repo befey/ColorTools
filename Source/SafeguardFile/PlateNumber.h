@@ -29,44 +29,39 @@
  };
  
  */
-#include "AIPath.h"
-#include "AIArtboard.h"
-#include "SafeguardFileConstants.h"
-#include "ICanBeTextRange.h"
 
-extern AIPathSuite* sAIPath;
-extern AIArtboardSuite* sAIArtboard;
+#include <string>
+#include "SafeguardFileConstants.h"
 
 namespace SafeguardFile
 {
-    class PlateNumber : public ICanBeTextRange
+    class PlateNumber
     {
     public:
         PlateNumber(){};
-        PlateNumber(string);
+        PlateNumber(std::string);
         
-        inline Boolean IsValid() const {return isValidPlateNumber;};
+        inline bool IsValid() const {return isValidPlateNumber;};
         
-        inline string GetPlantIndicator() const {return plantIndicator;};
-        inline string GetProductIndicator() const {return productIndicator;};
+        inline std::string GetPlantIndicator() const {return plantIndicator;};
+        inline std::string GetProductIndicator() const {return productIndicator;};
         ProductType GetProductType() const;
-        inline string GetSuffix() const { return suffix; };
+        inline std::string GetSuffix() const { return suffix; };
         
-        inline operator string(void) const { return plateNumber; }
+        inline operator std::string(void) const { return plateNumber; }
         
     private:
-        string plateNumber;
-        string plantIndicator;
-        string year;
-        string productIndicator;
-        string number;
-        string suffix;
-        Boolean isValidPlateNumber = false;
+        std::string plateNumber;
+        std::string plantIndicator;
+        std::string year;
+        std::string productIndicator;
+        std::string number;
+        std::string suffix;
+        bool isValidPlateNumber = false;
         
-        Boolean TokenizePlateNumber();
-        Boolean HasInnerTicks() const;
+        bool TokenizePlateNumber();
         
-        void GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) const override;
+        bool HasInnerTicks() const { return false; };
     };
     
 }

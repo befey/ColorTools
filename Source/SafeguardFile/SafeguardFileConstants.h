@@ -53,7 +53,7 @@ namespace SafeguardFile
         Magnetic
     };
     
-    const std::map<InkMethod, string> InkMethodStrings
+    const std::map<InkMethod, std::string> InkMethodStrings
     {
         {InkMethod::NONE, "NONE"},
         {InkMethod::Flat, "FLAT"},
@@ -73,7 +73,7 @@ namespace SafeguardFile
         BsStyle
     };
     
-    const std::map<TickMarkStyle, string> TickMarkStyleStrings
+    const std::map<TickMarkStyle, std::string> TickMarkStyleStrings
     {
         {TickMarkStyle::NONE, "NONE"},
         {TickMarkStyle::Outer, "Outer"},
