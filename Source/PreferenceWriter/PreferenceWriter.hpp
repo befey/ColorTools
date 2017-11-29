@@ -15,12 +15,11 @@
 class PreferenceWriter
 {
 public:
-    virtual bool GetFilePathFromIdentifier(std::string identifier, boost::filesystem::path& path);
-    virtual bool SetFilePathForIdentifier(std::string identifier, boost::filesystem::path path);
+    virtual bool GetFilePathFromIdentifier(std::string identifier, boost::filesystem::path& path) = 0;
+    virtual bool SetFilePathForIdentifier(std::string identifier, boost::filesystem::path path) = 0;
     
 protected:
     PreferenceWriter(std::string prefix) : prefix(prefix) {};
-    ~PreferenceWriter() {};
     
     std::string prefix;
 };

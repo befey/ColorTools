@@ -21,7 +21,7 @@ using PrintToPdf::MicrProofPathBuilder;
 using PrintToPdf::TestingPathBuilder;
 using PrintToPdf::UserPathBuilder;
 
-std::unique_ptr<PathBuilder> PathBuilder::GetPathBuilder(PdfPreset preset, bool userOutputFolder, DirectoryChooser& chooser, PreferenceWriter& writer)
+std::unique_ptr<PathBuilder> PathBuilder::GetPathBuilder(PdfPreset preset, bool userOutputFolder, std::shared_ptr<DirectoryChooser> chooser, std::shared_ptr<PreferenceWriter> writer)
 {
     if (userOutputFolder)
     {
@@ -64,7 +64,7 @@ fs::path ManufacturingPathBuilder::GetPath(const PlateNumber pn) const
     }
     
     fs::path saveasFilePath;
-    if (!prefWriter.GetFilePathFromIdentifier(MANUFACTURING_PDF_PRESET, saveasFilePath))
+    if (!prefWriter->GetFilePathFromIdentifier(MANUFACTURING_PDF_PRESET, saveasFilePath))
     {
         saveasFilePath = PATH_TO_PLANT_MANUFACTURING;
     }
@@ -84,7 +84,7 @@ fs::path ManufacturingPathBuilder::GetPath(const PlateNumber pn) const
 fs::path ProofPathBuilder::GetPath(const PlateNumber pn) const
 {
     fs::path saveasFilePath;
-    if (!prefWriter.GetFilePathFromIdentifier(REG_PROOF_PDF_PRESET, saveasFilePath))
+    if (!prefWriter->GetFilePathFromIdentifier(REG_PROOF_PDF_PRESET, saveasFilePath))
     {
         saveasFilePath = PATH_TO_PDFPROOFS;
     }
@@ -102,7 +102,7 @@ fs::path ProofPathBuilder::GetPath(const PlateNumber pn) const
 fs::path MicrProofPathBuilder::GetPath(const PlateNumber pn) const
 {
     fs::path saveasFilePath;
-    if (!prefWriter.GetFilePathFromIdentifier(MICR_PROOF_PDF_PRESET, saveasFilePath))
+    if (!prefWriter->GetFilePathFromIdentifier(MICR_PROOF_PDF_PRESET, saveasFilePath))
     {
         saveasFilePath = PATH_TO_MICR_PDF;
     }
@@ -119,7 +119,7 @@ fs::path MicrProofPathBuilder::GetPath(const PlateNumber pn) const
 
 fs::path UserPathBuilder::GetPath(const PlateNumber pn) const
 {      
-    return dirChooser.GetDirectory();;
+    return dirChooser->GetDirectory();;
 }
 
 

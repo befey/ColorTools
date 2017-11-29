@@ -19,14 +19,14 @@ class CommandLinePreferenceWriter : public PreferenceWriter
 public:
     CommandLinePreferenceWriter(std::string prefix) : PreferenceWriter(prefix) {};
     
-    bool GetFilePathFromIdentifier(string identifier, boost::filesystem::path& path) override
+    bool GetFilePathFromIdentifier(std::string identifier, boost::filesystem::path& path) override
     {
-        return true;
+        return false;
     }
     
-    bool SetFilePathForIdentifier(string identifier, boost::filesystem::path path) override
+    bool SetFilePathForIdentifier(std::string identifier, boost::filesystem::path path) override
     {
-        return true;
+        return false;
     }
 };
 

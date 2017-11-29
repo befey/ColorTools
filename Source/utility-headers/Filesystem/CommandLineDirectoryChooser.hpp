@@ -22,8 +22,8 @@ public:
     boost::filesystem::path GetDirectory() override
     {
         std::string strpath;
-        cout << "/nPlease enter a directory path: ";
-        cin >> strpath;
+        std::cout << "/nPlease enter a directory path: ";
+        std::cin >> strpath;
         
         return boost::filesystem::path(strpath);
     };

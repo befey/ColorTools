@@ -14,11 +14,10 @@
 class DirectoryChooser
 {
 public:
-    virtual boost::filesystem::path GetDirectory();
+    virtual boost::filesystem::path GetDirectory() = 0;
     
 protected:
     DirectoryChooser() {};
-    ~DirectoryChooser() {};
 };
 
 

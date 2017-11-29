@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F965031C1FCDFAF900C3B095 /* PathCreator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F965031A1FCDFAF900C3B095 /* PathCreator.cpp */; };
 		F965031F1FCDFC5C00C3B095 /* PathBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F965031D1FCDFC5B00C3B095 /* PathBuilder.cpp */; };
 		F96503231FCDFFF300C3B095 /* PlateNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F96503211FCDFFF300C3B095 /* PlateNumber.cpp */; };
 		F9C7FA3C1FCDE0DC0022E730 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9C7FA3B1FCDE0DC0022E730 /* main.cpp */; };
@@ -28,8 +27,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		F965031A1FCDFAF900C3B095 /* PathCreator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PathCreator.cpp; path = "../../Source/utility-headers/Filesystem/PathCreator.cpp"; sourceTree = "<group>"; };
-		F965031B1FCDFAF900C3B095 /* PathCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PathCreator.h; path = "../../Source/utility-headers/Filesystem/PathCreator.h"; sourceTree = "<group>"; };
 		F965031D1FCDFC5B00C3B095 /* PathBuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PathBuilder.cpp; path = "../../Source/utility-headers/Filesystem/PathBuilder.cpp"; sourceTree = "<group>"; };
 		F965031E1FCDFC5B00C3B095 /* PathBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PathBuilder.h; path = "../../Source/utility-headers/Filesystem/PathBuilder.h"; sourceTree = "<group>"; };
 		F96503201FCDFCF800C3B095 /* SgPathConstants.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = SgPathConstants.hpp; path = "../../Source/utility-headers/Filesystem/SgPathConstants.hpp"; sourceTree = "<group>"; };
@@ -69,13 +66,11 @@
 				F9C7FA4C1FCDF4130022E730 /* FilesystemResults.hpp */,
 				F965031D1FCDFC5B00C3B095 /* PathBuilder.cpp */,
 				F965031E1FCDFC5B00C3B095 /* PathBuilder.h */,
-				F965031A1FCDFAF900C3B095 /* PathCreator.cpp */,
-				F965031B1FCDFAF900C3B095 /* PathCreator.h */,
 				F965032D1FCF000100C3B095 /* CommandLinePreferenceWriter.hpp */,
 				F965032A1FCEFFAD00C3B095 /* PreferenceWriter.hpp */,
-				F96503201FCDFCF800C3B095 /* SgPathConstants.hpp */,
 				F96503211FCDFFF300C3B095 /* PlateNumber.cpp */,
 				F96503221FCDFFF300C3B095 /* PlateNumber.h */,
+				F96503201FCDFCF800C3B095 /* SgPathConstants.hpp */,
 			);
 			name = "Shared Headers";
 			sourceTree = "<group>";
@@ -164,7 +159,6 @@
 			files = (
 				F9C7FA4A1FCDF1CE0022E730 /* ExistingFileDeleter.cpp in Sources */,
 				F965031F1FCDFC5C00C3B095 /* PathBuilder.cpp in Sources */,
-				F965031C1FCDFAF900C3B095 /* PathCreator.cpp in Sources */,
 				F9C7FA4D1FCDF4130022E730 /* FilesystemResults.cpp in Sources */,
 				F9C7FA3C1FCDE0DC0022E730 /* main.cpp in Sources */,
 				F96503231FCDFFF300C3B095 /* PlateNumber.cpp in Sources */,

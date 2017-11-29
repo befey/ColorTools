@@ -20,50 +20,67 @@ namespace PrintToPdf
     class PathBuilder
     {
     public:
-        std::unique_ptr<PathBuilder> GetPathBuilder(PdfPreset preset, bool userOutputFolder, DirectoryChooser& chooser, PreferenceWriter& writer);
+        static std::unique_ptr<PathBuilder> GetPathBuilder(PdfPreset preset, bool userOutputFolder, std::shared_ptr<DirectoryChooser> chooser, std::shared_ptr<PreferenceWriter> writer);
         
         virtual boost::filesystem::path GetPath(const SafeguardFile::PlateNumber pn) const = 0;
     protected:
-        PathBuilder(DirectoryChooser& chooser, PreferenceWriter& writer) : dirChooser(chooser), prefWriter(writer) {};
-        
-        DirectoryChooser& dirChooser;
-        PreferenceWriter& prefWriter;
+        PathBuilder(){};
     };
     
     
     class ManufacturingPathBuilder : public PathBuilder
     {
     public:
-        ManufacturingPathBuilder(DirectoryChooser& chooser, PreferenceWriter& writer) : PathBuilder(chooser, writer) {};
+        ManufacturingPathBuilder(std::shared_ptr<DirectoryChooser> chooser, std::shared_ptr<PreferenceWriter> writer) : dirChooser(chooser), prefWriter(writer) {};
         boost::filesystem::path GetPath(const SafeguardFile::PlateNumber pn) const override;
+        
+    private:
+        std::shared_ptr<DirectoryChooser> dirChooser;
+        std::shared_ptr<PreferenceWriter> prefWriter;
     };
     
     class ProofPathBuilder : public PathBuilder
     {
     public:
-        ProofPathBuilder(DirectoryChooser& chooser, PreferenceWriter& writer) : PathBuilder(chooser, writer) {};
+        ProofPathBuilder(std::shared_ptr<DirectoryChooser> chooser, std::shared_ptr<PreferenceWriter> writer) : dirChooser(chooser), prefWriter(writer) {};
         boost::filesystem::path GetPath(const SafeguardFile::PlateNumber pn) const override;
+
+    private:
+        std::shared_ptr<DirectoryChooser> dirChooser;
+        std::shared_ptr<PreferenceWriter> prefWriter;
     };
     
     class MicrProofPathBuilder : public PathBuilder
     {
     public:
-        MicrProofPathBuilder(DirectoryChooser& chooser, PreferenceWriter& writer) : PathBuilder(chooser, writer) {};
+        MicrProofPathBuilder(std::shared_ptr<DirectoryChooser> chooser, std::shared_ptr<PreferenceWriter> writer) : dirChooser(chooser), prefWriter(writer) {};
         boost::filesystem::path GetPath(const SafeguardFile::PlateNumber pn) const override;
+        
+    private:
+        std::shared_ptr<DirectoryChooser> dirChooser;
+        std::shared_ptr<PreferenceWriter> prefWriter;
     };
  
     class UserPathBuilder : public PathBuilder
     {
     public:
-        UserPathBuilder(DirectoryChooser& chooser, PreferenceWriter& writer) : PathBuilder(chooser, writer) {};
+        UserPathBuilder(std::shared_ptr<DirectoryChooser> chooser, std::shared_ptr<PreferenceWriter> writer) : dirChooser(chooser), prefWriter(writer) {};
         boost::filesystem::path GetPath(const SafeguardFile::PlateNumber pn) const override;
+        
+    private:
+        std::shared_ptr<DirectoryChooser> dirChooser;
+        std::shared_ptr<PreferenceWriter> prefWriter;
     };
     
     class TestingPathBuilder : public PathBuilder
     {
     public:
-        TestingPathBuilder(DirectoryChooser& chooser, PreferenceWriter& writer) : PathBuilder(chooser, writer) {};
+        TestingPathBuilder(std::shared_ptr<DirectoryChooser> chooser, std::shared_ptr<PreferenceWriter> writer) : dirChooser(chooser), prefWriter(writer) {};
         boost::filesystem::path GetPath(const SafeguardFile::PlateNumber pn) const override;
+        
+    private:
+        std::shared_ptr<DirectoryChooser> dirChooser;
+        std::shared_ptr<PreferenceWriter> prefWriter;
     };
 }
 #endif /* defined(__SafeguardTools__PathBuilder__) */
