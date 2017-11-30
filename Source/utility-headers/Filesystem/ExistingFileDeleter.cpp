@@ -10,7 +10,6 @@
 #include <boost/system/system_error.hpp>
 #include <boost/iterator/filter_iterator.hpp>
 #include <boost/algorithm/string.hpp>
-#include <iostream>
 
 using Transaction = FilesystemResults::Transaction;
 
@@ -25,11 +24,6 @@ FilesystemResults ExistingFileDeleter::Delete(std::string matchString, fs::path 
 {
     std::vector<fs::path> filesToDelete;
     FilesystemResults deletedFiles;
-    
-    if (doNotDelete)
-    {
-        return deletedFiles;
-    }
     
     boost::algorithm::to_upper(matchString);
 
@@ -49,19 +43,30 @@ FilesystemResults ExistingFileDeleter::Delete(std::string matchString, fs::path 
         }
     };
 
-    std::copy(
-              boost::make_filter_iterator(pred, fs::directory_iterator(fp), fs::directory_iterator()),
-              boost::make_filter_iterator(pred, fs::directory_iterator(), fs::directory_iterator()),
-              std::back_inserter(filesToDelete)
-             );
+    try {
+        std::copy(
+                  boost::make_filter_iterator(pred, fs::directory_iterator(fp), fs::directory_iterator()),
+                  boost::make_filter_iterator(pred, fs::directory_iterator(), fs::directory_iterator()),
+                  std::back_inserter(filesToDelete)
+                  );
+    }
+    catch(const fs::filesystem_error& e)
+    {
+        e.what();
+    }
     
     for (auto fp : filesToDelete)
     {
+        deletedFiles.AddResult({.action = Transaction::Found, .path = fp });
         boost::system::error_code ec;
-        fs::remove(fp, ec);
-        if (ec == boost::system::errc::success)
+        
+        if (!doNotDelete)
         {
-            deletedFiles.AddResult({.action = Transaction::Deleted, .path = fp });
+            fs::remove(fp, ec);
+            if (ec == boost::system::errc::success)
+            {
+                deletedFiles.AddResult({.action = Transaction::Deleted, .path = fp });
+            }
         }
     }
     

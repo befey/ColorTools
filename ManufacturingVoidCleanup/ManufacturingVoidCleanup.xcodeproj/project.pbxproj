@@ -36,6 +36,7 @@
 		F96503281FCEF3E000C3B095 /* CommandLineDirectoryChooser.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CommandLineDirectoryChooser.hpp; path = "../../Source/utility-headers/Filesystem/CommandLineDirectoryChooser.hpp"; sourceTree = "<group>"; };
 		F965032A1FCEFFAD00C3B095 /* PreferenceWriter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PreferenceWriter.hpp; path = ../../Source/PreferenceWriter/PreferenceWriter.hpp; sourceTree = "<group>"; };
 		F965032D1FCF000100C3B095 /* CommandLinePreferenceWriter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CommandLinePreferenceWriter.hpp; path = ../../Source/PreferenceWriter/CommandLinePreferenceWriter.hpp; sourceTree = "<group>"; };
+		F965032F1FCF2EEF00C3B095 /* TargetPlate.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TargetPlate.hpp; sourceTree = "<group>"; };
 		F9C7FA381FCDE0DC0022E730 /* ManufacturingVoidCleanup */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ManufacturingVoidCleanup; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9C7FA3B1FCDE0DC0022E730 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		F9C7FA481FCDF1CE0022E730 /* ExistingFileDeleter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ExistingFileDeleter.cpp; path = "../../Source/utility-headers/Filesystem/ExistingFileDeleter.cpp"; sourceTree = "<group>"; };
@@ -96,6 +97,7 @@
 			children = (
 				F96503191FCDFACF00C3B095 /* Shared Headers */,
 				F9C7FA3B1FCDE0DC0022E730 /* main.cpp */,
+				F965032F1FCF2EEF00C3B095 /* TargetPlate.hpp */,
 			);
 			path = ManufacturingVoidCleanup;
 			sourceTree = "<group>";

@@ -27,18 +27,20 @@ PlateNumber::PlateNumber(std::string pNum)
 
 bool PlateNumber::TokenizePlateNumber()
 {
-    std::regex r("(?:^(?:([a-z])(\\d{2}))?([a-z]{2})(\\d{3,6})?[.]?(\\S*))", std::regex::icase);
+    std::regex r("(?:^(?:([a-z])(\\d{2}))?(([a-z]{2})(\\d{3,6})){1}?[.]?(\\S*))", std::regex::icase);
     
     std::smatch result;
+    
     std::regex_search(plateNumber, result, r);
     
     /*There's two different plate number formats -- Y16SF000123 and SF00123 if we have a plate number in one of those formats we will get a result with matches:
         0: <the input plate number>
         1: <the plant indicator if the first type>
         2: <the year if the first type>
-        3: <the product indicator>
-        4: <the number>
-        5: any trailing .BP, etc. but without the "."
+        3: <UNUSED> group 4 and 5 together
+        4: <the product indicator>
+        5: <the number>
+        6: any trailing .BP, etc. but without the "."
     */
 
     if (result.size() == 0)
@@ -51,9 +53,9 @@ bool PlateNumber::TokenizePlateNumber()
         plantIndicator = result[1];
         year = result[2];
     }
-    productIndicator = result[3];
-    number = result[4];
-    suffix = result[5];
+    productIndicator = result[4];
+    number = result[5];
+    suffix = result[6];
     return true;
 }
 
