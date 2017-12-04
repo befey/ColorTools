@@ -23,7 +23,7 @@
 
 static constexpr auto MANUFACTURING_VOID_CLEANUP_FOLDERPREFS_EXTENSION =  "com.gosafeguard.SafeguardTools.ManufacturingVoidCleanup.FolderPrefs";
 
-bool DO_NOT_DELETE = true;
+bool DO_NOT_DELETE = false;
 
 int GetFoundSize(std::vector<FilesystemResults> resultList)
 {
@@ -87,7 +87,6 @@ void GetDirectoryListingInSet(std::set<boost::filesystem::directory_entry>& dire
 
 int main(int argc, const char * argv[]) {
     time_t storedTimeOfDirList = time(NULL);
-    time_t storedTimeOfDelete = time(NULL);
     
     std::vector<std::string> filesFailedToDelete;
     std::vector<std::string> filesNotFound;
