@@ -10,15 +10,16 @@
 #define __SafeguardTools__ExistingFileDeleter__
 
 #include "FilesystemResults.hpp"
+#include <boost/filesystem.hpp>
 
 class ExistingFileDeleter
     {
     public:
         ExistingFileDeleter(bool doNotDelete) : doNotDelete(doNotDelete) {};
         
-        static unique_ptr<ExistingFileDeleter> GetExistingFileDeleter(bool doNotDelete);
+        static std::unique_ptr<ExistingFileDeleter> GetExistingFileDeleter(bool doNotDelete);
         
-        FilesystemResults Delete(string matchString, ai::FilePath);
+        FilesystemResults Delete(std::string matchString, boost::filesystem::path fp);
         
     private:
         bool doNotDelete;

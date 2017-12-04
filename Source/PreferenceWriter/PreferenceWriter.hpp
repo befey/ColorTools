@@ -9,19 +9,21 @@
 #ifndef PreferenceWriter_hpp
 #define PreferenceWriter_hpp
 
-#include "AIPreference.h"
-
-extern AIPreferenceSuite* sAIPreference;
+#include <string>
+#include <boost/filesystem.hpp>
 
 class PreferenceWriter
 {
 public:
-    PreferenceWriter(string prefix) : prefix(prefix) {};
+    virtual bool GetFilePathFromIdentifier(std::string identifier, boost::filesystem::path& path) = 0;
+    virtual bool SetFilePathForIdentifier(std::string identifier, boost::filesystem::path path) = 0;
     
-    bool GetFilePathFromIdentifier(string identifier, ai::FilePath& path);
-    bool SetFilePathForIdentifier(string identifier, ai::FilePath path);
-private:
-    string prefix;
+protected:
+    PreferenceWriter(std::string prefix) : prefix(prefix) {};
+    
+    std::string prefix;
 };
+
+
 
 #endif /* PreferenceRetriever_hpp */

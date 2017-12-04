@@ -8,40 +8,32 @@
 
 #include "ExistingFileDeleter.h"
 #include <boost/system/system_error.hpp>
-#include <boost/filesystem.hpp>
 #include <boost/iterator/filter_iterator.hpp>
 #include <boost/algorithm/string.hpp>
-#include <iostream>
 
 using Transaction = FilesystemResults::Transaction;
 
 namespace fs = boost::filesystem;
 
-unique_ptr<ExistingFileDeleter> ExistingFileDeleter::GetExistingFileDeleter(bool doNotDelete)
+std::unique_ptr<ExistingFileDeleter> ExistingFileDeleter::GetExistingFileDeleter(bool doNotDelete)
 {
-    return unique_ptr<ExistingFileDeleter> { make_unique<ExistingFileDeleter>(doNotDelete) };
+    return std::unique_ptr<ExistingFileDeleter> { std::make_unique<ExistingFileDeleter>(doNotDelete) };
 }
 
-FilesystemResults ExistingFileDeleter::Delete(string matchString, ai::FilePath fp)
+FilesystemResults ExistingFileDeleter::Delete(std::string matchString, fs::path fp)
 {
-    vector<fs::path> filesToDelete;
+    std::vector<fs::path> filesToDelete;
     FilesystemResults deletedFiles;
     
-    if (doNotDelete)
-    {
-        return deletedFiles;
-    }
-    
-    fs::path p = fp.GetFullPath().as_Platform();
     boost::algorithm::to_upper(matchString);
 
-    typedef function<bool(const fs::directory_entry&)> filterfunc;
+    typedef std::function<bool(const fs::directory_entry&)> filterfunc;
     filterfunc pred = [matchString](const fs::directory_entry& e)
     {
-        string currFile = e.path().filename().string();
+        std::string currFile = e.path().filename().string();
         boost::algorithm::to_upper(currFile);
         
-        if (currFile.find(matchString) != string::npos)
+        if (currFile.find(matchString) != std::string::npos)
         {
             return true;
         }
@@ -51,19 +43,30 @@ FilesystemResults ExistingFileDeleter::Delete(string matchString, ai::FilePath f
         }
     };
 
-    std::copy(
-              boost::make_filter_iterator(pred, fs::directory_iterator(p), fs::directory_iterator()),
-              boost::make_filter_iterator(pred, fs::directory_iterator(), fs::directory_iterator()),
-              std::back_inserter(filesToDelete)
-             );
-    
-    for (auto p : filesToDelete)
+    try {
+        std::copy(
+                  boost::make_filter_iterator(pred, fs::directory_iterator(fp), fs::directory_iterator()),
+                  boost::make_filter_iterator(pred, fs::directory_iterator(), fs::directory_iterator()),
+                  std::back_inserter(filesToDelete)
+                  );
+    }
+    catch(const fs::filesystem_error& e)
     {
+        e.what();
+    }
+    
+    for (auto fp : filesToDelete)
+    {
+        deletedFiles.AddResult({.action = Transaction::Found, .path = fp });
         boost::system::error_code ec;
-        fs::remove(p, ec);
-        if (ec == boost::system::errc::success)
+        
+        if (!doNotDelete)
         {
-            deletedFiles.AddResult({.action = Transaction::Deleted, .path = ai::FilePath(ai::UnicodeString(p.string())) });
+            fs::remove(fp, ec);
+            if (ec == boost::system::errc::success)
+            {
+                deletedFiles.AddResult({.action = Transaction::Deleted, .path = fp });
+            }
         }
     }
     

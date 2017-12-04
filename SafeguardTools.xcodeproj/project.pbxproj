@@ -1174,7 +1174,10 @@
 					/Users/t431962/Desktop/boost_1_60_0,
 				);
 				LIBRARY_SEARCH_PATHS = /Users/t431962/Desktop/boost_1_60_0/stage/lib;
-				OTHER_LDFLAGS = "-lboost_system";
+				OTHER_LDFLAGS = (
+					"-lboost_system",
+					"-lboost_filesystem",
+				);
 				PATH_TO_SDK_ILLUSTRATORAPI_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator CC 2017 SDK/illustratorapi";
 				PATH_TO_SDK_SAMPLECODE_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator CC 2017 SDK/samplecode";
 				PRODUCT_BUNDLE_IDENTIFIER = "kSDKDefAIBundlePrefix.plugins.$(PROJECTNAME)";
@@ -1200,7 +1203,10 @@
 					/Users/t431962/Desktop/boost_1_60_0,
 				);
 				LIBRARY_SEARCH_PATHS = /Users/t431962/Desktop/boost_1_60_0/stage/lib;
-				OTHER_LDFLAGS = "-lboost_system";
+				OTHER_LDFLAGS = (
+					"-lboost_system",
+					"-lboost_filesystem",
+				);
 				PATH_TO_SDK_ILLUSTRATORAPI_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator CC 2017 SDK/illustratorapi";
 				PATH_TO_SDK_SAMPLECODE_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator CC 2017 SDK/samplecode";
 				PRODUCT_BUNDLE_IDENTIFIER = "kSDKDefAIBundlePrefix.plugins.$(PROJECTNAME)";

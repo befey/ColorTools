@@ -21,21 +21,21 @@ void FilesystemResults::AddResult(FilesystemResults resultList)
     }
 }
 
-string FilesystemResults::MakeXmlString() const
+std::string FilesystemResults::MakeXmlString() const
 {
     //Format as XML string
-    string xmlString;
+    std::string xmlString;
     
     xmlString.append("<root>");
     for (auto it : results)
     {
         if (it.action == Transaction::Action::Created)
         {
-            xmlString.append("<create>").append(it.path.GetFullPath().getInStdString(kAIPlatformCharacterEncoding)).append("</create>");
+            xmlString.append("<create>").append(it.path.string()).append("</create>");
         }
         else if (it.action == Transaction::Action::Deleted)
         {
-            xmlString.append("<delete>").append(it.path.GetFullPath().getInStdString(kAIPlatformCharacterEncoding)).append("</delete>");
+            xmlString.append("<delete>").append(it.path.string()).append("</delete>");
         }
     }
     xmlString.append("</root>");

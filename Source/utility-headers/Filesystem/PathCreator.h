@@ -9,12 +9,12 @@
 #ifndef __SafeguardTools__PathCreator__
 #define __SafeguardTools__PathCreator__
 
-#include "AIFilePath.h"
+#include <boost/filesystem.hpp>
 
 class PathCreator
 {
 public:
-    bool CreatePath(ai::FilePath path) const;
+    bool CreatePath(boost::filesystem::path path) const;
 };
 
 #endif /* defined(__SafeguardTools__PathCreator__) */

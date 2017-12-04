@@ -9,6 +9,12 @@
 #ifndef FilesystemResults_hpp
 #define FilesystemResults_hpp
 
+#include <string>
+#include <vector>
+#include <set>
+#include "PlateNumber.h"
+#include <boost/filesystem.hpp>
+
 class FilesystemResults
 {
 public:
@@ -17,17 +23,44 @@ public:
         enum Action
         {
             Deleted,
-            Created
+            Created,
+            Found
         };
         Action action;
-        ai::FilePath path;
+        boost::filesystem::path path;
     };
     
     void AddResult(Transaction transaction);
     void AddResult(FilesystemResults resultList);
     
-    string MakeXmlString() const;
+    std::string MakeXmlString() const;
     
+    bool IsTransactionFound()
+    {
+        for (auto r : results)
+        {
+            if (r.action == Transaction::Found)
+                return true;
+        }
+        return false;
+    };
+    
+    std::vector<std::string> GetAsVectorOfPlateNumbers() const
+    {
+        std::set<std::string> list;
+        for ( auto r : results )
+        {
+            std::string fn = r.path.filename().string();
+            std::string strippedPlateNumber = boost::filesystem::change_extension(fn, "").string();
+            list.insert(SafeguardFile::PlateNumber(strippedPlateNumber));
+        }
+        std::vector<std::string> vstring;
+        for (auto l : list)
+        {
+            vstring.push_back(l);
+        }
+        return vstring;
+    };
 private:
     std::vector<Transaction> results;
 };
