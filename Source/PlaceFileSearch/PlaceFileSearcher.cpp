@@ -7,6 +7,8 @@
 //
 
 #include "PlaceFileSearcher.hpp"
+#include "AiDirectoryChooser.hpp"
+#include "AiPreferenceWriter.hpp"
 #include <boost/system/system_error.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/iterator/filter_iterator.hpp>
@@ -23,13 +25,11 @@ namespace fs = boost::filesystem;
 
 PlaceFileSearchResults PlaceFileSearcher::DoSearch() const
 {
-    unique_ptr<PathBuilder> pBuilder = PathBuilder::GetPathBuilder(PdfPreset::Manufacturing, false);
-    ai::FilePath fp = pBuilder->GetAiFilePath(PlateNumber(searchString));
+    unique_ptr<PathBuilder> pBuilder = PathBuilder::GetPathBuilder(PdfPreset::Manufacturing, false, std::make_shared<AiDirectoryChooser>(), std::make_shared<AiPreferenceWriter>(PLACEFILESEARCH_FOLDERPREFS_EXTENSION));
+    fs::path fp = pBuilder->GetPath(PlateNumber(searchString));
     
     vector<fs::path> foundFilePaths;
-    
-    fs::path p = fp.GetFullPath().as_Platform();
-    
+     
     string searchSt = searchString;
     boost::algorithm::to_upper(searchSt);
     
@@ -50,7 +50,7 @@ PlaceFileSearchResults PlaceFileSearcher::DoSearch() const
     };
     
     std::copy(
-              boost::make_filter_iterator(pred, fs::directory_iterator(p), fs::directory_iterator()),
+              boost::make_filter_iterator(pred, fs::directory_iterator(fp), fs::directory_iterator()),
               boost::make_filter_iterator(pred, fs::directory_iterator(), fs::directory_iterator()),
               std::back_inserter(foundFilePaths)
               );

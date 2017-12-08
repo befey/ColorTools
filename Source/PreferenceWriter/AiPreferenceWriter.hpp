@@ -9,6 +9,7 @@
 #ifndef AiPreferenceWriter_h
 #define AiPreferenceWriter_h
 
+#include "PreferenceWriter.hpp"
 #include "AIPreference.h"
 
 extern AIPreferenceSuite* sAIPreference;
@@ -20,13 +21,16 @@ public:
     
     bool GetFilePathFromIdentifier(string identifier, boost::filesystem::path& path) override
     {
-        sAIPreference->GetFilePathSpecificationPreference(prefix.c_str(), identifier.c_str(), path);
-        return !path.IsEmpty();
+        ai::FilePath aiFp(ai::UnicodeString(path.string()));
+        sAIPreference->GetFilePathSpecificationPreference(prefix.c_str(), identifier.c_str(), aiFp);
+        path = aiFp.GetFullPath().as_Platform();
+        return !path.empty();
     }
     
     bool SetFilePathForIdentifier(string identifier, boost::filesystem::path path) override
     {
-        ASErr err = sAIPreference->PutFilePathSpecificationPreference(prefix.c_str(), identifier.c_str(), path);
+        ai::FilePath aiFp(ai::UnicodeString(path.string()));
+        ASErr err = sAIPreference->PutFilePathSpecificationPreference(prefix.c_str(), identifier.c_str(), aiFp);
         return !err;
     }
 };

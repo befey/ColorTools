@@ -11,6 +11,11 @@
 #include "PdfSettings.h"
 #include "CurrentFilenameRetriever.hpp"
 #include "TokenCreator.hpp"
+#include <boost/filesystem.hpp>
+#include "AiDirectoryChooser.hpp"
+#include "AiPreferenceWriter.hpp"
+
+namespace fs = boost::filesystem;
 
 using PrintToPdf::PdfPrinter;
 using PrintToPdf::SingleFilePdfPrinter;
@@ -25,8 +30,8 @@ PdfPrinter::PdfPrinter(const PdfPreset preset, const bool doNotDelete, const boo
 {
     plateNumber = SafeguardFile::PlateNumber(CurrentFilenameRetriever::GetFilenameNoExt());
     
-    pathBuilder = PathBuilder::GetPathBuilder(preset, userOutputFolder);
-    outputPath = pathBuilder->GetAiFilePath(plateNumber);
+    pathBuilder = PathBuilder::GetPathBuilder(preset, userOutputFolder, std::make_shared<AiDirectoryChooser>(), std::make_shared<AiPreferenceWriter>(PRINTTOPDF_FOLDERPREFS_EXTENSION));
+    outputPath = pathBuilder->GetPath(plateNumber);
     
     printCommand.AddCommand(make_shared<CreatePathCommand>(outputPath, true, transactions));
     
@@ -78,7 +83,7 @@ FilesystemResults SingleFilePdfPrinter::CustomPrintSteps(const PdfSettings& sett
 {
     FilesystemResults transactions;
     
-    ai::FilePath pathToPdfFile = outputPath;
+    ai::FilePath pathToPdfFile(ai::UnicodeString(outputPath.string()));
     
     pathToPdfFile.AddComponent(ai::UnicodeString(plateNumber));
     
@@ -91,7 +96,7 @@ FilesystemResults SingleFilePdfPrinter::CustomPrintSteps(const PdfSettings& sett
     
     if (error == kNoErr)
     {
-        transactions.AddResult({FilesystemResults::Transaction::Created, pathToPdfFile});
+        transactions.AddResult({FilesystemResults::Transaction::Created, fs::path(pathToPdfFile.GetFullPath().as_Platform())});
     }
     
     return transactions;
@@ -105,7 +110,7 @@ FilesystemResults SeparateFilePdfPrinter::CustomPrintSteps(const PdfSettings& se
     sAIArtboardRange->Begin(settings.GetRange(), &iter);
     ai::int32 index = 0;
     
-    ai::FilePath pathToPdfFile = outputPath;
+    ai::FilePath pathToPdfFile(ai::UnicodeString(outputPath.string()));
     
     while ( kEndOfRangeErr != sAIArtboardRange->Next(iter, &index) )
     {
@@ -128,7 +133,7 @@ FilesystemResults SeparateFilePdfPrinter::CustomPrintSteps(const PdfSettings& se
         
         if (error == kNoErr)
         {
-            transactions.AddResult({FilesystemResults::Transaction::Created, pathToPdfFile});
+            transactions.AddResult({FilesystemResults::Transaction::Created, fs::path(pathToPdfFile.GetFullPath().as_Platform())});
         }
         
         pathToPdfFile.RemoveComponent();

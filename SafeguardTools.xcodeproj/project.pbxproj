@@ -68,6 +68,10 @@
 		F94726401CB2E1F400649020 /* VPB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F947263E1CB2E1F400649020 /* VPB.cpp */; };
 		F965B58E1D1072F200B0C04C /* ListFonts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F965B58C1D1072F200B0C04C /* ListFonts.cpp */; };
 		F965B58F1D1072F200B0C04C /* ListFonts.h in Headers */ = {isa = PBXBuildFile; fileRef = F965B58D1D1072F200B0C04C /* ListFonts.h */; };
+		F96CC34E1FD5D26E006D5398 /* DirectoryChooser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F96CC34D1FD5D26E006D5398 /* DirectoryChooser.hpp */; };
+		F96CC3501FD5D2B8006D5398 /* AiDirectoryChooser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F96CC34F1FD5D2B8006D5398 /* AiDirectoryChooser.hpp */; };
+		F96CC3521FD5D323006D5398 /* AiPreferenceWriter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F96CC3511FD5D323006D5398 /* AiPreferenceWriter.hpp */; };
+		F96CC3541FD5DE1C006D5398 /* SgPathConstants.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F96CC3531FD5DE1C006D5398 /* SgPathConstants.hpp */; };
 		F96D30731CB6D73500274BDE /* PlateNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F96D30711CB6D73500274BDE /* PlateNumber.cpp */; };
 		F96D30741CB6D73500274BDE /* PlateNumber.h in Headers */ = {isa = PBXBuildFile; fileRef = F96D30721CB6D73500274BDE /* PlateNumber.h */; };
 		F96DDFB01D2D7BED0066931D /* fontlist.txt in Resources */ = {isa = PBXBuildFile; fileRef = F96DDFAF1D2D7BED0066931D /* fontlist.txt */; };
@@ -114,7 +118,6 @@
 		F9A427111E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9A4270F1E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.cpp */; };
 		F9A427121E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9A427101E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.hpp */; };
 		F9A427141E42789500E05FF6 /* PrintToPdfFolderPrefs.js in Resources */ = {isa = PBXBuildFile; fileRef = F9A427131E42789500E05FF6 /* PrintToPdfFolderPrefs.js */; };
-		F9A427181E45009D00E05FF6 /* PreferenceWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9A427161E45009D00E05FF6 /* PreferenceWriter.cpp */; };
 		F9A427191E45009D00E05FF6 /* PreferenceWriter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9A427171E45009D00E05FF6 /* PreferenceWriter.hpp */; };
 		F9AE0DDA1DCCDA20001F460D /* sg_Symbols.ai in CopyFiles */ = {isa = PBXBuildFile; fileRef = F9AE0DD81DCCDA1D001F460D /* sg_Symbols.ai */; };
 		F9B0B1EF1E71B8B800B27FC8 /* IBtCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9B0B1ED1E71B8B800B27FC8 /* IBtCommand.hpp */; };
@@ -238,8 +241,8 @@
 		F914723D1E37AF61003F2ACA /* ColorListChecker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ColorListChecker.hpp; path = "Source/utility-headers/ColorListChecker.hpp"; sourceTree = "<group>"; };
 		F91472401E3A3F4E003F2ACA /* BtArtHandle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BtArtHandle.cpp; path = "Source/utility-headers/BtArtHandle.cpp"; sourceTree = "<group>"; };
 		F91472411E3A3F4E003F2ACA /* BtArtHandle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = BtArtHandle.hpp; path = "Source/utility-headers/BtArtHandle.hpp"; sourceTree = "<group>"; };
-		F9158D4F1D05EC4700343D57 /* PathBuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PathBuilder.cpp; path = Source/PrintToPdf/PathBuilder.cpp; sourceTree = "<group>"; };
-		F9158D501D05EC4700343D57 /* PathBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PathBuilder.h; path = Source/PrintToPdf/PathBuilder.h; sourceTree = "<group>"; };
+		F9158D4F1D05EC4700343D57 /* PathBuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PathBuilder.cpp; path = "Source/utility-headers/Filesystem/PathBuilder.cpp"; sourceTree = "<group>"; };
+		F9158D501D05EC4700343D57 /* PathBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PathBuilder.h; path = "Source/utility-headers/Filesystem/PathBuilder.h"; sourceTree = "<group>"; };
 		F9158D531D05FBE900343D57 /* ExistingFileDeleter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ExistingFileDeleter.cpp; path = "Source/utility-headers/Filesystem/ExistingFileDeleter.cpp"; sourceTree = "<group>"; };
 		F9158D541D05FBE900343D57 /* ExistingFileDeleter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExistingFileDeleter.h; path = "Source/utility-headers/Filesystem/ExistingFileDeleter.h"; sourceTree = "<group>"; };
 		F93027D81CA46E7D00D3B41E /* SafeguardTools.r */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; name = SafeguardTools.r; path = Resources/Mac/SafeguardTools.r; sourceTree = "<group>"; };
@@ -276,6 +279,10 @@
 		F960E1401E09940A0070D90E /* IDrawable.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = IDrawable.hpp; path = "Source/utility-headers/IDrawable.hpp"; sourceTree = "<group>"; };
 		F965B58C1D1072F200B0C04C /* ListFonts.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ListFonts.cpp; path = Source/ListFonts/ListFonts.cpp; sourceTree = "<group>"; };
 		F965B58D1D1072F200B0C04C /* ListFonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ListFonts.h; path = Source/ListFonts/ListFonts.h; sourceTree = "<group>"; };
+		F96CC34D1FD5D26E006D5398 /* DirectoryChooser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = DirectoryChooser.hpp; path = "Source/utility-headers/Filesystem/DirectoryChooser.hpp"; sourceTree = "<group>"; };
+		F96CC34F1FD5D2B8006D5398 /* AiDirectoryChooser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AiDirectoryChooser.hpp; path = "Source/utility-headers/Filesystem/AiDirectoryChooser.hpp"; sourceTree = "<group>"; };
+		F96CC3511FD5D323006D5398 /* AiPreferenceWriter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AiPreferenceWriter.hpp; path = Source/PreferenceWriter/AiPreferenceWriter.hpp; sourceTree = "<group>"; };
+		F96CC3531FD5DE1C006D5398 /* SgPathConstants.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SgPathConstants.hpp; path = "Source/utility-headers/Filesystem/SgPathConstants.hpp"; sourceTree = "<group>"; };
 		F96D30711CB6D73500274BDE /* PlateNumber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlateNumber.cpp; path = Source/SafeguardFile/PlateNumber.cpp; sourceTree = "<group>"; };
 		F96D30721CB6D73500274BDE /* PlateNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlateNumber.h; path = Source/SafeguardFile/PlateNumber.h; sourceTree = "<group>"; };
 		F96DDFAF1D2D7BED0066931D /* fontlist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fontlist.txt; path = Resources/Mac/ListFonts/fontlist.txt; sourceTree = "<group>"; };
@@ -326,7 +333,6 @@
 		F9A4270F1E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PrintToPdfFolderPrefsUIController.cpp; path = Source/PrintToPdf/PrintToPdfFolderPrefsUIController.cpp; sourceTree = "<group>"; };
 		F9A427101E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PrintToPdfFolderPrefsUIController.hpp; path = Source/PrintToPdf/PrintToPdfFolderPrefsUIController.hpp; sourceTree = "<group>"; };
 		F9A427131E42789500E05FF6 /* PrintToPdfFolderPrefs.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = PrintToPdfFolderPrefs.js; path = com.gosafeguard.SafeguardTools/js/PrintToPdfFolderPrefs.js; sourceTree = "<group>"; };
-		F9A427161E45009D00E05FF6 /* PreferenceWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PreferenceWriter.cpp; path = Source/PreferenceWriter/PreferenceWriter.cpp; sourceTree = "<group>"; };
 		F9A427171E45009D00E05FF6 /* PreferenceWriter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PreferenceWriter.hpp; path = Source/PreferenceWriter/PreferenceWriter.hpp; sourceTree = "<group>"; };
 		F9AE0DD81DCCDA1D001F460D /* sg_Symbols.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sg_Symbols.ai; sourceTree = "<group>"; };
 		F9B0B1ED1E71B8B800B27FC8 /* IBtCommand.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = IBtCommand.hpp; path = "Source/utility-headers/IBtCommand.hpp"; sourceTree = "<group>"; };
@@ -517,8 +523,6 @@
 				F97B564D1D36759500C10A9F /* LayerVisibility.hpp */,
 				F9138E891D01EE4D00D23C1F /* PasswordRetriever.cpp */,
 				F9138E8A1D01EE4D00D23C1F /* PasswordRetriever.h */,
-				F9158D4F1D05EC4700343D57 /* PathBuilder.cpp */,
-				F9158D501D05EC4700343D57 /* PathBuilder.h */,
 				F9138E8E1D01EE4D00D23C1F /* PdfSettings.cpp */,
 				F9138E8F1D01EE4D00D23C1F /* PdfSettings.h */,
 				F9138E901D01EE4D00D23C1F /* PdfPrinter.cpp */,
@@ -718,7 +722,7 @@
 		F9A427151E45006D00E05FF6 /* PreferenceWriter */ = {
 			isa = PBXGroup;
 			children = (
-				F9A427161E45009D00E05FF6 /* PreferenceWriter.cpp */,
+				F96CC3511FD5D323006D5398 /* AiPreferenceWriter.hpp */,
 				F9A427171E45009D00E05FF6 /* PreferenceWriter.hpp */,
 			);
 			name = PreferenceWriter;
@@ -742,13 +746,18 @@
 		F9B0B2051E73491C00B27FC8 /* Filesystem */ = {
 			isa = PBXGroup;
 			children = (
+				F96CC34F1FD5D2B8006D5398 /* AiDirectoryChooser.hpp */,
 				F9BC95C91DF1DE9700130615 /* CurrentFilenameRetriever.hpp */,
+				F96CC34D1FD5D26E006D5398 /* DirectoryChooser.hpp */,
 				F9158D531D05FBE900343D57 /* ExistingFileDeleter.cpp */,
 				F9158D541D05FBE900343D57 /* ExistingFileDeleter.h */,
 				F9B0B2011E73439D00B27FC8 /* FilesystemResults.cpp */,
 				F9B0B2021E73439D00B27FC8 /* FilesystemResults.hpp */,
+				F9158D4F1D05EC4700343D57 /* PathBuilder.cpp */,
+				F9158D501D05EC4700343D57 /* PathBuilder.h */,
 				F9E284261D254E2D001B0F98 /* PathCreator.cpp */,
 				F9E284271D254E2D001B0F98 /* PathCreator.h */,
+				F96CC3531FD5DE1C006D5398 /* SgPathConstants.hpp */,
 			);
 			name = Filesystem;
 			sourceTree = "<group>";
@@ -807,6 +816,7 @@
 				F93264D31DC8E2D40020B57A /* SgSymbolDrawer.hpp in Headers */,
 				F9CE24FB1D11A56E0075DDDF /* TextTools.h in Headers */,
 				F97B564F1D36759500C10A9F /* LayerVisibility.hpp in Headers */,
+				F96CC3521FD5D323006D5398 /* AiPreferenceWriter.hpp in Headers */,
 				F9A427121E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.hpp in Headers */,
 				F91472431E3A3F4E003F2ACA /* BtArtHandle.hpp in Headers */,
 				F9BC95CB1DF1DE9700130615 /* CurrentFilenameRetriever.hpp in Headers */,
@@ -814,6 +824,8 @@
 				F937ABE51D51149C006DD5C4 /* BtTransformArt.hpp in Headers */,
 				F9779FB61E291CF2000FA1FF /* FilePlacer.hpp in Headers */,
 				F96D30741CB6D73500274BDE /* PlateNumber.h in Headers */,
+				F96CC3501FD5D2B8006D5398 /* AiDirectoryChooser.hpp in Headers */,
+				F96CC34E1FD5D26E006D5398 /* DirectoryChooser.hpp in Headers */,
 				F947263F1CB2E1F400649020 /* VPB.h in Headers */,
 				F9F079671D47EEC1004AC522 /* TickMarkSettings.hpp in Headers */,
 				F914723F1E37AF61003F2ACA /* ColorListChecker.hpp in Headers */,
@@ -828,6 +840,7 @@
 				F9158D561D05FBE900343D57 /* ExistingFileDeleter.h in Headers */,
 				F9C44EF91D0B14AE00205ADF /* SafeguardJobFile.h in Headers */,
 				F90E3FA21CA475880081C333 /* BtSwatchList.h in Headers */,
+				F96CC3541FD5DE1C006D5398 /* SgPathConstants.hpp in Headers */,
 				F97B56531D367CA900C10A9F /* BtLayer.hpp in Headers */,
 				6868C929150BA192003DAAF2 /* SafeguardToolsSuites.h in Headers */,
 			);
@@ -915,7 +928,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F9A427181E45009D00E05FF6 /* PreferenceWriter.cpp in Sources */,
 				F937ABE81D5241EB006DD5C4 /* PlateBleedInfoUIController.cpp in Sources */,
 				F989A8F11CA465890050C071 /* IText.cpp in Sources */,
 				F9BC95C61DF1D68500130615 /* TokenCreator.cpp in Sources */,

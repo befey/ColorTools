@@ -10,12 +10,15 @@
 #include "PrintToPdfFolderPrefsUIController.hpp"
 #include "SafeguardToolsPlugin.h"
 #include "SafeguardToolsSuites.h"
-#include "PreferenceWriter.hpp"
+#include "AiPreferenceWriter.hpp"
 #include "PrintToPdfConstants.h"
+#include "SgPathConstants.hpp"
+#include <boost/filesystem.hpp>
 
 #include "cereal/external/rapidjson/document.h"
 
 using PrintToPdf::PrintToPdfFolderPrefsUIController;
+namespace fs = boost::filesystem;
 
 void PrintToPdfFolderPrefsUIController::PanelLoaded (const csxs::event::Event* const event, void* const context)
 {
@@ -236,12 +239,12 @@ string PrintToPdfFolderPrefsUIController::GetPrintToPdfFolderPrefsAsXml()
 
 std::pair<string, ai::FilePath> PrintToPdfFolderPrefsUIController::LoadPresetFromPrefs(string preset, string defaultPath)
 {
-    PreferenceWriter writer(PRINTTOPDF_FOLDERPREFS_EXTENSION);
-    ai::FilePath foundPath;
+    AiPreferenceWriter writer(PRINTTOPDF_FOLDERPREFS_EXTENSION);
     
+    fs::path foundPath;
     if ( writer.GetFilePathFromIdentifier(preset, foundPath) )
     {
-        return {preset, foundPath};
+        return {preset, ai::FilePath(ai::UnicodeString(foundPath.string()))};
     }
     else
     {
@@ -259,8 +262,8 @@ void PrintToPdfFolderPrefsUIController::StoreFoldersInPrefs(vector<std::pair<str
 
 bool PrintToPdfFolderPrefsUIController::SaveNewPathForPreset(string preset, ai::FilePath newPath)
 {
-    PreferenceWriter writer(PRINTTOPDF_FOLDERPREFS_EXTENSION);
-    return writer.SetFilePathForIdentifier(preset, newPath);
+    AiPreferenceWriter writer(PRINTTOPDF_FOLDERPREFS_EXTENSION);
+    return writer.SetFilePathForIdentifier(preset, fs::path(newPath.GetFullPath().as_Platform()));
 }
 
 void PrintToPdfFolderPrefsUIController::SendCloseMessageToHtml()

@@ -14,6 +14,8 @@
 
 namespace PlaceFileSearch
 {
+    static constexpr auto PLACEFILESEARCH_FOLDERPREFS_EXTENSION =  "com.gosafeguard.SafeguardTools.PlaceFileSearch.FolderPrefs";
+    
     class PlaceFileSearchResults
     {
     public:

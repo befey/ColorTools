@@ -18,6 +18,7 @@
 #include "PlateNumber.h"
 #include "PrintToPdfCommand.hpp"
 #include "FilesystemCommand.hpp"
+#include <boost/filesystem.hpp>
 
 namespace PrintToPdf
 {
@@ -34,7 +35,7 @@ namespace PrintToPdf
         unique_ptr<LayerVisibility> layerVisibility;
         unique_ptr<TypeToPathsConverter> tpConverter;
         
-        ai::FilePath outputPath;
+        boost::filesystem::path outputPath;
         
         SafeguardFile::PlateNumber plateNumber;
     private:
