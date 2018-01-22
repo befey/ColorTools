@@ -174,7 +174,7 @@
 		F93264D91DCA64AB0020B57A /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "/Applications/Adobe Illustrator CC 2017/Plug-ins.localized/Safeguard/SafeguardTools.aip/Contents/Resources/ListFonts";
+			dstPath = "/Applications/Adobe Illustrator CC 2018/Plug-ins.localized/Safeguard/SafeguardTools.aip/Contents/Resources/ListFonts";
 			dstSubfolderSpec = 0;
 			files = (
 				F93264DA1DCA64C80020B57A /* fontlist.txt in CopyFiles */,
@@ -184,7 +184,7 @@
 		F937AC051D551F86006DD5C4 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "/Applications/Adobe Illustrator CC 2017/CEP/extensions";
+			dstPath = "/Library/Application Support/Adobe/CEP/extensions";
 			dstSubfolderSpec = 0;
 			files = (
 				F937AC101D552051006DD5C4 /* com.gosafeguard.SafeguardTools in CopyFiles */,
@@ -194,7 +194,7 @@
 		F9AE0DD71DCCD9EA001F460D /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "/Applications/Adobe Illustrator CC 2017/Presets.localized/en_US/Symbols";
+			dstPath = "/Applications/Adobe Illustrator CC 2018/Presets.localized/en_US/Symbols";
 			dstSubfolderSpec = 0;
 			files = (
 				F9AE0DDA1DCCDA20001F460D /* sg_Symbols.ai in CopyFiles */,
@@ -295,15 +295,15 @@
 		F9779FB11E27EC05000FA1FF /* PlaceFileSearch.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = PlaceFileSearch.js; path = com.gosafeguard.SafeguardTools/js/PlaceFileSearch.js; sourceTree = "<group>"; };
 		F9779FB31E291CF2000FA1FF /* FilePlacer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FilePlacer.cpp; path = Source/PlaceFileSearch/FilePlacer.cpp; sourceTree = "<group>"; };
 		F9779FB41E291CF2000FA1FF /* FilePlacer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FilePlacer.hpp; path = Source/PlaceFileSearch/FilePlacer.hpp; sourceTree = "<group>"; };
-		F979B5FA1CA31DE5004BA4AD /* IAIUnicodeString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IAIUnicodeString.cpp; path = "../Adobe Illustrator CC 2017 SDK/illustratorapi/illustrator/IAIUnicodeString.cpp"; sourceTree = "<group>"; };
-		F979B5FC1CA31DF5004BA4AD /* IAIFilePath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IAIFilePath.cpp; path = "../Adobe Illustrator CC 2017 SDK/illustratorapi/illustrator/IAIFilePath.cpp"; sourceTree = "<group>"; };
-		F979B5FE1CA31E72004BA4AD /* AppContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AppContext.cpp; path = "../Adobe Illustrator CC 2017 SDK/samplecode/common/source/AppContext.cpp"; sourceTree = "<group>"; };
-		F979B6001CA31E78004BA4AD /* SDKPlugPlug.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SDKPlugPlug.cpp; path = "../Adobe Illustrator CC 2017 SDK/samplecode/common/source/SDKPlugPlug.cpp"; sourceTree = "<group>"; };
-		F979B6021CA31E81004BA4AD /* FlashUIController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FlashUIController.cpp; path = "../Adobe Illustrator CC 2017 SDK/samplecode/common/source/FlashUIController.cpp"; sourceTree = "<group>"; };
-		F979B6041CA31E87004BA4AD /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Main.cpp; path = "../Adobe Illustrator CC 2017 SDK/samplecode/common/source/Main.cpp"; sourceTree = "<group>"; };
-		F979B6061CA31E8B004BA4AD /* Plugin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Plugin.cpp; path = "../Adobe Illustrator CC 2017 SDK/samplecode/common/source/Plugin.cpp"; sourceTree = "<group>"; };
-		F979B6081CA31E8E004BA4AD /* Suites.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Suites.cpp; path = "../Adobe Illustrator CC 2017 SDK/samplecode/common/source/Suites.cpp"; sourceTree = "<group>"; };
-		F979B60A1CA31E92004BA4AD /* IllustratorSDK.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IllustratorSDK.cpp; path = "../Adobe Illustrator CC 2017 SDK/samplecode/common/source/IllustratorSDK.cpp"; sourceTree = "<group>"; };
+		F979B5FA1CA31DE5004BA4AD /* IAIUnicodeString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IAIUnicodeString.cpp; path = "../Adobe Illustrator CC 2018 SDK/illustratorapi/illustrator/IAIUnicodeString.cpp"; sourceTree = "<group>"; };
+		F979B5FC1CA31DF5004BA4AD /* IAIFilePath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IAIFilePath.cpp; path = "../Adobe Illustrator CC 2018 SDK/illustratorapi/illustrator/IAIFilePath.cpp"; sourceTree = "<group>"; };
+		F979B5FE1CA31E72004BA4AD /* AppContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AppContext.cpp; path = "../Adobe Illustrator CC 2018 SDK/samplecode/common/source/AppContext.cpp"; sourceTree = "<group>"; };
+		F979B6001CA31E78004BA4AD /* SDKPlugPlug.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SDKPlugPlug.cpp; path = "../Adobe Illustrator CC 2018 SDK/samplecode/common/source/SDKPlugPlug.cpp"; sourceTree = "<group>"; };
+		F979B6021CA31E81004BA4AD /* FlashUIController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FlashUIController.cpp; path = "../Adobe Illustrator CC 2018 SDK/samplecode/common/source/FlashUIController.cpp"; sourceTree = "<group>"; };
+		F979B6041CA31E87004BA4AD /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Main.cpp; path = "../Adobe Illustrator CC 2018 SDK/samplecode/common/source/Main.cpp"; sourceTree = "<group>"; };
+		F979B6061CA31E8B004BA4AD /* Plugin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Plugin.cpp; path = "../Adobe Illustrator CC 2018 SDK/samplecode/common/source/Plugin.cpp"; sourceTree = "<group>"; };
+		F979B6081CA31E8E004BA4AD /* Suites.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Suites.cpp; path = "../Adobe Illustrator CC 2018 SDK/samplecode/common/source/Suites.cpp"; sourceTree = "<group>"; };
+		F979B60A1CA31E92004BA4AD /* IllustratorSDK.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IllustratorSDK.cpp; path = "../Adobe Illustrator CC 2018 SDK/samplecode/common/source/IllustratorSDK.cpp"; sourceTree = "<group>"; };
 		F97B564C1D36759400C10A9F /* LayerVisibility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LayerVisibility.cpp; path = Source/PrintToPdf/LayerVisibility.cpp; sourceTree = "<group>"; };
 		F97B564D1D36759500C10A9F /* LayerVisibility.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = LayerVisibility.hpp; path = Source/PrintToPdf/LayerVisibility.hpp; sourceTree = "<group>"; };
 		F97B56501D367CA900C10A9F /* BtLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BtLayer.cpp; path = "Source/utility-headers/BtLayer.cpp"; sourceTree = "<group>"; };
@@ -319,8 +319,8 @@
 		F989A8E51CA460CE0050C071 /* FixBlack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixBlack.h; sourceTree = "<group>"; };
 		F989A8E61CA460CE0050C071 /* ReplaceData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ReplaceData.cpp; sourceTree = "<group>"; };
 		F989A8E71CA460CE0050C071 /* ReplaceData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceData.h; sourceTree = "<group>"; };
-		F989A8F01CA465890050C071 /* IText.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IText.cpp; path = "../Adobe Illustrator CC 2017 SDK/illustratorapi/ate/IText.cpp"; sourceTree = "<group>"; };
-		F989A8F21CA465F30050C071 /* IThrowException.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IThrowException.cpp; path = "../Adobe Illustrator CC 2017 SDK/illustratorapi/ate/IThrowException.cpp"; sourceTree = "<group>"; };
+		F989A8F01CA465890050C071 /* IText.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IText.cpp; path = "../Adobe Illustrator CC 2018 SDK/illustratorapi/ate/IText.cpp"; sourceTree = "<group>"; };
+		F989A8F21CA465F30050C071 /* IThrowException.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IThrowException.cpp; path = "../Adobe Illustrator CC 2018 SDK/illustratorapi/ate/IThrowException.cpp"; sourceTree = "<group>"; };
 		F98BAEDB1CA99E1E00965D86 /* ArtTree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ArtTree.cpp; path = "Source/utility-headers/ArtTree.cpp"; sourceTree = "<group>"; };
 		F98BAEDC1CA99E1E00965D86 /* ArtTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ArtTree.h; path = "Source/utility-headers/ArtTree.h"; sourceTree = "<group>"; };
 		F98BAEDF1CA9A0D100965D86 /* BtAiMenuItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BtAiMenuItem.cpp; path = "Source/utility-headers/BtAiMenuItem.cpp"; sourceTree = "<group>"; };
@@ -382,10 +382,10 @@
 		F9F079681D4BC4D3004AC522 /* IDrawer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IDrawer.h; path = "Source/utility-headers/IDrawer.h"; sourceTree = SOURCE_ROOT; };
 		F9F1EB691D1B19AF0051B716 /* ColorList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ColorList.cpp; path = "Source/utility-headers/ColorList.cpp"; sourceTree = "<group>"; };
 		F9F1EB6A1D1B19AF0051B716 /* ColorList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColorList.h; path = "Source/utility-headers/ColorList.h"; sourceTree = "<group>"; };
-		F9F55E521CB42D2900FA20EC /* SDKErrors.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SDKErrors.cpp; path = "../Adobe Illustrator CC 2017 SDK/samplecode/common/source/SDKErrors.cpp"; sourceTree = "<group>"; };
+		F9F55E521CB42D2900FA20EC /* SDKErrors.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SDKErrors.cpp; path = "../Adobe Illustrator CC 2018 SDK/samplecode/common/source/SDKErrors.cpp"; sourceTree = "<group>"; };
 		F9FAE8FC1CBD87E700938893 /* BtArtboardRange.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BtArtboardRange.cpp; path = "Source/utility-headers/BtArtboardRange.cpp"; sourceTree = "<group>"; };
 		F9FAE8FD1CBD87E700938893 /* BtArtboardRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BtArtboardRange.h; path = "Source/utility-headers/BtArtboardRange.h"; sourceTree = "<group>"; };
-		F9FEC8281CB576280097473A /* IAIArtboards.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IAIArtboards.cpp; path = "../Adobe Illustrator CC 2017 SDK/illustratorapi/illustrator/IAIArtboards.cpp"; sourceTree = "<group>"; };
+		F9FEC8281CB576280097473A /* IAIArtboards.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IAIArtboards.cpp; path = "../Adobe Illustrator CC 2018 SDK/illustratorapi/illustrator/IAIArtboards.cpp"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1060,7 +1060,7 @@
 				INFOPLIST_PREFIX_HEADER = "$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common/includes/SDKDef.h";
 				INFOPLIST_PREPROCESS = YES;
 				LIBRARY_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				OBJROOT = .;
 				ONLY_LINK_ESSENTIAL_SYMBOLS = YES;
 				OTHER_CPLUSPLUSFLAGS = (
@@ -1140,7 +1140,7 @@
 				INFOPLIST_PREFIX_HEADER = "$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common/includes/SDKDef.h";
 				INFOPLIST_PREPROCESS = YES;
 				LIBRARY_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				OBJROOT = .;
 				ONLY_LINK_ESSENTIAL_SYMBOLS = YES;
 				OTHER_CPLUSPLUSFLAGS = (
@@ -1190,8 +1190,8 @@
 					"-lboost_system",
 					"-lboost_filesystem",
 				);
-				PATH_TO_SDK_ILLUSTRATORAPI_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator CC 2017 SDK/illustratorapi";
-				PATH_TO_SDK_SAMPLECODE_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator CC 2017 SDK/samplecode";
+				PATH_TO_SDK_ILLUSTRATORAPI_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator CC 2018 SDK/illustratorapi";
+				PATH_TO_SDK_SAMPLECODE_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator CC 2018 SDK/samplecode";
 				PRODUCT_BUNDLE_IDENTIFIER = "kSDKDefAIBundlePrefix.plugins.$(PROJECTNAME)";
 				SDKROOT = macosx;
 				SHARED_PRECOMPS_DIR = "$(SRCROOT)/output/mac/sharedprecompiledheaders/$(AI_CONFIGURATION)";
@@ -1219,8 +1219,8 @@
 					"-lboost_system",
 					"-lboost_filesystem",
 				);
-				PATH_TO_SDK_ILLUSTRATORAPI_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator CC 2017 SDK/illustratorapi";
-				PATH_TO_SDK_SAMPLECODE_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator CC 2017 SDK/samplecode";
+				PATH_TO_SDK_ILLUSTRATORAPI_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator CC 2018 SDK/illustratorapi";
+				PATH_TO_SDK_SAMPLECODE_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator CC 2018 SDK/samplecode";
 				PRODUCT_BUNDLE_IDENTIFIER = "kSDKDefAIBundlePrefix.plugins.$(PROJECTNAME)";
 				SDKROOT = macosx;
 				SHARED_PRECOMPS_DIR = "$(SRCROOT)/output/mac/sharedprecompiledheaders/$(AI_CONFIGURATION)";
