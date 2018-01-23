@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ExtensionManifest ExtensionBundleId="com.gosafeguard.SafeguardTools" ExtensionBundleName="SafeguardTools" ExtensionBundleVersion="1.8.0" Version="6.0">
+<ExtensionManifest ExtensionBundleId="com.gosafeguard.SafeguardTools" ExtensionBundleName="SafeguardTools" ExtensionBundleVersion="1.8.2" Version="6.0">
     <ExtensionList>
         <Extension Id="com.gosafeguard.SafeguardTools.ColorTools" Version="1.1.0"/>
         <Extension Id="com.gosafeguard.SafeguardTools.PrintToPdf" Version="1.1.0"/>

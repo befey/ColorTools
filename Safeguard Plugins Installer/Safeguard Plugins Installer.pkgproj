@@ -25,66 +25,24 @@
 												<key>CHILDREN</key>
 												<array>
 													<dict>
+														<key>BUNDLE_CAN_DOWNGRADE</key>
+														<false/>
+														<key>BUNDLE_POSTINSTALL_PATH</key>
+														<dict>
+															<key>PATH_TYPE</key>
+															<integer>0</integer>
+														</dict>
+														<key>BUNDLE_PREINSTALL_PATH</key>
+														<dict>
+															<key>PATH_TYPE</key>
+															<integer>0</integer>
+														</dict>
 														<key>CHILDREN</key>
 														<array/>
 														<key>GID</key>
 														<integer>80</integer>
 														<key>PATH</key>
-														<string>/Users/t431962/Desktop/SafeguardTools/extension packaging/unzipped extension panel/com.gosafeguard.SafeguardTools</string>
-														<key>PATH_TYPE</key>
-														<integer>0</integer>
-														<key>PERMISSIONS</key>
-														<integer>493</integer>
-														<key>TYPE</key>
-														<integer>3</integer>
-														<key>UID</key>
-														<integer>0</integer>
-													</dict>
-												</array>
-												<key>EXPANDED</key>
-												<true/>
-												<key>GID</key>
-												<integer>80</integer>
-												<key>PATH</key>
-												<string>/Applications/Adobe Illustrator CC 2017/CEP/extensions</string>
-												<key>PATH_TYPE</key>
-												<integer>0</integer>
-												<key>PERMISSIONS</key>
-												<integer>509</integer>
-												<key>TYPE</key>
-												<integer>3</integer>
-												<key>UID</key>
-												<integer>0</integer>
-											</dict>
-										</array>
-										<key>EXPANDED</key>
-										<true/>
-										<key>GID</key>
-										<integer>80</integer>
-										<key>PATH</key>
-										<string>/Applications/Adobe Illustrator CC 2017/CEP</string>
-										<key>PATH_TYPE</key>
-										<integer>0</integer>
-										<key>PERMISSIONS</key>
-										<integer>509</integer>
-										<key>TYPE</key>
-										<integer>3</integer>
-										<key>UID</key>
-										<integer>0</integer>
-									</dict>
-									<dict>
-										<key>CHILDREN</key>
-										<array>
-											<dict>
-												<key>CHILDREN</key>
-												<array>
-													<dict>
-														<key>CHILDREN</key>
-														<array/>
-														<key>GID</key>
-														<integer>80</integer>
-														<key>PATH</key>
-														<string>/Users/t431962/Desktop/SafeguardTools/output/mac/debug/SafeguardTools.aip</string>
+														<string>/Users/T431962/Desktop/SafeguardTools/output/mac/debug/SafeguardTools.aip</string>
 														<key>PATH_TYPE</key>
 														<integer>0</integer>
 														<key>PERMISSIONS</key>
@@ -200,18 +158,16 @@
 										<integer>0</integer>
 									</dict>
 								</array>
-								<key>EXPANDED</key>
-								<true/>
 								<key>GID</key>
 								<integer>80</integer>
 								<key>PATH</key>
-								<string>/Applications/Adobe Illustrator CC 2017</string>
+								<string>Adobe Illustrator CC 2018</string>
 								<key>PATH_TYPE</key>
-								<integer>0</integer>
+								<integer>2</integer>
 								<key>PERMISSIONS</key>
 								<integer>509</integer>
 								<key>TYPE</key>
-								<integer>3</integer>
+								<integer>2</integer>
 								<key>UID</key>
 								<integer>0</integer>
 							</dict>
@@ -234,7 +190,81 @@
 						<array>
 							<dict>
 								<key>CHILDREN</key>
-								<array/>
+								<array>
+									<dict>
+										<key>CHILDREN</key>
+										<array>
+											<dict>
+												<key>CHILDREN</key>
+												<array>
+													<dict>
+														<key>CHILDREN</key>
+														<array>
+															<dict>
+																<key>CHILDREN</key>
+																<array/>
+																<key>GID</key>
+																<integer>80</integer>
+																<key>PATH</key>
+																<string>/Users/T431962/Desktop/SafeguardTools/com.gosafeguard.SafeguardTools</string>
+																<key>PATH_TYPE</key>
+																<integer>0</integer>
+																<key>PERMISSIONS</key>
+																<integer>493</integer>
+																<key>TYPE</key>
+																<integer>3</integer>
+																<key>UID</key>
+																<integer>0</integer>
+															</dict>
+														</array>
+														<key>EXPANDED</key>
+														<true/>
+														<key>GID</key>
+														<integer>80</integer>
+														<key>PATH</key>
+														<string>/Library/Application Support/Adobe/CEP/extensions</string>
+														<key>PATH_TYPE</key>
+														<integer>0</integer>
+														<key>PERMISSIONS</key>
+														<integer>493</integer>
+														<key>TYPE</key>
+														<integer>3</integer>
+														<key>UID</key>
+														<integer>0</integer>
+													</dict>
+												</array>
+												<key>EXPANDED</key>
+												<true/>
+												<key>GID</key>
+												<integer>80</integer>
+												<key>PATH</key>
+												<string>/Library/Application Support/Adobe/CEP</string>
+												<key>PATH_TYPE</key>
+												<integer>0</integer>
+												<key>PERMISSIONS</key>
+												<integer>493</integer>
+												<key>TYPE</key>
+												<integer>3</integer>
+												<key>UID</key>
+												<integer>0</integer>
+											</dict>
+										</array>
+										<key>EXPANDED</key>
+										<true/>
+										<key>GID</key>
+										<integer>80</integer>
+										<key>PATH</key>
+										<string>/Library/Application Support/Adobe</string>
+										<key>PATH_TYPE</key>
+										<integer>0</integer>
+										<key>PERMISSIONS</key>
+										<integer>509</integer>
+										<key>TYPE</key>
+										<integer>3</integer>
+										<key>UID</key>
+										<integer>0</integer>
+									</dict>
+								</array>
 								<key>GID</key>
 								<integer>80</integer>
 								<key>PATH</key>
@@ -604,6 +634,56 @@
 						<array>
 							<dict>
 								<key>CHILDREN</key>
+								<array>
+									<dict>
+										<key>CHILDREN</key>
+										<array/>
+										<key>GID</key>
+										<integer>0</integer>
+										<key>PATH</key>
+										<string>Extensions</string>
+										<key>PATH_TYPE</key>
+										<integer>0</integer>
+										<key>PERMISSIONS</key>
+										<integer>493</integer>
+										<key>TYPE</key>
+										<integer>1</integer>
+										<key>UID</key>
+										<integer>0</integer>
+									</dict>
+								</array>
+								<key>GID</key>
+								<integer>0</integer>
+								<key>PATH</key>
+								<string>Library</string>
+								<key>PATH_TYPE</key>
+								<integer>0</integer>
+								<key>PERMISSIONS</key>
+								<integer>493</integer>
+								<key>TYPE</key>
+								<integer>1</integer>
+								<key>UID</key>
+								<integer>0</integer>
+							</dict>
+						</array>
+						<key>GID</key>
+						<integer>0</integer>
+						<key>PATH</key>
+						<string>System</string>
+						<key>PATH_TYPE</key>
+						<integer>0</integer>
+						<key>PERMISSIONS</key>
+						<integer>493</integer>
+						<key>TYPE</key>
+						<integer>1</integer>
+						<key>UID</key>
+						<integer>0</integer>
+					</dict>
+					<dict>
+						<key>CHILDREN</key>
+						<array>
+							<dict>
+								<key>CHILDREN</key>
 								<array/>
 								<key>GID</key>
 								<integer>0</integer>
@@ -648,11 +728,22 @@
 			</dict>
 			<key>PAYLOAD_TYPE</key>
 			<integer>0</integer>
+			<key>SHOW_INVISIBLE</key>
+			<false/>
+			<key>SPLIT_FORKS</key>
+			<true/>
+			<key>TREAT_MISSING_FILES_AS_WARNING</key>
+			<false/>
 			<key>VERSION</key>
 			<integer>4</integer>
 		</dict>
 		<key>PACKAGE_SCRIPTS</key>
 		<dict>
+			<key>POSTINSTALL_PATH</key>
+			<dict>
+				<key>PATH_TYPE</key>
+				<integer>0</integer>
+			</dict>
 			<key>PREINSTALL_PATH</key>
 			<dict>
 				<key>PATH</key>
@@ -666,15 +757,27 @@
 		<key>PACKAGE_SETTINGS</key>
 		<dict>
 			<key>AUTHENTICATION</key>
-			<false/>
+			<integer>0</integer>
 			<key>CONCLUSION_ACTION</key>
 			<integer>0</integer>
+			<key>FOLLOW_SYMBOLIC_LINKS</key>
+			<false/>
 			<key>IDENTIFIER</key>
 			<string>com.gosafeguard.MacPluginInstaller</string>
+			<key>LOCATION</key>
+			<integer>0</integer>
+			<key>NAME</key>
+			<string></string>
 			<key>OVERWRITE_PERMISSIONS</key>
 			<false/>
+			<key>PAYLOAD_SIZE</key>
+			<integer>-1</integer>
+			<key>RELOCATABLE</key>
+			<false/>
+			<key>USE_HFS+_COMPRESSION</key>
+			<false/>
 			<key>VERSION</key>
-			<string>1.8.1.2</string>
+			<string>1.8.2</string>
 		</dict>
 		<key>PROJECT_COMMENTS</key>
 		<dict>
@@ -871,7 +974,9 @@
 				</dict>
 			</array>
 			<key>NAME</key>
-			<string>Safeguard Plugins Installer 1.8.1.2</string>
+			<string>Safeguard Plugins Installer 1.8.2</string>
+			<key>PAYLOAD_ONLY</key>
+			<false/>
 		</dict>
 	</dict>
 	<key>TYPE</key>

@@ -20,3 +20,7 @@ rm -Rf /Applications/Adobe\ Illustrator\ CC\ 2015.3/CEP/extensions/com.gosafegua
 rm -Rf /Applications/Adobe\ Illustrator\ CC\ 2015.3/Plug-ins.localized/Safeguard
 rm -Rf /Applications/Adobe\ Illustrator\ CC\ 2017/Plug-ins.localized/ColorTools.aip
 rm -Rf /Applications/Adobe\ Illustrator\ CC\ 2017/Plug-ins.localized/TextTools.aip
+
+#1/23/18 -- Delete old color tools if it got copied into 2018
+rm -Rf /Applications/Adobe\ Illustrator\ CC\ 2018/Plug-ins.localized/ColorTools.aip
+rm -Rf /Applications/Adobe\ Illustrator\ CC\ 2018/Plug-ins.localized/TextTools.aip

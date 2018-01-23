@@ -7,7 +7,7 @@ cd "$BASEDIR"
 rm SafeguardTools.zxp
 rm -R ./unzipped\ extension\ panel/*
 
-./ZXPSignCmd -sign ../com.gosafeguard.SafeguardTools SafeguardTools.zxp MyCert.p12 abc123 -tsa https://timestamp.geotrust.com/tsa
+./ZXPSignCmd -sign ../com.gosafeguard.SafeguardTools SafeguardTools.zxp MyCert.p12 abc123 -tsa http://sha256timestamp.ws.symantec.com/sha256/timestamp
 
 mkdir ./unzipped\ extension\ panel/com.gosafeguard.SafeguardTools
 tar -xf SafeguardTools.zxp -C ./unzipped\ extension\ panel/com.gosafeguard.SafeguardTools
