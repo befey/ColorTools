@@ -281,7 +281,7 @@ bool ListFonts::LoadFontListFromFile()
         string postscriptName, henceCode;
         while ( getline(in, henceCode, ',') )
         {
-            getline(in, postscriptName);
+            getline(in, postscriptName, '\r');
             henceFonts.insert(pair<string,string>(postscriptName, henceCode));
         }
         in.close();
