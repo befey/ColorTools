@@ -192,10 +192,10 @@ AIRealRect BleedInfo::Bleeds() const
     }
     else if (pt == SafeguardFile::ProductType::BusinessStat)
     {
-        if (diff.left < 12) diff.left = 12;
-        if (diff.top < 12) diff.top = 12;
-        if (diff.right < 12) diff.right = 12;
-        if (diff.bottom < 12) diff.bottom = 12;
+        if (diff.left < 21) diff.left = 21;
+        if (diff.top < 21) diff.top = 21;
+        if (diff.right < 21) diff.right = 21;
+        if (diff.bottom < 21) diff.bottom = 21;
         sAIRealMath->AIRealRectSet(&bleedRect, diff.left, diff.top, diff.right, diff.bottom);
     }
     else if (pt == SafeguardFile::ProductType::Continuous)
