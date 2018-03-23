@@ -14,6 +14,7 @@
 #include "AIGroup.h"
 #include "AITextFrame.h"
 #include "AIPathStyle.h"
+#include "AIPath.h"
 #include "BtColor.h"
 
 extern AIArtSuite* sAIArt;
@@ -21,6 +22,7 @@ extern AIRealMathSuite* sAIRealMath;
 extern AIGroupSuite* sAIGroup;
 extern AITextFrameSuite* sAITextFrame;
 extern AIPathStyleSuite* sAIPathStyle;
+extern AIPathSuite* sAIPath;
 
 class BtArtHandle
 {
@@ -65,6 +67,7 @@ public:
     bool ClipMask() const;
     bool ClipMask(bool state);
     bool PartOfCompound() const;
+    bool Closed() const;
     
     void MakeEditable();
     void ResetEditable();

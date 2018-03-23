@@ -344,6 +344,13 @@ bool BtArtHandle::PartOfCompound() const
     return GetAttribute(kArtPartOfCompound);
 }
 
+bool BtArtHandle::Closed() const
+{
+    AIBoolean closed;
+    sAIPath->GetPathClosed(artHandle, &closed);
+    return closed;
+}
+
 void BtArtHandle::MakeEditable()
 {
     storedLocked = Locked();

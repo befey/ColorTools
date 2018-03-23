@@ -114,10 +114,8 @@
 		F992803C1D6B723F00E7EBF2 /* SafeguardJobFileDTO.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F992803A1D6B723F00E7EBF2 /* SafeguardJobFileDTO.hpp */; };
 		F9A053871E9E58CC001F6C7E /* RequiredLayersCreator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9A053851E9E58CC001F6C7E /* RequiredLayersCreator.cpp */; };
 		F9A053881E9E58CC001F6C7E /* RequiredLayersCreator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9A053861E9E58CC001F6C7E /* RequiredLayersCreator.hpp */; };
-		F9A4270E1E423E1E00E05FF6 /* PrintToPdfFolderPrefs.html in Resources */ = {isa = PBXBuildFile; fileRef = F9A4270D1E423E1E00E05FF6 /* PrintToPdfFolderPrefs.html */; };
 		F9A427111E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9A4270F1E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.cpp */; };
 		F9A427121E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9A427101E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.hpp */; };
-		F9A427141E42789500E05FF6 /* PrintToPdfFolderPrefs.js in Resources */ = {isa = PBXBuildFile; fileRef = F9A427131E42789500E05FF6 /* PrintToPdfFolderPrefs.js */; };
 		F9A427191E45009D00E05FF6 /* PreferenceWriter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9A427171E45009D00E05FF6 /* PreferenceWriter.hpp */; };
 		F9AE0DDA1DCCDA20001F460D /* sg_Symbols.ai in CopyFiles */ = {isa = PBXBuildFile; fileRef = F9AE0DD81DCCDA1D001F460D /* sg_Symbols.ai */; };
 		F9B0B1EF1E71B8B800B27FC8 /* IBtCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9B0B1ED1E71B8B800B27FC8 /* IBtCommand.hpp */; };
@@ -261,12 +259,9 @@
 		F937ABE71D5241EB006DD5C4 /* PlateBleedInfoUIController.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PlateBleedInfoUIController.hpp; path = Source/PlateBleedInfo/PlateBleedInfoUIController.hpp; sourceTree = "<group>"; };
 		F937ABEA1D5267CB006DD5C4 /* BtDocumentView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BtDocumentView.cpp; path = "Source/utility-headers/BtDocumentView.cpp"; sourceTree = "<group>"; };
 		F937ABEB1D5267CB006DD5C4 /* BtDocumentView.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = BtDocumentView.hpp; path = "Source/utility-headers/BtDocumentView.hpp"; sourceTree = "<group>"; };
-		F937ABF21D551D72006DD5C4 /* PrintToPdf.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = PrintToPdf.js; path = com.gosafeguard.SafeguardTools/js/PrintToPdf.js; sourceTree = "<group>"; };
 		F937ABF51D551E1F006DD5C4 /* ColorTools.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = ColorTools.html; path = ../../com.gosafeguard.SafeguardTools/ColorTools.html; sourceTree = "<group>"; };
 		F937ABF61D551E1F006DD5C4 /* ColorTools.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = ColorTools.js; path = ../../com.gosafeguard.SafeguardTools/js/ColorTools.js; sourceTree = "<group>"; };
-		F937ABF91D551E1F006DD5C4 /* PrintToPdf.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = PrintToPdf.html; path = com.gosafeguard.SafeguardTools/PrintToPdf.html; sourceTree = "<group>"; };
 		F937ABFF1D551ED7006DD5C4 /* ColorTools.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = ColorTools.css; path = ../../com.gosafeguard.SafeguardTools/css/ColorTools.css; sourceTree = "<group>"; };
-		F937AC011D551ED7006DD5C4 /* PrintToPdf.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = PrintToPdf.css; path = com.gosafeguard.SafeguardTools/css/PrintToPdf.css; sourceTree = "<group>"; };
 		F937AC0F1D552051006DD5C4 /* com.gosafeguard.SafeguardTools */ = {isa = PBXFileReference; lastKnownFileType = folder; path = com.gosafeguard.SafeguardTools; sourceTree = "<group>"; };
 		F942A1091E1EC7AE00A5B31A /* BtColor.tpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = BtColor.tpp; path = "Source/utility-headers/BtColor.tpp"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		F947263D1CB2E1F400649020 /* VPB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPB.h; path = "Source/utility-headers/VPB.h"; sourceTree = "<group>"; };
@@ -326,10 +321,8 @@
 		F992803A1D6B723F00E7EBF2 /* SafeguardJobFileDTO.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SafeguardJobFileDTO.hpp; path = Source/PlateBleedInfo/SafeguardJobFileDTO.hpp; sourceTree = "<group>"; };
 		F9A053851E9E58CC001F6C7E /* RequiredLayersCreator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RequiredLayersCreator.cpp; path = Source/PlateBleedInfo/RequiredLayersCreator.cpp; sourceTree = "<group>"; };
 		F9A053861E9E58CC001F6C7E /* RequiredLayersCreator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = RequiredLayersCreator.hpp; path = Source/PlateBleedInfo/RequiredLayersCreator.hpp; sourceTree = "<group>"; };
-		F9A4270D1E423E1E00E05FF6 /* PrintToPdfFolderPrefs.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = PrintToPdfFolderPrefs.html; path = com.gosafeguard.SafeguardTools/PrintToPdfFolderPrefs.html; sourceTree = "<group>"; };
 		F9A4270F1E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PrintToPdfFolderPrefsUIController.cpp; path = Source/PrintToPdf/PrintToPdfFolderPrefsUIController.cpp; sourceTree = "<group>"; };
 		F9A427101E42618000E05FF6 /* PrintToPdfFolderPrefsUIController.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PrintToPdfFolderPrefsUIController.hpp; path = Source/PrintToPdf/PrintToPdfFolderPrefsUIController.hpp; sourceTree = "<group>"; };
-		F9A427131E42789500E05FF6 /* PrintToPdfFolderPrefs.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = PrintToPdfFolderPrefs.js; path = com.gosafeguard.SafeguardTools/js/PrintToPdfFolderPrefs.js; sourceTree = "<group>"; };
 		F9A427171E45009D00E05FF6 /* PreferenceWriter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PreferenceWriter.hpp; path = Source/PreferenceWriter/PreferenceWriter.hpp; sourceTree = "<group>"; };
 		F9AE0DD81DCCDA1D001F460D /* sg_Symbols.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sg_Symbols.ai; sourceTree = "<group>"; };
 		F9B0B1ED1E71B8B800B27FC8 /* IBtCommand.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = IBtCommand.hpp; path = "Source/utility-headers/IBtCommand.hpp"; sourceTree = "<group>"; };
@@ -511,11 +504,6 @@
 		F91180761CE3B37600AA7AC8 /* PrintToPdf */ = {
 			isa = PBXGroup;
 			children = (
-				F9A4270D1E423E1E00E05FF6 /* PrintToPdfFolderPrefs.html */,
-				F9A427131E42789500E05FF6 /* PrintToPdfFolderPrefs.js */,
-				F937ABF91D551E1F006DD5C4 /* PrintToPdf.html */,
-				F937ABF21D551D72006DD5C4 /* PrintToPdf.js */,
-				F937AC011D551ED7006DD5C4 /* PrintToPdf.css */,
 				F97B564C1D36759400C10A9F /* LayerVisibility.cpp */,
 				F97B564D1D36759500C10A9F /* LayerVisibility.hpp */,
 				F9138E891D01EE4D00D23C1F /* PasswordRetriever.cpp */,
@@ -898,9 +886,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F9A427141E42789500E05FF6 /* PrintToPdfFolderPrefs.js in Resources */,
 				F96DDFB01D2D7BED0066931D /* fontlist.txt in Resources */,
-				F9A4270E1E423E1E00E05FF6 /* PrintToPdfFolderPrefs.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
