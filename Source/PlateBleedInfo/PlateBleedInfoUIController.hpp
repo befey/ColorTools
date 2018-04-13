@@ -15,11 +15,14 @@
 #include "SDKPlugPlug.h"
 #include "FlashUIController.h"
 #include "SafeguardJobFile.h"
+#include "AIIsolationMode.h"
 
 //=================================
 // forward declared dependencies
 class SafeguardToolsPlugin;
 extern SafeguardToolsPlugin *gPlugin;
+
+extern AIIsolationModeSuite* sAIIsolationMode;
 
 namespace PlateBleedInfo
 {
