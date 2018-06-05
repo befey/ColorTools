@@ -33,6 +33,18 @@
 #include <string>
 #include "SafeguardFileConstants.h"
 
+#include "AIArt.h"
+#include "AIArtSet.h"
+#include "AIPath.h"
+#include "AIArtboard.h"
+#include "AIRealMath.h"
+
+extern AIArtSuite* sAIArt;
+extern AIArtSetSuite* sAIArtSet;
+extern AIPathSuite* sAIPath;
+extern AIArtboardSuite* sAIArtboard;
+extern AIRealMathSuite* sAIRealMath;
+
 namespace SafeguardFile
 {
     class PlateNumber
@@ -61,7 +73,7 @@ namespace SafeguardFile
         
         bool TokenizePlateNumber();
         
-        bool HasInnerTicks() const { return false; };
+        bool HasInnerTicks() const;
     };
     
 }

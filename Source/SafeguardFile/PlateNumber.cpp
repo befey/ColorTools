@@ -7,6 +7,7 @@
 //
 
 #include "PlateNumber.h"
+#include "ColorEnumerator.hpp"
 #include <regex>
 
 using SafeguardFile::PlateNumber;
@@ -105,4 +106,54 @@ ProductType PlateNumber::GetProductType() const
     }
     
     return ProductType::INVAL;
+}
+
+bool PlateNumber::HasInnerTicks() const
+{
+    size_t count = 0;
+    AIArtSet artSet = NULL;
+    sAIArtSet->NewArtSet(&artSet);
+    
+    AIArtHandle currArtHandle = NULL;
+    
+    AIArtSpec specs[] = { { kPathArt , 0 , 0 } };
+    
+    sAIArtSet->MatchingArtSet( specs , 1, artSet );
+    
+    sAIArtSet->CountArtSet(artSet, &count);
+    if(count == 0) {
+        return false;
+    }
+    //Loop through the art set
+    for (int i = 0 ; i < count ; i++) {
+        
+        sAIArtSet->IndexArtSet(artSet, i, &currArtHandle);
+        AIBoolean closed;
+        sAIPath->GetPathClosed(currArtHandle, &closed);
+        if (!closed)
+        {
+            AIRealRect artBounds;
+            sAIArt->GetArtBounds(currArtHandle, &artBounds);
+            ai::ArtboardList artboardList;
+            ai::ArtboardProperties props;
+            sAIArtboard->GetArtboardList(artboardList);
+            sAIArtboard->GetArtboardProperties(artboardList, 0, props);
+            AIRealRect pageBounds;
+            sAIArtboard->GetPosition(props, pageBounds);
+            
+            AIBoolean overlap = sAIRealMath->AIRealRectOverlap(&pageBounds, &artBounds);
+            AIReal length;
+            sAIPath->GetPathLength(currArtHandle, &length, NULL);
+            if (overlap && sAIRealMath->EqualWithinTol(length, LENGTH_OF_INNER_TICK_PATH, 6))
+            {
+                if ( ColorEnumerator(currArtHandle).HasRegistrationColor() )
+                {
+                    return true;
+                }
+            }
+        }
+    }
+    sAIArtSet->DisposeArtSet(&artSet);
+    
+    return false;
 }
