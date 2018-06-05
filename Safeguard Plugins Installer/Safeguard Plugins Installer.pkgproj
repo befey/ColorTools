@@ -777,7 +777,7 @@
 			<key>USE_HFS+_COMPRESSION</key>
 			<false/>
 			<key>VERSION</key>
-			<string>1.8.3</string>
+			<string>1.8.4</string>
 		</dict>
 		<key>PROJECT_COMMENTS</key>
 		<dict>
@@ -791,7 +791,7 @@
 			ZW50LVN0eWxlLVR5cGUiIGNvbnRlbnQ9InRleHQvY3NzIj4KPHRp
 			dGxlPjwvdGl0bGU+CjxtZXRhIG5hbWU9IkdlbmVyYXRvciIgY29u
 			dGVudD0iQ29jb2EgSFRNTCBXcml0ZXIiPgo8bWV0YSBuYW1lPSJD
-			b2NvYVZlcnNpb24iIGNvbnRlbnQ9IjE1NjEuMiI+CjxzdHlsZSB0
+			b2NvYVZlcnNpb24iIGNvbnRlbnQ9IjE1NjEuNCI+CjxzdHlsZSB0
 			eXBlPSJ0ZXh0L2NzcyI+Cjwvc3R5bGU+CjwvaGVhZD4KPGJvZHk+
 			CjwvYm9keT4KPC9odG1sPgo=
 			</data>
@@ -974,7 +974,7 @@
 				</dict>
 			</array>
 			<key>NAME</key>
-			<string>Safeguard Plugins Installer 1.8.3</string>
+			<string>Safeguard Plugins Installer 1.8.4</string>
 			<key>PAYLOAD_ONLY</key>
 			<false/>
 		</dict>
