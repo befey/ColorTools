@@ -237,6 +237,7 @@ void BleedInfo::StoreInPluginArt() const
 
 void BleedInfo::ReadFromPluginArt()
 {
+    bool sp = shouldPrint;
     if (bleedInfoPluginArt)
     {
         DictionaryWriter dw(bleedInfoPluginArt);
@@ -245,6 +246,7 @@ void BleedInfo::ReadFromPluginArt()
         
         PlateBleedInfo::PlateDTO dto(json);
         
+        dto.shouldPrint = sp;
         FillBleedInfoFromPlateDTO(&dto, false);
     }
 }
