@@ -10,25 +10,49 @@
 #include "ColorFuncs.h"
 #include "GetIllustratorErrorCode.h"
 
+using Bt::BtColor;
+
 //Behaviors
 void BtSwatchList::FixStdColors()
 {
-    for ( auto color : StdColorDefinitions )
+    std::unordered_map<std::string, Bt::BtColor> stdColors = Bt::BtStandardColors().BasicColorDefinitions();
+    for ( auto color : stdColors)
     {
+        string s = color.second.Name();
+        BtColor createdColor = CreateOrConvertToCustomColor(color.second);
+        CreateSwatch(createdColor.Name(), createdColor);
+    }
+    
+    std::unordered_map<std::string, Bt::BtColor> sgColors = Bt::BtStandardColors().SafeguardColorDefinitions();
+    for ( auto color : sgColors)
+    {
+        string s = color.second.Name();
         CreateOrConvertToCustomColor(color.second);
     }
 }
 
-void BtSwatchList::CreateOrConvertToCustomColor(std::string colorName)
+Bt::BtColor BtSwatchList::CreateOrConvertToCustomColor(std::string colorName)
 {
-    auto it = StdColorDefinitions.find(colorName);
-    if (it != StdColorDefinitions.end())
+    BtColor createdColor;
+    
+    Bt::BtStandardColors stdColors;
+    
+    auto it = stdColors.BasicColorDefinitions().find(colorName);
+    if (it != stdColors.BasicColorDefinitions().end())
     {
-        CreateOrConvertToCustomColor(it->second);
+        createdColor = CreateOrConvertToCustomColor(it->second);
     }
+    
+    it = stdColors.SafeguardColorDefinitions().find(colorName);
+    if (it != stdColors.SafeguardColorDefinitions().end())
+    {
+        createdColor = CreateOrConvertToCustomColor(it->second);
+    }
+    
+    return createdColor;
 }
 
-void BtSwatchList::CreateOrConvertToCustomColor(BtColor color)
+Bt::BtColor BtSwatchList::CreateOrConvertToCustomColor(BtColor color)
 {
     AICustomColor newCustomColorDefinition = color.AiCustomColor();
     
@@ -49,24 +73,21 @@ void BtSwatchList::CreateOrConvertToCustomColor(BtColor color)
         newAiColorDefinition.c.c.color = hCreatedCustomColor;
     }
     
-    //TODO: Remove this so this function doesn't have side effects and just creates the color
-    // we will just create swatches at the time we actually want them
-    //CreateSwatch(color->GetName(), newAiColorDefinition);
-    {
-        AIColor dColor;
-        AISwatchRef swatch = nullptr;
-        if (SwatchNameExists(color.Name(), &dColor))
-        {
-            swatch = sAISwatchList->GetSwatchByName(nullptr, ai::UnicodeString(color.Name()));
-        }
-        else
+    return BtColor(newAiColorDefinition);
+}
+
+void BtSwatchList::CreateSwatch(string name, BtColor color)
+{
+        AIColor aiColor = color.AiColor();
+        AISwatchRef swatch = sAISwatchList->GetSwatchByName(nullptr, ai::UnicodeString(color.Name()));
+        if (swatch == nullptr)
         {
             swatch = sAISwatchList->InsertNthSwatch(nullptr, 2);
         }
-        ASErr err = sAISwatchList->SetAIColor(swatch, &newAiColorDefinition);
+    
+        ASErr err = sAISwatchList->SetAIColor(swatch, &aiColor);
         sAISwatchList->SetSwatchName(swatch, ai::UnicodeString(color.Name()));
         string error = GetIllustratorErrorCode(err);
-    }
 }
 
 void BtSwatchList::AdjustAllColors()
@@ -74,7 +95,6 @@ void BtSwatchList::AdjustAllColors()
     VisitAIColorFlags controlFlags = kVisitColorsSolidOnly | kVisitGlobalObjectsOnceOnly;
     sAIPathStyle->AdjustObjectAIColors( nullptr , AdjustAllColorsCallback , nullptr , controlFlags , nullptr );
     
-    //sAIPathStyle->AdjustObjectAIColors( nullptr , ConvertObjectsToGlobalCMYK , nullptr , controlFlags , nullptr );
     RemoveWhiteOverprint();
 }
 
@@ -181,7 +201,7 @@ void BtSwatchList::CreateSwatch(std::string name, AIColor color)
     }
 }
 
-AISwatchRef BtSwatchList::GetSwatchByName(std::string name) const
+AISwatchRef BtSwatchList::GetSwatchByName(std::string name)
 {
     return sAISwatchList->GetSwatchByName(nullptr, ai::UnicodeString(name));
 }
@@ -262,7 +282,7 @@ void BtSwatchList::AdjustAllColorsCallback(AIColor *color, void *userData, AIErr
         color->c.c.tint = tintPercent;
         color->c.c.color = hBlack;
         
-        AISwatchRef existingSwatch = CheckSwatchListForColor( *color , .0001 );
+        AISwatchRef existingSwatch = Bt::BtColor(*color).CheckSwatchListForColor(); //TODO: was tolerance .0001
         
         if(existingSwatch != nullptr) {
             sAISwatchList->GetAIColor(existingSwatch, color);

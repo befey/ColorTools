@@ -124,7 +124,7 @@ void ContinuousColorListDrawer::DrawContinuousColorBlocks(AIArtHandle resultGrou
     sAIPathStyle->GetPathStyle(colorBlock, &currPathStyle);
     currPathStyle.strokePaint = false;
     currPathStyle.fillPaint = true;
-    currPathStyle.fill = { .color = BtColor::RegistrationColor(), .overprint = true };
+    currPathStyle.fill = { .color = Bt::BtColor::RegistrationColor(), .overprint = true };
     sAIPathStyle->SetPathStyle(colorBlock, &currPathStyle);
        
     if (colorList.size() > 0 && colorList[0].Kind() == kFourColor)
@@ -134,7 +134,7 @@ void ContinuousColorListDrawer::DrawContinuousColorBlocks(AIArtHandle resultGrou
             {.kind = kFourColor, .c.f.cyan = 1, .c.f.magenta = 0, .c.f.yellow = 0, .c.f.black = 0},
             {.kind = kFourColor, .c.f.cyan = 0, .c.f.magenta = 1, .c.f.yellow = 0, .c.f.black = 0},
             {.kind = kFourColor, .c.f.cyan = 0, .c.f.magenta = 0, .c.f.yellow = 1, .c.f.black = 0},
-            {BtColor::Black()->AiColor()}
+            {Bt::BtStandardColors().Black().AiColor()}
         };
         for (auto c : cmykColors)
         {
@@ -159,7 +159,7 @@ void ContinuousColorListDrawer::DrawContinuousColorBlocks(AIArtHandle resultGrou
     if (colorList.size() > 0)
     {
         std::for_each(colorList.begin()+1, colorList.end(),
-                      [&rect, resultGroup, this](BtColor c)
+                      [&rect, resultGroup, this](Bt::BtColor c)
                       {
                           rect.top -= 36;
                           rect.bottom -= 36;

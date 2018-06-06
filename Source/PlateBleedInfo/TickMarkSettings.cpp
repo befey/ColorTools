@@ -18,7 +18,7 @@ TickMarkSettings::TickMarkSettings()
 TickMarkSettings::TickMarkSettings(const AIRealRect rect, const ProductType pt, const SafeguardFile::TickMarkStyle tms, const bool shouldDrawBleedInfo)
 :
 bounds(rect),
-color(BtColor::RegistrationColor()),
+color(Bt::BtColor::RegistrationColor()),
 shouldDrawBleedInfo(shouldDrawBleedInfo)
 {
     if (pt == ProductType::Continuous)

@@ -53,7 +53,7 @@ AIArtHandle LaserFileNameDateDrawer::Draw(AIArtHandle resultGroup) const
     
     PutPlateNumberDateStringInTextRange(range);
     BtAteTextFeatures textFeatures;
-    textFeatures.FontSize(12).Font("Helvetica-Bold").Leading(12.5).Justification(ATE::kRightJustify).FillColor(BtColor::RegistrationColor()).AutoHyphenate(false);
+    textFeatures.FontSize(12).Font("Helvetica-Bold").Leading(12.5).Justification(ATE::kRightJustify).FillColor(Bt::BtColor::RegistrationColor()).AutoHyphenate(false);
     textFeatures.ApplyFeaturesToRange(range);
     
     FitTextFrameToContents(plateNumberDateArt);
@@ -70,7 +70,7 @@ AIArtHandle ContinuousFileNameDateDrawer::Draw(AIArtHandle resultGroup) const
     
     PutPlateNumberDateStringInTextRange(range);
     BtAteTextFeatures textFeatures;
-    textFeatures.FontSize(8).Font("Helvetica").Leading(8.5).Justification(ATE::kLeftJustify).FillColor(BtColor::RegistrationColor()).AutoHyphenate(false);
+    textFeatures.FontSize(8).Font("Helvetica").Leading(8.5).Justification(ATE::kLeftJustify).FillColor(Bt::BtColor::RegistrationColor()).AutoHyphenate(false);
     textFeatures.ApplyFeaturesToRange(range);
 
     FitTextFrameToContents(plateNumberDateArt);
@@ -89,7 +89,7 @@ AIArtHandle BusStatFileNameDateDrawer::Draw(AIArtHandle resultGroup) const
     
     PutPlateNumberDateStringInTextRange(range);
     BtAteTextFeatures textFeatures;
-    textFeatures.FontSize(7).Font("Helvetica-Condensed-Bold").Leading(7.5).Justification(ATE::kRightJustify).FillColor(BtColor::RegistrationColor()).AutoHyphenate(false);
+    textFeatures.FontSize(7).Font("Helvetica-Condensed-Bold").Leading(7.5).Justification(ATE::kRightJustify).FillColor(Bt::BtColor::RegistrationColor()).AutoHyphenate(false);
     textFeatures.ApplyFeaturesToRange(range);
     
     FitTextFrameToContents(plateNumberDateArt);

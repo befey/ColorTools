@@ -10,6 +10,9 @@
 #include "BtLayer.hpp"
 #include "GetIllustratorErrorCode.h"
 #include "ArtTree.h"
+#include "BtAteTextFeatures.h"
+
+using Bt::BtColor;
 
 BtArtHandle::BtArtHandle(AIArtHandle artHandle)
 :
@@ -370,9 +373,28 @@ BtArtHandle& BtArtHandle::PathStyle(AIPathStyle newVal)
 AIPathStyle BtArtHandle::PathStyle() const
 {
     AIPathStyle val;
+    val.Init();
+    
     if (!Null())
     {
-        sAIPathStyle->GetPathStyle(artHandle, &val);
+        if (ArtType() != kTextFrameArt)
+        {
+            sAIPathStyle->GetPathStyle(artHandle, &val);
+        }
+        else
+        {
+            BtAteTextFeatures textFeatures(ITextRange());
+            if (textFeatures.FillColor().kind != kNoneColor)
+            {
+                val.fillPaint = true;
+                val.fill = textFeatures.FillStyle();
+            }
+            if (textFeatures.StrokeColor().kind != kNoneColor)
+            {
+                val.strokePaint = true;
+                val.stroke = textFeatures.StrokeStyle();
+            }
+        }
     }
     return val;
 }

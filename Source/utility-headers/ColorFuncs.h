@@ -41,12 +41,6 @@ std::string GetInnerPantoneColorNumber(std::string fullName);
 std::string GetInnerPantoneColorNumber(AIColor color);
 SafeguardFile::InkMethod GetInkMethodFromColorName(std::string name);
 
-bool ColorIsEqual (const AIColor& color1, const AIColor& color2 , const bool includeTints ); //returns TRUE if they're the same color
-
-
-AISwatchRef CheckSwatchListForColor( AIColor& matchColor , AIReal tolerance ); //Checks the swatchlist for a swatch that matches the color passed
-																		//Returns the close swatch if found, or nullptr if theres none    Tolerance =.01 for close match
-
 void NameAllColors(AIColor *color, void *userData, AIErr *result, AIBoolean *altered);
 
 void RemoveWhiteOverprint();
@@ -58,8 +52,6 @@ void AdjustOverprint(AIArtHandle currArtObj, AIColor fromColor, AIBoolean includ
 	// replaceIn - 1 = strokes  2 = fills  0 = strokes and fills
 	// altered - flag to show if a change was made
 	
-void ConvertObjectsToGlobalCMYK(AIColor *color, void *userData, AIErr *result, AIBoolean *altered);
-
 bool operator==(const AIGrayColorStyle& lhs, const AIGrayColorStyle& rhs);
 bool operator==(const AIFourColorStyle& lhs, const AIFourColorStyle& rhs);
 bool operator==(const AIThreeColorStyle& lhs, const AIThreeColorStyle& rhs);

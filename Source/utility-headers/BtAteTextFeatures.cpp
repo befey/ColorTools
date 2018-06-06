@@ -10,6 +10,7 @@
 #include "ArtTree.h"
 
 BtAteTextFeatures::BtAteTextFeatures() {};
+BtAteTextFeatures::BtAteTextFeatures(ATE::ITextRange iTextRange) : charFeatures(iTextRange.GetUniqueLocalCharFeatures()), paraFeatures(iTextRange.GetUniqueLocalParaFeatures()) {};
 BtAteTextFeatures::BtAteTextFeatures(ATE::ICharFeatures cFeatures) : charFeatures(ATE::ICharFeatures(cFeatures)) {};
 BtAteTextFeatures::BtAteTextFeatures(ATE::IParaFeatures pFeatures) : paraFeatures(ATE::IParaFeatures(pFeatures)) {};
 BtAteTextFeatures::BtAteTextFeatures(ATE::ICharFeatures cFeatures, ATE::IParaFeatures pFeatures) : charFeatures(ATE::ICharFeatures(cFeatures)), paraFeatures(ATE::IParaFeatures(pFeatures)) {};
@@ -74,6 +75,19 @@ bool BtAteTextFeatures::NoBreak(bool* isAssigned) const
     return charFeatures.GetNoBreak(isAssigned);
 }
 
+BtAteTextFeatures& BtAteTextFeatures::FillStyle(AIFillStyle fillStyle)
+{
+    FillColor(fillStyle.color);
+    FillOverPrint(fillStyle.overprint);
+    return *this;
+}
+
+AIFillStyle BtAteTextFeatures::FillStyle() const
+{
+    return AIFillStyle { FillColor(), FillOverPrint() };
+}
+
+
 BtAteTextFeatures& BtAteTextFeatures::FillColor(AIColor color)
 {
     charFeatures.SetFillColor(CreateIApplicationPaint(color));
@@ -112,6 +126,23 @@ bool BtAteTextFeatures::FillOverPrint() const
     }
     
     return false;
+}
+
+BtAteTextFeatures& BtAteTextFeatures::StrokeStyle(AIStrokeStyle strokeStyle)
+{
+    StrokeColor(strokeStyle.color);
+    StrokeOverPrint(strokeStyle.overprint);
+    StrokeWidth(strokeStyle.width);
+    StrokeDash(strokeStyle.dash);
+    StrokeCap(strokeStyle.cap);
+    StrokeLineJoin(strokeStyle.join);
+    StrokeMiterLimit(strokeStyle.miterLimit);
+    return *this;
+}
+
+AIStrokeStyle BtAteTextFeatures::StrokeStyle() const
+{
+    return AIStrokeStyle { StrokeColor(), StrokeOverPrint(), StrokeWidth(), StrokeDash(), StrokeCap(), StrokeLineJoin(), StrokeMiterLimit() };
 }
 
 BtAteTextFeatures& BtAteTextFeatures::StrokeColor(AIColor color)
@@ -153,6 +184,115 @@ bool BtAteTextFeatures::StrokeOverPrint() const
     
     return false;
 }
+
+BtAteTextFeatures& BtAteTextFeatures::StrokeWidth(AIReal width)
+{
+    charFeatures.SetLineWidth(width);
+    return *this;
+}
+
+AIReal BtAteTextFeatures::StrokeWidth() const
+{
+    AIReal width;
+    bool isAssigned;
+    width = charFeatures.GetLineWidth(&isAssigned);
+    
+    if (isAssigned)
+    {
+        return width;
+    }
+    
+    return kAIRealUnknown;
+}
+
+BtAteTextFeatures& BtAteTextFeatures::StrokeDash(AIDashStyle dash)
+{
+    ATE::ArrayRealRef dst;
+    sAIATEPaint->CreateATELineDashArray(&dash, &dst);
+    charFeatures.SetLineDashArray(ATE::IArrayReal(dst));
+    charFeatures.SetLineDashOffset(dash.offset);
+    return *this;
+}
+
+AIDashStyle BtAteTextFeatures::StrokeDash() const
+{
+    AIDashStyle dashStyle;
+    bool isAssigned;
+    dashStyle.length = charFeatures.GetLineDashArray(&isAssigned).GetSize();
+    
+    if (isAssigned)
+    {
+        for (int i = 0; i < dashStyle.length; i++)
+        {
+            dashStyle.array[i] = charFeatures.GetLineDashArray(&isAssigned).Item(i);
+        }
+        dashStyle.offset = charFeatures.GetLineDashOffset(&isAssigned);
+        
+        return dashStyle;
+    }
+    
+    return AIDashStyle();
+}
+
+BtAteTextFeatures& BtAteTextFeatures::StrokeCap(AILineCap cap)
+{
+    ATE::LineCapType linecaptype = ATE::LineCapType(cap);
+    charFeatures.SetLineCap(linecaptype);
+    return *this;
+}
+
+AILineCap BtAteTextFeatures::StrokeCap() const
+{
+    bool isAssigned;
+    ATE::LineCapType linecaptype = charFeatures.GetLineCap(&isAssigned);
+    
+    if (isAssigned)
+    {
+        return AILineCap(linecaptype);
+    }
+    
+    return AILineCap();
+}
+
+BtAteTextFeatures& BtAteTextFeatures::StrokeLineJoin(AILineJoin join)
+{
+    ATE::LineJoinType linejointype = ATE::LineJoinType(join);
+    charFeatures.SetLineJoin(linejointype);
+    return *this;
+}
+
+AILineJoin BtAteTextFeatures::StrokeLineJoin() const
+{
+    bool isAssigned;
+    ATE::LineJoinType linejointype = charFeatures.GetLineJoin(&isAssigned);
+    
+    if (isAssigned)
+    {
+        return AILineJoin(linejointype);
+    }
+    
+    return AILineJoin();
+}
+
+BtAteTextFeatures& BtAteTextFeatures::StrokeMiterLimit(AIReal miter)
+{
+    charFeatures.SetMiterLimit(miter);
+    return *this;
+}
+
+AIReal BtAteTextFeatures::StrokeMiterLimit() const
+{
+    bool isAssigned;
+    AIReal miter = charFeatures.GetMiterLimit(&isAssigned);
+    
+    if (isAssigned)
+    {
+        return miter;
+    }
+    
+    return kAIRealUnknown;
+}
+
 
 BtAteTextFeatures& BtAteTextFeatures::AutoHyphenate(bool newVal)
 {

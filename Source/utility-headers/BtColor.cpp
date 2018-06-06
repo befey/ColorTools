@@ -15,6 +15,114 @@
 #define TMPBLACKNAME "CustomBlack"
 #define TMPWHITENAME "CustomWhite"
 
+using Bt::BtColor;
+using Bt::BtStandardColors;
+
+BtColor BtStandardColors::Black()
+{
+    BtColor black(
+                        SafeguardFile::BLACK_COLOR_NAME,
+                        kCustomFourColor,
+                        {.f.cyan = 0, .f.magenta = 0, .f.yellow = 0, .f.black = 1},
+                        kCustomProcessColor
+                        );
+    return black;
+}
+
+BtColor BtStandardColors::White()
+{
+    BtColor white(
+                    SafeguardFile::WHITE_COLOR_NAME,
+                    kCustomFourColor,
+                    {.f.cyan = 0, .f.magenta = 0, .f.yellow = 0, .f.black = 0},
+                    kCustomProcessColor
+                    );
+    return white;
+}
+
+BtColor BtStandardColors::MicrBlack()
+{
+    BtColor micrBlack(
+                        SafeguardFile::MICR_BLACK_MAG_COLOR_NAME,
+                        kCustomFourColor,
+                        {.f.cyan = 0, .f.magenta = 0, .f.yellow = 0, .f.black = 1},
+                        kCustomSpotColor
+                        );
+    return micrBlack;
+}
+
+BtColor BtStandardColors::Keyline()
+{
+    BtColor keyline(
+                          SafeguardFile::KEYLINE_COLOR_NAME,
+                          kCustomFourColor,
+                          {.f.cyan = 1, .f.magenta = 0, .f.yellow = 0, .f.black = 0},
+                          kCustomSpotColor
+                          );
+    return keyline;
+}
+
+BtColor BtStandardColors::Gripper()
+{
+    BtColor gripper(
+                          SafeguardFile::GRIPPER_COLOR_NAME,
+                          kCustomFourColor,
+                          {.f.cyan = .80, .f.magenta = 1, .f.yellow = 0, .f.black = 0},
+                          kCustomSpotColor
+                          );
+    return gripper;
+}
+
+BtColor BtStandardColors::NumberingRed()
+{
+    BtColor numberingRed(
+                          SafeguardFile::NUMBERINGRED_COLOR_NAME,
+                          kCustomFourColor,
+                          {.f.cyan = 0, .f.magenta = .70, .f.yellow = .50, .f.black = 0},
+                          kCustomSpotColor
+                          );
+    return numberingRed;
+}
+
+BtColor BtStandardColors::NumberingBlack()
+{
+    BtColor numberingBlack(
+                               SafeguardFile::NUMBERINGBLACK_COLOR_NAME,
+                               kCustomFourColor,
+                               {.f.cyan = 0, .f.magenta = 1, .f.yellow = 0, .f.black = 1},
+                               kCustomSpotColor
+                               );
+    return numberingBlack;
+    
+}
+
+std::unordered_map<std::string, Bt::BtColor> BtStandardColors::BasicColorDefinitions()
+{
+    std::unordered_map<std::string, Bt::BtColor> stdDefs =
+    {
+        { SafeguardFile::BLACK_COLOR_NAME, Black() },
+        { SafeguardFile::WHITE_COLOR_NAME, White() },
+    };
+
+    return stdDefs;
+}
+
+std::unordered_map<std::string, Bt::BtColor> BtStandardColors::SafeguardColorDefinitions()
+{
+    std::unordered_map<std::string, Bt::BtColor> stdDefs =
+    {
+        { SafeguardFile::MICR_BLACK_MAG_COLOR_NAME, MicrBlack() },
+        { SafeguardFile::KEYLINE_COLOR_NAME, Keyline() },
+        { SafeguardFile::GRIPPER_COLOR_NAME, Gripper() },
+        { SafeguardFile::NUMBERINGRED_COLOR_NAME, NumberingRed() },
+        { SafeguardFile::NUMBERINGBLACK_COLOR_NAME, NumberingBlack() }
+    };
+    
+    return stdDefs;
+}
+
+
+
 //Constructor
 BtColor::BtColor(AIColor aiColor, SafeguardFile::InkMethod method)
 {
@@ -46,17 +154,92 @@ BtColor::BtColor(std::string name)
     AiCustomColor(AICustomColor(), name, 0, SafeguardFile::InkMethod::NONE);
 }
 
-bool operator==(const BtColor& lhs, const BtColor& rhs)
+bool BtColor::Null() const
+{
+    if (Kind() == kNoneColor)
+    {
+        return true;
+    }
+    else if (Kind() == kCustomColor)
+    {
+        if (AiColor().c.c.color == nullptr)
+        {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+bool BtColor::ColorIsEqual (const BtColor& color2 , const bool ignoreTints ) const
+{
+    //GRAY COLOR
+    if ((Kind() == kGrayColor) && (Kind() == color2.Kind()))
+    {
+        return AiColor().c.g == color2.AiColor().c.g;
+    }
+    
+    //FOUR COLOR
+    if ((Kind() == kFourColor) && (Kind() == color2.Kind()))
+    {
+        return AiColor().c.f == color2.AiColor().c.f;
+    }
+    
+    //THREE COLOR
+    if ((Kind() == kThreeColor) && (Kind() == color2.Kind()))
+    {
+        return AiColor().c.rgb == color2.AiColor().c.rgb;
+    }
+    
+    //NONE COLOR
+    if ((Kind() == kNoneColor) && (Kind() == color2.Kind()))
+    {
+        return true;
+    }
+    
+    //CUSTOM COLOR
+    if ((Kind() == kCustomColor) && (Kind() == color2.Kind()))
+    {
+        if (!ignoreTints && (Tint() != color2.Tint())) //If we care about tints and they don't match
+        {
+            return false;
+        }
+        
+        if (Name() != color2.Name())
+        {
+            return false;
+        }
+        
+        //CUSTOM FOUR COLOR
+        if ( (AiCustomColor().kind == kCustomFourColor ) && (AiCustomColor().kind == color2.AiCustomColor().kind) )
+        {
+            return AiCustomColor().c.f == color2.AiCustomColor().c.f;
+        }
+        //CUSTOM THREE COLOR
+        if ( (AiCustomColor().kind == kCustomThreeColor ) && (AiCustomColor().kind == color2.AiCustomColor().kind) )
+        {
+            return AiCustomColor().c.rgb == color2.AiCustomColor().c.rgb;
+        }
+        //CUSTOM LAB COLOR
+        if ( (AiCustomColor().kind == kCustomLabColor ) && (AiCustomColor().kind == color2.AiCustomColor().kind) )
+        {
+            return AiCustomColor().c.lab == color2.AiCustomColor().c.lab;
+        }
+    }
+    return false;
+}
+
+bool Bt::operator==(const BtColor& lhs, const BtColor& rhs)
 {
     if (lhs.Method() != rhs.Method())
     {
         return false;
     }
     
-    return ColorIsEqual(lhs.AiColor(), rhs.AiColor(), true);
+    return lhs.ColorIsEqual(rhs.AiColor(), true);
 }
 
-bool operator< (const BtColor& lhs, const BtColor& rhs)
+bool Bt::operator< (const BtColor& lhs, const BtColor& rhs)
 {
     //Always sort CMYK to the front
     if (lhs.Kind() == kFourColor && rhs.Kind() != kFourColor)
@@ -90,7 +273,7 @@ bool operator< (const BtColor& lhs, const BtColor& rhs)
     }
 }
 
-AILabColorStyle BtColor::GetLabApproximation() const
+AILabColorStyle Bt::BtColor::GetLabApproximation() const
 {
     if (aiCustomColorHandle && aiCustomColor.kind == kCustomLabColor)
     {
@@ -254,7 +437,11 @@ std::string BtColor::Name() const
 {
     ai::UnicodeString nameUS("ERR: COLOR NAME");
     
-    if (PrintsAsSpot())
+    if (IsRegistration())
+    {
+        nameUS = ai::UnicodeString(SafeguardFile::REGISTRATION_COLOR_NAME);
+    }
+    else if (PrintsAsSpot())
     {
         if (Kind() == kCustomColor)
         {
@@ -275,19 +462,16 @@ std::string BtColor::Name() const
     }
     else
     {
-        int numSwatches = sAISwatchList->CountSwatches( nullptr );
-        for ( int i=0; i<numSwatches; i++)
+        AIColor tempColor = AiColor();
+        AISwatchRef swatchRef = nullptr;
+        swatchRef = sAISwatchList->GetSwatchByColor(nullptr, &tempColor);
+        if (swatchRef != nullptr)
         {
-            AIColor tempColor;
-            AISwatchRef swatchRef = sAISwatchList->GetNthSwatch( nullptr , i );
-            sAISwatchList->GetAIColor( swatchRef, &tempColor );
-            if ( ColorIsEqual(AiColor(), tempColor, true) )
-            {
-                sAISwatchList->GetSwatchName( swatchRef, nameUS );
-            }
+            sAISwatchList->GetSwatchName( swatchRef, nameUS );
         }
     }
     
+    string s = nameUS.getInStdString(kAIPlatformCharacterEncoding);
     return nameUS.getInStdString(kAIPlatformCharacterEncoding);
 }
 
@@ -306,6 +490,15 @@ bool BtColor::CompareName(std::string name) const
     }
     return false;
 }
+
+AISwatchRef BtColor::CheckSwatchListForColor() const
+{
+    AIColor color = AiColor();
+    AISwatchRef swatch = nullptr;
+    return sAISwatchList->GetSwatchByColor(nullptr, &color);
+    return swatch;
+}
+
 
 AICustomColorFlags BtColor::CustomFlag() const
 {
@@ -406,8 +599,10 @@ void BtColor::GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) cons
             c = {.kind = kFourColor, .c.f.cyan = 0, .c.f.magenta = 0, .c.f.yellow = 1, .c.f.black = 0};
             textFeatures.FillColor(c);
             textFeatures.AddTextToRangeWithFeatures("YELO" + method + "  ", targetRange);
-            textFeatures.FillColor(*BtColor::Black());
-            name = BtColor::Black()->Name() + method;
+            
+            Bt::BtStandardColors stdColors;
+            textFeatures.FillColor(stdColors.Black());
+            name = stdColors.Black().Name() + method;
         }
         else if (Kind() == kGrayColor)
         {
@@ -586,6 +781,17 @@ bool BtColor::IsPantone() const
     return false;
 }
 
+bool BtColor::IsNumbering() const
+{
+    //If the swatch name includes "NUMBERING" return true
+    ai::UnicodeString colorName(Name());
+    if (colorName.caseFind(ai::UnicodeString("NUMBERING"), 0) != string::npos)
+    {
+        return true;
+    }
+    return false;
+}
+
 bool BtColor::IsNonPrinting() const
 {
     if (IsWhite())
@@ -597,6 +803,10 @@ bool BtColor::IsNonPrinting() const
         return true;
     }
     if (IsKeyline())
+    {
+        return true;
+    }
+    if (IsNumbering())
     {
         return true;
     }
@@ -619,5 +829,5 @@ BtColor BtColor::RegistrationColor()
     AICustomColorHandle registrationCch = nullptr;
     sAICustomColor->GetCurrentRegistrationColor(&registrationCch);
     AIColor registration = { .kind = kCustomColor, .c.c = { .color = registrationCch, .tint = 0} };
-    return BtColor(registration);
+    return BtColor(registration, SafeguardFile::InkMethod::NONE);
 }

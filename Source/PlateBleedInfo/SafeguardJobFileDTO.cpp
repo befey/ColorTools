@@ -19,7 +19,7 @@ using PlateBleedInfo::SafeguardJobFileDTO;
 using PlateBleedInfo::PlateDTO;
 using PlateBleedInfo::ColorDTO;
 
-ColorDTO::ColorDTO(BtColor color, bool fullColorName)
+ColorDTO::ColorDTO(Bt::BtColor color, bool fullColorName)
 :
 method(int(color.Method()))
 {

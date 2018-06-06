@@ -15,34 +15,34 @@
 class ColorListCheckerPredicate
 {
 public:
-    ColorListCheckerPredicate(std::function<bool(const BtColor&, const BtColor&)> predicate) : predicate(predicate) {};
-    bool operator() (const BtColor& base, const BtColor& compare) const { return predicate(base, compare); };
+    ColorListCheckerPredicate(std::function<bool(const Bt::BtColor&, const Bt::BtColor&)> predicate) : predicate(predicate) {};
+    bool operator() (const Bt::BtColor& base, const Bt::BtColor& compare) const { return predicate(base, compare); };
 private:
-    std::function<bool(const BtColor&, const BtColor&)> predicate;
+    std::function<bool(const Bt::BtColor&, const Bt::BtColor&)> predicate;
 };
 
 class ColorListChecker
 {
 public:
-    virtual bool operator() (const BtColor& compare) const = 0;
+    virtual bool operator() (const Bt::BtColor& compare) const = 0;
     
     void AddPredicate(ColorListCheckerPredicate predicate) { predicates.push_back(predicate); };
     
 protected:
-    ColorListChecker(const BtColor& base) : base(base) {};
+    ColorListChecker(const Bt::BtColor& base) : base(base) {};
     ~ColorListChecker() {};
     
     vector<ColorListCheckerPredicate> predicates;
-    const BtColor& base;
+    const Bt::BtColor& base;
 };
 
 
 class ColorListDuplicateChecker : public ColorListChecker
 {
 public:
-    ColorListDuplicateChecker(const BtColor& base);
+    ColorListDuplicateChecker(const Bt::BtColor& base);
     
-    bool operator() (const BtColor& compare) const override;
+    bool operator() (const Bt::BtColor& compare) const override;
     
 private:
 };
@@ -50,9 +50,9 @@ private:
 class ColorListNonSolidColorChecker : public ColorListChecker
 {
 public:
-    ColorListNonSolidColorChecker(const BtColor& base);
+    ColorListNonSolidColorChecker(const Bt::BtColor& base);
     
-    bool operator() (const BtColor& compare) const override;
+    bool operator() (const Bt::BtColor& compare) const override;
         
 private:
 };

@@ -73,8 +73,8 @@ public:
     AIPathStyle PathStyle() const;
     BtArtHandle& Stroke(bool newVal);
     bool Stroke() const;
-    BtArtHandle& StrokeColor(BtColor newVal);
-    BtColor StrokeColor() const;
+    BtArtHandle& StrokeColor(Bt::BtColor newVal);
+    Bt::BtColor StrokeColor() const;
     BtArtHandle& StrokeWeight(AIReal newVal);
     AIReal StrokeWeight() const;
     BtArtHandle& OverprintStroke(bool newVal);
@@ -84,8 +84,8 @@ public:
     
     BtArtHandle& Fill(bool newVal);
     bool Fill() const;
-    BtArtHandle& FillColor(BtColor newVal);
-    BtColor FillColor() const;
+    BtArtHandle& FillColor(Bt::BtColor newVal);
+    Bt::BtColor FillColor() const;
     BtArtHandle& OverprintFill(bool newVal);
     bool OverprintFill() const;
     BtArtHandle& FillStyle(AIFillStyle newVal);
