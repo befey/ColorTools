@@ -50,21 +50,21 @@ PdfPrinter::PdfPrinter(const PdfPreset preset, const bool doNotDelete, const boo
     }
 }
 
-unique_ptr<PdfPrinter> PdfPrinter::GetPrinter(const PdfPreset preset, const bool separateFiles, const bool doNotDelete, const bool userOutputFolder)
+shared_ptr<PdfPrinter> PdfPrinter::GetPrinter(const PdfPreset preset, const bool separateFiles, const bool doNotDelete, const bool userOutputFolder)
 {
     if (separateFiles)
     {
-        return unique_ptr<PdfPrinter> { make_unique<SeparateFilePdfPrinter>(preset, doNotDelete, userOutputFolder) };
+        return shared_ptr<PdfPrinter> { make_shared<SeparateFilePdfPrinter>(preset, doNotDelete, userOutputFolder) };
     }
     else
     {
-        return unique_ptr<PdfPrinter> { make_unique<SingleFilePdfPrinter>(preset, doNotDelete, userOutputFolder) };
+        return shared_ptr<PdfPrinter> { make_shared<SingleFilePdfPrinter>(preset, doNotDelete, userOutputFolder) };
     }
 }
 
 FilesystemResults PdfPrinter::Print(const PdfSettings& settings)
 {
-    unique_ptr<PdfPrinter> printer = GetPrinter(settings.GetPreset(), settings.OutputSeparateFiles(), settings.DoNotDelete(), settings.UserOutputFolder());
+    shared_ptr<PdfPrinter> printer = GetPrinter(settings.GetPreset(), settings.OutputSeparateFiles(), settings.DoNotDelete(), settings.UserOutputFolder());
     
     return printer->DoIt(settings);
 }

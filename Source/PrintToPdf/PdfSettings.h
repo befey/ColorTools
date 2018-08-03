@@ -57,7 +57,7 @@ namespace PrintToPdf
         bool doNotDelete;
         bool userOutputFolder;
         PrintToPdf::PdfPreset preset;
-        unique_ptr<PasswordRetriever> pwRetriever;
+        shared_ptr<PasswordRetriever> pwRetriever;
 
         VPB vpb;
         

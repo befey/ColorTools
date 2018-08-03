@@ -25,7 +25,7 @@ namespace fs = boost::filesystem;
 
 PlaceFileSearchResults PlaceFileSearcher::DoSearch() const
 {
-    unique_ptr<PathBuilder> pBuilder = PathBuilder::GetPathBuilder(PdfPreset::Manufacturing, false, std::make_shared<AiDirectoryChooser>(), std::make_shared<AiPreferenceWriter>(PLACEFILESEARCH_FOLDERPREFS_EXTENSION));
+    shared_ptr<PathBuilder> pBuilder = PathBuilder::GetPathBuilder(PdfPreset::Manufacturing, false, std::make_shared<AiDirectoryChooser>(), std::make_shared<AiPreferenceWriter>(PLACEFILESEARCH_FOLDERPREFS_EXTENSION));
     fs::path fp = pBuilder->GetPath(PlateNumber(searchString));
     
     vector<fs::path> foundFilePaths;

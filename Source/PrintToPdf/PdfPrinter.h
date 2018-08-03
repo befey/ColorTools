@@ -30,10 +30,7 @@ namespace PrintToPdf
     protected:
         PdfPrinter(const PdfPreset preset, const bool doNotDelete, const bool userOutputFolder);
         
-        unique_ptr<PathBuilder> pathBuilder;
-        unique_ptr<ExistingFileDeleter> efDeleter;
-        unique_ptr<LayerVisibility> layerVisibility;
-        unique_ptr<TypeToPathsConverter> tpConverter;
+        shared_ptr<PathBuilder> pathBuilder;
         
         boost::filesystem::path outputPath;
         
@@ -42,7 +39,7 @@ namespace PrintToPdf
         PrintToPdfCommand printCommand;
         FilesystemResults transactions;
         
-        static unique_ptr<PdfPrinter> GetPrinter(PdfPreset preset, const bool separateFiles, const bool doNotDelete, const bool userOutputFolder);
+        static shared_ptr<PdfPrinter> GetPrinter(PdfPreset preset, const bool separateFiles, const bool doNotDelete, const bool userOutputFolder);
         
         FilesystemResults DoIt(const PdfSettings& settings);
         virtual FilesystemResults CustomPrintSteps(const PdfSettings& settings) const = 0;

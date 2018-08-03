@@ -16,27 +16,27 @@ using PrintToPdf::BStatProofLayerVisibility;
 using PrintToPdf::NonStandardLayerVisibility;
 using SafeguardFile::ProductType;
 
-unique_ptr<LayerVisibility> LayerVisibility::GetLayerVisibility(SafeguardFile::ProductType productType, PdfPreset preset)
+shared_ptr<LayerVisibility> LayerVisibility::GetLayerVisibility(SafeguardFile::ProductType productType, PdfPreset preset)
 {
     //SETUP LAYER VISIBILITY
     if (productType == ProductType::BusinessStat)
     {
         if (preset == PdfPreset::MicrProof || preset == PdfPreset::Proof)
         {
-            return unique_ptr<LayerVisibility> { make_unique<BStatProofLayerVisibility>() };
+            return shared_ptr<LayerVisibility> { make_shared<BStatProofLayerVisibility>() };
         }
         else
         {
-            return unique_ptr<LayerVisibility> { make_unique<BStatLayerVisibility>() };
+            return shared_ptr<LayerVisibility> { make_shared<BStatLayerVisibility>() };
         }
     }
     else if (productType == ProductType::INVAL)
     {
-        return unique_ptr<LayerVisibility> { make_unique<NonStandardLayerVisibility>() };
+        return shared_ptr<LayerVisibility> { make_shared<NonStandardLayerVisibility>() };
     }
     else
     {
-        return unique_ptr<LayerVisibility> { make_unique<LaserLayerVisibility>() };
+        return shared_ptr<LayerVisibility> { make_shared<LaserLayerVisibility>() };
     }
 }
 

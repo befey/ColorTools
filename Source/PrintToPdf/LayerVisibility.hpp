@@ -22,7 +22,7 @@ namespace PrintToPdf
     class LayerVisibility
     {
     public:
-        static unique_ptr<LayerVisibility> GetLayerVisibility(SafeguardFile::ProductType productType, PdfPreset preset);
+        static shared_ptr<LayerVisibility> GetLayerVisibility(SafeguardFile::ProductType productType, PdfPreset preset);
         
         bool SetLayerVisibility() { return CustomLayerVisibility(); };
         

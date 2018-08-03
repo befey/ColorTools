@@ -21,28 +21,28 @@ using PrintToPdf::MicrProofPathBuilder;
 using PrintToPdf::TestingPathBuilder;
 using PrintToPdf::UserPathBuilder;
 
-std::unique_ptr<PathBuilder> PathBuilder::GetPathBuilder(PdfPreset preset, bool userOutputFolder, std::shared_ptr<DirectoryChooser> chooser, std::shared_ptr<PreferenceWriter> writer)
+std::shared_ptr<PathBuilder> PathBuilder::GetPathBuilder(PdfPreset preset, bool userOutputFolder, std::shared_ptr<DirectoryChooser> chooser, std::shared_ptr<PreferenceWriter> writer)
 {
     if (userOutputFolder)
     {
-        return std::unique_ptr<PathBuilder> { std::make_unique<UserPathBuilder>(chooser, writer) };
+        return std::shared_ptr<PathBuilder> { std::make_shared<UserPathBuilder>(chooser, writer) };
     }
     
     if (preset == PdfPreset::Manufacturing)
     {
-         return std::unique_ptr<PathBuilder> { std::make_unique<ManufacturingPathBuilder>(chooser, writer) };
+         return std::shared_ptr<PathBuilder> { std::make_shared<ManufacturingPathBuilder>(chooser, writer) };
     }
     else if (preset == PdfPreset::MicrProof)
     {
-        return std::unique_ptr<PathBuilder> { std::make_unique<MicrProofPathBuilder>(chooser, writer) };
+        return std::shared_ptr<PathBuilder> { std::make_shared<MicrProofPathBuilder>(chooser, writer) };
     }
     else if (preset == PdfPreset::Proof)
     {
-        return std::unique_ptr<PathBuilder> { std::make_unique<ProofPathBuilder>(chooser, writer) };
+        return std::shared_ptr<PathBuilder> { std::make_shared<ProofPathBuilder>(chooser, writer) };
     }
     else
     {
-        return std::unique_ptr<PathBuilder> { std::make_unique<UserPathBuilder>(chooser, writer) };
+        return std::shared_ptr<PathBuilder> { std::make_shared<UserPathBuilder>(chooser, writer) };
     }
 }
 

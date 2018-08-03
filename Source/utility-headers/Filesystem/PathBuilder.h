@@ -20,7 +20,7 @@ namespace PrintToPdf
     class PathBuilder
     {
     public:
-        static std::unique_ptr<PathBuilder> GetPathBuilder(PdfPreset preset, bool userOutputFolder, std::shared_ptr<DirectoryChooser> chooser, std::shared_ptr<PreferenceWriter> writer);
+        static std::shared_ptr<PathBuilder> GetPathBuilder(PdfPreset preset, bool userOutputFolder, std::shared_ptr<DirectoryChooser> chooser, std::shared_ptr<PreferenceWriter> writer);
         
         virtual boost::filesystem::path GetPath(const SafeguardFile::PlateNumber pn) const = 0;
     protected:

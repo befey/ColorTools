@@ -38,15 +38,15 @@ userOutputFolder(uof)
 {
     if (preset == PrintToPdf::PdfPreset::Manufacturing)
     {
-        pwRetriever = unique_ptr<PasswordRetriever> { make_unique<NonePasswordRetriever>() };
+        pwRetriever = shared_ptr<PasswordRetriever> { make_shared<NonePasswordRetriever>() };
     }
     else if (preset == PrintToPdf::PdfPreset::Proof)
     {
-        pwRetriever = unique_ptr<PasswordRetriever> { make_unique<ProofPasswordRetriever>() };
+        pwRetriever = shared_ptr<PasswordRetriever> { make_shared<ProofPasswordRetriever>() };
     }
     else if (preset == PrintToPdf::PdfPreset::MicrProof)
     {
-        pwRetriever = unique_ptr<PasswordRetriever> { make_unique<MicrPasswordRetriever>() };
+        pwRetriever = shared_ptr<PasswordRetriever> { make_shared<MicrPasswordRetriever>() };
     }
     
     SetPasswords();
