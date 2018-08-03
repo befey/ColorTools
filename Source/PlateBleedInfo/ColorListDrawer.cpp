@@ -106,7 +106,7 @@ AIArtHandle BusStatColorListDrawer::DrawerSpecificSteps(AIArtHandle resultGroup)
     colorList.AsTextRange(range);
     
     BtAteTextFeatures textFeatures;
-    textFeatures.FontSize(7).Font("Helvetica-CondensedBold").Leading(7.5).Justification(ATE::kLeftJustify);
+    textFeatures.FontSize(7).Font("Helvetica-BoldCondensed").Leading(7.5).Justification(ATE::kLeftJustify);
     textFeatures.ApplyFeaturesToRange(range);
     
     FitTextFrameToContents(colorListArt);

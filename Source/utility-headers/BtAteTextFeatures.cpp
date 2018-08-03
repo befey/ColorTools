@@ -8,6 +8,7 @@
 
 #include "BtAteTextFeatures.h"
 #include "ArtTree.h"
+#include "GetIllustratorErrorCode.h"
 
 BtAteTextFeatures::BtAteTextFeatures() {};
 BtAteTextFeatures::BtAteTextFeatures(ATE::ICharFeatures cFeatures) : charFeatures(ATE::ICharFeatures(cFeatures)) {};
@@ -51,7 +52,16 @@ ATETextDOM::Real BtAteTextFeatures::FontSize(bool* isAssigned) const
 BtAteTextFeatures& BtAteTextFeatures::Font(string postscriptFontName)
 {
     AIFontKey currFontKey = nullptr;
-    sAIFont->FindFont(postscriptFontName.c_str(), kAIAnyFontTechnology, kUnknownAIScript, FALSE, &currFontKey);
+    AIErr error = sAIFont->FindFont(postscriptFontName.c_str(), kAIAnyFontTechnology, kNativeAIScript, TRUE, &currFontKey);
+    
+    if (error)
+    {
+        ai::UnicodeString errorMsg = ai::UnicodeString("There was an error finding font: ");
+        errorMsg.append(ai::UnicodeString("\n\t" + postscriptFontName));
+        errorMsg.append(ai::UnicodeString("\nPlease verify that the font is loaded and/nthe Postscript font name matches.\nThe font was not set correctly."));
+        sAIUser->ErrorAlert(errorMsg);
+        return *this;
+    }
     FontRef fontRef = nullptr;
     sAIFont->FontFromFontKey(currFontKey, &fontRef);
     charFeatures.SetFont(ATE::IFont(fontRef));
