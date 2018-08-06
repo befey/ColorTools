@@ -10,8 +10,8 @@
 #define SgPathConstants_h
 
 static constexpr auto PATH_TO_PLANT_MANUFACTURING =     "/Volumes/Plant_Manufacturing/Safeguard_Mfg_Files";
-static constexpr auto PATH_TO_PDFPROOFS =               "/Volumes/PDFProofs/BAM Proofs";
-static constexpr auto PATH_TO_MICR_PDF =                "/Volumes/PDFProofs/BAM Proofs";
+static constexpr auto PATH_TO_PDFPROOFS =               "/Volumes/WIP/Proofs";
+static constexpr auto PATH_TO_MICR_PDF =                "/Volumes/WIP/Proofs";
 static constexpr auto TESTING_OUTPUTPATH =              "/Users/t431962/Desktop/WORKING";
 
 
