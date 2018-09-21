@@ -15,17 +15,17 @@
 class ColorListCommand : public IBtCommand
 {
 protected:
-    ColorListCommand(vector<BtColor>& colorList) : colorList(colorList) {};
+    ColorListCommand(vector<Bt::BtColor>& colorList) : colorList(colorList) {};
     ~ColorListCommand() {};
     
-    vector<BtColor>& colorList;
+    vector<Bt::BtColor>& colorList;
 };
 
 
 class CleanUpColorListCommand : public ColorListCommand
 {
 public:
-    CleanUpColorListCommand(vector<BtColor>& colorList);
+    CleanUpColorListCommand(vector<Bt::BtColor>& colorList);
     
     bool Execute() const override;
 
@@ -37,7 +37,7 @@ private:
 class RemoveNonSolidColorsCommand : public ColorListCommand
 {
 public:
-    RemoveNonSolidColorsCommand(vector<BtColor>& colorList) : ColorListCommand(colorList) {};
+    RemoveNonSolidColorsCommand(vector<Bt::BtColor>& colorList) : ColorListCommand(colorList) {};
     
     bool Execute() const override;
 };
@@ -45,7 +45,7 @@ public:
 class RemoveNonPrintingColorsCommand : public ColorListCommand
 {
 public:
-    RemoveNonPrintingColorsCommand(vector<BtColor>& colorList) : ColorListCommand(colorList) {};
+    RemoveNonPrintingColorsCommand(vector<Bt::BtColor>& colorList) : ColorListCommand(colorList) {};
     
     bool Execute() const override;
 };
@@ -54,7 +54,7 @@ public:
 class RemoveDuplicateColorsCommand : public ColorListCommand
 {
 public:
-    RemoveDuplicateColorsCommand(vector<BtColor>& colorList) : ColorListCommand(colorList) {};
+    RemoveDuplicateColorsCommand(vector<Bt::BtColor>& colorList) : ColorListCommand(colorList) {};
     
     bool Execute() const override;
 };
@@ -62,7 +62,7 @@ public:
 class RemoveBlackIfCMYKPresentCommand : public ColorListCommand
 {
 public:
-    RemoveBlackIfCMYKPresentCommand(vector<BtColor>& colorList) : ColorListCommand(colorList) {};
+    RemoveBlackIfCMYKPresentCommand(vector<Bt::BtColor>& colorList) : ColorListCommand(colorList) {};
     
     bool Execute() const override;
 };

@@ -9,7 +9,7 @@
 #include "ColorListCommand.hpp"
 #include "ColorListChecker.hpp"
 
-CleanUpColorListCommand::CleanUpColorListCommand(vector<BtColor>& colorList)
+CleanUpColorListCommand::CleanUpColorListCommand(vector<Bt::BtColor>& colorList)
 :
 ColorListCommand(colorList)
 {
@@ -50,7 +50,7 @@ bool RemoveNonSolidColorsCommand::Execute() const
 bool RemoveNonPrintingColorsCommand::Execute() const
 {
     colorList.erase(
-                      std::remove_if(colorList.begin(), colorList.end(), [this](BtColor c)
+                      std::remove_if(colorList.begin(), colorList.end(), [this](Bt::BtColor c)
                                      {
                                          if (c.IsNonPrinting())
                                          {
@@ -93,7 +93,7 @@ bool RemoveBlackIfCMYKPresentCommand::Execute() const
         if (color.PrintsAsProcess())
         {
             colorList.erase(
-                            std::remove_if(colorList.begin(), colorList.end(), [](BtColor c)
+                            std::remove_if(colorList.begin(), colorList.end(), [](Bt::BtColor c)
                                            {
                                                if (c.IsBlack(DoNotIncludeCMYKBuilds))
                                                {

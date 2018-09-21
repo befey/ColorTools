@@ -90,7 +90,7 @@
 								<key>PATH</key>
 								<string>Adobe Illustrator CC 2018</string>
 								<key>PATH_TYPE</key>
-								<integer>2</integer>
+								<integer>0</integer>
 								<key>PERMISSIONS</key>
 								<integer>509</integer>
 								<key>TYPE</key>
@@ -117,7 +117,7 @@
 														<key>PATH_TYPE</key>
 														<integer>0</integer>
 														<key>PERMISSIONS</key>
-														<integer>493</integer>
+														<integer>509</integer>
 														<key>TYPE</key>
 														<integer>3</integer>
 														<key>UID</key>
