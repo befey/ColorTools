@@ -58,7 +58,7 @@
 												<key>GID</key>
 												<integer>80</integer>
 												<key>PATH</key>
-												<string>/Applications/Adobe Illustrator CC 2017/Plug-ins.localized/Safeguard</string>
+												<string>/Applications/Adobe Illustrator CC 2018/Plug-ins.localized/Safeguard</string>
 												<key>PATH_TYPE</key>
 												<integer>0</integer>
 												<key>PERMISSIONS</key>
@@ -74,11 +74,11 @@
 										<key>GID</key>
 										<integer>80</integer>
 										<key>PATH</key>
-										<string>/Applications/Adobe Illustrator CC 2017/Plug-ins.localized</string>
+										<string>/Applications/Adobe Illustrator CC 2018/Plug-ins.localized</string>
 										<key>PATH_TYPE</key>
 										<integer>0</integer>
 										<key>PERMISSIONS</key>
-										<integer>493</integer>
+										<integer>509</integer>
 										<key>TYPE</key>
 										<integer>3</integer>
 										<key>UID</key>
@@ -513,7 +513,7 @@
 								<key>PATH_TYPE</key>
 								<integer>0</integer>
 								<key>PERMISSIONS</key>
-								<integer>493</integer>
+								<integer>1005</integer>
 								<key>TYPE</key>
 								<integer>1</integer>
 								<key>UID</key>
@@ -735,7 +735,7 @@
 			<key>TREAT_MISSING_FILES_AS_WARNING</key>
 			<false/>
 			<key>VERSION</key>
-			<integer>4</integer>
+			<integer>5</integer>
 		</dict>
 		<key>PACKAGE_SCRIPTS</key>
 		<dict>
@@ -757,7 +757,7 @@
 		<key>PACKAGE_SETTINGS</key>
 		<dict>
 			<key>AUTHENTICATION</key>
-			<true/>
+			<integer>1</integer>
 			<key>CONCLUSION_ACTION</key>
 			<integer>0</integer>
 			<key>FOLLOW_SYMBOLIC_LINKS</key>
@@ -772,6 +772,8 @@
 			<true/>
 			<key>PAYLOAD_SIZE</key>
 			<integer>-1</integer>
+			<key>REFERENCE_PATH</key>
+			<string></string>
 			<key>RELOCATABLE</key>
 			<false/>
 			<key>USE_HFS+_COMPRESSION</key>
@@ -974,7 +976,7 @@
 				</dict>
 			</array>
 			<key>NAME</key>
-			<string>Safeguard Plugins Installer 1.8.4</string>
+			<string>Safeguard Plugins Installer 1.8.4.1</string>
 			<key>PAYLOAD_ONLY</key>
 			<false/>
 		</dict>
