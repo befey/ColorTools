@@ -58,7 +58,7 @@
 												<key>GID</key>
 												<integer>80</integer>
 												<key>PATH</key>
-												<string>/Applications/Adobe Illustrator CC 2017/Plug-ins.localized/Safeguard</string>
+												<string>/Applications/Adobe Illustrator CC 2019/Plug-ins.localized/Safeguard</string>
 												<key>PATH_TYPE</key>
 												<integer>0</integer>
 												<key>PERMISSIONS</key>
@@ -74,7 +74,7 @@
 										<key>GID</key>
 										<integer>80</integer>
 										<key>PATH</key>
-										<string>/Applications/Adobe Illustrator CC 2017/Plug-ins.localized</string>
+										<string>/Applications/Adobe Illustrator CC 2019/Plug-ins.localized</string>
 										<key>PATH_TYPE</key>
 										<integer>0</integer>
 										<key>PERMISSIONS</key>
@@ -84,23 +84,6 @@
 										<key>UID</key>
 										<integer>0</integer>
 									</dict>
-								</array>
-								<key>GID</key>
-								<integer>80</integer>
-								<key>PATH</key>
-								<string>Adobe Illustrator CC 2018</string>
-								<key>PATH_TYPE</key>
-								<integer>0</integer>
-								<key>PERMISSIONS</key>
-								<integer>509</integer>
-								<key>TYPE</key>
-								<integer>2</integer>
-								<key>UID</key>
-								<integer>0</integer>
-							</dict>
-							<dict>
-								<key>CHILDREN</key>
-								<array>
 									<dict>
 										<key>CHILDREN</key>
 										<array>
@@ -109,15 +92,34 @@
 												<array>
 													<dict>
 														<key>CHILDREN</key>
-														<array/>
+														<array>
+															<dict>
+																<key>CHILDREN</key>
+																<array/>
+																<key>GID</key>
+																<integer>80</integer>
+																<key>PATH</key>
+																<string>/Users/T431962/Desktop/SafeguardTools/Resources/Mac/AiFile/sg_Symbols.ai</string>
+																<key>PATH_TYPE</key>
+																<integer>0</integer>
+																<key>PERMISSIONS</key>
+																<integer>420</integer>
+																<key>TYPE</key>
+																<integer>3</integer>
+																<key>UID</key>
+																<integer>0</integer>
+															</dict>
+														</array>
+														<key>EXPANDED</key>
+														<true/>
 														<key>GID</key>
 														<integer>80</integer>
 														<key>PATH</key>
-														<string>/Users/t431962/Desktop/SafeguardTools/Resources/Mac/AiFile/sg_Symbols.ai</string>
+														<string>/Applications/Adobe Illustrator CC 2019/Presets.localized/en_US/Symbols</string>
 														<key>PATH_TYPE</key>
 														<integer>0</integer>
 														<key>PERMISSIONS</key>
-														<integer>509</integer>
+														<integer>493</integer>
 														<key>TYPE</key>
 														<integer>3</integer>
 														<key>UID</key>
@@ -129,11 +131,11 @@
 												<key>GID</key>
 												<integer>80</integer>
 												<key>PATH</key>
-												<string>/Applications/Adobe Illustrator CC 2018/Presets.localized/en_US/Symbols</string>
+												<string>/Applications/Adobe Illustrator CC 2019/Presets.localized/en_US</string>
 												<key>PATH_TYPE</key>
 												<integer>0</integer>
 												<key>PERMISSIONS</key>
-												<integer>509</integer>
+												<integer>493</integer>
 												<key>TYPE</key>
 												<integer>3</integer>
 												<key>UID</key>
@@ -145,11 +147,11 @@
 										<key>GID</key>
 										<integer>80</integer>
 										<key>PATH</key>
-										<string>/Applications/Adobe Illustrator CC 2018/Presets.localized/en_US</string>
+										<string>/Applications/Adobe Illustrator CC 2019/Presets.localized</string>
 										<key>PATH_TYPE</key>
 										<integer>0</integer>
 										<key>PERMISSIONS</key>
-										<integer>509</integer>
+										<integer>493</integer>
 										<key>TYPE</key>
 										<integer>3</integer>
 										<key>UID</key>
@@ -161,11 +163,11 @@
 								<key>GID</key>
 								<integer>80</integer>
 								<key>PATH</key>
-								<string>/Applications/Adobe Illustrator CC 2018/Presets.localized</string>
+								<string>/Applications/Adobe Illustrator CC 2019</string>
 								<key>PATH_TYPE</key>
 								<integer>0</integer>
 								<key>PERMISSIONS</key>
-								<integer>509</integer>
+								<integer>493</integer>
 								<key>TYPE</key>
 								<integer>3</integer>
 								<key>UID</key>
@@ -513,7 +515,7 @@
 								<key>PATH_TYPE</key>
 								<integer>0</integer>
 								<key>PERMISSIONS</key>
-								<integer>493</integer>
+								<integer>1005</integer>
 								<key>TYPE</key>
 								<integer>1</integer>
 								<key>UID</key>
@@ -735,7 +737,7 @@
 			<key>TREAT_MISSING_FILES_AS_WARNING</key>
 			<false/>
 			<key>VERSION</key>
-			<integer>4</integer>
+			<integer>5</integer>
 		</dict>
 		<key>PACKAGE_SCRIPTS</key>
 		<dict>
@@ -772,12 +774,14 @@
 			<false/>
 			<key>PAYLOAD_SIZE</key>
 			<integer>-1</integer>
+			<key>REFERENCE_PATH</key>
+			<string></string>
 			<key>RELOCATABLE</key>
 			<false/>
 			<key>USE_HFS+_COMPRESSION</key>
 			<false/>
 			<key>VERSION</key>
-			<string>1.8.2</string>
+			<string>1.8.5</string>
 		</dict>
 		<key>PROJECT_COMMENTS</key>
 		<dict>
@@ -974,7 +978,7 @@
 				</dict>
 			</array>
 			<key>NAME</key>
-			<string>Safeguard Plugins Installer 1.8.2</string>
+			<string>Safeguard Plugins Installer 1.8.5</string>
 			<key>PAYLOAD_ONLY</key>
 			<false/>
 		</dict>

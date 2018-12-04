@@ -121,7 +121,8 @@ void ContinuousColorListDrawer::DrawContinuousColorBlocks(AIArtHandle resultGrou
     AIArtHandle colorBlock = DrawRectangle(rect, resultGroup);
     
     AIPathStyle currPathStyle;
-    sAIPathStyle->GetPathStyle(colorBlock, &currPathStyle);
+    AIBoolean outHasAdvFill;
+    sAIPathStyle->GetPathStyle(colorBlock, &currPathStyle, &outHasAdvFill);
     currPathStyle.strokePaint = false;
     currPathStyle.fillPaint = true;
     currPathStyle.fill = { .color = Bt::BtColor::RegistrationColor(), .overprint = true };
@@ -147,7 +148,8 @@ void ContinuousColorListDrawer::DrawContinuousColorBlocks(AIArtHandle resultGrou
                 AIArtHandle colorBlock = DrawRectangle(rect, resultGroup);
                 
                 AIPathStyle currPathStyle;
-                sAIPathStyle->GetPathStyle(colorBlock, &currPathStyle);
+                AIBoolean outHasAdvFill;
+                sAIPathStyle->GetPathStyle(colorBlock, &currPathStyle, &outHasAdvFill);
                 currPathStyle.strokePaint = false;
                 currPathStyle.fillPaint = true;
                 currPathStyle.fill = { .color = c, .overprint = true };
@@ -175,7 +177,8 @@ void ContinuousColorListDrawer::DrawContinuousColorBlocks(AIArtHandle resultGrou
                               }
                               
                               AIPathStyle currPathStyle;
-                              sAIPathStyle->GetPathStyle(colorBlock, &currPathStyle);
+                              AIBoolean outHasAdvFill;
+                              sAIPathStyle->GetPathStyle(colorBlock, &currPathStyle, &outHasAdvFill);
                               currPathStyle.strokePaint = false;
                               currPathStyle.fillPaint = true;
                               currPathStyle.fill = { .color = c.AiColor(), .overprint = true };

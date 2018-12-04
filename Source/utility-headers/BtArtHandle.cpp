@@ -379,7 +379,8 @@ AIPathStyle BtArtHandle::PathStyle() const
     {
         if (ArtType() != kTextFrameArt)
         {
-            sAIPathStyle->GetPathStyle(artHandle, &val);
+            AIBoolean outHasAdvFill;
+            sAIPathStyle->GetPathStyle(artHandle, &val, &outHasAdvFill);
         }
         else
         {
