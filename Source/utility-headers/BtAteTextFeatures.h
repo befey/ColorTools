@@ -22,6 +22,7 @@ class BtAteTextFeatures
 {
 public:
     BtAteTextFeatures();
+    BtAteTextFeatures(ATE::ITextRange iTextRange);
     BtAteTextFeatures(ATE::ICharFeatures cFeatures);
     BtAteTextFeatures(ATE::IParaFeatures pFeatures);
     BtAteTextFeatures(ATE::ICharFeatures cFeatures, ATE::IParaFeatures pFeatures);
@@ -40,14 +41,29 @@ public:
     BtAteTextFeatures& NoBreak(bool newVal);
     bool NoBreak(bool* isAssigned) const;
     
+    BtAteTextFeatures& FillStyle(AIFillStyle fillStyle);
+    AIFillStyle FillStyle() const;
     BtAteTextFeatures& FillColor(AIColor color);
     AIColor FillColor() const;
     BtAteTextFeatures& FillOverPrint(bool overprint);
     bool FillOverPrint() const;
+    
+    BtAteTextFeatures& StrokeStyle(AIStrokeStyle strokeStyle);
+    AIStrokeStyle StrokeStyle() const;
     BtAteTextFeatures& StrokeColor(AIColor color);
     AIColor StrokeColor() const;
     BtAteTextFeatures& StrokeOverPrint(bool overprint);
     bool StrokeOverPrint() const;
+    BtAteTextFeatures& StrokeWidth(AIReal width);
+    AIReal StrokeWidth() const;
+    BtAteTextFeatures& StrokeDash(AIDashStyle dash);
+    AIDashStyle StrokeDash() const;
+    BtAteTextFeatures& StrokeCap(AILineCap cap);
+    AILineCap StrokeCap() const;
+    BtAteTextFeatures& StrokeLineJoin(AILineJoin join);
+    AILineJoin StrokeLineJoin() const;
+    BtAteTextFeatures& StrokeMiterLimit(AIReal miter);
+    AIReal StrokeMiterLimit() const;
     
     BtAteTextFeatures& AutoHyphenate(bool newVal);
     bool AutoHyphenate() const;

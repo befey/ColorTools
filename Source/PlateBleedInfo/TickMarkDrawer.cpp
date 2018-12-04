@@ -43,7 +43,8 @@ AIArtHandle BsTickMarkDrawer::Draw(AIArtHandle resultGroup) const
     AIArtHandle registrationPathArt = DrawRectangle(settings.Bounds(), tickMarkGroupArt);
     
     AIPathStyle currPathStyle;
-    sAIPathStyle->GetPathStyle(registrationPathArt, &currPathStyle);
+    AIBoolean outHasAdvFill;
+    sAIPathStyle->GetPathStyle(registrationPathArt, &currPathStyle, &outHasAdvFill);
     currPathStyle.strokePaint = true;
     currPathStyle.stroke.color = settings.Color();
     currPathStyle.stroke.width = settings.Weight();
@@ -64,7 +65,8 @@ AIArtHandle TickMarkDrawer::DrawInvisiblePath(AIArtHandle resultGroup, AIArtHand
     AIArtHandle invisiblePathArt = DrawRectangle(settings.Bounds(), tickMarkGroupArt);
     
     AIPathStyle currPathStyle;
-    sAIPathStyle->GetPathStyle(invisiblePathArt, &currPathStyle);
+    AIBoolean outHasAdvFill;
+    sAIPathStyle->GetPathStyle(invisiblePathArt, &currPathStyle, &outHasAdvFill);
     currPathStyle.strokePaint = false;
     currPathStyle.fillPaint = false;
     sAIPathStyle->SetPathStyle(invisiblePathArt, &currPathStyle);
@@ -157,7 +159,8 @@ AIArtHandle TickMarkDrawer::DrawTickMarks(vector<TickMark> ticks, AIArtHandle ti
         sAIPath->SetPathClosed(tickMarkArt, false);
         
         AIPathStyle currPathStyle;
-        sAIPathStyle->GetPathStyle(tickMarkArt, &currPathStyle);
+        AIBoolean outHasAdvFill;
+        sAIPathStyle->GetPathStyle(tickMarkArt, &currPathStyle, &outHasAdvFill);
         currPathStyle.strokePaint = true;
         currPathStyle.stroke.color = settings.Color();
         currPathStyle.stroke.width = settings.Weight();

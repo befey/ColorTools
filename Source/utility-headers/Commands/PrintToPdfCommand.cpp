@@ -56,9 +56,9 @@ bool MakeKeylineBoundingBox::Execute() const
             AIArtHandle tickMarkArt = DictionaryWriter(resultArt).GetArtHandleFromIdentifier(drawer.GetDictionaryLabel(resultArt));
             BtArtHandle(tickMarkArt).VisitEachArtInTree( [](BtArtHandle handle)
             {
-                if (handle.StrokeColor() == BtColor::RegistrationColor() && handle.Closed())
+                if (handle.StrokeColor().IsRegistration())
                 {
-                    handle.StrokeColor(*BtColor::Keyline());
+                    handle.StrokeColor(Bt::BtStandardColors().Keyline());
                 }
             });
         }

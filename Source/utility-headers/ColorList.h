@@ -28,7 +28,7 @@ public:
     ColorList(const ColorList& other);
     
     void AddColorsToList(vector<AIColor> colors);
-    void AddColorsToList(vector<BtColor> colors);
+    void AddColorsToList(vector<Bt::BtColor> colors);
     void AddColorsToList(ColorList colors);
     void Sort();
     
@@ -39,20 +39,20 @@ public:
     void WriteColorListToArtDictionary(AIArtHandle art) const;
     void ReadColorListFromArtDictionary(AIArtHandle art);
     
-    vector<BtColor>::iterator begin() { return p_ColorList.begin(); };
-    vector<BtColor>::iterator end() { return p_ColorList.end(); };
-    vector<BtColor>::const_iterator begin() const { return p_ColorList.begin(); };
-    vector<BtColor>::const_iterator end() const { return p_ColorList.end(); };
+    vector<Bt::BtColor>::iterator begin() { return p_ColorList.begin(); };
+    vector<Bt::BtColor>::iterator end() { return p_ColorList.end(); };
+    vector<Bt::BtColor>::const_iterator begin() const { return p_ColorList.begin(); };
+    vector<Bt::BtColor>::const_iterator end() const { return p_ColorList.end(); };
     
     size_t size() const { return p_ColorList.size(); };
     
-    BtColor& operator[](size_t index) { return p_ColorList[index]; }
-    const BtColor& operator[](size_t index) const { return p_ColorList[index]; }
+    Bt::BtColor& operator[](size_t index) { return p_ColorList[index]; }
+    const Bt::BtColor& operator[](size_t index) const { return p_ColorList[index]; }
     
     friend bool operator==(const ColorList& lhs, const ColorList& rhs);
     friend bool operator!=(const ColorList& lhs, const ColorList& rhs) { return !operator==(lhs,rhs); };
 private:
-    vector<BtColor> p_ColorList;
+    vector<Bt::BtColor> p_ColorList;
     AIRealRect area{0,0,0,0};
     
     void FillColorList();

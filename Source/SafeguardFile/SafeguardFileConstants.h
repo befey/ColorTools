@@ -21,6 +21,8 @@ namespace SafeguardFile
     constexpr auto MICR_BLACK_MAG_COLOR_NAME =  "MICR - BLACK MAG";
     constexpr auto GRIPPER_COLOR_NAME =         "GRIPPER";
     constexpr auto KEYLINE_COLOR_NAME =         "KEYLINE - does not print";
+    constexpr auto NUMBERINGRED_COLOR_NAME =    "NUMBERING RED";
+    constexpr auto NUMBERINGBLACK_COLOR_NAME =  "NUMBERING BLACK";
     
     enum ProductType
     {

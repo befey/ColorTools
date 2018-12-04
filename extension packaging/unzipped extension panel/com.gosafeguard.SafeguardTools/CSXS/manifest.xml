@@ -9,13 +9,13 @@
     </ExtensionList>
     <ExecutionEnvironment>
         <HostList>
-            <Host Name="ILST" Version="[19.0,22.9]"/>
+            <Host Name="ILST" Version="[19.0,23.9]"/>
         </HostList>
         <LocaleList>
             <Locale Code="All"/>
         </LocaleList>
         <RequiredRuntimeList>
-            <RequiredRuntime Name="CSXS" Version="7.0"/>
+            <RequiredRuntime Name="CSXS" Version="9.0"/>
         </RequiredRuntimeList>
     </ExecutionEnvironment>
     <DispatchInfoList>

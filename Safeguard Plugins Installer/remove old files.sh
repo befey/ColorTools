@@ -24,3 +24,7 @@ rm -Rf /Applications/Adobe\ Illustrator\ CC\ 2017/Plug-ins.localized/TextTools.a
 #1/23/18 -- Delete old color tools if it got copied into 2018
 rm -Rf /Applications/Adobe\ Illustrator\ CC\ 2018/Plug-ins.localized/ColorTools.aip
 rm -Rf /Applications/Adobe\ Illustrator\ CC\ 2018/Plug-ins.localized/TextTools.aip
+
+#12/4/18 -- Delete old color tools if it got copied into 2019
+rm -Rf /Applications/Adobe\ Illustrator\ CC\ 2019/Plug-ins.localized/ColorTools.aip
+rm -Rf /Applications/Adobe\ Illustrator\ CC\ 2019/Plug-ins.localized/TextTools.aip

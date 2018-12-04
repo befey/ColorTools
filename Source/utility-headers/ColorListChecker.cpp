@@ -8,6 +8,8 @@
 
 #include "ColorListChecker.hpp"
 
+using Bt::BtColor;
+
 typedef std::function<bool(const BtColor&, const BtColor&)> predFunc;
 
 bool ColorListDuplicateChecker::operator() (const BtColor& compare) const

@@ -14,6 +14,7 @@
 #include <boost/filesystem.hpp>
 #include "AiDirectoryChooser.hpp"
 #include "AiPreferenceWriter.hpp"
+#include "PdfArtObjectCommand.hpp"
 
 namespace fs = boost::filesystem;
 
@@ -41,6 +42,12 @@ PdfPrinter::PdfPrinter(const PdfPreset preset, const bool doNotDelete, const boo
     }
     
     printCommand.AddCommand(make_shared<SetLayerVisibilityCommand>(plateNumber.GetProductType(), preset, false));
+    
+//    if (preset == PdfPreset::Manufacturing)
+//    {
+//        printCommand.AddCommand(make_shared<PrintToPdf::ManufacturingPdfArtObjectCommand>(false));
+//    }
+    
     
     printCommand.AddCommand(make_shared<ConvertTypeToPathsCommand>(false));
     

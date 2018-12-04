@@ -62,8 +62,6 @@ userOutputFolder(uof)
         SetBleeds(sgJobFile.GetBleeds());
     }
     
-    //sAIActionManager->AIActionSetEnumerated(vpb, kAIPDFCropToKey, "Crop To", kAIPDFTrimBox);
-    
     SetVpbRange(range);
     
   ////****** Setup common parameters for all PDFs

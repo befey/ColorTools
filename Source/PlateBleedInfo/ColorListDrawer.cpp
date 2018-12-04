@@ -106,7 +106,7 @@ AIArtHandle BusStatColorListDrawer::DrawerSpecificSteps(AIArtHandle resultGroup)
     colorList.AsTextRange(range);
     
     BtAteTextFeatures textFeatures;
-    textFeatures.FontSize(7).Font("Helvetica-BoldCondensed").Leading(7.5).Justification(ATE::kLeftJustify);
+    textFeatures.FontSize(7).Font("Helvetica-CondensedBold").Leading(7.5).Justification(ATE::kLeftJustify);
     textFeatures.ApplyFeaturesToRange(range);
     
     FitTextFrameToContents(colorListArt);
@@ -121,10 +121,11 @@ void ContinuousColorListDrawer::DrawContinuousColorBlocks(AIArtHandle resultGrou
     AIArtHandle colorBlock = DrawRectangle(rect, resultGroup);
     
     AIPathStyle currPathStyle;
-    sAIPathStyle->GetPathStyle(colorBlock, &currPathStyle);
+    AIBoolean outHasAdvFill;
+    sAIPathStyle->GetPathStyle(colorBlock, &currPathStyle, &outHasAdvFill);
     currPathStyle.strokePaint = false;
     currPathStyle.fillPaint = true;
-    currPathStyle.fill = { .color = BtColor::RegistrationColor(), .overprint = true };
+    currPathStyle.fill = { .color = Bt::BtColor::RegistrationColor(), .overprint = true };
     sAIPathStyle->SetPathStyle(colorBlock, &currPathStyle);
        
     if (colorList.size() > 0 && colorList[0].Kind() == kFourColor)
@@ -134,7 +135,7 @@ void ContinuousColorListDrawer::DrawContinuousColorBlocks(AIArtHandle resultGrou
             {.kind = kFourColor, .c.f.cyan = 1, .c.f.magenta = 0, .c.f.yellow = 0, .c.f.black = 0},
             {.kind = kFourColor, .c.f.cyan = 0, .c.f.magenta = 1, .c.f.yellow = 0, .c.f.black = 0},
             {.kind = kFourColor, .c.f.cyan = 0, .c.f.magenta = 0, .c.f.yellow = 1, .c.f.black = 0},
-            {BtColor::Black()->AiColor()}
+            {Bt::BtStandardColors().Black().AiColor()}
         };
         for (auto c : cmykColors)
         {
@@ -147,7 +148,8 @@ void ContinuousColorListDrawer::DrawContinuousColorBlocks(AIArtHandle resultGrou
                 AIArtHandle colorBlock = DrawRectangle(rect, resultGroup);
                 
                 AIPathStyle currPathStyle;
-                sAIPathStyle->GetPathStyle(colorBlock, &currPathStyle);
+                AIBoolean outHasAdvFill;
+                sAIPathStyle->GetPathStyle(colorBlock, &currPathStyle, &outHasAdvFill);
                 currPathStyle.strokePaint = false;
                 currPathStyle.fillPaint = true;
                 currPathStyle.fill = { .color = c, .overprint = true };
@@ -159,7 +161,7 @@ void ContinuousColorListDrawer::DrawContinuousColorBlocks(AIArtHandle resultGrou
     if (colorList.size() > 0)
     {
         std::for_each(colorList.begin()+1, colorList.end(),
-                      [&rect, resultGroup, this](BtColor c)
+                      [&rect, resultGroup, this](Bt::BtColor c)
                       {
                           rect.top -= 36;
                           rect.bottom -= 36;
@@ -175,7 +177,8 @@ void ContinuousColorListDrawer::DrawContinuousColorBlocks(AIArtHandle resultGrou
                               }
                               
                               AIPathStyle currPathStyle;
-                              sAIPathStyle->GetPathStyle(colorBlock, &currPathStyle);
+                              AIBoolean outHasAdvFill;
+                              sAIPathStyle->GetPathStyle(colorBlock, &currPathStyle, &outHasAdvFill);
                               currPathStyle.strokePaint = false;
                               currPathStyle.fillPaint = true;
                               currPathStyle.fill = { .color = c.AiColor(), .overprint = true };

@@ -358,7 +358,7 @@ AIBoolean DictionaryWriter::AddAIArtHandleToArrayInDictionary(AIArtHandle art, s
     return FALSE;
 }
 
-AIBoolean DictionaryWriter::GetVectorOfBtColorFromIdentifier(vector<BtColor>& colors, string identifier, int CAIndex)
+AIBoolean DictionaryWriter::GetVectorOfBtColorFromIdentifier(vector<Bt::BtColor>& colors, string identifier, int CAIndex)
 {
     AIArrayRef mainArray = nullptr;
     sAIArray->CreateArray(&mainArray);
@@ -379,7 +379,7 @@ AIBoolean DictionaryWriter::GetVectorOfBtColorFromIdentifier(vector<BtColor>& co
                 
                 if (colorArray)
                 {
-                    BtColor color;
+                    Bt::BtColor color;
                     
                     ai::UnicodeString serializedBtColor;
                     sAIArray->GetUnicodeStringEntry(colorArray, 0, serializedBtColor);
@@ -423,7 +423,7 @@ AIBoolean DictionaryWriter::GetVectorOfBtColorFromIdentifier(vector<BtColor>& co
     return result;
 }
 
-AIBoolean DictionaryWriter::AddVectorOfBtColorToDictionary(vector<BtColor> colors, string identifier, int CAIndex)
+AIBoolean DictionaryWriter::AddVectorOfBtColorToDictionary(vector<Bt::BtColor> colors, string identifier, int CAIndex)
 {
     AIArrayRef mainArray;
     sAIArray->CreateArray(&mainArray);
@@ -473,9 +473,9 @@ AIBoolean DictionaryWriter::AddVectorOfBtColorToDictionary(vector<BtColor> color
     return result;
 }
 
-AIBoolean DictionaryWriter::AddBtColorToArrayInDictionary(BtColor color, string identifier, int CAIndex)
+AIBoolean DictionaryWriter::AddBtColorToArrayInDictionary(Bt::BtColor color, string identifier, int CAIndex)
 {
-    vector<BtColor> colors;
+    vector<Bt::BtColor> colors;
     GetVectorOfBtColorFromIdentifier(colors, identifier, CAIndex);
     
     colors.push_back(color);

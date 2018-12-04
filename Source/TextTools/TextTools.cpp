@@ -725,10 +725,6 @@ bool CreateMICRBarcode()
 		sAIUser->MessageAlert(ai::UnicodeString("The Barcode font was not found. Please make sure the correct font is loaded."));
 		return FALSE;
 	}
-    
-	AISwatchRef micrSwatch = sAISwatchList->GetSwatchByName(nullptr, ai::UnicodeString(SafeguardFile::MICR_BLACK_MAG_COLOR_NAME));
-	AIColor micrColor;
-	sAISwatchList->GetAIColor(micrSwatch, &micrColor);
 	
 	//Check if we already have a micr line in the document dictionary
     DictionaryWriter dw;
@@ -803,9 +799,9 @@ bool CreateMICRBarcode()
 				}
 				
 				//Make sure the text is in the MICR black color
-				AIColor currRangeColor = GetAIColorFromATETextRange(currTextRange);
+				Bt::BtColor currRangeColor(GetAIColorFromATETextRange(currTextRange));
 				
-				if (! ColorIsEqual(currRangeColor, micrColor, TRUE ) )
+                if (! currRangeColor.ColorIsEqual(Bt::BtStandardColors().MicrBlack(), TRUE ) )
                 {
                     continue;
                 }
@@ -870,7 +866,7 @@ bool CreateMICRBarcode()
 		barcodeTextRange.Remove();
 		
         BtAteTextFeatures barcodeFeatures;
-        barcodeFeatures.FontSize(12).Font(BARCODE_FONT_NAME).Justification(ATE::kCenterJustify).FillColor(micrColor);
+        barcodeFeatures.FontSize(12).Font(BARCODE_FONT_NAME).Justification(ATE::kCenterJustify).FillColor(Bt::BtStandardColors().MicrBlack());
         
 		barcodeFeatures.AddTextToRangeWithFeatures(barcodeString.as_Platform(), barcodeTextRange);
 	}

@@ -54,7 +54,7 @@ void ColorList::AddColorsToList(vector<AIColor> colors)
     p_ColorList.insert(std::end(p_ColorList), std::begin(colors), std::end(colors));
 }
 
-void ColorList::AddColorsToList(vector<BtColor> colors)
+void ColorList::AddColorsToList(vector<Bt::BtColor> colors)
 {
     p_ColorList.insert(std::end(p_ColorList), std::begin(colors), std::end(colors));
 }
@@ -85,7 +85,7 @@ void ColorList::GetAsTextRange(ATE::ITextRange& targetRange, AIReal maxWidth) co
 {
     if (p_ColorList.size() == 0)
     {
-        BtColor(AIColor{.kind = kNoneColor}).AsTextRange(targetRange, maxWidth);
+        Bt::BtColor(AIColor{.kind = kNoneColor}).AsTextRange(targetRange, maxWidth);
     }
     
     for ( auto c : p_ColorList )
@@ -124,9 +124,9 @@ bool operator==(const ColorList& lhs, const ColorList& rhs)
         return false;
     }
     
-    vector<BtColor> lhsCopy = lhs.p_ColorList;
+    vector<Bt::BtColor> lhsCopy = lhs.p_ColorList;
     sort(lhsCopy.begin(), lhsCopy.end());
-    vector<BtColor> rhsCopy = rhs.p_ColorList;
+    vector<Bt::BtColor> rhsCopy = rhs.p_ColorList;
     sort(rhsCopy.begin(), rhsCopy.end());
 
     return lhsCopy == rhsCopy;

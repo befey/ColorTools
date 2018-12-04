@@ -41,7 +41,7 @@ namespace PlateBleedInfo
     {
     public:
         ColorDTO() {};
-        ColorDTO(BtColor color, bool fullColorName = false);
+        ColorDTO(Bt::BtColor color, bool fullColorName = false);
         
         string colorName;
         int method;

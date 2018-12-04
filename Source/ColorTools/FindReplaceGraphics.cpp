@@ -9,6 +9,7 @@
 #include "FindReplaceGraphics.h"
 #include "ColorFuncs.h"
 #include "ReplaceData.h"
+#include "BtColor.h"
 
 #include "string.h"
 #include "stdlib.h"
@@ -121,7 +122,7 @@ void adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *alter
         color->kind == kThreeColor ||
         color->kind == kNoneColor )
     {
-        if ( ColorIsEqual( data->fromColor , *color , TRUE /*ignoreTints*/  ) )
+        if ( Bt::BtColor(data->fromColor).ColorIsEqual(*color , TRUE /*ignoreTints*/  ) )
         {
             if ( data->fromColor.c.c.tint == color->c.c.tint )
             {   //IF THE TINTS ARE THE SAME
@@ -138,7 +139,7 @@ void adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *alter
                     AIColor tempColor = data->toColor;  //Make a new temporary color that is the same as the ToColor,
                     tempColor.c.c.tint = color->c.c.tint;   //except the tint is the same as the object's
                     
-                    AISwatchRef toColorTintSwatch = CheckSwatchListForColor(tempColor, .01);
+                    AISwatchRef toColorTintSwatch = Bt::BtColor(tempColor).CheckSwatchListForColor(); //TODO: was tolerance .01
                     
                     if ( toColorTintSwatch )
                     { //If the swatch already exists
