@@ -89,7 +89,7 @@ AIArtHandle BusStatFileNameDateDrawer::Draw(AIArtHandle resultGroup) const
     
     PutPlateNumberDateStringInTextRange(range);
     BtAteTextFeatures textFeatures;
-    textFeatures.FontSize(7).Font("Helvetica-Condensed-Bold").Leading(7.5).Justification(ATE::kRightJustify).FillColor(Bt::BtColor::RegistrationColor()).AutoHyphenate(false);
+    textFeatures.FontSize(7).Font("Helvetica-BoldCondensed").Leading(7.5).Justification(ATE::kRightJustify).FillColor(Bt::BtColor::RegistrationColor()).AutoHyphenate(false);
     textFeatures.ApplyFeaturesToRange(range);
     
     FitTextFrameToContents(plateNumberDateArt);

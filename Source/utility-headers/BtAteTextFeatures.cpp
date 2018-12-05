@@ -59,7 +59,7 @@ BtAteTextFeatures& BtAteTextFeatures::Font(string postscriptFontName)
     {
         ai::UnicodeString errorMsg = ai::UnicodeString("There was an error finding font: ");
         errorMsg.append(ai::UnicodeString("\n\t" + postscriptFontName));
-        errorMsg.append(ai::UnicodeString("\nPlease verify that the font is loaded and/nthe Postscript font name matches.\nThe font was not set correctly."));
+        errorMsg.append(ai::UnicodeString("\nPlease verify that the font is loaded and\nthe Postscript font name matches.\nThe font was not set correctly."));
         sAIUser->ErrorAlert(errorMsg);
         return *this;
     }
