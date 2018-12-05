@@ -161,7 +161,7 @@
 								<key>GID</key>
 								<integer>80</integer>
 								<key>PATH</key>
-								<string>/Applications/Adobe Illustrator CC 2019</string>
+								<string>Adobe Illustrator CC 2019</string>
 								<key>PATH_TYPE</key>
 								<integer>0</integer>
 								<key>PERMISSIONS</key>
@@ -779,7 +779,7 @@
 			<key>USE_HFS+_COMPRESSION</key>
 			<false/>
 			<key>VERSION</key>
-			<string>1.8.5</string>
+			<string>1.8.5.0</string>
 		</dict>
 		<key>PROJECT_COMMENTS</key>
 		<dict>
@@ -976,7 +976,7 @@
 				</dict>
 			</array>
 			<key>NAME</key>
-			<string>Safeguard Plugins Installer 1.8.5</string>
+			<string>Safeguard Plugins Installer 1.8.5.0</string>
 			<key>PAYLOAD_ONLY</key>
 			<false/>
 		</dict>
