@@ -866,7 +866,7 @@ bool CreateMICRBarcode()
 		barcodeTextRange.Remove();
 		
         BtAteTextFeatures barcodeFeatures;
-        barcodeFeatures.FontSize(12).Font(BARCODE_FONT_NAME).Justification(ATE::kCenterJustify).FillColor(Bt::BtStandardColors().MicrBlack());
+        barcodeFeatures.FontSize(12).Font(BARCODE_FONT_NAME).Justification(ATE::kCenterJustify).FillStyle({Bt::BtStandardColors().MicrBlack(), true});
         
 		barcodeFeatures.AddTextToRangeWithFeatures(barcodeString.as_Platform(), barcodeTextRange);
 	}
