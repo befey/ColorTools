@@ -70,7 +70,16 @@ fs::path ManufacturingPathBuilder::GetPath(const PlateNumber pn) const
     }
     
     saveasFilePath /= (prodCode + " to be Plated");
-    saveasFilePath /= (pn.GetPlantIndicator() + " " + prodCode + " to be Plated");
+    std::string pInd = pn.GetPlantIndicator();
+    if (prodCode == "RC-VS")
+    {
+        prodCode = "RC";
+        if (pInd == "E" || pInd == "L" || pInd == "M")
+        {
+            pInd += " ";
+        }
+    }
+    saveasFilePath /= (pInd + " " + prodCode + " to be Plated");
     
     if (!fs::is_directory(saveasFilePath) || prodCode == "")
     {
