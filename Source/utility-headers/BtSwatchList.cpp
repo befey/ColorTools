@@ -20,13 +20,22 @@ void BtSwatchList::FixStdColors()
     {
         string s = color.second.Name();
         BtColor createdColor = CreateOrConvertToCustomColor(color.second);
-        CreateSwatch(createdColor.Name(), createdColor);
+        
+        AISwatchRef existingSwatchRef = BtSwatchList::GetSwatchByName(s);
+        if (existingSwatchRef != nullptr)
+        {
+            ChangeSwatchColor(existingSwatchRef, createdColor);
+        }
+        else
+        {
+            CreateSwatch(createdColor.Name(), createdColor);
+        }
     }
     
     std::unordered_map<std::string, Bt::BtColor> sgColors = Bt::BtStandardColors().SafeguardColorDefinitions();
     for ( auto color : sgColors)
     {
-        string s = color.second.Name();
+        string s = color.second.Name(); //For debugging
         CreateOrConvertToCustomColor(color.second);
     }
 }
@@ -59,7 +68,7 @@ Bt::BtColor BtSwatchList::CreateOrConvertToCustomColor(BtColor color)
     AIColor newAiColorDefinition;
     AICustomColorHandle hCreatedCustomColor = nullptr;
     
-    if ( ColorHasDefinitionAlready(color, &newAiColorDefinition) && newAiColorDefinition.kind == kCustomColor)
+    if ( ColorHasSwatchAlready(color, &newAiColorDefinition) && newAiColorDefinition.kind == kCustomColor)
     {
         newAiColorDefinition.c.c.tint = 0;
         sAICustomColor->SetCustomColor(newAiColorDefinition.c.c.color, &newCustomColorDefinition);
@@ -88,6 +97,12 @@ void BtSwatchList::CreateSwatch(string name, BtColor color)
         ASErr err = sAISwatchList->SetAIColor(swatch, &aiColor);
         sAISwatchList->SetSwatchName(swatch, ai::UnicodeString(color.Name()));
         string error = GetIllustratorErrorCode(err);
+}
+
+void BtSwatchList::ChangeSwatchColor(AISwatchRef swatchRef, BtColor color)
+{
+    AIColor c = color.AiColor();
+    sAISwatchList->SetAIColor(swatchRef, &c);
 }
 
 void BtSwatchList::AdjustAllColors()
@@ -206,7 +221,7 @@ AISwatchRef BtSwatchList::GetSwatchByName(std::string name)
     return sAISwatchList->GetSwatchByName(nullptr, ai::UnicodeString(name));
 }
 
-bool BtSwatchList::ColorHasDefinitionAlready(BtColor color, AIColor* outFoundColor) const
+bool BtSwatchList::ColorHasSwatchAlready(BtColor color, AIColor* outFoundColor) const
 {
     return SwatchNameExists(color.Name(), outFoundColor) || CustomColorExists(color, outFoundColor);
 }

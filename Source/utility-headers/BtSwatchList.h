@@ -38,7 +38,9 @@ public:
     void FixStdColors();
     Bt::BtColor CreateOrConvertToCustomColor(std::string colorName); //colorName must be one of the standard colors defined, see below
     Bt::BtColor CreateOrConvertToCustomColor(Bt::BtColor color);
+    
     void CreateSwatch(string name, Bt::BtColor color);
+    void ChangeSwatchColor(AISwatchRef swatchRef, Bt::BtColor color);
     
     void AdjustAllColors();
     
@@ -54,7 +56,7 @@ private:
     static void CreateSwatch(std::string name, AIColor color);
     
     
-    bool ColorHasDefinitionAlready(Bt::BtColor color, AIColor* outFoundColor) const;
+    bool ColorHasSwatchAlready(Bt::BtColor color, AIColor* outFoundColor) const;
         //If the return is TRUE, outFoundColor contains the definition of the matching color
     bool SwatchNameExists(std::string name, AIColor* outFoundColor) const;
         //If the return is TRUE, outFoundColor contains the definition of the matching color
