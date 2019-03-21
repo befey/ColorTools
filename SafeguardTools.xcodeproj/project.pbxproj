@@ -1073,7 +1073,7 @@
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = NO;
 				PRODUCT_NAME = SafeguardTools;
 				PROJECTNAME = SafeguardTools;
-				REZ_SEARCH_PATHS = "\"$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common\"/**";
+				REZ_SEARCH_PATHS = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = macosx;
 				SEPARATE_STRIP = NO;
@@ -1153,7 +1153,7 @@
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = NO;
 				PRODUCT_NAME = SafeguardTools;
 				PROJECTNAME = SafeguardTools;
-				REZ_SEARCH_PATHS = "\"$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common\"/**";
+				REZ_SEARCH_PATHS = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = macosx;
 				SEPARATE_STRIP = NO;
@@ -1182,6 +1182,8 @@
 				HEADER_SEARCH_PATHS = (
 					"/Developer/Headers/FlatCarbon/**",
 					/Users/t431962/Desktop/boost_1_60_0,
+					"$(PATH_TO_SDK_ILLUSTRATORAPI_FOLDER)/**",
+					"$(PATH_TO_SDK_SAMPLECODE_FOLDER)/**",
 				);
 				LIBRARY_SEARCH_PATHS = /Users/t431962/Desktop/boost_1_60_0/stage/lib;
 				OTHER_LDFLAGS = (
@@ -1191,6 +1193,7 @@
 				PATH_TO_SDK_ILLUSTRATORAPI_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator CC 2019 SDK/illustratorapi";
 				PATH_TO_SDK_SAMPLECODE_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator CC 2019 SDK/samplecode";
 				PRODUCT_BUNDLE_IDENTIFIER = "kSDKDefAIBundlePrefix.plugins.$(PROJECTNAME)";
+				REZ_SEARCH_PATHS = "\"${PATH_TO_SDK_SAMPLECODE_FOLDER}/common/mac/\"";
 				SDKROOT = macosx;
 				SHARED_PRECOMPS_DIR = "$(SRCROOT)/output/mac/sharedprecompiledheaders/$(AI_CONFIGURATION)";
 				STRIP_STYLE = "non-global";
@@ -1211,6 +1214,8 @@
 				HEADER_SEARCH_PATHS = (
 					"/Developer/Headers/FlatCarbon/**",
 					/Users/t431962/Desktop/boost_1_60_0,
+					"$(PATH_TO_SDK_ILLUSTRATORAPI_FOLDER)/**",
+					"$(PATH_TO_SDK_SAMPLECODE_FOLDER)/**",
 				);
 				LIBRARY_SEARCH_PATHS = /Users/t431962/Desktop/boost_1_60_0/stage/lib;
 				OTHER_LDFLAGS = (
@@ -1220,6 +1225,7 @@
 				PATH_TO_SDK_ILLUSTRATORAPI_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator CC 2019 SDK/illustratorapi";
 				PATH_TO_SDK_SAMPLECODE_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator CC 2019 SDK/samplecode";
 				PRODUCT_BUNDLE_IDENTIFIER = "kSDKDefAIBundlePrefix.plugins.$(PROJECTNAME)";
+				REZ_SEARCH_PATHS = "\"${PATH_TO_SDK_SAMPLECODE_FOLDER}/common/mac/\"";
 				SDKROOT = macosx;
 				SHARED_PRECOMPS_DIR = "$(SRCROOT)/output/mac/sharedprecompiledheaders/$(AI_CONFIGURATION)";
 				STRIP_STYLE = "non-global";
