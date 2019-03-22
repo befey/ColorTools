@@ -10,6 +10,7 @@
 #define ArtboardNameRetriever_hpp
 
 #include "AIArtboard.h"
+#include <boost/algorithm/string.hpp>
 
 extern AIArtboardSuite* sAIArtboard;
 
@@ -25,6 +26,8 @@ public:
         ai::UnicodeString abName;
         props.GetName(abName);
         string abNameS = abName.getInStdString(kAIPlatformCharacterEncoding);
+        boost::trim(abNameS);
+        boost::erase_all(abNameS, "\312");
         
         AIBoolean aiboolIsDefault;
         sAIArtboard->IsDefaultName(props, aiboolIsDefault);
