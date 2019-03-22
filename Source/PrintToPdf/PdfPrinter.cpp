@@ -98,6 +98,17 @@ FilesystemResults SingleFilePdfPrinter::CustomPrintSteps(const PdfSettings& sett
     
     // Set Path
     settings.SetPath(pathToPdfFile);
+    
+    try {
+        fs::remove(pathToPdfFile.GetFullPath().getInStdString(kAIPlatformCharacterEncoding));
+    } catch (boost::filesystem::filesystem_error e ) {
+        if ( e.code() == boost::system::errc::device_or_resource_busy )
+        {
+            ai::UnicodeString errorMsg = pathToPdfFile.GetFullPath() + ai::UnicodeString("\n\nThis file is in use and could not be replaced." );
+            sAIUser->ErrorAlert(errorMsg);
+            return transactions;
+        }
+    }
         
     AIErr error = sAIActionManager->PlayActionEvent(kSaveACopyAsAction, kDialogOff, settings);
     
@@ -135,6 +146,17 @@ FilesystemResults SeparateFilePdfPrinter::CustomPrintSteps(const PdfSettings& se
         
         // Set Range
         settings.SetVpbRange(to_string(index+1));
+        
+        try {
+            fs::remove(pathToPdfFile.GetFullPath().getInStdString(kAIPlatformCharacterEncoding));
+        } catch (boost::filesystem::filesystem_error e ) {
+            if ( e.code() == boost::system::errc::device_or_resource_busy )
+            {
+                ai::UnicodeString errorMsg = pathToPdfFile.GetFullPath() + ai::UnicodeString("\n\nThis file is in use and could not be replaced." );
+                sAIUser->ErrorAlert(errorMsg);
+                return transactions;
+            }
+        }
         
         AIErr error = sAIActionManager->PlayActionEvent(kSaveACopyAsAction, kDialogOff, settings);
         

@@ -62,7 +62,17 @@ FilesystemResults ExistingFileDeleter::Delete(std::string matchString, fs::path 
         
         if (!doNotDelete)
         {
-            fs::remove(fp, ec);
+            try {
+                fs::remove(fp);//, ec);
+            } catch (boost::filesystem::filesystem_error e ) {
+                if ( e.code() == boost::system::errc::device_or_resource_busy )
+                {
+                    ai::UnicodeString errorMsg = ai::UnicodeString(fp.string() + "\n\nThis file is in use and could not be deleted." );
+                    sAIUser->ErrorAlert(errorMsg);
+                }
+                continue;
+            }
+            
             if (ec == boost::system::errc::success)
             {
                 deletedFiles.AddResult({.action = Transaction::Deleted, .path = fp });
