@@ -48,12 +48,17 @@ userOutputFolder(uof)
     {
         pwRetriever = shared_ptr<PasswordRetriever> { make_shared<MicrPasswordRetriever>() };
     }
+    else if (preset == PrintToPdf::PdfPreset::PlateRequest)
+    {
+        pwRetriever = shared_ptr<PasswordRetriever> { make_shared<PlateRequestPasswordRetriever>() };
+    }
     
     SetPasswords();
     
     SafeguardJobFile sgJobFile;
     ProductType pType = sgJobFile.GetPlateNumber().GetProductType();
-    if ( (pType == ProductType::CutSheet || pType == ProductType::Snapset ) && (preset == PdfPreset::MicrProof || preset == PdfPreset::Proof) )
+    if ( preset == PdfPreset::PlateRequest ||
+        ((pType == ProductType::CutSheet || pType == ProductType::Snapset ) && (preset == PdfPreset::MicrProof || preset == PdfPreset::Proof)) )
     {
         SetBleeds(AIRealRect{0,0,0,0});
     }

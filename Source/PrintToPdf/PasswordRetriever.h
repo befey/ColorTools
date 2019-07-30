@@ -56,6 +56,15 @@ namespace PrintToPdf
         string GetUserPassword() const { return UserPassword; }
         string GetMasterPassword() const { return MasterPassword; }
     };
+    
+    class PlateRequestPasswordRetriever : public PasswordRetriever
+    {
+    public:
+        PlateRequestPasswordRetriever() { LoadFromFile(); };
+        
+        string GetUserPassword() const { return UserPassword; }
+        string GetMasterPassword() const { return MasterPassword; }
+    };
 }
 
 #endif /* defined(__SafeguardTools__PasswordRetriever__) */

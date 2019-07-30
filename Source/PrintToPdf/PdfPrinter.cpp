@@ -48,6 +48,10 @@ PdfPrinter::PdfPrinter(const PdfPreset preset, const bool doNotDelete, const boo
 //        printCommand.AddCommand(make_shared<PrintToPdf::ManufacturingPdfArtObjectCommand>(false));
 //    }
     
+    if (preset == PdfPreset::PlateRequest)
+    {
+        printCommand.AddCommand(make_shared<AddProofTextCommand>(false));
+    }
     
     printCommand.AddCommand(make_shared<ConvertTypeToPathsCommand>(false));
     

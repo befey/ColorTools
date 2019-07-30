@@ -16,12 +16,14 @@ namespace PrintToPdf
     static constexpr auto MANUFACTURING_PDF_PRESET =        "Manufacturing";
     static constexpr auto REG_PROOF_PDF_PRESET =            "Proof";
     static constexpr auto MICR_PROOF_PDF_PRESET =           "MICR";
+    static constexpr auto PLATE_REQUEST_PDF_PRESET =        "Plate Request";
     
     enum class PdfPreset
     {
         Manufacturing =                                     0,
         Proof =                                             1,
-        MicrProof =                                         2
+        MicrProof =                                         2,
+        PlateRequest =                                      3
     };
 }
 
