@@ -53,34 +53,30 @@
 														<integer>0</integer>
 													</dict>
 												</array>
-												<key>EXPANDED</key>
-												<true/>
 												<key>GID</key>
 												<integer>80</integer>
 												<key>PATH</key>
-												<string>/Applications/Adobe Illustrator CC 2019/Plug-ins.localized/Safeguard</string>
+												<string>Safeguard</string>
 												<key>PATH_TYPE</key>
-												<integer>0</integer>
+												<integer>2</integer>
 												<key>PERMISSIONS</key>
-												<integer>493</integer>
+												<integer>509</integer>
 												<key>TYPE</key>
-												<integer>3</integer>
+												<integer>2</integer>
 												<key>UID</key>
 												<integer>0</integer>
 											</dict>
 										</array>
-										<key>EXPANDED</key>
-										<true/>
 										<key>GID</key>
 										<integer>80</integer>
 										<key>PATH</key>
-										<string>/Applications/Adobe Illustrator CC 2019/Plug-ins.localized</string>
+										<string>Plug-ins.localized</string>
 										<key>PATH_TYPE</key>
-										<integer>0</integer>
+										<integer>2</integer>
 										<key>PERMISSIONS</key>
 										<integer>509</integer>
 										<key>TYPE</key>
-										<integer>3</integer>
+										<integer>2</integer>
 										<key>UID</key>
 										<integer>0</integer>
 									</dict>
@@ -110,50 +106,44 @@
 																<integer>0</integer>
 															</dict>
 														</array>
-														<key>EXPANDED</key>
-														<true/>
 														<key>GID</key>
 														<integer>80</integer>
 														<key>PATH</key>
-														<string>/Applications/Adobe Illustrator CC 2019/Presets.localized/en_US/Symbols</string>
+														<string>Symbols</string>
 														<key>PATH_TYPE</key>
-														<integer>0</integer>
+														<integer>2</integer>
 														<key>PERMISSIONS</key>
-														<integer>511</integer>
+														<integer>509</integer>
 														<key>TYPE</key>
-														<integer>3</integer>
+														<integer>2</integer>
 														<key>UID</key>
 														<integer>0</integer>
 													</dict>
 												</array>
-												<key>EXPANDED</key>
-												<true/>
 												<key>GID</key>
 												<integer>80</integer>
 												<key>PATH</key>
-												<string>/Applications/Adobe Illustrator CC 2019/Presets.localized/en_US</string>
+												<string>en_US</string>
 												<key>PATH_TYPE</key>
-												<integer>0</integer>
+												<integer>2</integer>
 												<key>PERMISSIONS</key>
-												<integer>493</integer>
+												<integer>509</integer>
 												<key>TYPE</key>
-												<integer>3</integer>
+												<integer>2</integer>
 												<key>UID</key>
 												<integer>0</integer>
 											</dict>
 										</array>
-										<key>EXPANDED</key>
-										<true/>
 										<key>GID</key>
 										<integer>80</integer>
 										<key>PATH</key>
-										<string>/Applications/Adobe Illustrator CC 2019/Presets.localized</string>
+										<string>Preseets.localized</string>
 										<key>PATH_TYPE</key>
-										<integer>0</integer>
+										<integer>2</integer>
 										<key>PERMISSIONS</key>
-										<integer>493</integer>
+										<integer>509</integer>
 										<key>TYPE</key>
-										<integer>3</integer>
+										<integer>2</integer>
 										<key>UID</key>
 										<integer>0</integer>
 									</dict>
@@ -161,11 +151,11 @@
 								<key>GID</key>
 								<integer>80</integer>
 								<key>PATH</key>
-								<string>Adobe Illustrator CC 2019</string>
+								<string>Adobe Illustrator 2020</string>
 								<key>PATH_TYPE</key>
-								<integer>0</integer>
+								<integer>2</integer>
 								<key>PERMISSIONS</key>
-								<integer>493</integer>
+								<integer>509</integer>
 								<key>TYPE</key>
 								<integer>2</integer>
 								<key>UID</key>
@@ -779,7 +769,7 @@
 			<key>USE_HFS+_COMPRESSION</key>
 			<false/>
 			<key>VERSION</key>
-			<string>1.8.5.2</string>
+			<string>1.8.6</string>
 		</dict>
 		<key>PROJECT_COMMENTS</key>
 		<dict>
@@ -976,7 +966,7 @@
 				</dict>
 			</array>
 			<key>NAME</key>
-			<string>Safeguard Plugins Installer 1.8.5.2</string>
+			<string>Safeguard Plugins Installer 1.8.6</string>
 			<key>PAYLOAD_ONLY</key>
 			<false/>
 		</dict>
