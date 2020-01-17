@@ -29,44 +29,51 @@
  };
  
  */
-#include "AIArtboard.h"
+
+#include <string>
 #include "SafeguardFileConstants.h"
 
+#include "AIArt.h"
+#include "AIArtSet.h"
+#include "AIPath.h"
+#include "AIArtboard.h"
+#include "AIRealMath.h"
+
 extern AIArtSuite* sAIArt;
-extern AIPathSuite* sAIPath;
 extern AIArtSetSuite* sAIArtSet;
+extern AIPathSuite* sAIPath;
 extern AIArtboardSuite* sAIArtboard;
 extern AIRealMathSuite* sAIRealMath;
 
 namespace SafeguardFile
 {
-    
     class PlateNumber
     {
     public:
         PlateNumber(){};
-        PlateNumber(string);
+        PlateNumber(std::string);
         
-        inline Boolean IsValid() const {return isValidPlateNumber;};
+        inline bool IsValid() const {return isValidPlateNumber;};
         
-        inline string GetPlantIndicator() const {return plantIndicator;};
-        inline string GetProductIndicator() const {return productIndicator;};
+        inline std::string GetPlantIndicator() const {return plantIndicator;};
+        inline std::string GetProductIndicator() const {return productIndicator;};
         ProductType GetProductType() const;
+        inline std::string GetSuffix() const { return suffix; };
         
-        void GetAsTextRange(ATE::ITextRange& targetRange) const;
-        
-        inline operator const string(void) const { return plateNumber; }
+        inline operator std::string(void) const { return plateNumber; }
         
     private:
-        string plateNumber;
-        string plantIndicator;
-        string year;
-        string productIndicator;
-        string number;
-        Boolean isValidPlateNumber = false;
+        std::string plateNumber;
+        std::string plantIndicator;
+        std::string year;
+        std::string productIndicator;
+        std::string number;
+        std::string suffix;
+        bool isValidPlateNumber = false;
         
-        Boolean TokenizePlateNumber();
-        Boolean HasInnerTicks() const;
+        bool TokenizePlateNumber();
+        
+        bool HasInnerTicks() const;
     };
     
 }

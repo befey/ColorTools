@@ -117,7 +117,7 @@ function onUpdateListBack(event)
 	$xml.find("color").each( function(index)
 	{
 		if (this.textContent != "[None]" &&
-			this.textContent != "[Registration]" &&
+			//this.textContent != "[Registration]" &&
 			this.textContent != "GRIPPER")
 		{
 			$("#from-select").append($("<option/>",

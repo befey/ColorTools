@@ -12,18 +12,20 @@
 //=================================
 // included dependencies
 #include <string>
-#include <unordered_map>
+#include "AIArtSet.h"
 #include "AISwatchList.h"
 #include "AIPathStyle.h"
-
 #include "BtColor.h"
+#include <unordered_map>
+#include "SafeguardFileConstants.h"
 
 //=================================
 // forward declared dependencies
 extern AICustomColorSuite* sAICustomColor;
 extern AISwatchListSuite* sAISwatchList;
+extern AISwatchGroupSuite* sAISwatchGroup;
 extern AIPathStyleSuite* sAIPathStyle;
-
+extern AIArtSetSuite* sAIArtSet;
 
 
 //=================================
@@ -31,16 +33,15 @@ extern AIPathStyleSuite* sAIPathStyle;
 class BtSwatchList
 {
 public:
-    //Constuctor
-    BtSwatchList();
-    
-    
-    //Getters/Setters
 
-    
     //Behaviors
-    void CreateOrConvertToCustomColor(std::string colorName); //colorName must be one of the standard colors defined, see ColorFuncs.h
-    void CreateOrConvertToCustomColor(BtColor color);
+    void FixStdColors();
+    Bt::BtColor CreateOrConvertToCustomColor(std::string colorName); //colorName must be one of the standard colors defined, see below
+    Bt::BtColor CreateOrConvertToCustomColor(Bt::BtColor color);
+    
+    void CreateSwatch(string name, Bt::BtColor color);
+    void ChangeSwatchColor(AISwatchRef swatchRef, Bt::BtColor color);
+    
     void AdjustAllColors();
     
     void RemoveUnusedColors();
@@ -48,20 +49,18 @@ public:
     std::vector<std::string> GetCurrentSwatchesAsStringVector();
     string GetColorListAsXMLString();
     
-    
+    static AISwatchRef GetSwatchByName(std::string name);
 private:
-    //Members
-    std::unordered_map<std::string, BtColor> stdColorDefinitions;
-    
+    //Members    
     
     static void CreateSwatch(std::string name, AIColor color);
-    AISwatchRef GetSwatchByName(std::string name) const;
     
-    bool ColorHasDefinitionAlready(BtColor color, AIColor* outFoundColor) const;
+    
+    bool ColorHasSwatchAlready(Bt::BtColor color, AIColor* outFoundColor) const;
         //If the return is TRUE, outFoundColor contains the definition of the matching color
     bool SwatchNameExists(std::string name, AIColor* outFoundColor) const;
         //If the return is TRUE, outFoundColor contains the definition of the matching color
-    bool CustomColorExists(BtColor color, AIColor* outFoundColor) const;
+    bool CustomColorExists(Bt::BtColor color, AIColor* outFoundColor) const;
         //If the return is TRUE, outFoundColor contains the definition of the matching color
     
     //Adjust Colors Callbacks

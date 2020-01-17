@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+    <head>
+        <script src="js/jquery-1.9.1.min.js"></script>
+        <script src="js/CSInterface.js"></script>
+        <script src="js/PlateBleedInfo.js"></script>
+        
+        <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+        <link rel="stylesheet" href="css/common.css" type="text/css" />
+        <link rel="stylesheet" href="css/PlateBleedInfo.css" type="text/css" />
+    </head>
+    <body>
+        <form>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <a class="arrow arrow-left" role="button" onClick="ChangeArtboard(-1)"></a>
+                    </div>
+                    <div class="col-xs-4">
+                        <input type="text" id="artboard-name" /><br />Artboard #
+                        <div id="artboard-number"></div>
+                    </div>
+                    <div class="col-xs-4">
+                        <a class="arrow arrow-right" role="button" onClick="ChangeArtboard(1)"></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <input type="checkbox" id="displaybleedinfo-check" checked="true" /><label for="displaybleedinfo-check">&nbsp;Display bleed info on this artboard</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <label for="tickmark-select">Choose tick mark style:</label>
+                    </div>
+                    <div class="col-xs-8">
+                        <select id="tickmark-select">
+                            <option value="1">Outer</option>
+                            <option value="2">Inner</option>
+                            <option value="3">Both (Continuous Style)</option>
+                            <option value="4">Registration Line (BStat Style)</option>
+                            <option value="0">None</option>
+                        </select>
+                        <input type="checkbox" id="allartboardssametick-check" checked="true" /><label for="allartboardssametick-check">&nbsp;Use for all artboards</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <label for="inktype-select">Set ink methods:<br /></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="info-area row" id="inks">
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-xs-12">&nbsp;</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <span class="buttons">
+                            <input type="button" id="cancel-button" onClick="csInterface.dispatchEvent(cancelEvent)" value="Cancel" />
+                            <input type="button" id="ok-button" onClick="SendDataToIllustrator()" value="OK" autofocus />
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+</html>

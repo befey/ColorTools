@@ -7,7 +7,7 @@
 //
 
 #include "ReplaceData.h"
-#include "document.h"
+#include "cereal/external/rapidjson/document.h"
 
 #include "ColorFuncs.h"
 

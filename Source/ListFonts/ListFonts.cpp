@@ -14,12 +14,12 @@
 
 bool ListFonts::PutFontList()
 {
-    unique_ptr<DictionaryWriter> dw = make_unique<DictionaryWriter>();
-    AIArtHandle fontListArt = dw->GetArtHandleFromIdentifier(HENCE_FONT_LIST_LABEL);
+    DictionaryWriter dw;
+    AIArtHandle fontListArt = dw.GetArtHandleFromIdentifier(HENCE_FONT_LIST_LABEL);
     
     if (fontListArt)
     {
-        dw->RemoveIdentifierFromDictionary(HENCE_FONT_LIST_LABEL);
+        dw.RemoveIdentifierFromDictionary(HENCE_FONT_LIST_LABEL);
         sAIArt->DisposeArt(fontListArt);
     }
     
@@ -47,7 +47,7 @@ bool ListFonts::PutFontList()
         }
         fontListArt = WriteVectorOfFontsToArtboard();
         
-        dw->AddArtHandleToDictionary(fontListArt, HENCE_FONT_LIST_LABEL);
+        dw.AddArtHandleToDictionary(fontListArt, HENCE_FONT_LIST_LABEL);
     }
     else
     {
@@ -109,7 +109,7 @@ long ListFonts::MakeArtSetOfPrintingTextArts(AIArtSet const targetSet)
 }
 
 
-long ListFonts::MakeVectorOfFontsFromArtSet(AIArtSet const srcArtSet)
+void ListFonts::MakeVectorOfFontsFromArtSet(AIArtSet const srcArtSet)
 {
     size_t count;
     sAIArtSet->CountArtSet(srcArtSet, &count);
@@ -148,7 +148,9 @@ AIArtHandle ListFonts::WriteVectorOfFontsToArtboard()
     
     AIRealPoint anchor = {.h = rect.left, .v = rect.bottom - 52};
     AIArtHandle textFrame;
-    sAITextFrame->NewPointText(kPlaceAboveAll, NULL, kHorizontalTextOrientation, anchor, &textFrame);
+    AIArtHandle prep = GetGroupArtOfFirstEditableLayer();
+    
+    sAITextFrame->NewPointText(kPlaceInsideOnTop, prep, kHorizontalTextOrientation, anchor, &textFrame);
     
     //Create the ATE range
     ATE::TextRangeRef textRangeRef;
@@ -173,19 +175,18 @@ AIArtHandle ListFonts::WriteVectorOfFontsToArtboard()
         }
         
         infoString += "\t";
-        adjustedFeatures.SetFont("Helvetica-Bold");
-        adjustedFeatures.SetFontSize(8);
+        adjustedFeatures.Font("Helvetica-Bold").FontSize(8);
         adjustedFeatures.AddTextToRangeWithFeatures(infoString, textRange);
         
         infoString = GetFontNameFromFeatures(feature);
         
-        ASReal fontSize = feature.GetFontSize(&isAssigned);
+        ASReal fontSize = feature.FontSize(&isAssigned);
         if (isAssigned)
         {
             infoString += ", Sz: " + to_string(fontSize);
         }
         
-        ASReal leading = feature.GetLeading(&isAssigned);
+        ASReal leading = feature.Leading(&isAssigned);
         if (isAssigned)
         {
             infoString += ", Ld: " + to_string(leading);
@@ -193,7 +194,7 @@ AIArtHandle ListFonts::WriteVectorOfFontsToArtboard()
         
         //Make sure the lines stay spaced apart enough to read
         adjustedFeatures = feature;
-        adjustedFeatures.SetLeading(fontSize + 2);
+        adjustedFeatures.Leading(fontSize + 2);
         
         infoString += "\n";
         adjustedFeatures.AddTextToRangeWithFeatures(infoString, textRange);
@@ -209,40 +210,40 @@ void ListFonts::RemoveDuplicatesFromFeaturesList()
         bool found1 = false;
         featuresList.erase(
                            std::remove_if(featuresList.begin(), featuresList.end(), [feature, &found1](ATE::ICharFeatures f)
-                           {
-                               bool isAAssigned = false;
-                               bool isBAssigned = false;
-                               
-                               string fontNameA = GetFontNameFromFeatures(*feature);
-                               string fontNameB = GetFontNameFromFeatures(f);
-                               
-                               if (fontNameA == fontNameB)
-                               {
-                                   ASReal fontSizeA = feature->GetFontSize(&isAAssigned);
-                                   ASReal fontSizeB = f.GetFontSize(&isBAssigned);
-                                   if (isAAssigned && isBAssigned && fontSizeA == fontSizeB)
-                                   {
-                                       ASReal leadingA = feature->GetLeading(&isAAssigned);
-                                       ASReal leadingB = f.GetLeading(&isBAssigned);
-                                       if (isAAssigned && isBAssigned && leadingA == leadingB)
-                                       {
-                                           if (!found1)
-                                           {
-                                               found1 = true;
-                                               return false;
-                                           }
-                                           else
-                                           {
-                                               return true;
-                                           }
-                                       }
-                                   }
-                               }
-                               return false;
-                           }
+                                          {
+                                              bool isAAssigned = false;
+                                              bool isBAssigned = false;
+                                              
+                                              string fontNameA = GetFontNameFromFeatures(*feature);
+                                              string fontNameB = GetFontNameFromFeatures(f);
+                                              
+                                              if (fontNameA == fontNameB)
+                                              {
+                                                  ASReal fontSizeA = feature->FontSize(&isAAssigned);
+                                                  ASReal fontSizeB = f.GetFontSize(&isBAssigned);
+                                                  if (isAAssigned && isBAssigned && fontSizeA == fontSizeB)
+                                                  {
+                                                      ASReal leadingA = feature->Leading(&isAAssigned);
+                                                      ASReal leadingB = f.GetLeading(&isBAssigned);
+                                                      if (isAAssigned && isBAssigned && leadingA == leadingB)
+                                                      {
+                                                          if (!found1)
+                                                          {
+                                                              found1 = true;
+                                                              return false;
+                                                          }
+                                                          else
+                                                          {
+                                                              return true;
+                                                          }
+                                                      }
+                                                  }
+                                              }
+                                              return false;
+                                          }
                                           ),
                            featuresList.end()
-        );
+                           );
     }
 }
 
@@ -280,7 +281,7 @@ bool ListFonts::LoadFontListFromFile()
         string postscriptName, henceCode;
         while ( getline(in, henceCode, ',') )
         {
-            getline(in, postscriptName);
+            getline(in, postscriptName, '\r');
             henceFonts.insert(pair<string,string>(postscriptName, henceCode));
         }
         in.close();

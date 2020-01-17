@@ -7,15 +7,15 @@
 //
 
 #include "PlateNumber.h"
-#include "ATEFuncs.h"
+#include "ColorEnumerator.hpp"
 #include <regex>
 
 using SafeguardFile::PlateNumber;
 using SafeguardFile::ProductType;
 
-PlateNumber::PlateNumber(string pNum)
+PlateNumber::PlateNumber(std::string pNum)
 {
-    for (auto & c: pNum) c = toupper(c);
+    for (auto &c : pNum) c = toupper(c);
     plateNumber = pNum;
     
     isValidPlateNumber = TokenizePlateNumber();
@@ -26,25 +26,26 @@ PlateNumber::PlateNumber(string pNum)
     }
 }
 
-Boolean PlateNumber::TokenizePlateNumber()
+bool PlateNumber::TokenizePlateNumber()
 {
-    using namespace std;
+    std::regex r("(?:^(?:([a-z])(\\d{2}))?(([a-z]{2})(\\d{3,6})){1}?[.]?(\\S*))", std::regex::icase);
     
-    regex r("(?:^(?:([a-z])(\\d{2}))?([a-z]{2})(\\d{3,6}).?\\S*)", regex::icase);
+    std::smatch result;
     
-    smatch result;
-    regex_search(plateNumber, result, r);
+    std::regex_search(plateNumber, result, r);
     
     /*There's two different plate number formats -- Y16SF000123 and SF00123 if we have a plate number in one of those formats we will get a result with matches:
         0: <the input plate number>
         1: <the plant indicator if the first type>
         2: <the year if the first type>
-        3: <the product indicator>
-        4: <the number>
-        5: any trailing .BP, etc.
+        3: <UNUSED> group 4 and 5 together
+        4: <the product indicator>
+        5: <the number>
+        6: any trailing .BP, etc. but without the "."
     */
-    
-    if (result.size() == 0) {
+
+    if (result.size() == 0)
+    {
         return false;
     }
     
@@ -53,8 +54,9 @@ Boolean PlateNumber::TokenizePlateNumber()
         plantIndicator = result[1];
         year = result[2];
     }
-    productIndicator = result[3];
-    number = result[4];
+    productIndicator = result[4];
+    number = result[5];
+    suffix = result[6];
     return true;
 }
 
@@ -75,9 +77,14 @@ ProductType PlateNumber::GetProductType() const
         return ProductType::CutSheet;
     }
     
-    if (productIndicator == "CF" || productIndicator == "SC" || productIndicator == "SS" || productIndicator == "EN")
+    if (productIndicator == "CF" || productIndicator == "SC" || productIndicator == "SS")
     {
         return ProductType::Continuous;
+    }
+    
+    if (productIndicator == "EN")
+    {
+        return ProductType::Envelope;
     }
     
     if (productIndicator == "CS")
@@ -95,18 +102,13 @@ ProductType PlateNumber::GetProductType() const
     //OTHERS
     if (productIndicator == "AR" || productIndicator == "CK" || productIndicator == "CM" || productIndicator == "GC" || productIndicator == "LS" || productIndicator == "QC" || productIndicator == "RC" || productIndicator == "VP")
     {
-        return ProductType::Continuous;
+        return ProductType::Snapset;
     }
     
     return ProductType::INVAL;
 }
 
-void PlateNumber::GetAsTextRange(ATE::ITextRange& targetRange) const
-{
-    AddTextToRange(plateNumber, targetRange);
-}
-
-Boolean PlateNumber::HasInnerTicks() const
+bool PlateNumber::HasInnerTicks() const
 {
     size_t count = 0;
     AIArtSet artSet = NULL;
@@ -130,7 +132,8 @@ Boolean PlateNumber::HasInnerTicks() const
         sAIPath->GetPathClosed(currArtHandle, &closed);
         if (!closed)
         {
-            AIRealRect artBounds; sAIArt->GetArtBounds(currArtHandle, &artBounds);
+            AIRealRect artBounds;
+            sAIArt->GetArtBounds(currArtHandle, &artBounds);
             ai::ArtboardList artboardList;
             ai::ArtboardProperties props;
             sAIArtboard->GetArtboardList(artboardList);
@@ -141,14 +144,16 @@ Boolean PlateNumber::HasInnerTicks() const
             AIBoolean overlap = sAIRealMath->AIRealRectOverlap(&pageBounds, &artBounds);
             AIReal length;
             sAIPath->GetPathLength(currArtHandle, &length, NULL);
-            if (overlap && sAIRealMath->EqualWithinTol(length, LENGTH_OF_INNER_TICK_PATH, 1))
+            if (overlap && sAIRealMath->EqualWithinTol(length, LENGTH_OF_INNER_TICK_PATH, 6))
             {
-                //TODO: do we need to check for registration color here too?
-                return true;
+                if ( ColorEnumerator(currArtHandle).HasRegistrationColor() )
+                {
+                    return true;
+                }
             }
         }
     }
-    sAIArtSet->DisposeArtSet(&artSet); artSet = NULL;
+    sAIArtSet->DisposeArtSet(&artSet);
     
     return false;
 }

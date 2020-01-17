@@ -9,44 +9,18 @@
 
 #include "ATEFuncs.h"
 #include "BtAteTextFeatures.h"
+#include "ArtTree.h"
 
 ai::UnicodeString GetNameFromATETextRange(ATE::ITextRange targetRange) {
 	ATE::ITextFramesIterator itemFrameIterator = targetRange.GetTextFramesIterator();
-	AIArtHandle itemArtHandle = NULL;
+	AIArtHandle itemArtHandle = nullptr;
 	ATE::ITextFrame itemTextFrame = itemFrameIterator.Item();
 	ATE::TextFrameRef itemTextFrameRef = itemTextFrame.GetRef();
 	sAITextFrame->GetAITextFrame(itemTextFrameRef, &itemArtHandle);
 	ai::UnicodeString itemName;
-	sAIArt->GetArtName(itemArtHandle, itemName, NULL);
+	sAIArt->GetArtName(itemArtHandle, itemName, nullptr);
 
 	return itemName;
-}
-
-std::string GetStdStringFromAITextFrame(AIArtHandle textFrame) {
-	short type = 0;
-	sAIArt->GetArtType(textFrame, &type);
-	
-	if ( type == kTextFrameArt ) {
-		ATE::TextRangeRef currRangeRef = NULL;
-		sAITextFrame->GetATETextRange(textFrame, &currRangeRef);
-		
-		ATE::ITextRange currRange(currRangeRef);
-		
-		int size = currRange.GetSize();
-		
-		char* buffer = new char[size];
-		
-		currRange.GetContents(buffer, size);
-		
-		buffer[size] = '\0';
-		
-		string sbuffer(buffer);
-		delete[] buffer;
-		
-		return sbuffer;
-	} else {
-		return NULL;
-	}
 }
 
 ASReal GetFontSizeFromAITextFrame(AIArtHandle textFrame) {
@@ -91,29 +65,12 @@ bool ProcessTextFrameArt(AIArtHandle textFrame, std::function<bool(ATE::ITextRan
 	return true;
 }
 
-bool IsAllWhitespace(ATE::ITextRange theRange) {
-
-	ASInt32 size = theRange.GetSize();
-	char *buffer = new char[size+1];
-	
-	theRange.GetContents(buffer, size);
-	
-	//Check if there is not whitespace
-	if ( string::npos == string(buffer).find_first_not_of(WHITESPACES) ) {
-		delete[] buffer;
-		return TRUE;
-	} else {
-		delete[] buffer;
-		return FALSE;
-	}	
-}
-
 void SetAIColorForATETextRange(ATE::ITextRange theRange, AIColor theColor, bool fillOrStroke /*DEFAULT 0*/) {
 
 	ATE::ICharFeatures targetICharFeatures;
 	
 	//Change the AIColor to the ATE Color
-	ATE::ApplicationPaintRef ateApplicationPaintRef = NULL;
+	ATE::ApplicationPaintRef ateApplicationPaintRef = nullptr;
 	sAIATEPaint->CreateATEApplicationPaint(&theColor, &ateApplicationPaintRef);
 	ATE::IApplicationPaint targetIApplicationPaint(ateApplicationPaintRef);
 	
@@ -155,24 +112,11 @@ AIColor GetAIColorFromATETextRange(ATE::ITextRange theRange, bool fillOrStroke /
 
 }
 
-size_t StdStringToASUnicode(const std::string text, ASUnicode* buffer, size_t bufferMax)
-{
-    char* cstr = new char [text.length()+1];
-    std::strcpy (cstr, text.c_str());
-    
-    ai::UnicodeString us(cstr);
-    us.as_ASUnicode(buffer, bufferMax);
-    
-    delete[] cstr;
-    
-    return ai::UnicodeString(buffer).length();
-}
-
 string GetFontNameFromFeatures(const BtAteTextFeatures features)
 {
     string fontNameString = "";
     bool isAssigned = false;
-    ATE::IFont font = features.GetFont(&isAssigned);
+    ATE::IFont font = features.Font(&isAssigned);
     if (isAssigned)
     {
         FontRef ref = font.GetRef();
@@ -189,7 +133,7 @@ string GetPostscriptFontNameFromFeatures(const BtAteTextFeatures features)
 {
     string fontNameString = "";
     bool isAssigned = false;
-    ATE::IFont font = features.GetFont(&isAssigned);
+    ATE::IFont font = features.Font(&isAssigned);
     if (isAssigned)
     {
         FontRef ref = font.GetRef();
@@ -218,27 +162,21 @@ string GetDisplayFontNameFromPostscriptFontName(const string postscriptFontName)
 void AddTextToRange(const string text, ATE::ITextRange& targetRange, int beforeAfter)
 {
     //We have to create a new point text so we can get a new blank range
-    AIArtHandle tempTextHandle = NULL; AIRealPoint anchor ={0,0};
-    sAITextFrame->NewPointText(kPlaceAboveAll, NULL, kHorizontalTextOrientation, anchor, &tempTextHandle);
+    AIArtHandle tempTextHandle = nullptr; AIRealPoint anchor ={0,0};
+    
+    AIArtHandle prep = GetGroupArtOfFirstEditableLayer();
+        
+    sAITextFrame->NewPointText(kPlaceInsideOnTop, prep, kHorizontalTextOrientation, anchor, &tempTextHandle);
     ATE::TextRangeRef newTextRangeRef;
     sAITextFrame->GetATETextRange(tempTextHandle, &newTextRangeRef);
     ATE::ITextRange newTextRange(newTextRangeRef);
     
-    //Insert the text into it
-    ASUnicode* asuString = new ASUnicode [text.length()+1];
-    StdStringToASUnicode(text, asuString, text.length()+1);
-    
-    newTextRange.InsertAfter(asuString);
-    
-    delete[] asuString;
-    
+    newTextRange.InsertAfter(ai::UnicodeString(text).as_ASUnicode().c_str());
+        
     AddTextToRange(newTextRange, targetRange, beforeAfter);
     
     //Trash our temporary art objects
     sAIArt->DisposeArt(tempTextHandle);
-    tempTextHandle = NULL;
-    
-    return;
 }
 
 void AddTextToRange(ATE::ITextRange sourceRange, ATE::ITextRange& targetRange, int beforeAfter)
@@ -247,9 +185,9 @@ void AddTextToRange(ATE::ITextRange sourceRange, ATE::ITextRange& targetRange, i
     if (beforeAfter == 1)
     {
         targetRange.InsertAfter(sourceRange);
-    } else
+    }
+    else
     {
         targetRange.InsertBefore(sourceRange);
     }
 }
-

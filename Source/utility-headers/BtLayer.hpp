@@ -15,34 +15,56 @@
 extern AILayerSuite* sAILayer;
 extern AIArtSetSuite* sAIArtSet;
 
+static constexpr bool DoNotCreateLayer = false;
+
 class BtLayer
 {
 public:
+    BtLayer(){};
     BtLayer(AILayerHandle layer);
-    BtLayer(string layerName);
-    inline operator bool(void) const { return (layerHandle) ? true : false; };
+    BtLayer(string layerName, bool createIfDoesNotExist = true);
+    BtLayer(int layerIndex);
+    
+    bool Null() const { return !layerHandle; };
     
     void DeleteLayer();
     
     string Title() const;
-    const BtLayer& Title(string title) const;
+    BtLayer& Title(string title);
     
     bool Visible() const;
-    const BtLayer& Visible(bool visible) const;
+    BtLayer& Visible(bool visible);
     
     bool Editable() const;
-    const BtLayer& Editable(bool editable) const;
+    BtLayer& Editable(bool editable);
     
     bool Printed() const;
-    const BtLayer& Printed(bool printed) const;
+    BtLayer& Printed(bool printed);
     
     void DeselectArt() const;
     void SelectArt() const;
     
     long GetArtSet(AIArtSet const targetSet) const;
     void ConvertTextToPaths() const;
+    
+    void PutArtAtTopOfLayer(AIArtHandle art);
+    AIArtHandle GetLayerGroupArt() const;
+    
+    BtLayer& MoveToTop();
+    
+    BtLayer& MakeEditable();
+    BtLayer& ResetEditable();
+    
+    BtLayer& MakeCurrent();
+    
+    inline operator const AILayerHandle(void) const { return layerHandle; }
+    inline operator AILayerHandle*(void) { return &layerHandle; }
+    inline operator bool(void) const { return Null(); }
 private:
-    AILayerHandle layerHandle;
+    AILayerHandle layerHandle = nullptr;
+    
+    bool storedEditable = true;
+    bool storedVisible = true;
 };
 
 #endif /* BtLayer_hpp */

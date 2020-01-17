@@ -22,21 +22,53 @@ class BtAteTextFeatures
 {
 public:
     BtAteTextFeatures();
+    BtAteTextFeatures(ATE::ITextRange iTextRange);
     BtAteTextFeatures(ATE::ICharFeatures cFeatures);
     BtAteTextFeatures(ATE::IParaFeatures pFeatures);
     BtAteTextFeatures(ATE::ICharFeatures cFeatures, ATE::IParaFeatures pFeatures);
     BtAteTextFeatures(const BtAteTextFeatures& src);
     BtAteTextFeatures& operator=(const BtAteTextFeatures& rhs);
     
-    void SetLeading(ATETextDOM::Real newVal);
-    void SetFontSize(ATETextDOM::Real newVal);
-    void SetFont(string postscriptFontName);
-    void SetFillColor(AIColor color);
-    void SetJustification(ATE::ParagraphJustification newVal);
+    BtAteTextFeatures& Leading(ATETextDOM::Real newVal);
+    ATETextDOM::Real Leading(bool* isAssigned) const;
     
-    ATE::IFont GetFont(bool* isAssigned) const;
-    ATETextDOM::Real GetFontSize(bool* isAssigned) const;
-    ATETextDOM::Real GetLeading(bool* isAssigned) const;
+    BtAteTextFeatures& FontSize(ATETextDOM::Real newVal);
+    ATETextDOM::Real FontSize(bool* isAssigned) const;
+    
+    BtAteTextFeatures& Font(string postscriptFontName);
+    ATE::IFont Font(bool* isAssigned) const;
+    
+    BtAteTextFeatures& NoBreak(bool newVal);
+    bool NoBreak(bool* isAssigned) const;
+    
+    BtAteTextFeatures& FillStyle(AIFillStyle fillStyle);
+    AIFillStyle FillStyle() const;
+    BtAteTextFeatures& FillColor(AIColor color);
+    AIColor FillColor() const;
+    BtAteTextFeatures& FillOverPrint(bool overprint);
+    bool FillOverPrint() const;
+    
+    BtAteTextFeatures& StrokeStyle(AIStrokeStyle strokeStyle);
+    AIStrokeStyle StrokeStyle() const;
+    BtAteTextFeatures& StrokeColor(AIColor color);
+    AIColor StrokeColor() const;
+    BtAteTextFeatures& StrokeOverPrint(bool overprint);
+    bool StrokeOverPrint() const;
+    BtAteTextFeatures& StrokeWidth(AIReal width);
+    AIReal StrokeWidth() const;
+    BtAteTextFeatures& StrokeDash(AIDashStyle dash);
+    AIDashStyle StrokeDash() const;
+    BtAteTextFeatures& StrokeCap(AILineCap cap);
+    AILineCap StrokeCap() const;
+    BtAteTextFeatures& StrokeLineJoin(AILineJoin join);
+    AILineJoin StrokeLineJoin() const;
+    BtAteTextFeatures& StrokeMiterLimit(AIReal miter);
+    AIReal StrokeMiterLimit() const;
+    
+    BtAteTextFeatures& AutoHyphenate(bool newVal);
+    bool AutoHyphenate() const;
+    
+    BtAteTextFeatures& Justification(ATE::ParagraphJustification newVal);
     
     //Adds the text to the range with the features, the last argument defaults to After, set to 0 to insert the text before
     void AddTextToRangeWithFeatures(const string text, ATE::ITextRange& targetRange, int beforeAfter=1);
@@ -49,6 +81,8 @@ public:
 private:
     ATE::ICharFeatures charFeatures;
     ATE::IParaFeatures paraFeatures;
+    
+    ATE::IApplicationPaint CreateIApplicationPaint(AIColor color) const;
 };
 
 #endif /* defined(__SafeguardTools__BtAteTextFeatures__) */

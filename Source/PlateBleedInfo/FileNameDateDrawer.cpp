@@ -9,48 +9,107 @@
 #include "FileNameDateDrawer.h"
 #include "ColorFuncs.h"
 #include "BleedInfo.h"
+#include "BtTransformArt.hpp"
+#include "BtLayer.hpp"
+#include "SafeguardFileConstants.h"
+#include <ctime>
 
 using SafeguardFile::FileNameDateDrawer;
 using SafeguardFile::LaserFileNameDateDrawer;
 using SafeguardFile::ContinuousFileNameDateDrawer;
 using SafeguardFile::BusStatFileNameDateDrawer;
-using SafeguardFile::BleedInfo;
 
-FileNameDateDrawer::FileNameDateDrawer(shared_ptr<BleedInfo> info) : BleedTextInfoDrawer(info) {};
-LaserFileNameDateDrawer::LaserFileNameDateDrawer(shared_ptr<BleedInfo> info) : FileNameDateDrawer(info) {};
-ContinuousFileNameDateDrawer::ContinuousFileNameDateDrawer(shared_ptr<BleedInfo> info) : FileNameDateDrawer(info) {};
-BusStatFileNameDateDrawer::BusStatFileNameDateDrawer(shared_ptr<BleedInfo> info) : FileNameDateDrawer(info) {};
+FileNameDateDrawer::FileNameDateDrawer(AIRealRect bounds, AIRealPoint anchor, PlateNumber plateNumber, string token, tm lastModified)
+:
+BleedTextInfoDrawer(bounds, anchor),
+plateNumber(plateNumber),
+token(token),
+lastModified(lastModified)
+{
+    maxWidth = (artboardBounds.right - artboardBounds.left) * .35;
+    maxHeight = (artboardBounds.top - artboardBounds.bottom) * .35;
+}
 
-AIArtHandle LaserFileNameDateDrawer::Draw()
+LaserFileNameDateDrawer::LaserFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified)
+:
+FileNameDateDrawer(bounds, {.h = bounds.right - 4, .v = bounds.bottom - 4.5}, plateNumber, token, lastModified)
+{};
+
+ContinuousFileNameDateDrawer::ContinuousFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified)
+:
+FileNameDateDrawer(bounds, {.h = bounds.right, .v = bounds.top - 14}, plateNumber, token, lastModified)
+{};
+
+BusStatFileNameDateDrawer::BusStatFileNameDateDrawer(AIRealRect bounds, PlateNumber plateNumber, string token, tm lastModified)
+:
+FileNameDateDrawer(bounds, {.h = bounds.right, .v = bounds.bottom - 4.5}, plateNumber, token, lastModified)
+{};
+
+AIArtHandle LaserFileNameDateDrawer::Draw(AIArtHandle resultGroup) const
 {
     AIArtHandle plateNumberDateArt;
-    AIRealPoint anchor = {.h = p_BleedInfo->rect.right - 4, .v = p_BleedInfo->rect.bottom - 14};
-    sAITextFrame->NewPointText(kPlaceAboveAll, NULL, kHorizontalTextOrientation, anchor, &plateNumberDateArt);
     
-    //Create the ATE range
-    ATE::TextRangeRef plateInfoTextRangeRef;
-    sAITextFrame->GetATETextRange(plateNumberDateArt, &plateInfoTextRangeRef);
-    ATE::ITextRange plateInfoTextRange(plateInfoTextRangeRef);
-    plateInfoTextRange.Remove();
+    ATE::ITextRange range = SetupTextRange(resultGroup, maxWidth, ATE::kRightJustify, kHorizontalTextOrientation, &plateNumberDateArt);
     
-    p_BleedInfo->plateNumber.GetAsTextRange(plateInfoTextRange);
+    PutPlateNumberDateStringInTextRange(range);
+    BtAteTextFeatures textFeatures;
+    textFeatures.FontSize(12).Font("Helvetica-Bold").Leading(12.5).Justification(ATE::kRightJustify).FillColor(Bt::BtColor::RegistrationColor()).AutoHyphenate(false);
+    textFeatures.ApplyFeaturesToRange(range);
     
-    if (p_BleedInfo->token != "")
+    FitTextFrameToContents(plateNumberDateArt);
+    
+    return plateNumberDateArt;
+}
+
+AIArtHandle ContinuousFileNameDateDrawer::Draw(AIArtHandle resultGroup) const
+{
+    AIArtHandle plateNumberDateArt;
+    
+    //We pass maxHeight here since we're rotating
+    ATE::ITextRange range = SetupTextRange(resultGroup, maxHeight, ATE::kLeftJustify, kHorizontalTextOrientation, &plateNumberDateArt);
+    
+    PutPlateNumberDateStringInTextRange(range);
+    BtAteTextFeatures textFeatures;
+    textFeatures.FontSize(8).Font("Helvetica").Leading(8.5).Justification(ATE::kLeftJustify).FillColor(Bt::BtColor::RegistrationColor()).AutoHyphenate(false);
+    textFeatures.ApplyFeaturesToRange(range);
+
+    FitTextFrameToContents(plateNumberDateArt);
+    
+    RotateArt(plateNumberDateArt, anchor, -90);
+    MoveArtOutsideBounds(plateNumberDateArt, artboardBounds, Direction::Right, 1);
+    
+    return plateNumberDateArt;
+}
+
+AIArtHandle BusStatFileNameDateDrawer::Draw(AIArtHandle resultGroup) const
+{
+    AIArtHandle plateNumberDateArt;
+    
+    ATE::ITextRange range = SetupTextRange(resultGroup, maxWidth, ATE::kRightJustify, kHorizontalTextOrientation, &plateNumberDateArt);
+    
+    PutPlateNumberDateStringInTextRange(range);
+    BtAteTextFeatures textFeatures;
+    textFeatures.FontSize(7).Font("Helvetica-BoldCondensed").Leading(7.5).Justification(ATE::kRightJustify).FillColor(Bt::BtColor::RegistrationColor()).AutoHyphenate(false);
+    textFeatures.ApplyFeaturesToRange(range);
+    
+    FitTextFrameToContents(plateNumberDateArt);
+    
+    return plateNumberDateArt;
+}
+
+
+void FileNameDateDrawer::PutPlateNumberDateStringInTextRange(ATE::ITextRange& targetRange) const
+{
+    AddTextToRange(plateNumber, targetRange);
+    
+    if (token != "")
     {
-        AddTextToRange("." + p_BleedInfo->token, plateInfoTextRange);
+        AddTextToRange("." + token, targetRange);
     }
     
     int month, year;
-    sAIUser->GetMonth(&p_BleedInfo->lastModified, &month);
-    sAIUser->GetYear(&p_BleedInfo->lastModified, &year);
-    AddTextToRange("  " + to_string(month) + "/" + to_string(year), plateInfoTextRange);
-
-    BtAteTextFeatures textFeatures;
-    textFeatures.SetFontSize(12.01);
-    textFeatures.SetFont("Helvetica-Bold");
-    textFeatures.SetJustification(ATE::kRightJustify);
-    textFeatures.SetFillColor(GetRegistrationColor());
-    textFeatures.ApplyFeaturesToRange(plateInfoTextRange);
+    month = lastModified.tm_mon + 1;
+    year = (lastModified.tm_year + 1900) % 100;
     
-    return plateNumberDateArt;
+    AddTextToRange("  " + to_string(month) + "/" + to_string(year), targetRange);
 }

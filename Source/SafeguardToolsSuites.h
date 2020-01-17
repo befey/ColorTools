@@ -6,6 +6,7 @@
 
 // AI suite headers
 #include "AIMenu.h"
+#include "AIPreference.h"
 
 #include "AISwatchLibraries.h"
 #include "AISwatchList.h"
@@ -17,15 +18,22 @@
 #include "AIDocumentView.h"
 #include "AIArtboard.h"
 #include "AIArtboardRange.h"
+#include "AIHardSoft.h"
+#include "AIIsolationMode.h"
 
 #include "AIGroup.h"
 #include "AILayer.h"
 #include "AIArtSet.h"
 #include "AIArtStyle.h"
 #include "AIPluginGroup.h"
+#include "AIPlaced.h"
+#include "AIRaster.h"
+#include "AIFOConversion.h"
+#include "AISymbol.h"
 
 #include "AIPath.h"
 #include "AIPathStyle.h"
+#include "AIGeometry.h"
 
 #include "AITransformArt.h"
 #include "AIRealMath.h"
@@ -42,6 +50,7 @@
 
 #include "AIDictionary.h"
 #include "AIUID.h"
+#include "AIArray.h"
 
 #include "AIActionManager.h"
 
@@ -50,11 +59,16 @@ extern SPBlocksSuite *sSPBlocks;
 extern AIUnicodeStringSuite*	sAIUnicodeString;
 
 extern AIMenuSuite *sAIMenu;
+extern AIPreferenceSuite *sAIPreference;
 
 extern AIArtSuite *sAIArt;
 extern AIGroupSuite *sAIGroup;
 extern AILayerSuite *sAILayer;
 extern AIPluginGroupSuite *sAIPluginGroup;
+extern AIPlacedSuite *sAIPlaced;
+extern AIRasterSuite *sAIRaster;
+extern AIFOConversionSuite *sAIFOConversion;
+extern AISymbolSuite *sAISymbol;
 
 extern AIUndoSuite *sAIUndo;
 extern AISwatchLibrariesSuite *sAISwatchLibrary;
@@ -68,12 +82,15 @@ extern AIDocumentListSuite *sAIDocumentList;
 extern AIDocumentViewSuite* sAIDocumentView;
 extern AIArtboardSuite* sAIArtboard;
 extern AIArtboardRangeSuite* sAIArtboardRange;
+extern AIHardSoftSuite* sAIHardSoft;
+extern AIIsolationModeSuite* sAIIsolationMode;
 
 extern AIArtSetSuite *sAIArtSet;
 extern AIArtStyleSuite *sAIArtStyle;
 
 extern AIPathSuite *sAIAPath;
 extern AIPathStyleSuite *sAIPathStyle;
+extern AIGeometrySuite *sAIGeometry;
 
 extern AITransformArtSuite *sAITransformArt;
 extern AIRealMathSuite *sAIRealMath;
@@ -93,6 +110,7 @@ extern AIUIDPoolSuite *sAIUIDPool;
 
 extern AIDictionarySuite *sAIDictionary;
 extern AIEntrySuite *sAIEntry;
+extern AIArraySuite *sAIArray;
 
 extern AIActionManagerSuite *sAIActionManager;
 

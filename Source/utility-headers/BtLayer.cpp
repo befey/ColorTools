@@ -7,14 +7,27 @@
 //
 
 #include "BtLayer.hpp"
+#include "BtArtHandle.hpp"
 #include "ArtTree.h"
 #include "Plate.h"
+#include "GetIllustratorErrorCode.h"
 
 
 BtLayer::BtLayer(AILayerHandle layer) : layerHandle(layer) {}
-BtLayer::BtLayer(string layerName)
+BtLayer::BtLayer(string layerName, bool createIfDoesNotExist)
 {
     sAILayer->GetLayerByTitle(&layerHandle, ai::UnicodeString(layerName));
+    
+    if (layerHandle == nullptr && createIfDoesNotExist)
+    {
+        sAILayer->InsertLayer(nullptr, kPlaceAboveAll, &layerHandle);
+        Title(layerName);
+    }
+}
+
+BtLayer::BtLayer(int layerIndex)
+{
+    sAILayer->GetNthLayer(layerIndex, &layerHandle);
 }
 
 void BtLayer::DeleteLayer()
@@ -22,7 +35,7 @@ void BtLayer::DeleteLayer()
     if (layerHandle)
     {
         sAILayer->DeleteLayer(layerHandle);
-        layerHandle = NULL;
+        layerHandle = nullptr;
     }
 }
 
@@ -35,7 +48,7 @@ string BtLayer::Title() const
     }
     return usTitle.as_Platform();
 }
-const BtLayer& BtLayer::Title(string title) const
+BtLayer& BtLayer::Title(string title)
 {
     if (layerHandle)
     {
@@ -46,14 +59,14 @@ const BtLayer& BtLayer::Title(string title) const
 
 bool BtLayer::Visible() const
 {
-    AIBoolean vis;
+    AIBoolean vis = false;
     if (layerHandle)
     {
         sAILayer->GetLayerVisible(layerHandle, &vis);
     }
     return vis;
 }
-const BtLayer& BtLayer::Visible(bool visible) const
+BtLayer& BtLayer::Visible(bool visible)
 {
     if (layerHandle)
     {
@@ -64,14 +77,14 @@ const BtLayer& BtLayer::Visible(bool visible) const
 
 bool BtLayer::Editable() const
 {
-    AIBoolean edit;
+    AIBoolean edit = false;
     if (layerHandle)
     {
         sAILayer->GetLayerEditable(layerHandle, &edit);
     }
     return edit;
 }
-const BtLayer& BtLayer::Editable(bool editable) const
+BtLayer& BtLayer::Editable(bool editable)
 {
     if (layerHandle)
     {
@@ -82,14 +95,14 @@ const BtLayer& BtLayer::Editable(bool editable) const
 
 bool BtLayer::Printed() const
 {
-    AIBoolean print;
+    AIBoolean print = false;
     if (layerHandle)
     {
         sAILayer->GetLayerPrinted(layerHandle, &print);
     }
     return print;
 }
-const BtLayer& BtLayer::Printed(bool printed) const
+BtLayer& BtLayer::Printed(bool printed)
 {
     if (layerHandle)
     {
@@ -121,35 +134,9 @@ long BtLayer::GetArtSet(AIArtSet const targetSet) const
     }
     size_t count = 0;
     
-    //Store the User Attributes
-    bool editableWasFalse = false;
-    bool visibleWasFalse = false;
-    
-    //Unlock and Unhide the layer
-    if (!Editable())
-    {
-        Editable(TRUE);
-        editableWasFalse = true;
-    }
-    if (!Visible())
-    {
-        Visible(TRUE);
-        visibleWasFalse = true;
-    }
-    
     sAIArtSet->LayerArtSet(layerHandle, targetSet);
     
     sAIArtSet->CountArtSet(targetSet, &count);
-    
-    //Set the layer and art attributes back the way they were
-    if (editableWasFalse)
-    {
-        Editable(FALSE);
-    }
-    if (visibleWasFalse)
-    {
-        Visible(FALSE);
-    }
     
     return count;
 }
@@ -163,30 +150,90 @@ void BtLayer::ConvertTextToPaths() const
     
     ProcessArtSet(artSet, [](AIArtHandle handle)
                   {
-                      short type;
-                      sAIArt->GetArtType(handle, &type);
+                      BtArtHandle btHandle(handle);
                       
-                      if (type == kTextFrameArt)
+                      if (btHandle.ArtType() == kTextFrameArt)
                       {
-                          int attr = 0;
-                          //Check if the art is visible
-                          sAIArt->GetArtUserAttr(handle, kArtHidden, &attr);
-                          if (!(attr & kArtHidden))
+                          if (!btHandle.Hidden())
                           {
-                              //Check if the art is editable
-                              attr = 0;
-                              sAIArt->GetArtUserAttr(handle, kArtLocked, &attr);
-                              if (attr & kArtLocked)
-                              {
-                                  sAIArt->SetArtUserAttr(handle, kArtLocked, 0);
-                              }
+                              btHandle.Locked(false);
                               
                               //Convert the type to paths
                               AIArtHandle tempNewPaths;
                               sAITextFrame->CreateOutline(handle, &tempNewPaths);
-                              sAIArt->DisposeArt(handle);
+                              btHandle.Dispose();
                           }
                       }
                   });
+    
+    sAIArtSet->DisposeArtSet(&artSet);
+}
 
+void BtLayer::PutArtAtTopOfLayer(AIArtHandle art)
+{
+    AIArtHandle layerGroup = GetLayerGroupArt();
+
+    MakeEditable();
+    
+    BtArtHandle btHandle(art);
+
+    btHandle.MakeEditable();
+    
+    btHandle.PutInGroup(layerGroup);
+    
+    ResetEditable();
+    
+    btHandle.ResetEditable();
+}
+
+AIArtHandle BtLayer::GetLayerGroupArt() const
+{
+    if (layerHandle == nullptr)
+    {
+        return nullptr;
+    }
+    AIArtHandle layerGroup;
+    sAIArt->GetFirstArtOfLayer(layerHandle, &layerGroup);
+    return layerGroup;
+}
+
+BtLayer& BtLayer::MoveToTop()
+{
+    if (layerHandle)
+    {
+        BtArtHandle layerGroup(GetLayerGroupArt());
+        BtArtHandle topLayerGroup(BtLayer(int(0)).GetLayerGroupArt());
+    
+        sAIArt->ReorderArt(layerGroup, kPlaceAbove, topLayerGroup);
+    }
+
+    return *this;
+}
+
+BtLayer& BtLayer::MakeEditable()
+{
+    storedEditable = Editable();
+    Editable(true);
+    storedVisible = Visible();
+    Visible(true);
+    
+    return *this;
+}
+
+BtLayer& BtLayer::ResetEditable()
+{
+    Editable(storedEditable);
+    Visible(storedVisible);
+    
+    return *this;
+}
+
+BtLayer& BtLayer::MakeCurrent()
+{
+    if (layerHandle)
+    {
+        sAILayer->SetCurrentLayer(layerHandle);
+    }
+    
+    return *this;
 }

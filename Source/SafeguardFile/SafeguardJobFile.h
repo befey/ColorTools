@@ -9,32 +9,39 @@
 #ifndef __SafeguardTools__SafeguardJobFile__
 #define __SafeguardTools__SafeguardJobFile__
 
-#include <vector>
+#include <map>
 #include "Plate.h"
 #include "PlateNumber.h"
-#include "TickMarkDrawer.h"
-#include "PdfPrinter.h"
-#include "PdfResults.h"
-#include "PdfSettings.h"
-#include "PrintToPdfConstants.h"
+#include "ColorList.h"
+
+namespace PlateBleedInfo
+{
+    class SafeguardJobFileDTO;
+}
 
 namespace SafeguardFile
 {
     class SafeguardJobFile
     {
     public:
-        SafeguardJobFile();
-        
-        void RemoveBleedInfo();
-        
+        SafeguardJobFile(bool redrawAllWithoutCheck = false);
+        SafeguardJobFile(const PlateBleedInfo::SafeguardJobFileDTO* dto, bool redrawAllWithoutCheck = false);
+                
         const PlateNumber GetPlateNumber(int plateIndex = 0) const;
         const string GetToken(int plateIndex = 0) const;
         AIRealRect GetBleeds(int plateIndex = 0) const;
-    private:
-        vector<Plate> plates;
         
-        void AddBleedInfo();
-        bool ShouldDrawBleedInfo();
+        int GetNumPlates() const { return int(plates.size()); };
+        
+        ColorList GetAllColorsOnJob() const;
+        
+        void UpdateBleedInfo();
+        void UpdateBleedInfo(AIArtHandle pluginArt);
+        void RemoveBleedInfo();
+        
+        const map<int, shared_ptr<Plate>>& GetPlates() const { return plates; };
+    private:
+        map<int, shared_ptr<Plate>> plates;
     };
 }
 #endif /* defined(__SafeguardTools__SafeguardJobFile__) */

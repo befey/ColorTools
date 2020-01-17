@@ -2,55 +2,64 @@
 #include "SafeguardToolsSuites.h"
 
 // Suite externs
-	SPBlocksSuite*			sSPBlocks = NULL;
-	AIUnicodeStringSuite*	sAIUnicodeString = NULL;
-    AIMenuSuite*			sAIMenu = NULL;
+	SPBlocksSuite*			sSPBlocks = nullptr;
+	AIUnicodeStringSuite*	sAIUnicodeString = nullptr;
+    AIMenuSuite*			sAIMenu = nullptr;
+    AIPreferenceSuite*      sAIPreference = nullptr;
     
-    AIArtSuite*             sAIArt = NULL;
-    AIGroupSuite*           sAIGroup = NULL;
-    AILayerSuite*           sAILayer = NULL;
-    AIPluginGroupSuite*     sAIPluginGroup = NULL;
+    AIArtSuite*             sAIArt = nullptr;
+    AIGroupSuite*           sAIGroup = nullptr;
+    AILayerSuite*           sAILayer = nullptr;
+    AIPluginGroupSuite*     sAIPluginGroup = nullptr;
+    AIPlacedSuite*          sAIPlaced = nullptr;
+    AIRasterSuite*          sAIRaster = nullptr;
+    AIFOConversionSuite*    sAIFOConversion = nullptr;
+    AISymbolSuite*          sAISymbol = nullptr;
+
+    AIUndoSuite*            sAIUndo = nullptr;
+    AISwatchLibrariesSuite* sAISwatchLibrary = nullptr;
+	AISwatchListSuite*      sAISwatchList = nullptr;
+	AISwatchGroupSuite*     sAISwatchGroup = nullptr;
+	AICustomColorSuite*     sAICustomColor = nullptr;
+	AIColorConversionSuite* sAIColorConversion = nullptr;
+
+    AIDocumentSuite*        sAIDocument = nullptr;
+	AIDocumentListSuite*    sAIDocumentList = nullptr;
+    AIDocumentViewSuite*    sAIDocumentView = nullptr;
+    AIArtboardSuite*        sAIArtboard = nullptr;
+    AIArtboardRangeSuite*   sAIArtboardRange = nullptr;
+    AIHardSoftSuite*        sAIHardSoft = nullptr;
+    AIIsolationModeSuite*   sAIIsolationMode = nullptr;
+
+	AIArtSetSuite*          sAIArtSet = nullptr;
+	AIArtStyleSuite*        sAIArtStyle = nullptr;
     
-    AIUndoSuite*            sAIUndo = NULL;
-    AISwatchLibrariesSuite* sAISwatchLibrary = NULL;
-	AISwatchListSuite*      sAISwatchList = NULL;
-	AISwatchGroupSuite*     sAISwatchGroup = NULL;
-	AICustomColorSuite*     sAICustomColor = NULL;
-	AIColorConversionSuite* sAIColorConversion = NULL;
+    AIPathSuite*            sAIPath = nullptr;
+	AIPathStyleSuite*       sAIPathStyle = nullptr;
+    AIGeometrySuite*        sAIGeometry = nullptr;
 
-    AIDocumentSuite*        sAIDocument = NULL;
-	AIDocumentListSuite*    sAIDocumentList = NULL;
-    AIDocumentViewSuite*    sAIDocumentView = NULL;
-    AIArtboardSuite*        sAIArtboard = NULL;
-    AIArtboardRangeSuite*   sAIArtboardRange = NULL;
-
-	AIArtSetSuite*          sAIArtSet = NULL;
-	AIArtStyleSuite*        sAIArtStyle = NULL;
-    
-    AIPathSuite*            sAIPath = NULL;
-	AIPathStyleSuite*       sAIPathStyle = NULL;
-
-    AITransformArtSuite*    sAITransformArt = NULL;
-    AIRealMathSuite*        sAIRealMath = NULL;
-	AIMatchingArtSuite*     sAIMatchingArt = NULL;
-	AIMdMemorySuite*        sAIMdMemory = NULL;
-	AIPatternSuite*         sAIPattern = NULL;
+    AITransformArtSuite*    sAITransformArt = nullptr;
+    AIRealMathSuite*        sAIRealMath = nullptr;
+	AIMatchingArtSuite*     sAIMatchingArt = nullptr;
+	AIMdMemorySuite*        sAIMdMemory = nullptr;
+	AIPatternSuite*         sAIPattern = nullptr;
 	
-	AITextFrameSuite*       sAITextFrame = NULL;
-	AIATEPaintSuite*        sAIATEPaint = NULL;
-	AIATETextUtilSuite*     sAIATETextUtil = NULL;
-    AICSXSExtensionSuite*   sAICSXSExtension = NULL;
-    AIFontSuite*            sAIFont = NULL;
+	AITextFrameSuite*       sAITextFrame = nullptr;
+	AIATEPaintSuite*        sAIATEPaint = nullptr;
+	AIATETextUtilSuite*     sAIATETextUtil = nullptr;
+    AICSXSExtensionSuite*   sAICSXSExtension = nullptr;
+    AIFontSuite*            sAIFont = nullptr;
     
-    AIUIDSuite*             sAIUID = NULL;
-    AIUIDREFSuite*          sAIUIDREF = NULL;
-    AIUIDUtilsSuite*        sAIUIDUtils = NULL;
-    AIUIDPoolSuite*         sAIUIDPool = NULL;
+    AIUIDSuite*             sAIUID = nullptr;
+    AIUIDREFSuite*          sAIUIDREF = nullptr;
+    AIUIDUtilsSuite*        sAIUIDUtils = nullptr;
+    AIUIDPoolSuite*         sAIUIDPool = nullptr;
     
-    AIDictionarySuite*      sAIDictionary = NULL;
-    AIEntrySuite*           sAIEntry = NULL;
-    
-    AIActionManagerSuite*   sAIActionManager = NULL;
+    AIDictionarySuite*      sAIDictionary = nullptr;
+    AIEntrySuite*           sAIEntry = nullptr;
+    AIArraySuite*           sAIArray = nullptr;
+
+    AIActionManagerSuite*   sAIActionManager = nullptr;
 
     
 	EXTERN_TEXT_SUITES
@@ -62,11 +71,16 @@ ImportSuite gImportSuites[] =
 	kAIUnicodeStringSuite, kAIUnicodeStringVersion, &sAIUnicodeString,
     
     kAIMenuSuite, kAIMenuSuiteVersion, &sAIMenu,
+    kAIPreferenceSuite, kAIPreferenceSuiteVersion, &sAIPreference,
     
     kAIArtSuite, kAIArtSuiteVersion, &sAIArt,
     kAIGroupSuite, kAIGroupSuiteVersion, &sAIGroup,
     kAILayerSuite, kAILayerSuiteVersion, &sAILayer,
     kAIPluginGroupSuite, kAIPluginGroupSuiteVersion, &sAIPluginGroup,
+    kAIPlacedSuite, kAIPlacedSuiteVersion, &sAIPlaced,
+    kAIRasterSuite, kAIRasterSuiteVersion, &sAIRaster,
+    kAIFOConversionSuite, kAIFOConversionSuiteVersion, &sAIFOConversion,
+    kAISymbolSuite, kAISymbolSuiteVersion, &sAISymbol,
     
     kAIUndoSuite, kAIUndoSuiteVersion, &sAIUndo,
 	kAISwatchLibrariesSuite, kAISwatchLibrariesSuiteVersion, &sAISwatchLibrary,
@@ -80,12 +94,15 @@ ImportSuite gImportSuites[] =
     kAIDocumentViewSuite, kAIDocumentViewSuiteVersion, &sAIDocumentView,
     kAIArtboardSuite, kAIArtboardSuiteVersion, &sAIArtboard,
     kAIArtboardRangeSuite, kAIArtboardRangeSuiteVersion, &sAIArtboardRange,
+    kAIHardSoftSuite, kAIHardSoftSuiteVersion, &sAIHardSoft,
+    kAIIsolationModeSuite, kAIIsolationModeSuiteVersion, &sAIIsolationMode,
 
     kAIArtSetSuite, kAIArtSetSuiteVersion, &sAIArtSet,
 	kAIArtStyleSuite, kAIArtStyleSuiteVersion, &sAIArtStyle,
 
     kAIPathSuite, kAIPathSuiteVersion, &sAIPath,
 	kAIPathStyleSuite, kAIPathStyleSuiteVersion, &sAIPathStyle,
+    kAIGeometrySuite, kAIGeometrySuiteVersion, &sAIGeometry,
 
     kAITransformArtSuite, kAITransformArtSuiteVersion, &sAITransformArt,
     kAIRealMathSuite, kAIRealMathSuiteVersion, &sAIRealMath,
@@ -106,6 +123,7 @@ ImportSuite gImportSuites[] =
     
     kAIDictionarySuite, kAIDictionarySuiteVersion, &sAIDictionary,
     kAIEntrySuite, kAIEntrySuiteVersion, &sAIEntry,
+    kAIArraySuite, kAIArraySuiteVersion, &sAIArray,
     
     kAIActionManagerSuite, kAIActionManagerSuiteVersion, &sAIActionManager,
 

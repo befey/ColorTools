@@ -7,39 +7,67 @@
 //
 
 #include "PdfSettings.h"
-#include "PdfResults.h"
-#include "document.h"
 #include "Plate.h"
 #include "SafeguardJobFile.h"
+#include "SafeguardJobFileDTO.hpp"
+#include "GetIllustratorErrorCode.h"
+
+#include "cereal/cereal.hpp"
+#include "cereal/types/vector.hpp"
+#include "cereal/archives/json.hpp"
+#include "cereal/external/rapidjson/document.h"
 
 using PrintToPdf::PdfSettings;
 using PrintToPdf::PdfPreset;
-using PrintToPdf::PdfResults;
 using SafeguardFile::SafeguardJobFile;
+using SafeguardFile::ProductType;
 
-PdfSettings::PdfSettings(PdfPreset p, string r, bool s) : preset(p), range(r), separateFiles(s)
+PdfSettings::PdfSettings(PrintToPdf::PdfPreset p, AIReal bleedAmount, string r, bool s, bool dnd, bool uof)
+: PdfSettings(p, r, s, dnd, uof)
 {
-    
+    SetBleeds(AIRealRect{bleedAmount,bleedAmount,bleedAmount,bleedAmount});
+}
+
+PdfSettings::PdfSettings(PdfPreset p, string r, bool s, bool dnd, bool uof)
+:
+preset(p),
+range(r),
+separateFiles(s),
+doNotDelete(dnd),
+userOutputFolder(uof)
+{
     if (preset == PrintToPdf::PdfPreset::Manufacturing)
     {
-        pwRetriever = unique_ptr<PasswordRetriever> { make_unique<NonePasswordRetriever>() };
+        pwRetriever = shared_ptr<PasswordRetriever> { make_shared<NonePasswordRetriever>() };
     }
     else if (preset == PrintToPdf::PdfPreset::Proof)
     {
-        pwRetriever = unique_ptr<PasswordRetriever> { make_unique<ProofPasswordRetriever>() };
+        pwRetriever = shared_ptr<PasswordRetriever> { make_shared<ProofPasswordRetriever>() };
     }
     else if (preset == PrintToPdf::PdfPreset::MicrProof)
     {
-        pwRetriever = unique_ptr<PasswordRetriever> { make_unique<MicrPasswordRetriever>() };
+        pwRetriever = shared_ptr<PasswordRetriever> { make_shared<MicrPasswordRetriever>() };
     }
     
     SetPasswords();
     
-    SetBleeds(SafeguardJobFile().GetBleeds());
+    SafeguardJobFile sgJobFile;
+    ProductType pType = sgJobFile.GetPlateNumber().GetProductType();
+    if ( (pType == ProductType::CutSheet || pType == ProductType::Snapset ) && (preset == PdfPreset::MicrProof || preset == PdfPreset::Proof) )
+    {
+        SetBleeds(AIRealRect{0,0,0,0});
+    }
+    else
+    {
+        SetBleeds(sgJobFile.GetBleeds());
+    }
     
     SetVpbRange(range);
     
   ////****** Setup common parameters for all PDFs
+    //Set High Quality Print settings
+    sAIActionManager->AIActionSetString(vpb, kAIPDFOptionSetNameKey, "[High Quality Print]");
+    
     // Format parameter.
     sAIActionManager->AIActionSetString(vpb, kAIExportDocumentFormatKey, kAIPDFFileFormat);
     sAIActionManager->AIActionSetString(vpb, kAIExportDocumentExtensionKey, kAIPDFFileFormatExtension);
@@ -55,37 +83,80 @@ PdfSettings::PdfSettings(PdfPreset p, string r, bool s) : preset(p), range(r), s
     
     //Turn off preserve Illustrator editability
     sAIActionManager->AIActionSetBoolean(vpb, kAIPDFRoundTripKey, FALSE);
+    
+    //Turn off Acrobat layers
+    sAIActionManager->AIActionSetBoolean(vpb, kAIPDFGenerateAcrobatLayersKey, FALSE);
+    
+    //Turn off Compress art
+    sAIActionManager->AIActionSetBoolean(vpb, kAIPDFCompressArtKey, FALSE);
+    
+    //Turn off all downsampling and set image compression
+    sAIActionManager->AIActionSetEnumerated(vpb, kAIPDFColorImageCompressionKindKey, "Color Compression Kind", kAIPDFImageCompressionZIP8bit);
+    sAIActionManager->AIActionSetEnumerated(vpb, kAIPDFColorImageResampleKindKey, "Color Resample Kind", kAIPDFNoDownsampling);
+    sAIActionManager->AIActionSetEnumerated(vpb, kAIPDFGrayscaleImageCompressionKindKey, "Gray Compression Kind", kAIPDFImageCompressionZIP8bit);
+    sAIActionManager->AIActionSetEnumerated(vpb, kAIPDFGrayscaleImageResampleKindKey, "Gray Resample Kind", kAIPDFNoDownsampling);
+    sAIActionManager->AIActionSetEnumerated(vpb, kAIPDFMonochromeImageCompressionKindKey, "Mono Compression Kind", kAIPDFMonochromeImageCompressionZIP);
+    sAIActionManager->AIActionSetEnumerated(vpb, kAIPDFMonochromeImageResampleKindKey, "Mono Resample Kind", kAIPDFNoDownsampling);
   ////*******
 }
 
-PdfSettings PdfSettings::MakePdfSettingsFromXml(const char* xmlData)
+PdfSettings PdfSettings::MakePdfSettingsFromJson(const char* json)
 {
     using namespace rapidjson;
     
     Document d;
-    d.Parse(xmlData);
+    d.Parse(json);
     
     Value& v = d[PrintToPdfUIController::PRESET_SELECT];
     PrintToPdf::PdfPreset preset = static_cast<PrintToPdf::PdfPreset>(v.GetInt());
-    
-    v = d[PrintToPdfUIController::ALLPAGES_CHECK];
-    bool allPages = (v.GetBool());
+        
+    v = d[PrintToPdfUIController::DTO];
+    string dtoString = (v.GetString());
+    PlateBleedInfo::SafeguardJobFileDTO printToPdfDTO;
+    std::istringstream is(dtoString);
+    {
+        try
+        {
+            cereal::JSONInputArchive iarchive(is); // Create an input archive
+            iarchive(printToPdfDTO);
+        }
+        catch (std::runtime_error e)
+        {
+            string s(e.what());
+        }
+    }
     
     string r;
-    if (allPages)
+    for (auto artboard : printToPdfDTO.GetPlateDTOs() )
     {
-        r = "";
+        if (artboard.shouldPrint)
+        {
+            r += std::to_string(artboard.artboardIndex+1);
+            r += ",";
+        }
     }
-    else
+    if (r.length() > 0)
     {
-        v = d[PrintToPdfUIController::RANGE_TEXT];
-        r = v.GetString();
+        r.pop_back(); //Remove trailing comma
     }
     
     v = d[PrintToPdfUIController::SEPARATEFILES_CHECK];
     bool separateFiles = (v.GetBool());
     
-    return PdfSettings(preset, r, separateFiles);
+    v = d[PrintToPdfUIController::DONOTDELETE_CHECK];
+    bool doNotDelete = (v.GetBool());
+    
+    v = d[PrintToPdfUIController::USEROUTPUTFOLDER_CHECK];
+    bool userOutputFolder = (v.GetBool());
+    
+    v = d[PrintToPdfUIController::CUSTOMBLEEDS_TEXT];
+    AIReal customBleedAmount = GetBleedAmountFromString(string(v.GetString()));
+    if (customBleedAmount != -1)
+    {
+        return PdfSettings(preset, customBleedAmount, r, separateFiles, doNotDelete, userOutputFolder);
+    }
+
+    return PdfSettings(preset, r, separateFiles, doNotDelete, userOutputFolder);
 }
 
 void PdfSettings::SetPasswords()
@@ -138,6 +209,26 @@ void PdfSettings::SetVpbRange(string vpbRange) const
 {
     sAIActionManager->AIActionSetString(vpb, kAIExportDocumentSaveRangeKey, vpbRange.c_str());
 }
+
+AIReal PdfSettings::GetBleedAmountFromString(string expr)
+{
+    AIExpressionOptions options =
+    {
+        .unit = kAIPointUnits,
+        .minValue = -1,
+        .maxValue = kAIRealMax,
+        .oldValue = -1,
+        .precision = 0
+    };
+    
+    ai::UnicodeString evaluatedExpr;
+    AIBoolean isChanged;
+    AIDouble numericValue = 999;
+    sAIUser->EvaluateExpression(ai::UnicodeString(expr), options, evaluatedExpr, isChanged, numericValue);
+    
+    return numericValue; //-1 if error
+}
+
 /**************************************************************************
  **************************************************************************/
 

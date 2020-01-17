@@ -9,52 +9,38 @@
 #ifndef __SafeguardTools__Plate__
 #define __SafeguardTools__Plate__
 
-#include "AIPathStyle.h"
-#include "AIFont.h"
-#include "AIArtboard.h"
-#include "AIDocument.h"
 #include "PlateNumber.h"
 #include "BleedInfo.h"
-#include "PrintToPdfConstants.h"
 #include "ColorList.h"
-#include "BleedInfoDrawer.h"
-#include <vector>
-
-extern AIPathStyleSuite* sAIPathStyle;
-extern AIFontSuite* sAIFont;
-extern AIArtboardSuite* sAIArtboard;
-extern AIDocumentSuite* sAIDocument;
+#include "SafeguardJobFileDTO.hpp"
+#include "IDrawable.hpp"
 
 namespace SafeguardFile
 {    
-    class Plate
+    class Plate : public IDrawable
     {
     public:
-        Plate(ai::ArtboardID id);
-        //Plate(ai::ArtboardID id, string pn);
+        Plate(ai::ArtboardID id, bool redrawAllWithoutCheck) : Plate(id, redrawAllWithoutCheck, nullptr) {};
+        Plate(ai::ArtboardID id, bool redrawAllWithoutCheck, const PlateBleedInfo::PlateDTO* dto);
         
         AIRealRect GetArtboardBounds() const;
-        AIUserDateTime GetLastModified() const;
+        tm GetLastModified() const;
         
-        string GetArtboardName(AIBoolean& isDefault) const;
-        const ai::ArtboardID GetArtboardIndex() const { return bleedInfo.artboardIndex; };
+        string GetArtboardName(bool& isDefault) const;
+        const ai::ArtboardID GetArtboardIndex() const { return bleedInfo->ArtboardIndex(); };
         const PlateNumber GetPlateNumber() const;
         const string GetToken() const;
-        void SetPlateNumber();
         
         AIRealRect GetBleeds() const;
+        ColorList GetColors();
         
-        void AddBleedInfo();
-        void RemoveBleedInfo();
+        AIArtHandle Draw(AIArtHandle existingArt = nullptr) override { return bleedInfo->Draw(existingArt); };
+        void RemoveBleedInfo() { bleedInfo->Remove(); };
+        
+        const PlateBleedInfo::BleedInfo& GetBleedInfo() const { return *bleedInfo; };
+        
     private:
-        BleedInfo bleedInfo;
-        shared_ptr<SafeguardFile::BleedInfoDrawer> bleedInfoDrawer;
-        
-        void SetPlateNumber(string pn);
-        string CreateToken() const;
-        
-        void AddColorsOfArtToColorList(AIArtHandle art);
-        void FillColorList();
+        shared_ptr<PlateBleedInfo::BleedInfo> bleedInfo;
     };
 }
 #endif /* defined(__SafeguardTools__Plate__) */

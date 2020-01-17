@@ -7,36 +7,167 @@
 //
 
 #include "TickMarkDrawer.h"
-#include "BleedInfo.h"
+#include "BtLayer.hpp"
+#include "ArtTree.h"
 
 using SafeguardFile::TickMarkDrawer;
-using SafeguardFile::OuterTickMarkDrawer;
-using SafeguardFile::InnerTickMarkDrawer;
-using SafeguardFile::ContinuousTickMarkDrawer;
-using SafeguardFile::BleedInfo;
 
-TickMarkDrawer::TickMarkDrawer(shared_ptr<BleedInfo> info) : p_BleedInfo(info) {};
-OuterTickMarkDrawer::OuterTickMarkDrawer(shared_ptr<BleedInfo> info) : TickMarkDrawer(info) {};
-InnerTickMarkDrawer::InnerTickMarkDrawer(shared_ptr<BleedInfo> info) : TickMarkDrawer(info) {};
-ContinuousTickMarkDrawer::ContinuousTickMarkDrawer(shared_ptr<BleedInfo> info) : TickMarkDrawer(info) {};
+TickMarkDrawer::TickMarkDrawer(TickMarkSettings settings)
+:
+IDrawer(settings.Bounds()),
+settings(settings)
+{};
 
-AIArtHandle OuterTickMarkDrawer::Draw()
+AIArtHandle TickMarkDrawer::Draw(AIArtHandle resultGroup) const
 {
+    AIArtHandle tickMarkGroupArt = nullptr;
+    tickMarkGroupArt = DrawInvisiblePath(resultGroup, tickMarkGroupArt);
+    
+    if (settings.DrawInner())
+    {
+        tickMarkGroupArt = DrawInner(resultGroup, tickMarkGroupArt);
+    }
+    if (settings.DrawOuter())
+    {
+        tickMarkGroupArt = DrawOuter(resultGroup, tickMarkGroupArt);
+    }
+    
+    return tickMarkGroupArt;
+}
 
-//        sAIArt->NewArt(kGroupArt, kPlaceAboveAll, NULL, &editArt);
-//        sAIArt->NewArt(kPathArt, kPlaceAboveAll, NULL, &boundingBoxArt);
-//
-//        AIPathSegment segments[4];
-//        segments[0] = { .corner = true, .p = {.h = rect.left, .v = rect.top}, .in = {.h = rect.left, .v = rect.top}, .out = {.h = rect.left, .v = rect.top}};
-//        segments[1] = { .corner = true, .p = {.h = rect.right, .v = rect.top}, .in = {.h = rect.right, .v = rect.top}, .out = {.h = rect.right, .v = rect.top} };
-//        segments[2] = { .corner = true, .p = {.h = rect.right, .v = rect.bottom}, .in = {.h = rect.right, .v = rect.bottom}, .out = {.h = rect.right, .v = rect.bottom} };
-//        segments[3] = { .corner = true, .p = {.h = rect.left, .v = rect.bottom}, .in = {.h = rect.left, .v = rect.bottom}, .out = {.h = rect.left, .v = rect.bottom} };
-//
-//        sAIPath->SetPathSegments(boundingBoxArt, 0, 4, segments);
-//        sAIPath->SetPathClosed(boundingBoxArt, true);
-//
-//        sAIArt->ReorderArt(boundingBoxArt, kPlaceInsideOnTop, editArt);
-//
-//        sAIPluginGroup->SetPluginArtEditArt(pluginGroupArt, editArt);
-    return NULL;
+AIArtHandle BsTickMarkDrawer::Draw(AIArtHandle resultGroup) const
+{
+    AIArtHandle tickMarkGroupArt = nullptr;
+    tickMarkGroupArt = DrawInvisiblePath(resultGroup, tickMarkGroupArt);
+    
+    AIArtHandle registrationPathArt = DrawRectangle(settings.Bounds(), tickMarkGroupArt);
+    
+    AIPathStyle currPathStyle;
+    AIBoolean outHasAdvFill;
+    sAIPathStyle->GetPathStyle(registrationPathArt, &currPathStyle, &outHasAdvFill);
+    currPathStyle.strokePaint = true;
+    currPathStyle.stroke.color = settings.Color();
+    currPathStyle.stroke.width = settings.Weight();
+    currPathStyle.stroke.overprint = true;
+    currPathStyle.fillPaint = false;
+    sAIPathStyle->SetPathStyle(registrationPathArt, &currPathStyle);
+    
+    return tickMarkGroupArt;
+}
+
+AIArtHandle TickMarkDrawer::DrawInvisiblePath(AIArtHandle resultGroup, AIArtHandle tickMarkGroupArt) const
+{
+    if (tickMarkGroupArt == nullptr)
+    {
+        sAIArt->NewArt(kGroupArt, kPlaceInsideOnTop, resultGroup, &tickMarkGroupArt);
+    }
+    
+    AIArtHandle invisiblePathArt = DrawRectangle(settings.Bounds(), tickMarkGroupArt);
+    
+    AIPathStyle currPathStyle;
+    AIBoolean outHasAdvFill;
+    sAIPathStyle->GetPathStyle(invisiblePathArt, &currPathStyle, &outHasAdvFill);
+    currPathStyle.strokePaint = false;
+    currPathStyle.fillPaint = false;
+    sAIPathStyle->SetPathStyle(invisiblePathArt, &currPathStyle);
+    
+    return tickMarkGroupArt;
+}
+
+
+AIArtHandle TickMarkDrawer::DrawOuter(AIArtHandle resultGroup, AIArtHandle tickMarkGroupArt) const
+{
+    if (tickMarkGroupArt == nullptr)
+    {
+        sAIArt->NewArt(kGroupArt, kPlaceInsideOnTop, resultGroup, &tickMarkGroupArt);
+    }
+    
+    vector<TickMark> tickMarks =
+    {
+        {
+            .start = {.h = settings.Bounds().left, .v = settings.Bounds().top + settings.Offset()},
+            .mid = {.h = settings.Bounds().left, .v = settings.Bounds().top},
+            .end = {.h = settings.Bounds().left - settings.Offset(), .v = settings.Bounds().top}
+        },
+        {
+            .start = {.h = settings.Bounds().right, .v = settings.Bounds().top + settings.Offset()},
+            .mid = {.h = settings.Bounds().right, .v = settings.Bounds().top},
+            .end = {.h = settings.Bounds().right + settings.Offset(), .v = settings.Bounds().top}
+        },
+        {
+            .start = {.h = settings.Bounds().right, .v = settings.Bounds().bottom - settings.Offset()},
+            .mid = {.h = settings.Bounds().right, .v = settings.Bounds().bottom},
+            .end = {.h = settings.Bounds().right + settings.Offset(), .v = settings.Bounds().bottom}
+        },
+        {
+            .start = {.h = settings.Bounds().left, .v = settings.Bounds().bottom - settings.Offset()},
+            .mid = {.h = settings.Bounds().left, .v = settings.Bounds().bottom},
+            .end = {.h = settings.Bounds().left - settings.Offset(), .v = settings.Bounds().bottom}
+        }
+    };
+
+    return DrawTickMarks(tickMarks, tickMarkGroupArt);
+}
+
+AIArtHandle TickMarkDrawer::DrawInner(AIArtHandle resultGroup, AIArtHandle tickMarkGroupArt) const
+{
+    if (tickMarkGroupArt == nullptr)
+    {
+        sAIArt->NewArt(kGroupArt, kPlaceInsideOnTop, resultGroup, &tickMarkGroupArt);
+    }
+    
+    vector<TickMark> tickMarks =
+    {
+        {
+            .start = {.h = settings.Bounds().left, .v = settings.Bounds().top - settings.Offset()},
+            .mid = {.h = settings.Bounds().left, .v = settings.Bounds().top},
+            .end = {.h = settings.Bounds().left + settings.Offset(), .v = settings.Bounds().top}
+        },
+        {
+            .start = {.h = settings.Bounds().right, .v = settings.Bounds().top - settings.Offset()},
+            .mid = {.h = settings.Bounds().right, .v = settings.Bounds().top},
+            .end = {.h = settings.Bounds().right - settings.Offset(), .v = settings.Bounds().top}
+        },
+        {
+            .start = {.h = settings.Bounds().right, .v = settings.Bounds().bottom + settings.Offset()},
+            .mid = {.h = settings.Bounds().right, .v = settings.Bounds().bottom},
+            .end = {.h = settings.Bounds().right - settings.Offset(), .v = settings.Bounds().bottom}
+        },
+        {
+            .start = {.h = settings.Bounds().left, .v = settings.Bounds().bottom + settings.Offset()},
+            .mid = {.h = settings.Bounds().left, .v = settings.Bounds().bottom},
+            .end = {.h = settings.Bounds().left + settings.Offset(), .v = settings.Bounds().bottom}
+        }
+    };
+    
+    return DrawTickMarks(tickMarks, tickMarkGroupArt);
+}
+
+AIArtHandle TickMarkDrawer::DrawTickMarks(vector<TickMark> ticks, AIArtHandle tickMarkGroupArt) const
+{    
+    for ( auto tick : ticks )
+    {
+        AIArtHandle tickMarkArt;
+        sAIArt->NewArt(kPathArt, kPlaceInsideOnTop, tickMarkGroupArt, &tickMarkArt);
+        
+        AIPathSegment segments[3];
+        segments[0] = { .corner = true, .p = tick.start, .in = tick.start, .out = tick.start };
+        segments[1] = { .corner = true, .p = tick.mid, .in = tick.mid, .out = tick.mid };
+        segments[2] = { .corner = true, .p = tick.end, .in = tick.end, .out = tick.end };
+        
+        sAIPath->SetPathSegments(tickMarkArt, 0, 3, segments);
+        sAIPath->SetPathClosed(tickMarkArt, false);
+        
+        AIPathStyle currPathStyle;
+        AIBoolean outHasAdvFill;
+        sAIPathStyle->GetPathStyle(tickMarkArt, &currPathStyle, &outHasAdvFill);
+        currPathStyle.strokePaint = true;
+        currPathStyle.stroke.color = settings.Color();
+        currPathStyle.stroke.width = settings.Weight();
+        currPathStyle.stroke.overprint = true;
+        currPathStyle.fillPaint = false;
+        sAIPathStyle->SetPathStyle(tickMarkArt, &currPathStyle);
+    }
+
+    return tickMarkGroupArt;
 }

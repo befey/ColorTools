@@ -9,6 +9,9 @@
 #include "SafeguardToolsID.h"
 #include "BtAiMenuItemHandles.h"
 #include "PrintToPdfUIController.h"
+#include "PrintToPdfFolderPrefsUIController.hpp"
+#include "PlateBleedInfoUIController.hpp"
+#include "PlaceFileSearchUIController.hpp"
 #include "SafeguardJobFile.h"
 
 //=================================
@@ -36,8 +39,9 @@ void FixupReload(Plugin* plugin);
 class SafeguardToolsPlugin : public Plugin
 {
 public:
-	/** Constructor.
-		@param pluginRef IN reference to this plugin.
+    
+    /** Constructor.
+	@param pluginRef IN reference to this plugin.
 	*/
 	SafeguardToolsPlugin(SPPluginRef pluginRef);
 
@@ -45,8 +49,6 @@ public:
 	*/
 	virtual ~SafeguardToolsPlugin();
     
-    
-    shared_ptr<BtSwatchList> GetBtSwatchList() const { return mySwatchList; }
     AIPluginGroupHandle GetBleedInfoPluginGroupHandle() const { return bleedInfoPluginGroupHandle; }
       
     /**	Restores state of SafeguardToolsPlugin during reload.
@@ -72,9 +74,12 @@ public:
     static constexpr auto CREATE_MICR_BARCODE_MENU_ITEM =  "Create MICR Barcode";
     static constexpr auto LIST_FONTS_MENU_ITEM =           "Generate Font List";
     static constexpr auto PRINT_TO_PDF_MENU_ITEM =         "Print to PDF...";
+    static constexpr auto SG_MFG_PLACE_MENU_ITEM =         "Safeguard Place...";
     
     static constexpr auto CREATE_PLATE_BLEED_INFO_PLUGIN_GROUP =  "bt.SafeguardTools.PlateBleedInfo";
+    static constexpr auto BLEED_INFO_PLUGIN_GROUP_DESC =          "__SafeguardPlateInfo__";
     static constexpr auto CREATE_PLATE_BLEED_INFO_MENU_ITEM =     "Add Safeguard Plate Info";
+    static constexpr auto EDIT_PLATE_BLEED_INFO_MENU_ITEM =     "Edit Safeguard Plate Info";
 
 protected:
 	/** Calls Plugin::Message and handles any errors returned.
@@ -113,6 +118,13 @@ protected:
      */
 	virtual ASErr UpdateMenuItem(AIMenuMessage* message);
     
+    /**	Updates the plugin group item.
+     @param message IN pointer to plugin and call information.
+     @return kNoErr on success, other ASErr otherwise.
+     */
+    virtual ASErr PluginGroupUpdate(AIPluginGroupMessage* message);
+    virtual ASErr PluginGroupNotify(AIPluginGroupMessage* message);
+    
     virtual ASErr ReloadPlugin(SPInterfaceMessage *message);
     
     virtual ASErr UnloadPlugin(SPInterfaceMessage *message);
@@ -120,23 +132,31 @@ protected:
     virtual ASErr Notify(AINotifierMessage* message);
     
 private:
-    shared_ptr<BtSwatchList> mySwatchList;
     shared_ptr<ColorToolsUIController> colorToolsUIController;
     shared_ptr<PrintToPdf::PrintToPdfUIController> printToPdfUIController;
+    shared_ptr<PrintToPdf::PrintToPdfFolderPrefsUIController> printToPdfFolderPrefsUIController;
+    shared_ptr<PlateBleedInfo::PlateBleedInfoUIController> plateBleedInfoUIController;
+    shared_ptr<PlaceFileSearch::PlaceFileSearchUIController> placeFileSearchUIController;
     
     /**	Notifier handles**/
     AINotifierHandle fRegisterEventNotifierHandle;
     AINotifierHandle fAppStartedNotifierHandle;
     AINotifierHandle fDocOpenedNotifierHandle;
-    AINotifierHandle fCustomColorChangeNotifierHandle;
-    AINotifierHandle fSwatchLibChangeNotifierHandle;
-    AINotifierHandle fArtSelectionChangeNotifierHandle;
     AINotifierHandle fDocumentCropAreaModifiedNotifierHandle;
+    AINotifierHandle fArtSelectionChangedNotifierHandle;
+    AINotifierHandle fDocumentSavedNotifierHandle;
+    AINotifierHandle fAIArtCustomColorChangedNotifier;
     
 	/**	Menu item handles**/
     BtAiMenuItemHandles menuItemHandles;
     
     /** Plugin Group handle **/
+    AIAddPluginGroupData pluginGroupData =
+    {
+        .major = 1,
+        .minor = 0,
+        .desc = BLEED_INFO_PLUGIN_GROUP_DESC
+    };
     AIPluginGroupHandle bleedInfoPluginGroupHandle;
      
 	/**	Adds the menu items for this plugin to the application UI.

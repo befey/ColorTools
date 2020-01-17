@@ -9,43 +9,108 @@
 #ifndef __SafeguardTools__TickMarkDrawer__
 #define __SafeguardTools__TickMarkDrawer__
 
-#include <vector>
+#include "TickMarkSettings.hpp"
+#include "AIArt.h"
+#include "AIPath.h"
+#include "AIPathStyle.h"
+#include "IDrawer.h"
+#include "IDrawable.hpp"
+
+extern AIArtSuite* sAIArt;
+extern AIPathSuite* sAIPath;
+extern AIPathStyleSuite* sAIPathStyle;
+
+constexpr auto TICKMARK_ARTHANDLE =            "__bt_tickmark_arthandle__";
 
 namespace SafeguardFile
 {
-    class BleedInfo;
-    
-    class TickMarkDrawer
+    class TickMarkDrawer : public IDrawer
     {
     public:
-        virtual AIArtHandle Draw() = 0;
+        TickMarkDrawer(TickMarkSettings settings);
+        AIArtHandle Draw(AIArtHandle resultArt) const override;
+        string GetDictionaryLabel(AIArtHandle resultArt) const override { return TICKMARK_ARTHANDLE + DictionaryWriter::GetUIDStringForArt(resultArt); };
         
     protected:
-        TickMarkDrawer(shared_ptr<BleedInfo> info);
+        TickMarkSettings settings;
         
-        shared_ptr<BleedInfo> p_BleedInfo;
+        AIArtHandle DrawInvisiblePath(AIArtHandle resultGroup, AIArtHandle tickMarkGroupArt = nullptr) const;
+        
+    private:
+        struct TickMark
+        {
+            AIRealPoint start, mid, end;
+        };
+
+        AIArtHandle DrawTickMarks(vector<TickMark> ticks, AIArtHandle tickMarkGroupArt = nullptr) const;
+        AIArtHandle DrawInner(AIArtHandle resultGroup, AIArtHandle tickMarkGroupArt = nullptr) const;
+        AIArtHandle DrawOuter(AIArtHandle resultGroup, AIArtHandle tickMarkGroupArt = nullptr) const;
     };
     
-    class OuterTickMarkDrawer : public TickMarkDrawer
+    class BsTickMarkDrawer : public TickMarkDrawer
     {
     public:
-        OuterTickMarkDrawer(shared_ptr<BleedInfo> info);
-        AIArtHandle Draw();
+        BsTickMarkDrawer(TickMarkSettings settings) : TickMarkDrawer(settings) {};
+        AIArtHandle Draw(AIArtHandle resultGroup) const override;
+    };
+
+    class NoneTickMarkDrawer : public TickMarkDrawer
+    {
+    public:
+        NoneTickMarkDrawer(TickMarkSettings settings) : TickMarkDrawer(settings) {};
+        AIArtHandle Draw(AIArtHandle resultGroup) const override { return DrawInvisiblePath(resultGroup); };
     };
     
-    class InnerTickMarkDrawer : public TickMarkDrawer
+    class TickMarkDrawable : public IDrawable
     {
     public:
-        InnerTickMarkDrawer(shared_ptr<BleedInfo> info);
-        AIArtHandle Draw();
-    };
-    
-    class ContinuousTickMarkDrawer : public TickMarkDrawer
-    {
-    public:
-        ContinuousTickMarkDrawer(shared_ptr<BleedInfo> info);
-        AIArtHandle Draw();
+        TickMarkDrawable(TickMarkSettings settings)
+        {
+            drawer = DrawerFactory().GetDrawer(settings);
+        }
     };
 }
+
+using SafeguardFile::TickMarkDrawable;
+using SafeguardFile::TickMarkSettings;
+template <>
+class DrawableFactoryImpl<TickMarkSettings>
+{
+public:
+    static std::shared_ptr<IDrawable> GetDrawable(TickMarkSettings settings, AIArtHandle pluginArt)
+    {
+        if (true)
+        {
+            return make_shared<TickMarkDrawable>(settings);
+        }
+        return nullptr;
+    };
+};
+
+using SafeguardFile::TickMarkSettings;
+using SafeguardFile::TickMarkDrawer;
+using SafeguardFile::BsTickMarkDrawer;
+using SafeguardFile::NoneTickMarkDrawer;
+template <>
+class DrawerFactoryImpl<TickMarkSettings>
+{
+public:
+    static shared_ptr<IDrawer> GetDrawer(TickMarkSettings tmSettings)
+    {
+        if (!tmSettings.ShouldDrawBleedInfo())
+        {
+            return make_shared<NoneTickMarkDrawer>(tmSettings);
+        }
+        
+        if (tmSettings.TickMarkStyle() == SafeguardFile::TickMarkStyle::BsStyle)
+        {
+            return make_shared<BsTickMarkDrawer>(tmSettings);
+        }
+        else
+        {
+            return make_shared<TickMarkDrawer>(tmSettings);
+        }
+    };
+};
 
 #endif /* defined(__SafeguardTools__TickMarkDrawer__) */

@@ -6,6 +6,8 @@
 #include "ColorFuncs.h"
 #include "DictionaryWriter.h"
 #include "BtAteTextFeatures.h"
+#include "SafeguardFileConstants.h"
+#include "BtArtHandle.hpp"
 
 #include "TextTools.h"
 
@@ -39,7 +41,7 @@ bool ConvertToPointType()
         sAIArtSet->CountArtSet( artSet, &count );
 		for ( int i=0 ; i < count ; i++ )
         {
-			AIArtHandle currArtHandle = NULL;
+			AIArtHandle currArtHandle = nullptr;
 			sAIArtSet->IndexArtSet( artSet, i, &currArtHandle );
 			
 			AITextFrameType type;
@@ -66,7 +68,7 @@ bool ConvertToPointType()
 					AITextOrientation orientation;
 					sAITextFrame->GetOrientation(currArtHandle, &orientation);
 					AIRealPoint anchor = {0,0};
-					AIArtHandle theCopy = NULL;
+					AIArtHandle theCopy = nullptr;
 					sAITextFrame->NewPointText(kPlaceAbove, currArtHandle, orientation, anchor, &theCopy );
 					
 									
@@ -93,14 +95,14 @@ bool ConvertToPointType()
 					sAIRealMath->AIRealMatrixSetIdentity(&unrotateMatrix);
 					sAIRealMath->AIRealMatrixConcatRotate(&unrotateMatrix, angle);
 					sAITransformArt->TransformArt(currArtHandle, &unrotateMatrix, 0, kTransformObjects);
-					sAIArt->GetArtTransformBounds(currArtHandle, NULL, kVisibleBounds|kExcludeHiddenObjectBounds|kNoExtendedBounds, &unRotateBounds);
+					sAIArt->GetArtTransformBounds(currArtHandle, nullptr, kVisibleBounds|kExcludeHiddenObjectBounds|kNoExtendedBounds, &unRotateBounds);
 					
 					//Duplicate the art, convert to outlines so we can get the tightest bounds
-					AIArtHandle tempDuplicate = NULL;
+					AIArtHandle tempDuplicate = nullptr;
 					sAITextFrame->CreateOutline(currArtHandle, &tempDuplicate);					
 					
 					//Get the bounds of our outline text and delete it
-					sAIArt->GetArtTransformBounds(tempDuplicate, NULL, kVisibleBounds|kExcludeHiddenObjectBounds, &convertedToPathsBounds);
+					sAIArt->GetArtTransformBounds(tempDuplicate, nullptr, kVisibleBounds|kExcludeHiddenObjectBounds, &convertedToPathsBounds);
 					sAIArt->DisposeArt(tempDuplicate);
 					
 					//We'll just use the top and bottom from the converted to paths one
@@ -164,20 +166,20 @@ bool ConvertToPointType()
 					//Move the new text into the same position as the old text
 					//Get the new bounds
 					//Duplicate the art, convert to point type so we can get the tightest bounds
-					tempDuplicate = NULL;
+					tempDuplicate = nullptr;
 					sAITextFrame->CreateOutline(theCopy, &tempDuplicate);
 					
 					//Get unconverted bounds
 					AIRealRect origCopyBounds;
-					sAIArt->GetArtTransformBounds(theCopy, NULL, kVisibleBounds|kExcludeHiddenObjectBounds, &origCopyBounds);
+					sAIArt->GetArtTransformBounds(theCopy, nullptr, kVisibleBounds|kExcludeHiddenObjectBounds, &origCopyBounds);
 					
 					//Get the bounds of our outline text and delete it
 					AIRealRect newBounds;
-					sAIArt->GetArtTransformBounds(tempDuplicate, NULL, kVisibleBounds|kExcludeHiddenObjectBounds, &newBounds);
+					sAIArt->GetArtTransformBounds(tempDuplicate, nullptr, kVisibleBounds|kExcludeHiddenObjectBounds, &newBounds);
 					sAIArt->DisposeArt(tempDuplicate);
 					
 					//Find the x and y translation
-					AIReal tx, ty;	
+					AIReal tx = 0.0, ty = 0.0;	
 					
 					if (firstRunJustification == ATE::kLeftJustify || firstRunJustification == ATE::kFullJustifyLastLineLeft ||
 						firstRunJustification == ATE::kFullJustifyLastLineFull || firstRunJustification == ATE::kFullJustifyLastLineCenter ||
@@ -212,6 +214,8 @@ bool ConvertToPointType()
 				}
 			}
 		}
+        
+        sAIArtSet->DisposeArtSet(&artSet);
 	}
 	return TRUE;
 }
@@ -275,7 +279,7 @@ void AlignText(AIArtSet* artSet, ATE::ParagraphJustification alignStyle)
 	
     if (count == 1)
     {
-		AIArtHandle currArtHandle = NULL;
+		AIArtHandle currArtHandle = nullptr;
 		sAIArtSet->IndexArtSet( *artSet, 0, &currArtHandle );
 		try
         {
@@ -288,7 +292,7 @@ void AlignText(AIArtSet* artSet, ATE::ParagraphJustification alignStyle)
 	}
     else if (count > 1)
     {
-		AIArtHandle keyArt = NULL;
+		AIArtHandle keyArt = nullptr;
 		sAIArt->GetKeyArt(&keyArt);
 		if (keyArt)
         {
@@ -305,7 +309,7 @@ void AlignText(AIArtSet* artSet, ATE::ParagraphJustification alignStyle)
         {
 			for ( int i=0 ; i < count ; i++ )
             {
-				AIArtHandle currArtHandle = NULL;
+				AIArtHandle currArtHandle = nullptr;
 				sAIArtSet->IndexArtSet( *artSet, i, &currArtHandle );
 				try
                 {
@@ -374,7 +378,7 @@ void AlignPointType(AIArtHandle currArtHandle, ATE::ParagraphJustification align
 	sAIRealMath->AIRealMatrixSetIdentity(&unrotateMatrix);
 	sAIRealMath->AIRealMatrixConcatRotate(&unrotateMatrix, angle);
 	sAITransformArt->TransformArt(currArtHandle, &unrotateMatrix, 0, kTransformObjects);
-	sAIArt->GetArtTransformBounds(currArtHandle, NULL, kVisibleBounds|kExcludeHiddenObjectBounds|kNoExtendedBounds, &unRotateBounds);
+	sAIArt->GetArtTransformBounds(currArtHandle, nullptr, kVisibleBounds|kExcludeHiddenObjectBounds|kNoExtendedBounds, &unRotateBounds);
 	
 	//Create an ITextFrame object from the original TextFrame art
 	TextRangeRef ATETextRangeRef;
@@ -387,9 +391,7 @@ void AlignPointType(AIArtHandle currArtHandle, ATE::ParagraphJustification align
 	
 	if (!iTextRange.GetSize())
     {
-        ASUnicode* asuString = new ASUnicode [2];
-        StdStringToASUnicode(" ", asuString, 2);
-		iTextRange.InsertAfter(asuString);
+        iTextRange.InsertAfter(ai::UnicodeString(" ").as_ASUnicode().c_str());
 		iTextRange.SetLocalParaFeatures(pFeat);
 		iTextRange.Remove();
 	}
@@ -398,10 +400,10 @@ void AlignPointType(AIArtHandle currArtHandle, ATE::ParagraphJustification align
 		iTextRange.SetLocalParaFeatures(pFeat);
 	}
 
-	sAIArt->GetArtTransformBounds(currArtHandle, NULL, kVisibleBounds|kExcludeHiddenObjectBounds, &postAlignBounds);
+	sAIArt->GetArtTransformBounds(currArtHandle, nullptr, kVisibleBounds|kExcludeHiddenObjectBounds, &postAlignBounds);
 	
 	//Find the x and y translation
-	AIReal tx, ty;	
+	AIReal tx = 0.0, ty = 0.0;	
 	
 	if (alignStyle == ATE::kLeftJustify || alignStyle == ATE::kFullJustifyLastLineLeft ||
 		alignStyle == ATE::kFullJustifyLastLineFull || alignStyle == ATE::kFullJustifyLastLineCenter ||
@@ -449,12 +451,10 @@ void AlignObject(AIArtSet* artSet, ATE::ParagraphJustification alignStyle)
 	int i = 0;
 	while ( i < count )
     {
-		AIArtHandle currArtHandle = NULL;
+		AIArtHandle currArtHandle = nullptr;
 		sAIArtSet->IndexArtSet( *artSet, i, &currArtHandle );
-		
-		bool validBounds = FALSE;
-		
-		GetBoundsOfSelectionFromRoot(currArtHandle, currArtHandle, &foundBounds, &validBounds);
+				
+        foundBounds = BtArtHandle(currArtHandle).Bounds();
 		
 		AlignObject(currArtHandle, currArtHandle, foundBounds, artSet, alignStyle);
 		
@@ -467,16 +467,16 @@ void AlignObject(AIArtSet* artSet, ATE::ParagraphJustification alignStyle)
 void AlignObject(AIArtHandle root, AIArtHandle currArtHandle, AIRealRect selBounds, AIArtSet* artSet, ATE::ParagraphJustification alignStyle)
 {
 	AIArtHandle child, sibling;
-	child = sibling = NULL;
+	child = sibling = nullptr;
 	AIReal tx = 0;
 	
 	//GET ALIGNMENT BOUNDS
 	AIRealRect keyBounds;
-	AIArtHandle keyArt = NULL;
+	AIArtHandle keyArt = nullptr;
 	sAIArt->GetKeyArt(&keyArt);
 	if (keyArt)
     {
-		sAIArt->GetArtTransformBounds(keyArt, NULL, kVisibleBounds | kExcludeHiddenObjectBounds | kExcludeGuideBounds, &keyBounds);
+		sAIArt->GetArtTransformBounds(keyArt, nullptr, kVisibleBounds | kExcludeHiddenObjectBounds | kExcludeGuideBounds, &keyBounds);
 	}
     else
     {
@@ -597,7 +597,7 @@ short GetTypesFromArtSet(AIArtSet* artSet)
     
 	for ( int i=0 ; i < count ; i++ )
     {
-		AIArtHandle currArtHandle = NULL;
+		AIArtHandle currArtHandle = nullptr;
 		sAIArtSet->IndexArtSet( *artSet, i, &currArtHandle );
 		
 		short artType = 0;
@@ -623,7 +623,7 @@ short GetTypesFromArtSet(AIArtSet* artSet)
 				sAIArt->GetArtUserAttr(currArtHandle, kArtPartOfCompound, &attr);
 				if ((attr & kArtPartOfCompound))
                 {
-					AIArtHandle parent = NULL;
+					AIArtHandle parent = nullptr;
 					bool cmpPathFnd = FALSE;
 					while (!cmpPathFnd)
                     {
@@ -682,7 +682,7 @@ short GetTypesFromArtSet(AIArtSet* artSet)
 	sAIArtSet->CountArtSet( artToRemove, &count );
 	for ( int i=0 ; i < count ; i++ )
     {
-		AIArtHandle currArtHandle = NULL;
+		AIArtHandle currArtHandle = nullptr;
 		sAIArtSet->IndexArtSet( artToRemove, i, &currArtHandle );
 		sAIArtSet->RemoveArtFromArtSet(*artSet, currArtHandle);
 	}
@@ -693,8 +693,8 @@ short GetTypesFromArtSet(AIArtSet* artSet)
 
 void RemoveChildrenFromArtSet(AIArtHandle root, AIArtHandle currArtHandle, AIArtSet* artSet)
 {
-	AIArtHandle sibling = NULL;
-	AIArtHandle child = NULL;
+	AIArtHandle sibling = nullptr;
+	AIArtHandle child = nullptr;
 
 	sAIArt->GetArtFirstChild(currArtHandle, &child);
 	if (child)
@@ -717,7 +717,7 @@ void RemoveChildrenFromArtSet(AIArtHandle root, AIArtHandle currArtHandle, AIArt
 bool CreateMICRBarcode()
 {
 	//CHECK IF THE BARCODE FONT IS INSTALLED
-	AIFontKey currFontKey = NULL;
+	AIFontKey currFontKey = nullptr;
 	sAIFont->FindFont(BARCODE_FONT_NAME, kAIAnyFontTechnology, kUnknownAIScript, FALSE, &currFontKey);
 	
 	if (!currFontKey)
@@ -725,15 +725,11 @@ bool CreateMICRBarcode()
 		sAIUser->MessageAlert(ai::UnicodeString("The Barcode font was not found. Please make sure the correct font is loaded."));
 		return FALSE;
 	}
-    
-	AISwatchRef micrSwatch = sAISwatchList->GetSwatchByName(NULL, ai::UnicodeString(MICR_BLACK_MAG_COLOR_NAME));
-	AIColor micrColor;
-	sAISwatchList->GetAIColor(micrSwatch, &micrColor);
 	
 	//Check if we already have a micr line in the document dictionary
-    unique_ptr<DictionaryWriter> dw = make_unique<DictionaryWriter>();
-	AIArtHandle micrLineHandle = NULL;
-	micrLineHandle = dw->GetArtHandleFromIdentifier(MICR_LINE_LABEL);
+    DictionaryWriter dw;
+	AIArtHandle micrLineHandle = nullptr;
+	micrLineHandle = dw.GetArtHandleFromIdentifier(MICR_LINE_LABEL);
 	
 	//Create an art set of the selected objects
 	//CREATE THE ART SET
@@ -754,7 +750,7 @@ bool CreateMICRBarcode()
 		//Loop the art set
 		for ( int i=0 ; i < count ; i++ )
         {
-			AIArtHandle currArtHandle = NULL;
+			AIArtHandle currArtHandle = nullptr;
 			sAIArtSet->IndexArtSet( artSet, i, &currArtHandle );
 			
 			short atype = 0;
@@ -785,7 +781,7 @@ bool CreateMICRBarcode()
 				FontRef currFontRef = currFont.GetRef();
 				
 				//Get the FontKey
-				AIFontKey currFontKey = NULL;
+				AIFontKey currFontKey = nullptr;
 				sAIFont->FontKeyFromFont(currFontRef, &currFontKey);
 				
 				char fontName [256];
@@ -803,9 +799,9 @@ bool CreateMICRBarcode()
 				}
 				
 				//Make sure the text is in the MICR black color
-				AIColor currRangeColor = GetAIColorFromATETextRange(currTextRange);
+				Bt::BtColor currRangeColor(GetAIColorFromATETextRange(currTextRange));
 				
-				if (! ColorIsEqual(currRangeColor, micrColor, TRUE ) )
+                if (! currRangeColor.ColorIsEqual(Bt::BtStandardColors().MicrBlack(), TRUE ) )
                 {
                     continue;
                 }
@@ -814,11 +810,11 @@ bool CreateMICRBarcode()
 				//Tag the MICR line when we've found it, and store the handle in the dictionary
 				if (micrLineHandle && (micrLineHandle != currArtHandle))
                 {
-					dw->RemoveIdentifierFromDictionary(MICR_LINE_LABEL);
+					dw.RemoveIdentifierFromDictionary(MICR_LINE_LABEL);
 				}
 				micrLineHandle = currArtHandle;
 				sAIArt->SetArtName(currArtHandle, ai::UnicodeString(MICR_LINE_LABEL));
-				dw->AddArtHandleToDictionary(currArtHandle, MICR_LINE_LABEL);
+				dw.AddArtHandleToDictionary(currArtHandle, MICR_LINE_LABEL);
 				break;
 			}
 		}
@@ -830,7 +826,7 @@ bool CreateMICRBarcode()
 	if (micrLineHandle)
     {
 		//Create the ATE range
-		TextRangeRef currRangeRef = NULL;
+		TextRangeRef currRangeRef = nullptr;
 		sAITextFrame->GetATETextRange(micrLineHandle, &currRangeRef);
 		ATE::TextRangeRef currATETextRangeRef(currRangeRef);
 		ATE::ITextRange currTextRange(currATETextRangeRef);
@@ -848,17 +844,17 @@ bool CreateMICRBarcode()
 		}
 		
 		//Check if we already have a MICR barcode, if not, create the new point text
-		AIArtHandle barcodeTextFrame = NULL;
-		barcodeTextFrame = dw->GetArtHandleFromIdentifier(MICR_BARCODE_LABEL);
+		AIArtHandle barcodeTextFrame = nullptr;
+		barcodeTextFrame = dw.GetArtHandleFromIdentifier(MICR_BARCODE_LABEL);
 		
 		if (!barcodeTextFrame)
         {
 			AIRealPoint anchor;
 			FindBarcodeAnchorPoint(&anchor);
-			sAITextFrame->NewPointText(kPlaceAboveAll, micrLineHandle, kHorizontalTextOrientation, anchor, &barcodeTextFrame);
+			sAITextFrame->NewPointText(kPlaceAbove, micrLineHandle, kHorizontalTextOrientation, anchor, &barcodeTextFrame);
 			sAIArt->SetArtName(barcodeTextFrame, ai::UnicodeString(MICR_BARCODE_LABEL));
 			
-			dw->AddArtHandleToDictionary(barcodeTextFrame, MICR_BARCODE_LABEL);
+			dw.AddArtHandleToDictionary(barcodeTextFrame, MICR_BARCODE_LABEL);
 		}
 		
 		//Create the ATE range
@@ -870,10 +866,7 @@ bool CreateMICRBarcode()
 		barcodeTextRange.Remove();
 		
         BtAteTextFeatures barcodeFeatures;
-        barcodeFeatures.SetFontSize(12);
-        barcodeFeatures.SetFont(BARCODE_FONT_NAME);
-        barcodeFeatures.SetJustification(ATE::kCenterJustify);
-        barcodeFeatures.SetFillColor(micrColor);
+        barcodeFeatures.FontSize(12).Font(BARCODE_FONT_NAME).Justification(ATE::kCenterJustify).FillStyle({Bt::BtStandardColors().MicrBlack(), true});
         
 		barcodeFeatures.AddTextToRangeWithFeatures(barcodeString.as_Platform(), barcodeTextRange);
 	}
@@ -892,13 +885,12 @@ ai::UnicodeString CreateBarcodeStringFromMICRString(ai::UnicodeString micrString
 	 We need to add ! at the start and end
 	 We need to replace any spaces with =
 	 */
-    using namespace std;
     
     string s = micrString.as_Platform();
     
-    regex r("(?:[C]*[\\d]*[C]*[ ]*)((([A][\\d|D]{9}[A])[ ]*([C]|[D]|[B]|[\\d]|[ ])+[C])([ ]*[\\d]*)?)");
-    smatch result;
-    regex_search(s,result, r);
+    std::regex r("(?:[C]*[\\d]*[C]*[ ]*)((([A][\\d|D]{9}[A])[ ]*([C]|[D]|[B]|[\\d]|[ ])+[C])([ ]*[\\d]*)?)");
+    std::smatch result;
+    std::regex_search(s,result, r);
     
     if (result.length() < 2) return ai::UnicodeString();
     

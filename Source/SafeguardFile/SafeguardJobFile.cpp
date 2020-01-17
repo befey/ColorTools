@@ -7,82 +7,99 @@
 //
 
 #include "SafeguardJobFile.h"
+#include "ArtTree.h"
+#include <vector>
+#include "SafeguardJobFileDTO.hpp"
+#include "BleedInfoPluginArtToArtboardMatcher.hpp"
 
 using SafeguardFile::SafeguardJobFile;
 using SafeguardFile::PlateNumber;
-using PrintToPdf::PdfResults;
-using PrintToPdf::PdfSettings;
+using PlateBleedInfo::BleedInfo;
 
-SafeguardJobFile::SafeguardJobFile()
+SafeguardJobFile::SafeguardJobFile(bool redrawAllWithoutCheck)
 {
-    ai::ArtboardList abList;
-    sAIArtboard->GetArtboardList(abList);
-    ai::ArtboardID count;
-    sAIArtboard->GetCount(abList, count);
-    
-    plates.clear();
-    for (int i = 0; i < count; i++)
+    for ( int i = 0; i < GetArtboardCount(); i++ )
     {
-        plates.push_back(Plate(i));
+        plates.emplace(i, make_shared<Plate>(i, redrawAllWithoutCheck));
     }
-//  Don't want to create side effects here. All document changes need to be made on purpose.  
-//    if (ShouldDrawBleedInfo()) {
-//        AddBleedInfo();
-//    }
 }
 
-
-void SafeguardJobFile::AddBleedInfo()
+SafeguardJobFile::SafeguardJobFile(const PlateBleedInfo::SafeguardJobFileDTO* dto, bool redrawAllWithoutCheck)
 {
-    if (ShouldDrawBleedInfo())
+    for ( int i = 0; i < GetArtboardCount(); i++ )
     {
-        for (auto plate : plates)
-        {
-            plate.AddBleedInfo();
-        }
+        plates.emplace(i, make_shared<Plate>(i, redrawAllWithoutCheck, &dto->GetPlateDTOs()[i]));
+    }
+}
+
+void SafeguardJobFile::UpdateBleedInfo()
+{
+    for ( auto& plate : plates )
+    {
+        plate.second->Draw();
     }
 }
 
 void SafeguardJobFile::RemoveBleedInfo()
 {
-    for (auto plate : plates)
+    for ( auto plate : plates )
     {
-        plate.RemoveBleedInfo();
+        plate.second->RemoveBleedInfo();
     }
-}
-
-bool SafeguardJobFile::ShouldDrawBleedInfo()
-{
-    //if ( CheckDictionaryForArtObjectWithIdentifier(ai::UnicodeString(SafeguardFile::PLATE_BLEED_INFO_GROUP_LABEL), 0) )
-    //{
-    //    return true;
-    //}
-    return false;
 }
 
 const PlateNumber SafeguardJobFile::GetPlateNumber(int plateIndex) const
 {
-    if (!plates.empty())
+    auto iter = plates.find(plateIndex);
+    if (iter != plates.end() )
     {
-        return plates[0].GetPlateNumber();
+        return iter->second->GetPlateNumber();
     }
-    return PlateNumber();
+    else
+    {
+        return PlateNumber();
+    }
 }
 
 const string SafeguardJobFile::GetToken(int plateIndex) const
 {
-    if (plates.size() > plateIndex)
+    auto iter = plates.find(plateIndex);
+    if (iter != plates.end() )
     {
-        return plates[plateIndex].GetToken();
+        return iter->second->GetToken();
     }
-    return "";
+    else
+    {
+        return "";
+    }
 }
 
 AIRealRect SafeguardJobFile::GetBleeds(int plateIndex) const
 {
-    if (!plates.empty())
+    auto iter = plates.find(plateIndex);
+    if (iter != plates.end() )
     {
-        return plates[0].GetBleeds();
+        return iter->second->GetBleeds();
     }
-    return AIRealRect{0,0,0,0};
+    else
+    {
+        return AIRealRect{0,0,0,0};
+    }
+}
+
+ColorList SafeguardJobFile::GetAllColorsOnJob() const
+{
+    vector<ColorList> colorLists;
+    for (auto plate : plates)
+    {
+        colorLists.push_back(plate.second->GetColors());
+    }
+    for ( int i = 1; i < colorLists.size(); i++ )
+    {
+        colorLists[0].AddColorsToList(colorLists.at(i));
+    }
+    
+    ColorList colorList = colorLists[0]; //Copy constructor calls duplicate removal, etc.
+
+    return colorList;
 }

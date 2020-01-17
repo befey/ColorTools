@@ -11,15 +11,11 @@
 
 namespace PrintToPdf
 {
-    static constexpr auto MANUFACTURING_PDF_PRESET =        "Manufacturing";
-    static constexpr auto MICR_PROOF_PDF_PRESET =           "MICR";
-    static constexpr auto REG_PROOF_PDF_PRESET =            "Proof";
+    static constexpr auto PRINTTOPDF_FOLDERPREFS_EXTENSION =  "com.gosafeguard.SafeguardTools.PrintToPdf.FolderPrefs";
     
-    static constexpr auto PATH_TO_PLANT_MANUFACTURING =     "/Volumes/Plant_Manufacturing";
-    static constexpr auto PATH_TO_PDFPROOFS =               "/Volumes/PDFProofs";
-    static constexpr auto PATH_TO_MICR_PDF =                "/Volumes/MICR_PDF";
-    static constexpr auto TESTING_OUTPUTPATH =              "/Users/t431962/Desktop/WORKING";
-
+    static constexpr auto MANUFACTURING_PDF_PRESET =        "Manufacturing";
+    static constexpr auto REG_PROOF_PDF_PRESET =            "Proof";
+    static constexpr auto MICR_PROOF_PDF_PRESET =           "MICR";
     
     enum class PdfPreset
     {

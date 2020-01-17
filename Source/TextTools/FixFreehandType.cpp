@@ -24,10 +24,11 @@ bool FixFreehandType() {
 		sAIArtSet->MatchingArtSet( selectedSpecs , 1, artSet );
 		
 		//Loop the art set
-		size_t count;		sAIArtSet->CountArtSet( artSet, &count );
+		size_t count = 0;
+        sAIArtSet->CountArtSet( artSet, &count );
 		for ( int i=0 ; i < count ; i++ ) {
 			
-			AIArtHandle currArtHandle = NULL;
+			AIArtHandle currArtHandle = nullptr;
 			sAIArtSet->IndexArtSet( artSet, i, &currArtHandle );
 			
 			AITextFrameType type;
@@ -79,6 +80,7 @@ bool FixFreehandType() {
 				FixTextAttributes(currTextRange, firstRunBaselineShift);
 			}
 		}
+        sAIArtSet->DisposeArtSet(&artSet);
 	}
 	
 	return true;
@@ -153,4 +155,5 @@ bool FixTextAttributes(ATE::ITextRange theRange, ASReal firstRunBaselineShift) {
 			}
 		}
 	}
+    return isAssigned;
 }

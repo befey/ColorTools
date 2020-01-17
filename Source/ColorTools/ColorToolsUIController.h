@@ -19,12 +19,6 @@
 class SafeguardToolsPlugin;
 extern SafeguardToolsPlugin *gPlugin;
 
-
-//=================================
-// ColorToolsUIController - handles communication between extension and plugin
-static void ChangeButtonClickedFunc (const csxs::event::Event* const event, void* const context);
-static void RemoveButtonClickedFunc (const csxs::event::Event* const event, void* const context);
-
 class ColorToolsUIController : public FlashUIController
 {
 public:
@@ -90,7 +84,7 @@ public:
     ASErr SendColorListXmlToHtml(string swatchesXml);
     ASErr SendChangeCountToHtml(int count);
     
-    void DetermineChangeInStatus();
+    void UpdateChangeInStatus();
     ASErr SendChangeInToHtml(ChangeIn changeIn);
     void SendCloseMessageToHtml();
     

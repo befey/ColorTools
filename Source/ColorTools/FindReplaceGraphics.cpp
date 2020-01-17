@@ -9,6 +9,7 @@
 #include "FindReplaceGraphics.h"
 #include "ColorFuncs.h"
 #include "ReplaceData.h"
+#include "BtColor.h"
 
 #include "string.h"
 #include "stdlib.h"
@@ -112,8 +113,8 @@ void adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *alter
     
     *altered = FALSE;
     
-    AISwatchRef fromSwatchRef = sAISwatchList->GetSwatchByColor(NULL, &data->fromColor);
-    AISwatchRef colorSwatchRef = sAISwatchList->GetSwatchByColor(NULL, color);
+    AISwatchRef fromSwatchRef = sAISwatchList->GetSwatchByColor(nullptr, &data->fromColor);
+    AISwatchRef colorSwatchRef = sAISwatchList->GetSwatchByColor(nullptr, color);
     
     if (color->kind == kGrayColor ||
         color->kind == kFourColor ||
@@ -121,7 +122,7 @@ void adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *alter
         color->kind == kThreeColor ||
         color->kind == kNoneColor )
     {
-        if ( ColorIsEqual( data->fromColor , *color , TRUE /*ignoreTints*/  ) )
+        if ( Bt::BtColor(data->fromColor).ColorIsEqual(*color , TRUE /*ignoreTints*/  ) )
         {
             if ( data->fromColor.c.c.tint == color->c.c.tint )
             {   //IF THE TINTS ARE THE SAME
@@ -138,7 +139,7 @@ void adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *alter
                     AIColor tempColor = data->toColor;  //Make a new temporary color that is the same as the ToColor,
                     tempColor.c.c.tint = color->c.c.tint;   //except the tint is the same as the object's
                     
-                    AISwatchRef toColorTintSwatch = checkSwatchListForColor(tempColor, .01);
+                    AISwatchRef toColorTintSwatch = Bt::BtColor(tempColor).CheckSwatchListForColor(); //TODO: was tolerance .01
                     
                     if ( toColorTintSwatch )
                     { //If the swatch already exists
@@ -148,7 +149,7 @@ void adjustColor(AIColor *color, void* userData, AIErr *result, AIBoolean *alter
                     else
                     {
                         //Insert a new Swatch into the main group
-                        toColorTintSwatch = sAISwatchList->InsertNthSwatch(NULL, -1);
+                        toColorTintSwatch = sAISwatchList->InsertNthSwatch(nullptr, -1);
                         if (toColorTintSwatch)
                         {
                             //Apply the tempColor to the new swatch

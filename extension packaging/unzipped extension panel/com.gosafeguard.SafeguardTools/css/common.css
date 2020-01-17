@@ -1,0 +1,43 @@
+form {
+    width: 98%;
+    height: 98%;
+    position: relative;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 14px;
+    margin: 1%;
+}
+
+label {
+    font-weight: normal;
+}
+
+.buttons {
+    position: relative;
+    float: right;
+    bottom:0;
+    right:0;
+}
+
+.info-area {
+    border: 1px solid black;
+    font-size: 14px;
+    width: 100%;
+    resize: none;
+    overflow: auto;
+    padding: 5px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tinycheckbox
+{
+    transform: scale(.5);
+    padding: 10px;
+}
+
+.tinycheckboxtext
+{
+    font-size: 50%;
+    display: inline;
+    line-height: 10px;
+}

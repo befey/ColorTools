@@ -20,7 +20,7 @@
 void ColorToolsUIController::ChangeButtonClickedFunc (const csxs::event::Event* const event, void* const context)
 {
     ColorToolsUIController *colorToolsUIController = (ColorToolsUIController *)context;
-    if(NULL == colorToolsUIController || event == NULL)
+    if(nullptr == colorToolsUIController || event == nullptr)
         return;
     
     do {
@@ -41,7 +41,7 @@ void ColorToolsUIController::ChangeButtonClickedFunc (const csxs::event::Event* 
 void ColorToolsUIController::RemoveButtonClickedFunc (const csxs::event::Event* const event, void* const context)
 {
     ColorToolsUIController *colorToolsUIController = (ColorToolsUIController *)context;
-    if(NULL == colorToolsUIController || event == NULL)
+    if(nullptr == colorToolsUIController || event == nullptr)
         return;
     
     do {
@@ -51,7 +51,8 @@ void ColorToolsUIController::RemoveButtonClickedFunc (const csxs::event::Event* 
         //Set the undo/redo text
         sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Remove Unused Colors"), ai::UnicodeString("Redo Remove Unused Colors"));
         
-        gPlugin->GetBtSwatchList()->RemoveUnusedColors();
+        BtSwatchList swatchList;
+        swatchList.RemoveUnusedColors();
         UpdateListFunc(event, context);
         // Clean up the application context and return.
     } while(false);
@@ -61,14 +62,16 @@ void ColorToolsUIController::RemoveButtonClickedFunc (const csxs::event::Event* 
 void ColorToolsUIController::UpdateListFunc (const csxs::event::Event* const event, void* const context)
 {
     ColorToolsUIController *colorToolsUIController = (ColorToolsUIController *)context;
-    if(NULL == colorToolsUIController || event == NULL)
+    if(nullptr == colorToolsUIController || event == nullptr)
         return;
     
     do {
         // Set up the application context, so that suite calls can work.
         AppContext appContext(gPlugin->GetPluginRef());
         
-        string swatchesXml = gPlugin->GetBtSwatchList()->GetColorListAsXMLString();
+        sAIUndo->SetSilent(TRUE);
+        BtSwatchList swatchList;
+        string swatchesXml = swatchList.GetColorListAsXMLString();
         
         colorToolsUIController->SendColorListXmlToHtml(swatchesXml);
         
@@ -156,7 +159,7 @@ ASErr ColorToolsUIController::SendColorListXmlToHtml(string swatchesXml)
         EVENT_TYPE_UPDATE_COLOR_LIST_BACK,
         csxs::event::kEventScope_Application,
         ILST_APP,
-        NULL,
+        nullptr,
         swatchesXml.c_str()
     };
     fPPLib.DispatchEvent(&event);
@@ -175,7 +178,7 @@ ASErr ColorToolsUIController::SendChangeCountToHtml(int count)
         EVENT_TYPE_CHANGE_COUNT_BACK,
         csxs::event::kEventScope_Application,
         ILST_APP,
-        NULL,
+        nullptr,
         buffer
     };
     fPPLib.DispatchEvent(&event);
@@ -183,7 +186,7 @@ ASErr ColorToolsUIController::SendChangeCountToHtml(int count)
     return error;
 }
 
-void ColorToolsUIController::DetermineChangeInStatus()
+void ColorToolsUIController::UpdateChangeInStatus()
 {
     AIArtHandle** matches;
     int count = 0;
@@ -213,7 +216,7 @@ ASErr ColorToolsUIController::SendChangeInToHtml(ChangeIn changeIn)
         EVENT_TYPE_CHANGE_IN_BACK,
         csxs::event::kEventScope_Application,
         ILST_APP,
-        NULL,
+        nullptr,
         buffer
     };
     fPPLib.DispatchEvent(&event);
@@ -227,8 +230,8 @@ void ColorToolsUIController::SendCloseMessageToHtml()
         EVENT_TYPE_FORCE_PANEL_CLOSE,
         csxs::event::kEventScope_Application,
         ILST_APP,
-        NULL,
-        NULL
+        nullptr,
+        nullptr
     };
     fPPLib.DispatchEvent(&event);
 }

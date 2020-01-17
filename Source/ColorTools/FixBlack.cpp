@@ -10,6 +10,7 @@
 #include "SafeguardToolsSuites.h"
 #include "BtSwatchList.h"
 #include "SafeguardToolsPlugin.h"
+#include "SafeguardFileConstants.h"
 
 bool FixBlack() {
 
@@ -17,20 +18,19 @@ bool FixBlack() {
 	sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Fix Black"), ai::UnicodeString("Redo Fix Black"));
 	
 	AIBoolean converted = FALSE;
-	sAIDocument->SetDocumentSpotColorMode(NULL, kAILegacySpotColorMode, TRUE, &converted);
+	sAIDocument->SetDocumentSpotColorMode(nullptr, kAILegacySpotColorMode, TRUE, &converted);
     
-    
-    gPlugin->GetBtSwatchList()->CreateOrConvertToCustomColor(BLACK_COLOR_NAME);
-    gPlugin->GetBtSwatchList()->CreateOrConvertToCustomColor(WHITE_COLOR_NAME);
+    BtSwatchList swatchList;
+    swatchList.FixStdColors();
 
-    gPlugin->GetBtSwatchList()->AdjustAllColors();
+    swatchList.AdjustAllColors();
 	
 	// 4. Name all the colors
     VisitAIColorFlags controlFlags = kVisitColorsSolidOnly | kVisitGlobalObjectsOnceOnly;
-	sAIPathStyle->AdjustObjectAIColors( NULL , nameAllColors , NULL , controlFlags , NULL );
+	sAIPathStyle->AdjustObjectAIColors( nullptr , NameAllColors , nullptr , controlFlags , nullptr );
 	
 	// 5. Remove unused colors
-	gPlugin->GetBtSwatchList()->RemoveUnusedColors();
+	swatchList.RemoveUnusedColors();
 	
 	return TRUE;
 }

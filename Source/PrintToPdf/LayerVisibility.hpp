@@ -12,6 +12,8 @@
 #include "AILayer.h"
 #include <map>
 #include "BtLayer.hpp"
+#include "SafeguardFileConstants.h"
+#include "PrintToPdfConstants.h"
 
 extern AILayerSuite* sAILayer;
 
@@ -20,26 +22,41 @@ namespace PrintToPdf
     class LayerVisibility
     {
     public:
-        LayerVisibility();
-        bool SetLayerVisibility() const;
+        static shared_ptr<LayerVisibility> GetLayerVisibility(SafeguardFile::ProductType productType, PdfPreset preset);
+        
+        bool SetLayerVisibility() { return CustomLayerVisibility(); };
         
     protected:
         map<string, BtLayer> layerList; // Layername, BtLayer
         
+        LayerVisibility();
+
     private:
-        virtual bool CustomLayerVisibility() const = 0;
+        virtual bool CustomLayerVisibility() = 0;
     };
     
     class BStatLayerVisibility : public LayerVisibility
     {
     public:
-        bool CustomLayerVisibility() const override;
+        bool CustomLayerVisibility() override;
     };
     
     class LaserLayerVisibility : public LayerVisibility
     {
     public:
-        bool CustomLayerVisibility() const override;
+        bool CustomLayerVisibility() override;
+    };
+    
+    class BStatProofLayerVisibility : public LayerVisibility
+    {
+    public:
+        bool CustomLayerVisibility() override;
+    };
+    
+    class NonStandardLayerVisibility : public LayerVisibility
+    {
+    public:
+        bool CustomLayerVisibility() override;
     };
 }
 

@@ -10,55 +10,55 @@
 #define __SafeguardTools__PdfPrinter__
 
 #include "PdfSettings.h"
-#include "PdfResults.h"
+#include "FilesystemResults.hpp"
 #include "PathBuilder.h"
-#include "PathCreator.h"
 #include "ExistingFileDeleter.h"
 #include "LayerVisibility.hpp"
 #include "TypeToPathsConverter.hpp"
-#include "AIFilePath.h"
+#include "PlateNumber.h"
+#include "PrintToPdfCommand.hpp"
+#include "FilesystemCommand.hpp"
+#include <boost/filesystem.hpp>
 
 namespace PrintToPdf
 {
     class PdfPrinter
     {
     public:
-        static unique_ptr<PdfPrinter> GetPrinter(PdfPreset preset, const bool separateFiles);
-        
-        PdfResults Print(const PdfSettings& settings) const;
+        static FilesystemResults Print(const PdfSettings& settings);
         
     protected:
-        PdfPrinter(const PdfPreset preset);
+        PdfPrinter(const PdfPreset preset, const bool doNotDelete, const bool userOutputFolder);
         
-        unique_ptr<PathBuilder> pathBuilder;
-        unique_ptr<PathCreator> pathCreator;
-        unique_ptr<ExistingFileDeleter> efDeleter;
-        unique_ptr<LayerVisibility> layerVisibility;
-        unique_ptr<TypeToPathsConverter> tpConverter;
+        shared_ptr<PathBuilder> pathBuilder;
         
-        ai::FilePath outputPath;
+        boost::filesystem::path outputPath;
         
-        const SafeguardFile::PlateNumber GetPlateNumber() const;
-        const string GetToken(int plateIndex) const;
-        
+        SafeguardFile::PlateNumber plateNumber;
     private:
-        virtual PdfResults CustomPrintSteps(const PdfSettings& settings) const = 0;
+        PrintToPdfCommand printCommand;
+        FilesystemResults transactions;
+        
+        static shared_ptr<PdfPrinter> GetPrinter(PdfPreset preset, const bool separateFiles, const bool doNotDelete, const bool userOutputFolder);
+        
+        FilesystemResults DoIt(const PdfSettings& settings);
+        virtual FilesystemResults CustomPrintSteps(const PdfSettings& settings) const = 0;
     };
     
     class SingleFilePdfPrinter : public PdfPrinter
     {
     public:
-        SingleFilePdfPrinter(const PdfPreset preset);
+        SingleFilePdfPrinter(const PdfPreset preset, const bool doNotDelete, const bool userOutputFolder);
 
-        PdfResults CustomPrintSteps(const PdfSettings& settings) const override;
+        FilesystemResults CustomPrintSteps(const PdfSettings& settings) const override;
     };
     
     class SeparateFilePdfPrinter : public PdfPrinter
     {
     public:
-        SeparateFilePdfPrinter(const PdfPreset preset);
+        SeparateFilePdfPrinter(const PdfPreset preset, const bool doNotDelete, const bool userOutputFolder);
 
-        PdfResults CustomPrintSteps(const PdfSettings& settings) const override;
+        FilesystemResults CustomPrintSteps(const PdfSettings& settings) const override;
     };
 }
 #endif /* defined(__SafeguardTools__PrintToPdf__) */
