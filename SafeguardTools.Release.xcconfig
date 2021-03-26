@@ -1,0 +1,18 @@
+//
+//  SafeguardTools.Release.xcconfig
+//  SafeguardTools
+//
+//  Created by T431962 on 3/25/21.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+#include "SafeguardTools.Debug.xcconfig"
+
+//:configuration = release
+//Apple Clang code generation
+GCC_OPTIMIZATION_LEVEL = 3
+
+//User defined
+AI_CONFIGURATION = release

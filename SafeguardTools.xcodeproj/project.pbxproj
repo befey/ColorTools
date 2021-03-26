@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		DA576AF916E8A8BD00C0AD7E /* SafeguardTools2x.r in Rez */ = {isa = PBXBuildFile; fileRef = DA576AF816E8A8BD00C0AD7E /* SafeguardTools2x.r */; };
 		F938CB930B8B9E6D0039754D /* SafeguardTools.r in Rez */ = {isa = PBXBuildFile; fileRef = F938CB920B8B9E6D0039754D /* SafeguardTools.r */; };
+		F94536EB260CE96100C14943 /* SafeguardTools.Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F94536EA260CE96100C14943 /* SafeguardTools.Release.xcconfig */; };
+		F945372D260E27AB00C14943 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F945372C260E27AB00C14943 /* Cocoa.framework */; };
 		F9667C092608DE7B0026EB06 /* libboost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9667C082608DE7B0026EB06 /* libboost_filesystem.a */; };
 		F9667C0B2608DE8B0026EB06 /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9667C0A2608DE8B0026EB06 /* libboost_system.a */; };
 		F9667C1B2608DF840026EB06 /* SafeguardToolsPlugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9667C162608DF840026EB06 /* SafeguardToolsPlugin.cpp */; };
@@ -222,7 +224,9 @@
 		6EE2BA530A40BB2600CC7CE2 /* SafeguardTools.aip */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SafeguardTools.aip; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA576AF816E8A8BD00C0AD7E /* SafeguardTools2x.r */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; name = SafeguardTools2x.r; path = Resources/Mac/SafeguardTools2x.r; sourceTree = "<group>"; };
 		F938CB920B8B9E6D0039754D /* SafeguardTools.r */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.rez; name = SafeguardTools.r; path = Resources/Mac/SafeguardTools.r; sourceTree = "<group>"; };
-		F94536E9260CD64E00C14943 /* SafeguardTools.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = SafeguardTools.xcconfig; sourceTree = "<group>"; };
+		F94536E9260CD64E00C14943 /* SafeguardTools.Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = SafeguardTools.Debug.xcconfig; sourceTree = "<group>"; };
+		F94536EA260CE96100C14943 /* SafeguardTools.Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = SafeguardTools.Release.xcconfig; sourceTree = "<group>"; };
+		F945372C260E27AB00C14943 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = ../../../../System/Library/Frameworks/Cocoa.framework; sourceTree = "<group>"; };
 		F9667C072608DE510026EB06 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = ../../../../System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<group>"; };
 		F9667C082608DE7B0026EB06 /* libboost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_filesystem.a; path = ../boost/stage/lib/libboost_filesystem.a; sourceTree = "<group>"; };
 		F9667C0A2608DE8B0026EB06 /* libboost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_system.a; path = ../boost/stage/lib/libboost_system.a; sourceTree = "<group>"; };
@@ -407,6 +411,7 @@
 			files = (
 				F9667C0B2608DE8B0026EB06 /* libboost_system.a in Frameworks */,
 				F9667C092608DE7B0026EB06 /* libboost_filesystem.a in Frameworks */,
+				F945372D260E27AB00C14943 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,7 +421,9 @@
 		508817C209F0C9740071BF1A = {
 			isa = PBXGroup;
 			children = (
-				F94536E9260CD64E00C14943 /* SafeguardTools.xcconfig */,
+				F94536E9260CD64E00C14943 /* SafeguardTools.Debug.xcconfig */,
+				F94536EA260CE96100C14943 /* SafeguardTools.Release.xcconfig */,
+				F945372C260E27AB00C14943 /* Cocoa.framework */,
 				5088180609F0CDD00071BF1A /* Libraries */,
 				F9667DE42608EE570026EB06 /* com.gosafeguard.SafeguardTools */,
 				508817F509F0CAB50071BF1A /* Sources */,
@@ -927,6 +934,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F94536EB260CE96100C14943 /* SafeguardTools.Release.xcconfig in Resources */,
 				F9667DFE2608F0790026EB06 /* fontlist.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1069,161 +1077,29 @@
 /* Begin XCBuildConfiguration section */
 		508817C609F0C9740071BF1A /* debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F94536E9260CD64E00C14943 /* SafeguardTools.Debug.xcconfig */;
 			buildSettings = {
-				AI_CONFIGURATION = debug;
-				AI_LOCALE = en_US;
-				AI_PLATFORM = xcode;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
-				CONFIGURATION_BUILD_DIR = "$(PATH_TO_SDK_SAMPLECODE_FOLDER)/output/mac/$(AI_CONFIGURATION)";
-				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)/Default";
-				COPY_PHASE_STRIP = YES;
-				DEAD_CODE_STRIPPING = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DSTROOT = "/tmp/$(PROJECT_NAME).dst";
-				EXPORTED_SYMBOLS_FILE = "";
-				FRAMEWORK_SEARCH_PATHS = "$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)";
-				GCC_DEBUGGING_SYMBOLS = used;
-				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
-				GCC_INPUT_FILETYPE = sourcecode.cpp.cpp;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common/includes/IllustratorSDK$(AI_CONFIGURATION).pch";
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
-				GCC_WARN_UNKNOWN_PRAGMAS = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				GENERATE_PKGINFO_FILE = YES;
-				HEADER_SEARCH_PATHS = (
-					"\"$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common/**\"",
-					"\"$(PATH_TO_SDK_ILLUSTRATORAPI_FOLDER)/**\"",
-					"/Developer/Headers/FlatCarbon/**",
-					"$(SRCROOT)/Source/utility-headers/**",
-					"$(SRCROOT)/../cereal/include/**",
-					"$(SRCROOT)/../rapidjson/include",
-					"$(SRCROOT)/../boost/**",
-				);
-				INFOPLIST_FILE = "$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common/mac/Info.plist";
-				INFOPLIST_PREFIX_HEADER = "$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common/includes/SDKDef.h";
-				INFOPLIST_PREPROCESS = YES;
-				LIBRARY_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				OBJROOT = .;
-				ONLY_LINK_ESSENTIAL_SYMBOLS = YES;
-				OTHER_LDFLAGS = "";
-				PATH_TO_SDK_ILLUSTRATORAPI_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator SDK/illustratorapi";
-				PATH_TO_SDK_SAMPLECODE_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator SDK/samplecode";
-				PREBINDING = NO;
-				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
-				PRESERVE_DEAD_CODE_INITS_AND_TERMS = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.adobe.illustrator.plugins.$(PROJECTNAME)";
-				PRODUCT_NAME = SafeguardTools;
-				PROJECTNAME = SafeguardTools;
-				REZ_SEARCH_PATHS = "";
-				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
-				SDKROOT = macosx;
-				SEPARATE_STRIP = NO;
-				SHARED_PRECOMPS_DIR = "$(SRCROOT)/output/mac/sharedprecompiledheaders/$(AI_CONFIGURATION)";
-				SKIP_INSTALL = NO;
-				STRIP_INSTALLED_PRODUCT = YES;
-				STRIP_STYLE = "non-global";
-				SYMROOT = "$(SRCROOT)/output/mac/$(AI_CONFIGURATION)";
-				VALID_ARCHS = "i386 x86_64";
-				WRAPPER_EXTENSION = aip;
-				ZERO_LINK = NO;
 			};
 			name = debug;
 		};
 		508817C709F0C9740071BF1A /* release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F94536EA260CE96100C14943 /* SafeguardTools.Release.xcconfig */;
 			buildSettings = {
-				AI_CONFIGURATION = release;
-				AI_LOCALE = en_US;
-				AI_PLATFORM = xcode;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
-				CONFIGURATION_BUILD_DIR = "$(PATH_TO_SDK_SAMPLECODE_FOLDER)/output/mac/$(AI_CONFIGURATION)";
-				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)/Default";
-				COPY_PHASE_STRIP = YES;
-				DEAD_CODE_STRIPPING = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DSTROOT = "/tmp/$(PROJECT_NAME).dst";
-				EXPORTED_SYMBOLS_FILE = "";
-				FRAMEWORK_SEARCH_PATHS = "$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)";
-				GCC_DEBUGGING_SYMBOLS = used;
-				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
-				GCC_INPUT_FILETYPE = sourcecode.cpp.cpp;
-				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common/includes/IllustratorSDK$(AI_CONFIGURATION).pch";
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
-				GCC_WARN_UNKNOWN_PRAGMAS = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				GENERATE_PKGINFO_FILE = YES;
-				HEADER_SEARCH_PATHS = (
-					"\"$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common/**\"",
-					"\"$(PATH_TO_SDK_ILLUSTRATORAPI_FOLDER)/**\"",
-					"/Developer/Headers/FlatCarbon/**",
-					"$(SRCROOT)/Source/utility-headers/**",
-					"$(SRCROOT)/../cereal/include/**",
-					"$(SRCROOT)/../rapidjson/include",
-					"$(SRCROOT)/../boost/**",
-				);
-				INFOPLIST_FILE = "$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common/mac/Info.plist";
-				INFOPLIST_PREFIX_HEADER = "$(PATH_TO_SDK_SAMPLECODE_FOLDER)/common/includes/SDKDef.h";
-				INFOPLIST_PREPROCESS = YES;
-				LIBRARY_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				OBJROOT = .;
-				ONLY_LINK_ESSENTIAL_SYMBOLS = YES;
-				OTHER_LDFLAGS = "";
-				PATH_TO_SDK_ILLUSTRATORAPI_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator SDK/illustratorapi";
-				PATH_TO_SDK_SAMPLECODE_FOLDER = "/Users/t431962/Desktop/Adobe Illustrator SDK/samplecode";
-				PREBINDING = NO;
-				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
-				PRESERVE_DEAD_CODE_INITS_AND_TERMS = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.adobe.illustrator.plugins.$(PROJECTNAME)";
-				PRODUCT_NAME = SafeguardTools;
-				PROJECTNAME = SafeguardTools;
-				REZ_SEARCH_PATHS = "";
-				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
-				SDKROOT = macosx;
-				SEPARATE_STRIP = NO;
-				SHARED_PRECOMPS_DIR = "$(SRCROOT)/output/mac/sharedprecompiledheaders/$(AI_CONFIGURATION)";
-				SKIP_INSTALL = NO;
-				STRIP_INSTALLED_PRODUCT = YES;
-				STRIP_STYLE = "non-global";
-				SYMROOT = "$(SRCROOT)/output/mac/$(AI_CONFIGURATION)";
-				VALID_ARCHS = "i386 x86_64";
-				WRAPPER_EXTENSION = aip;
-				ZERO_LINK = NO;
 			};
 			name = release;
 		};
 		508817D809F0C9AE0071BF1A /* debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				HEADER_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				PRODUCT_BUNDLE_IDENTIFIER = "";
-				SDKROOT = macosx;
 			};
 			name = debug;
 		};
 		508817D909F0C9AE0071BF1A /* release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				HEADER_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				PRODUCT_BUNDLE_IDENTIFIER = "";
-				SDKROOT = macosx;
 			};
 			name = release;
 		};

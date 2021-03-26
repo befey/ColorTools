@@ -1,0 +1,85 @@
+//
+//  SafeguardTools.Debug.xcconfig
+//  SafeguardTools
+//
+//  Created by T431962 on 3/25/21.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+//:configuration = debug
+//Assets
+ARCHS = $(ARCHS_STANDARD_64_BIT)
+SDKROOT = macosx
+
+//Build Locations
+SYMROOT = $(SRCROOT)/output/mac/$(AI_CONFIGURATION)
+OBJROOT = .
+SHARED_PRECOMPS_DIR = $(SRCROOT)/output/mac/sharedprecompiledheaders/$(AI_CONFIGURATION)
+
+//Build Options
+GCC_VERSION = com.apple.compilers.llvm.clang.1_0
+DEBUG_INFORMATION_FORMAT = dwarf
+PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO
+SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES
+
+//Deployment
+DSTROOT = /tmp/$(PROJECT_NAME).dst
+SKIP_INSTALL = NO
+COPY_PHASE_STRIP = YES
+STRIP_INSTALLED_PRODUCT = YES
+STRIP_STYLE = non-global
+MACOSX_DEPLOYMENT_TARGET = 10.12
+
+//Linking
+DEAD_CODE_STRIPPING = YES
+PRESERVE_DEAD_CODE_INITS_AND_TERMS = NO
+
+//Packaging
+GENERATE_PKGINFO_FILE = YES
+INFOPLIST_FILE = $(PATH_TO_SDK_SAMPLECODE_FOLDER)/common/mac/Info.plist
+INFOPLIST_PREFIX_HEADER = $(PATH_TO_SDK_SAMPLECODE_FOLDER)/common/includes/SDKDef.h
+INFOPLIST_PREPROCESS = YES
+PRODUCT_BUNDLE_IDENTIFIER = com.adobe.illustrator.plugins.$(PROJECTNAME)
+PRODUCT_NAME = SafeguardTools
+WRAPPER_EXTENSION = aip
+
+//Search paths
+ALWAYS_SEARCH_USER_PATHS = NO
+//FRAMEWORK_SEARCH_PATHS = $(FRAMEWORK_SEARCH_PATHS_QUOTED_1)
+HEADER_SEARCH_PATHS =  $(PATH_TO_SDK_ILLUSTRATORAPI_FOLDER)/** $(PATH_TO_SDK_SAMPLECODE_FOLDER)/common/** $(SRCROOT)/Source/utility-headers/ $(SRCROOT)/../cereal/include/ $(SRCROOT)/../boost/ $(SRCROOT)/../rapidjson/include
+
+//Apple Clang code generation
+GCC_OPTIMIZATION_LEVEL = 0
+GCC_SYMBOLS_PRIVATE_EXTERN = YES
+
+//Apple Clang language
+GCC_INPUT_FILETYPE = sourcecode.cpp.cpp
+GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES
+GCC_PRECOMPILE_PREFIX_HEADER = YES
+GCC_PREFIX_HEADER = $(PATH_TO_SDK_SAMPLECODE_FOLDER)/common/includes/IllustratorSDK$(AI_CONFIGURATION).pch
+
+//Apple Clang language - C++
+CLANG_CXX_LANGUAGE_STANDARD = c++14
+
+//Apple Clang Warings - all languages
+GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO
+GCC_WARN_UNKNOWN_PRAGMAS = YES
+GCC_WARN_UNUSED_VARIABLE = YES
+
+//User defined
+AI_CONFIGURATION = debug
+AI_LOCALE = en_US
+AI_PLATFORM = xcode
+CONFIGURATION_BUILD_DIR = $(PATH_TO_SDK_SAMPLECODE_FOLDER)/output/mac/$(AI_CONFIGURATION)
+CONFIGURATION_TEMP_DIR = $(PROJECT_TEMP_DIR)/Default
+GCC_DEBUGGING_SYMBOLS = used
+ONLY_LINK_ESSENTIAL_SYMBOLS = YES
+PATH_TO_SDK_ILLUSTRATORAPI_FOLDER = /Users/t431962/Desktop/Adobe Illustrator SDK/illustratorapi
+PATH_TO_SDK_SAMPLECODE_FOLDER = /Users/t431962/Desktop/Adobe Illustrator SDK/samplecode
+PREBINDING = NO
+PROJECTNAME = SafeguardTools
+SEPARATE_STRIP = NO
+VALID_ARCHS = i386 x86_64
+ZERO_LINK = NO
