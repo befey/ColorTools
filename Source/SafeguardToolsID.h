@@ -1,5 +1,5 @@
-#ifndef __SafeguardTools_H__
-#define __SafeguardTools_H__
+#ifndef __SafeguardToolsID_H__
+#define __SafeguardToolsID_H__
 
 #include "SDKDef.h"
 

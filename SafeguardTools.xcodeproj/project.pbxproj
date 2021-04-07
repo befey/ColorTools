@@ -9,10 +9,9 @@
 /* Begin PBXBuildFile section */
 		DA576AF916E8A8BD00C0AD7E /* SafeguardTools2x.r in Rez */ = {isa = PBXBuildFile; fileRef = DA576AF816E8A8BD00C0AD7E /* SafeguardTools2x.r */; };
 		F938CB930B8B9E6D0039754D /* SafeguardTools.r in Rez */ = {isa = PBXBuildFile; fileRef = F938CB920B8B9E6D0039754D /* SafeguardTools.r */; };
-		F94536EB260CE96100C14943 /* SafeguardTools.Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F94536EA260CE96100C14943 /* SafeguardTools.Release.xcconfig */; };
-		F945372D260E27AB00C14943 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F945372C260E27AB00C14943 /* Cocoa.framework */; };
+		F9453749261DED3900C14943 /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9453748261DED3900C14943 /* libboost_system.a */; };
+		F9453752261E085B00C14943 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9453751261E085B00C14943 /* CoreFoundation.framework */; };
 		F9667C092608DE7B0026EB06 /* libboost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9667C082608DE7B0026EB06 /* libboost_filesystem.a */; };
-		F9667C0B2608DE8B0026EB06 /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9667C0A2608DE8B0026EB06 /* libboost_system.a */; };
 		F9667C1B2608DF840026EB06 /* SafeguardToolsPlugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9667C162608DF840026EB06 /* SafeguardToolsPlugin.cpp */; };
 		F9667C1C2608DF840026EB06 /* SafeguardToolsPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = F9667C172608DF840026EB06 /* SafeguardToolsPlugin.h */; };
 		F9667C1D2608DF840026EB06 /* SafeguardToolsSuites.h in Headers */ = {isa = PBXBuildFile; fileRef = F9667C182608DF840026EB06 /* SafeguardToolsSuites.h */; };
@@ -95,10 +94,8 @@
 		F9667D922608EE010026EB06 /* FixFreehandType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9667D372608EE000026EB06 /* FixFreehandType.cpp */; };
 		F9667D932608EE010026EB06 /* Plate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9667D392608EE000026EB06 /* Plate.cpp */; };
 		F9667D942608EE010026EB06 /* TokenCreator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9667D3A2608EE010026EB06 /* TokenCreator.hpp */; };
-		F9667D952608EE010026EB06 /* PlateNumberToATETextRangeConverter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F9667D3B2608EE010026EB06 /* PlateNumberToATETextRangeConverter.hpp */; };
 		F9667D962608EE010026EB06 /* PlateNumber.h in Headers */ = {isa = PBXBuildFile; fileRef = F9667D3C2608EE010026EB06 /* PlateNumber.h */; };
 		F9667D972608EE010026EB06 /* SafeguardJobFile.h in Headers */ = {isa = PBXBuildFile; fileRef = F9667D3D2608EE010026EB06 /* SafeguardJobFile.h */; };
-		F9667D982608EE010026EB06 /* PlateNumberToATETextRangeConverter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9667D3E2608EE010026EB06 /* PlateNumberToATETextRangeConverter.cpp */; };
 		F9667D992608EE010026EB06 /* SafeguardJobFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9667D3F2608EE010026EB06 /* SafeguardJobFile.cpp */; };
 		F9667D9A2608EE010026EB06 /* Plate.h in Headers */ = {isa = PBXBuildFile; fileRef = F9667D402608EE010026EB06 /* Plate.h */; };
 		F9667D9B2608EE010026EB06 /* PlateNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9667D412608EE010026EB06 /* PlateNumber.cpp */; };
@@ -226,10 +223,9 @@
 		F938CB920B8B9E6D0039754D /* SafeguardTools.r */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.rez; name = SafeguardTools.r; path = Resources/Mac/SafeguardTools.r; sourceTree = "<group>"; };
 		F94536E9260CD64E00C14943 /* SafeguardTools.Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = SafeguardTools.Debug.xcconfig; sourceTree = "<group>"; };
 		F94536EA260CE96100C14943 /* SafeguardTools.Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = SafeguardTools.Release.xcconfig; sourceTree = "<group>"; };
-		F945372C260E27AB00C14943 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = ../../../../System/Library/Frameworks/Cocoa.framework; sourceTree = "<group>"; };
-		F9667C072608DE510026EB06 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = ../../../../System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<group>"; };
+		F9453748261DED3900C14943 /* libboost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_system.a; path = ../boost/stage/lib/libboost_system.a; sourceTree = "<group>"; };
+		F9453751261E085B00C14943 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = ../../../../System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<group>"; };
 		F9667C082608DE7B0026EB06 /* libboost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_filesystem.a; path = ../boost/stage/lib/libboost_filesystem.a; sourceTree = "<group>"; };
-		F9667C0A2608DE8B0026EB06 /* libboost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_system.a; path = ../boost/stage/lib/libboost_system.a; sourceTree = "<group>"; };
 		F9667C162608DF840026EB06 /* SafeguardToolsPlugin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SafeguardToolsPlugin.cpp; path = Source/SafeguardToolsPlugin.cpp; sourceTree = "<group>"; };
 		F9667C172608DF840026EB06 /* SafeguardToolsPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SafeguardToolsPlugin.h; path = Source/SafeguardToolsPlugin.h; sourceTree = "<group>"; };
 		F9667C182608DF840026EB06 /* SafeguardToolsSuites.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SafeguardToolsSuites.h; path = Source/SafeguardToolsSuites.h; sourceTree = "<group>"; };
@@ -313,10 +309,8 @@
 		F9667D372608EE000026EB06 /* FixFreehandType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FixFreehandType.cpp; sourceTree = "<group>"; };
 		F9667D392608EE000026EB06 /* Plate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Plate.cpp; sourceTree = "<group>"; };
 		F9667D3A2608EE010026EB06 /* TokenCreator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TokenCreator.hpp; sourceTree = "<group>"; };
-		F9667D3B2608EE010026EB06 /* PlateNumberToATETextRangeConverter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PlateNumberToATETextRangeConverter.hpp; sourceTree = "<group>"; };
 		F9667D3C2608EE010026EB06 /* PlateNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlateNumber.h; sourceTree = "<group>"; };
 		F9667D3D2608EE010026EB06 /* SafeguardJobFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SafeguardJobFile.h; sourceTree = "<group>"; };
-		F9667D3E2608EE010026EB06 /* PlateNumberToATETextRangeConverter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PlateNumberToATETextRangeConverter.cpp; sourceTree = "<group>"; };
 		F9667D3F2608EE010026EB06 /* SafeguardJobFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SafeguardJobFile.cpp; sourceTree = "<group>"; };
 		F9667D402608EE010026EB06 /* Plate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plate.h; sourceTree = "<group>"; };
 		F9667D412608EE010026EB06 /* PlateNumber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PlateNumber.cpp; sourceTree = "<group>"; };
@@ -409,9 +403,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F9667C0B2608DE8B0026EB06 /* libboost_system.a in Frameworks */,
+				F9453752261E085B00C14943 /* CoreFoundation.framework in Frameworks */,
+				F9453749261DED3900C14943 /* libboost_system.a in Frameworks */,
 				F9667C092608DE7B0026EB06 /* libboost_filesystem.a in Frameworks */,
-				F945372D260E27AB00C14943 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,7 +417,6 @@
 			children = (
 				F94536E9260CD64E00C14943 /* SafeguardTools.Debug.xcconfig */,
 				F94536EA260CE96100C14943 /* SafeguardTools.Release.xcconfig */,
-				F945372C260E27AB00C14943 /* Cocoa.framework */,
 				5088180609F0CDD00071BF1A /* Libraries */,
 				F9667DE42608EE570026EB06 /* com.gosafeguard.SafeguardTools */,
 				508817F509F0CAB50071BF1A /* Sources */,
@@ -466,9 +459,9 @@
 		5088180609F0CDD00071BF1A /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				F9667C0A2608DE8B0026EB06 /* libboost_system.a */,
+				F9453751261E085B00C14943 /* CoreFoundation.framework */,
+				F9453748261DED3900C14943 /* libboost_system.a */,
 				F9667C082608DE7B0026EB06 /* libboost_filesystem.a */,
-				F9667C072608DE510026EB06 /* CoreFoundation.framework */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -612,16 +605,14 @@
 		F9667D382608EE000026EB06 /* SafeguardFile */ = {
 			isa = PBXGroup;
 			children = (
-				F9667D392608EE000026EB06 /* Plate.cpp */,
-				F9667D3A2608EE010026EB06 /* TokenCreator.hpp */,
-				F9667D3B2608EE010026EB06 /* PlateNumberToATETextRangeConverter.hpp */,
-				F9667D3C2608EE010026EB06 /* PlateNumber.h */,
-				F9667D3D2608EE010026EB06 /* SafeguardJobFile.h */,
-				F9667D3E2608EE010026EB06 /* PlateNumberToATETextRangeConverter.cpp */,
-				F9667D3F2608EE010026EB06 /* SafeguardJobFile.cpp */,
 				F9667D402608EE010026EB06 /* Plate.h */,
+				F9667D392608EE000026EB06 /* Plate.cpp */,
+				F9667D3C2608EE010026EB06 /* PlateNumber.h */,
 				F9667D412608EE010026EB06 /* PlateNumber.cpp */,
+				F9667D3D2608EE010026EB06 /* SafeguardJobFile.h */,
+				F9667D3F2608EE010026EB06 /* SafeguardJobFile.cpp */,
 				F9667D422608EE010026EB06 /* SafeguardFileConstants.h */,
+				F9667D3A2608EE010026EB06 /* TokenCreator.hpp */,
 				F9667D432608EE010026EB06 /* TokenCreator.cpp */,
 			);
 			name = SafeguardFile;
@@ -817,7 +808,6 @@
 				F9667CD52608E2B80026EB06 /* ATEFuncs.h in Headers */,
 				F9667DD12608EE010026EB06 /* SgSymbolDrawer.hpp in Headers */,
 				F9667CEE2608E2B80026EB06 /* BtSwatchList.h in Headers */,
-				F9667D952608EE010026EB06 /* PlateNumberToATETextRangeConverter.hpp in Headers */,
 				F9667DCC2608EE010026EB06 /* BleedInfoDrawableController.h in Headers */,
 				F9667CBD2608E2B80026EB06 /* VPB.h in Headers */,
 				F9667CEB2608E2B80026EB06 /* PrintToPdfCommand.hpp in Headers */,
@@ -908,16 +898,18 @@
 		508817C409F0C9740071BF1A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 1200;
 			};
 			buildConfigurationList = 508817C509F0C9740071BF1A /* Build configuration list for PBXProject "SafeguardTools" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
-				Japanese,
-				French,
-				German,
+				ja,
+				fr,
+				de,
+				Base,
+				en,
 			);
 			mainGroup = 508817C209F0C9740071BF1A;
 			productRefGroup = 508817D509F0C9AD0071BF1A /* Products */;
@@ -934,7 +926,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F94536EB260CE96100C14943 /* SafeguardTools.Release.xcconfig in Resources */,
 				F9667DFE2608F0790026EB06 /* fontlist.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -979,7 +970,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "mkdir -p \"${CONFIGURATION_BUILD_DIR}/${PRODUCT_NAME}.aip/Contents/Resources/svg\"\nmkdir -p \"${CONFIGURATION_BUILD_DIR}/${PRODUCT_NAME}.aip/Contents/Resources/txt\"\ncp -f \"./Resources/raw/S_SDKSafeguardToolsLineTool_Lg_N@2x.svg\" \"${CONFIGURATION_BUILD_DIR}/${PRODUCT_NAME}.aip/Contents/Resources/svg/S_SDKSafeguardToolsLineTool_Lg_N@2x.svg\"\ncp -f \"./Resources/raw/IDToFile.txt\" \"${CONFIGURATION_BUILD_DIR}/${PRODUCT_NAME}.aip/Contents/Resources/txt/IDToFile.txt\"\nmkdir -p \"${CONFIGURATION_BUILD_DIR}/${PRODUCT_NAME}.aip/Contents/Resources/pipl\"\ncp -f \"plugin.pipl\" \"${CONFIGURATION_BUILD_DIR}/${PRODUCT_NAME}.aip/Contents/Resources/pipl/plugin.pipl\"\n\nexit\n";
+			shellScript = "mkdir -p \"${CONFIGURATION_BUILD_DIR}/${PRODUCT_NAME}.aip/Contents/Resources/svg\"\nmkdir -p \"${CONFIGURATION_BUILD_DIR}/${PRODUCT_NAME}.aip/Contents/Resources/txt\"\ncp -f \"./Resources/raw/S_SafeguardTools_Lg_N@2x.svg\" \"${CONFIGURATION_BUILD_DIR}/${PRODUCT_NAME}.aip/Contents/Resources/svg/S_SafeguardTools_Lg_N@2x.svg\"\ncp -f \"./Resources/raw/IDToFile.txt\" \"${CONFIGURATION_BUILD_DIR}/${PRODUCT_NAME}.aip/Contents/Resources/txt/IDToFile.txt\"\nmkdir -p \"${CONFIGURATION_BUILD_DIR}/${PRODUCT_NAME}.aip/Contents/Resources/pipl\"\ncp -f \"plugin.pipl\" \"${CONFIGURATION_BUILD_DIR}/${PRODUCT_NAME}.aip/Contents/Resources/pipl/plugin.pipl\"\n\nexit\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -999,7 +990,6 @@
 				F9667C332608E1850026EB06 /* IThrowException.cpp in Sources */,
 				F9667DB02608EE010026EB06 /* ListFonts.cpp in Sources */,
 				F9667DA12608EE010026EB06 /* PrintToPdfUIController.cpp in Sources */,
-				F9667D982608EE010026EB06 /* PlateNumberToATETextRangeConverter.cpp in Sources */,
 				F9667DCB2608EE010026EB06 /* RequiredLayersCreator.cpp in Sources */,
 				F9667E13260B83C90026EB06 /* Suites.cpp in Sources */,
 				F9667E15260B83C90026EB06 /* Main.cpp in Sources */,
@@ -1079,7 +1069,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F94536E9260CD64E00C14943 /* SafeguardTools.Debug.xcconfig */;
 			buildSettings = {
-				OBJROOT = .;
 			};
 			name = debug;
 		};
@@ -1087,7 +1076,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F94536EA260CE96100C14943 /* SafeguardTools.Release.xcconfig */;
 			buildSettings = {
-				OBJROOT = .;
 			};
 			name = release;
 		};
